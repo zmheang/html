@@ -1,0 +1,143 @@
+  <h5><code>HTMLFormControlsCollection</code> 接口</h5>
+
+  <p><code>HTMLFormControlsCollection</code> 接口用于
+  <code>form</code> 元素中 <span data-x="category-listed">列出的元素</span>
+  的 <span data-x="concept-collection">集合</span>。</p>
+
+  <pre class="idl">interface <dfn>HTMLFormControlsCollection</dfn> : <span>HTMLCollection</span> {
+  // inherits <span data-x="dom-HTMLCollection-length">length</span> and <span data-x="dom-HTMLCollection-item">item</span>()
+  getter (<span>RadioNodeList</span> or <span>Element</span>)? <span data-x="dom-HTMLFormControlsCollection-namedItem">namedItem</span>(DOMString name); // shadows inherited <span data-x="dom-HTMLCollection-namedItem">namedItem()</span>
+};
+
+interface <dfn>RadioNodeList</dfn> : <span>NodeList</span> {
+  attribute DOMString <span data-x="dom-RadioNodeList-value">value</span>;
+};</pre>
+
+  <dl class="domintro">
+
+   <dt><var>collection</var> . <code data-x="dom-HTMLCollection-length">length</code></dt>
+   <dd>
+    <p>返回集合中元素的数目。</p>
+   </dd>
+
+   <dt><var>element</var> = <var>collection</var> . <code data-x="dom-HTMLCollection-item">item</code>(<var>index</var>)</dt>
+   <dt><var>element</var> = <var>collection</var>[<var>index</var>]</dt>
+   <dd>
+    <p>从集合中返回下标为 <var>index</var> 的项目。
+    这些项目以 <span data="tree order">树序</span> 排序。</p>
+   </dd>
+
+   <dt><var>element</var> = <var>collection</var> . <code subdfn data-x="dom-HTMLFormControlsCollection-namedItem">namedItem</code>(<var>name</var>)</dt>
+   <dt><var>radioNodeList</var> = <var>collection</var> . <code data-x="dom-HTMLFormControlsCollection-namedItem">namedItem</code>(<var>name</var>)</dt>
+   <dt><var>element</var> = <var>collection</var>[<var>name</var>]</dt>
+   <dt><var>radioNodeList</var> = <var>collection</var>[<var>name</var>]</dt>
+   <dd>
+    <p>从集合中返回 <span data-x="concept-id">ID</span> 或 <code data-x="attr-fe-name">name</code>
+    为 <var>name</var> 的项目。</p>
+    <p>如果有多个匹配的项目，则返回一个包含所有那些元素的 <code>RadioNodeList</code> 对象。</p>
+   </dd>
+
+   <dt><var>radioNodeList</var> . <var>value</var> [ = <var>value</var> ]</dt>
+   <dd>
+    <p>返回该对象表示的首个选中的单选按钮的值。</p>
+    <p>可以被设置，此时选中第一个值为该对象表示的值的单选按钮。</p>
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>该对象 <span data-x="supported property indices">支持的属性下标</span>
+  与 <code>HTMLCollection</code> 中定义的相同。</p>
+
+  <p><span data-x="supported property names">支持的属性名</span> 由
+  <span data-x="represented by the collection">该集合表示的</span> 所有元素的所有
+  <code data-x="attr-id">id</code> 和 <code data-x="attr-fe-name">name</code> 属性的非空值组成。
+  这些值以 <span data-x="tree order">树序</span> 排列，
+  忽略后面的重复项，元素的 <code data-x="attr-id">id</code> 在 <code data-x="">name</code> 之前
+  （如果都存在的话），它们是互不相同的也互不为重复项。</p>
+
+  <p><dfn><code data-x="dom-HTMLFormControlsCollection-namedItem">namedItem(<var>name</var>)</code></dfn>
+  方法必须根据下列算法操作：</p>
+
+  <ol>
+
+   <li>如果 <var>name</var> 为空字符串，返回 null 并停止算法。</li>
+
+   <li>该方法被调用时，如果该集合中只有一个节点的 <code data-x="attr-id">id</code> 属性或
+   <code data-x="attr-fe-name">name</code> 属性等于 <var>name</var>，则返回该节点并停止算法。</li>
+
+   <li>否则，如果如果集合中没有一个节点的 <code data-x="attr-id">id</code> 属性或
+   <code data-x="attr-fe-name">name</code> 属性等于 <var>name</var>，则返回 null 并停止该算法。</li>
+
+   <li>否则，创建一个新的 <code>RadioNodeList</code> 对象，
+   表示该 <code>HTMLFormControlsCollection</code> 对象的一个 <span data-x="live">实时</span> 视图，
+   且 <code>RadioNodeList</code> 对象中只包含
+   <code data-x="attr-id">id</code> 属性或 <code data-x="attr-fe-name">name</code> 属性等于
+   <var>name</var> 的节点。<code>RadioNodeList</code> 对象中的节点必须以
+   <span data-x="tree order">树序</span> 排序。</li>
+
+   <li>返回该 <code>RadioNodeList</code> 对象。</li>
+
+  </ol>
+
+  <hr>
+
+  <p>继承自 <code>NodeList</code> 接口的 <code>RadioNodeList</code> 接口的成员
+  必须与 <code>NodeList</code> 对象上的表现一致。</p>
+
+  <p>在获取<code>RadioNodeList</code> 对象上的
+  <dfn><code data-x="dom-RadioNodeList-value">value</code></dfn> IDL 属性时，
+  必须返回运行下列步骤的返回值：</p>
+
+  <ol>
+
+   <li><p>令 <var>element</var> 为 <code>RadioNodeList</code> 对象表示的第一个
+   （<span data-x="tree order">树序</span>）
+   <code data-x="attr-input-type">type</code> 属性处于
+   <span data-x="attr-input-type-radio">单选按钮</span> 状态且
+   <span data-x="concept-fe-checked">选中状态</span> 为真的 <code>input</code> 元素。
+   如果这样的元素不存在，令它为 null。</p></li>
+
+   <li><p>如果 <var>element</var> 为 null，返回空字符串。</p></li>
+
+   <li><p>如果 <var>element</var> 为没有 <code data-x="attr-input-value">value</code> 属性的元素，
+   返回“<code data-x="">on</code>” 字符串。</p></li>
+
+   <li><p>否则返回该 <var data-x="element">元素</var> 的
+   <code data-x="attr-input-value">value</code> 属性的值。</p></li>
+
+  </ol>
+
+  <p>当设置时，<code data-x="dom-RadioNodeList-value">value</code> IDL 属性必须执行下列步骤：</p>
+
+  <ol>
+
+   <li><p>如果新的值是字符串“<code data-x="">on</code>”：令 <var>element</var> 为
+   <code>RadioNodeList</code> 对象表示的第一个（<span data-x="tree order">树序</span>）
+   <code data-x="attr-input-type">type</code> 属性处于
+   <span data-x="attr-input-type-radio">单选按钮</span> 状态且
+   <code data-x="attr-input-value">value</code> 内容属性缺失，
+   或存在且等于新的值（如果有新值的话）的 <code>input</code> 元素。
+   如果这样的元素不存在，令 <var>element</var> 为 null。</p>
+
+   <p>除此之外：令 <var>element</var> 为
+   <code>RadioNodeList</code> 对象表示的第一个（<span data-x="tree order">树序</span>）
+   <code data-x="attr-input-type">type</code> 属性处于
+   <span data-x="attr-input-type-radio">单选按钮</span> 状态且
+   <code data-x="attr-input-value">value</code> 内容属性存在且等于新值（如果有的话）
+   的 <code>input</code> 元素。
+   如果这样的元素不存在，令 <var>element</var> 为 null。</p></li>
+
+   <li><p>如果 <var>element</var> 不是 null， 则设置它的 <span
+   data-x="concept-fe-checked">选中状态</span> 为真。</p>
+
+  </ol>
+
+<!--
+https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C%21DOCTYPE%20html%3E...%0A%3Cform%20name%3D%22a%22%3E%3Cinput%20id%3D%22x%22%20name%3D%22y%22%3E%3Cinput%20name%3D%22x%22%20id%3D%22y%22%3E%3C/form%3E%0A%3Cscript%3E%0A%20%20var%20x%3B%0A%20%20w%28x%20%3D%20document.forms%5B%27a%27%5D%5B%27x%27%5D%29%3B%0A%20%20w%28x.length%29%3B%0A%20%20x%5B0%5D.parentNode.removeChild%28x%5B0%5D%29%3B%0A%20%20w%28x.length%29%3B%0A%20%20w%28x%20%3D%3D%20document.forms%5B%27a%27%5D%5B%27x%27%5D%29%3B%0A%3C/script%3E%0A
+-->
+
+  </div>
+
+

@@ -1,0 +1,147 @@
+  <h5><code>HTMLAllCollection</code> 接口</h5>
+
+  <p><code>HTMLAllCollection</code> 接口用于遗留的 <code data-x="dom-document-all">document.all</code>
+  属性。它的操作与 <code>HTMLCollection</code> 类似；主要的区别在于它的方法允许各种各样的滥用，
+  通过属性访问得到的返回值，也可以通过函数调用来得到。</p>
+
+  <p class="note">所有 <code>HTMLAllCollection</code> 对象的根都是 <code>Document</code>
+  且它的过滤器匹配所有元素，所以 <code>HTMLAllCollection</code> 对象
+  <span data-x="represented by the collection">集合中表示的</span> 元素由所有
+  根 <code>Document</code> 的后代元素组成。</p>
+
+  <pre class="idl">[LegacyUnenumerableNamedProperties]
+interface <dfn>HTMLAllCollection</dfn> {
+  readonly attribute unsigned long <span data-x="dom-HTMLAllCollection-length">length</span>;
+  getter <span>Element</span>? (unsigned long index);
+  getter (<span>HTMLCollection</span> or <span>Element</span>)? <span data-x="dom-HTMLAllCollection-namedItem">namedItem</span>(DOMString name);
+  legacycaller (<span>HTMLCollection</span> or <span>Element</span>)? <span data-x="dom-HTMLAllCollection-item">item</span>(optional DOMString nameOrIndex);
+};</pre>
+
+  <dl class="domintro">
+
+   <dt><var>collection</var> . <code subdfn data-x="dom-HTMLAllCollection-length">length</code></dt>
+   <dd>
+    <p>返回集合中元素的数目。</p>
+   </dd>
+
+   <dt><var>element</var> = <var>collection</var> . <code subdfn data-x="dom-HTMLAllCollection-item">item</code>(<var>index</var>)</dt>
+   <dt><var>element</var> = <var>collection</var>(<var>index</var>)</dt>
+   <dt><var>element</var> = <var>collection</var>[<var>index</var>]</dt>
+   <dd>
+    <p>返回集合中在下标 <var>index</var> 处的元素（由<span data-x="tree order">树序</span>决定)。</p>
+   </dd>
+
+   <dt><var>element</var> = <var>collection</var> . <code data-x="dom-HTMLAllCollection-item">item</code>(<var>name</var>)</dt>
+   <dt><var>collection</var> = <var>collection</var> . <code data-x="dom-HTMLAllCollection-item">item</code>(<var>name</var>)</dt>
+   <dt><var>element</var> = <var>collection</var> . <code subdfn data-x="dom-HTMLAllCollection-namedItem">namedItem</code>(<var>name</var>)</dt>
+   <dt><var>collection</var> = <var>collection</var> . <code data-x="dom-HTMLAllCollection-namedItem">namedItem</code>(<var>name</var>)</dt>
+   <dt><var>element</var> = <var>collection</var>(<var>name</var>)</dt>
+   <dt><var>collection</var> = <var>collection</var>(<var>name</var>)</dt>
+   <dt><var>element</var> = <var>collection</var>[<var>name</var>]</dt>
+   <dt><var>collection</var> = <var>collection</var>[<var>name</var>]</dt>
+   <dd>
+    <p>返回集合中 ID 为 <span data-x="concept-id">ID</span> 或 name 为 <var>name</var> 的元素。</p>
+    <p>如果有多个匹配元素，则返回一个包含所有那些元素的 <code>HTMLCollection</code> 对象。</p>
+    <!-- this list only includes conforming elements: -->
+    <p>只有 <code>button</code>， <code>form</code>， <code>iframe</code>，
+    <code>input</code>， <code>map</code>， <code>meta</code>， <code>object</code>，
+    <code>select</code>， 和 <code>textarea</code> 元素可以具有用于此方法的 name ；
+    它们的 name 由它们 <code data-x="">name</code> 属性的值给出。</p>
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>该对象 <span data-x="supported property indices">支持的属性下标</span>
+  与 <code>HTMLCollection</code> 中定义的相同。</p>
+
+  <p><span data-x="supported property names">支持的属性名</span> 由
+  <span data-x="represented by the collection">该集合表示的</span> 所有元素的所有
+  <code data-x="attr-id">id</code> 属性的非空值，以及
+  <span data-x="represented by the collection">该集合表示的</span> 所有
+  <span data-x='all-named elements'>命名元素</span>的所有 <code data-x="">name</code> 属性
+  的非空值组成。这些值以 <span data-x="tree order">树序</span> 排列，
+  忽略后面的重复项，元素的 <code data-x="attr-id">id</code> 在 <code data-x="">name</code> 之前
+  （如果都存在的话），它们是互不相同的也互不为重复项。</p>
+
+  <p>当获取时，<dfn><code data-x="dom-HTMLAllCollection-length">length</code></dfn>
+  属性必须返回 <span data-x="represented by the collection">该集合表示的</span> 节点的数目。</p>
+
+  <p>索引属性 getter 必须返回给定下标从该 <code>HTMLAllCollection</code>
+  <span data-x="concept-get-all-indexed">获取“所有”索引元素</span> 的结果。</p>
+
+  <p><dfn><code data-x="dom-HTMLAllCollection-namedItem">namedItem(<var>name</var>)</code></dfn>
+  方法必须返回给定 <var>name</var> 从该<code>HTMLAllCollection</code>
+  <span data-x="concept-get-all-named">获取“所有”命名元素</span> 的结果。</p>
+
+  <p><dfn><code data-x="dom-HTMLAllCollection-item">item(<var>nameOrIndex</var>)</code></dfn>
+  方法（以及<code data-x="">遗留的调用</code> 行为）必须运行下列步骤：</p>
+
+  <ol>
+   <li><p>如果未提供 <var>nameOrIndex</var> 则返回 null。</p></li>
+
+   <li><p>如果 <var>nameOrIndex</var> <span data-x="concept-idl-convert">转换</span> 为
+   JavaScript 字符串值后是一个 <span data-x="array index property name">数组下标属性名</span>，
+   返回给定 <var>nameOrIndex</var> 表示的数字时，从该 <code>HTMLAllCollection</code>
+   <span data-x="concept-get-all-indexed">获取“所有”索引元素</span> 的结果。</p></li>
+
+   <li><p>返回给定 <var>nameOrIndex</var> 时，从 <code>HTMLAllCollection</code>
+   <span data-x="concept-get-all-named">获取“所有”命名元素</span> 的结果。</p></li>
+  </ol>
+
+  <hr>
+
+  <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2837 -->
+  <p>下列元素是 <dfn data-x="all-named elements">“所有”命名元素</dfn>:
+   <code>a</code>, <!-- in some browsers -->
+   <code>applet</code>,
+   <code>button</code>, <!-- in some browsers -->
+   <code>embed</code>,
+   <code>form</code>,
+   <code>frame</code>,
+   <code>frameset</code>,
+   <code>iframe</code>, <!-- in some browsers -->
+   <code>img</code>,
+   <code>input</code>,
+   <!-- keygen? -->
+   <code>map</code>, <!-- in some browsers -->
+   <code>meta</code>, <!-- in some browsers -->
+   <code>object</code>,
+   <code>select</code>, and
+   <code>textarea</code> <!-- in some browsers -->
+  </p>
+
+  <p>给定下标 <var>index</var>，从 <code>HTMLAllCollection</code> <var>collection</var>
+  <dfn data-x="concept-get-all-indexed">获取“所有”索引元素</dfn>：
+  返回在<var>collection</var>中的第<var>index</var>个元素，如果没有第
+  <var>index</var> 个元素则返回 null。</p>
+
+  <p>给定名字 <var>name</var>，从 <code>HTMLAllCollection</code> <var>collection</var>
+  <dfn data-x="concept-get-all-named">获取“所有”命名元素</dfn> 应执行下列步骤：</p>
+
+  <ol>
+   <li><p>如果 <var>name</var> 为空字符串则返回 null。</p></li>
+
+   <li>
+    <p>令 <var>subCollection</var> 为一个与 <var>collection</var> 处于同一根 <code>Document</code>
+    的 <code>HTMLCollection</code> 对象，且它的过滤器只匹配：</p>
+
+    <ul>
+     <li><p><code data-x="">name</code> 属性等于 <var>name</var> 的
+     <span data-x='all-named elements'>“所有”命名元素</span>，或者：</p></li>
+
+     <li><p><span data-x="concept-id">ID</span> 等于 <var>name</var> 的元素。</p></li>
+    </ul>
+   </li>
+
+   <li><p>如果在 <var>subCollection</var> 中只有一个元素，则返回该元素。</p></li>
+
+   <li><p>否则如果 <var>subCollection</var> 为空则返回 null。</p></li>
+
+   <li><p>否则返回 <var>subCollection</var>。</p></li>
+  </ol>
+
+  </div>
+
+

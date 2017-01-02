@@ -197,25 +197,36 @@
 
   <ol>
 
+   <li><p>Let <var>window</var> be the <code>Document</code>'s <code>Window</code> object.</p></li>
+
    <li>
 
-    <p><span>Make disappear</span> any <code>WebSocket</code> objects that were created by the <code
-    data-x="dom-WebSocket">WebSocket()</code> constructor from the
-    <code>Document</code>'s <code>Window</code> object.</p>
+    <p>For each <code>WebSocket</code> object <var>webSocket</var> whose <span
+    data-x="concept-relevant-global">relevant global object</span> is equal to <var>window</var>,
+    <span>make disappear</span> <var>webSocket</var>.</p>
 
-    <p>If this affected any <code>WebSocket</code> objects, then set <code>Document</code>'s <i
+    <p>If this affected any <code>WebSocket</code> objects, then set the <code>Document</code>'s <i
     data-x="concept-document-salvageable">salvageable</i> state to false.</p>
 
    </li>
 
-   <li><p>If the <code>Document</code>'s <i data-x="concept-document-salvageable">salvageable</i>
-   state is false, <span data-x="concept-EventSource-forcibly-close">forcibly close</span> any
-   <code>EventSource</code> objects that whose constructor was invoked from the
-   <code>Document</code>'s <code>Window</code> object.</p></li>
+   <li>
 
-   <li><p>If the <code>Document</code>'s <i data-x="concept-document-salvageable">salvageable</i>
-   state is false, empty the <code>Document</code>'s <code>Window</code>'s <span>list of active
-   timers</span>.</p></li>
+    <p>If the <code>Document</code>'s <i data-x="concept-document-salvageable">salvageable</i>
+    state is false, run the following substeps:</p>
+
+    <ol>
+
+     <li><p>For each <code>EventSource</code> object <var>eventSource</var> whose <span
+     data-x="concept-relevant-global">relevant global object</span> is equal to <var>window</var>,
+     <span data-x="concept-EventSource-forcibly-close">forcibly close</span>
+     <var>eventSource</var>.</p></li>
+
+     <li><p>Empty <var>window</var>'s <span>list of active timers</span>.</p></li>
+
+    </ol>
+
+   </li>
 
   </ol>
 

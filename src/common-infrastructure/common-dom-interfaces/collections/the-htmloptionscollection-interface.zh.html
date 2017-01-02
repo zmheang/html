@@ -1,0 +1,192 @@
+  <h5><code>HTMLOptionsCollection</code> 接口</h5>
+
+  <p><code>HTMLOptionsCollection</code> 接口用于 <code>option</code> 元素的 <span
+  data-x="concept-collection">集合</span>。它经常以 <code>select</code> 元素为根，
+  且拥有操作其后代属性和方法。</p>
+
+  <pre class="idl">interface <dfn>HTMLOptionsCollection</dfn> : <span>HTMLCollection</span> {
+  // inherits <span data-x="dom-HTMLCollection-item">item</span>(), <span data-x="dom-HTMLCollection-namedItem">namedItem</span>()
+  [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-HTMLOptionsCollection-length">length</span>; // shadows inherited <span data-x="dom-HTMLCollection-length">length</span>
+  [<span>CEReactions</span>] <a href="#dom-htmloptionscollection-setter">setter</a> void (unsigned long index, <span>HTMLOptionElement</span>? option);
+  [<span>CEReactions</span>] void <span data-x="dom-HTMLOptionsCollection-add">add</span>((<span>HTMLOptionElement</span> or <span>HTMLOptGroupElement</span>) element, optional (<span>HTMLElement</span> or long)? before = null);
+  [<span>CEReactions</span>] void <span data-x="dom-HTMLOptionsCollection-remove">remove</span>(long index);
+  attribute long <span data-x="dom-HTMLOptionsCollection-selectedIndex">selectedIndex</span>;
+};</pre>
+
+  <dl class="domintro">
+
+   <dt><var>collection</var> . <code subdfn data-x="dom-HTMLOptionsCollection-length">length</code> [ = <var>value</var> ]</dt>
+   <dd>
+    <p>返回集合中元素的数目。</p>
+    <p>当设置为较小的数字时，截断相应容器中 <code>option</code> 元素的数目。</p>
+    <p>当设置为较大的数字时，在容器中新增空白的 <code>option</code> 元素。</p>
+   </dd>
+
+   <dt><var>element</var> = <var>collection</var> . <code data-x="dom-HTMLCollection-item">item</code>(<var>index</var>)</dt>
+   <dt><var>element</var> = <var>collection</var>[<var>index</var>]</dt>
+   <dd>
+    <p>返回集合中下标为 <var>index</var> 的项目。项目以 <span data-x="tree order">树序</span> 排序。</p>
+   </dd>
+
+   <dt><var>collection</var>[<var>index</var>] = <var>element</var></dt>
+   <dd>
+    <p>当 <var>index</var> 比集合中项目的数目大时，在相应容器中新增空白 <code>option</code> 元素。
+    <p>当设为 null 时，从集合中移除在下标 <var>index</var> 处的项目。</p>
+    <p>当设为一个 <code>option</code> 元素时，在下标 <var>index</var> 处新增或替换为该元素。</p>
+   </dd>
+
+   <dt><var>element</var> = <var>collection</var> . <code subdfn data-x="dom-HTMLCollection-namedItem">namedItem</code>(<var>name</var>)</dt>
+   <dt><var>element</var> = <var>collection</var>[<var>name</var>]</dt>
+   <dd>
+    <p>从集合中返回 <span data-x="concept-id">ID</span> 或 <code data-x="attr-option-name">name</code>
+    为 <var>name</var> 的元素。</p>
+    <p>如果有多个匹配项则返回第一个。</p>
+   </dd>
+
+   <dt><var>collection</var> . <code subdfn data-x="dom-HTMLOptionsCollection-add">add</code>(<var>element</var> [, <var>before</var> ] )</dt>
+   <dd>
+    <p>在 <var>before</var> 节点前插入 <var>element</var>。</p>
+    <p><var>before</var> 参数是数字时，在该数字处的项前插入 <var>element</var>；
+    是集合中的元素时，在该元素前插入 <var>element</var>。</p>
+    <p>如果 <var>before</var> 被省略或者为 null， 或者是一个溢出的数字，
+    就在列表尾部插入 <var>element</var>。</p>
+    <p>如果 <var>element</var> 是被插入元素的祖先，
+    该方法将会抛出 <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code>。</p>
+   </dd>
+
+   <dt><var>collection</var> . <code subdfn data-x="dom-HTMLOptionsCollection-remove">remove</code>(<var>index</var>)</dt>
+   <dd>
+    <p>从集合中移除下标为 <var>index</var> 的元素。</p>
+   </dd>
+
+   <dt><var>collection</var> . <code subdfn data-x="dom-HTMLOptionsCollection-selectedIndex">selectedIndex</code> [ = <var>value</var> ]</dt>
+
+   <dd>
+
+    <p>返回第一个项的下标（如果有的话），否则，如果没有选中项则返回 &#x2212;1。</p>
+
+    <p>可以被设置，来改变选中项。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>该对象 <span data-x="supported property indices">支持的属性下标</span>
+  与 <code>HTMLCollection</code> 对象中定义的相同。</p>
+
+  <p>当获取时，<dfn><code data-x="dom-HTMLOptionsCollection-length">length</code></dfn>
+  属性必须返回 <span data-x="represented by the collection">集合表示的</span> 节点的数目。</p>
+
+  <p>当设置时，其行为取决于新的值等于、大于或小于
+  当时 <span data-x="represented by the collection">集合表示的</span> 节点的数目。
+  如果等于，则设置该属性不应做任何事情。如果大于，则必须将 <var>n</var> 个新的、
+  没有属性和子节点的 <code>option</code> 元素追加到 <code>HTMLOptionsCollection</code>
+  的根 <code>select</code> 元素上。其中 <var>n</var> 为这两个数字之差（新的值减去旧的值）。
+  同时必须触发 Mutation 事件，如同插入了包含这些 <code>option</code> 元素的
+  <code>DocumentFragment</code> 一样。如果新的值更小，则必须从父节点中移除集合中最后的
+  <var>n</var> 个节点，其中 <var>n</var> 为这两个数之差（旧的值减去新的值）。</p>
+
+  <p class="note">设置 <code data-x="dom-HTMLOptionsCollection-length">length</code>
+  不会移除或增加任何 <code>optgroup</code> 元素，也不会给既有的 <code>optgroup</code> 元素增加子节点。
+  （虽然可以从中移除子节点）。</p>
+
+  <p><span data-x="supported property names">支持的属性名</span> 由
+  所有 <span data-x="represented by the collection">集合表示的</span> 元素的
+  所有<code data-x="attr-id">id</code> 和 <code data-x="attr-option-name">name</code>属性的非空值构成。
+  这些值以 <span data-x="tree order">树序</span> 排列，
+  忽略后面的重复项，元素的 <code data-x="attr-id">id</code> 在
+  <code data-x="attr-option-name">name</code> 之前（如果都存在的话），它们互不相同也互不为重复项。</p>
+
+  <p id="dom-htmloptionscollection-setter">当用户代理
+  <span data-x="set the value of a new indexed property">设置一个新的索引属性的值</span>
+  或 <span data-x="set the value of an existing indexed property">设置已存在的索引属性的值</span> 时，
+  设属性下标为 <var>index</var>，新的值为 <var>value</var>，它必须运行下列算法：</p>
+
+  <ol>
+
+   <li><p>如果 <var>value</var> 为 null，以  <var>index</var> 为参数运行 <code
+   data-x="dom-HTMLOptionsCollection-remove">remove</code> 方法的步骤，并终止本步骤。</p></li>
+
+   <li><p>令 <var>length</var> 为 <span data-x="represented by the collection">集合表示的</span>
+   节点的数目。</p></li>
+
+   <li><p>令 <var>n</var> 为 <var>index</var> 减 <var>length</var>。</p></li>
+
+   <li><p>如果 <var>n</var> 大于0，则 <span data-x="concept-node-append">追加</span>
+   一个由 <span data-x=""><var>n</var>-1</span> 个新的、 没有属性和子元素的 <code>option</code> 元素组成的
+   <code>DocumentFragment</code> 到 <code>HTMLOptionsCollection</code> 所在的根 <code>select</code> 元素。</p></li>
+
+   <li><p>如果 <var>n</var> 大于等于0，<span data-x="concept-node-append">追加</span>
+   <var>value</var> 到 <code>select</code> 元素。否则，以 <var>value</var>
+   <span data-x="concept-node-replace">替换</span> 集合中第 <var>index</var> 个元素。</p></li>
+
+  </ol>
+
+  <p><dfn><code data-x="dom-HTMLOptionsCollection-add">add(<var>element</var>, <var>before</var>)</code></dfn> 方法必须按照下列算法执行：</p>
+
+  <ol>
+
+   <li><p>如果 <var>element</var> 为 <code>HTMLOptionsCollection</code> 所在的根
+   <code>select</code> 元素的祖先节点，则抛出一个
+   <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code> 并终止这些步骤。</li>
+
+   <li><p>如果 <var>before</var> 为一个元素，但它并非 <code>HTMLOptionsCollection</code> 所在的根
+   <code>select</code> 元素的后代，则抛出一个
+   <span>"<code>NotFoundError</code>"</span> <code>DOMException</code> 并终止这些步骤。</p></li>
+
+   <li><p>如果 <var>element</var> 和 <var>before</var> 为同一元素，则返回并终止这些步骤。</li>
+
+   <li><p>如果 <var>before</var> 为一个节点，那么令 <var>reference</var> 为该节点。
+   否则如果 <var>before</var> 为整数且集合中存在第 <var>before</var> 个节点，令 <var>reference</var>
+   为该节点。否则令 <var>reference</var> 为 null。</p></li>
+
+   <li><p>如果 <var>reference</var> 不为 null，令 <var>parent</var> 为 <var>reference</var>
+   的父节点。否则令 <var>parent</var> 为 <code>HTMLOptionsCollection</code> 所在的根
+   <code>select</code> 元素。</p></li>
+
+   <li><p>在<var>reference</var><span data-x="Pre-insert">之前插入</span>
+   <var>element</var> 到 <var>parent</var> 节点中。</p>
+
+  </ol>
+
+  <p><dfn><code data-x="dom-HTMLOptionsCollection-remove">remove(<var>index</var>)</code></dfn> 方法
+  必须按照下列算法执行：</p>
+
+  <ol>
+
+   <li><p>如果 <span data-x="represented by the collection">集合表示的</span> 元素数目为0，
+  终止这些步骤。</li>
+
+   <li><p>如果 <var>index</var> 小于零，或小于 <span data-x="represented by the collection">
+   集合表示的</span> 节点数目，终止这些步骤。</p></li>
+   <!-- note that Web IDL converts 'a', NaN, -0.5, 0.5, most objects, and null to 0, and numbers in
+   general truncate. so what we're checking against here in a way has very little to do with what's
+   going on in the JS -->
+   <!-- objects get converted by calling ToNumber which calls ToPrimitive which eventually calls valueOf:
+         https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2828
+         https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2833
+    -->
+   <!-- same for select.remove(), which calls this algorithm also:
+         https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2826
+         https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2825
+         https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2827
+     -->
+
+   <li><p>令 <var>element</var> 为集合中第 <var>index</var> 个元素。</p></li>
+
+   <li><p>将 <var>element</var> 从它的父节点移除。</p></li>
+
+  </ol>
+
+  <p><dfn><code data-x="dom-HTMLOptionsCollection-selectedIndex">selectedIndex</code></dfn> IDL
+  属性必须像 <code>HTMLOptionsCollection</code> 所在的根 <code>select</code> 元素上的同名属性一样操作。</p>
+
+  <!-- see also https://ln.hixie.ch/?start=1161042744&count=1 -->
+
+  </div>
+
+
+  <div w-nodev>
+
