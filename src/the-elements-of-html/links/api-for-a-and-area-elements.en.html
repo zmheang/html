@@ -242,10 +242,9 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
    <li><p>Let <var>url</var> be this element's <span
    data-x="concept-hyperlink-url">url</span>.</p></li>
 
-   <li><p>If <var>url</var> or <var>url</var>'s <span data-x="concept-url-password">password</span>
-   is null, return the empty string.</p></li>
+   <li><p>If <var>url</var> is null, then return the empty string.</p></li>
 
-   <li><p>Return  <var>url</var>'s <span data-x="concept-url-password">password</span>.</p></li>
+   <li><p>Return <var>url</var>'s <span data-x="concept-url-password">password</span>.</p></li>
   </ol>
 
   <p>The <code data-x="dom-hyperlink-password">password</code> attribute's setter must run these

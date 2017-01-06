@@ -344,8 +344,8 @@
    parsing</span> the given value, followed by "<code data-x="">:</code>", with <var>copyURL</var>
    as <var>url</var> and <span>scheme start state</span> as <var>state override</var>.</p></li>
 
-   <li><p>If <var>possibleFailure</var> is failure, throw a <code>TypeError</code>
-   exception.</p></li>
+   <li><p>If <var>possibleFailure</var> is failure, then throw a
+   <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If <var>copyURL</var>'s <span data-x="concept-url-scheme">scheme</span> is not an
    <span>HTTP(S) scheme</span>, then terminate these steps.</p></li>

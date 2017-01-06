@@ -390,8 +390,8 @@
    data-x="concept-settings-object-module-map">module map</span>.</p></li>
 
    <li><p>If <var>moduleMap</var>[<var>url</var>] is "<code data-x="">fetching</code>", wait
-   (<span>in parallel</span>) until that entry's value changes, then proceed to the next
-   step.</p></li>
+   <span>in parallel</span> until that entry's value changes, then <span>queue a task</span> on
+   the <span>networking task source</span> to proceed with running the following steps.</p></li>
 
    <li><p>If <var>moduleMap</var>[<var>url</var>] <span data-x="map exists">exists</span>,
    asynchronously complete this algorithm with <var>moduleMap</var>[<var>url</var>], and abort these
