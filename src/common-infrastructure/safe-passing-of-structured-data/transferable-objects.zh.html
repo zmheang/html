@@ -1,0 +1,29 @@
+  <h4 data-export="" data-lt="transferable object"><dfn data-x="Transferable objects">可传输对象</dfn></h4>
+
+  <p><span data-x="transferable objects">可传输对象</span> 支持在 <span data-x="event
+  loop">事件循环</span> 之间传输。传输其实就是有效地重新创建对象并共享对底层数据的引用，然后将被传输的对象分离。
+  在转让昂贵资源的所有权时很有用。并非所有对象都是 <span data-x="transferable objects">可传输对象</span>，
+  也并非 <span data-x="transferable objects">可传输对象</span> 的所有方面都会在传输时被保留。</p>
+
+  <p class="note">传输是不可逆转的、不幂等的操作。对象一旦被传输就不可再次传输或使用。</p>
+
+  <p><span data-x="transferable objects">可传输的</span><span data-x="platform object">平台对象</span>
+  有一个 [[<dfn>Detached</dfn>]] 内部槽，以及下列的内部方法：</p>
+
+  <p>[[<dfn>Transfer</dfn>]] ( <var>targetRealm</var> )</p>
+  <!-- If we ever add /memory/ support here we need to update the language around replacing
+       references -->
+
+  <p class="note">虽然所有 <span data-x="platform object">平台对象</span> 都有
+  [[<span>Clone</span>]] 内部方法，但并非都有 [[<span>Detached</span>]] 内部槽以及
+  [[<span>Transfer</span>]] 内部方法。</p>
+
+  <p><span data-x="transferable objects">可传输的</span><span data-x="platform object">平台对象</span>
+  必须定义 [[<span>Transfer</span>]] 内部方法，它或者抛出一个异常，或者
+  在<var>targetRealm</var>创建一份<b>this</b> 的克隆并返回。
+  <b>this</b>与返回值共享底层数据。<b>this</b>的 [[<span>Detached</span>]] 内部槽的值设为 true。
+  具体如何传输取决于这些对象如何去定义它。</p>
+
+  <p>JavaScript 标准中定义的对象直接交由 <span>StructuredCloneWithTransfer</span>
+  （技术上是 <span>IsTransferable</span> 和 <span data-x="transfer-abstract-op">Transfer</span>）抽象操作。</p>
+

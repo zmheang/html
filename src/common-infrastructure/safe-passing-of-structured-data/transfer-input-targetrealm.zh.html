@@ -1,0 +1,21 @@
+  <h4 id="transfer-abstract-op" data-export="" data-lt="Transfer" data-dfn-type="abstract-op"><dfn
+  data-x="transfer-abstract-op">Transfer</dfn> ( <var>input</var>, <var>targetRealm</var> )</h4>
+
+  <ol>
+   <li>
+    <p>如果 <var>input</var> 有一个 [[ArrayBufferData]] 内部槽，那么：</p>
+
+    <ol>
+     <li><p>令 <var>output</var> 为 <var>targetRealm</var> 中一个新的 ArrayBuffer 对象，
+     其 [[ArrayBufferByteLength]] 内部槽的值为 <var>input</var> 的 [[ArrayBufferByteLength]] 内部槽的值，
+     其 [[ArrayBufferData]] 内部槽的值为<var>input</var> 的 [[ArrayBufferData]] 内部槽的值。</p></li>
+
+     <li><p>执行 ! <span>DetachArrayBuffer</span>(<var>input</var>)。</p></li>
+
+     <li><p>返回 <var>output</var>。</p></li>
+    </ol>
+   </li>
+
+   <li><p>返回 ? <var>input</var>.[[<span>Transfer</span>]](<var>targetRealm</var>)。</p></li>
+  </ol>
+
