@@ -9,8 +9,8 @@
   such documents.</p>
 
   <p><span data-x="custom data attribute">Custom data attributes</span> are intended to store custom
-  data private to the page or application, for which there are no more appropriate attributes or
-  elements.</p>
+  data, state, annotations, and similar, private to the page or application, for which there are no
+  more appropriate attributes or elements.</p>
 
   <p>These attributes are not intended for use by software that is not known to the administrators
   of the site that uses the attributes. For generic extensions that are to be used by multiple
@@ -50,6 +50,25 @@ translate="no">HTML&lt;/span> markup.&lt;/p></pre>
    standard <code data-x="attr-translate">translate</code> attribute is used to tell it that in all
    languages, "HTML" is to remain unchanged. When a standard attribute is available, there is no
    need for a <span>custom data attribute</span> to be used.</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>In this example, custom data attributes are used to store the result of a feature detection
+   for <code>PaymentRequest</code>, which could be used in CSS to style a checkout page
+   differently.</p>
+
+   <pre>&lt;script>
+ if ('PaymentRequest' in window) {
+   document.documentElement.dataset.hasPaymentRequest = '';
+ }
+&lt;/script></pre>
+
+   <p>Here, the <code data-x="">data-has-payment-request</code> attribute is effectively being used
+   as a <span>boolean attribute</span>; it is enough to check the presence of the attribute.
+   However, if the author so wishes, it could later be populated with some value, maybe to indicate
+   limited functionality of the feature.</p>
 
   </div>
 

@@ -27,6 +27,14 @@
    <dt><dfn><code>listing</code></dfn></dt>
    <dd><p>Use <code>pre</code> and <code>code</code> instead.</p></dd>
 
+   <dt><dfn><code>keygen</code></dfn></dt>
+   <dd>
+    <p>For enterprise device management use cases, use native on-device management capabilities.</p>
+
+    <p>For certificate enrollment use cases, use the Web Cryptography API to generate a keypair for the certificate, and
+    then export the certificate and key to allow the user to install them manually. <ref spec=WEBCRYPTO></p>
+   </dd>
+
    <dt><dfn><code>nextid</code></dfn></dt>
    <dd><p>Use GUIDs instead.</p></dd>
 

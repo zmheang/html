@@ -18,5 +18,32 @@
   rest of the contents of the <code>summary</code> element's parent <code>details</code>
   element<span w-nodev>, if any</span>.</p>
 
+  <div w-nodev>
+
+  <p>The <span>activation behavior</span> of <code>summary</code> elements is to run the following
+  steps:</p>
+
+  <ol>
+   <li><p>If this <code>summary</code> element has no parent node, then abort these steps.</p></li>
+
+   <li><p>Let <var>parent</var> be this <code>summary</code> element's parent node.</p>
+
+   <li><p>If <var>parent</var> is not a <code>details</code> element, then abort these steps.</p>
+
+   <li><p>If <var>parent</var>'s first child <code>summary</code> element is not this
+   <code>summary</code> element, then abort these steps.</p></li>
+
+   <li>
+    <p>If the <code data-x="attr-details-open">open</code> attribute is present on
+    <var>parent</var>, then <span data-x="concept-element-attributes-remove">remove</span> it.
+    Otherwise, <span data-x="concept-element-attributes-set-value">set</span> <var>parent</var>'s
+    <code data-x="attr-details-open">open</code> attribute to the empty string.</p>
+
+    <p class="note">This will then run the <span>details notification task steps</span>.</p>
+   </li>
+  </ol>
+
+  </div>
+
 
 

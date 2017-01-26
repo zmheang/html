@@ -1,0 +1,56 @@
+  <h4>The <code>DOMStringList</code> interface</h4>
+
+  <p>The <code>DOMStringList</code> interface is a non-fashionable retro way of representing a list
+  of strings.</p>
+
+  <pre class="idl">[Exposed=(Window,Worker)]
+interface <dfn>DOMStringList</dfn> {
+  readonly attribute unsigned long <span data-x="dom-DOMStringList-length">length</span>;
+  getter DOMString? <span data-x="dom-DOMStringList-item">item</span>(unsigned long index);
+  boolean <span data-x="dom-DOMStringList-contains">contains</span>(DOMString string);
+};</pre>
+
+  <p w-nodev class="warning">New APIs must use <code data-x="">sequence&lt;DOMString></code> or
+  equivalent rather than <code>DOMStringList</code>.</p>
+
+  <dl class="domintro">
+
+   <dt><var>strings</var> . <code subdfn data-x="dom-DOMStringList-length">length</code></dt>
+   <dd><p>Returns the number of strings in <var>strings</var>.</p></dd>
+
+   <dt><var>strings</var>[<var>index</var>]</dt>
+   <dt><var>strings</var> . <code subdfn data-x="dom-DOMStringList-item">item</code>(<var>index</var>)</dt>
+   <dd><p>Returns the string with index <var>index</var> from <var>strings</var>.</p></dd>
+
+   <dt><var>strings</var> . <code subdfn data-x="dom-DOMStringList-contains">contains</code>(<var>string</var>)</dt>
+   <dd><p>Returns true if <var>strings</var> contains <var>string</var>, and false
+   otherwise.</p></dd>
+  </dl>
+
+  <div w-nodev>
+
+  <p>Each <code>DOMStringList</code> object has an associated <span>list</span>.</p>
+
+  <p>The <span>supported property indices</span> for a <code>DOMStringList</code> object are the
+  numbers zero to the associated list's <span data-x="list size">size</span> minus one. If its
+  associated list <span data-x="list is empty">is empty</span>, it has no <span>supported property
+  indices</span>.</p>
+
+  <p>The <dfn data-x="dom-DOMStringList-length"><code>length</code></dfn> attribute's getter must
+  this <code>DOMStringList</code> object's associated list's <span data-x="list
+  size">size</span>.</p>
+
+  <p>The <dfn data-x="dom-DOMStringList-item"><code>item(<var>index</var>)</code></dfn> method, when
+  invoked, must return the <var>index</var>th item in this <code>DOMStringList</code> object's
+  associated list, or null if <var>index</var> plus one is less than this <code>DOMStringList</code>
+  object's associated list's <span data-x="list size">size</span>.</p>
+
+  <p>The <dfn data-x="dom-DOMStringList-contains"><code>contains(<var>string</var>)</code></dfn>
+  method, when invoked, must return true if this <code>DOMStringList</code> object's associated list
+  <span data-x="list contains">contains</span> <var>string</var>, and false otherwise.</p>
+
+  </div>
+
+
+  <div w-nodev>
+

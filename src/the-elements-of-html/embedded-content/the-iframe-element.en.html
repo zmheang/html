@@ -576,13 +576,112 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
     <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> is a
     <span>top-level browsing context</span>, then return true.</p></li>
 
-    <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has a
-    <span>browsing context container</span> that is an <code>iframe</code> element with an
-    <var>allowattribute</var> attribute specified, and whose <span>node document</span> is
-    <span>allowed to use</span> the feature indicated by <var>allowattribute</var>, then return
-    true.</p></li>
+    <li>
+     <p>If <var>allowattribute</var> is <code
+     data-x="attr-iframe-allowfullscreen">allowfullscreen</code>, then follow these substeps:</p>
+
+     <ol>
+      <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has
+      a <span>browsing context container</span> that is an <code>iframe</code> element with an
+      <var>allowattribute</var> attribute specified, and whose <span>node document</span> is
+      <span>allowed to use</span> the feature indicated by <var>allowattribute</var>, then return
+      true.</p></li>
+     </ol>
+
+     <p class="big-issue">This step is legacy behavior for the <code
+     data-x="attr-iframe-allowfullscreen">allowfullscreen</code> attribute that should not be used
+     for new features. If possible this will be removed, see <a
+     href="https://github.com/whatwg/html/issues/2143#issuecomment-265514585">issue 2143</a>.</p>
+    </li>
+
+    <li>
+     <p>Otherwise, follow these substeps:</p>
+
+     <ol>
+      <li><p>If <var>document</var> has the <var><var>allowattribute</var> flag</var> set, and
+      <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has a
+      <span>browsing context container</span> that is an <code>iframe</code> element whose
+      <span>node document</span> is <span>allowed to use</span> the feature indicated by
+      <var>allowattribute</var>, then return true.</p></li>
+     </ol>
+    </li>
 
     <li><p>Return false.</p></li>
+   </ol>
+
+   <p>To <dfn>set the allow* flags</dfn> for a <code>Document</code> <var>document</var> means to
+   run these steps:</p>
+
+   <ol>
+    <li>
+     <p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has a
+     <span>browsing context container</span> whose <span>node document</span>'s <span>origin</span>
+     is <span>same origin-domain</span> with <var>document</var>'s <span>origin</span>, then set the
+     <var>allowpaymentrequest flag</var> and the <var>allowusermedia flag</var> on
+     <var>document</var>, and abort these steps.</p>
+
+     <p class="note">If <code data-x="dom-document-domain">document.domain</code> has been used for
+     the <span>browsing context container</span>'s <span>node document</span>, then its
+     <span>origin</span> cannot be <span>same origin-domain</span> with <var>document</var>'s
+     <span>origin</span>, because these steps run when <var>document</var> is initialized so it
+     cannot itself yet have used <code data-x="dom-document-domain">document.domain</code>. Note
+     that this is less permissive compared to doing a <span>same origin</span> check instead.</p>
+
+     <div class="example">
+      <p>In this example, the child document is not allowed to use <code>PaymentRequest</code>,
+      despite being <span>same origin-domain</span> at the time the child document tries to use it.
+      At the time the child document is initialized, only the parent document has set <code
+      data-x="dom-document-domain">document.domain</code>, and the child document has not.</p>
+
+      <pre>&lt;!-- https://foo.example.com/a.html -->
+&lt;!doctype html>
+&lt;script>
+ document.domain = 'example.com';
+&lt;/script>
+&lt;iframe src=b.html>&lt;/iframe></pre>
+
+      <pre>&lt;!-- https://bar.example.com/b.html -->
+&lt;!doctype html>
+&lt;script>
+ document.domain = 'example.com'; // This happens after the document is initialized
+ new PaymentRequest(&hellip;); // Not allowed to use
+&lt;/script></pre>
+     </div>
+
+     <div class="example">
+      <p>In this example, the child document <em>is</em> allowed to use <code>PaymentRequest</code>,
+      despite not being <span>same origin-domain</span> at the time the child document tries to use
+      it. At the time the child document is initialized, none of the documents have set <code
+      data-x="dom-document-domain">document.domain</code> yet so <span>same origin-domain</span>
+      falls back to a normal <span>same origin</span> check.</p>
+
+      <pre>&lt;!-- https://example.com/a.html -->
+&lt;!doctype html>
+&lt;iframe src=b.html>&lt;/iframe>
+&lt;!-- The child document is now initialized, before the script below is run. -->
+&lt;script>
+ document.domain = 'example.com';
+&lt;/script></pre>
+
+      <pre>&lt;!-- https://example.com/b.html -->
+&lt;!doctype html>
+&lt;script>
+ new PaymentRequest(&hellip;); // Allowed to use
+&lt;/script></pre>
+     </div>
+    </li>
+
+    <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has a
+    <span>browsing context container</span> that is an <code>iframe</code> element, let
+    <var>iframe</var> be that element. Otherwise, abort these steps.</p></li>
+
+    <li><p>If <var>iframe</var> has an <code
+    data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code> attribute specified, then
+    set the <var>allowpaymentrequest flag</var> on <var>document</var>.</p></li>
+
+    <li><p>If <var>iframe</var> has an <code
+    data-x="attr-iframe-allowusermedia">allowusermedia</code> attribute specified, then set the
+    <var>allowusermedia flag</var> on <var>document</var>.</p></li>
    </ol>
   </div>
 

@@ -97,7 +97,7 @@
   [Unforgeable] void <span data-x="dom-location-replace">replace</span>(USVString url);
   [Unforgeable] void <span data-x="dom-location-reload">reload</span>();
 
-  [Unforgeable, SameObject] readonly attribute FrozenArray&lt;USVString&gt; <span data-x="dom-location-ancestorOrigins">ancestorOrigins</span>;
+  [Unforgeable, SameObject] readonly attribute <span>DOMStringList</span> <span data-x="dom-location-ancestorOrigins">ancestorOrigins</span>;
 };</pre>
 
   <dl class="domintro">
@@ -178,9 +178,9 @@
 
    <dt><var>location</var> . <code subdfn data-x="dom-location-ancestorOrigins">ancestorOrigins</code></dt>
    <dd>
-    <p>Returns an array whose values are the origins of the ancestor <span data-x="browsing
-    context">browsing contexts</span>, from the <span>parent browsing context</span> to the
-    <span>top-level browsing context</span>.</p>
+    <p>Returns a <code>DOMStringList</code> object listing the origins of the ancestor <span
+    data-x="browsing context">browsing contexts</span>, from the <span>parent browsing
+    context</span> to the <span>top-level browsing context</span>.</p>
    </dd>
   </dl>
 
@@ -195,14 +195,14 @@
   data-x="concept-document-url">URL</span>.</p>
 
   <p>A <code>Location</code> object has an associated <dfn
-  data-x="concept-location-ancestor-origins-array">ancestor origins array</dfn>. When a
+  data-x="concept-location-ancestor-origins-list">ancestor origins list</dfn>. When a
   <code>Location</code> object is created, its <span
-  data-x="concept-location-ancestor-origins-array">ancestor origins array</span> must be set to a
-  <span>frozen array</span> created from the list of strings that the following steps would
-  produce:</p>
+  data-x="concept-location-ancestor-origins-list">ancestor origins list</span> must be set to a
+  <code>DOMStringList</code> object whose associated list is the <span>list</span> of strings that
+  the following steps would produce:</p>
 
   <ol>
-   <li><p>Let <var>output</var> be an empty ordered list of strings.</p></li>
+   <li><p>Let <var>output</var> be a new <span>list</span> of strings.</p></li>
 
    <li><p>Let <var>current</var> be the <span data-x="concept-document-bc">browsing context</span>
    of the <code>Document</code> with which this <code>Location</code> object is associated.</p></li>
@@ -213,9 +213,9 @@
    <li><p>Let <var>current</var> be <var>current</var>'s <span>parent browsing
    context</span>.</p></li>
 
-   <li><p>Append the <span data-x="Unicode serialization of an origin">Unicode serialization</span>
-   of <var>current</var>'s <span>active document</span>'s <span>origin</span> to <var>output</var>
-   as a new value.</p></li>
+   <li><p><span data-x="list append">Append</span> the <span data-x="Unicode serialization of an
+   origin">Unicode serialization</span> of <var>current</var>'s <span>active document</span>'s
+   <span>origin</span> to <var>output</var>.</p></li>
 
    <li><p>Return to the step labeled <i>loop</i>.</p></li>
 
@@ -740,7 +740,7 @@
    <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Otherwise, return this <code>Location</code> object's <span
-   data-x="concept-location-ancestor-origins-array">ancestor origins array</span>.</p></li>
+   data-x="concept-location-ancestor-origins-list">ancestor origins list</span>.</p></li>
   </ol>
 
   <hr>

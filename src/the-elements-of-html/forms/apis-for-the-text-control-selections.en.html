@@ -2,30 +2,10 @@
 
   <!-- v2 idea: DOM Range APIs to expose the textarea/input edited value (ack martijnw) -->
 
-  <p>The <code>input</code> and <code>textarea</code> elements define the following members in their
-  DOM interfaces for handling their selection:</p>
+  <p>The <code>input</code> and <code>textarea</code> elements define several attributes and methods
+  for handling their selection. Their shared algorithms are defined here.</p>
 
-  <pre class="idl extract">  void <span data-x="dom-textarea/input-select">select</span>();
-  attribute unsigned long? <span data-x="dom-textarea/input-selectionStart">selectionStart</span>;
-  attribute unsigned long? <span data-x="dom-textarea/input-selectionEnd">selectionEnd</span>;
-  attribute DOMString? <span data-x="dom-textarea/input-selectionDirection">selectionDirection</span>;
-  void <span data-x="dom-textarea/input-setRangeText">setRangeText</span>(DOMString replacement);
-  void <span data-x="dom-textarea/input-setRangeText">setRangeText</span>(DOMString replacement, unsigned long start, unsigned long end, optional <span>SelectionMode</span> selectionMode = "preserve");
-  void <span data-x="dom-textarea/input-setSelectionRange">setSelectionRange</span>(unsigned long start, unsigned long end, optional DOMString direction = "preserve");</pre>
   <!-- v2: also add textLength? it seems to be widely used -->
-
-  <p>The <code data-x="dom-textarea/input-setRangeText">setRangeText</code> method uses the following
-  enumeration:</p>
-
-  <pre class="idl">enum <dfn>SelectionMode</dfn> {
-  "<span data-x="dom-SelectionMode-select">select</span>",
-  "<span data-x="dom-SelectionMode-start">start</span>",
-  "<span data-x="dom-SelectionMode-end">end</span>",
-  "<span data-x="dom-SelectionMode-preserve">preserve</span>" // default
-};</pre>
-
-  <p>These methods and attributes expose and control the selection of <code>input</code> and
-  <code>textarea</code> text controls.</p>
 
   <dl class="domintro">
 
@@ -376,6 +356,16 @@
 
   </ol>
 
+  <p>The <code data-x="dom-textarea/input-setRangeText">setRangeText</code> method uses the
+  following enumeration:</p>
+
+  <pre class="idl">enum <dfn>SelectionMode</dfn> {
+  "<span data-x="dom-SelectionMode-select">select</span>",
+  "<span data-x="dom-SelectionMode-start">start</span>",
+  "<span data-x="dom-SelectionMode-end">end</span>",
+  "<span data-x="dom-SelectionMode-preserve">preserve</span>" // default
+};</pre>
+
   <p>All elements to which this API <span data-x="concept-input-apply">applies</span> have either a
   selection or a text entry cursor position at all times (even for elements that are not <span>being
   rendered</span>). User agents should follow platform conventions to determine their initial
@@ -387,6 +377,8 @@
   <p>Characters with no visible rendering, such as U+200D ZERO WIDTH JOINER, still count as
   characters. Thus, for instance, the selection can include just an invisible character, and the
   text insertion cursor can be placed to one side or another of such a character.</p>
+
+  <hr>
 
   <div class="example">
 

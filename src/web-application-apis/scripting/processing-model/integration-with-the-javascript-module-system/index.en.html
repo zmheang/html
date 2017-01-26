@@ -15,7 +15,38 @@
   URL">absolute URLs</span> to values that are either a <span>module script</span>, null (used to
   represent failed fetches), or a placeholder value "<code data-x="">fetching</code>". <span
   data-x="module map">Module maps</span> are used to ensure that imported JavaScript modules are
-  only fetched, parsed, and evaluated once per <code>Document</code> or <a href="#workers">worker</a>.</p>
+  only fetched, parsed, and evaluated once per <code>Document</code> or <a
+  href="#workers">worker</a>.</p>
+
+  <div class="example">
+   <p>Since <span data-x="module map">module maps</span> are keyed by URL, the following code will
+   create three separate entries in the <span>module map</span>, since it results in three different
+   URLs:</p>
+
+   <pre>import "https://example.com/module.js";
+import "https://example.com/module.js#map-buster";
+import "https://example.com/module.js?debug=true";</pre>
+
+   <p>That is, URL <span data-x="concept-url-query">queries</span> and <span
+   data-x="concept-url-fragment">fragments</span> can be varied to create distinct entries in the
+   <span>module map</span>; they are not ignored. Thus, three separate fetches and three separate
+   module evaluations will be performed.</p>
+
+   <p>In contrast, the following code would only create a single entry in the <span>module
+   map</span>, since after applying the <span>URL parser</span> to these inputs, the resulting <span
+   data-x="URL record">URL records</span> are equal:</p>
+
+   <pre>import "https://example.com/module2.js";
+import "https:example.com/module2.js";
+import "https://///example.com\\module2.js";
+import "https://example.com/foo/../module2.js";</pre>
+
+   <p>So in this second example, only one fetch and one module evaluation will occur.</p>
+
+   <p>Note that this behavior is the same as how <span
+   data-x="SharedWorker">shared workers</span> are keyed by their parsed <span
+   data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor url</span>.</p>
+  </div>
 
   <p>To <dfn>resolve a module specifier</dfn> given a <span>module script</span> <var>script</var>
   and a string <var>specifier</var>, perform the following steps. It will return either an

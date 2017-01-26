@@ -48,10 +48,17 @@ interface <dfn>HTMLDetailsElement</dfn> : <span>HTMLElement</span> {
   information should be shown.</p>
 
   <p>The user agent should allow the user to request that the additional information be shown or
-  hidden. To honor a request for the details to be shown, the user agent must set the <code
-  data-x="attr-details-open">open</code> attribute on the element to the value <code
-  data-x="">open</code>. To honor a request for the information to be hidden, the user agent must
-  remove the <code data-x="attr-details-open">open</code> attribute from the element.</p>
+  hidden. To honor a request for the details to be shown, the user agent must <span
+  data-x="concept-element-attributes-set-value">set</span> the <code
+  data-x="attr-details-open">open</code> attribute on the element to the empty string. To honor a
+  request for the information to be hidden, the user agent must <span
+  data-x="concept-element-attributes-remove">remove</span> the <code
+  data-x="attr-details-open">open</code> attribute from the element.</p>
+
+  <p class="note">This ability to request that additional information be shown or hidden may simply
+  be the <span>activation behavior</span> of the appropriate <code>summary</code> element, in the
+  case such an element exists. However, if no such element exists, user agents should still provide
+  this ability through some other user interface affordance.</p>
 
   <p>Whenever the <code data-x="attr-details-open">open</code> attribute is added to or removed from
   a <code>details</code> element, the user agent must <span>queue a task</span> that runs the

@@ -44,20 +44,21 @@
     <code>h5</code>, <code>h6</code>, <code>head</code>, <code>header</code>, <code>hgroup</code>,
     <code>hr</code>, <code>html</code>, <code>iframe</code>, <!-- <code>image</code>, (commented out
     because this isn't an element that can end up on the stack, so it doesn't matter) -->
-    <code>img</code>, <code>input</code>, <code>li</code>, <code>link</code>, <code>listing</code>,
-    <code>main</code>, <code>marquee</code>, <code>menu</code>, <code>meta</code>, <code>nav</code>,
-    <code>noembed</code>, <code>noframes</code>, <code>noscript</code>, <code>object</code>,
-    <code>ol</code>, <code>p</code>, <code>param</code>, <code>plaintext</code>, <code>pre</code>,
-    <code>script</code>, <code>section</code>, <code>select</code>, <code>source</code>,
-    <code>style</code>, <code>summary</code>, <code>table</code>, <code>tbody</code>,
-    <code>td</code>, <code>template</code>, <code>textarea</code>, <code>tfoot</code>,
-    <code>th</code>, <code>thead</code>, <code>title</code>, <code>tr</code>, <code>track</code>,
-    <code>ul</code>, <code>wbr</code>, <code>xmp</code>; <span>MathML <code>mi</code></span>,
-    <span>MathML <code>mo</code></span>, <span>MathML <code>mn</code></span>, <span>MathML
-    <code>ms</code></span>, <span>MathML <code>mtext</code></span>, and <span>MathML
-    <code>annotation-xml</code></span>; and <span>SVG <code>foreignObject</code></span>, <span>SVG
-    <code>desc</code></span>, and <span>SVG <code>title</code></span>.</p> <!-- we could actually
-    put all non-HTML elements in this list, I think -->
+    <code>img</code>, <code>input</code>, <code>keygen</code>, <code>li</code>, <code>link</code>,
+    <code>listing</code>, <code>main</code>, <code>marquee</code>, <code>menu</code>,
+    <code>meta</code>, <code>nav</code>, <code>noembed</code>, <code>noframes</code>,
+    <code>noscript</code>, <code>object</code>, <code>ol</code>, <code>p</code>, <code>param</code>,
+    <code>plaintext</code>, <code>pre</code>, <code>script</code>, <code>section</code>,
+    <code>select</code>, <code>source</code>, <code>style</code>, <code>summary</code>,
+    <code>table</code>, <code>tbody</code>, <code>td</code>, <code>template</code>,
+    <code>textarea</code>, <code>tfoot</code>, <code>th</code>, <code>thead</code>,
+    <code>title</code>, <code>tr</code>, <code>track</code>, <code>ul</code>, <code>wbr</code>,
+    <code>xmp</code>; <span>MathML <code>mi</code></span>, <span>MathML <code>mo</code></span>,
+    <span>MathML <code>mn</code></span>, <span>MathML <code>ms</code></span>, <span>MathML
+    <code>mtext</code></span>, and <span>MathML <code>annotation-xml</code></span>; and <span>SVG
+    <code>foreignObject</code></span>, <span>SVG <code>desc</code></span>, and <span>SVG
+    <code>title</code></span>.</p> <!-- we could actually put all non-HTML elements in this list, I
+    think -->
 
     <p class="note">An <code data-x="">image</code> start tag token is handled by the tree builder,
     but it is not in this list because it is not an element; it gets turned into an <code>img</code>

@@ -75,8 +75,8 @@ console.log(plasticButton2.getAttribute("is")); // will output "plastic-button"<
   element">Customized built-in elements</span> are designed to allow extension of existing HTML
   elements that have useful user-agent supplied behavior or APIs. As such, they can only extend
   existing HTML elements defined in this specification, and cannot extend legacy elements such as
-  <code>bgsound</code>, <code>blink</code>, <code>isindex</code>, <code>multicol</code>,
-  <code>nextid</code>, or <code>spacer</code> that have been defined to use
+  <code>bgsound</code>, <code>blink</code>, <code>isindex</code>, <code>keygen</code>,
+  <code>multicol</code>, <code>nextid</code>, or <code>spacer</code> that have been defined to use
   <code>HTMLUnknownElement</code> as their <span>element interface</span>.</p>
 
   <p>One reason for this requirement is future-compatibility: if a <span>customized built-in
@@ -86,6 +86,6 @@ console.log(plasticButton2.getAttribute("is")); // will output "plastic-button"<
   built-in element</span> would have come to depend on their base element having no interesting
   user-agent-supplied behavior.</p>
 
-  <p>Additionally, <code>applet</code> and <code>keygen</code> elements cannot be extended, as they
-  are in the process of being removed from the Web platform.</p>
+  <p>Additionally, <code>applet</code> elements cannot be extended, as they are in the process of
+  being removed from the Web platform.</p>
 
