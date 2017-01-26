@@ -1,0 +1,25 @@
+  <h5>Worker 用作后台 I/O</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>本例子中，主文档使用两个 worker，一个用来定时获取股票更新。
+  另一个用来执行用户请求的搜索查询。</p>
+
+  <p>主页面如下：</p>
+
+  <pre>EXAMPLE workers/stocks/page.html</pre>
+
+  <p>这两个 workers 用到了一个通用库来执行真正的网络调用。该库如下：</p>
+
+  <pre>EXAMPLE workers/stocks/io.js</pre>
+
+  <p>股票更新 worker 如下：</p>
+
+  <pre>EXAMPLE workers/stocks/ticker.js</pre>
+
+  <p>搜索查询 worker 如下：</p>
+
+  <pre>EXAMPLE workers/stocks/searcher.js</pre>
+
+  <p><a href="/demos/workers/stocks/page.html">在线浏览该示例</a>。</p>
+

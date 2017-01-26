@@ -1,0 +1,31 @@
+  <h5>数字密集计算的后台 worker</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>workers 最简单的使用方式是在不打断 UI 的情况下执行计算密集型的任务。</p>
+
+  <p>本例子中，主文档启动（spawns ）了一个 worker 来（na&iuml;vely）计算质数，
+  然后逐渐地显示新发现的质数。</p>
+
+  <p>主页面如下：</p>
+
+  <pre>EXAMPLE workers/primes/page.html</pre>
+
+  <p>对 <code data-x="dom-Worker">Worker()</code> 构造函数的调用创建了一个 worker，
+  并返回一个表示该 worker 的 <code>Worker</code> 对象，该对象用来与 worker 进行通信。
+  该对象的 <code data-x="handler-Worker-onmessage">onmessage</code> 事件处理函数允许
+  从 worker 接受消息。</p>
+
+  <p>worker 本身如下：</p>
+
+  <pre>EXAMPLE workers/primes/worker.js</pre>
+
+  <p>这些代码就是未经优化的寻找质数算法。找到质数时使用 <code
+  data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage()</code> 方法来
+  向页面发送消息。</p>
+
+  <p><a href="/demos/workers/primes/page.html">在线浏览该示例</a>。</p>
+
+
+
+

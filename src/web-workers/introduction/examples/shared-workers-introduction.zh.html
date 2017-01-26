@@ -1,0 +1,58 @@
+  <h5>共享 worker 概述</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>这一节通过一个 Hello World 例子来介绍共享 Worker。由于每个 Worker 可以有多个连接，
+  共享 Worker 的 API 略有不同。</p>
+
+  <p>第一个例子展示了如何连接到 worker 以及 worker 如何向连接的页面发回消息。
+  收到的消息显示在日志中。</p>
+
+  <p>这是 HTML 页面：</p>
+
+  <pre>EXAMPLE workers/shared/001/test.html</pre>
+
+  <p>这是 JavaScript worker：</p>
+
+  <pre>EXAMPLE workers/shared/001/test.js</pre>
+
+  <p><a href="/demos/workers/shared/001/test.html">在线查看本示例</a>。</p>
+
+  <hr>
+
+  <p>第二个例子在两方面扩展了上一个例子：首先使用 <code data-x="">addEventListener()</code> 
+  来接收事件，取代了 <span data-x="event handler IDL attributes">事件处理函数 IDL 属性</span>。
+  其次，<em>向 Worder 发送</em> 一个事件使得 Worker 以另一个事件回复。
+  收到的消息仍然显示在日志中。</p>
+
+  <p>这是 HTML 页面：</p>
+
+  <pre>EXAMPLE workers/shared/002/test.html</pre>
+
+  <p>这是 JavaScript worker：</p>
+
+  <pre>EXAMPLE workers/shared/002/test.js</pre>
+
+  <p><a href="/demos/workers/shared/002/test.html">在线查看本示例</a>。</p>
+
+  <hr>
+
+  <p>最后这个例子展示两个页面如何连接到同一个 Worker；
+  这里第二个页面仅仅是第一个页面中的 <code>iframe</code>，但同样的原则对
+  一个 <span data-x="top-level browsing context">顶级浏览上下文</span> 中的完全独立的页面仍然适用。</p>
+
+  <p>这是外部 HTML 页面：</p>
+
+  <pre>EXAMPLE workers/shared/003/test.html</pre>
+
+  <p>这是内部 HTML 页面：</p>
+
+  <pre>EXAMPLE workers/shared/003/inner.html</pre>
+
+  <p>这是 JavaScript worker：</p>
+
+  <pre>EXAMPLE workers/shared/003/test.js</pre>
+
+  <p><a href="/demos/workers/shared/003/test.html">在线查看本示例</a>。</p>
+
+

@@ -1,0 +1,41 @@
+  <h5>通过共享 Worker 来共享状态</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>本例子中，可以同时打开多个窗口（查看器）来浏览同一个地图。
+  在一个 Worker 的协调下，所有窗口共享同样的地图信息。
+  每个查看器都可以独立地随意移动，一旦在地图上设置了任何数据，其他查看器也都会更新。</p>
+
+  <p>主页面很普通，只是提供了打开查看器的入口：</p>
+
+  <pre>EXAMPLE workers/multiviewer/page.html</pre>
+
+  <p>查看器就有些意思了：</p>
+
+  <pre>EXAMPLE workers/multiviewer/viewer.html</pre>
+
+  <p>关于查看器的写法有几个值得一提的关键点。</p>
+
+  <p><strong data-x="Multiple listeners">多监听器</strong>。
+  上述代码加载了多个事件监听器，每个都会检查该消息是否和它相关。
+  本例子中没太大差别，但如果多个作者都希望使用同一接口与 Worker 通信，
+  该设计将产生较为独立的代码，否则所有的变更都得在同一事件处理函数中进行。</p>
+
+  <p>以这种方式注册事件处理函数也让你可以在处理完后注销特定的监听器，
+  就像本例子中的 <code data-x="">configure()</code> 方法一样。</p>
+
+  <p>这是最终的 Worker：</p>
+
+  <pre>EXAMPLE workers/multiviewer/worker.js</pre>
+
+  <p><strong data-x="Connecting to multiple pages">连接到多个页面</strong>。
+  脚本中使用 <code data-x="handler-SharedWorkerGlobalScope-onconnect">onconnect</code>
+  时间监听器来监听多个连接。</p>
+
+  <p><strong data-x="Direct channels">直接通道</strong>。
+  当 Worker 从查看器收到一条带有另一个查看器名称的"msg"消息时，
+  它会在这两者之间建立一个直接的连接，使得这两个查看器可以不经由 Worker 代理而直接通信。</p>
+
+  <p><a href="/demos/workers/multiviewer/page.html">在线查看该示例</a>。</p>
+
+

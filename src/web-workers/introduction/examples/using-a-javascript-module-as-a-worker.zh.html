@@ -1,0 +1,33 @@
+  <h5 id="module-worker-example">使用 JavaScript 模块作为 worker</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>目前我们所有例子的 workers 都在运行 <span data-x="classic script">经典脚本
+  </span>。Workers 也可以用 <span data-x="module script">模块脚本</span> 实例化，
+  通常有如下好处：使用 JavaScript <code data-x="">import</code> 声明来引入其他模块的能力；
+  默认的严格模式；顶层声明不会污染 worker 的全局作用域。</p>
+
+  <p>注意相比于经典脚本，基于模块的 workers 遵循不同的跨域内容限制，
+  不同于经典 workers，模块 workers 可以使用跨域脚本实例化，只要使用
+  <span data-x="CORS protocol">CORS 协议</span>把该脚本暴露出来。
+  另外，在模块 worker 中 <code data-x="dom-WorkerGlobalScope-importScripts">importScripts()</code>
+  方法将自动失效；JavaScript <code data-x="">import</code> 声明通常是更好的选择。</p>
+
+  <p>本例子中，主文档使用了一个 worker 来做主线程外的图像操作。
+  它引入了另一个模块中的过滤器。</p>
+
+  <p>主页面如下：</p>
+
+  <pre>EXAMPLE workers/modules/page.html</pre>
+
+  <p>worker 文件如下：</p>
+
+  <pre>EXAMPLE workers/modules/worker.js</pre>
+
+  <p>它引入了文件 <code data-x="">filters.js</code>：</p>
+
+  <pre>EXAMPLE workers/modules/filters.js</pre>
+
+  <p><a href="/demos/workers/modules/page.html">在线浏览该示例</a>。</p>
+
+
