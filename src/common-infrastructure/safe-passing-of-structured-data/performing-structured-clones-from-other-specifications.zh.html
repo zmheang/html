@@ -1,0 +1,38 @@
+  <h4>从其他标准中执行结构化克隆</h4>
+
+  <p>其他标准可能使用 <span>StructuredClone</span>,
+  <span>StructuredCloneWithTransfer</span>, <span>IsTransferable</span>, 以及 <span
+  data-x="transfer-abstract-op">Transfer</span> 抽象操作。</p>
+
+  <p>通常，调用点传入 Web IDL 值而不是 JavaScript 值；需要理解的是在调用这些算法前，
+  这些值会隐式地<span data-x="concept-idl-convert">转换</span>为 JavaScript 值。</p>
+
+  <p>对于非作者代码同步地导致的调用点在调用到用户代理的这些抽象操作时，
+  如果这些操作应用于任意对象，则必须注意适当地
+  <span data-x="prepare to run script">准备运行脚本</span> 以及
+  <span data-x="prepare to run a callback">准备运行回调</span>。
+  这里的必要性在于 <span>StructuredClone</span> 操作可能会调用作者定义的访问器
+  作为其最终的深拷贝步骤，而这些访问器调用的一些操作可能会依赖于
+  <span data-x="concept-entry-everything">entry</span> 和 <span
+  data-x="concept-incumbent-everything">incumbent</span> 等概念已经建立。</p>
+
+  <p class="example"><code data-x="dom-window-postMessage">postMessage</code> 会在它的参数上执行
+  <span>StructuredCloneWithTransfer</span>，但它非常小心地在算法的同步部分执行了该操作。
+  这样使得调用结构化克隆算法时不必
+  <span data-x="prepare to run script">准备运行脚本</span> 和
+  <span data-x="prepare to run a callback">准备运行回调</span>。</p>
+
+  <p class="example">非作者代码同步地导致的 <span data-x="url parser">URL 解析</span> 随时可能发生。
+  然而，URL 解析器只在 <code>Blob</code> 对象上执行 <span>StructuredClone</span>，
+  所以不会导致使用错误的
+  <span data-x="concept-entry-everything">entry</span> 和 <span
+  data-x="concept-incumbent-everything">incumbent</span> 值运行作者代码。
+  所以该操作也不需要执行这些准备步骤。</p>
+
+  <p class="example">作为对比，假设有一个 API 周期性地使用 <span>StructuredClone</span>
+  来序列化一些作者提供的对象，并直接从 <span data-x="event loop">事件循环</span> 上的 <span
+  data-x="concept-task">任务</span> 进行调用，则需要确保在调用到结构化克隆算法前执行了适当的准备。
+  现在我们还不知道平台上有这样的 API。
+  通常来讲，作为作者代码的同步结果提前执行克隆更加容易，就像
+  <code data-x="dom-window-postMessage">postMessage</code>那样。</p>
+
