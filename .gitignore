@@ -42,3 +42,4 @@ jspm_packages
 /skeleton.html
 .*.swp
 .*.swo
+/output

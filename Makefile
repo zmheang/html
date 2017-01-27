@@ -32,11 +32,17 @@ build-zh:
 	node ./bin/json-pretify.js ${OUTPUT}/multipage/fragment-links.json
 	rm -rf $(OUTPUT)/resources && cp -r resources $(OUTPUT)
 
+# Split subtree before deploy:
+# git subtree split --prefix output/html -b gh-pages
 deploy:
-	git subtree push --prefix=output/html --squash origin gh-pages
+	git add -f output/html
+	git commit -m 'dist'
+	git push origin `git subtree split --prefix output/html`:gh-pages --force
+	git reset output/html
+	git reset HEAD^
 
 deploy-force:
-	git push origin `git subtree split --prefix output/html master`:gh-pages --force
+	git push origin `git subtree split --prefix output/html`:gh-pages --force
 
 clean-cache:
 	rm -rf html-build/.cache
