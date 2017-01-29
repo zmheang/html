@@ -1,18 +1,18 @@
-  <h5>与 worker 通信</h5>
+  <h5>与专用 Worker 通信</h5>
 
   <!-- NON-NORMATIVE SECTION -->
 
-  <p>workers 其实是 <code>MessagePort</code> 对象，因此支持<code>MessagePort</code>的所有特性。
+  <p>专用 Worker 其实是 <code>MessagePort</code> 对象，因此支持<code>MessagePort</code>的所有特性。
   比如发送结构化数据、传输二进制数据、以及传输其他 Port。</p>
 
   <p>使用 <code>Worker</code> 对象上的 <code data-x="handler-worker-onmessage">onmessage</code>
-  <span data-x="event handler IDL attributes">事件处理器 IDL 属性</span> 来接收 Worker 的消息：</p>
+  <span data-x="event handler IDL attributes">事件处理器 IDL 属性</span> 来接收专用 Worker 的消息：</p>
 
   <pre>worker.onmessage = function (event) { ... };</pre>
 
   <p>你也可以使用 <code data-x="dom-EventTarget-addEventListener">addEventListener()</code> 方法。</p>
 
-  <p class="note">在创建 Worker 时，它隐式使用的 <code>MessagePort</code> 的 <span>port
+  <p class="note">在创建专用 Worker 时，它隐式使用的 <code>MessagePort</code> 的 <span>port
   message queue</span> 会被默认开启。所以没有<code>Worker</code> 接口上没有等价于
   <code>MessagePort</code> 接口的 <code data-x="dom-MessagePort-start">start()</code> 的方法。</p>
 

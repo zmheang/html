@@ -1,0 +1,93 @@
+  <h5><code>WorkerGlobalScope</code> 通用接口</h5>
+
+  <pre class="idl">[Exposed=Worker] <!-- not sure we really need that, but... -->
+interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
+  readonly attribute <span>WorkerGlobalScope</span> <span data-x="dom-WorkerGlobalScope-self">self</span>;
+  readonly attribute <span>WorkerLocation</span> <span data-x="dom-WorkerGlobalScope-location">location</span>;
+  readonly attribute <span>WorkerNavigator</span> <span data-x="dom-worker-navigator">navigator</span>;
+  void <span data-x="dom-WorkerGlobalScope-importScripts">importScripts</span>(USVString... urls);
+
+  attribute <span>OnErrorEventHandler</span> <span data-x="handler-WorkerGlobalScope-onerror">onerror</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onlanguagechange">onlanguagechange</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onoffline">onoffline</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-ononline">ononline</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onrejectionhandled">onrejectionhandled</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onunhandledrejection">onunhandledrejection</span>;
+};</pre>
+
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
+  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-type">type</dfn> （"<code
+  data-x="">classic</code>" 或 "<code data-x="">module</code>"）。在创建时设置。
+
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
+  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-url">url</dfn> （null 或一个
+  <span>URL</span>）。初始值为 null。
+
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
+  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-https-state">HTTPS 状态</dfn>
+  （一个 <span data-x="HTTPS state value">HTTPS 状态值</span>）。
+  初始值为 "<code data-x="">none</code>"。
+
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
+  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-referrer-policy">referrer
+  策略</dfn> （一个 <span data-x="referrer policy">referrer 策略</span>）。初始值为空字符串。
+
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
+  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-csp-list">CSP 列表</dfn>。
+  初始值为空列表。
+
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
+  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-module-map">模块映射</dfn>。
+  初始值为空的 <span data-x="module map">模块映射</span>。</p>
+
+  <dl class="domintro">
+   <dt><var>workerGlobal</var> . <code subdfn data-x="dom-WorkerGlobalScope-self">self</code></dt>
+   <dd>返回 <var>workerGlobal</var>。</dd>
+
+   <dt><var>workerGlobal</var> . <code subdfn data-x="dom-WorkerGlobalScope-location">location</code></dt>
+   <dd>返回 <var>workerGlobal</var> 的 <code>WorkerLocation</code> 对象。</dd>
+
+   <dt><var>workerGlobal</var> . <code subdfn data-x="dom-worker-navigator">navigator</code></dt>
+   <dd>返回 <var>workerGlobal</var> 的 <code>WorkerNavigator</code> object。</dd>
+
+   <dt><var>workerGlobal</var> . <code subdfn data-x="dom-WorkerGlobalScope-importScripts">importScripts</code>(<var>urls</var>...)</dt>
+   <dd>获取 <var>urls</var> 中的每一个 <span>URL</span>，按照传入的顺序一个接一个地执行它们并返回
+   （如果有错误则抛出异常）。</dd>
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-WorkerGlobalScope-self">self</code></dfn> 属性必须返回
+  <code>WorkerGlobalScope</code> 对象自己。</p>
+
+  <p><dfn><code data-x="dom-WorkerGlobalScope-location">location</code></dfn> 属性必须
+  返回与之关联的 <span data-x="concept-WorkerLocation-WorkerGlobalScope">
+  <code>WorkerGlobalScope</code> 对象</span> 为 <code>WorkerGlobalScope</code> 对象的
+  <code>WorkerLocation</code> 对象。
+  </p>
+
+  <p class="note">虽然 <code>WorkerLocation</code> 对象在 <code>WorkerGlobalScope</code> 对象之后创建，
+  但是因它对脚本不可见所以不会产生问题。</p>
+
+  </div>
+
+  <hr>
+
+  <p>下面是实现 <code>WorkerGlobalScope</code> 接口的对象必须
+  （以 <span data-x="event handler IDL attributes">事件处理器 IDL 属性</span> 的方式）
+  支持的 <span data-x="event handlers">事件处理器</span>
+  （以及它们对应的<span data-x="event handler event type">事件处理器事件类型</span>）：</p>
+
+  <table>
+   <thead>
+    <tr><th><span data-x="event handlers">事件处理器</span> <th><span data-x="event handler event type">事件处理器事件类型</span>
+   <tbody>
+    <tr><td><dfn><code data-x="handler-WorkerGlobalScope-onerror">onerror</code></dfn> <td> <code data-x="event-error">error</code>
+    <tr><td><dfn><code data-x="handler-WorkerGlobalScope-onlanguagechange">onlanguagechange</code></dfn> <td> <code data-x="event-languagechange">languagechange</code> <!-- new -->
+    <tr><td><dfn><code data-x="handler-WorkerGlobalScope-onoffline">onoffline</code></dfn> <td> <code data-x="event-offline">offline</code> <!-- new -->
+    <tr><td><dfn><code data-x="handler-WorkerGlobalScope-ononline">ononline</code></dfn> <td> <code data-x="event-online">online</code> <!-- new -->
+    <tr><td><dfn><code data-x="handler-WorkerGlobalScope-onrejectionhandled">onrejectionhandled</code></dfn> <td> <code data-x="event-rejectionhandled">rejectionhandled</code>
+    <tr><td><dfn><code data-x="handler-WorkerGlobalScope-onunhandledrejection">onunhandledrejection</code></dfn> <td> <code data-x="event-unhandledrejection">unhandledrejection</code>
+  </table>
+
+
