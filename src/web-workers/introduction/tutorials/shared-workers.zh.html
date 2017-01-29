@@ -1,0 +1,38 @@
+  <h5 data-dfn-type="dfn" data-lt="shared worker" data-export="">共享 worker</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>共享 worker 是通过创建时的脚本 URL 来识别的。也可以显式地指定名字，
+  这会使得共享 Worker 可以启动多个实例。</p>
+
+  <p>共享 worker 作用域限制在 <span>origin</span> 下。使用同一 Worker 名字的两个站点不会冲突。
+  然而同一站点中，尝试使用相同的 Worker 名来引用不同的脚本 URL 将会失败。</p>
+
+  <p>使用 <code data-x="dom-SharedWorker">SharedWorker()</code> 构造函数来创建共享 Worker。
+  该构造函数使用脚本 URL 作为第一个参数， Worker 名（如果有的话）作为第二个参数。</p>
+
+  <pre>var worker = new SharedWorker('service.js');</pre>
+
+  <p>与共享 worker 通信需要显式地使用 <code>MessagePort</code> 对象。
+  <code data-x="dom-SharedWorker">SharedWorker()</code> 构造函数返回的对象的
+  <code data-x="dom-SharedWorker-port">port</code>属性保有一个对 port 的引用。</p>
+
+  <pre>worker.port.onmessage = function (event) { ... };
+worker.port.postMessage('some message');
+worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']});</pre>
+
+  <p>在共享 worker 内，新的客户会使用 <code data-x="event-WorkerGlobalScope-connect">connect</code> 事件
+  来声明，新来的客户的 port 由事件对象的 <code data-x="dom-messageevent-source">source</code>
+  属性给出。</p>
+
+  <pre>onconnect = function (event) {
+  var newPort = event.source;
+  // set up a listener
+  newPort.onmessage = function (event) { ... };
+  // send a message back to the port
+  newPort.postMessage('ready!'); // can also send structured data, of course
+};</pre>
+
+
+
+

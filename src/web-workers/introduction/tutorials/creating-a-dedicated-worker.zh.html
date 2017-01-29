@@ -1,0 +1,15 @@
+  <h5>创建一个 worker</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>创建 Worker 需要一个指向 JavaScript 文件的 URL。使用该 URL 作为唯一一个参数来调用<code
+  data-x="dom-Worker">Worker()</code> 构造函数，这时会创建并返回一个 Worker：</p>
+
+  <pre>var worker = new Worker('helper.js');</pre>
+
+  <p>为了使你的 Worker 脚本被解析为 <span data-x="module script">模块脚本</span>
+  而不是 <span data-x="classic script">经典脚本</span>，你需要使用一个略微不同的函数签名：</p>
+
+  <pre>var worker = new Worker('helper.js', { type: "module" });</pre>
+
+

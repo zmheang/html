@@ -1,0 +1,45 @@
+  <h5>与 worker 通信</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>workers 其实是 <code>MessagePort</code> 对象，因此支持<code>MessagePort</code>的所有特性。
+  比如发送结构化数据、传输二进制数据、以及传输其他 Port。</p>
+
+  <p>使用 <code>Worker</code> 对象上的 <code data-x="handler-worker-onmessage">onmessage</code>
+  <span data-x="event handler IDL attributes">事件处理器 IDL 属性</span> 来接收 Worker 的消息：</p>
+
+  <pre>worker.onmessage = function (event) { ... };</pre>
+
+  <p>你也可以使用 <code data-x="dom-EventTarget-addEventListener">addEventListener()</code> 方法。</p>
+
+  <p class="note">在创建 Worker 时，它隐式使用的 <code>MessagePort</code> 的 <span>port
+  message queue</span> 会被默认开启。所以没有<code>Worker</code> 接口上没有等价于
+  <code>MessagePort</code> 接口的 <code data-x="dom-MessagePort-start">start()</code> 的方法。</p>
+
+  <p>使用 <code data-x="dom-Worker-postMessage">postMessage()</code> 方法来
+  <em>向 Worker 发送</em> 数据。该通信通道可以发送结构化数据，
+  如果要高效地发送 <code data-x="idl-ArrayBuffer">ArrayBuffer</code> 对象
+  （通过直接传输它们而不是克隆后发送），在第二个参数上提供它们的列表。</p>
+
+  <pre>worker.postMessage({
+  operation: 'find-edges',
+  input: buffer, // an ArrayBuffer object
+  threshold: 0.6,
+}, [buffer]);</pre>
+
+  <p>使用 <code data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</code>
+  <span data-x="event handler IDL attributes">事件处理器 IDL 属性</span>在 Worker 中接受消息。</p>
+
+  <pre>onmessage = function (event) { ... };</pre>
+
+  <p>你也可以使用 <code data-x="dom-EventTarget-addEventListener">addEventListener()</code> 方法。</p>
+
+  <p>上述两种方式中，数据总是在事件对象的 <code
+  data-x="dom-MessageEvent-data">data</code> 属性中提供。</p>
+
+  <p>使用 <code data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage()</code>
+  来回复消息，它同样支持结构化数据。</p>
+
+  <pre>postMessage(event.data.input, [event.data.input]); // transfer the buffer back</pre>
+
+
