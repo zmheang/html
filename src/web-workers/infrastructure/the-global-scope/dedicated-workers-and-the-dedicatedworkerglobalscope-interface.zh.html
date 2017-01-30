@@ -1,0 +1,72 @@
+  <h5>专用 Worker 与 <code>DedicatedWorkerGlobalScope</code> 接口</h5>
+
+  <pre class="idl">[Global=(Worker,DedicatedWorker),Exposed=DedicatedWorker]
+interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
+  void <span data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
+
+  void <span data-x="dom-DedicatedWorkerGlobalScope-close">close</span>();
+
+  attribute <span>EventHandler</span> <span data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</span>;
+};</pre>
+
+  <p><code>DedicatedWorkerGlobalScope</code> 对象的表现就像它有一个与之关联的隐式
+  <code>MessagePort</code> 一样。该端口是创建 Worker 时建立的通道的一部分，但没有暴露出来。
+  禁止在<code>DedicatedWorkerGlobalScope</code>之前垃圾回收该对象。</p>
+
+  <p>该端口收到的所有消息必须立即传给 <code>DedicatedWorkerGlobalScope</code> 对象。</p>
+
+  <dl class="domintro">
+   <dt><var>dedicatedWorkerGlobal</var> . <code subdfn
+   data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</code>(<var>message</var> [,
+   <var>transfer</var> ])</dt>
+   <dd>克隆 <var>message</var> 并传送给与 <var>dedicatedWorkerGlobal</var> 关联的
+   <code>Worker</code> 对象。<var>transfer</var> 可以传一个不需克隆而直接传输的对象列表。</dd>
+
+   <dt><var>dedicatedWorkerGlobal</var> . <code subdfn
+   data-x="dom-DedicatedWorkerGlobalScope-close">close</code>()</dt>
+   <dd>终止 <var>dedicatedWorkerGlobal</var>。</dd>
+  </dl>
+
+  <p>在 <code>DedicatedWorkerGlobalScope</code> 对象上的
+  <dfn><code data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage()</code></dfn>
+  方法被调用时必须表现得就像立即使用同样的参数列表调用了该端口上的
+  <span data-x="dom-MessagePort-postMessage">同名方法</span> 一样，
+  并且返回同样的返回值。</p>
+
+  <div w-nodev>
+
+  <p>给定 <var>workerGlobal</var>，<dfn data-export="" data-x="close a worker">关闭 worker</dfn>
+  的步骤如下：</p>
+
+  <ol>
+   <li><p>忽略所有已添加到 <var>workerGlobal</var> 的 <span data-x="event loop">事件循环</span> 的
+   <span data-x="task queue">任务列表</span> 中的 <span data-x="concept-task">任务</span>。</p>
+
+   <li><p>设置 <var>workerGlobal</var> 的 <span data-x="dom-WorkerGlobalScope-closing">closing</span>
+   标志为 true。（这将阻止后续的任务入队。）</p></li>
+  </ol>
+
+  <p><dfn><code data-x="dom-DedicatedWorkerGlobalScope-close">close()</code></dfn> 方法被调用时，
+  必须 <span data-x="close a worker">关闭</span> <code>DedicatedWorkerGlobalScope</code> 上的 Worker。</p>
+
+  </div>
+
+  <hr>
+
+  <p>下面是实现 <code>DedicatedWorkerGlobalScope</code> 接口的对象必须
+  （以 <span data-x="event handler IDL attributes">事件处理器 IDL 属性</span> 的方式）
+  支持的 <span data-x="event handlers">事件处理器</span>
+  （以及它们对应的<span data-x="event handler event type">事件处理器事件类型</span>）：</p>
+
+  <table>
+   <thead>
+    <tr><th><span data-x="event handlers">事件处理器</span> <th><span data-x="event handler event type">事件处理器事件类型</span>
+   <tbody>
+    <tr><td><dfn><code data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</code></dfn> <td> <code data-x="event-message">message</code>
+  </table>
+
+  <p>出于 <span>application cache</span> 网络模型的目的，专用 worker 是
+  创建它的 <span>cache host</span> 的一个扩展。</p>
+
+
+

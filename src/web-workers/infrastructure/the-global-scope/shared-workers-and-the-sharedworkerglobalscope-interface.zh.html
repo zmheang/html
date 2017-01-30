@@ -1,0 +1,72 @@
+  <h5>共享 worker 与 <code>SharedWorkerGlobalScope</code> 接口</h5>
+
+  <pre class="idl">[Global=(Worker,SharedWorker),Exposed=SharedWorker]
+interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
+  readonly attribute DOMString <span data-x="dom-SharedWorkerGlobalScope-name">name</span>;
+  readonly attribute <span>ApplicationCache</span> <span data-x="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</span>; // deprecated
+
+  void <span data-x="dom-SharedWorkerGlobalScope-close">close</span>();
+
+  attribute <span>EventHandler</span> <span data-x="handler-SharedWorkerGlobalScope-onconnect">onconnect</span>;
+};</pre>
+
+  <p><code>SharedWorkerGlobalScope</code> 对象有与之相关联的 <dfn
+  data-dfn-for="SharedWorkerGlobalScope"
+  data-x="concept-SharedWorkerGlobalScope-constructor-origin">构造器 origin</dfn>, <dfn
+  data-dfn-for="SharedWorkerGlobalScope"
+  data-x="concept-SharedWorkerGlobalScope-constructor-url">构造器 url</dfn>，以及 <dfn
+  data-dfn-for="SharedWorkerGlobalScope"
+  data-x="concept-SharedWorkerGlobalScope-name">name</dfn>。它们在创建
+  <code>SharedWorkerGlobalScope</code> 对象时初始化，是 <span data-x="run a worker">运行 Worker</span>
+  算法的一部分。
+
+  <p>共享 worker 通过它们的 <code>SharedWorkerGlobalScope</code> 对象上的
+  <code data-x="event-WorkerGlobalScope-connect">connect</code> 事件接受每个连接的消息端口。</p>
+
+  <dl class="domintro">
+   <dt><var>sharedWorkerGlobal</var> . <code subdfn data-x="dom-SharedWorkerGlobalScope-name">name</code></dt>
+   <dd>返回 <var>sharedWorkerGlobal</var> 的 <span
+   data-x="concept-SharedWorkerGlobalScope-name">name</span>。</dd>
+
+   <dt><var>sharedWorkerGlobal</var> . <code subdfn
+   data-x="dom-SharedWorkerGlobalScope-close">close</code>()</dt>
+   <dd>终止 <var>sharedWorkerGlobal</var>。</dd>
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-SharedWorkerGlobalScope-name">name</code></dfn> 属性必须返回
+  <code>SharedWorkerGlobalScope</code> 对象的 <span
+  data-x="concept-SharedWorkerGlobalScope-name">name</span>。使用 <code>SharedWorker</code> 构造器，
+  可以通过 name 的值获取该 worker 的引用。</p>
+
+  <p><dfn><code data-x="dom-SharedWorkerGlobalScope-close">close()</code></dfn> 方法被调用时，必须
+  <span data-x="close a worker">关闭</span> 该 <code>SharedWorkerGlobalScope</code> 对象上的 worker。</p>
+
+  </div>
+
+  <hr>
+
+  <p>下面是实现 <code>SharedWorkerGlobalScope</code> 接口的对象必须
+  （以 <span data-x="event handler IDL attributes">事件处理器 IDL 属性</span> 的方式）
+  支持的 <span data-x="event handlers">事件处理器</span>
+  （以及它们对应的<span data-x="event handler event type">事件处理器事件类型</span>）：</p>
+
+  <table>
+   <thead>
+    <tr><th><span data-x="event handlers">事件处理器</span> <th><span data-x="event handler event type">事件处理器事件类型</span>
+   <tbody>
+    <tr><td><dfn><code data-x="handler-SharedWorkerGlobalScope-onconnect">onconnect</code></dfn> <td> <code data-x="event-WorkerGlobalScope-connect">connect</code>
+  </table>
+
+  <p>出于 <span>application cache</span> 网络模型的目的，共享 worker 是它自己的 <span>cache host</span>。
+  <span data-x="run a worker">运行 Worker</span> 算法会将该 worker 关联到对应的
+  <span>application cache</span>。</p>
+
+  <p class="note"><code
+  data-x="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</code> 属性返回
+  该 worker 的 <code>ApplicationCache</code> 对象。</p><!-- normative conf criteria is in the
+  appcache section -->
+
+
+

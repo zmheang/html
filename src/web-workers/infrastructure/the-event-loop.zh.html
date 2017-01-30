@@ -1,0 +1,26 @@
+  <h4 id="worker-event-loop">事件循环</h4>
+
+  <p>每个 <code>WorkerGlobalScope</code> 对象有一个单独的 <span data-x="event loop">事件循环</span>，
+  与 <span data-x="unit of related similar-origin browsing contexts">相关的相似源浏览上下文单元</span>
+  使用的那些事件循环相分离。
+  该 <span data-x="event loop">事件循环</span> 没有与之关联的
+  <span data-x="browsing context">浏览上下文</span>，
+  它的 <span data-x="task queue">任务队列</span> 只有事件、回调，以及网络活动
+  <span data-x="concept-task">任务</span>。
+  这些 <span data-x="event loop">事件循环</span> 由 <span data-x="run a worker">运行 Worker</span>
+  算法创建。</p>
+
+  <p>每个 <code>WorkerGlobalScope</code> 对象也有一个 <dfn
+  data-x="dom-WorkerGlobalScope-closing">closing</dfn> 标志，初始值必须为 false，
+  但可以被下面的处理模型一节中的算法设为 true。</p>
+
+  <p>一旦 <code>WorkerGlobalScope</code> 的 <span
+  data-x="dom-WorkerGlobalScope-closing">closing</span> 标志被设为 true，
+  <span data-x="event loop">事件循环</span> 的 <span data-x="task queue">任务队列</span>
+  必须忽略后续添加的 <span data-x="concept-task">任务</span>
+  （已经在队列中的任务不受影响，除非另有说明）。
+  也就是说一旦 <span data-x="dom-WorkerGlobalScope-closing">closing</span> 标志位 true，
+  定时器会停止触发，所有正在进行的后台操作的通知会被扔掉。</p>
+
+
+
