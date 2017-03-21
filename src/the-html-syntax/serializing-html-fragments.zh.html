@@ -1,0 +1,283 @@
+  <!--en-GB--><h3 id="serialising-html-fragments">序列化 HTML 片段</h3>
+
+  <p>下列步骤组成了 <!--en-GB--><dfn id="html-fragment-serialisation-algorithm"
+  data-x="HTML fragment serialization algorithm"
+  data-export="">HTML 片段的序列化算法</dfn>。该算法的输入为一个 DOM
+  <code>Element</code>，<code>Document</code>，或 <code>DocumentFragment</code> 作为
+  <var>node</var>，返回一个字符串。</p>
+
+  <p class="note">该算法会把被序列化节点的 <em data-x="children">子节点</em> 序列化，不包括节点本身。</p>
+
+  <ol>
+
+   <li><p>令 <var>s</var> 为一个字符串，把它初始化为空字符串。</p></li>
+
+   <li><p>如果 <var>该节点</var> 是一个 <code>template</code> 元素，则令 <var>该节点</var> 为 <code>template</code> 元素的
+     <span data-x="template contents">模板内容</span> （一个 <code>DocumentFragment</code> 节点）。</p></li>
+
+   <li>
+
+    <p>对 <var>该节点</var> 的每一个子节点，以 <span data-x="tree order">树序</span> 运行下列步骤：
+
+    <ol>
+
+     <li><p>令 <var>当前节点</var> 为正在被处理的子节点。</p></li>
+
+     <li>
+
+      <p>从下列列表中选择合适的字符串追加到 <var>s</var>：</p>
+
+      <dl class="switch">
+
+       <dt>如果 <var>当前节点</var> 是一个 <code data-x="">Element</code></dt>
+
+       <dd>
+
+        <p>如果 <var>当前节点</var> 是 <span data-x="HTML namespace">HTML 命名空间</span>，
+        <span data-x="MathML namespace">MathML 命名空间</span>，
+        或 <span data-x="SVG namespace">SVG 命名空间</span>
+        中的一个元素，则令 <var>tagname</var> 为 <var>当前节点</var> 的 local name。 否则，令 <var>tagname</var> 为 <var>当前节点</var>的 qualified name。</p>
+
+        <p>追加一个 U+003C LESS-THAN SIGN 字符（&lt;），以及 <var>tagname</var>。</p>
+
+        <p class="note">对于由 <span>HTML parser</span> 或 <code data-x="dom-Document-createElement">createElement()</code>
+        创建的 <span data-x="HTML elements">HTML 元素</span> ，<var>tagname</var> 将会是小写。</p>
+
+        <p>对该元素具有的每一个属性，追加一个 U+0020 SPACE 字符，<span
+        data-x="attribute's serialized name">属性的序列化名称（见下文）</span>，
+        一个 U+003D EQUALS SIGN 字符（=），一个 U+0022 QUOTATION MARK 字符（&quot;），
+        属性在 <i>属性模式</i> 下 <span data-x="escaping a string">转义后的（见下文）</span> 值，
+        以及第二个 U+0022 QUOTATION MARK 字符（&quot;）。</p>
+
+        <p>上一段中<!--en-GB--><dfn id="attribute's-serialised-name" data-x="attribute's serialized name">属性的序列化名称</dfn> 必须这样确定：</p>
+
+        <dl class="switch">
+
+         <dt>如果该属性没有命名空间</dt>
+
+         <dd>
+
+          <p>该属性的序列化名称为该属性的 local name。</p>
+
+          <p class="note">对于由 <span data-x="HTML parser">HTML 解析器</span> 或 <code data-x="">Element.setAttribute()</code>
+          设置的 <span data-x="HTML elements">HTML 元素</span> 上的属性，local name 将会是小写的。</p>
+
+         </dd>
+
+
+         <dt>如果该属性在 <span data-x="XML namespace">XML 命名空间</span></dt>
+
+         <dd><p>该属性的序列化名称是：字符串 "<code data-x="">xml:</code>" 紧跟着该属性的 local name。</p></dd>
+
+
+         <dt>如果该属性在 <span data-x="XMLNS namespace">XMLNS 命名空间</span> 且该属性的 local name 是 <code data-x="">xmlns</code></dt>
+
+         <dd><p>该属性的序列化名称为字符串 "<code data-x="">xmlns</code>"。</p></dd>
+
+
+         <dt>如果该属性在 <span data-x="XMLNS namespace">XMLNS 命名空间</span> 且该属性的 local name 不是<code data-x="">xmlns</code></dt>
+
+         <dd><p>该属性的序列化名称为字符串 "<code data-x="">xmlns:</code>" 紧跟着该属性的 local name。</p></dd>
+
+
+         <dt>如果该属性在 <span data-x="XLink namespace">XLink 命名空间</span></dt>
+
+         <dd><p>该属性的序列化名称为字符串 "<code data-x="">xlink:</code>" 紧跟着该属性的 local name。</p></dd>
+
+
+         <dt>如果该属性在其他命名空间</dt>
+
+         <dd><p>该属性的序列化名称为该属性的 qualified name。</p></dd>
+
+        </dl>
+
+        <p>尽管真正的属性顺序是 UA 定义的，也依赖于其他一些因素，比如原始标记中属性的给出顺序，
+        但是排序次序必须是稳定的，这样对该算法的连续调用中，元素属性的序列化采取同样的次序。</p>
+
+        <p>追加一个 U+003E GREATER-THAN SIGN 字符（&gt;）。</p>
+
+        <p>如果 <var>当前节点</var> 是一个 <code>area</code>，<code>base</code>,
+        <code>basefont</code>，<code>bgsound</code>，<code>br</code>，<code>col</code>,
+        <code>embed</code>，<code>frame</code>，<code>hr</code>，<code>img</code>,
+        <code>input</code>，<code>keygen</code>，<code>link</code>，<code>meta</code>,
+        <code>param</code>，<code>source</code>，<code>track</code> 或 <code>wbr</code> 元素,
+        则继续处理下一个子元素。</p>
+        <!-- VOIDLIST superset -->
+        <!-- also，i guess: image，but we don't list it because we don't consider it an "element",
+        more a "macro"，and thus we should never serialize it -->
+
+        <p>在 <var>当前节点</var> 的元素上执行 <span data-x="HTML fragment serialization algorithm">HTML 片段序列化算法</span>
+        （以此递归进入该元素），紧跟着一个 U+003C LESS-THAN SIGN 字符（&lt;），一个 U+002F SOLIDUS 字符
+        （/），再来一个 <var>tagname</var> ，最后是一个 U+003E GREATER-THAN SIGN 字符（&gt;）。</p>
+
+       </dd>
+
+
+       <dt>如果 <var>当前节点</var>是一个 <code data-x="">Text</code> 节点</dt>
+
+       <dd>
+
+        <p>如果 <var>当前节点</var> 的父节点是一个 <code>style</code>,
+        <code>script</code>，<code>xmp</code>，<code>iframe</code>，<code>noembed</code>,
+        <code>noframes</code>，或 <code>plaintext</code> 元素，或者 <var>当前节点</var> 的父节点是一个
+        <code>noscript</code> 元素且该节点的 <span data-x="concept-n-script">脚本被启用</span>，则追加
+        <var>当前节点</var>的 <code data-x="">data</code> IDL 属性的字面值。</p>
+
+        <p>否则，追加 <var>当前节点</var>的 <code data-x="">data</code> IDL 属性的
+        <span data-x="escaping a string">转义（见下文）后的</span>值。</p>
+
+       </dd>
+
+
+       <dt>如果 <var>当前节点</var>是一个 <code data-x="">Comment</code></dt>
+
+       <dd>
+
+        <p>追加字面字符串 "<code data-x="">&lt;!--</code>"（U+003C LESS-THAN SIGN，U+0021
+        EXCLAMATION MARK，U+002D HYPHEN-MINUS，U+002D HYPHEN-MINUS），再加 <var>当前节点</var>的
+        <code data-x="">data</code> IDL 属性的值，再加字面字符串 "<code data-x="">--&gt;</code>"
+        （U+002D HYPHEN-MINUS，U+002D HYPHEN-MINUS, U+003E GREATER-THAN SIGN）。</p>
+
+       </dd>
+
+
+       <dt>如果 <var>当前节点</var> 是一个 <code data-x="">ProcessingInstruction</code></dt>
+
+       <dd>
+
+        <p>追加字面字符串 "<code data-x="">&lt;?</code>"（U+003C LESS-THAN SIGN，U+003F
+        QUESTION MARK），再加 <var>当前节点</var>的 <code data-x="">target</code> IDL 属性的值，
+        再加一个 U+0020 SPACE 字符，再加 <var>当前节点</var> 的 <code data-x="">data</code> IDL 属性的值，
+        再加一个 U+003E GREATER-THAN SIGN 字符（>）。</p>
+
+       </dd>
+
+
+       <dt>如果 <var>当前节点</var>是一个 <code data-x="">DocumentType</code></dt>
+
+       <dd>
+
+        <p>追加字面字符串 "<code data-x="">&lt;!DOCTYPE</code>"（U+003C LESS-THAN SIGN，U+0021
+        EXCLAMATION MARK，U+0044 LATIN CAPITAL LETTER D，U+004F LATIN CAPITAL LETTER O，U+0043 LATIN
+        CAPITAL LETTER C，U+0054 LATIN CAPITAL LETTER T，U+0059 LATIN CAPITAL LETTER Y，U+0050 LATIN
+        CAPITAL LETTER P，U+0045 LATIN CAPITAL LETTER E），再加一个空格（U+0020 SPACE）,
+        再加 <var>当前节点</var> 的 <code data-x="">name</code> IDL 属性的值，
+        再加字面字符串 "<code data-x="">&gt;</code>"（U+003E GREATER-THAN SIGN）。</p>
+
+       </dd>
+
+
+      </dl>
+
+     </li>
+
+    </ol>
+
+   </li>
+
+   <li><p>该算法的结果就是字符串 <var>s</var>。</p></li>
+
+  </ol>
+
+  <p class="warning">如果用 <span data-x="HTML parser">HTMl 解析器</span> 解析，
+  该算法输出的可能不是原始的树结构。<span data-x="HTML parser">HTMl 解析器</span> 本身也可以产生
+  序列化、重新解析后不能复原的树结构，虽然这些情形是不一致的而且很典型。</p>
+
+  <div class="example">
+
+   <p>例如，对于一个有着 <code data-x="">Comment</code> 子节点的 <code>textarea</code> 元素，
+   先序列化后，再重新解析输出，注释将会显示在文本控件中。
+   类似地，作为 DOM 操作的结果，
+   如果某个元素内部的注释中包含字面字符串"<code data-x="">--&gt;</code>"，那么解析该元素序列化的结果之后，
+   该注释将会从那一点截断，剩余的注释将会解释为标记。还有很多类似的例子，比如：
+   <code>script</code> 元素包含的 <code>Text</code> 节点包含字符串 "<code data-x="">&lt;/script></code>" 的情况、
+   <code>p</code> 元素包含 <code>ul</code> 元素的情况（<code>ul</code> 元素的
+   <span data-x="syntax-start-tag">开始标签</span> 意味着 <code>p</code> 的结束标签）。</p>
+
+   <p>这可能引起跨站脚本攻击。一个例子是页面让用户输入一些字体家族的名称，
+   它们稍后被通过 DOM 插入到 CSS <code>style</code> 块，
+   然后使用 <code data-x="dom-innerHTML">innerHTML</code> IDL 属性来获取那个
+   <code>style</code> 元素的 HTML 序列化。如果用户输入
+   "<code data-x="">&lt;/style>&lt;script>attack&lt;/script></code>" 作为字体家族名称，<code
+   data-x="dom-innerHTML">innerHTML</code> 返回的标记如果在不同的上下文进行解析，
+   将会包含一个 <code>script</code> 节点，即使原始 DOM 中不存在 <code>script</code> 节点。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>例如，考虑下列标记：</p>
+
+   <pre>&lt;form id="outer">&lt;div>&lt;/form>&lt;form id="inner">&lt;input></pre>
+
+   <p>这将被解析为：</p>
+
+   <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>form</code> <span class="t2" data-x=""><code class="attribute name" data-x="attr-id">id</code>="<code class="attribute value" data-x="">outer</code>"</span><ul><li class="t1"><code>div</code><ul><li class="t1"><code>form</code> <span class="t2" data-x=""><code class="attribute name" data-x="attr-id">id</code>="<code class="attribute value" data-x="">inner</code>"</span><ul><li class="t1"><code>input</code></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+   <p><code>input</code> 元素将会关联到内部 <code>form</code> 元素。
+   现在如果序列化并重新解析这一树结构，<code data-x="">&lt;form id="inner"></code> 开始标签将被忽略，
+   所以 <code>input</code> 元素将会被关联到外部 <code>form</code> 元素上。</p>
+
+   <pre>&lt;html>&lt;head>&lt;/head>&lt;body>&lt;form id="outer">&lt;div><mark>&lt;form id="inner"></mark>&lt;input>&lt;/form>&lt;/div>&lt;/form>&lt;/body>&lt;/html></pre>
+
+   <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>form</code> <span class="t2" data-x=""><code class="attribute name" data-x="attr-id">id</code>="<code class="attribute value" data-x="">outer</code>"</span><ul><li class="t1"><code>div</code><ul><li class="t1"><code>input</code></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+  </div>
+
+  <div class="example">
+
+   <p>作为下一个例子，考虑下列标记：</p>
+
+   <pre>&lt;a>&lt;table>&lt;a></pre>
+
+   <p>将被解析为：</p>
+
+   <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>a</code><ul><li class="t1"><code>a</code></li><li class="t1"><code>table</code></li></ul></li></ul></li></ul></li></ul>
+
+   <p>即 <code>a</code> 元素是嵌套的，因为第二个 <code>a</code> 元素是
+   <span data-x="foster parent">foster parented</span>。 经历序列化-再解析往返后，
+   <code>a</code> 元素和 <code>table</code> 元素将会都变成兄弟节点，因为第二个
+   <code data-x="">&lt;a></code> 开始标签隐式地关闭了第一个 <code>a</code> 元素。</p>
+
+   <pre>&lt;html>&lt;head>&lt;/head>&lt;body>&lt;a><mark>&lt;a></mark>&lt;/a>&lt;table>&lt;/table>&lt;/a>&lt;/body>&lt;/html></pre>
+
+   <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>a</code></li><li class="t1"><code>a</code></li><li class="t1"><code>table</code></li></ul></li></ul></li></ul>
+
+  </div>
+
+  <p>由于历史原因，即使（在前两个例子中）往返计算的标记可以是一致的，也不能保持
+  <code>pre</code>，<code>textarea</code>，或 <code>listing</code> 元素中初始的 U+000A LINE FEED（LF）字符
+  <span data-x="HTML parser">HTML 解析器</span> 在解析过程中会扔掉这样的字符，
+  但该算法 <em>不会</em> 序列化一个额外的 U+000A LINE FEED（LF）字符进去。</p>
+  <!-- https://github.com/whatwg/html/issues/944 -->
+
+  <div class="example">
+   <p>例如，考虑下列标记：</p>
+
+   <pre>&lt;pre>
+
+Hello.&lt;/pre></pre>
+
+   <p>当该文档初次被解析时，<code>pre</code> 元素的 <span data-x="child text content">子文本内容</span>
+   以一个换行字符起始。 经历序列化-再解析往返后，<code>pre</code> 元素的
+   <span data-x="child text content">子文本内容</span> 会只是 "<code data-x="">Hello.</code>"。</p>
+  </div>
+
+  <p>上述算法用到的 <dfn id="escapingString" data-x="escaping a string">转义字符串</dfn> 包含运行下列步骤：</p>
+
+  <ol>
+
+   <li><p>将所有出现的 "<code data-x="">&amp;</code>" 字符替换为字符串 "<code data-x="">&amp;amp;</code>"。</p></li>
+
+   <li><p>将所有出现的 U+00A0 NO-BREAK SPACE 字符替换为字符串 "<code data-x="">&amp;nbsp;</code>"。</p></li>
+
+   <li><p>如果算法在 <i>属性模式</i> 下调用的，将所有出现的
+   "<code data-x="">&quot;</code>" 字符替换为字符串 "<code data-x="">&amp;quot;</code>"。</p></li>
+
+   <li><p>如果算法 <em>不是</em> 在 <i>属性模式</i> 下调用的，
+   将所有出现的 "<code data-x="">&lt;</code>" 字符替换为字符串 "<code data-x="">&amp;lt;</code>"，
+   且所有出现的 "<code data-x="">&gt;</code>" 字符替换为字符串 "<code data-x="">&amp;gt;</code>"。</p></li>
+
+  </ol>
+
+
