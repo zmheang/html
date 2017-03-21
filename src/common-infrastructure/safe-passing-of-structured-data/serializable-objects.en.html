@@ -1,0 +1,112 @@
+  <h4><dfn>Serializable objects</dfn></h4>
+
+  <p><span>Serializable objects</span> support being serialized, and later deserialized, in a way
+  that is independent of any given <span>JavaScript Realm</span>. This allows them to be stored on
+  disk and later restored, or cloned across document and worker boundaries (including across
+  documents of different <span data-x="origin">origins</span> or in different <span data-x="event
+  loop">event loops</span>).</p>
+
+  <p>Not all objects are <span>serializable objects</span>, and not all aspects of objects that are
+  <span>serializable objects</span> are necessarily preserved when they are serialized.</p>
+
+  <p><span data-x="platform object">Platform objects</span> can be <span>serializable objects</span>
+  if they implement only interfaces decorated with the <dfn data-export=""
+  data-dfn-type="extended-attribute" data-lt="Serializable"
+  data-x="Serializable"><code>[Serializable]</code></dfn> IDL <span>extended attribute</span>. Such
+  interfaces must also define the following algorithms:</p>
+
+  <dl>
+   <dt><dfn data-export="">serialization steps</dfn>, taking a <span>platform object</span>
+   <var>value</var> and a <span>Record</span> <var>serialized</var></dt>
+   <dd>
+    <p>A set of steps that serializes the data in <var>input</var> into fields of
+    <var>serialized</var>. The resulting data serialized into <var>serialized</var> must be
+    independent of any <span>JavaScript Realm</span>.</p>
+
+    <p>These steps may throw an exception if serialization is not possible.</p>
+
+    <p>These steps may perform a <span>sub-serialization</span> to serialize nested data
+    structures. They should not call <span>StructuredSerialize</span> directly, as doing so will
+    omit the important <var>memory</var> argument.</p>
+   </dd>
+
+   <dt><dfn data-export="">deserialization steps</dfn>, taking a <span>Record</span>
+   <var>serialized</var> and a <span>platform object</span> <var>value</var></dt>
+   <dd>
+    <p>A set of steps that deserializes the data in <var>serialized</var>, using it to set up
+    <var>value</var> as appropriate. <var>value</var> will be a newly-created instance of the
+    <span>platform object</span> type in question, with none of its internal data set up; setting
+    that up is the job of these steps.</p>
+
+    <p>These steps may throw an exception if deserialization is not possible.</p>
+
+    <p>These steps may perform a <span>sub-deserialization</span> to deserialize nested data
+    structures. They should not call <span>StructuredDeserialize</span> directly, as doing so will
+    omit the important <var>targetRealm</var> and <var>memory</var> arguments.</p>
+   </dd>
+  </dl>
+
+  <p>It is up to the definition of individual platform objects to determine what data is serialized
+  and deserialized by these steps. Typically the steps are very symmetric.</p>
+
+  <p>The <code data-x="Serializable">[Serializable]</code> extended attribute must take no
+  arguments, and must not appear on anything other than an interface. It must appear only once on an
+  interface. It must not be used on a callback interface. If it appears on a partial interface or an
+  interface that is really a mixin, then it must also appear on the original or mixed-in-to
+  interface, and any supplied <span>serialization steps</span> and <span>deserialization
+  steps</span> for the partial interface or mixin should be understood as being appended to those of
+  the original or mixed-in-to interface.</p>
+
+  <div class="example">
+   <p>Let's say we were defining a platform object <code data-x="">Person</code>, which had
+   associated with it two pieces of associated data:</p>
+
+   <ul class="brief">
+    <li>a name value, which is a string;</li>
+    <li>and a best friend value, which is either another <code data-x="">Person</code> instance or
+    null</li>
+   </ul>
+
+   <p>We could then define <code data-x="">Person</code> instances to be <span>serializable
+   objects</span> by annotating the <code data-x="">Person</code> interface with the <code
+   data-x="Serializable">[Serializable]</code> <span>extended attribute</span>, and defining the
+   following accompanying algorithms:</p>
+
+   <dl>
+    <dt><span>serialization steps</span></dt>
+    <dd>
+     <ol>
+      <li><p>Set <var>serialized</var>.[[Name]] to <var>value</var>'s associated name
+      value.</p></li>
+
+      <li><p>Let <var>serializedBestFriend</var> be the <span>sub-serialization</span> of
+      <var>value</var>'s associated best friend value.</p></li>
+
+      <li><p>Set <var>serialized</var>.[[BestFriend]] to <var>serializedBestFriend</var>.</p></li>
+     </ol>
+    </dd>
+
+    <dt><span>deserialization steps</span></dt>
+    <dd>
+     <ol>
+      <li><p>Set <var>value</var>'s associated name value to
+      <var>serialized</var>.[[Name]].</p></li>
+
+      <li><p>Let <var>deserializedBestFriend</var> be the <span>sub-deserialization</span> of
+      <var>serialized</var>.[[BestFriend]].</p></li>
+
+      <li><p>Set <var>value</var>'s associated best friend value to
+      <var>deserializedBestFriend</var>.</p></li>
+     </ol>
+    </dd>
+   </dl>
+  </div>
+
+  <p>Objects defined in the JavaScript specification are handled by the
+  <span>StructuredSerialize</span> abstract operation directly.</p>
+
+  <p class="note" id="cloneable-objects">Originally, this specification defined the concept of
+  "cloneable objects", which could be cloned from one <span>JavaScript Realm</span> to another.
+  However, to better specify the behavior of certain more complex situations, the model was updated
+  to make the serialization and deserialization explicit.</p>
+

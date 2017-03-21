@@ -40,12 +40,12 @@
   <p><span data-x="syntax-attributes">Attributes</span> are placed inside the start tag, and consist
   of a <span data-x="syntax-attribute-name">name</span> and a <span
   data-x="syntax-attribute-value">value</span>, separated by an "<code data-x="">=</code>" character.
-  The attribute value can remain <a href="#unquoted">unquoted</a> if it doesn't contain <span
-  data-x="space character">space characters</span> or any of <code data-x="">"</code> <code
-  data-x="">'</code> <code data-x="">`</code> <code data-x="">=</code> <code data-x="">&lt;</code> or
-  <code data-x="">&gt;</code>. Otherwise, it has to be quoted using either single or double quotes.
-  The value, along with the "<code data-x="">=</code>" character, can be omitted altogether if the
-  value is the empty string.</p>
+  The attribute value can remain <a href="#unquoted">unquoted</a> if it doesn't contain <span>ASCII
+  whitespace</span> or any of <code data-x="">"</code> <code data-x="">'</code> <code
+  data-x="">`</code> <code data-x="">=</code> <code data-x="">&lt;</code> or <code
+  data-x="">&gt;</code>. Otherwise, it has to be quoted using either single or double quotes. The
+  value, along with the "<code data-x="">=</code>" character, can be omitted altogether if the value
+  is the empty string.</p>
 
   <pre>&lt;!-- empty attributes -->
 &lt;input name=address disabled>

@@ -24,6 +24,10 @@
    <dd><code data-x="attr-link-type">type</code></dd>
    <dd><code data-x="attr-link-sizes">sizes</code></dd>
    <dd><code data-x="attr-link-referrerpolicy">referrerpolicy</code></dd>
+   <dd><code data-x="attr-link-scope">scope</code></dd>
+   <dd><code data-x="attr-link-usecache">usecache</code></dd>
+   <dd><code data-x="attr-link-workertype">workertype</code></dd>
+   <dd><code data-x="attr-link-color">color</code></dd>
    <dd>Also, the <code data-x="attr-link-title">title</code> attribute <span data-x="attr-link-title">has special semantics</span> on this element.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt><!--TOPIC:DOM APIs-->
    <dd>
@@ -33,14 +37,17 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString? <span data-x="dom-link-crossOrigin">crossOrigin</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-rel">rel</span>;
   [<span>CEReactions</span>] attribute <span>RequestDestination</span> <span data-x="dom-link-as">as</span>; // (default "")
-  [<span>CEReactions</span>, SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-relList">relList</span>;
+  [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-relList">relList</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-media">media</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-nonce">nonce</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-integrity">integrity</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-hreflang">hreflang</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-type">type</span>;
-  [<span>CEReactions</span>, SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-sizes">sizes</span>;
+  [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-sizes">sizes</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-referrerPolicy">referrerPolicy</span>;
+  [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-scope">scope</span>;
+  [<span>CEReactions</span>] attribute <span>WorkerType</span> <span data-x="dom-link-workertype">workerType</span>;
+  [<span>CEReactions</span>] attribute boolean <span data-x="dom-link-useCache">useCache</span>;
 };
 <span>HTMLLinkElement</span> implements <span>LinkStyle</span>;</pre>
    </dd>
@@ -71,14 +78,15 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <code data-x="rel-alternate">alternate</code>,
   <code data-x="rel-dns-prefetch">dns-prefetch</code>,
   <code data-x="rel-icon">icon</code>,
+  <code data-x="rel-next">next</code>,
   <code data-x="rel-pingback">pingback</code>,
   <code data-x="rel-preconnect">preconnect</code>,
   <code data-x="rel-prefetch">prefetch</code>,
   <code data-x="rel-preload">preload</code>,
   <code data-x="rel-prerender">prerender</code>,
   <code data-x="rel-search">search</code>,
-  <code data-x="rel-stylesheet">stylesheet</code>, and
-  <code data-x="rel-next">next</code>.
+  <code data-x="rel-serviceworker">serviceworker</code>, and
+  <code data-x="rel-stylesheet">stylesheet</code>.
   <code data-x="attr-link-rel">rel</code>'s <span data-x="concept-supported-tokens">supported
   tokens</span> must only include the tokens from this list that the user agent implements the
   processing model for.</p>
@@ -219,7 +227,7 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <p>Once the attempts to obtain the resource and its <span>critical subresources</span> are
   complete, the user agent must, if the loads were successful, <span>queue a task</span> to
   <span data-x="concept-event-fire">fire an event</span> named <code data-x="event-load">load</code>
-  at the<code>link</code> element, or, if the resource or one of its <span>critical
+  at the <code>link</code> element, or, if the resource or one of its <span>critical
   subresources</span> failed to completely load for any reason (e.g. DNS error, HTTP 404 response, a
   connection being prematurely closed, unsupported Content-Type), <span>queue a task</span> to <span
   data-x="concept-event-fire">fire an event</span> named <code data-x="event-error">error</code> at
@@ -398,7 +406,49 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <p class="note">The <code data-x="">apple-touch-icon</code> keyword is a registered <span
   data-x="concept-rel-extensions">extension to the predefined set of link types</span>, but user
-  agents are not required to support it in any way.</p>.
+  agents are not required to support it in any way.</p>
+
+  <p>The <dfn><code data-x="attr-link-scope">scope</code></dfn> attribute specifies the <span>scope
+  url</span> for a <span>service worker registration</span>. If the attribute is present, the value
+  must be a <span>valid URL potentially surrounded by spaces</span>. The attribute must not be
+  specified on <code>link</code> elements that do not have a <code data-x="attr-link-rel">rel</code>
+  attribute that contains the <code data-x="rel-serviceworker">serviceworker</code> keyword.</p>
+
+  <p>The <dfn><code data-x="attr-link-workertype">workertype</code></dfn> attribute is an
+  <span>enumerated attribute</span> that specifies the <span>service worker type</span> for a
+  <span>service worker registration</span>. The attribute's keywords are <code
+  data-x="">classic</code> and <code data-x="">module</code>, which map to the respective states
+  <i>classic</i> and <i>module</i>. The <span>missing value default</span> is the <i>classic</i>
+  state. The attribute must not be specified on <code>link</code> elements that do not have a <code
+  data-x="attr-link-rel">rel</code> attribute that contains the <code
+  data-x="rel-serviceworker">serviceworker</code> keyword.</p>
+
+  <p>The <dfn><code data-x="attr-link-usecache">usecache</code></dfn> attribute is a <span>boolean
+  attribute</span> which sets <span>use cache</span> to true for a <span>service worker
+  registration</span>. The attribute must not be specified on <code>link</code> elements that do not
+  have a <code data-x="attr-link-rel">rel</code> attribute that contains the <code
+  data-x="rel-serviceworker">serviceworker</code> keyword.</p>
+
+  <p>The <dfn><code data-x="attr-link-color">color</code></dfn> attribute is used with the <code
+  data-x="">mask-icon</code> link type. The attribute must not be specified on <code>link</code>
+  elements that do not have a <code data-x="attr-link-rel">rel</code> attribute that contains the
+  <code data-x="">mask-icon</code> keyword.</p>
+
+  <p>The value must be a string that matches the CSS <span>&lt;color></span> production, defining
+  a suggested color that user agents can use to customize the display of the icon that the user
+  sees when they pin your site.</p>
+
+  <p class="note">This specification does not have any user agent requirements for the <code
+  data-x="attr-link-color">color</code> attribute.</p>
+
+  <p class="note">There is no reflecting IDL attribute for the <code
+  data-x="attr-link-color">color</code> attribute, but this might be added later.</p>
+
+  <p class="note">The <code data-x="">mask-icon</code> keyword is a registered <span
+  data-x="concept-rel-extensions">extension to the predefined set of link types</span>, but user
+  agents are not required to support it in any way.</p>
+
+  <hr>
 
   <div w-nodev>
 
@@ -429,8 +479,9 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <dfn><code data-x="dom-link-media">media</code></dfn>, <dfn><code
   data-x="dom-link-hreflang">hreflang</code></dfn>, <dfn><code
   data-x="dom-link-type">type</code></dfn>, <dfn><code data-x="dom-link-nonce">nonce</code></dfn>,
-  <dfn><code data-x="dom-link-integrity">integrity</code></dfn> and <dfn><code
-  data-x="dom-link-sizes">sizes</code></dfn> each must <span>reflect</span> the respective content
+  <dfn><code data-x="dom-link-integrity">integrity</code></dfn>, <dfn><code
+  data-x="dom-link-sizes">sizes</code></dfn>, and <dfn><code
+  data-x="dom-link-scope">scope</code></dfn> each must <span>reflect</span> the respective content
   attributes of the same name.</p>
 
   <p>The <dfn><code data-x="dom-link-crossOrigin">crossOrigin</code></dfn> IDL attribute must
@@ -443,6 +494,13 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <p>The IDL attribute <dfn><code data-x="dom-link-referrerPolicy">referrerPolicy</code></dfn> must
   <span>reflect</span> the <code data-x="attr-link-referrerpolicy">referrerpolicy</code>
   content attribute, <span>limited to only known values</span>.</p>
+
+  <p>The <dfn><code data-x="dom-link-workerType">workerType</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-link-workertype">workertype</code> content
+  attribute.</p>
+
+  <p>The <dfn><code data-x="dom-link-useCache">useCache</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-link-usecache">usecache</code> content attribute.</p>
 
   <p>Other specifications may add <a href="#linkTypes">HTML link types</a> as defined in <a
   href="#other-link-types">Other link types</a>, with the following additional requirements:</p>

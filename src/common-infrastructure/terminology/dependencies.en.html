@@ -12,9 +12,26 @@
     <p>The following terms are defined in the WHATWG Infra standard: <ref spec=INFRA></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://infra.spec.whatwg.org/#ascii-case-insensitive">ASCII case-insensitive</dfn></li>
-     <li><dfn data-x="converted to ASCII uppercase" data-x-href="https://infra.spec.whatwg.org/#ascii-uppercase">ASCII uppercase</dfn></li>
+     <li><dfn id="space-characters" data-x-href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</dfn></li>
+     <li><dfn data-x="ASCII digits" data-x-href="https://infra.spec.whatwg.org/#ascii-digit">ASCII digit</dfn></li>
+     <li><dfn id="uppercase-ascii-hex-digits" data-x-href="https://infra.spec.whatwg.org/#ascii-upper-hex-digit">ASCII upper hex digit</dfn></li>
+     <li><dfn id="lowercase-ascii-hex-digits" data-x-href="https://infra.spec.whatwg.org/#ascii-lower-hex-digit-lower">ASCII lower hex digit</dfn></li>
+     <li><dfn data-x="ASCII hex digits" data-x-href="https://infra.spec.whatwg.org/#ascii-hex-digit">ASCII hex digit</dfn></li>
+     <li><dfn id="uppercase-ascii-letters" data-x-href="https://infra.spec.whatwg.org/#ascii-upper-alpha">ASCII upper alpha</dfn></li>
+     <li><dfn id="lowercase-ascii-letters" data-x-href="https://infra.spec.whatwg.org/#ascii-lower-alpha">ASCII lower alpha</dfn></li>
+     <li><dfn id="ascii-letters" data-x-href="https://infra.spec.whatwg.org/#ascii-alpha">ASCII alpha</dfn></li>
+     <li><dfn id="alphanumeric-ascii-characters" data-x-href="https://infra.spec.whatwg.org/#ascii-alphanumeric">ASCII alphanumeric</dfn></li>
      <li><dfn data-x="converted to ASCII lowercase" data-x-href="https://infra.spec.whatwg.org/#ascii-lowercase">ASCII lowercase</dfn></li>
+     <li><dfn data-x="converted to ASCII uppercase" data-x-href="https://infra.spec.whatwg.org/#ascii-uppercase">ASCII uppercase</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#ascii-case-insensitive">ASCII case-insensitive</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#strip-newlines">strip newlines</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace">strip leading and trailing ASCII whitespace</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace">strip and collapse ASCII whitespace</dfn></li>
+     <li><dfn id="split-a-string-on-spaces" data-x-href="https://infra.spec.whatwg.org/#split-on-ascii-whitespace">split a string on ASCII whitespace</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#split-on-commas">split a string on commas</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#collect-a-sequence-of-code-points">collect a sequence of code points</dfn> and its associated
+             <dfn data-x-href="https://infra.spec.whatwg.org/#string-position-variable">position variable</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#skip-ascii-whitespace">skip ASCII whitespace</dfn></li>
      <li>The <dfn data-x-href="https://infra.spec.whatwg.org/#ordered-map">ordered map</dfn> data structure and the associated definitions for
              <dfn data-x="map exists" data-x-href="https://infra.spec.whatwg.org/#map-exists">exists</dfn>,
              <dfn data-x="map get" data-x-href="https://infra.spec.whatwg.org/#map-get">getting the value of an entry</dfn>, and
@@ -170,11 +187,8 @@
        <li><dfn data-x="concept-url-object" data-x-href="https://url.spec.whatwg.org/#concept-url-object">object</dfn></li>
       </ul>
      </li>
-     <li><dfn data-x-href="https://url.spec.whatwg.org/#syntax-url">URL string</dfn></li>
-     <li>A <dfn data-x-href="https://url.spec.whatwg.org/#local-scheme">local scheme</dfn></li>
-     <li>An <dfn data-x-href="https://url.spec.whatwg.org/#http-scheme">HTTP(S) scheme</dfn></li>
-     <li>A <dfn data-x-href="https://url.spec.whatwg.org/#network-scheme">network scheme</dfn></li>
-     <li>A <dfn data-x-href="https://url.spec.whatwg.org/#fetch-scheme">fetch scheme</dfn></li>
+     <li><dfn data-x-href="https://url.spec.whatwg.org/#valid-url-string">valid URL string</dfn></li>
+     <li>The <dfn data-x-href="https://url.spec.whatwg.org/#cannot-have-a-username-password-port">cannot have a username/password/port</dfn> concept</li>
      <li>The <dfn data-x="concept-url-serializer" data-x-href="https://url.spec.whatwg.org/#concept-url-serializer">URL serializer</dfn></li>
      <li>The <dfn data-x-href="https://url.spec.whatwg.org/#concept-host-parser">host parser</dfn></li>
      <li>The <dfn data-x="host serializer" data-x-href="https://url.spec.whatwg.org/#concept-host-serializer">host serializer</dfn></li>
@@ -261,6 +275,9 @@
 
     <ul class="brief">
      <li><dfn><code>about:blank</code></dfn></li>
+     <li>An <dfn data-x-href="https://fetch.spec.whatwg.org/#http-scheme">HTTP(S) scheme</dfn></li>
+     <li>A <dfn data-x-href="https://fetch.spec.whatwg.org/#network-scheme">network scheme</dfn></li>
+     <li>A <dfn data-x-href="https://fetch.spec.whatwg.org/#fetch-scheme">fetch scheme</dfn></li>
      <li><dfn data-x-href="https://fetch.spec.whatwg.org/#concept-https-state-value">HTTPS state value</dfn></li>
      <li><dfn data-x-href="https://fetch.spec.whatwg.org/#http-cors-protocol">CORS protocol</dfn></li>
      <li><dfn data-x="default-user-agent-value" data-x-href="https://fetch.spec.whatwg.org/#default-user-agent-value">default `<code>User-Agent</code>` value</dfn></li>
@@ -374,6 +391,7 @@
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-delete-an-existing-named-property">delete an existing named property</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-perform-a-security-check">perform a security check</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-platform-object">platform object</dfn></li>
+     <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-primary-interface">primary interface</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-interface-object">interface object</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-interface-prototype-object">interface prototype object</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#es-platform-objects">global environment associated with</dfn> a platform object</li>
@@ -428,6 +446,7 @@
      <li><dfn data-x-href="https://heycam.github.io/webidl/#aborterror">"<code>AbortError</code>"</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#quotaexceedederror">"<code>QuotaExceededError</code>"</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#datacloneerror">"<code>DataCloneError</code>"</dfn></li>
+     <li><dfn data-x-href="https://heycam.github.io/webidl/#encodingerror">"<code>EncodingError</code>"</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#notallowederror">"<code>NotAllowedError</code>"</dfn></li>
     </ul>
 
@@ -485,8 +504,7 @@
          <dfn>@@toStringTag</dfn></li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-well-known-intrinsic-objects">Well-Known Intrinsic Objects</dfn>, including
          <dfn data-x-href="https://tc39.github.io/ecma262/#sec-arraybuffer-constructor">%ArrayBuffer%</dfn>,
-         <dfn data-x-href="https://tc39.github.io/ecma262/#sec-properties-of-the-array-prototype-object">%ArrayPrototype%</dfn>,
-         <dfn data-x-href="https://tc39.github.io/ecma262/#sec-object.prototype.tostring">%ObjProto_toString%</dfn>, and
+         <dfn data-x-href="https://tc39.github.io/ecma262/#sec-properties-of-the-array-prototype-object">%ArrayPrototype%</dfn>, and
          <dfn data-x-href="https://tc39.github.io/ecma262/#sec-object.prototype.valueof">%ObjProto_valueOf%</dfn></li>
 
      <li>The <dfn data-x="js-prod-FunctionBody" data-x-href="https://tc39.github.io/ecma262/#prod-FunctionBody"><i>FunctionBody</i></dfn> production</li>
@@ -504,8 +522,9 @@
 
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-arraycreate">ArrayCreate</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-call">Call</dfn> abstract operation</li>
-     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-clonearraybuffer">CloneArrayBuffer</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-construct">Construct</dfn> abstract operation</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-copydatablockbytes">CopyDataBlockBytes</dfn> abstract operation</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-createbytedatablock">CreateByteDataBlock</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-createdataproperty">CreateDataProperty</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-detacharraybuffer">DetachArrayBuffer</dfn> abstract operation</li>
      <li>The <dfn data-x="js-EnqueueJob" data-x-href="https://tc39.github.io/ecma262/#sec-enqueuejob">EnqueueJob</dfn> abstract operation</li>
@@ -540,6 +559,7 @@
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-runjobs">RunJobs</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-samevalue">SameValue</dfn> abstract operation</li>
      <li>The <dfn data-x="js-ScriptEvaluation" data-x-href="https://tc39.github.io/ecma262/#sec-runtime-semantics-scriptevaluation">ScriptEvaluation</dfn> abstract operation</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-set-immutable-prototype">SetImmutablePrototype</dfn> abstract operation</li>
      <li>The <dfn data-x="js-ToBoolean" data-x-href="https://tc39.github.io/ecma262/#sec-toboolean">ToBoolean</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-tostring">ToString</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-touint32">ToUint32</dfn> abstract operation</li>
@@ -623,6 +643,7 @@
      <li>The <dfn data-x-href="https://dom.spec.whatwg.org/#in-a-document-tree">in a document tree</dfn>, <dfn data-x-href="https://dom.spec.whatwg.org/#in-a-document">in a document</dfn> (legacy), and <dfn data-x-href="https://dom.spec.whatwg.org/#connected">connected</dfn> concepts</li>
      <li>The <dfn data-x="concept-slot" data-x-href="https://dom.spec.whatwg.org/#concept-slot">slot</dfn> concept, and its <dfn data-x="slot-name" data-x-href="https://dom.spec.whatwg.org/#slot-name">name</dfn> and <dfn data-x-href="https://dom.spec.whatwg.org/#slot-assigned-nodes">assigned nodes</dfn></li>
      <li>The <dfn data-x="finding flattened slotables" data-x-href="https://dom.spec.whatwg.org/#find-flattened-slotables">find flattened slotables</dfn> algorithm</li>
+     <li>The <dfn data-x-href="https://dom.spec.whatwg.org/#assign-a-slot">assign a slot</dfn> algorithm</li>
      <li>The <dfn data-x-href="https://dom.spec.whatwg.org/#concept-node-pre-insert">pre-insert</dfn>, <dfn data-x="concept-node-insert" data-x-href="https://dom.spec.whatwg.org/#concept-node-insert">insert</dfn>, <dfn data-x="concept-node-append" data-x-href="https://dom.spec.whatwg.org/#concept-node-append">append</dfn>, <dfn data-x="concept-node-replace" data-x-href="https://dom.spec.whatwg.org/#concept-node-replace">replace</dfn>, <dfn data-x="concept-node-replace-all" data-x-href="https://dom.spec.whatwg.org/#concept-node-replace-all">replace all</dfn>, <dfn data-x="concept-node-remove" data-x-href="https://dom.spec.whatwg.org/#concept-node-remove">remove</dfn>, and <dfn data-x="concept-node-adopt" data-x-href="https://dom.spec.whatwg.org/#concept-node-adopt">adopt</dfn> algorithms for nodes</li>
      <li>The <dfn data-x="concept-element-attributes-change" data-x-href="https://dom.spec.whatwg.org/#concept-element-attributes-change">change</dfn>, <dfn data-x="concept-element-attributes-append" data-x-href="https://dom.spec.whatwg.org/#concept-element-attributes-append">append</dfn>, <dfn data-x="concept-element-attributes-remove" data-x-href="https://dom.spec.whatwg.org/#concept-element-attributes-remove">remove</dfn>, <dfn data-x="concept-element-attributes-replace" data-x-href="https://dom.spec.whatwg.org/#concept-element-attributes-replace">replace</dfn>, and <dfn data-x="concept-element-attributes-set-value" data-x-href="https://dom.spec.whatwg.org/#concept-element-attributes-set-value">set value</dfn> algorithms for attributes</li>
      <li>The <dfn data-x="concept-node-insert-ext" data-x-href="https://dom.spec.whatwg.org/#concept-node-insert-ext">insertion steps</dfn>,
@@ -637,6 +658,7 @@
      <li>The <dfn data-x-href="https://dom.spec.whatwg.org/#eventtarget-legacy-canceled-activation-behavior">legacy-canceled-activation behavior</dfn> hook</li>
      <li>The <dfn data-x="creating an event" data-x-href="https://dom.spec.whatwg.org/#concept-event-create">create an event</dfn> algorithm</li>
      <li>The <dfn data-x="concept-event-fire" data-x-href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event</dfn> algorithm</li>
+     <li>The <dfn data-x-href="https://dom.spec.whatwg.org/#canceled-flag">canceled flag</dfn></li>
      <li>The <dfn data-x="concept-event-dispatch" data-x-href="https://dom.spec.whatwg.org/#concept-event-dispatch">dispatch</dfn> algorithm</li>
      <li><dfn data-x-href="https://dom.spec.whatwg.org/#dictdef-eventinit"><code>EventInit</code></dfn> dictionary type</li>
      <li><dfn data-x="dom-Event-type" data-x-href="https://dom.spec.whatwg.org/#dom-event-type"><code>type</code></dfn> attribute</li>
@@ -647,6 +669,7 @@
      <li><dfn data-x="dom-Event-isTrusted" data-x-href="https://dom.spec.whatwg.org/#dom-event-istrusted"><code>isTrusted</code></dfn> attribute</li>
      <li><dfn data-x="dom-Event-initEvent" data-x-href="https://dom.spec.whatwg.org/#dom-event-initevent"><code>initEvent()</code></dfn> method</li>
      <li><dfn data-x="dom-EventTarget-addEventListener" data-x-href="https://dom.spec.whatwg.org/#dom-eventtarget-addeventlistener"><code>addEventListener()</code></dfn> method</li>
+     <li><dfn data-x="dom-EventListener" data-x-href="https://dom.spec.whatwg.org/#callbackdef-eventlistener"><code>EventListener</code></dfn> callback interface</li>
      <li>The <dfn data-x="concept-event-type" data-x-href="https://dom.spec.whatwg.org/#dom-event-type">type</dfn> of an event</li>
      <li>The concept of an <dfn data-x="concept-event-listener" data-x-href="https://dom.spec.whatwg.org/#concept-event-listener">event listener</dfn> and the <span data-x="concept-event-listener">event listeners</span> associated with an <code>EventTarget</code></li>
 
@@ -780,15 +803,26 @@
     spec=FILEAPI></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/FileAPI/#blob"><code>Blob</code></dfn> interface</li>
-     <li><dfn data-x-href="https://w3c.github.io/FileAPI/#file"><code>File</code></dfn> interface</li>
-     <li><dfn data-x-href="https://w3c.github.io/FileAPI/#filelist-section"><code>FileList</code></dfn> interface</li>
-     <li>The concept of a <dfn data-x-href="https://w3c.github.io/FileAPI/#closed" data-x="concept-blob-closed">closed</dfn> <code>Blob</code></li>
-     <li><dfn data-x="dom-Blob-type" data-x-href="https://w3c.github.io/FileAPI/#dfn-type"><code>Blob.type</code></dfn></li>
+     <li>The <dfn data-x-href="https://w3c.github.io/FileAPI/#blob"><code>Blob</code></dfn> interface and its
+             <dfn data-x="dom-Blob-type" data-x-href="https://w3c.github.io/FileAPI/#dfn-type"><code>type</code></dfn> attribute</li>
+     <li>The <dfn data-x-href="https://w3c.github.io/FileAPI/#file"><code>File</code></dfn> interface and its
+             <dfn data-x="dom-File-name" data-x-href="https://w3c.github.io/FileAPI/#dfn-name"><code>name</code></dfn> and
+             <dfn data-x="dom-File-lastModified" data-x-href="https://w3c.github.io/FileAPI/#dfn-lastModified"><code>lastModified</code></dfn> attributes</li>
+     <li>The <dfn data-x-href="https://w3c.github.io/FileAPI/#filelist-section"><code>FileList</code></dfn> interface</li>
+     <li>The concept of a <code>Blob</code>'s <dfn data-x-href="https://w3c.github.io/FileAPI/#snapshot-state">snapshot state</dfn></li>
      <li>The concept of <dfn data-x="file-error-read">read errors</dfn></li>
     </ul>
 
    </dd>
+
+
+
+   <dt>Indexed Database API</dt>
+
+   <dd><p>This specification uses <dfn
+   data-x-href="https://w3c.github.io/IndexedDB/#cleanup-indexed-database-transactions">cleanup
+   Indexed Database transactions</dfn> defined by the Indexed Database API specification. <ref
+   spec=INDEXEDDB></p>
 
 
 
@@ -1361,10 +1395,16 @@
      <li><dfn data-x="dfn-control" data-x-href="https://w3c.github.io/ServiceWorker/#dfn-control">control</dfn></li>
      <li><dfn data-x="on-fetch-request-algorithm" data-x-href="https://w3c.github.io/ServiceWorker/#on-fetch-request-algorithm">handle fetch</dfn></li>
      <li><dfn data-x="scope-match-algorithm" data-x-href="https://w3c.github.io/ServiceWorker/#scope-match-algorithm">match service worker registration</dfn></li>
+     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-scope-url">scope url</dfn></li>
+     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-script-url">script url</dfn></li>
      <li><dfn data-x="dfn-service-worker" data-x-href="https://w3c.github.io/ServiceWorker/#dfn-service-worker">service worker</dfn></li>
      <li><dfn data-x="serviceworkercontainer-service-worker-client" data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkercontainer-service-worker-client">service worker client</dfn></li>
+     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-service-worker-registration">service worker registration</dfn></li>
+     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-type">service worker type</dfn></li>
+     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-serviceworker-link">serviceworker link</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworker"><code>ServiceWorker</code></dfn> interface</li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkercontainer"><code>ServiceWorkerContainer</code></dfn> interface</li>
+     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-use-cache">use cache</dfn></li>
     </ul>
 
    </dd>

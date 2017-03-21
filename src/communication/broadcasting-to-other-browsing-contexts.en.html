@@ -91,8 +91,8 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
 
    <li><p>Let <var>targetRealm</var> be a user-agent defined Realm.</p></li>
 
-   <li><p>Let <var>clonedMessage</var> be <span>StructuredClone</span>(<var>message</var>,
-   <var>targetRealm</var>). Rethrow any exceptions.</p></li>
+   <li><p>Let <var>serialized</var> be <span>StructuredSerialize</span>(<var>message</var>). Rethrow
+   any exceptions.</p></li>
 
    <li>
     <p>Let <var>destinations</var> be a list of <code>BroadcastChannel</code> objects that
@@ -140,18 +140,20 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
     <var>destinations</var>, <span>queue a task</span> that runs the following steps:</p>
 
     <ol>
-     <li><p>Let <var>targetRealm</var> be <var>destination</var>'s <span>relevant settings
-     object</span>'s <span data-x="environment settings object's realm">Realm</span>.</p></li>
+     <li><p>Let <var>targetRealm</var> be <var>destination</var>'s <span
+     data-x="concept-relevant-realm">relevant Realm</span>.</p></li>
+
+     <li><p>Let <var>data</var> be <span>StructuredDeserialize</span>(<var>serialized</var>,
+     <var>targetRealm</var>).</p></li>
+     <!-- TODO: deal with exceptions: deliver "messageerror" or similar. See discussion in
+     https://github.com/whatwg/html/issues/936. -->
 
      <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
      data-x="event-message">message</code> at <var>destination</var>, using
      <code>MessageEvent</code>, with the <code data-x="dom-MessageEvent-data">data</code> attribute
-     initialized to <span>StructuredClone</span>(<var>clonedMessage</var>, <var>targetRealm</var>)
-     <!-- it's a clone of /clonedMessage/, not /message/, so that there's no risk of running scripts
-          again -->
-     and the <code data-x="dom-MessageEvent-origin">origin</code> attribute initialized to the <span
-     data-x="Unicode serialization of an origin">Unicode serialization</span> of
-     <var>sourceSettings</var>'s <span
+     initialized to <var>data</var> and the <code data-x="dom-MessageEvent-origin">origin</code>
+     attribute initialized to the <span data-x="Unicode serialization of an origin">Unicode
+     serialization</span> of <var>sourceSettings</var>'s <span
      data-x="concept-settings-object-origin">origin</span>.</p></li>
     </ol>
 

@@ -19,7 +19,7 @@
    <dd>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
-  [<span>CEReactions</span>, SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-output-htmlFor">htmlFor</span>;
+  [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-output-htmlFor">htmlFor</span>;
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-fae-form">form</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-fe-name">name</span>;
 
@@ -34,7 +34,7 @@ interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
   boolean <span data-x="dom-cva-reportValidity">reportValidity</span>();
   void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
 
-  [SameObject] readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
+  readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
 };</pre>
    </dd>
   </dl><!--TOPIC:HTML-->

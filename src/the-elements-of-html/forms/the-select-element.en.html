@@ -56,7 +56,7 @@ interface <dfn>HTMLSelectElement</dfn> : <span>HTMLElement</span> {
   boolean <span data-x="dom-cva-reportValidity">reportValidity</span>();
   void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
 
-  [SameObject] readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
+  readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
 };</pre>
    </dd>
   </dl><!--TOPIC:HTML-->
@@ -118,7 +118,7 @@ interface <dfn>HTMLSelectElement</dfn> : <span>HTMLElement</span> {
   <code>select</code> element must have a <span>placeholder label option</span>.</p>
 
   <p class="note">In practice, the requirement stated in the paragraph above can only apply when a
-  <code>select</code> element does not have a <code data-x="attr-link-sizes">sizes</code> attribute
+  <code>select</code> element does not have a <code data-x="attr-select-size">size</code> attribute
   with a value greater than 1.</p>
 
   <div w-nodev>

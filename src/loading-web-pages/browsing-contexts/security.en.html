@@ -38,11 +38,23 @@
    document</span>'s <span>active sandboxing flag set</span> has its <span>sandboxed navigation
    browsing context flag</span> set, then abort these steps negatively.</p></li>
 
-   <li><p>Otherwise, if <var>B</var> is a <span>top-level browsing context</span>, and is one of the
-   <span data-x="ancestor browsing context">ancestor browsing contexts</span> of <var>A</var>, and
-   <var>A</var>'s <span>active document</span>'s <span>active sandboxing flag set</span> has its
-   <span>sandboxed top-level navigation browsing context flag</span> set, then abort these steps
-   negatively.</p></li>
+   <li>
+    <p>Otherwise, if <var>B</var> is a <span>top-level browsing context</span>, and is one of the
+    <span data-x="ancestor browsing context">ancestor browsing contexts</span> of <var>A</var>,
+    then:</p>
+
+    <ol>
+     <li><p>If this algorithm is <span>triggered by user activation</span> and <var>A</var>'s
+     <span>active document</span>'s <span>active sandboxing flag set</span> has its <span>sandboxed
+     top-level navigation with user activation browsing context flag</span> set, then abort these
+     steps negatively.</p></li>
+
+     <li><p>Otherwise, If this algorithm is not <span>triggered by user activation</span> and
+     <var>A</var>'s <span>active document</span>'s <span>active sandboxing flag set</span> has its
+     <span>sandboxed top-level navigation without user activation browsing context flag</span> set,
+     then abort these steps negatively.</p></li>
+    </ol>
+   </li>
 
    <li><p>Otherwise, if <var>B</var> is a <span>top-level browsing context</span>, and is
    neither <var>A</var> nor one of the <span data-x="ancestor browsing context">ancestor

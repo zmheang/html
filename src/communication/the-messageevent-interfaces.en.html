@@ -13,7 +13,7 @@ interface <dfn>MessageEvent</dfn> : <span>Event</span> {
   readonly attribute <span>MessageEventSource</span>? <span data-x="dom-MessageEvent-source">source</span>;
   readonly attribute FrozenArray&lt;<span>MessagePort</span>&gt; <span data-x="dom-MessageEvent-ports">ports</span>;
 
-  void <span data-x="dom-MessageEvent-initMessageEvent">initMessageEvent</span>(DOMString type, boolean bubbles, boolean cancelable, any data, USVString origin, DOMString lastEventId, <span>MessageEventSource</span>? source, sequence&lt;<span>MessagePort</span>&gt; ports);
+  void <span data-x="dom-MessageEvent-initMessageEvent">initMessageEvent</span>(DOMString type, optional boolean bubbles = false, optional boolean cancelable = false, optional any data = null, optional USVString origin = "", optional DOMString lastEventId = "", optional <span>MessageEventSource</span>? source = null, optional sequence&lt;<span>MessagePort</span>&gt; ports = []);
 };
 
 dictionary <dfn>MessageEventInit</dfn> : <span>EventInit</span> {

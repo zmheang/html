@@ -1,0 +1,288 @@
+  <h4 id="structureddeserialize" data-export="" data-lt="StructuredDeserialize"
+  data-dfn-type="abstract-op"><dfn>StructuredDeserialize</dfn> ( <var>serialized</var>,
+  <var>targetRealm</var> [ , <var>memory</var> ] )</h4>
+
+  <p>The <span>StructuredDeserialize</span> abstract operation takes as input a <span>Record</span>
+  <var>serialized</var>, which was previously produced by <span>StructuredSerialize</span>, and
+  deserializes it into a new JavaScript value, created in <var>targetRealm</var>.</p>
+
+  <p>This process may throw an exception, for example when trying to allocate memory for the new
+  objects (especially <code data-x="">ArrayBuffer</code> objects).</p>
+
+  <ol>
+   <li>
+    <p>If <var>memory</var> was not supplied, let <var>memory</var> be an empty <span
+    data-x="ordered map">map</span>.</p>
+
+    <p class="note">The purpose of the <var>memory</var> map is to avoid deserializing objects
+    twice. This ends up preserving cycles and the identity of duplicate objects in graphs.</p>
+   </li>
+
+   <li><p>If <var>memory</var>[<var>serialized</var>] <span data-x="map exists">exists</span>, then
+   return <var>memory</var>[<var>serialized</var>].</p></li>
+
+   <li><p>Let <var>deep</var> be false.</p></li>
+
+   <li><p>Let <var>value</var> be an uninitialized value.</p></li>
+
+   <li>
+    <p>If <var>serialized</var> contains a [[TransferConsumed]] field, then:</p>
+
+    <ol>
+     <li><p>Assert: <var>serialized</var>.[[TransferConsumed]] is false. (It must be impossible to
+     get in a situation where <span>StructuredDeserialize</span> is being called multiple times on
+     the same serialization, if that serialization contains transfer data holders.)</p></li>
+
+     <li><p>Set <var>serialized</var>.[[TransferConsumed]] to true.</p></li>
+
+     <li>
+      <p>If <var>serialized</var>.[[Type]] is "ArrayBuffer", then set <var>value</var> to a new
+      ArrayBuffer object in <var>targetRealm</var> whose [[ArrayBufferData]] internal slot value is
+      <var>serialized</var>.[[ArrayBufferData]], and whose [[ArrayBufferByteLength]] internal slot
+      value is <var>serialized</var>.[[ArrayBufferByteLength]].</p>
+
+      <p class="note">In cases where the original memory occupied by [[ArrayBufferData]] is
+      accessible during the deserialization, this step is unlikely to throw an exception, as no new
+      memory needs to be allocated: the memory occupied by [[ArrayBufferData]] is instead just
+      getting transferred into the new ArrayBuffer. This could be true, for example, when both the
+      source and target Realms are in the same process.</p>
+     </li>
+
+     <li>
+      <p>Otherwise:</p>
+
+      <ol>
+       <li><p>Let <var>interfaceName</var> be <var>serialized</var>.[[Type]].</p></li>
+
+       <li><p>If the interface identified by <var>interfaceName</var> is not exposed in
+       <var>targetRealm</var>, then throw a <span>"<code>DataCloneError</code>"</span>
+       <code>DOMException</code>.</p></li>
+
+       <li><p>Set <var>value</var> to a new instance of the interface identified by
+       <var>interfaceName</var>, created in <var>targetRealm</var>.</p></li>
+
+       <li><p>Perform the appropriate <span>transfer-receiving steps</span> for the interface
+       identified by <var>interfaceName</var> given <var>serialized</var> and
+       <var>value</var>.</p></li>
+      </ol>
+     </li>
+    </ol>
+   </li>
+
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "primitive", then set <var>value</var> to
+   <var>serialized</var>.[[Value]].</p>
+
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "Boolean", then set <var>value</var> to a new Boolean object in
+   <var>targetRealm</var> whose [[BooleanData]] internal slot value is
+   <var>serialized</var>.[[BooleanData]].</p></li>
+
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "Number", then set <var>value</var> to a new Number object in
+   <var>targetRealm</var> whose [[NumberData]] internal slot value is
+   <var>serialized</var>.[[NumberData]].</p></li>
+
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "String", then set <var>value</var> to a new String object in
+   <var>targetRealm</var> whose [[StringData]] internal slot value is
+   <var>serialized</var>.[[StringData]].</p></li>
+
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "Date", then set <var>value</var> to a new Date object in
+   <var>targetRealm</var> whose [[DateValue]] internal slot value is
+   <var>serialized</var>.[[DateValue]].</p></li>
+
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "RegExp", then set <var>value</var> to a new RegExp object in
+   <var>targetRealm</var> whose [[RegExpMatcher]] internal slot value is
+   <var>serialized</var>.[[RegExpMatcher]], whose [[OriginalSource]] internal slot value is
+   <var>serialized</var>.[[OriginalSource]], and whose [[OriginalFlags]] internal slot value is
+   <var>serialized</var>.[[OriginalFlags]].</p></li>
+
+   <li>
+    <p>Otherwise, if <var>serialized</var>.[[Type]] is "ArrayBuffer", then set <var>value</var> to a new ArrayBuffer
+    object in <var>targetRealm</var> whose [[ArrayBufferData]] internal slot value is
+    <var>serialized</var>.[[ArrayBufferData]], and whose [[ArrayBufferByteLength]] internal slot
+    value is <var>serialized</var>.[[ArrayBufferByteLength]].</p>
+
+    <p class="note">This step might throw an exception if there is not enough memory available to
+    create such an ArrayBuffer object.</p>
+   </li>
+
+   <li>
+    <p>Otherwise, if <var>serialized</var>.[[Type]] is "ArrayBufferView", then:</p>
+
+    <ol>
+     <li><p>Let <var>deserializedArrayBuffer</var> be ?
+     <span>StructuredDeserialize</span>(<var>input</var>.[[ArrayBufferSerialized]],
+     <var>targetRealm</var>, <var>memory</var>).</p></li>
+
+     <li><p>If <var>input</var>.[[Constructor]] is "DataView", then set <var>value</var> to a new DataView object in
+     <var>targetRealm</var> whose [[ViewedArrayBuffer]] internal slot value is
+     <var>deserializedArrayBuffer</var>, whose [[ByteLength]] internal slot value is
+     <var>serialized</var>.[[ByteLength]], and whose [[ByteOffset]] internal slot value is
+     <var>serialized</var>.[[ByteOffset]].</p></li>
+
+     <li><p>Otherwise, set <var>value</var> to a new typed array object, using the constructor given by
+     <var>input</var>.[[Constructor]], whose [[ViewedArrayBuffer]] internal slot value is
+     <var>deserializedArrayBuffer</var>, whose [[TypedArrayName]] internal slot value is
+     <var>input</var>.[[Constructor]], whose [[ByteLength]] internal slot value is
+     <var>serialized</var>.[[ByteLength]], whose [[ByteOffset]] internal slot value is
+     <var>serialized</var>.[[ByteOffset]], and whose [[ArrayLength]] internal slot value is
+     <var>serialized</var>.[[ArrayLength]].</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>Otherwise, if <var>serialized</var>.[[Type]] is "Map", then:</p>
+
+    <ol>
+     <li><p>Set <var>value</var> to a new Map object in <var>targetRealm</var> whose [[MapData]]
+     internal slot value is a new empty <span data-x="js-List">List</span>.</p></li>
+
+     <li><p>Set <var>deep</var> to true.</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>Otherwise, if <var>serialized</var>.[[Type]] is "Set", then:</p>
+
+    <ol>
+     <li><p>Set <var>value</var> to a new Set object in <var>targetRealm</var> whose [[SetData]]
+     internal slot value is a new empty <span data-x="js-List">List</span>.</p></li>
+
+     <li><p>Set <var>deep</var> to true.</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>Otherwise, if <var>serialized</var>.[[Type]] is "Array", then:</p>
+
+    <ol>
+     <li><p>Let <var>outputProto</var> be the <span>%ArrayPrototype%</span> intrinsic object in
+     <var>targetRealm</var>.</p></li>
+
+     <li><p>Set <var>value</var> to ! <span>ArrayCreate</span>(<var>serialized</var>.[[Length]],
+     <var>outputProto</var>).</p></li>
+
+     <li><p>Set <var>deep</var> to true.</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>Otherwise, if <var>serialized</var>.[[Type]] is "Object", then:</p>
+
+    <ol>
+     <li><p>Set <var>value</var> to a new Object in <var>targetRealm</var>.</p></li>
+
+     <li><p>Set <var>deep</var> to true.</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>Otherwise:</p>
+
+    <ol>
+     <li><p>Let <var>interfaceName</var> be <var>serialized</var>.[[Type]].</p></li>
+
+     <li><p>If the interface identified by <var>interfaceName</var> is not exposed in
+     <var>targetRealm</var>, then throw a <span>"<code>DataCloneError</code>"</span>
+     <code>DOMException</code>.</p></li>
+
+     <li><p>Set <var>value</var> to a new instance of the interface identified by
+     <var>interfaceName</var>, created in <var>targetRealm</var>.</p>
+
+     <li><p>Set <var>deep</var> to true.</p></li>
+    </ol>
+   </li>
+
+   <li><p><span data-x="map set">Set</span> <var>memory</var>[<var>serialized</var>] to
+   <var>value</var>.</p></li>
+
+   <li>
+    <p>If <var>deep</var> is true, then:</p>
+
+    <ol>
+     <li>
+      <p>If <var>serialized</var>.[[Type]] is "Map", then:</p>
+
+      <ol>
+       <li>
+        <p><span data-x="list iterate">For each</span> <span>Record</span> { [[Key]], [[Value]] }
+        <var>entry</var> of <var>serialized</var>.[[MapData]]:</p>
+
+        <ol>
+         <li><p>Let <var>deserializedKey</var> be ?
+         <span>StructuredDeserialize</span>(<var>entry</var>.[[Key]], <var>targetRealm</var>,
+         <var>memory</var>).</p></li>
+
+         <li><p>Let <var>deserializedValue</var> be ?
+         <span>StructuredDeserialize</span>(<var>entry</var>.[[Value]], <var>targetRealm</var>,
+         <var>memory</var>).</p></li>
+
+         <li><p><span data-x="list append">Append</span> { [[Key]]: <var>deserializedKey</var>,
+         [[Value]]: <var>deserializedValue</var> } to <var>value</var>.[[MapData]].</p></li>
+        </ol>
+       </li>
+      </ol>
+     </li>
+
+     <li>
+      <p>Otherwise, if <var>serialized</var>.[[Type]] is "Set", then:</p>
+
+      <ol>
+       <li>
+        <p><span data-x="list iterate">For each</span> <var>entry</var> of
+        <var>serialized</var>.[[SetData]]:</p>
+
+        <ol>
+         <li><p>Let <var>deserializedEntry</var> be ?
+         <span>StructuredDeserialize</span>(<var>entry</var>, <var>targetRealm</var>,
+         <var>memory</var>).</p></li>
+
+         <li><p><span data-x="list append">Append</span> <var>deserializedEntry</var> to
+         <var>value</var>.[[SetData]].</p></li>
+        </ol>
+       </li>
+      </ol>
+     </li>
+
+     <li>
+      <p>Otherwise, if <var>serialized</var>.[[Type]] is "Array" or "Object", then:</p>
+
+      <ol>
+       <li>
+        <p><span data-x="list iterate">For each</span> <span>Record</span> { [[Key]], [[Value]] }
+        <var>entry</var> of <var>serialized</var>.[[Properties]]:</p>
+
+        <ol>
+         <li><p>Let <var>deserializedValue</var> be ?
+         <span>StructuredDeserialize</span>(<var>entry</var>.[[Value]], <var>targetRealm</var>,
+         <var>memory</var>).</p></li>
+
+         <li><p>Let <var>result</var> be ! <span>CreateDataProperty</span>(<var>value</var>,
+         <var>entry</var>.[[Key]], <var>deserializedValue</var>).</p></li>
+
+         <li><p>Assert: <var>result</var> is true.</p></li>
+        </ol>
+       </li>
+      </ol>
+     </li>
+
+     <li>
+      <p>Otherwise:</p>
+
+      <ol>
+       <li>
+        <p>Perform the appropriate <span>deserialization steps</span> for the interface identified
+        by <var>serialized</var>.[[Type]], given <var>serialized</var> and <var>value</var>.</p>
+
+        <p>The <span>deserialization steps</span> may need to perform a <dfn
+        data-export="">sub-deserialization</dfn>. This is an operation which takes as input a
+        previously-serialized <span>Record</span> <var>subSerialized</var>, and returns
+        <span>StructuredDeserialize</span>(<var>subSerialized</var>, <var>targetRealm</var>,
+        <var>memory</var>). (In other words, a <span>sub-deserialization</span> is a specialization
+        of <span>StructuredDeserialize</span> to be consistent within this invocation.)</p>
+       </li>
+      </ol>
+    </ol>
+   </li>
+
+   <li><p>Return <var>value</var>.</p></li>
+  </ol>
+

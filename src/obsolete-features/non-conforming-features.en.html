@@ -139,11 +139,7 @@
    unnecessary. Omit it altogether.</p></dd>
 
    <dt><dfn><code data-x="attr-head-profile">profile</code></dfn> on <code>head</code> elements</dt>
-   <dd><p>When used for declaring which <code>meta</code> terms are
-   used in the document, unnecessary; omit it altogether, and <span
-   data-x="concept-meta-extensions">register the names</span>.</p></dd>
-   <dd><p>When used for triggering specific user agent behaviors: use
-   a <code>link</code> element instead.</p></dd>
+   <dd><p>Unnecessary. Omit it altogether.</p></dd>
 
    <dt><dfn><code data-x="attr-html-version">version</code></dfn> on <code>html</code> elements</dt>
    <dd><p>Unnecessary. Omit it altogether.</p></dd>
@@ -223,6 +219,10 @@
    <dt><dfn><code data-x="attr-datafld">datafld</code></dfn> on <code>a</code>, <code>applet</code>, <code>button</code>, <code>div</code>, <code>fieldset</code>, <code>frame</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>param</code>, <code>select</code>, <code>span</code>, and <code>textarea</code> elements</dt>
    <dt><dfn><code data-x="attr-dataformatas">dataformatas</code></dfn> on <code>button</code>, <code>div</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>option</code>, <code>select</code>, <code>span</code>, and <code>table</code> elements</dt>
    <dd><p>Use script and a mechanism such as <code>XMLHttpRequest</code> to populate the page dynamically. <ref spec=XHR></p></dd>
+
+   <dt><dfn><code data-x="attr-dropzone">dropzone</code></dfn> on all elements</dt>
+   <dd><p>Use script to handle the <code data-x="event-dnd-dragenter">dragenter</code> and <code
+   data-x="event-dnd-dragover">dragover</code> events instead.</p></dd>
 
    <dt><dfn><code data-x="attr-body-alink">alink</code></dfn> on <code>body</code> elements</dt>
    <dt><dfn><code data-x="attr-body-bgcolor">bgcolor</code></dfn> on <code>body</code> elements</dt>

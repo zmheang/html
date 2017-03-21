@@ -1,0 +1,13 @@
+  <h4 id="structuredclonewithtransfer" data-export="" data-lt="StructuredCloneWithTransfer"
+  data-dfn-type="abstract-op"><dfn>StructuredCloneWithTransfer</dfn> ( <var>value</var>,
+  <var>transferList</var>, <var>targetRealm</var> )</h4>
+
+  <ol>
+   <li><p>Let <var>serializeWithTransferResult</var> be ?
+   <span>StructuredSerializeWithTransfer</span>(<var>value</var>, <var>transferList</var>).</p></li>
+
+   <li><p>Return ?
+   <span>StructuredDeserializeWithTransfer</span>(<var>serializeWithTransferResult</var>,
+   <var>targetRealm</var>).</p></li>
+  </ol>
+

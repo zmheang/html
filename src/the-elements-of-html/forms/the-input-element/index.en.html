@@ -100,7 +100,7 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   boolean <span data-x="dom-cva-reportValidity">reportValidity</span>();
   void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
 
-  [SameObject] readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
+  readonly attribute <span>NodeList</span>? <span data-x="dom-lfe-labels">labels</span>;
 
   void <span data-x="dom-textarea/input-select">select</span>();
   attribute unsigned long? <span data-x="dom-textarea/input-selectionStart">selectionStart</span>;
@@ -1370,23 +1370,22 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   <code data-x="dom-input-valueAsNumber">valueAsNumber</code>, and <code
   data-x="dom-input-stepUp">stepUp()</code>.</p>
 
-  <p>Each <code>input</code> element has a boolean <dfn data-x="concept-input-value-dirty-flag">dirty
-  value flag</dfn>. The <span data-x="concept-input-value-dirty-flag">dirty value flag</span> must be
-  initially set to false when the element is created, and must be set to true whenever the user
-  interacts with the control in a way that changes the <span data-x="concept-fe-value">value</span>.
-  (It is also set to true when the value is programmatically changed, as described in the definition
-  of the <code data-x="dom-input-value">value</code> IDL attribute.)</p>
+  <p>An <code>input</code> element's <span data-x="concept-fe-dirty">dirty value flag</span> must be
+  set to true whenever the user interacts with the control in a way that changes the <span
+  data-x="concept-fe-value">value</span>. (It is also set to true when the value is programmatically
+  changed, as described in the definition of the <code data-x="dom-input-value">value</code> IDL
+  attribute.)</p>
 
   </div>
 
   <p>The <dfn><code data-x="attr-input-value">value</code></dfn> content attribute gives the default
   <span data-x="concept-fe-value">value</span> of the <code>input</code> element. <span
   w-nodev>When the <code data-x="attr-input-value">value</code> content attribute is added, set,
-  or removed, if the control's <span data-x="concept-input-value-dirty-flag">dirty value flag</span>
-  is false, the user agent must set the <span data-x="concept-fe-value">value</span> of the element
-  to the value of the <code data-x="attr-input-value">value</code> content attribute, if there is
-  one, or the empty string otherwise, and then run the current <span>value sanitization
-  algorithm</span>, if one is defined.</span></p>
+  or removed, if the control's <span data-x="concept-fe-dirty">dirty value flag</span> is false, the
+  user agent must set the <span data-x="concept-fe-value">value</span> of the element to the value
+  of the <code data-x="attr-input-value">value</code> content attribute, if there is one, or the
+  empty string otherwise, and then run the current <span>value sanitization algorithm</span>, if one
+  is defined.</span></p>
 
   <div w-nodev>
 
@@ -1416,9 +1415,9 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   <div w-nodev>
 
   <p>The <span data-x="concept-form-reset-control">reset algorithm</span> for <code>input</code>
-  elements is to set the <span data-x="concept-input-value-dirty-flag">dirty value flag</span> and
-  <span data-x="concept-input-checked-dirty-flag">dirty checkedness flag</span> back to false, set
-  the <span data-x="concept-fe-value">value</span> of the element to the value of the <code
+  elements is to set the <span data-x="concept-fe-dirty">dirty value flag</span> and <span
+  data-x="concept-input-checked-dirty-flag">dirty checkedness flag</span> back to false, set the
+  <span data-x="concept-fe-value">value</span> of the element to the value of the <code
   data-x="attr-input-value">value</code> content attribute, if there is one, or the empty string
   otherwise, set the <span data-x="concept-fe-checked">checkedness</span> of the element to true if
   the element has a <code data-x="attr-input-checked">checked</code> content attribute and false if
@@ -1443,7 +1442,7 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <span data-x="concept-node-clone-ext">cloning steps</span> for <code>input</code> elements
   must propagate the <span data-x="concept-fe-value">value</span>, <span
-  data-x="concept-input-value-dirty-flag">dirty value flag</span>, <span
+  data-x="concept-fe-dirty">dirty value flag</span>, <span
   data-x="concept-fe-checked">checkedness</span>, and <span
   data-x="concept-input-checked-dirty-flag">dirty checkedness flag</span> from the node being cloned
   to the copy.</p>
@@ -1544,8 +1543,8 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
    data-x="dom-input-value-value">value</i> mode, then set the <span
    data-x="concept-fe-value">value</span> of the element to the value of the <code
    data-x="attr-input-value">value</code> content attribute, if there is one, or the empty string
-   otherwise, and then set the control's <span data-x="concept-input-value-dirty-flag">dirty value
-   flag</span> to false.</p></li>
+   otherwise, and then set the control's <span data-x="concept-fe-dirty">dirty value flag</span> to
+   false.</p></li>
 
    <!-- This step is present for the sake of clarity and safety so that the previous internal value
    can't be accidentally referenced while we're in the type=file state. This step's effect isn't

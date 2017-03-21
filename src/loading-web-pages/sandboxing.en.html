@@ -14,7 +14,8 @@
     <span data-x="auxiliary browsing context">auxiliary browsing contexts</span> (which are protected
     by the <span>sandboxed auxiliary navigation browsing context flag</span> defined next), and the
     <span>top-level browsing context</span> (which is protected by the <span>sandboxed top-level
-    navigation browsing context flag</span> defined below).</p>
+    navigation without user activation browsing context flag</span> and <span>sandboxed top-level
+    navigation with user activation browsing context flag</span> defined below).</p>
 
     <p>If the <span>sandboxed auxiliary navigation browsing context flag</span> is not set, then in
     certain cases the restrictions nonetheless allow popups (new <span data-x="top-level browsing
@@ -38,19 +39,39 @@
    </dd>
 
 
-   <dt>The <dfn data-export="">sandboxed top-level navigation browsing context flag</dfn></dt>
+   <dt>The <dfn data-export="">sandboxed top-level navigation without user activation browsing
+   context flag</dfn></dt>
 
    <dd>
 
     <p>This flag <a href="#sandboxLinks">prevents content from navigating their <span>top-level
     browsing context</span></a> and <a href="#sandboxClose">prevents content from closing their
-    <span>top-level browsing context</span></a>.</p>
+    <span>top-level browsing context</span></a>. It is consulted only from algorithms that are
+    <em>not</em> <span>triggered by user activation</span>.</p>
 
-    <p>When the <span>sandboxed top-level navigation browsing context flag</span> is <em>not</em>
-    set, content can navigate its <span>top-level browsing context</span>, but other <span
-    data-x="browsing context">browsing contexts</span> are still protected by the <span>sandboxed
-    navigation browsing context flag</span> and possibly the <span>sandboxed auxiliary navigation
-    browsing context flag</span>.</p>
+    <p>When the <span>sandboxed top-level navigation without user activation browsing context
+    flag</span> is <em>not</em> set, content can navigate its <span>top-level browsing
+    context</span>, but other <span data-x="browsing context">browsing contexts</span> are still
+    protected by the <span>sandboxed navigation browsing context flag</span> and possibly
+    the <span>sandboxed auxiliary navigation browsing context flag</span>.</p>
+
+   </dd>
+
+
+   <dt>The <dfn data-export="">sandboxed top-level navigation with user activation browsing context
+   flag</dfn></dt>
+
+   <dd>
+
+    <p>This flag <a href="#sandboxLinks">prevents content from navigating their <span>top-level
+    browsing context</span></a> and <a href="#sandboxClose">prevents content from closing their
+    <span>top-level browsing context</span></a>. It is consulted only from algorithms that
+    <em>are</em> <span>triggered by user activation</span>.</p>
+
+    <p>As with the <span>sandboxed top-level navigation without user activation browsing context
+    flag</span>, this flag only affects the <span>top-level browsing context</span>; if it is not
+    set, other <span data-x="browsing context">browsing contexts</span> might still be protected by
+    other flags.</p>
 
    </dd>
 
@@ -195,8 +216,8 @@
 
   <ol>
 
-   <li><p><span data-x="split a string on spaces">Split <var>input</var> on spaces</span>,
-   to obtain <var>tokens</var>.</p></li>
+   <li><p><span data-x="split a string on ASCII whitespace">Split <var>input</var> on ASCII
+   whitespace</span>, to obtain <var>tokens</var>.</p></li>
 
    <li><p>Let <var>output</var> be empty.</p></li>
 
@@ -210,8 +231,21 @@
 
      <li><p>The <span>sandboxed auxiliary navigation browsing context flag</span>, unless <var>tokens</var> contains the <dfn><code data-x="attr-iframe-sandbox-allow-popups">allow-popups</code></dfn> keyword.</p></li>
 
-     <li><p>The <span>sandboxed top-level navigation browsing context flag</span>, unless <var>tokens</var> contains the <dfn><code data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code></dfn>
-     keyword.</p></li>
+     <li><p>The <span>sandboxed top-level navigation without user activation browsing context flag</span>, unless
+     <var>tokens</var> contains the <dfn><code
+     data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code></dfn> keyword.</p></li>
+
+     <li>
+      <p>The <span>sandboxed top-level navigation with user activation browsing context flag</span>, unless
+      <var>tokens</var> contains either the <dfn><code
+      data-x="attr-iframe-sandbox-allow-top-navigation-by-user-activation">allow-top-navigation-by-user-activation</code></dfn>
+      keyword or the <code data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code> keyword.</p>
+
+      <p class="note">This means that if the <code
+      data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code> is present, the <code
+      data-x="attr-iframe-sandbox-allow-top-navigation-by-user-activation">allow-top-navigation-by-user-activation</code>
+      keyword will have no effect. For this reason, specifying both is a document conformance error.</p>
+     </li>
 
      <li><p>The <span>sandboxed plugins browsing context flag</span>.</p></li>
 

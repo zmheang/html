@@ -34,9 +34,9 @@
     buffer">temporary buffer</var> when it's consumed.</p>
 
     <p>If no match can be made and the <var data-x="temporary buffer">temporary buffer</var>
-    consists of a U+0026 AMPERSAND character (&amp;) followed by a sequence of one or more
-    <span>alphanumeric ASCII characters</span> and a U+003B SEMICOLON character (;), then this is a
-    <span>parse error</span>.</p>
+    consists of a U+0026 AMPERSAND character (&amp;) followed by a sequence of one or more <span
+    data-x="ASCII alphanumeric">ASCII alphanumerics</span> and a U+003B SEMICOLON character (;),
+    then this is a <span>parse error</span>.</p>
 
     <p>If no match can be made, switch to the <span>character reference end state</span>.</p>
 
@@ -44,10 +44,10 @@
     state">return state</var> is either <span>attribute value (double-quoted) state</span>,
     <span>attribute value (single-quoted) state</span> or <span>attribute value (unquoted)
     state</span>), and the last character matched is not a U+003B SEMICOLON character (;), and the
-    <span>next input character</span> is either a U+003D EQUALS SIGN character (=) or an
-    <span data-x="alphanumeric ASCII characters">alphanumeric ASCII character</span>, then, for
-    historical reasons, switch to the <span>character reference end state</span>. <!-- "=" added
-    because of https://www.w3.org/Bugs/Public/show_bug.cgi?id=9207#c5 -->
+    <span>next input character</span> is either a U+003D EQUALS SIGN character (=) or an <span>ASCII
+    alphanumeric</span>, then, for historical reasons, switch to the <span>character reference end
+    state</span>.
+    <!-- "=" added because of https://www.w3.org/Bugs/Public/show_bug.cgi?id=9207#c5 -->
 
     <p>If the last character matched is not a U+003B SEMICOLON character (;), this is a <span>parse
     error</span>.</p>

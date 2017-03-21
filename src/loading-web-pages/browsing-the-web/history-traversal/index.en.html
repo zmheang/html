@@ -164,9 +164,12 @@
 
    <li><p>Let <var>targetRealm</var> be the <span>current Realm Record</span>.</p></li>
 
-   <li><p>If <var>entry</var> has a <span>state object</span>, then let <var>state</var> be
-   <span>StructuredClone</span>(<var>entry</var>'s <span>state object</span>,
-   <var>targetRealm</var>). Otherwise, let <var>state</var> be null.</p></li>
+   <li><p>If <var>entry</var> has <span>serialized state</span>, then let <var>state</var> be
+   <span>StructuredDeserialize</span>(<var>entry</var>'s <span>serialized state</span>,
+   <var>targetRealm</var>). If this throws an exception, ignore the exception and let
+   <var>state</var>be null.</p></li>
+
+   <li><p>Otherwise, let <var>state</var> be null.</p></li>
 
    <li><p>Set <code data-x="dom-history-state">history.state</code> to <var>state</var>.</p></li>
 

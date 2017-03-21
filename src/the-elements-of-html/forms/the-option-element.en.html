@@ -210,11 +210,11 @@ interface <dfn>HTMLOptionElement</dfn> : <span>HTMLElement</span> {
   element's <span data-x="concept-option-index">index</span>.</p>
 
   <p>The <dfn><code data-x="dom-option-text">text</code></dfn> IDL attribute, on getting, must
-  return the result of <span data-x="strip and collapse whitespace">stripping and collapsing
-  whitespace</span> from the concatenation of <span data-x="concept-cd-data">data</span> of all the
-  <code>Text</code> node descendants of the <code>option</code> element, in <span>tree order</span>,
-  excluding any that are descendants of descendants of the <code>option</code> element that are
-  themselves <code>script</code> or <span>SVG <code>script</code></span> elements.</p>
+  return the result of <span data-x="strip and collapse ASCII whitespace">stripping and collapsing
+  ASCII whitespace</span> from the concatenation of <span data-x="concept-cd-data">data</span> of
+  all the <code>Text</code> node descendants of the <code>option</code> element, in <span>tree
+  order</span>, excluding any that are descendants of descendants of the <code>option</code> element
+  that are themselves <code>script</code> or <span>SVG <code>script</code></span> elements.</p>
 
   <p>On setting, the <code data-x="dom-option-text">text</code> attribute must act as if the
   <code>textContent</code> IDL attribute on the element had been set to the new value.</p>

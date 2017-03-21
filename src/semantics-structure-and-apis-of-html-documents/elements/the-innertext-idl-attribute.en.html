@@ -133,18 +133,18 @@
 
    <li><p>Let <var>input</var> be the given value.</p></li>
 
-   <li><p>Let <var>pointer</var> be a pointer into <var>input</var>, initially pointing at the start
+   <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially pointing at the start
    of the string.</p></li>
 
    <li><p>Let <var>text</var> be the empty string.</p></li>
 
    <li>
-    <p>While <var>pointer</var> is not past the end of <var>input</var>:</p>
+    <p>While <var>position</var> is not past the end of <var>input</var>:</p>
 
     <ol>
-     <li><p><span>Collect a sequence of characters</span> that are not U+000A LINE FEED (LF) or
-     U+000D CARRIAGE RETURN (CR) characters. Set <var>text</var> to the collected
-     characters.</p></li>
+     <li><p><span>Collect a sequence of code points</span> that are not U+000A LINE FEED (LF) or
+     U+000D CARRIAGE RETURN (CR) characters from <var>input</var> given <var>position</var>. Set
+     <var>text</var> to the collected characters.</p></li>
 
      <li><p>If <var>text</var> is not the empty string, then <span
      data-x="concept-node-append">append</span> a new <code>Text</code> node whose <span
@@ -152,7 +152,7 @@
      <var>document</var> to <var>fragment</var>.</p></li>
 
      <li>
-      <p>While <var>pointer</var> is not past the end of <var>input</var>, and the character at
+      <p>While <var>position</var> is not past the end of <var>input</var>, and the character at
       <var>position</var> is either a U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR)
       character:</p>
 

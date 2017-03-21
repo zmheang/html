@@ -78,9 +78,10 @@
 
   <ol>
 
-   <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>. If the
-   collected sequence is not exactly two characters long, then fail. Otherwise, interpret the
-   resulting sequence as a base-ten integer. Let that number be the <var>hour</var>.</p></li>
+   <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+   <var>input</var> given <var>position</var>. If the collected sequence is not exactly two
+   characters long, then fail. Otherwise, interpret the resulting sequence as a base-ten integer.
+   Let that number be the <var>hour</var>.</p></li>
 
    <li>If <var>hour</var> is not a number in the range 0&nbsp;&le;&nbsp;<var>hour</var>&nbsp;&le;&nbsp;23, then fail.</li>
 
@@ -88,9 +89,10 @@
    character at <var>position</var> is not a U+003A COLON character, then fail. Otherwise,
    move <var>position</var> forwards one character.</p></li>
 
-   <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>. If the
-   collected sequence is not exactly two characters long, then fail. Otherwise, interpret the
-   resulting sequence as a base-ten integer. Let that number be the <var>minute</var>.</p></li>
+   <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+   <var>input</var> given <var>position</var>. If the collected sequence is not exactly two
+   characters long, then fail. Otherwise, interpret the resulting sequence as a base-ten integer.
+   Let that number be the <var>minute</var>.</p></li>
 
    <li>If <var>minute</var> is not a number in the range 0&nbsp;&le;&nbsp;<var>minute</var>&nbsp;&le;&nbsp;59, then fail.</li>
 
@@ -109,12 +111,12 @@
      the last character in <var>input</var>, or if the next <em>two</em> characters in <var>input</var> starting at <var>position</var> are not both <span>ASCII
      digits</span>, then fail.</p></li>
 
-     <li><p><span>Collect a sequence of characters</span> that are either <span>ASCII digits</span>
-     or U+002E FULL STOP characters. If the collected sequence is three characters long, or if it is
-     longer than three characters long and the third character is not a U+002E FULL STOP character,
-     or if it has more than one U+002E FULL STOP character, then fail. Otherwise, interpret the
-     resulting sequence as a base-ten number (possibly with a fractional part). Set
-     <var>second</var> to that number.</p></li>
+     <li><p><span>Collect a sequence of code points</span> that are either <span>ASCII digits</span>
+     or U+002E FULL STOP characters from <var>input</var> given <var>position</var>. If the
+     collected sequence is three characters long, or if it is longer than three characters long and
+     the third character is not a U+002E FULL STOP character, or if it has more than one U+002E FULL
+     STOP character, then fail. Otherwise, interpret the resulting sequence as a base-ten number
+     (possibly with a fractional part). Set <var>second</var> to that number.</p></li>
 
      <li><p>If <var>second</var> is not a number in the range
      0&nbsp;&le;&nbsp;<var>second</var>&nbsp;&lt;&nbsp;60, then fail.</p></li>

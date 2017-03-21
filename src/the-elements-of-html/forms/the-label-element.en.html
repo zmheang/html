@@ -162,11 +162,38 @@ interface <dfn>HTMLLabelElement</dfn> : <span>HTMLElement</span> {
 
   <div w-nodev>
 
-  <p><span data-x="category-label">Labelable elements</span> have a <code>NodeList</code> object
-  associated with them that represents the list of <code>label</code> elements, in <span>tree
-  order</span>, whose <span>labeled control</span> is the element in question. The <dfn><code data-x="dom-lfe-labels">labels</code></dfn> IDL attribute of <span
-  data-x="category-label">labelable elements</span>, on getting, must return that
-  <code>NodeList</code> object.</p>
+  <p><span data-x="category-label">Labelable elements</span> and all <code>input</code> elements
+  have a <span>live</span> <code>NodeList</code> object associated with them that represents the
+  list of <code>label</code> elements, in <span>tree order</span>, whose <span>labeled
+  control</span> is the element in question. The <dfn><code
+  data-x="dom-lfe-labels">labels</code></dfn> IDL attribute of <span
+  data-x="category-label">labelable elements</span> and <code>input</code> elements, on getting,
+  must return that <code>NodeList</code> object, and that same value must always be returned, unless
+  this element is an <code>input</code> element whose <code data-x="attr-input-type">type</code>
+  attribute is in the <span data-x="attr-input-type-hidden">Hidden</span> state, in which case it
+  must instead return null.</p>
+
+  <div class="example">
+   <p>This (non-conforming) example shows what happens to the <code>NodeList</code> and what <code
+   data-x="dom-lfe-labels">labels</code> returns when an <code>input</code> element has its <code
+   data-x="attr-input-type">type</code> attribute changed.</p>
+
+   <pre>&lt;!doctype html>
+&lt;p>&lt;label>&lt;input>&lt;/label>&lt;/p>
+&lt;script>
+ const input = document.querySelector('input');
+ const labels = input.labels;
+ console.assert(labels.length === 1);
+
+ input.type = 'hidden';
+ console.assert(labels.length === 0); // the input is no longer the label's <span>labeled control</span>
+ console.assert(input.labels === null);
+
+ input.type = 'checkbox';
+ console.assert(labels.length === 1); // the input is once again the label's <span>labeled control</span>
+ console.assert(input.labels === labels); // same value as returned originally
+&lt;/script></pre>
+  </div>
 
   </div>
 <!--TOPIC:HTML-->

@@ -98,12 +98,6 @@
 
   <div w-nodev>
 
-  <p>For <code>input</code> elements, calling these methods while they <span data-x="do not
-  apply">don't apply</span>, and setting these attributes while they <span data-x="do not
-  apply">don't apply</span>, must throw an <span>"<code>InvalidStateError</code>"</span>
-  <code>DOMException</code>; and getting these attributes while they <span data-x="do not
-  apply">don't apply</span> must return null. Otherwise, they must act as described below.</p>
-
   <p>For <code>input</code> elements, these methods and attributes must operate on the element's
   <span data-x="concept-fe-value">value</span>. For <code>textarea</code> elements, these methods and
   attributes must operate on the element's <span data-x="concept-textarea-raw-value">raw
@@ -113,84 +107,157 @@
   and <code>textarea</code> elements must be implemented in terms of the DOM API described in this
   section, so that, e.g., all the same events fire.</p>
 
+  <p>The selections of <code>input</code> and <code>textarea</code> elements have a <dfn>selection
+  direction</dfn>, which is either "<code data-x="">forward</code>", "<code
+  data-x="">backward</code>", or "<code data-x="">none</code>". This direction is set when the user
+  manipulates the selection. The exact meaning of the selection direction depends on the platform.
+  To <dfn>set the selection direction</dfn> of an element to a given direction, update the element's
+  <span>selection direction</span> to the given direction, unless the direction is "<code
+  data-x="">none</code>" and the platform does not support that direction; in that case, update the
+  element's <span>selection direction</span> to "<code data-x="">forward</code>".</p>
 
-  <p>The selections of <code>input</code> and <code>textarea</code> elements have a
-  <i>direction</i>, which is either <i>forward</i>, <i>backward</i>, or <i>none</i>. This direction
-  is set when the user manipulates the selection. The exact meaning of the selection direction
-  depends on the platform.</p>
+  <div class="note">
+   <p>On Windows, the direction indicates the position of the caret relative to
+   the selection: a "<code data-x="">forward</code>" selection has the caret at the end of the
+   selection and a "<code data-x="">backward</code>" selection has the caret at the start of the
+   selection. Windows has no "<code data-x="">none</code>" direction.</p>
 
-  <p class="note">On Windows, the direction indicates the position of the caret relative to the
-  selection: a <i>forward</i> selection has the caret at the end of the selection and a
-  <i>backward</i> selection has the caret at the start of the selection. Windows has no <i>none</i>
-  direction. On Mac, the direction indicates which end of the selection is affected when the user
-  adjusts the size of the selection using the arrow keys with the Shift modifier: the forward
-  direction means the end of the selection is modified, and the backwards direction means the start
-  of the selection is modified. The none direction is the default on Mac, it indicates that no
-  particular direction has yet been selected. The user sets the direction implicitly when first
-  adjusting the selection, based on which directional arrow key was used.</p>
-
-
-  <p>The <dfn><code data-x="dom-textarea/input-select">select()</code></dfn> method must cause the
-  contents of the text control to be fully selected, with the selection direction being none, if the
-  platform support selections with the direction <i>none</i>, or otherwise <i>forward</i>. The user
-  agent must then <span>queue a task</span>, using the <span>user interaction task source</span>, to
-  <span data-x="concept-event-fire">fire an event</span> named <code
-  data-x="event-select">select</code> at the element, with the <code
-  data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p>
-
-  <p>In the case of <code>input</code> elements, if the control has no selectable text, then the
-  method must do nothing.</p>
-
-  <p class="example">For instance, in a user agent where <code
-  data-x="attr-input-type-color">&lt;input type=color></code> is rendered as a color well with a
-  picker, as opposed to a text control accepting a hexadecimal color code, there would be no
-  selectable text, and thus calls to the method are ignored.</p>
+   <p>On Mac, the direction indicates which end of the selection is affected when the user adjusts
+   the size of the selection using the arrow keys with the Shift modifier: the "<code
+   data-x="">forward</code>" direction means the end of the selection is modified, and the "<code
+   data-x="">backward</code>" direction means the start of the selection is modified. The "<code
+   data-x="">none</code>" direction is the default on Mac, it indicates that no particular direction
+   has yet been selected. The user sets the direction implicitly when first adjusting the selection,
+   based on which directional arrow key was used.</p>
+  </div>
 
 
-  <p>The <dfn><code data-x="dom-textarea/input-selectionStart">selectionStart</code></dfn> attribute
-  must, on getting, return the offset (in logical order) to the character that immediately follows
-  the start of the selection. If there is no selection, then it must return the offset (in logical
-  order) to the character that immediately follows the text entry cursor.</p>
+  <p>The <dfn><code data-x="dom-textarea/input-select">select()</code></dfn> method, when invoked,
+  must run the following steps:</p>
 
-  <p>On setting, it must <span>set the selection range</span> with the new value as the first
-  argument; the current value of the <code
-  data-x="dom-textarea/input-selectionEnd">selectionEnd</code> attribute as the second argument,
-  unless the current value of the <code data-x="dom-textarea/input-selectionEnd">selectionEnd</code>
-  is less than the new value, in which case the second argument must also be the new value; and the
-  current value of the <code
-  data-x="dom-textarea/input-selectionDirection">selectionDirection</code> as the third argument.</p>
+  <ol>
+   <li>
+    <p>If this element is an <code>input</code> element, and either <code
+    data-x="dom-textarea/input-select">select()</code> <span data-x="do not apply">does not
+    apply</span> to this element or the corresponding control has no selectable text, return.</p>
 
+    <p class="example">For instance, in a user agent where <code
+    data-x="attr-input-type-color">&lt;input type=color></code> is rendered as a color well with a
+    picker, as opposed to a text control accepting a hexadecimal color code, there would be no
+    selectable text, and thus calls to the method are ignored.</p>
+   </li>
 
-  <p>The <dfn><code data-x="dom-textarea/input-selectionEnd">selectionEnd</code></dfn> attribute
-  must, on getting, return the offset (in logical order) to the character that immediately follows
-  the end of the selection. If there is no selection, then it must return the offset (in logical
-  order) to the character that immediately follows the text entry cursor.</p>
+   <li><p><span>Set the selection range</span> with 0 and infinity.</p></li>
+  </ol>
 
-  <p>On setting, it must <span>set the selection range</span> with the current value of the <code
-  data-x="dom-textarea/input-selectionStart">selectionStart</code> attribute as the first argument,
-  the new value as the second argument, and the current value of the <code
-  data-x="dom-textarea/input-selectionDirection">selectionDirection</code> as the third argument.</p>
+  <p>The <dfn><code data-x="dom-textarea/input-selectionStart">selectionStart</code></dfn>
+  attribute's getter must run the following steps:</p>
 
+  <ol>
+   <li><p>If this element is an <code>input</code> element, and <code
+   data-x="dom-textarea/input-selectionStart">selectionStart</code> <span data-x="do not apply">does
+   not apply</span> to this element, return null.</p></li>
+
+   <li><p>If there is no selection, return the offset (in logical order) to the character that
+   immediately follows the text entry cursor.</p></li>
+
+   <li><p>Return the offset (in logical order) to the character that immediately follows
+   the start of the selection.</p></li>
+  </ol>
+
+  <p>The <code data-x="dom-textarea/input-selectionStart">selectionStart</code> attribute's setter
+  must run the following steps:</p>
+
+  <ol>
+   <li><p>If this element is an <code>input</code> element, and <code
+   data-x="dom-textarea/input-selectionStart">selectionStart</code> <span data-x="do not apply">does
+   not apply</span> to this element, throw an <span>"<code>InvalidStateError</code>"</span>
+   <code>DOMException</code>.</p></li>
+
+   <li><p>Let <var>end</var> be the value of this element's <code
+   data-x="dom-textarea/input-selectionEnd">selectionEnd</code> attribute.</p></li>
+
+   <li><p>If <var>end</var> is less than the given value, set <var>end</var> to the given
+   value.</p></li>
+
+   <li><p><span>Set the selection range</span> with the given value, <var>end</var>, and the value
+   of this element's <code data-x="dom-textarea/input-selectionDirection">selectionDirection</code>
+   attribute.</p></li>
+  </ol>
+
+  <p>The <dfn><code data-x="dom-textarea/input-selectionEnd">selectionEnd</code></dfn> attribute's
+  getter must run the following steps:</p>
+
+  <ol>
+   <li><p>If this element is an <code>input</code> element, and <code
+   data-x="dom-textarea/input-selectionEnd">selectionEnd</code> <span data-x="do not apply">does
+   not apply</span> to this element, return null.</p></li>
+
+   <li><p>If there is no selection, return the offset (in logical order) to the character that
+   immediately follows the text entry cursor.</p></li>
+
+   <li><p>Return the offset (in logical order) to the character that immediately follows
+   the end of the selection.</p></li>
+  </ol>
+
+  <p>The <code data-x="dom-textarea/input-selectionEnd">selectionEnd</code> attribute's setter must
+  run the following steps:</p>
+
+  <ol>
+   <li><p>If this element is an <code>input</code> element, and <code
+   data-x="dom-textarea/input-selectionEnd">selectionEnd</code> <span data-x="do not apply">does not
+   apply</span> to this element, throw an <span>"<code>InvalidStateError</code>"</span>
+   <code>DOMException</code>.</p></li>
+
+   <li><p><span>Set the selection range</span> with the value of this element's <code
+   data-x="dom-textarea/input-selectionStart">selectionStart</code> attribute, the given value, and
+   the value of this element's <code
+   data-x="dom-textarea/input-selectionDirection">selectionDirection</code> attribute.</p></li>
+  </ol>
 
   <p>The <dfn><code data-x="dom-textarea/input-selectionDirection">selectionDirection</code></dfn>
-  attribute must, on getting, return the string corresponding to the current selection direction: if
-  the direction is <i>forward</i>, "<code data-x="">forward</code>"; if the direction is
-  <i>backward</i>, "<code data-x="">backward</code>"; and otherwise, "<code
-  data-x="">none</code>".</p>
+  attribute's getter must run the following steps:</p>
 
-  <p>On setting, it must <span>set the selection range</span> with the current value of the <code
-  data-x="dom-textarea/input-selectionStart">selectionStart</code> attribute as the first argument,
-  the current value of the <code data-x="dom-textarea/input-selectionEnd">selectionEnd</code>
-  attribute as the second argument, and the new value as the third argument.</p>
+  <ol>
+   <li><p>If this element is an <code>input</code> element, and <code
+   data-x="dom-textarea/input-selectionDirection">selectionDirection</code> <span data-x="do not
+   apply">does not apply</span> to this element, return null.</p></li>
 
+   <li><p>Return this element's <span>selection direction</span>.</p></li>
+  </ol>
+
+  <p>The <code data-x="dom-textarea/input-selectionDirection">selectionDirection</code> attribute's
+  setter must run the following steps:</p>
+
+  <ol>
+   <li><p>If this element is an <code>input</code> element, and <code
+   data-x="dom-textarea/input-selectionDirection">selectionDirection</code> <span data-x="do not
+   apply">does not apply</span> to this element, throw an
+   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p><span>Set the selection range</span> with the value of this element's <code
+   data-x="dom-textarea/input-selectionStart">selectionStart</code> attribute, the value of this
+   element's <code data-x="dom-textarea/input-selectionEnd">selectionEnd</code> attribute, and the
+   given value.</p></li>
+  </ol>
 
   <p>The <dfn><code
   data-x="dom-textarea/input-setSelectionRange">setSelectionRange(<var>start</var>, <var>end</var>,
-  <var>direction</var>)</code></dfn> method must <span>set the selection range</span> with the same
-  arguments.</p>
+  <var>direction</var>)</code></dfn> method, when invoked, must run the following steps:</p>
+
+  <ol>
+   <li><p>If this element is an <code>input</code> element, and <code
+   data-x="dom-textarea/input-setSelectionRange">setSelectionRange()</code> <span data-x="do not
+   apply">does not apply</span> to this element, throw an
+   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p><span>Set the selection range</span> with <var>start</var>, <var>end</var>, and
+   <var>direction</var>.</p></li>
+  </ol>
 
   <p>To <dfn>set the selection range</dfn> with an integer or null <var>start</var>, an integer or
-  null <var>end</var>, and optionally a string <var>direction</var>, means to run these steps:</p>
+  null or the special value infinity <var>end</var>, and optionally a string <var>direction</var>,
+  run the following steps:</p>
 
   <ol>
 
@@ -201,28 +268,42 @@
    <li><p>Set the selection of the text control to the sequence of characters starting with the
    character at the <var>start</var>th position (in logical order) and ending with the character at
    the <span data-x="">(<var>end</var>-1)</span>th position. Arguments greater than the length of
-   the value of the text control must be treated as pointing at the end of the text control. If
-   <var>end</var> is less than or equal to <var>start</var> then the start of the selection and the
-   end of the selection must both be placed immediately before the character with offset
-   <var>end</var>. In UAs where there is no concept of an empty selection, this must set the cursor
-   to be just before the character with offset <var>end</var>. The direction of the selection must
-   be set to <i>backward</i> if <var>direction</var> is a <span>case-sensitive</span> match for the
-   string "<code data-x="">backward</code>", <i>forward</i> if <var>direction</var> is a
-   <span>case-sensitive</span> match for the string "<code data-x="">forward</code>" or if the
-   platform does not support selections with the direction <i>none</i>, and <i>none</i> otherwise
-   (including if the argument is omitted).</p></li>
+   the value of the text control (including the special value infinity) must be treated as pointing
+   at the end of the text control. If <var>end</var> is less than or equal to <var>start</var> then
+   the start of the selection and the end of the selection must both be placed immediately before
+   the character with offset <var>end</var>. In UAs where there is no concept of an empty selection,
+   this must set the cursor to be just before the character with offset <var>end</var>.</p></li>
 
-   <li><p><span>Queue a task</span>, using the <span>user interaction task source</span>, to <span
-   data-x="concept-event-fire">fire an event</span> named <code data-x="event-select">select</code>
-   at the element, with the <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to
-   true.</p></li>
+   <li><p>If <var>direction</var> is not a <span>case-sensitive</span> match for either the string
+   "<code data-x="">backward</code>" or "<code data-x="">forward</code>", or if the
+   <var>direction</var> argument was omitted, set <var>direction</var> to "<code
+   data-x="">none</code>".</p></li>
+
+   <li><p><span>Set the selection direction</span> of the text control to
+   <var>direction</var>.</p></li>
+
+   <li><p>If the previous steps caused the selection of the text control to be modified (in either
+   extent or <span data-x="selection direction">direction</span>), then <span>queue a task</span>,
+   using the <span>user interaction task source</span>, to <span data-x="concept-event-fire">fire an
+   event</span> named <code data-x="event-select">select</code> at the element, with the <code
+   data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p></li>
 
   </ol>
 
 
-  <p>The <dfn><code data-x="dom-textarea/input-setRangeText">setRangeText(<var>replacement</var>, <var>start</var>, <var>end</var>, <var>selectMode</var>)</code></dfn> method must run the following steps:</p>
+  <p>The <dfn><code data-x="dom-textarea/input-setRangeText">setRangeText(<var>replacement</var>,
+  <var>start</var>, <var>end</var>, <var>selectMode</var>)</code></dfn> method, when invoked, must
+  run the following steps:</p>
 
   <ol>
+
+   <li><p>If this element is an <code>input</code> element, and <code
+   data-x="dom-textarea/input-setRangeText">setRangeText()</code> <span data-x="do not apply">does
+   not apply</span> to this element, throw an <span>"<code>InvalidStateError</code>"</span>
+   <code>DOMException</code>.</p></li>
+
+   <li><p>Set this element's <span data-x="concept-fe-dirty">dirty value flag</span> to
+   true.</p></li>
 
    <li>
 
@@ -337,26 +418,12 @@
 
    </li>
 
-   <li>
-
-    <p>Set the selection of the text control to the sequence of characters starting with the
-    character at the <var>selection start</var>th position (in logical order) and ending with the
-    character at the <span data-x="">(<var>selection end</var>-1)</span>th position. In UAs
-    where there is no concept of an empty selection, this must set the cursor to be just before the
-    character with offset <var>end</var>. The direction of the selection must be set to
-    <i>forward</i> if the platform does not support selections with the direction <i>none</i>, and
-    <i>none</i> otherwise.</p>
-
-   </li>
-
-   <li><p><span>Queue a task</span>, using the <span>user interaction task source</span>, to <span
-   data-x="concept-event-fire">fire an event</span> named <code data-x="event-select">select</code>
-   at the element, with the <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to
-   true.</p></li>
+   <li><p><span>Set the selection range</span> with <var>selection start</var> and <var>selection
+   end</var>.</p></li>
 
   </ol>
 
-  <p>The <code data-x="dom-textarea/input-setRangeText">setRangeText</code> method uses the
+  <p>The <code data-x="dom-textarea/input-setRangeText">setRangeText()</code> method uses the
   following enumeration:</p>
 
   <pre class="idl">enum <dfn>SelectionMode</dfn> {

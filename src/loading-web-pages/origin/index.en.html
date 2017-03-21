@@ -50,7 +50,7 @@
 
   <ol>
    <li><p>If <var>origin</var> is an <span data-x="concept-origin-opaque">opaque origin</span>, then
-   return <var>origin</var>.</p></li>
+   return null.</p></li>
 
    <li><p>If <var>origin</var>'s <span data-x="concept-origin-domain">domain</span> is non-null,
    then return <var>origin</var>'s <span data-x="concept-origin-domain">domain</span>.</p></li>
@@ -149,13 +149,13 @@
 
     <dl class="switch">
 
-     <dt>If the image data is <span>CORS-cross-origin</span></dt>
+     <dt>If the <span data-x="img-req-data">image data</span> is <span>CORS-cross-origin</span></dt>
 
      <dd><p>A unique <span data-x="concept-origin-opaque">opaque origin</span> assigned when the
      image is created.</p></dd>
 
 
-     <dt>If the image data is <span>CORS-same-origin</span></dt>
+     <dt>If the <span data-x="img-req-data">image data</span> is <span>CORS-same-origin</span></dt>
 
      <dd><p>The <code>img</code> element's <span>node document</span>'s
      <span>origin</span>.</p></dd>

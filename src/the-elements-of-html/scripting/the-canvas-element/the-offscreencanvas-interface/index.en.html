@@ -10,7 +10,7 @@ dictionary <dfn>ImageEncodeOptions</dfn> {
 
 enum <dfn>OffscreenRenderingContextType</dfn> { "<span data-x="offscreen-context-type-2d">2d</span>", "<span data-x="offscreen-context-type-webgl">webgl</span>" };
 
-[<span data-x="dom-OffscreenCanvas">Constructor</span>([EnforceRange] unsigned long long width, [EnforceRange] unsigned long long height), Exposed=(Window,Worker)]
+[<span data-x="dom-OffscreenCanvas">Constructor</span>([EnforceRange] unsigned long long width, [EnforceRange] unsigned long long height), Exposed=(Window,Worker), <span>Transferable</span>]
 interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
   attribute unsigned long long <span data-x="dom-OffscreenCanvas-width">width</span>;
   attribute unsigned long long <span data-x="dom-OffscreenCanvas-height">height</span>;
@@ -105,44 +105,48 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
   data-x="dom-OffscreenCanvas-height">height</code> attributes initialized to <var>width</var> and
   <var>height</var> respectively.</p>
 
-  <p><code>OffscreenCanvas</code> objects are <span
-  data-x="transferable objects">transferable</span>.</p>
+  <hr>
 
-  <p>An <code>OffscreenCanvas</code> object's [[<span>Transfer</span>]] internal method, given a
-  <var>targetRealm</var>, must run these steps:</p>
+  <p><code>OffscreenCanvas</code> objects are <span data-x="transferable
+  objects">transferable</span>. Their <span>transfer steps</span>, given <var>value</var> and
+  <var>dataHolder</var>, are as follows:</p>
 
   <ol>
-   <li><p>If this <code>OffscreenCanvas</code> object's <span
-   data-x="offscreencanvas-context-mode">context mode</span> is not equal to <span
-   data-x="offscreencanvas-context-none">none</span>, then throw an
+   <li><p>If <var>value</var>'s <span data-x="offscreencanvas-context-mode">context mode</span> is
+   not equal to <span data-x="offscreencanvas-context-none">none</span>, then throw an
    <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
-   <li><p>Let <var>new</var> be a new <code>OffscreenCanvas</code> object in
-   <var>targetRealm</var>.</p></li>
+   <li><p>Set <var>value</var>'s <span data-x="offscreencanvas-context-mode">context mode</span> to
+   <span data-x="offscreencanvas-context-detached">detached</span>.</p></li>
 
-   <li><p>Initialize <var>new</var>'s <span data-x="offscreencanvas-bitmap">bitmap</span> to a
-   rectangular array of transparent black pixels of the same dimensions as this
-   <code>OffscreenCanvas</code> object's <span
+   <li><p>Let <var>width</var> and <var>height</var> be the dimensions of <var>value</var>'s <span
    data-x="offscreencanvas-bitmap">bitmap</span>.</p></li>
 
-   <li><p>If this <code>OffscreenCanvas</code> object has a <span
-   data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>, then set
-   <var>new</var>'s <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code>
-   element</span> to be a weak reference to this <code>OffscreenCanvas</code> object's <span
-   data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>.</p></li>
+   <li><p>Unset <var>value</var>'s <span data-x="offscreencanvas-bitmap">bitmap</span>.</p></li>
 
-   <li><p>Set this <code>OffscreenCanvas</code> object's [[Detached]] internal slot value to
-   true.</p></li>
+   <li><p>Set <var>dataHolder</var>.[[With]] to <var>width</var>, and
+   <var>dataHolder</var>.[[Height]] to <var>height</var>.</p></li>
 
-   <li><p>Set this <code>OffscreenCanvas</code> object's <span
-   data-x="offscreencanvas-context-mode">context mode</span> to <span
-   data-x="offscreencanvas-context-detached">detached</span>.</p></li>
-
-   <li><p>Unset this <code>OffscreenCanvas</code> object's <span
-   data-x="offscreencanvas-bitmap">bitmap</span>.</p></li>
-
-   <li><p>Return <var>new</var>.</p></li>
+   <li><p>Set <var>dataHolder</var>.[[PlaceholderCanvas]] to be a weak reference to
+   <var>value</var>'s <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code>
+   element</span>, if <var>value</var> has one, or null if it does not.</p></li>
   </ol>
+
+  <p>Their <span>transfer-receiving steps</span>, given <var>dataHolder</var> and <var>value</var>,
+  are:</p>
+
+  <ol>
+   <li><p>Initialize <var>value</var>'s <span data-x="offscreencanvas-bitmap">bitmap</span> to a
+   rectangular array of transparent black pixels with width given by <var>dataHolder</var>.[[Width]]
+   and height given by <var>dataHolder</var>.[[Height]].</p></li>
+
+   <li><p>If <var>dataHolder</var>.[[PlaceholderCanvas]] is not null, set <var>value</var>'s <span
+   data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span> to
+   <var>dataHolder</var>.[[PlaceholderCanvas]] (while maintaining the weak reference
+   semantics).</p></li>
+  </ol>
+
+  <hr>
 
   <p>The <dfn><code data-x="dom-OffscreenCanvas-getContext">getContext(<var>contextId</var>,
   <var>arguments...</var>)</code></dfn> method of an <code>OffscreenCanvas</code> object, when
@@ -278,7 +282,7 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
   when invoked, must run the following steps:</p>
 
   <ol>
-   <li><p>If the value of this <code>OffscreenCanvas</code> object's [[<span>Detached</span>]]
+   <li><p>If the value of this <code>OffscreenCanvas</code> object's <span>[[Detached]]</span>
    internal slot is set to true, then return a promise rejected with an
    <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> and abort these
    steps.</p></li>
@@ -311,14 +315,17 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
    data-x="image-encode-options-quality">quality</code></dfn> fields of <var>options</var>, if
    <var>options</var> was specified. <ref spec=FILEAPI></p></li>
 
-   <li><p>Resolve <var>result</var> with <var>blob</var>.</p></li>
+   <li><p>If <var>blob</var> is null, then reject <var>result</var> with an
+   <span>"<code>EncodingError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>Otherwise, resolve <var>result</var> with <var>blob</var>.</p></li>
   </ol>
 
   <p>The <dfn><code
   data-x="dom-OffscreenCanvas-transferToImageBitmap">transferToImageBitmap()</code></dfn> method,
   when invoked, must run the following steps:</p>
   <ol>
-   <li><p>If the value of this <code>OffscreenCanvas</code> object's [[<span>Detached</span>]]
+   <li><p>If the value of this <code>OffscreenCanvas</code> object's <span>[[Detached]]</span>
    internal slot is set to true, then throw an <span>"<code>InvalidStateError</code>"</span>
    <code>DOMException</code> and abort these steps.</p></li>
 

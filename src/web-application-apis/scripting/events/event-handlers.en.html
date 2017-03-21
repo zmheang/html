@@ -88,13 +88,17 @@
 
   <hr>
 
-  <p>When an <span data-x="event handlers">event handler</span> <var>H</var> of an element
-  or object <var>T</var> implementing the <code>EventTarget</code> interface is first set
-  to a non-null value, the user agent must append an <span data-x="concept-event-listener">event
-  listener</span> to the list of <span data-x="concept-event-listener">event listeners</span>
-  associated with <var>T</var> with <b>type</b> set to the <dfn data-export="">event handler event
-  type</dfn> corresponding to <var>H</var> and <b>callback</b> set to <span>the event handler
-  processing algorithm</span> defined below. <ref spec=DOM></p>
+  <p>When an <span data-x="event handlers">event handler</span> <var>H</var> of an element or object
+  <var>T</var> implementing the <code>EventTarget</code> interface is first set to a non-null value,
+  the user agent must append an <span data-x="concept-event-listener">event listener</span> to the
+  list of <span data-x="concept-event-listener">event listeners</span> associated with <var>T</var>
+  with <b>type</b> set to the <dfn data-export="">event handler event type</dfn> corresponding to
+  <var>H</var> and <b>callback</b> set to the result of creating a Web IDL <code
+  data-x="dom-EventListener">EventListener</code> instance representing a reference to a function of
+  one argument that executes the steps of <span>the event handler processing algorithm</span>, given
+  <var>H</var> and its argument. The <code data-x="dom-EventListener">EventListener</code>'s
+  <span>callback context</span> can be arbitrary; it does not impact the steps of <span>the event
+  handler processing algorithm</span>. <ref spec=DOM></p>
 
   <p class="note">The <b>callback</b> is emphatically <em>not</em> the <span data-x="event
   handlers">event handler</span> itself. Every event handler ends up registering the same
@@ -150,19 +154,24 @@
 
    <li><p>If <var>callback</var> is null, then abort these steps.</p></li>
 
+   <li><p>Let <var>special error event handling</var> be true if <var>E</var> is an
+   <code>ErrorEvent</code> object, <var>E</var>'s <code data-x="dom-Event-type">type</code> is <code
+   data-x="event-error">error</code>, and <var>E</var>'s <code
+   data-x="dom-Event-currentTarget">currentTarget</code> implements the
+   <code>WindowOrWorkerGlobalScope</code> mixin. Otherwise, let <var>special error event
+   handling</var> be false.</p></li>
+
    <li>
 
     <p>Process the <code>Event</code> object <var>E</var> as follows:</p>
 
     <dl class="switch">
 
-     <dt>If <var>E</var> is an <code>ErrorEvent</code> object and the <span data-x="event
-     handler IDL attributes" data-export="">event handler IDL attribute</span>'s type is
-     <code>OnErrorEventHandler</code></dt>
+     <dt>If <var>special error event handling</var> is true</dt>
 
      <dd>
 
-      <p><span data-x="concept-invoke-event-handler">Invoke</span> <var>callback</var> with five
+      <p><span data-x="es-invoking-callback-functions">Invoke</span> <var>callback</var> with five
       arguments, the first one having the value of <var>E</var>'s <code
       data-x="dom-ErrorEvent-message">message</code> attribute, the second having the value of
       <var>E</var>'s <code data-x="dom-ErrorEvent-filename">filename</code> attribute, the third
@@ -180,16 +189,13 @@
 
      <dd>
 
-      <p><span data-x="concept-invoke-event-handler">Invoke</span> <var>callback</var>
+      <p><span data-x="es-invoking-callback-functions">Invoke</span> <var>callback</var>
       with one argument, the value of which is the <code>Event</code> object <var>E</var>,
       with the <i data-x="dfn-callback-this-value">callback this value</i> set to <var>E</var>'s <code data-x="dom-Event-currentTarget">currentTarget</code>. Let <var>return value</var> be the callback's return value. <ref spec=WEBIDL></p>
 
      </dd>
 
     </dl>
-
-    <p>In this step, <dfn data-x="concept-invoke-event-handler">invoke</dfn> means to <span
-    data-x="es-invoking-callback-functions">invoke the Web IDL callback function</span>.</p>
 
     <p>If an exception gets thrown by the callback, end these steps and allow the exception to
     propagate. (It will propagate to the <span data-x="concept-event-dispatch">DOM event dispatch
@@ -203,35 +209,47 @@
 
     <dl class="switch">
 
-     <dt>If the event type is <code data-x="event-mouseover">mouseover</code></dt>
-     <dt>If the event type is <code data-x="event-error">error</code> and <var>E</var> is an <code>ErrorEvent</code> object</dt>
-
-     <dd><p>If <var>return value</var> is a Web IDL boolean true value, then cancel the event.</p></dd>
-
-
-     <dt>If the event type is <code data-x="event-beforeunload">beforeunload</code></dt>
-
+     <dt>If <var>E</var> is a <code>BeforeUnloadEvent</code> object and <var>E</var>'s <code
+     data-x="dom-Event-type">type</code> is <code
+     data-x="event-beforeunload">beforeunload</code></dt>
+     <!-- It is possible to get a BeforeUnloadEvent object whose type is not beforeunload via
+     document.createEvent("beforeunloadevent") + initEvent. This may be removed; see
+     https://github.com/whatwg/dom/issues/362. But it's still probably a good idea to check both,
+     just in case e.g. we end up adding a constructor to BeforeUnloadEvent. -->
      <dd>
+      <p class="note">In this case, the <span data-x="event handler IDL attributes">event handler
+      IDL attribute</span>'s type will be <code>OnBeforeUnloadEventHandler</code>, so <var>return
+      value</var> will have been coerced into either null or a <code
+      data-x="idl-DOMString">DOMString</code>.</p>
 
-      <p class="note">The <span data-x="event handler IDL attributes">event handler IDL
-      attribute</span>'s type is <code>OnBeforeUnloadEventHandler</code>, and the <var>return value</var> will therefore have been coerced into either the value null or a
-      DOMString.</p>
+      <p>If <var>return value</var> is not null, then:</p>
 
-      <p>If the <var>return value</var> is null, then cancel the event.</p>
+      <ol>
+       <li><p>Set <var>E</var>'s <span>canceled flag</span>.</p></li>
 
-      <p>Otherwise, If the <code>Event</code> object <var>E</var> is a
-      <code>BeforeUnloadEvent</code> object, and the <code>Event</code> object <var>E</var>'s <code data-x="dom-BeforeUnloadEvent-returnValue">returnValue</code>
-      attribute's value is the empty string, then set the <code
-      data-x="dom-BeforeUnloadEvent-returnValue">returnValue</code> attribute's value to <var>return value</var>.</p>
-
+       <li><p>If <var>E</var>'s <code data-x="dom-BeforeUnloadEvent-returnValue">returnValue</code>
+       attribute's value is the empty string, then set <var>E</var>'s <code
+       data-x="dom-BeforeUnloadEvent-returnValue">returnValue</code> attribute's value to
+       <var>return value</var>.</p></li>
+      </ol>
      </dd>
 
+     <dt>If <var>special error event handling</var> is true</dt>
+     <dd><p>If <var>return value</var> is true, then set <var>E</var>'s <span>canceled
+     flag</span>.</p></dd>
+
      <dt>Otherwise</dt>
+     <dd>
+      <p>If <var>return value</var> is false, then set <var>E</var>'s <span>canceled
+      flag</span>.</p>
 
-     <dd><p>If <var>return value</var> is a Web IDL boolean false value, then cancel the
-     event.</p></dd>
-
-     <!-- IE actually uncancels the event if the function returns true -->
+      <p class="note">If we've gotten to this "Otherwise" clause because <var>E</var>'s <code
+      data-x="dom-Event-type">type</code> is <code
+      data-x="event-beforeunload">beforeunload</code> but <var>E</var> is <em>not</em> a
+      <code>BeforeUnloadEvent</code> object, then <var>return value</var> will never be false, since
+      in such cases <var>return value</var> will have been coerced into either null or a <code
+      data-x="idl-DOMString">DOMString</code>.</p>
+     </dd>
 
     </dl>
 
@@ -265,11 +283,20 @@ typedef <span>EventHandlerNonNull</span>? <dfn>EventHandler</dfn>;</pre>
 
   </div>
 
-  <p class="note">The return value of the function affects whether the event is canceled or not:
-  <span w-nodev>as described above,</span> if the return value is false, the event is canceled
-  (except for <code data-x="event-mouseover">mouseover</code> events, where the return value has to
-  be true to cancel the event). With <code data-x="event-beforeunload">beforeunload</code> events,
-  the value is instead used to determine whether or not to prompt about unloading the document.</p>
+  <div class="note">
+   <p>The return value of the function affects whether the event is canceled or not: <span
+   w-nodev>as described above, </span>if the return value is false, the event is canceled.</p>
+
+   <p>There are two exceptions in the platform, for historical reasons:</p>
+
+   <ul>
+    <li><p>The <code data-x="handler-onerror">onerror</code> handlers on global objects, where
+    returning <em>true</em> cancels the event</p></li>
+
+    <li><p>The <code data-x="handler-window-onbeforeunload">onbeforeunload</code> handler, where
+    returning any non-null and non-undefined value will cancel the event.</p></li>
+   </ul>
+  </div>
 
   <p>For historical reasons, the <code data-x="handler-onerror">onerror</code> handler has different
   arguments:</p>
@@ -318,9 +345,9 @@ typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEvent
       <p>If <var>H</var> is an element's <span data-x="event handlers">event
       handler</span>, then let <var>element</var> be the element, and <var>document</var> be the element's <span>node document</span>.</p>
 
-      <p>Otherwise, <var>H</var> is a <code>Window</code> object's <span data-x="event
-      handlers">event handler</span>: let <var>element</var> be null, and let <var>document</var> be the <code>Document</code> most recently associated with that
-      <code>Window</code> object.</p>
+      <p>Otherwise, <var>H</var> is a <code>Window</code> object's <span data-x="event handlers">event handler</span>:
+      let <var>element</var> be null, and let <var>document</var> be <var>H</var>'s <span
+      data-x="concept-document-window">associated <code>Document</code></span>.</p>
 
      </li>
 
@@ -371,9 +398,15 @@ typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEvent
 
      </li>
 
-     <li><p>Push <var>settings object</var>'s <span>realm execution context</span> onto the
-     <span>JavaScript execution context stack</span>; it is now the <span>running JavaScript
-     execution context</span>.</p></li>
+     <li>
+      <p>Push <var>settings object</var>'s <span>realm execution context</span> onto the
+      <span>JavaScript execution context stack</span>; it is now the <span>running JavaScript
+      execution context</span>.</p>
+
+      <p class="note">This is necessary so the subsequent invocation of <span
+      data-x="js-FunctionCreate">FunctionCreate</span> takes place in the correct <span>JavaScript
+      Realm</span>.</p>
+     </li>
 
      <li>
 
@@ -453,7 +486,9 @@ typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEvent
      <span>JavaScript execution context stack</span>.</p></li>
 
      <!-- SCRIPT EXEC, sorta -->
-     <li><p>Set <var>H</var>'s value to <var>function</var>.</p></li>
+     <li><p>Set <var>H</var>'s value to the result of creating a Web IDL callback function whose
+     object reference is <var>function</var> and whose <span>callback context</span> is
+     <var>settings object</var>.</p></li>
 
     </ol>
 

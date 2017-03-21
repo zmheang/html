@@ -147,9 +147,6 @@
    <li><p>Decrement <var>settings</var>'s <span>realm execution context</span>'s <span>entrance
    counter</span> by one.</p></li>
 
-   <li><p>If the <span>JavaScript execution context stack</span> is now empty, <span>run the global
-   script clean-up jobs</span>. (These cannot run scripts.)</p></li>
-
    <li><p>If the <span>JavaScript execution context stack</span> is now empty, <span>perform a
    microtask checkpoint</span>. (If this runs scripts, these algorithms will be invoked
    reentrantly.)</p></li>
@@ -162,16 +159,4 @@
 
   <p>The <dfn>running script</dfn> is the <span>script</span> in the [[HostDefined]] field in the
   ScriptOrModule component of the <span>running JavaScript execution context</span>.</p>
-
-  <hr>
-
-  <p>Each <span>unit of related similar-origin browsing contexts</span> has a <dfn
-  data-export="">global script clean-up jobs list</dfn>, which must initially be empty. A global
-  script clean-up job cannot run scripts, and cannot be sensitive to the order in which other
-  clean-up jobs are executed. The File API uses this to release <code data-x="blob
-  protocol">blob:</code> URLs. <ref spec=FILEAPI></p>
-
-  <p>When the user agent is to <dfn>run the global script clean-up jobs</dfn>, the user agent must
-  perform each of the jobs in the <span>global script clean-up jobs list</span> and then empty the
-  list.</p>
 

@@ -16,18 +16,6 @@
    <li><p>Let <var>location</var> be a new <code>Location</code> <span>platform
    object</span>.</p></li>
 
-   <li><p>Perform ! <var>location</var>.[[DefineOwnProperty]]("<code data-x="">toString</code>", {
-   [[Value]]: <span>%ObjProto_toString%</span>,
-   [[Writable]]: false,
-   [[Enumerable]]: false,
-   [[Configurable]]: false }).</p></li>
-
-   <li><p>Perform ! <var>location</var>.[[DefineOwnProperty]]("<code data-x="">toJSON</code>", {
-   [[Value]]: undefined,
-   [[Writable]]: false,
-   [[Enumerable]]: false,
-   [[Configurable]]: false }).</p></li>
-
    <li><p>Perform ! <var>location</var>.[[DefineOwnProperty]]("<code data-x="">valueOf</code>", {
    [[Value]]: <span>%ObjProto_valueOf%</span>,
    [[Writable]]: false,
@@ -40,11 +28,21 @@
    [[Enumerable]]: false,
    [[Configurable]]: false }).</p></li>
 
-   <li><p>Set the value of the [[<span>DefaultProperties</span>]] internal slot of
+   <li><p>Set the value of the <span>[[DefaultProperties]]</span> internal slot of
    <var>location</var> to <var>location</var>.[[OwnPropertyKeys]]().</p></li>
 
    <li><p>Return <var>location</var>.</p></li>
   </ol>
+
+  <p class="note">The addition of <code data-x="">valueOf</code> and <span>@@toPrimitive</span> own
+  data properties, as well as the fact that all of <code>Location</code>'s IDL attributes are marked
+  <code data-x="">[Unforgeable]</code>, is required by legacy code that consulted the
+  <code>Location</code> interface, or stringified it, to determine the <span
+  data-x="concept-document-url">document URL</span>, and then used it in a security-sensitive way.
+  In particular, the <code data-x="">valueOf</code>, <span>@@toPrimitive</span>, and <code
+  data-x="">[Unforgeable]</code> stringifier mitigations ensure that code such as <code
+  data-x="">foo[location] = bar</code> or <code data-x="">location + ""</code> cannot be
+  misdirected.</p>
 
   </div>
 
@@ -82,7 +80,7 @@
   <span>current entry</span> of the <span>browsing context</span>'s session history to be changed,
   by adding or replacing entries in the <code data-x="dom-history">history</code> object.</p>
 
-  <pre class="idl">interface <dfn>Location</dfn> {
+  <pre class="idl">interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface">additional creation steps</a> and <a href="#location-internal-methods">overridden internal methods</a>
   [Unforgeable] stringifier attribute USVString <span data-x="dom-location-href">href</span>;
   [Unforgeable] readonly attribute USVString <span data-x="dom-location-origin">origin</span>;
   [Unforgeable] attribute USVString <span data-x="dom-location-protocol">protocol</span>;
@@ -340,9 +338,15 @@
    <li><p>Let <var>copyURL</var> be a copy of this <code>Location</code> object's <span
    data-x="concept-location-url">url</span>.</p></li>
 
-   <li><p>Let <var>possibleFailure</var> be the result of <span data-x="basic url parser">basic URL
-   parsing</span> the given value, followed by "<code data-x="">:</code>", with <var>copyURL</var>
-   as <var>url</var> and <span>scheme start state</span> as <var>state override</var>.</p></li>
+   <li>
+    <p>Let <var>possibleFailure</var> be the result of <span data-x="basic url parser">basic URL
+    parsing</span> the given value, followed by "<code data-x="">:</code>", with <var>copyURL</var>
+    as <var>url</var> and <span>scheme start state</span> as <var>state override</var>.</p>
+
+    <p class="note">Because the URL parser ignores multiple consecutive colons, providing a value
+    of "<code data-x="">https:</code>" (or even "<code data-x="">https::::</code>") is the same as
+    providing a value of "<code data-x="">https</code>".</p>
+   </li>
 
    <li><p>If <var>possibleFailure</var> is failure, then throw a
    <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
@@ -466,10 +470,8 @@
    <li><p>Let <var>copyURL</var> be a copy of this <code>Location</code> object's <span
    data-x="concept-location-url">url</span>.</p></li>
 
-   <li><p>If <var>copyURL</var>'s <span data-x="concept-url-host">host</span> is null,
-   <var>copyURL</var>'s <span>cannot-be-a-base-URL flag</span> is set, or <var>copyURL</var>'s <span
-   data-x="concept-url-scheme">scheme</span> is "<code data-x="">file</code>", terminate these
-   steps.</p></li>
+   <li><p>If <var>copyURL</var> <span>cannot have a username/password/port</span>, then
+   return.</p></li>
 
    <li><p>If the given value is the empty string, then set <var>copyURL</var>'s <span
    data-x="concept-url-port">port</span> to null.</p></li>
@@ -495,6 +497,9 @@
 
    <li><p>If <var>url</var>'s <span>cannot-be-a-base-URL flag</span> is set, return the first string
    in <var>url</var>'s <span data-x="concept-url-path">path</span>.</p></li>
+
+   <li><p>If <var>url</var>'s <span data-x="concept-url-path">path</span> is empty, then return the
+   empty string.</p></li>
 
    <li><p>Return "<code data-x="">/</code>", followed by the strings in <var>url</var>'s <span
    data-x="concept-url-path">path</span> (including empty strings), separated from each other by
@@ -607,9 +612,6 @@
 
    <li><p>Let <var>copyURL</var> be a copy of this <code>Location</code> object's <span
    data-x="concept-location-url">url</span>.</p></li>
-
-   <li><p>If <var>copyURL</var>'s <span data-x="concept-url-scheme">scheme</span> is "<code
-   data-x="">javascript</code>", terminate these steps.</p></li>
 
    <li><p>Let <var>input</var> be the given value with a single leading "<code data-x="">#</code>"
    removed, if any.</p></li>
@@ -745,10 +747,10 @@
 
   <hr>
 
-  <p>As explained earlier, the <code>Location</code> exotic object requires additional logic beyond
-  IDL for security purposes. The internal slot and internal methods <code>Location</code> objects
-  must implement are defined below.</p>
+  <p id="location-internal-methods">As explained earlier, the <code>Location</code> exotic object
+  requires additional logic beyond IDL for security purposes. The internal slot and internal methods
+  <code>Location</code> objects must implement are defined below.</p>
 
-  <p>Every <code>Location</code> object has a [[<dfn>DefaultProperties</dfn>]] internal slot
+  <p>Every <code>Location</code> object has a <dfn>[[DefaultProperties]]</dfn> internal slot
   representing its own properties at time of its creation.</p>
 

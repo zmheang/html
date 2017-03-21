@@ -1,7 +1,6 @@
   <h4>Application cache API</h4>
 
-  <pre class="idl">[Exposed=(Window,SharedWorker)]
-interface <dfn>ApplicationCache</dfn> : <span>EventTarget</span> {
+  <pre class="idl">interface <dfn>ApplicationCache</dfn> : <span>EventTarget</span> {
 
   // <span data-x="concept-appcache-status">update status</span>
   const unsigned short <span data-x="dom-appcache-UNCACHED">UNCACHED</span> = 0;
@@ -33,15 +32,8 @@ interface <dfn>ApplicationCache</dfn> : <span>EventTarget</span> {
    <dt><var>cache</var> = <var>window</var> . <code subdfn data-x="dom-applicationCache">applicationCache</code></dt>
    <dd>
 
-    <p>(In a window.) Returns the <code>ApplicationCache</code> object that applies to the
-    <span>active document</span> of that <code>Window</code>.</p>
-
-   </dd>
-
-   <dt><var>cache</var> = <var>self</var> . <code data-x="dom-applicationCache">applicationCache</code></dt> <dd>
-
-    <p>(In a shared worker.) Returns the <code>ApplicationCache</code> object that applies to the
-    current shared worker.</p>
+    <p>Returns the <code>ApplicationCache</code> object that applies to the <span>active
+    document</span> of that <code>Window</code>.</p>
 
    </dd>
 
@@ -107,15 +99,13 @@ interface <dfn>ApplicationCache</dfn> : <span>EventTarget</span> {
   <div w-nodev>
 
   <p>There is a one-to-one mapping from <span data-x="cache host">cache hosts</span> to
-  <code>ApplicationCache</code> objects. The <dfn><code data-x="dom-applicationCache">applicationCache</code></dfn> attribute on <code>Window</code>
+  <code>ApplicationCache</code> objects. The <dfn><code
+  data-x="dom-applicationCache">applicationCache</code></dfn> attribute on <code>Window</code>
   objects must return the <code>ApplicationCache</code> object associated with the
-  <code>Window</code> object's <span>active document</span>. The <dfn><code data-x="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</code></dfn> attribute
-  on <code>SharedWorkerGlobalScope</code> objects must return the <code>ApplicationCache</code>
-  object associated with the worker.</p>
+  <code>Window</code> object's <span>active document</span>.</p>
 
-  <p class="note">A <code>Window</code> or <code>SharedWorkerGlobalScope</code> object has an
-  associated <code>ApplicationCache</code> object even if that <span>cache host</span> has no actual
-  <span>application cache</span>.</p>
+  <p class="note">A <code>Document</code> has an associated <code>ApplicationCache</code> object
+  even if that <span>cache host</span> has no actual <span>application cache</span>.</p>
 
   <hr>
 

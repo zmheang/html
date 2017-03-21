@@ -142,9 +142,9 @@
 
     <p>Otherwise, if the <code>script</code> element has a <code
     data-x="attr-script-type">type</code> attribute, let <var>the script block's type string</var>
-    for this <code>script</code> element be the value of that attribute with any leading or
-    trailing sequences of <span data-x="space character">space characters</span> removed.</p> <!--
-    <span>Strip leading and trailing whitespace</span> from... -->
+    for this <code>script</code> element be the value of that attribute with <span data-x="strip
+    leading and trailing ASCII whitespace">leading and trailing ASCII whitespace
+    stripped</span>.</p>
 
     <p>Otherwise, the element has a non-empty <code data-x="attr-script-language">language</code>
     attribute; let <var>the script block's type string</var> for this <code>script</code> element
@@ -216,6 +216,17 @@
 
    </li>
 
+   <li>
+
+   <p>If the <code>script</code> element has a <code data-x="attr-script-nomodule">nomodule</code>
+   content attribute and <span data-x="concept-script-type">the script's type</span> is "<code
+   data-x="">classic</code>", then abort these steps. The script is not executed.</p>
+
+   <p class="note">This means specifying <code data-x="attr-script-nomodule">nomodule</code> on a
+   <span>module script</span> has no effect; the algorithm continues onward.</p>
+
+   </li>
+
    <li id="script-processing-csp"><p>If the <code>script</code> element does not have a <code
    data-x="attr-script-src">src</code> content attribute, and the <span>Should element's inline
    behavior be blocked by Content Security Policy?</span> algorithm returns "<code
@@ -238,7 +249,7 @@
      <li><p>Let <var>event</var> be the value of the <code
      data-x="attr-script-event">event</code> attribute.</p></li>
 
-     <li><p><span>Strip leading and trailing whitespace</span> from <var>event</var> and
+     <li><p><span>Strip leading and trailing ASCII whitespace</span> from <var>event</var> and
      <var>for</var>.</p></li>
 
      <li><p>If <var>for</var> is not an <span>ASCII case-insensitive</span> match for the

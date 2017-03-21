@@ -5,7 +5,9 @@
   <p>When a user agent is to create <!--en-GB--><dfn id="a-serialisation-of-the-bitmap-as-a-file">a
   serialization of the bitmap as a file</dfn>, given an optional <var>type</var> and
   <var>quality</var>, it must create an image file in the format given by <var>type</var>, or if
-  <var>type</var> was not supplied, in the PNG format. <ref spec=PNG></p>
+  <var>type</var> was not supplied, in the PNG format. If an error occurs during the creation of
+  the image file (e.g. an internal encoder error), then the result of the serialization is null.
+  <ref spec=PNG></p>
 
   <p>The image file's pixel data must be the bitmap's pixel data scaled to one image pixel per
   coordinate space unit, and if the file format used supports encoding resolution metadata, the

@@ -79,11 +79,11 @@
    <li><p>Let <var>cloneRecord</var> be <span>StructuredCloneWithTransfer</span>(<var>message</var>,
    <var>transfer</var>, <var>targetRealm</var>). Rethrow any exceptions.</p></li>
 
-   <li><p>Let <var>messageClone</var> be <var>cloneRecord</var>.[[Clone]].</p></li>
+   <li><p>Let <var>messageClone</var> be <var>cloneRecord</var>.[[Deserialized]].</p></li>
 
    <li><p>Let <var>newPorts</var> be a new <span>frozen array</span> consisting of all
-   <code>MessagePort</code> objects in <var>cloneRecord</var>.[[TransferList]], if any, maintaining
-   their relative order.</p></li>
+   <code>MessagePort</code> objects in <var>cloneRecord</var>.[[TransferredValues]], if any,
+   maintaining their relative order.</p></li>
 
    <li><p>Return, but continue running these steps in <span>in parallel</span>.</p></li>
 

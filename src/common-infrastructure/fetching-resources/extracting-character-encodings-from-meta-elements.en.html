@@ -13,14 +13,14 @@
    data-x="">charset</code>". If no such match is found, return nothing and abort these
    steps.</p></li>
 
-   <li><p>Skip any <span data-x="space character">space characters</span> that immediately follow the
-   word "<code data-x="">charset</code>" (there might not be any).</p></li>
+   <li><p>Skip any <span>ASCII whitespace</span> that immediately follow the word "<code
+   data-x="">charset</code>" (there might not be any).</p></li>
 
    <li><p>If the next character is not a U+003D EQUALS SIGN (=), then move <var>position</var> to point just before that next character, and jump back to the step
    labeled <i>loop</i>.</p></li>
 
-   <li><p>Skip any <span data-x="space character">space characters</span> that immediately follow the
-   equals sign (there might not be any).</p></li>
+   <li><p>Skip any <span>ASCII whitespace</span> that immediately follow the equals sign (there
+   might not be any).</p></li>
 
    <li>
 
@@ -40,7 +40,7 @@
 
      <dt>Otherwise</dt>
      <dd>Return the result of <span>getting an encoding</span> from the substring that consists of
-     this character up to but not including the first <span>space character</span> or U+003B
+     this character up to but not including the first <span>ASCII whitespace</span> or U+003B
      SEMICOLON character (;), or the end of <var>s</var>, whichever comes first.</dd>
 
     </dl>

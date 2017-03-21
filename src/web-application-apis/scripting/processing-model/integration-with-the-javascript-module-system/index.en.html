@@ -73,7 +73,7 @@ import "https://example.com/foo/../module2.js";</pre>
    URL.</p></li>
   </ol>
 
-  <div class="example">
+  <div class="example" id="module-specifier-examples">
    <p>The following are valid module specifiers according to the above algorithm:</p>
 
    <ul class="brief">
@@ -112,9 +112,15 @@ import "https://example.com/foo/../module2.js";</pre>
    <p>The following are not valid module specifiers according to the above algorithm:</p>
 
    <ul class="brief">
-    <li><code data-x="">https://f:b/c</code></li>
+    <li><code data-x="">https://eggplant:b/c</code></li>
 
     <li><code data-x="">pumpkins.js</code></li>
+
+    <li><code data-x="">.tomato</code></li>
+
+    <li><code data-x="">..zucchini.js</code></li>
+
+    <li><code data-x="">.\yam.es</code></li>
    </ul>
   </div>
 

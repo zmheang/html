@@ -55,10 +55,11 @@ interface <dfn>HTMLDetailsElement</dfn> : <span>HTMLElement</span> {
   data-x="concept-element-attributes-remove">remove</span> the <code
   data-x="attr-details-open">open</code> attribute from the element.</p>
 
-  <p class="note">This ability to request that additional information be shown or hidden may simply
-  be the <span>activation behavior</span> of the appropriate <code>summary</code> element, in the
-  case such an element exists. However, if no such element exists, user agents should still provide
-  this ability through some other user interface affordance.</p>
+  <p class="note">This ability to request that additional information be shown or hidden
+  <!--non-normative-->may simply be the <span>activation behavior</span> of the appropriate
+  <code>summary</code> element, in the case such an element exists. However, if no such element
+  exists, user agents can still provide this ability through some other user interface
+  affordance.</p>
 
   <p>Whenever the <code data-x="attr-details-open">open</code> attribute is added to or removed from
   a <code>details</code> element, the user agent must <span>queue a task</span> that runs the

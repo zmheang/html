@@ -207,14 +207,11 @@
       <p>If the element is not <span>eligible for autoplay</span>, then the user agent must abort
       these substeps.</p>
 
-      <p>The user agent may run the following substeps immediately. Alternatively, if the element is
-      a <code>video</code> element, the user agent may wait until the element <span
-      data-x="intersect the viewport">intersects the viewport</span> and, if the element is still
-      <span>eligible for autoplay</span>, run the following substeps:</p>
+      <p>The user agent may run the following substeps:</p>
 
       <p class="note">This specification doesn't define the precise timing for when the intersection
-      is tested, but it is recommended that the timing match that of the Intersection Observer
-      API. <ref spec=INTERSECTIONOBSERVER></p>
+      is tested, but it is suggested that the timing match that of the Intersection Observer API.
+      <ref spec=INTERSECTIONOBSERVER></p>
 
       <ol>
 
@@ -228,9 +225,34 @@
 
        <li><span>Notify about playing</span> for the element.</li>
 
-       <li>Set the <span>autoplaying flag</span> to false.</li>
+      </ol>
+
+      <p>Alternatively, if the element is a <code>video</code> element, the user agent may start
+      observing whether the element <span data-x="intersect the viewport">intersects the
+      viewport</span>. When the element starts <span data-x="intersect the viewport">intersecting
+      the viewport</span>, if the element is still <span>eligible for autoplay</span>, run the
+      substeps above. Optionally, when the element stops <span data-x="intersect the
+      viewport">intersecting the viewport</span>, if the <span>can autoplay flag</span> is still
+      true and the <code data-x="attr-media-autoplay">autoplay</code> attribute is still specified,
+      run the following substeps:</p>
+
+      <p class="note">This specification doesn't define the precise timing for when the intersection
+      is tested, but it is suggested that the timing match that of the Intersection Observer API.
+      <ref spec=INTERSECTIONOBSERVER></p>
+
+      <ol>
+
+       <li>Run the <span>internal pause steps</span> and set the <span>can autoplay flag</span> to
+       true.</li>
+
+       <li><span>Queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
+        <code data-x="event-media-pause">pause</code> at the element.</li>
 
       </ol>
+
+      <p class="note">The substeps for playing and pausing can run multiple times as the element
+      starts or stops <span data-x="intersect the viewport">intersecting the viewport</span>, as
+      long as the <span>can autoplay flag</span> is true.</p>
 
       <p class="note">User agents do not need to support autoplay, and it is suggested that user
       agents honor user preferences on the matter. Authors are urged to use the <code

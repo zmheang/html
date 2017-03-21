@@ -21,7 +21,6 @@
    <dd><code data-x="attr-fs-formmethod">formmethod</code></dd>
    <dd><code data-x="attr-fs-formnovalidate">formnovalidate</code></dd>
    <dd><code data-x="attr-fs-formtarget">formtarget</code></dd>
-   <dd><code data-x="attr-button-menu">menu</code></dd>
    <dd><code data-x="attr-fe-name">name</code></dd>
    <dd><code data-x="attr-button-type">type</code></dd>
    <dd><code data-x="attr-button-value">value</code></dd>
@@ -40,7 +39,6 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-fe-name">name</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-button-type">type</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-button-value">value</span>;
-  [<span>CEReactions</span>] attribute <span>HTMLMenuElement</span>? <span data-x="dom-button-menu">menu</span>;
 
   readonly attribute boolean <span data-x="dom-cva-willValidate">willValidate</span>;
   readonly attribute <span>ValidityState</span> <span data-x="dom-cva-validity">validity</span>;
@@ -49,7 +47,7 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   boolean <span data-x="dom-cva-reportValidity">reportValidity</span>();
   void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
 
-  [SameObject] readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
+  readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
 };</pre>
    </dd>
   </dl><!--TOPIC:HTML-->
@@ -82,10 +80,6 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
      <td><dfn><code data-x="attr-button-type-button">button</code></dfn>
      <td><span data-x="attr-button-type-button-state">Button</span>
      <td>Does nothing.
-    <tr>
-     <td><dfn><code data-x="attr-button-type-menu">menu</code></dfn>
-     <td><span data-x="attr-button-type-menu-state">Menu</span>
-     <td>Shows a menu.
   </table>
 
   <p>The <i data-x="missing value default">missing value default</i> is the <span data-x="attr-button-type-submit-state">Submit
@@ -98,10 +92,9 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   <div w-nodev>
 
   <p><strong>Constraint validation</strong>: If the <code data-x="attr-button-type">type</code>
-  attribute is in the <span data-x="attr-button-type-reset-state">Reset Button</span> state, the
-  <span data-x="attr-button-type-button-state">Button</span> state, or the <span
-  data-x="attr-button-type-menu-state">Menu</span> state, the element is <span>barred from constraint
-  validation</span>.</p>
+  attribute is in the <span data-x="attr-button-type-reset-state">Reset Button</span> state or the
+  <span data-x="attr-button-type-button-state">Button</span> state, the element is <span>barred from
+  constraint validation</span>.</p>
 
   <p>A <code>button</code> element's <span>activation behavior</span> is to run the steps defined in
   the following list for the current state of this element's <code
@@ -125,39 +118,6 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
    <dt> <dfn data-x="attr-button-type-button-state">Button</dfn>
 
    <dd><p>Do nothing.</p></dd>
-
-   <dt> <dfn data-x="attr-button-type-menu-state">Menu</dfn>
-
-   <dd>
-
-    <p>The element must follow these steps:</p>
-
-    <ol>
-
-     <li><p>If the <code>button</code> is not <span>being rendered</span>, abort these
-     steps.</p></li>
-
-     <li><p>If the <code>button</code> element's <span>node document</span> is not <span>fully
-     active</span>, abort these steps.</p></li>
-
-     <li><p>Let <var>menu</var> be the element's <span>designated pop-up menu</span>, if
-     any. If there isn't one, then abort these steps.</p></li>
-
-     <li><p>Let <var>build</var> be the result of <span data-x="concept-event-fire">firing an
-     event</span> named <code data-x="event-show">show</code> at <var>menu</var>, using
-     <code>RelatedEvent</code>, with the <code data-x="dom-Event-cancelable">cancelable</code>
-     attribute initialized to true and the <code
-     data-x="dom-RelatedEvent-relatedTarget">relatedTarget</code> attribute initialized to the
-     <code>button</code> element.</p></li>
-     <!-- v2: include modifier key information -->
-
-     <li><p>If <var>build</var> is true, then <span data-x="build and show a menu">build and
-     show</span> the menu for <var>menu</var>, with the <code>button</code> element as the
-     subject.</p></li>
-
-    </ol>
-
-   </dd>
 
   </dl>
 
@@ -196,27 +156,10 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p>If the element's <code data-x="attr-button-type">type</code> attribute is in the <span
-  data-x="attr-button-type-menu-state">Menu</span> state, the <dfn><code data-x="attr-button-menu">menu</code></dfn> attribute must be specified to give the element's
-  menu. The value must be the <span data-x="concept-id">ID</span> of a <code>menu</code> element in
-  the same <span>tree</span> whose <code data-x="attr-menu-type">type</code> attribute is in the
-  <span data-x="popup menu state">popup menu</span> state. The attribute must not be specified if
-  the element's <code data-x="attr-button-type">type</code> attribute is not in the <span
-  data-x="attr-button-type-menu-state">Menu</span> state.</p>
-
   <div w-nodev>
 
-  <p>A <code>button</code> element's <dfn>designated pop-up menu</dfn> is the first element in the
-  <code>button</code>'s <span>tree</span> whose ID is that given by the <code>button</code>
-  element's <code data-x="attr-button-menu">menu</code> attribute, if there is such an element and
-  its <code data-x="attr-menu-type">type</code> attribute is in the <span data-x="popup menu
-  state">popup menu</span> state; otherwise, the element has no <span>designated pop-up
-  menu</span>.</p>
-
-  <hr>
-
-  <p>The <dfn><code data-x="dom-button-value">value</code></dfn> and <dfn><code data-x="dom-button-menu">menu</code></dfn> IDL attributes must <span>reflect</span> the
-  content attributes of the same name.</p>
+  <p>The <dfn><code data-x="dom-button-value">value</code></dfn> IDL attribute must
+  <span>reflect</span> the content attribute of the same name.</p>
 
   <p>The <dfn><code data-x="dom-button-type">type</code></dfn> IDL attribute must
   <span>reflect</span> the content attribute of the same name, <span>limited to only known

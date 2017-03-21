@@ -206,30 +206,29 @@
 
   <p>The <code data-x="CEReactions">[CEReactions]</code> extended attribute must take no
   arguments, and must not appear on anything other than an operation, attribute, setter, or deleter.
-  Additionally, it must not appear on readonly attributes, unless the readonly attribute is also
-  annotated with <code data-x="">[PutForwards]</code>.</p>
+  Additionally, it must not appear on readonly attributes.</p>
 
   <p>Operations, attributes, setters, or deleters annotated with the <code
   data-x="CEReactions">[CEReactions]</code> extended attribute must run the following steps
-  surrounding the main algorithm specified for the operation, setter, deleter, or for the
+  surrounding the actions listed in the description of the operation, setter, deleter, or the
   attribute's setter:</p>
 
   <dl>
-   <dt>Before executing the algorithm's steps</dt>
+   <dt>Before executing the listed actions</dt>
    <dd>Push a new <span>element queue</span> onto the <span>custom element reactions
    stack</span>.</dd>
 
-   <dt>After executing the algorithm's steps</dt>
+   <dt>After executing the listed actions</dt>
    <dd>Pop the <span>element queue</span> from the <span>custom element reactions stack</span>, and
    <span>invoke custom element reactions</span> in that queue.</dd>
   </dl>
 
   <div class="note">
    <p>The intent behind this extended attribute is somewhat subtle. One way of accomplishing its
-   goals would be to say that every operation, attribute, setter, and deleter on the platform should
-   have these steps inserted, and to allow implementers to optimize away unnecessary cases (where no
-   DOM mutation is possible that could cause <span data-x="concept-custom-element-reaction">custom
-   element reactions</span> to occur).</p>
+   goals would be to say that every operation, attribute, setter, and deleter on the platform
+   <!--non-normative-->must have these steps inserted, and to allow implementers to optimize away
+   unnecessary cases (where no DOM mutation is possible that could cause <span
+   data-x="concept-custom-element-reaction">custom element reactions</span> to occur).</p>
 
    <p>However, in practice this imprecision could lead to non-interoperable implementations of <span
    data-x="concept-custom-element-reaction">custom element reactions</span>, as some implementations

@@ -30,7 +30,7 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-download">download</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-area-ping">ping</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-rel">rel</span>;
-  [<span>CEReactions</span>, SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-area-relList">relList</span>;
+  [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-area-relList">relList</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-referrerPolicy">referrerPolicy</span>;
 };
 <span>HTMLAreaElement</span> implements <span>HTMLHyperlinkElementUtils</span>;</pre>

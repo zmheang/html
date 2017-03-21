@@ -77,9 +77,9 @@
   return the same string for that value (though it may differ from the value used by other user
   agents).</p>
 
-  <p>The <dfn>rules for parsing floating-point number values</dfn> are as given in the following
-  algorithm. This algorithm must be aborted at the first step that returns something. This algorithm
-  will return either a number or an error.</p>
+  <p>The <dfn data-export="">rules for parsing floating-point number values</dfn> are as given in
+  the following algorithm. This algorithm must be aborted at the first step that returns something.
+  This algorithm will return either a number or an error.</p>
 
   <ol>
 
@@ -94,7 +94,8 @@
 
    <li><p>Let <var>exponent</var> have the value 1.</p></li>
 
-   <li><p><span>Skip whitespace</span>.</p></li>
+   <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+   <var>position</var>.</p></li>
 
    <li><p>If <var>position</var> is past the end of <var>input</var>, return an error.</p></li>
 
@@ -135,9 +136,9 @@
    <li><p>If the character indicated by <var>position</var> is not an <span data-x="ASCII
    digits">ASCII digit</span>, then return an error.</p></li>
 
-   <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>, and
-   interpret the resulting sequence as a base-ten integer. Multiply <var>value</var> by that
-   integer.</p></li>
+   <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+   <var>input</var> given <var>position</var>, and interpret the resulting sequence as a base-ten
+   integer. Multiply <var>value</var> by that integer.</p></li>
 
    <li>If <var>position</var> is past the end of <var>input</var>, jump to the step labeled
    <i>conversion</i>.</li>
@@ -219,9 +220,9 @@
      <li><p>If the character indicated by <var>position</var> is not an <span data-x="ASCII
      digits">ASCII digit</span>, then jump to the step labeled <i>conversion</i>.</li>
 
-     <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>, and
-     interpret the resulting sequence as a base-ten integer. Multiply <var>exponent</var>
-     by that integer.</p></li>
+     <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+     <var>input</var> given <var>position</var>, and interpret the resulting sequence as a base-ten
+     integer. Multiply <var>exponent</var> by that integer.</p></li>
 
      <li><p>Multiply <var>value</var> by ten raised to the <var>exponent</var>th power.</p></li>
 

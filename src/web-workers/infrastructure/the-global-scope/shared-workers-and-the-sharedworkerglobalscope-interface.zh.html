@@ -3,7 +3,6 @@
   <pre class="idl">[Global=(Worker,SharedWorker),Exposed=SharedWorker]
 interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   readonly attribute DOMString <span data-x="dom-SharedWorkerGlobalScope-name">name</span>;
-  readonly attribute <span>ApplicationCache</span> <span data-x="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</span>; // deprecated
 
   void <span data-x="dom-SharedWorkerGlobalScope-close">close</span>();
 
@@ -58,15 +57,4 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
    <tbody>
     <tr><td><dfn><code data-x="handler-SharedWorkerGlobalScope-onconnect">onconnect</code></dfn> <td> <code data-x="event-WorkerGlobalScope-connect">connect</code>
   </table>
-
-  <p>出于 <span>application cache</span> 网络模型的目的，共享 worker 是它自己的 <span>cache host</span>。
-  <span data-x="run a worker">运行 Worker</span> 算法会将该 worker 关联到对应的
-  <span>application cache</span>。</p>
-
-  <p class="note"><code
-  data-x="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</code> 属性返回
-  该 worker 的 <code>ApplicationCache</code> 对象。</p><!-- normative conf criteria is in the
-  appcache section -->
-
-
 

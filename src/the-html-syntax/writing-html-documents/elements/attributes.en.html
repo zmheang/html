@@ -4,13 +4,12 @@
   element's start tag.</p>
 
   <p>Attributes have a name and a value. <dfn data-x="syntax-attribute-name">Attribute names</dfn>
-  must consist of one or more characters other than the <span data-x="space character">space
-  characters</span>, U+0000 NULL, U+0022 QUOTATION MARK (&#x22;), U+0027 APOSTROPHE (&#x27;), U+003E
-  GREATER-THAN SIGN (&gt;), U+002F SOLIDUS (/), and U+003D EQUALS SIGN (=) characters, the <span>control
-  characters</span>, and any characters that are not defined by Unicode. In the HTML syntax, attribute
-  names, even those for <span>foreign elements</span>, may be written with any mix of lower- and
-  uppercase letters that are an <span>ASCII case-insensitive</span> match for the attribute's
-  name.</p>
+  must consist of one or more characters other than the <span>ASCII whitespace</span>, U+0000 NULL,
+  U+0022 QUOTATION MARK (&#x22;), U+0027 APOSTROPHE (&#x27;), U+003E GREATER-THAN SIGN (&gt;),
+  U+002F SOLIDUS (/), and U+003D EQUALS SIGN (=) characters, the <span>control characters</span>,
+  and any characters that are not defined by Unicode. In the HTML syntax, attribute names, even
+  those for <span>foreign elements</span>, may be written with any mix of lower- and uppercase
+  letters that are an <span>ASCII case-insensitive</span> match for the attribute's name.</p>
 
   <p><dfn data-x="syntax-attribute-value">Attribute values</dfn> are a mixture of <span
   data-x="syntax-text">text</span> and <span data-x="syntax-charref">character references</span>,
@@ -38,7 +37,7 @@
     </div>
 
     <p>If an attribute using the empty attribute syntax is to be followed by another attribute, then
-    there must be a <span>space character</span> separating the two.</p>
+    there must be <span>ASCII whitespace</span> separating the two.</p>
 
    </dd>
 
@@ -46,15 +45,14 @@
 
    <dd>
 
-    <p>The <span data-x="syntax-attribute-name">attribute name</span>, followed by zero or more <span
-    data-x="space character">space characters</span>, followed by a single U+003D EQUALS SIGN
-    character, followed by zero or more <span data-x="space character">space characters</span>,
-    followed by the <span data-x="syntax-attribute-value">attribute value</span>, which, in addition
-    to the requirements given above for attribute values, must not contain any literal <span
-    data-x="space character">space characters</span>, any U+0022 QUOTATION MARK characters (&#x22;),
-    U+0027 APOSTROPHE characters (&#x27;), U+003D EQUALS SIGN characters (=), U+003C LESS-THAN SIGN
-    characters (&lt;), U+003E GREATER-THAN SIGN characters (&gt;), or U+0060 GRAVE ACCENT characters
-    (`), and must not be the empty string.</p>
+    <p>The <span data-x="syntax-attribute-name">attribute name</span>, followed by zero or more
+    <span>ASCII whitespace</span>, followed by a single U+003D EQUALS SIGN character, followed by
+    zero or more <span>ASCII whitespace</span>, followed by the <span
+    data-x="syntax-attribute-value">attribute value</span>, which, in addition to the requirements
+    given above for attribute values, must not contain any literal <span>ASCII whitespace</span>,
+    any U+0022 QUOTATION MARK characters (&#x22;), U+0027 APOSTROPHE characters (&#x27;), U+003D
+    EQUALS SIGN characters (=), U+003C LESS-THAN SIGN characters (&lt;), U+003E GREATER-THAN SIGN
+    characters (&gt;), or U+0060 GRAVE ACCENT characters (`), and must not be the empty string.</p>
 
     <!-- The ` character is in this list on a temporary basis, waiting for IE to fix its parsing bug
          whereby it treats ` as an attribute value delimiter. Otherwise, escaping software that
@@ -95,8 +93,8 @@
 
     <p>If an attribute using the unquoted attribute syntax is to be followed by another attribute or
     by the optional U+002F SOLIDUS character (/) allowed in step 6 of the <span
-    data-x="syntax-start-tag">start tag</span> syntax above, then there must be a <span>space
-    character</span> separating the two.</p>
+    data-x="syntax-start-tag">start tag</span> syntax above, then there must be <span>ASCII
+    whitespace</span> separating the two.</p>
 
    </dd>
 
@@ -104,13 +102,13 @@
 
    <dd>
 
-    <p>The <span data-x="syntax-attribute-name">attribute name</span>, followed by zero or more <span
-    data-x="space character">space characters</span>, followed by a single U+003D EQUALS SIGN
-    character, followed by zero or more <span data-x="space character">space characters</span>,
-    followed by a single U+0027 APOSTROPHE character ('), followed by the <span
-    data-x="syntax-attribute-value">attribute value</span>, which, in addition to the requirements
-    given above for attribute values, must not contain any literal U+0027 APOSTROPHE characters ('),
-    and finally followed by a second single U+0027 APOSTROPHE character (').</p>
+    <p>The <span data-x="syntax-attribute-name">attribute name</span>, followed by zero or more
+    <span>ASCII whitespace</span>, followed by a single U+003D EQUALS SIGN character, followed by
+    zero or more <span>ASCII whitespace</span>, followed by a single U+0027 APOSTROPHE character
+    ('), followed by the <span data-x="syntax-attribute-value">attribute value</span>, which, in
+    addition to the requirements given above for attribute values, must not contain any literal
+    U+0027 APOSTROPHE characters ('), and finally followed by a second single U+0027 APOSTROPHE
+    character (').</p>
 
     <div class="example">
 
@@ -122,7 +120,7 @@
     </div>
 
     <p>If an attribute using the single-quoted attribute syntax is to be followed by another
-    attribute, then there must be a <span>space character</span> separating the two.</p>
+    attribute, then there must be <span>ASCII whitespace</span> separating the two.</p>
 
    </dd>
 
@@ -130,13 +128,13 @@
 
    <dd>
 
-    <p>The <span data-x="syntax-attribute-name">attribute name</span>, followed by zero or more <span
-    data-x="space character">space characters</span>, followed by a single U+003D EQUALS SIGN
-    character, followed by zero or more <span data-x="space character">space characters</span>,
-    followed by a single U+0022 QUOTATION MARK character ("), followed by the <span
-    data-x="syntax-attribute-value">attribute value</span>, which, in addition to the requirements
-    given above for attribute values, must not contain any literal U+0022 QUOTATION MARK characters
-    ("), and finally followed by a second single U+0022 QUOTATION MARK character (").</p>
+    <p>The <span data-x="syntax-attribute-name">attribute name</span>, followed by zero or more
+    <span>ASCII whitespace</span>, followed by a single U+003D EQUALS SIGN character, followed by
+    zero or more <span>ASCII whitespace</span>, followed by a single U+0022 QUOTATION MARK character
+    ("), followed by the <span data-x="syntax-attribute-value">attribute value</span>, which, in
+    addition to the requirements given above for attribute values, must not contain any literal
+    U+0022 QUOTATION MARK characters ("), and finally followed by a second single U+0022 QUOTATION
+    MARK character (").</p>
 
     <div class="example">
 
@@ -148,7 +146,7 @@
     </div>
 
     <p>If an attribute using the double-quoted attribute syntax is to be followed by another
-    attribute, then there must be a <span>space character</span> separating the two.</p>
+    attribute, then there must be <span>ASCII whitespace</span> separating the two.</p>
 
    </dd>
 

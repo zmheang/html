@@ -29,11 +29,11 @@
     <!-- this can only be called if the current node is one of the table model elements -->
 
     <p>If any of the tokens in the <var data-x="concept-pending-table-char-tokens">pending table
-    character tokens</var> list are character tokens that are not <span data-x="space
-    character">space characters</span>, then this is a <span>parse error</span>: reprocess the
-    character tokens in the <var data-x="concept-pending-table-char-tokens">pending table character
-    tokens</var> list using the rules given in the "anything else" entry in the "<span
-    data-x="insertion mode: in table">in table</span>" insertion mode.</p>
+    character tokens</var> list are character tokens that are not <span>ASCII whitespace</span>,
+    then this is a <span>parse error</span>: reprocess the character tokens in the <var
+    data-x="concept-pending-table-char-tokens">pending table character tokens</var> list using the
+    rules given in the "anything else" entry in the "<span data-x="insertion mode: in table">in
+    table</span>" insertion mode.</p>
 
     <!-- if there's active formatting elements, it'll recreate those and foster parent the top one
     and then put the text nodes in the formatting elements; otherwise, it'll foster parent the

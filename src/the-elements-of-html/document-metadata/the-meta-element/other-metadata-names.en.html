@@ -1,11 +1,28 @@
   <h5>Other metadata names</h5>
 
-  <p><dfn data-x="concept-meta-extensions">Extensions to the predefined set of metadata names</dfn>
-  may be registered in the <a href="https://wiki.whatwg.org/wiki/MetaExtensions">WHATWG Wiki
-  MetaExtensions page</a>. <ref spec=WHATWGWIKI></p>
+  <p>Anyone can create and use their own <dfn data-x="concept-meta-extensions">extensions to the
+  predefined set of metadata names</dfn>. There is no requirement to register such extensions.</p>
 
-  <p>Anyone is free to edit the WHATWG Wiki MetaExtensions page at any time to add a type. These new
-  names must be specified with the following information:</p>
+  <p>However, a new metadata name should not be created in any of the following cases:</p>
+
+  <ul>
+   <li><p>If either the name is a <span>URL</span>, or the value of its accompanying <code
+   data-x="attr-meta-content">content</code> attribute is a <span>URL</span>; in those cases,
+   registering it as an <span data-x="concept-rel-extensions">extension to the predefined set of
+   link types</span> is encouraged (rather than creating a new metadata name).</p></li>
+
+   <li><p>If the name is for something expected to have processing requirements in user agents; in
+   that case it ought to be standardized.</p></li>
+  </ul>
+
+  <p>Also, before creating and using a new metadata name, consulting the <a
+  href="https://wiki.whatwg.org/wiki/MetaExtensions">WHATWG Wiki MetaExtensions page</a> is
+  encouraged — to avoid choosing a metadata name that's already in use, and to avoid duplicating the
+  purpose of any metadata names that are already in use, and to avoid new standardized names
+  clashing with your chosen name. <ref spec=WHATWGWIKI></p>
+
+  <p>Anyone is free to edit the WHATWG Wiki MetaExtensions page at any time to add a metadata name.
+  New metadata names can be specified with the following information:</p>
 
   <dl>
 
@@ -30,8 +47,8 @@
    <dt>Synonyms</dt>
 
    <dd><p>A list of other names that have exactly the same processing requirements. Authors should
-   not use the names defined to be synonyms, they are only intended to allow user agents to support
-   legacy content. Anyone may remove synonyms that are not used in practice; only names that need to
+   not use the names defined to be synonyms (they are only intended to allow user agents to support
+   legacy content). Anyone may remove synonyms that are not used in practice; only names that need to
    be processed as synonyms for compatibility with legacy content are to be registered in this
    way.</p></dd>
 
@@ -66,8 +83,8 @@
     <p>If a metadata name is found to be redundant with existing values, it should be removed and
     listed as a synonym for the existing value.</p>
 
-    <p>If a metadata name is registered in the "proposed" state for a period of a month or more
-    without being used or specified, then it may be removed from the registry.</p>
+    <p>If a metadata name is added in the "proposed" state for a period of a month or more without
+    being used or specified, then it may be removed from the WHATWG Wiki MetaExtensions page.</p>
 
     <p>If a metadata name is added with the "proposed" status and found to be redundant with
     existing values, it should be removed and listed as a synonym for the existing value. If a
@@ -80,25 +97,6 @@
    </dd>
 
   </dl>
-
-  <div w-nodev>
-
-  <p>Conformance checkers must use the information given on the WHATWG Wiki MetaExtensions page to
-  establish if a value is allowed or not: values defined in this specification or marked as
-  "proposed" or "ratified" must be accepted, whereas values marked as "discontinued" or not listed
-  in either this specification or on the aforementioned page must be rejected as invalid.
-  Conformance checkers may cache this information (e.g. for performance reasons or to avoid the use
-  of unreliable network connectivity).</p>
-
-  <p>When an author uses a new metadata name not defined by either this specification or the Wiki
-  page, conformance checkers should offer to add the value to the Wiki, with the details described
-  above, with the "proposed" status.</p>
-
-  </div>
-
-  <p>Metadata names whose values are to be <span data-x="URL">URLs</span> must not be proposed or
-  accepted. Links must be represented using the <code>link</code> element, not the <code>meta</code>
-  element.</p>
 
 
 

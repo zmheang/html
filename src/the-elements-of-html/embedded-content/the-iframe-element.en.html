@@ -30,7 +30,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-iframe-src">src</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-srcdoc">srcdoc</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-name">name</span>;
-  [<span>CEReactions</span>, SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-iframe-sandbox">sandbox</span>;
+  [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-iframe-sandbox">sandbox</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-iframe-allowFullscreen">allowFullscreen</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-iframe-allowPaymentRequest">allowPaymentRequest</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-iframe-allowUserMedia">allowUserMedia</span>;
@@ -70,19 +70,19 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
   <ol>
 
-   <li>Any number of <span data-x="syntax-comments">comments</span> and <span data-x="space
-   character">space characters</span>.</li>
+   <li>Any number of <span data-x="syntax-comments">comments</span> and <span>ASCII
+   whitespace</span>.</li>
 
    <li>Optionally, a <span data-x="syntax-doctype">DOCTYPE</span>.
 
-   <li>Any number of <span data-x="syntax-comments">comments</span> and <span data-x="space
-   character">space characters</span>.</li>
+   <li>Any number of <span data-x="syntax-comments">comments</span> and <span>ASCII
+   whitespace</span>.</li>
 
    <li>The <span>document element</span>, in the form of an <code>html</code> <span
    data-x="syntax-elements">element</span>.</li>
 
-   <li>Any number of <span data-x="syntax-comments">comments</span> and <span data-x="space
-   character">space characters</span>.</li>
+   <li>Any number of <span data-x="syntax-comments">comments</span> and <span>ASCII
+   whitespace</span>.</li>
 
   </ol>
 
@@ -386,8 +386,9 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   data-x="attr-iframe-sandbox-allow-popups-to-escape-sandbox">allow-popups-to-escape-sandbox</code>,
   <code data-x="attr-iframe-sandbox-allow-presentation">allow-presentation</code>, <code
   data-x="attr-iframe-sandbox-allow-same-origin">allow-same-origin</code>, <code
-  data-x="attr-iframe-sandbox-allow-scripts">allow-scripts</code>, and <code
-  data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code>.</p>
+  data-x="attr-iframe-sandbox-allow-scripts">allow-scripts</code>, <code
+  data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code>, and <code
+  data-x="attr-iframe-sandbox-allow-top-navigation-by-user-activation">allow-top-navigation-by-user-activation</code>.</p>
 
   <p>When the attribute is set, the content is treated as being from a unique <span>origin</span>,
   forms, scripts, and various potentially annoying APIs are disabled, links are prevented from
@@ -396,7 +397,11 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   the content to be treated as being from its real origin instead of forcing it into a unique
   origin; the <code data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code>
   keyword allows the content to <span>navigate</span> its <span>top-level browsing context</span>;
-  and the <code data-x="attr-iframe-sandbox-allow-forms">allow-forms</code>, <code
+  the <code
+  data-x="attr-iframe-sandbox-allow-top-navigation-by-user-activation">allow-top-navigation-by-user-activation</code>
+  keyword behaves similarly but only allows such <span data-x="navigate">navigation</span> when
+  <span>triggered by user activation</span>; and the <code
+  data-x="attr-iframe-sandbox-allow-forms">allow-forms</code>, <code
   data-x="attr-iframe-sandbox-allow-modals">allow-modals</code>, <code
   data-x="attr-iframe-sandbox-allow-orientation-lock">allow-orientation-lock</code>, <code
   data-x="attr-iframe-sandbox-allow-pointer-lock">allow-pointer-lock</code>, <code
@@ -408,6 +413,13 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   the presentation API, scripts, and the creation of unsandboxed <span data-x="auxiliary browsing
   context">auxiliary browsing contexts</span> respectively. <ref spec=POINTERLOCK>
   <ref spec=SCREENORIENTATION> <ref spec=PRESENTATION></p>
+
+  <p>The <code
+  data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code> and <code
+  data-x="attr-iframe-sandbox-allow-top-navigation-by-user-activation">allow-top-navigation-by-user-activation</code>
+  keywords must not both be specified, as doing so is redundant; only <code
+  data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code> will have an effect
+  in such non-conformant markup.</p>
 
   <p class="warning">Setting both the <code
   data-x="attr-iframe-sandbox-allow-scripts">allow-scripts</code> and <code

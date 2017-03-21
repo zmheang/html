@@ -83,8 +83,8 @@ interface <dfn>NavigatorContentUtils</dfn> {
     <p>If the <code data-x="dom-navigator-registerProtocolHandler">registerProtocolHandler()</code>
     method is invoked with a scheme that is neither a <span>safelisted scheme</span> nor a scheme
     whose value starts with the substring "<code data-x="">web+</code>" and otherwise contains only
-    <span>lowercase ASCII letters</span>, and whose length is at least five characters (including
-    the "<code data-x="">web+</code>" prefix), the user agent must throw a
+    <span data-x="ASCII lower alpha">ASCII lower alphas</span>, and whose length is at least five
+    characters (including the "<code data-x="">web+</code>" prefix), the user agent must throw a
     <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p>
 
     <p>The following schemes are the <dfn data-x="safelisted scheme">safelisted schemes</dfn>:</p>
@@ -112,8 +112,8 @@ interface <dfn>NavigatorContentUtils</dfn> {
      <li><code data-x="">xmpp</code></li>
     </ul>
 
-    <p class="note">This list can be changed. If there are schemes that should be added, please send
-    feedback.</p>
+    <p class="note">This list can be changed. If there are schemes that ought to be added, please
+    send feedback.</p>
 
     <p class="note">This list excludes any schemes that could reasonably be expected to be supported
     inline, e.g. in an <code>iframe</code>, such as <code data-x="">http</code> or (more
@@ -171,7 +171,7 @@ interface <dfn>NavigatorContentUtils</dfn> {
 
     </ul>
 
-    <p class="note">This list can be changed. If there are MIME types that should be added, please
+    <p class="note">This list can be changed. If there are MIME types that ought to be added, please
     send feedback.</p>
 
    </dd>
@@ -193,8 +193,8 @@ interface <dfn>NavigatorContentUtils</dfn> {
     successful.</p>
 
     <p class="note">The <span>resulting URL string</span> would by definition not be a <span>valid
-    URL</span> as it would include the string "<code data-x="">%s</code>" which is not a valid
-    component in a URL.</p>
+    URL string</span> as it would include the string "<code data-x="">%s</code>" which is not a
+    valid component in a URL.</p>
 
     <p>User agents must throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>
     if the <span>resulting URL record</span> has an <span data-x="concept-url-origin">origin</span>

@@ -7,23 +7,50 @@
 
   <p class="note">传输是不可逆转的、不幂等的操作。对象一旦被传输就不可再次传输或使用。</p>
 
-  <p><span data-x="transferable objects">可传输的</span><span data-x="platform object">平台对象</span>
-  有一个 [[<dfn>Detached</dfn>]] 内部槽，以及下列的内部方法：</p>
+  <p><span data-x="platform object">Platform objects</span> can be <span>transferable objects</span>
+  if they implement only interfaces decorated with the <dfn data-export=""
+  data-dfn-type="extended-attribute" data-lt="Transferable"
+  data-x="Transferable"><code>[Transferable]</code></dfn> IDL <span>extended attribute</span>. Such
+  interfaces must also define the following algorithms:</p>
 
-  <p>[[<dfn>Transfer</dfn>]] ( <var>targetRealm</var> )</p>
-  <!-- If we ever add /memory/ support here we need to update the language around replacing
-       references -->
+  <dl>
+   <dt><dfn data-export="">transfer steps</dfn>, taking a <span>platform object</span>
+   <var>value</var> and a <span>Record</span> <var>dataHolder</var></dt>
+   <dd>
+    <p>A set of steps that transfers the data in <var>input</var> into fields of
+    <var>dataHolder</var>. The resulting data held in <var>dataHolder</var> must be
+    independent of any <span>JavaScript Realm</span>.</p>
 
-  <p class="note">虽然所有 <span data-x="platform object">平台对象</span> 都有
-  [[<span>Clone</span>]] 内部方法，但并非都有 [[<span>Detached</span>]] 内部槽以及
-  [[<span>Transfer</span>]] 内部方法。</p>
+    <p>These steps may throw an exception if transferral is not possible.</p>
+   </dd>
 
-  <p><span data-x="transferable objects">可传输的</span><span data-x="platform object">平台对象</span>
-  必须定义 [[<span>Transfer</span>]] 内部方法，它或者抛出一个异常，或者
-  在<var>targetRealm</var>创建一份<b>this</b> 的克隆并返回。
-  <b>this</b>与返回值共享底层数据。<b>this</b>的 [[<span>Detached</span>]] 内部槽的值设为 true。
-  具体如何传输取决于这些对象如何去定义它。</p>
+   <dt><dfn data-export="">transfer-receiving steps</dfn>, taking a <span>Record</span>
+   <var>dataHolder</var> and a <span>platform object</span> <var>value</var></dt>
+   <dd>
+    <p>A set of steps that receives the data in <var>dataHolder</var>, using it to set up
+    <var>value</var> as appropriate. <var>value</var> will be a newly-created instance of the
+    <span>platform object</span> type in question, with none of its internal data set up; setting
+    that up is the job of these steps.</p>
 
-  <p>JavaScript 标准中定义的对象直接交由 <span>StructuredCloneWithTransfer</span>
-  （技术上是 <span>IsTransferable</span> 和 <span data-x="transfer-abstract-op">Transfer</span>）抽象操作。</p>
+    <p>These steps may throw an exception if it is not possible to receive the transfer.</p>
+   </dd>
+  </dl>
+
+  <p>It is up to the definition of individual platform objects to determine what data is transferred
+  by these steps. Typically the steps are very symmetric.</p>
+
+  <p>The <code data-x="Transferable">[Transferable]</code> extended attribute must take no
+  arguments, and must not appear on anything other than an interface. It must appear only once on an
+  interface. It must not be used on a callback interface. If it appears on a partial interface or an
+  interface that is really a mixin, then it must also appear on the original or mixed-in-to
+  interface, and any supplied <span>serialization steps</span> and <span>deserialization
+  steps</span> for the partial interface or mixin should be understood as being appended to those of
+  the original or mixed-in-to interface.</p>
+
+  <p><span data-x="platform object">Platform objects</span> that are <span>transferable
+  objects</span> have a <dfn data-export="" data-dfn-for="platform object"
+  data-dfn-type="attribute">[[Detached]]</dfn> internal slot. This is used to ensure that once a
+  platform object has been transferred, it cannot be transferred again.</p>
+
+  <p>JavaScript 标准中定义的对象直接交由 <span>StructuredSerializeWithTransfer</span> 抽象操作。</p>
 

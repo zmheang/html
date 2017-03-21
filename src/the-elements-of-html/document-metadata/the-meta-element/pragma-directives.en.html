@@ -136,11 +136,11 @@ people expect to have work and what is necessary.
 
      <li><p>Let <var>position</var> point at the first character of <var>input</var>.</p></li>
 
-     <li><p><span>Skip whitespace</span>.</p></li>
+     <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+     <var>position</var>.</p></li>
 
-     <li><p><span>Collect a sequence of characters</span> that are not<!--neither--> <span
-     data-x="space character">space characters</span><!-- nor a U+002C COMMA character
-     (,)-->.</p></li>
+     <li><p><span>Collect a sequence of code points</span> that are not <span>ASCII
+     whitespace</span> from <var>input</var> given <var>position</var>.</p></li>
 
      <li><p>Let <var>candidate</var> be the string that resulted from the previous
      step.</p></li>
@@ -177,11 +177,10 @@ people expect to have work and what is necessary.
     attribute in the <span data-x="attr-meta-http-equiv-content-type">Encoding declaration
     state</span>, the <code data-x="attr-meta-content">content</code> attribute must have a value
     that is an <span>ASCII case-insensitive</span> match for a string that consists of: the literal
-    string "<code data-x="">text/html;</code>", optionally followed by any number of <span
-    data-x="space character">space characters</span>, followed by the literal string "<code
-    data-x="">charset=</code>", followed by one of the <span data-x="encoding label">labels</span> of
-    the <span data-x="encoding">character encoding</span> of the <span>character encoding
-    declaration</span>.</p>
+    string "<code data-x="">text/html;</code>", optionally followed by any number of <span>ASCII
+    whitespace</span>, followed by the literal string "<code data-x="">charset=</code>", followed by
+    one of the <span data-x="encoding label">labels</span> of the <span data-x="encoding">character
+    encoding</span> of the <span>character encoding declaration</span>.</p>
 
     <p>A document must not contain both a <code>meta</code> element with an <code
     data-x="attr-meta-http-equiv">http-equiv</code> attribute in the <span
@@ -249,15 +248,18 @@ people expect to have work and what is necessary.
 
      <li><p>Let <var>position</var> point at the first character of <var>input</var>.</p></li>
 
-     <li><p><span>Skip whitespace</span>.</p></li>
+     <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+     <var>position</var>.</p></li>
 
-     <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>, and
-     parse the resulting string using the <span>rules for parsing non-negative integers</span>. If
-     the sequence of characters collected is the empty string, then no number will have been parsed;
-     abort these steps. Otherwise, let <var>time</var> be the parsed number.</p></li>
+     <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+     <var>input</var> given <var>position</var>, and parse the resulting string using the
+     <span>rules for parsing non-negative integers</span>. If the sequence of characters collected
+     is the empty string, then no number will have been parsed; abort these steps. Otherwise, let
+     <var>time</var> be the parsed number.</p></li>
 
-     <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span> and
-     U+002E FULL STOP characters (.). Ignore any collected characters.</p></li>
+     <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> and
+     U+002E FULL STOP characters (.) from <var>input</var> given <var>position</var>. Ignore any
+     collected characters.</p></li>
 
      <li><p>Let <var>url</var> be <var>document</var>'s <span
      data-x="concept-document-URL">URL</span>.</p></li>
@@ -266,16 +268,18 @@ people expect to have work and what is necessary.
      <i>end</i>.</p></li>
 
      <li><p>If the character in <var>input</var> pointed to by <var>position</var> is not a U+003B
-     SEMICOLON character (;), a U+002C COMMA character (,), or a <span>space character</span>, then
+     SEMICOLON character (;), a U+002C COMMA character (,), or <span>ASCII whitespace</span>, then
      abort these steps.</p></li>
 
-     <li><p><span>Skip whitespace</span>.</p></li>
+     <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+     <var>position</var>.</p></li>
 
      <li><p>If the character in <var>input</var> pointed to by <var>position</var> is a U+003B
      SEMICOLON character (;), a U+002C COMMA character (,), then advance <var>position</var> to the
      next character.</p></li>
 
-     <li><p><span>Skip whitespace</span>.</p></li>
+     <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+     <var>position</var>.</p></li>
 
      <li><p>If <var>position</var> is past the end of <var>input</var>, jump to the step labeled
      <i>end</i>.</p></li>
@@ -298,13 +302,15 @@ people expect to have work and what is necessary.
      (l), then advance <var>position</var> to the next character. Otherwise, jump to the step
      labeled <i>parse</i>.</p></li>
 
-     <li><p><span>Skip whitespace</span>.</p></li>
+     <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+     <var>position</var>.</p></li>
 
      <li><p>If the character in <var>input</var> pointed to by <var>position</var>
      is a U+003D EQUALS SIGN (=), then advance <var>position</var> to the next character. Otherwise,
      jump to the step labeled <i>parse</i>.</p></li>
 
-     <li><p><span>Skip whitespace</span>.</p></li>
+     <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+     <var>position</var>.</p></li>
 
      <li><p><i>Skip quotes</i>: If the character in <var>input</var> pointed to by
      <var>position</var> is either a U+0027 APOSTROPHE character (') or U+0022 QUOTATION MARK
@@ -392,11 +398,11 @@ people expect to have work and what is necessary.
 
      <li>a <span>valid non-negative integer</span>, followed by a U+003B SEMICOLON character
      (;)<!--(add this at some point once the browsers all support it) or a U+002C COMMA character
-     (,)-->, followed by one or more <span data-x="space character">space characters</span>, followed
-     by a substring that is an <span>ASCII case-insensitive</span> match for the string "<code
-     data-x="">URL</code>", followed by a U+003D EQUALS SIGN character (=), followed by a <span>valid
-     URL</span> that does not start with a literal U+0027 APOSTROPHE (') or U+0022 QUOTATION MARK
-     (") character.</li>
+     (,)-->, followed by one or more <span>ASCII whitespace</span>, followed by a substring that is
+     an <span>ASCII case-insensitive</span> match for the string "<code data-x="">URL</code>",
+     followed by a U+003D EQUALS SIGN character (=), followed by a <span>valid URL string</span>
+     that does not start with a literal U+0027 APOSTROPHE (') or U+0022 QUOTATION MARK (")
+     character.</li>
 
     </ul>
 

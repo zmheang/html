@@ -97,7 +97,7 @@
   data-x="dom-media-HAVE_FUTURE_DATA">HAVE_FUTURE_DATA</code>.</p>
 
   <p>A <span>media element</span> is said to be <dfn>eligible for autoplay</dfn> when its
-  <span>autoplaying flag</span> is true, its <code data-x="dom-media-paused">paused</code> attribute
+  <span>can autoplay flag</span> is true, its <code data-x="dom-media-paused">paused</code> attribute
   is true, the element has an <code data-x="attr-media-autoplay">autoplay</code> attribute
   specified, and the element's <span>node document</span>'s <span>active sandboxing flag set</span>
   does not have the <span>sandboxed automatic features browsing context flag</span> set.</p>
@@ -361,7 +361,7 @@
    <li>
 
     <p>If the <span>media element</span>'s <code data-x="dom-media-error">error</code> attribute is
-    not null and its <code data-x="dom-MediaError-code">code</code> attribute has the value <code
+    not null and its <span data-x="concept-MediaError-code">code</span> is <code
     data-x="dom-MediaError-MEDIA_ERR_SRC_NOT_SUPPORTED">MEDIA_ERR_SRC_NOT_SUPPORTED</code>, return a
     promise rejected with a <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>
     and abort these steps.</p>
@@ -444,7 +444,7 @@
 
    </li>
 
-   <li><p>Set the <span>media element</span>'s <span>autoplaying flag</span> to false.</p></li>
+   <li><p>Set the <span>media element</span>'s <span>can autoplay flag</span> to false.</p></li>
 
    <li><p>Return <var>promise</var>.</p></li>
 
@@ -471,7 +471,7 @@
 
   <ol>
 
-   <li><p>Set the <span>media element</span>'s <span>autoplaying flag</span> to false.</p></li>
+   <li><p>Set the <span>media element</span>'s <span>can autoplay flag</span> to false.</p></li>
 
    <li><p>If the <span>media element</span>'s <code data-x="dom-media-paused">paused</code> attribute
    is false, run the following steps:</p>

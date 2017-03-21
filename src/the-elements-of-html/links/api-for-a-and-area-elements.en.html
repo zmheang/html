@@ -113,8 +113,8 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
   data-x="concept-hyperlink-url-set">set the url</span>.</p>
 
   <p class="note">This is only observable for <code data-x="blob protocol">blob:</code> URLs as
-  <span data-x="url parser">parsing</span> them involves the <span>StructuredClone</span> abstract
-  operation.</p>
+  <span data-x="url parser">parsing</span> them involves the <span>StructuredSerialize</span>
+  abstract operation.</p>
 
   <p>An element implementing the <code>HTMLHyperlinkElementUtils</code> mixin has an associated
   <!--en-GB--><dfn id="reinitialise-url">reinitialize url</dfn> algorithm, which runs these
@@ -195,9 +195,15 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
    <li><p>If this element's <span data-x="concept-hyperlink-url">url</span> is null, terminate these
    steps.</p></li>
 
-   <li><p><span data-x="basic url parser">Basic URL parse</span> the given value, followed by
-   "<code data-x="">:</code>", with this element's <span data-x="concept-hyperlink-url">url</span>
-   as <var>url</var> and <span>scheme start state</span> as <var>state override</var>.</p></li>
+   <li>
+    <p><span data-x="basic url parser">Basic URL parse</span> the given value, followed by
+    "<code data-x="">:</code>", with this element's <span data-x="concept-hyperlink-url">url</span>
+    as <var>url</var> and <span>scheme start state</span> as <var>state override</var>.</p>
+
+    <p class="note">Because the URL parser ignores multiple consecutive colons, providing a value
+    of "<code data-x="">https:</code>" (or even "<code data-x="">https::::</code>") is the same as
+    providing a value of "<code data-x="">https</code>".</p>
+   </li>
 
    <li><p><span>Update <code>href</code></span>.</p></li>
   </ol>
@@ -224,9 +230,8 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
    <li><p>Let <var>url</var> be this element's <span
    data-x="concept-hyperlink-url">url</span>.</p></li>
 
-   <li><p>If <var>url</var> or <var>url</var>'s <span data-x="concept-url-host">host</span> is null,
-   or <var>url</var>'s <span>cannot-be-a-base-URL flag</span> is set, terminate these
-   steps.</p></li>
+   <li><p>If <var>url</var> is null or <var>url</var>
+   <span>cannot have a username/password/port</span>, then return.</p></li>
 
    <li><p><span>Set the username</span>, given <var>url</var> and the given value.</p></li>
 
@@ -256,9 +261,8 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
    <li><p>Let <var>url</var> be this element's <span
    data-x="concept-hyperlink-url">url</span>.</p></li>
 
-   <li><p>If <var>url</var> or <var>url</var>'s <span data-x="concept-url-host">host</span> is null,
-   or <var>url</var>'s <span>cannot-be-a-base-URL flag</span> is set, terminate these
-   steps.</p></li>
+   <li><p>If <var>url</var> is null or <var>url</var>
+   <span>cannot have a username/password/port</span>, then return.</p></li>
 
    <li><p><span>Set the password</span>, given <var>url</var> and the given value.</p></li>
 
@@ -364,10 +368,8 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
    <li><p>Let <var>url</var> be this element's <span
    data-x="concept-hyperlink-url">url</span>.</p></li>
 
-   <li><p>If <var>url</var> or <var>url</var>'s <span data-x="concept-url-host">host</span> is null,
-   <var>url</var>'s <span>cannot-be-a-base-URL flag</span> is set, or <var>url</var>'s <span
-   data-x="concept-url-scheme">scheme</span> is "<code data-x="">file</code>", terminate these
-   steps.</p></li>
+   <li><p>If <var>url</var> is null or <var>url</var>
+   <span>cannot have a username/password/port</span>, then return.</p></li>
 
    <li><p>If the given value is the empty string, then set <var>url</var>'s <span
    data-x="concept-url-port">port</span> to null.</p></li>
@@ -392,6 +394,9 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
 
    <li><p>If <var>url</var>'s <span>cannot-be-a-base-URL flag</span> is set, return the first string
    in <var>url</var>'s <span data-x="concept-url-path">path</span>.</p></li>
+
+   <li><p>If <var>url</var>'s <span data-x="concept-url-path">path</span> is empty, then return the
+   empty string.</p></li>
 
    <li><p>Return "<code data-x="">/</code>", followed by the strings in <var>url</var>'s <span
    data-x="concept-url-path">path</span> (including empty strings), separated from each other by
@@ -496,9 +501,7 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
    <li><p>Let <var>url</var> be this element's <span
    data-x="concept-hyperlink-url">url</span>.</p></li>
 
-   <li><p>If <var>url</var> is null or <var>url</var>'s <span
-   data-x="concept-url-scheme">scheme</span> is "<code data-x="">javascript</code>", terminate these
-   steps.</p></li>
+   <li><p>If <var>url</var> is null, then return.</p></li>
 
    <li><p>If the given value is the empty string, set <var>url</var>'s <span
    data-x="concept-url-fragment">fragment</span> to null.

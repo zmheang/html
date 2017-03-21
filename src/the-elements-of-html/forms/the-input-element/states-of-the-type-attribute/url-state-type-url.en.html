@@ -15,9 +15,9 @@
   <p>If the element is <i data-x="concept-fe-mutable">mutable</i>, the user agent should allow the
   user to change the URL represented by its <span data-x="concept-fe-value">value</span>. User agents
   may allow the user to set the <span data-x="concept-fe-value">value</span> to a string that is not
-  a <span data-x="valid URL">valid</span> <span>absolute URL</span>, but may also or instead
+  a <span data-x="valid URL string">valid</span> <span>absolute URL</span>, but may also or instead
   automatically escape characters entered by the user so that the <span
-  data-x="concept-fe-value">value</span> is always a <span data-x="valid URL">valid</span>
+  data-x="concept-fe-value">value</span> is always a <span data-x="valid URL string">valid</span>
   <span>absolute URL</span> (even if that isn't the actual value seen and edited by the user in the
   interface). User agents should allow the user to set the <span
   data-x="concept-fe-value">value</span> to the empty string. User agents must not allow users to
@@ -32,12 +32,12 @@
 
   <div w-nodev>
 
-  <p><strong>The <span>value sanitization algorithm</span> is as follows</strong>: <span>Strip line
-  breaks</span> from the <span data-x="concept-fe-value">value</span>, then <span>strip leading and
-  trailing whitespace</span> from the <span data-x="concept-fe-value">value</span>.</p>
+  <p><strong>The <span>value sanitization algorithm</span> is as follows</strong>: <span>Strip
+  newlines</span> from the <span data-x="concept-fe-value">value</span>, then <span>strip leading
+  and trailing ASCII whitespace</span> from the <span data-x="concept-fe-value">value</span>.</p>
 
   <p><strong>Constraint validation</strong>: While the <span data-x="concept-fe-value">value</span>
-  of the element is neither the empty string nor a <span data-x="valid URL">valid</span>
+  of the element is neither the empty string nor a <span data-x="valid URL string">valid</span>
   <span>absolute URL</span>, the element is <span>suffering from a type mismatch</span>.</p>
 
   </div>

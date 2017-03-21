@@ -45,8 +45,11 @@
  &lt;h2&gt;Or: How I Learned to Stop Worrying and Love the Bomb&lt;/h2&gt;
 &lt;/hgroup&gt;</pre>
 
-   <p>The point of using <code>hgroup</code> in these examples is to mask the <code>h2</code>
-   element (which acts as a secondary title) from the <span>outline</span> algorithm.</p>
+   <p>The point of using <code>hgroup</code> in these examples is to prevent the <code>h2</code>
+   element (which acts as a secondary title) from creating a separate section of its own in any
+   <span>outline</span> and to instead cause the contents of the <code>h2</code> to be shown in
+   rendered output from the <span>outline</span> algorithm in some way to indicate that it is not
+   the title of a separate section but instead just a secondary title in a group of titles.</p>
    <!-- http://www.brucelawson.co.uk/2009/html-5-is-a-mess/#comment-618895 -->
 
    <p>How a user agent exposes such multi-level headings in user interfaces (e.g. in tables of
@@ -89,11 +92,11 @@ Space is not the only void</pre>
 
    <p>In both cases it is important to note the use of the <code>hgroup</code> element to group the
    two titles indicates that the titles are not equivalent; instead the first <code>h1</code> gives
-   the (primary) title while the second gives the (secondary) alternative title. Even though both the
-   title and alternative title are marked up with <code>h1</code> elements, the second
-   <code>h1</code> in the <code>hgroup</code> will be masked from the <span>outline</span>
-   algorithm, and it would be reasonable in some contexts to render the contents of the second
-   <code>h1</code> in way that clearly indicates it is secondary; for example:
+   the (primary) title while the second gives the (secondary) alternative title. Even though both
+   the title and alternative title are marked up with <code>h1</code> elements, in a rendered view
+   of output from the <span>outline</span> algorithm, the second <code>h1</code> in the
+   <code>hgroup</code> will be shown in some way that clearly indicates it is secondary; for
+   example:
 
    <p>In a US publication:</p>
    <pre>The Avengers (Avengers Assemble)</pre>

@@ -38,12 +38,12 @@
 
   <p>The numeric character reference forms described above are allowed to reference any Unicode code
   point other than U+0000, U+000D, permanently undefined Unicode characters (noncharacters),
-  surrogates (U+D800&ndash;U+DFFF), and <span>control characters</span> other than <span
-  data-x="space character">space characters</span>.</p>
+  surrogates (U+D800&ndash;U+DFFF), and <span>control characters</span> other than <span>ASCII
+  whitespace</span>.</p>
 
   <p>An <dfn data-x="syntax-ambiguous-ampersand">ambiguous ampersand</dfn> is a U+0026 AMPERSAND
-  character (&amp;) that is followed by one or more <span>alphanumeric ASCII characters</span>,
-  followed by a U+003B SEMICOLON character (;), where these characters do not match any of the names
-  given in the <span>named character references</span> section.</p>
+  character (&amp;) that is followed by one or more <span data-x="ASCII alphanumeric">ASCII
+  alphanumerics</span>, followed by a U+003B SEMICOLON character (;), where these characters do not
+  match any of the names given in the <span>named character references</span> section.</p>
 
 

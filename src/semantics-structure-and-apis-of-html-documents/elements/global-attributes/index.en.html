@@ -9,7 +9,6 @@
    <li><code data-x="attr-contextmenu">contextmenu</code></li>
    <li><code data-x="attr-dir">dir</code></li>
    <li><code data-x="attr-draggable">draggable</code></li>
-   <li><code data-x="attr-dropzone">dropzone</code></li>
    <li><code data-x="attr-hidden">hidden</code></li>
    <li><code data-x="attr-is">is</code></li>
    <li><code data-x="attr-itemid">itemid</code></li>
@@ -81,10 +80,10 @@
 
   <p>When specified on <span>HTML elements</span>, the <code data-x="attr-id">id</code> attribute
   value must be unique amongst all the <span data-x="concept-id">IDs</span> in the element's
-  <span>tree</span> and must contain at least one character. The value must not contain any <span
-  data-x="space character">space characters</span>.</p>
+  <span>tree</span> and must contain at least one character. The value must not contain any
+  <span>ASCII whitespace</span>.</p>
 
-  <!-- space characters are disallowed because space-separated lists of IDs otherwise would not be
+  <!-- ASCII whitespace is disallowed because space-separated lists of IDs otherwise would not be
   able to reach all valid IDs -->
 
   <div class="note">
@@ -111,6 +110,15 @@
 
   <p>There are no conformance requirements for the <code data-x="attr-slot">slot</code> attribute
   specific to <span>HTML elements</span>.</p>
+
+  <p class="note">The <code data-x="attr-slot">slot</code> attribute is used to <span>assign a
+  slot</span> to an element: an element with a <code data-x="attr-slot">slot</code> attribute is
+  <span data-x="assign a slot">assigned</span> to the <span data-x="concept-slot">slot</span>
+  created by the <code>slot</code> element whose <span data-x="attr-slot-name">name</span>
+  attribute's value matches that <code data-x="attr-slot">slot</code> attribute's value — but only
+  if that <code>slot</code> element finds itself in the <span>shadow tree</span> whose
+  <span>root</span>'s <span data-x="concept-DocumentFragment-host">host</span> has the corresponding
+  <code data-x="attr-slot">slot</code> attribute value.</p>
 
   <hr>
 

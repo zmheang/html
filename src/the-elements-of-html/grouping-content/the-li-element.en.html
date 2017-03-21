@@ -46,9 +46,12 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
    <li><p>If the element has an <code>ol</code>, <code>ul</code>, or <code>menu</code> ancestor, set
    <var>ancestor</var> to the closest such ancestor element.</p></li>
 
-   <li><p>Return the closest inclusive ancestor of <var>ancestor</var> that produces a CSS box, if
-   any. If no such inclusive ancestor exists, then return null; the element has no <span>list
-   owner</span>.</p></li>
+   <li>
+    <p>Return the closest inclusive ancestor of <var>ancestor</var> that produces a CSS box.</p>
+
+    <p class="note">Such an element will always exist, as at the very least the <span>document
+    element</span> will always produce a CSS box.</p>
+   </li>
   </ol>
 
   <p>To determine the <dfn>ordinal value</dfn> of each element owned by a given <span>list
@@ -92,12 +95,6 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
 
    <li><p>Go to the step labeled <i>loop</i>.</p>
   </ol>
-
-  <p>The <span>ordinal value</span> of any element with a <span>list owner</span> of null is 0.</p>
-
-  <p class="note">This can only impact the rendered counter when all of the element's ancestors do
-  not produce CSS boxes, such as if they are all styled with <code data-x="">display:
-  contents</code>.</p>
 
   <hr>
 

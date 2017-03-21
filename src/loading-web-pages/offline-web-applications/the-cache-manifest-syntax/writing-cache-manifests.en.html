@@ -34,8 +34,8 @@
     characters, followed by a single U+0023 NUMBER SIGN character (#), followed by zero or more
     characters other than U+000A LINE FEED (LF) and U+000D CARRIAGE RETURN (CR) characters.</p>
 
-    <p class="note">Comments must be on a line on their own. If they were to be included on a line
-    with a URL, the "#" would be mistaken for part of a <span
+    <p class="note">Comments need to be on a line on their own. If they were to be included on a
+    line with a URL, the "#" would be mistaken for part of a <span
     data-x="concept-url-fragment">fragment</span>.</p>
 
    <dt>A section header
@@ -74,22 +74,22 @@
 
     <p>When the current section is the <span data-x="concept-appcache-manifest-explicit">explicit
     section</span>, data lines must consist of zero or more U+0020 SPACE and U+0009 CHARACTER
-    TABULATION (tab) characters, a <span>valid URL</span> identifying a resource other than the
-    manifest itself, and then zero or more U+0020 SPACE and U+0009 CHARACTER TABULATION (tab)
+    TABULATION (tab) characters, a <span>valid URL string</span> identifying a resource other than
+    the manifest itself, and then zero or more U+0020 SPACE and U+0009 CHARACTER TABULATION (tab)
     characters.</p>
 
     <p>When the current section is the <span data-x="concept-appcache-manifest-fallback">fallback
     section</span>, data lines must consist of zero or more U+0020 SPACE and U+0009 CHARACTER
-    TABULATION (tab) characters, a <span>valid URL</span> identifying a resource other than the
-    manifest itself, one or more U+0020 SPACE and U+0009 CHARACTER TABULATION (tab) characters,
-    another <span>valid URL</span> identifying a resource other than the manifest itself, and then
-    zero or more U+0020 SPACE and U+0009 CHARACTER TABULATION (tab) characters.</p>
+    TABULATION (tab) characters, a <span>valid URL string</span> identifying a resource other than
+    the manifest itself, one or more U+0020 SPACE and U+0009 CHARACTER TABULATION (tab) characters,
+    another <span>valid URL string</span> identifying a resource other than the manifest itself, and
+    then zero or more U+0020 SPACE and U+0009 CHARACTER TABULATION (tab) characters.</p>
 
     <p>When the current section is the <span data-x="concept-appcache-manifest-network">online
     safelist section</span>, data lines must consist of zero or more U+0020 SPACE and U+0009
     CHARACTER TABULATION (tab) characters, either a single U+002A ASTERISK character (*) <!--
-    concept-appcache-onlinesafelist-wildcard --> or a <span>valid URL</span> identifying a resource
-    other than the manifest itself, and then zero or more U+0020 SPACE and U+0009 CHARACTER
+    concept-appcache-onlinesafelist-wildcard --> or a <span>valid URL string</span> identifying a
+    resource other than the manifest itself, and then zero or more U+0020 SPACE and U+0009 CHARACTER
     TABULATION (tab) characters.</p>
 
     <p>When the current section is the <span data-x="concept-appcache-manifest-settings">settings

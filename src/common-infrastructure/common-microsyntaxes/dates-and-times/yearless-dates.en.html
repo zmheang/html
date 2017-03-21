@@ -53,12 +53,14 @@
 
   <ol>
 
-   <li><p><span>Collect a sequence of characters</span> that are U+002D HYPHEN-MINUS characters (-).
-   If the collected sequence is not exactly zero or two characters long, then fail.</p></li>
+   <li><p><span>Collect a sequence of code points</span> that are U+002D HYPHEN-MINUS characters (-)
+   from <var>input</var> given <var>position</var>. If the collected sequence is not exactly zero or
+   two characters long, then fail.</p></li>
 
-   <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>. If the
-   collected sequence is not exactly two characters long, then fail. Otherwise, interpret the
-   resulting sequence as a base-ten integer. Let that number be the <var>month</var>.</p></li>
+   <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+   <var>input</var> given <var>position</var>. If the collected sequence is not exactly two
+   characters long, then fail. Otherwise, interpret the resulting sequence as a base-ten integer.
+   Let that number be the <var>month</var>.</p></li>
 
    <li><p>If <var>month</var> is not a number in the range 1&nbsp;&le;&nbsp;<var>month</var>&nbsp;&le;&nbsp;12, then fail.</p></li>
 
@@ -70,9 +72,10 @@
    character at <var>position</var> is not a U+002D HYPHEN-MINUS character, then fail.
    Otherwise, move <var>position</var> forwards one character.</p></li>
 
-   <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>. If the
-   collected sequence is not exactly two characters long, then fail. Otherwise, interpret the
-   resulting sequence as a base-ten integer. Let that number be the <var>day</var>.</p></li>
+   <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+   <var>input</var> given <var>position</var>. If the collected sequence is not exactly two
+   characters long, then fail. Otherwise, interpret the resulting sequence as a base-ten integer.
+   Let that number be the <var>day</var>.</p></li>
 
    <li><p>If <var>day</var> is not a number in the range 1&nbsp;&le;&nbsp;<var>day</var>&nbsp;&le;&nbsp;<var>maxday</var>, then fail.</li>
 

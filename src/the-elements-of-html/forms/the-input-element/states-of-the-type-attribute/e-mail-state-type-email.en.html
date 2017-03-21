@@ -47,8 +47,8 @@
     <div w-nodev>
 
     <p><strong>The <span>value sanitization algorithm</span> is as follows</strong>: <span>Strip
-    line breaks</span> from the <span data-x="concept-fe-value">value</span>, then <span>strip
-    leading and trailing whitespace</span> from the <span data-x="concept-fe-value">value</span>.</p>
+    newlines</span> from the <span data-x="concept-fe-value">value</span>, then <span>strip leading
+    and trailing ASCII whitespace</span> from the <span data-x="concept-fe-value">value</span>.</p>
 
     <p><strong>Constraint validation</strong>: While the <span data-x="concept-fe-value">value</span>
     of the element is neither the empty string nor a single <span>valid e-mail address</span>, the
@@ -97,7 +97,8 @@
      <!-- It's a copy because /values/ might include leading and trailing spaces that we don't
      necessarily want to remove from the UI but that we do want to remove before serializing. -->
 
-     <li><p><span>Strip leading and trailing whitespace</span> from each value in <var>latest values</var>.</p></li>
+     <li><p><span>Strip leading and trailing ASCII whitespace</span> from each value in <var>latest
+     values</var>.</p></li>
 
      <li><p>Let the element's <span data-x="concept-fe-value">value</span> be the result of
      concatenating all the values in <var>latest values</var>, separating each value from
@@ -117,8 +118,8 @@
     <ol>
 
      <li><p><span data-x="split a string on commas">Split on commas</span> the element's <span
-     data-x="concept-fe-value">value</span>, <span>strip leading and trailing whitespace</span> from
-     each resulting token, if any, and let the element's <span
+     data-x="concept-fe-value">value</span>, <span>strip leading and trailing ASCII
+     whitespace</span> from each resulting token, if any, and let the element's <span
      data-x="concept-fe-values">values</span> be the (possibly empty) resulting list of
      (possibly empty) tokens, maintaining the original order.</p></li>
 

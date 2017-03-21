@@ -54,9 +54,10 @@
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially
    pointing at the start of the string.</p></li>
 
-   <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>. If the
-   collected sequence is not at least four characters long, then fail. Otherwise, interpret the
-   resulting sequence as a base-ten integer. Let that number be the <var>year</var>.</p></li>
+   <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+   <var>input</var> given <var>position</var>. If the collected sequence is not at least four
+   characters long, then fail. Otherwise, interpret the resulting sequence as a base-ten integer.
+   Let that number be the <var>year</var>.</p></li>
 
    <li><p>If <var>year</var> is not a number greater than zero, then fail.</p></li>
 
@@ -68,9 +69,10 @@
    character at <var>position</var> is not a U+0057 LATIN CAPITAL LETTER W character (W),
    then fail. Otherwise, move <var>position</var> forwards one character.</p></li>
 
-   <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>. If the
-   collected sequence is not exactly two characters long, then fail. Otherwise, interpret the
-   resulting sequence as a base-ten integer. Let that number be the <var>week</var>.</p></li>
+   <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+   <var>input</var> given <var>position</var>. If the collected sequence is not exactly two
+   characters long, then fail. Otherwise, interpret the resulting sequence as a base-ten integer.
+   Let that number be the <var>week</var>.</p></li>
 
    <li><p>Let <var>maxweek</var> be the <span>week number of the last day</span> of year
    <var>year</var>.</p></li>

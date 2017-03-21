@@ -1,6 +1,6 @@
   <h3>Images</h3>
 
-  <pre class="idl">[Exposed=(Window,Worker)]
+  <pre class="idl">[Exposed=(Window,Worker), <span>Serializable</span>, <span>Transferable</span>]
 interface <dfn>ImageBitmap</dfn> {
   readonly attribute unsigned long <span data-x="dom-ImageBitmap-width">width</span>;
   readonly attribute unsigned long <span data-x="dom-ImageBitmap-height">height</span>;
@@ -64,8 +64,8 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
     <p>Rejects the promise with an <span>"<code>InvalidStateError</code>"</span>
     <code>DOMException</code> if the source image is not in a valid state (e.g. an <code>img</code>
     element that hasn't loaded successfully, an <code>ImageBitmap</code> object whose
-    [[<span>Detached</span>]] internal slot value is true, an <code>ImageData</code> object whose
-    <code data-x="dom-imagedata-data">data</code> attribute value's [[<span>Detached</span>]]
+    <span>[[Detached]]</span> internal slot value is true, an <code>ImageData</code> object whose
+    <code data-x="dom-imagedata-data">data</code> attribute value's <span>[[Detached]]</span>
     internal slot value is true, or a <code>Blob</code> whose data cannot be interpreted as a bitmap
     image).</p>
 
@@ -108,7 +108,7 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
 
   <div w-nodev>
 
-  <p>An <code>ImageBitmap</code> object whose [[<span>Detached</span>]] internal slot value
+  <p>An <code>ImageBitmap</code> object whose <span>[[Detached]]</span> internal slot value
   is false always has associated <dfn data-x="concept-ImageBitmap-bitmap-data">bitmap data</dfn>,
   with a width and a height. However, it is possible for this data to be corrupted. If an
   <code>ImageBitmap</code> object's media data can be decoded without errors, it is said to be <dfn
@@ -120,43 +120,60 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
   true and may be changed to false by the steps of <code
   data-x="dom-createImageBitmap">createImageBitmap()</code>.</p>
 
-  <p><code>ImageBitmap</code> objects are <span>cloneable objects</span> and <span>transferable
+  <hr>
+
+  <p><code>ImageBitmap</code> objects are <span>serializable objects</span> and <span>transferable
   objects</span>.</p>
 
-  <p>Each <code>ImageBitmap</code> object's [[<span>Clone</span>]] internal method, given
-  <var>targetRealm</var> and ignoring <var>memory</var>, must run these steps:</p>
+  <p>Their <span>serialization steps</span>, given <var>value</var> and <var>serialized</var>,
+  are:</p>
 
   <ol>
-   <li><p>If <b>this</b>'s [[<span>Detached</span>]] internal slot is true, then throw a
-   <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>Set <var>serialized</var>.[[BitmapData]] to a copy of <var>value</var>'s <span
+   data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>.</p></li>
 
-   <li><p>Return a new <code>ImageBitmap</code> object in <var>targetRealm</var> whose <span
-   data-x="concept-ImageBitmap-bitmap-data">bitmap data</span> is a copy of <b>this</b>'s <span
-   data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>, and whose <span
-   data-x="concept-canvas-origin-clean">origin-clean</span> flag is set to the same value as
-   <b>this</b>'s <span data-x="concept-canvas-origin-clean">origin-clean</span> flag.</p></li>
+   <li><p>Set <var>serialized</var>.[[OriginClean]] to true if <var>value</var>'s <span
+   data-x="concept-canvas-origin-clean">origin-clean</span> flag is set, and false
+   otherwise.</p></li>
   </ol>
 
-  <p>Each <code>ImageBitmap</code> object's [[<span>Transfer</span>]] internal method, given
-  <var>targetRealm</var>, must run these steps:</p>
+  <p>Their <span>deserialization steps</span>, given <var>serialized</var> and <var>value</var>,
+  are:</p>
 
   <ol>
-   <li><p>Let <var>new</var> be a new <code>ImageBitmap</code> object in <var>targetRealm</var>,
-   pointing at the same underlying <span data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>
-   as <b>this</b>.</p></li>
+   <li><p>Set <var>value</var>'s <span data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>
+   to <var>serialized</var>.[[BitmapData]].</p></li>
 
-   <li><p>Set <var>new</var>'s bitmap's <span
-   data-x="concept-canvas-origin-clean">origin-clean</span> flag to the same values as
-   <b>this</b>'s bitmap's <span data-x="concept-canvas-origin-clean">origin-clean</span>
-   flag.</p></li>
+   <li><p>If <var>serialized</var>.[[OriginClean]] is true, set <var>value</var>'s <span
+   data-x="concept-canvas-origin-clean">origin-clean</span> flag.</p></li>
+  </ol>
 
-   <li><p>Set <b>this</b>'s [[<span>Detached</span>]] internal slot value to true.</p></li>
+  <p>Their <span>transfer steps</span>, given <var>value</var> and <var>dataHolder</var>, are:</p>
 
-   <li><p>Unset <b>this</b>'s <span data-x="concept-ImageBitmap-bitmap-data">bitmap
+  <ol>
+   <li><p>Set <var>dataHolder</var>.[[BitmapData]] to <var>value</var>'s <span
+   data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>.</p></li>
+
+   <li><p>Set <var>dataHolder</var>.[[OriginClean]] to true if <var>value</var>'s <span
+   data-x="concept-canvas-origin-clean">origin-clean</span> flag is set, and false
+   otherwise.</p></li>
+
+   <li><p>Unset <var>value</var>'s <span data-x="concept-ImageBitmap-bitmap-data">bitmap
    data</span>.</p></li>
-
-   <li><p>Return <var>new</var>.</p></li>
   </ol>
+
+  <p>Their <span>transfer-receiving steps</span>, given <var>dataHolder</var> and <var>value</var>,
+  are:</p>
+
+  <ol>
+   <li><p>Set <var>value</var>'s <span data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>
+   to <var>dataHolder</var>.[[BitmapData]].</p></li>
+
+   <li><p>If <var>dataHolder</var>.[[OriginClean]] is true, set <var>value</var>'s <span
+   data-x="concept-canvas-origin-clean">origin-clean</span> flag.</p></li>
+  </ol>
+
+  <hr>
 
   <p>An <code>ImageBitmap</code> object can be obtained from a variety of different objects, using
   the <dfn><code data-x="dom-createImageBitmap">createImageBitmap()</code></dfn> method. When
@@ -324,10 +341,6 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
      but zero, return a promise rejected with an <span>"<code>IndexSizeError</code>"</span>
      <code>DOMException</code> and abort these steps.</p></li>
 
-     <li><p>If <var>image</var> is <span data-x="concept-blob-closed">closed</span>, then return a
-     promise rejected with an <span>"<code>InvalidStateError</code>"</span>
-     <code>DOMException</code> and abort these steps.</p></li>
-
      <li><p>Return a new promise, but continue running these steps
      <span>in parallel</span>.</p></li>
 
@@ -376,7 +389,7 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
      <code>DOMException</code> and abort these steps.</p></li>
 
      <li><p>If the <var>image</var> object's <code data-x="dom-imagedata-data">data</code> attribute
-     value's [[<span>Detached</span>]] internal slot value is true, return a promise rejected with
+     value's <span>[[Detached]]</span> internal slot value is true, return a promise rejected with
      an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> and abort these
      steps.</p></li>
 
@@ -406,7 +419,7 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
      but zero, return a promise rejected with an <span>"<code>IndexSizeError</code>"</span>
      <code>DOMException</code> and abort these steps.</p></li>
 
-     <li><p>If <var>image</var>'s [[<span>Detached</span>]] internal slot value is true, return a
+     <li><p>If <var>image</var>'s <span>[[Detached]]</span> internal slot value is true, return a
      promise rejected with an <span>"<code>InvalidStateError</code>"</span>
      <code>DOMException</code> and abort these steps.</p></li>
 
@@ -598,7 +611,7 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
   user agent must run these steps:</p>
 
   <ol>
-   <li><p>Set this <code>ImageBitmap</code> object's [[<span>Detached</span>]] internal slot value
+   <li><p>Set this <code>ImageBitmap</code> object's <span>[[Detached]]</span> internal slot value
    to true.</p></li>
 
    <li><p>Unset this <code>ImageBitmap</code> object's <span
@@ -609,7 +622,7 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
   these steps:</p>
 
   <ol>
-   <li><p>If this <code>ImageBitmap</code> object's [[<span>Detached</span>]] internal slot's
+   <li><p>If this <code>ImageBitmap</code> object's <span>[[Detached]]</span> internal slot's
    value is true, then return 0.</p></li>
 
    <li><p>Return this <code>ImageBitmap</code> object's width, in <span data-x="'px'">CSS
@@ -620,7 +633,7 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
   these steps:</p>
 
   <ol>
-   <li><p>If this <code>ImageBitmap</code> object's [[<span>Detached</span>]] internal slot's
+   <li><p>If this <code>ImageBitmap</code> object's <span>[[Detached]]</span> internal slot's
    value is true, then return 0.</p></li>
 
    <li><p>Return this <code>ImageBitmap</code> object's height, in <span data-x="'px'">CSS

@@ -12,7 +12,8 @@
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially pointing at the
    start of the string.</p></li>
 
-   <li><p><span>Skip whitespace</span>.</p></li>
+   <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+   <var>position</var>.</p></li>
 
    <li><p>If <var>position</var> is past the end of <var>input</var>, return an error.</p></li>
 
@@ -27,8 +28,9 @@
    <!-- Ok. At this point we know we have a number. It might have trailing garbage which we'll
    ignore, but it's a number, and we won't return an error. -->
 
-   <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>, and
-   interpret the resulting sequence as a base-ten integer. Let <var>value</var> be that number.</li>
+   <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+   <var>input</var> given <var>position</var>, and interpret the resulting sequence as a base-ten
+   integer. Let <var>value</var> be that number.</li>
 
    <li><p>If <var>position</var> is past the end of <var>input</var>, return <var>value</var> as a
    length.</p></li>

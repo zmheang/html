@@ -26,8 +26,8 @@
    <li><p>If the element has no <code data-x="attr-fe-autocomplete">autocomplete</code> attribute,
    then jump to the step labeled <i>default</i>.</p></li>
 
-   <li><p>Let <var>tokens</var> be the result of <span data-x="split a string on
-   spaces">splitting the attribute's value on spaces</span>.</p></li>
+   <li><p>Let <var>tokens</var> be the result of <span data-x="split a string on ASCII
+   whitespace">splitting the attribute's value on ASCII whitespace</span>.</p></li>
 
    <li><p>If <var>tokens</var> is empty, then jump to the step labeled
    <i>default</i>.</p></li>
@@ -605,9 +605,9 @@
   user agents must not attempt to derive meaning from the precise values of these tokens.</p>
 
   <p class="example">For example, it would not be conforming if the user agent decided that it
-  should offer the address it knows to be the user's daughter's address for "<code
-  data-x="">section-child</code>" and the addresses it knows to be the user's spouses' addresses for
-  "<code data-x="">section-spouse</code>".</p>
+  <!--non-normative-->should offer the address it knows to be the user's daughter's address for
+  "<code data-x="">section-child</code>" and the addresses it knows to be the user's spouses'
+  addresses for "<code data-x="">section-spouse</code>".</p>
 
   <p>The autocompletion mechanism must be implemented by the user agent acting as if the user had
   modified the <span>control's data</span>, and must be done at a time where the element is <i

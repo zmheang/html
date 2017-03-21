@@ -115,7 +115,8 @@ br[clear=all i], br[clear=both i] { clear: both; }</pre>
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially pointing at the
    start of the string.</p></li>
 
-   <li><p><span>Skip whitespace</span>.</p></li>
+   <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+   <var>position</var>.</p></li>
 
    <li><p>If <var>position</var> is past the end of <var>input</var>, there is no <span
    data-x="presentational hints">presentational hint</span>. Abort these steps.</p></li>
@@ -126,8 +127,9 @@ br[clear=all i], br[clear=both i] { clear: both; }</pre>
    let <var>mode</var> be <i>relative-minus</i>, and advance <var>position</var> to the next
    character. Otherwise, let <var>mode</var> be <i>absolute</i>.</p></li>
 
-   <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>, and let
-   the resulting sequence be <var>digits</var>.</p></li>
+   <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+   <var>input</var> given <var>position</var>, and let the resulting sequence be
+   <var>digits</var>.</p></li>
 
    <li><p>If <var>digits</var> is the empty string, there is no <span data-x="presentational
    hints">presentational hint</span>. Abort these steps.</p></li>

@@ -420,6 +420,8 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
    serialization of this <code>canvas</code> element's bitmap as a file</span>, passing
    <var>type</var> and <var>quality</var> if they were given.</p></li>
 
+   <li><p>If <var>file</var> is null then return "<code data-x="">data:,</code>".</p></li>
+
    <li><p>Return a <span data-x="data protocol"><code>data:</code> URL</span> representing
    <var>file</var>. <ref spec=RFC2397></p>
 

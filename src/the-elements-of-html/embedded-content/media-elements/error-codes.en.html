@@ -31,7 +31,9 @@
   const unsigned short <span data-x="dom-MediaError-MEDIA_ERR_NETWORK">MEDIA_ERR_NETWORK</span> = 2;
   const unsigned short <span data-x="dom-MediaError-MEDIA_ERR_DECODE">MEDIA_ERR_DECODE</span> = 3;
   const unsigned short <span data-x="dom-MediaError-MEDIA_ERR_SRC_NOT_SUPPORTED">MEDIA_ERR_SRC_NOT_SUPPORTED</span> = 4;
+
   readonly attribute unsigned short <span data-x="dom-MediaError-code">code</span>;
+  readonly attribute DOMString <span data-x="dom-MediaError-message">message</span>;
 };</pre>
 
   <dl class="domintro">
@@ -44,13 +46,23 @@
 
    </dd>
 
+   <dt><var>media</var> . <code data-x="dom-media-error">error</code> . <code subdfn data-x="dom-MediaError-message">message</code></dt>
+
+   <dd>
+
+    <p>Returns a specific informative diagnostic message about the error condition encountered. The
+    message and message format are not generally uniform across different user agents. If no such
+    message is available, then the empty string is returned.</p>
+
+   </dd>
+
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-MediaError-code">code</code></dfn> attribute of a
-  <code>MediaError</code> object must return the code for the error, which must be one of the
-  following:</p>
+  <p>Every <code>MediaError</code> object has a <dfn
+  data-x="concept-MediaError-message">message</dfn>, which is a string, and a <dfn
+  data-x="concept-MediaError-code">code</dfn>, which is one of the following:</p>
 
   </div>
 
@@ -77,6 +89,30 @@
    attribute or <span>assigned media provider object</span> was not suitable.</dd>
 
   </dl>
+
+  <div w-nodev>
+
+  <p>To <dfn data-export="" data-x="creating a MediaError">create a <code>MediaError</code></dfn>,
+  given an error code which is one of the above values, return a new <code>MediaError</code> object
+  whose <span data-x="concept-MediaError-code">code</span> is the given error code and whose <span
+  data-x="concept-MediaError-message">message</span> is a string containing any details the user
+  agent is able to supply about the cause of the error condition, or the empty string if the user
+  agent is unable to supply such details. This message string must not contain only the information
+  already available via the supplied error code; for example, it must not simply be a translation of
+  the code into a string format. If no additional information is available beyond that provided by
+  the error code, the <span data-x="concept-MediaError-message">message</span> must be set to the
+  empty string.</p>
+
+  <p>The <dfn><code data-x="dom-MediaError-code">code</code></dfn> attribute of a
+  <code>MediaError</code> object must return this <code>MediaError</code> object's <span
+  data-x="concept-MediaError-code">code</span>.</p>
+
+  <p>The <dfn><code data-x="dom-MediaError-message">message</code></dfn> attribute of a
+  <code>MediaError</code> object must return this <code>MediaError</code> object's <span
+  data-x="concept-MediaError-message">message</span>.</p>
+
+  </div>
+
 
 
 

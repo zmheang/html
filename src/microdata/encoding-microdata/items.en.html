@@ -13,13 +13,13 @@
 
   <p>The <code data-x="attr-itemtype">itemtype</code> attribute, if specified, must have a value that
   is an <span>unordered set of unique space-separated tokens</span> that are
-  <span>case-sensitive</span>, each of which is a <span>valid URL</span> that is an <span>absolute
-  URL</span>, and all of which are defined to use the same vocabulary. The attribute's value must
-  have at least one token.</p>
+  <span>case-sensitive</span>, each of which is a <span>valid URL string</span> that is an
+  <span>absolute URL</span>, and all of which are defined to use the same vocabulary. The
+  attribute's value must have at least one token.</p>
 
   <p>The <dfn>item types</dfn> of an <span data-x="concept-item">item</span> are the tokens obtained
-  by <span data-x="split a string on spaces">splitting the element's <code
-  data-x="attr-itemtype">itemtype</code> attribute's value on spaces</span>. If the <code
+  by <span data-x="split a string on ASCII whitespace">splitting the element's <code
+  data-x="attr-itemtype">itemtype</code> attribute's value on ASCII whitespace</span>. If the <code
   data-x="attr-itemtype">itemtype</code> attribute is missing or parsing it in this way finds no
   tokens, the <span data-x="concept-item">item</span> is said to have no <span>item types</span>.</p>
 

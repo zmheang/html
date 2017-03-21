@@ -124,6 +124,11 @@
      <td> Classes to which the element belongs
      <td> <span>Set of space-separated tokens</span>
     <tr>
+     <th> <code data-x="">color</code>
+     <td> <code data-x="attr-link-color">link</code>
+     <td> Color to use when customizing a site's icon (for <code data-x="attr-link-rel">rel</code>="<code data-x="">mask-icon</code>")
+     <td> CSS <span>&lt;color></span>
+    <tr>
      <th> <code data-x="">cols</code>
      <td> <code data-x="attr-textarea-cols">textarea</code>
      <td> Maximum number of characters per line
@@ -248,11 +253,6 @@
      <td> <span data-x="attr-draggable">HTML elements</span>
      <td> Whether the element is draggable
      <td> "<code data-x="">true</code>"; "<code data-x="">false</code>"
-    <tr>
-     <th> <code data-x="">dropzone</code>
-     <td> <span data-x="attr-dropzone">HTML elements</span>
-     <td> Accepted item types for drag-and-drop
-     <td> <span>Unordered set of unique space-separated tokens</span>, <span>ASCII case-insensitive</span>, consisting of accepted types and drag feedback*
     <tr>
      <th> <code data-x="">enctype</code>
      <td> <code data-x="attr-fs-enctype">form</code>
@@ -501,11 +501,6 @@
      <td> Applicable media
      <td> <span>Valid media query list</span>
     <tr>
-     <th> <code data-x="">menu</code>
-     <td> <code data-x="attr-button-menu">button</code>
-     <td> Specifies the element's <span>designated pop-up menu</span>
-     <td> <span data-x="concept-id">ID</span>*
-    <tr>
      <th> <code data-x="">method</code>
      <td> <code data-x="attr-fs-method">form</code>
      <td> HTTP method to use for <span>form submission</span>
@@ -581,6 +576,11 @@
      <td> <code data-x="attr-slot-name">slot</code>
      <td> Name of shadow tree slot
      <td> <a href="#attribute-text">Text</a>
+    <tr>
+     <th> <code data-x="">nomodule</code>
+     <td> <code data-x="attr-script-nomodule">script</code>
+     <td> Prevents execution in user agents that support <span data-x="module script">module scripts</span>
+     <td> <span>Boolean attribute</span>
     <tr>
      <th> <code data-x="">nonce</code>
      <td> <code data-x="attr-link-nonce">link</code>;
@@ -713,16 +713,6 @@
           "<code data-x="attr-iframe-sandbox-allow-scripts">allow-scripts</code>" and
           "<code data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code>"
     <tr>
-     <th> <code data-x="">slot</code>
-     <td> <span data-x="attr-id">HTML elements</span>
-     <td> The element's desired slot
-     <td> <a href="#attribute-text">Text</a>
-    <tr>
-     <th> <code data-x="">spellcheck</code>
-     <td> <span data-x="attr-spellcheck">HTML elements</span>
-     <td> Whether the element is to have its spelling and grammar checked
-     <td> "<code data-x="">true</code>"; "<code data-x="">false</code>"
-    <tr>
      <th> <code data-x="">scope</code>
      <td> <code data-x="attr-th-scope">th</code>
      <td> Specifies which cells the header cell applies to
@@ -730,6 +720,11 @@
           "<code data-x="attr-th-scope-col">col</code>";
           "<code data-x="attr-th-scope-rowgroup">rowgroup</code>";
           "<code data-x="attr-th-scope-colgroup">colgroup</code>"
+    <tr>
+     <th> <code data-x="">scope</code>
+     <td> <code data-x="attr-link-scope">link</code>
+     <td> A <span>scope url</span> <span>service worker registration</span> (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>")
+     <td><span>Valid URL potentially surrounded by spaces</span>
     <tr>
      <th> <code data-x="">selected</code>
      <td> <code data-x="attr-option-selected">option</code>
@@ -761,11 +756,21 @@
      <td> Image sizes for different page layouts
      <td> <span>Valid source size list</span>
     <tr>
+     <th> <code data-x="">slot</code>
+     <td> <span data-x="attr-id">HTML elements</span>
+     <td> The element's desired slot
+     <td> <a href="#attribute-text">Text</a>
+    <tr>
      <th> <code data-x="">span</code>
      <td> <code data-x="attr-col-span">col</code>;
           <code data-x="attr-colgroup-span">colgroup</code>
      <td> Number of columns spanned by the element
      <td> <span>Valid non-negative integer</span> greater than zero
+    <tr>
+     <th> <code data-x="">spellcheck</code>
+     <td> <span data-x="attr-spellcheck">HTML elements</span>
+     <td> Whether the element is to have its spelling and grammar checked
+     <td> "<code data-x="">true</code>"; "<code data-x="">false</code>"
     <tr>
      <th> <code data-x="">src</code>
      <td> <code data-x="attr-media-src">audio</code>;
@@ -880,8 +885,7 @@
      <td> Type of button
      <td> "<code data-x="attr-button-type-submit">submit</code>";
           "<code data-x="attr-button-type-reset">reset</code>";
-          "<code data-x="attr-button-type-button">button</code>";
-          "<code data-x="attr-button-type-menu">menu</code>"
+          "<code data-x="attr-button-type-button">button</code>"
     <tr>
      <th> <code data-x="">type</code>
      <td> <code data-x="attr-embed-type">embed</code>;
@@ -900,7 +904,7 @@
      <th> <code data-x="">type</code>
      <td> <code data-x="attr-menu-type">menu</code>
      <td> Type of menu
-     <td> "<code data-x="popup menu state">context</code>"; "<code data-x="toolbar state">toolbar</code>"
+     <td> "<code data-x="context menu state">context</code>"; "<code data-x="toolbar state">toolbar</code>"
     <tr>
      <th> <code data-x="">type</code>
      <td> <code data-x="attr-menuitem-type">menuitem</code>
@@ -921,6 +925,11 @@
      <th> <code data-x="">typemustmatch</code>
      <td> <code data-x="attr-object-typemustmatch">object</code>
      <td> Whether the <code data-x="attr-object-type">type</code> attribute and the <span>Content-Type</span> value need to match for the resource to be used
+     <td> <span>Boolean attribute</span>
+    <tr>
+     <th> <code data-x="">usecache</code>
+     <td> <code data-x="attr-link-usecache">link</code>
+     <td> Whether to set <span>use cache</span> to true for a <span>service worker registration</span> (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>")
      <td> <span>Boolean attribute</span>
     <tr>
      <th> <code data-x="">usemap</code>
@@ -971,6 +980,11 @@
           <code data-x="attr-dim-width">video</code>
      <td> Horizontal dimension
      <td> <span>Valid non-negative integer</span>
+    <tr>
+     <th> <code data-x="">workertype</code>
+     <td> <code data-x="attr-link-workertype">link</code>
+     <td> A <span>service worker type</span> for a <span>service worker registration</span> (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>")
+     <td> "<code data-x="">classic</code>"; "<code data-x="">module</code>"
     <tr>
      <th> <code data-x="">wrap</code>
      <td> <code data-x="attr-textarea-wrap">textarea</code>

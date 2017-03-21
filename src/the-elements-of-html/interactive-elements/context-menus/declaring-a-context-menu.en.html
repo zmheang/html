@@ -3,7 +3,7 @@
   <p>The <dfn><code data-x="attr-contextmenu">contextmenu</code></dfn> attribute gives the element's
   context menu. The value must be the <span data-x="concept-id">ID</span> of a <code>menu</code>
   element in the same <span>tree</span> whose <code data-x="attr-menu-type">type</code> attribute is
-  in the <span data-x="popup menu state">popup menu</span> state.</p>
+  in the <span data-x="context menu state">context menu</span> state.</p>
 
   <p class="note">When a user right-clicks on an element with a <code
   data-x="attr-contextmenu">contextmenu</code> attribute, the user agent will first fire a <code
@@ -19,8 +19,10 @@
  &lt;menu type=context id=namemenu>
   &lt;menuitem onclick="document.forms.npc.elements.char.value = getRandomName()">
    Pick random name
+  &lt;/menuitem>
   &lt;menuitem onclick="prefillFields(document.forms.npc.elements.char.value)">
    Prefill other fields based on name
+  &lt;/menuitem>
  &lt;/menu>
 &lt;/form></pre>
 

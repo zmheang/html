@@ -120,7 +120,8 @@ HAVE REJIGGED HOW TEXT WORKS IN v5 (e.g. remember security)
    <li><p>Let <var>font</var> be the current font of the context, as given by the <code
    data-x="dom-context-2d-font">font</code> attribute.</p></li>
 
-   <li><p>Replace all the <span data-x="space character">space characters</span> in <var>text</var> with U+0020 SPACE characters.</p></li>
+   <li><p>Replace all the <span>ASCII whitespace</span> in <var>text</var> with U+0020 SPACE
+   characters.</p></li>
 
    <li><p>Form a <em class="&#x0058;&#x0058;&#x0058;">whatever CSS ends up calling vertical line
    boxes and inline boxes</em> containing the text <var>text</var>, with all the properties
@@ -277,8 +278,8 @@ v6DVT (also check for '- -' bits in the part above) -->
     bounding rectangle of all the fonts used to render the text, in <span data-x="'px'">CSS
     pixels</span>; positive numbers indicating a distance going up from the given baseline.</p>
 
-    <p class="note">This value and the next are useful when rendering a background that must have a
-    consistent height even if the exact text being rendered changes. The <code
+    <p class="note">This value and the next are useful when rendering a background that have to have
+    a consistent height even if the exact text being rendered changes. The <code
     data-x="dom-textmetrics-actualBoundingBoxAscent">actualBoundingBoxAscent</code> attribute (and
     its corresponding attribute for the descent) are useful when drawing a bounding box around
     specific text.</p>
@@ -370,7 +371,7 @@ v6DVT (also check for '- -' bits in the part above) -->
   data-x="dom-context-2d-measureText">measureText()</code> (the text width). Authors are encouraged
   to use the bounding box values described above if this is an issue.</p>
 
-  <p class="note">A future version of the 2D context API may provide a way to render fragments of
+  <p class="note">A future version of the 2D context API might provide a way to render fragments of
   documents, rendered using CSS, straight to the canvas. This would be provided in preference to a
   dedicated way of doing multiline layout.</p>
 

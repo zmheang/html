@@ -12,8 +12,8 @@
 
   <p>To determine which link types apply to a <code>link</code>, <code>a</code>, or
   <code>area</code> element, the element's <code data-x="">rel</code> attribute must be <span
-  data-x="split a string on spaces">split on spaces</span>. The resulting tokens are the keywords
-  for the link types that apply to that element.</p>
+  data-x="split a string on ASCII whitespace">split on ASCII whitespace</span>. The resulting tokens
+  are the keywords for the link types that apply to that element.</p>
 
   </div>
 
@@ -210,6 +210,14 @@
      <td><span>Hyperlink</span></td>
      <td class="no"> &middot; </td>
      <td>Gives a link to a resource that can be used to search through the current document and its related pages.</td>
+    </tr>
+
+    <tr>
+     <td><code data-x="rel-serviceworker">serviceworker</code></td>
+     <td><span>Hyperlink</span></td>
+     <td><em>not allowed</em></td>
+     <td class="no"> &middot; </td>
+     <td>Declares a <span>service worker registration</span>.</td>
     </tr>
 
     <tr>

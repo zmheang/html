@@ -23,6 +23,7 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-script-src">src</code></dd>
    <dd><code data-x="attr-script-type">type</code></dd>
+   <dd><code data-x="attr-script-nomodule">nomodule</code></dd>
    <dd><code data-x="attr-script-charset">charset</code></dd>
    <dd><code data-x="attr-script-async">async</code></dd>
    <dd><code data-x="attr-script-defer">defer</code></dd>
@@ -35,6 +36,7 @@
 interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-script-src">src</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-script-type">type</span>;
+  [<span>CEReactions</span>] attribute boolean <span data-x="dom-script-noModule">noModule</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-script-charset">charset</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-script-async">async</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-script-defer">defer</span>;
@@ -77,13 +79,14 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
     blocks.</p></li>
   </ul>
 
-  <p class="note">The requirement that <span data-x="data block">data blocks</span> must be denoted
-  using a <span>valid MIME type</span> is in place to avoid potential future collisions. If this
-  specification ever adds additional types of <span>script</span>, they will be triggered by
-  setting the <code data-x="attr-script-type">type</code> attribute to something which is not a
-  MIME type, like how the "<code data-x="">module</code>" value denotes <span data-x="module
-  script">module scripts</span>. By using a valid MIME type now, you ensure that your data block
-  will not ever be reinterpreted as a different script type, even in future user agents.</p>
+  <p class="note">The requirement that <span data-x="data block">data blocks</span>
+  <!--non-normative-->must be denoted using a <span>valid MIME type</span> is in place to avoid
+  potential future collisions. If this specification ever adds additional types of
+  <span>script</span>, they will be triggered by setting the <code
+  data-x="attr-script-type">type</code> attribute to something which is not a MIME type, like how
+  the "<code data-x="">module</code>" value denotes <span data-x="module script">module
+  scripts</span>. By using a valid MIME type now, you ensure that your data block will not ever be
+  reinterpreted as a different script type, even in future user agents.</p>
 
   <p><span data-x="classic script">Classic scripts</span> and <span data-x="module script">module
   scripts</span> may either be embedded inline or may be imported from an external file using the
@@ -102,9 +105,19 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   data-x="attr-script-type">type</code> attribute, and the contents of the <code>script</code>
   element must conform to the requirements defined for the format used. The <code
   data-x="attr-script-src">src</code>, <code data-x="attr-script-charset">charset</code>, <code
-  data-x="attr-script-async">async</code>, <code data-x="attr-script-defer">defer</code>, <code
+  data-x="attr-script-async">async</code>, <code data-x="attr-script-nomodule">nomodule</code>,
+  <code data-x="attr-script-defer">defer</code>, <code
   data-x="attr-script-crossorigin">crossorigin</code>, <code data-x="attr-script-nonce">nonce</code>
   and <code data-x="attr-script-integrity">integrity</code> attributes must not be specified.</p>
+
+  <p>The <dfn><code data-x="attr-script-nomodule">nomodule</code></dfn> attribute is a <span>boolean
+  attribute</span> that prevents a script from being executed in user agents that support
+  <span data-x="module script">module scripts</span>. This allows selective execution of <span
+  data-x="module script">module scripts</span> in modern user agents and <span data-x="classic
+  script">classic scripts</span> in older user agents, <a href="#script-nomodule-example">as shown
+  below</a>. The <code data-x="attr-script-nomodule">nomodule</code> attribute must not be
+  specified on <span data-x="module script">module scripts</span> (and will be ignored if it
+  is).</p>
 
   <p>The <dfn><code data-x="attr-script-charset">charset</code></dfn> attribute gives the character
   encoding of the external script resource. The attribute must not be specified if the <code
@@ -192,6 +205,7 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
 
   <p>Changing the <code data-x="attr-script-src">src</code>, <code
   data-x="attr-script-type">type</code>, <code data-x="attr-script-charset">charset</code>, <code
+  data-x="attr-script-nomodule">nomodule</code>, <code
   data-x="attr-script-async">async</code>, <code data-x="attr-script-defer">defer</code>, <code
   data-x="attr-script-crossorigin">crossorigin</code>, <code data-x="attr-script-nonce">nonce</code>
   and <code data-x="attr-script-integrity">integrity</code> attributes dynamically has no direct
@@ -210,6 +224,10 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <dfn><code data-x="dom-script-crossOrigin">crossOrigin</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-script-crossorigin">crossorigin</code> content attribute.</p>
+
+  <p>The <dfn><code data-x="dom-script-noModule">noModule</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-script-nomodule">nomodule</code> content
+  attribute.</p>
 
   <p>The <dfn><code data-x="dom-script-async">async</code></dfn> IDL attribute controls whether the
   element will execute asynchronously or not. If the element's <span>"non-blocking"</span> flag is
@@ -328,6 +346,27 @@ o............A....e
    imports the module from <code data-x="">app.js</code> (e.g. via <code data-x="">import
    "./app.js";</code>), then the same <span>module script</span> created by the
    former <code>script</code> element will be imported.</p>
+
+  </div>
+
+  <div class="example" id="script-nomodule-example">
+
+  <p>This example shows how to include a <span>module script</span> for modern user agents, and a
+  <span>classic script</span> for older user agents:</p>
+
+  <pre>&lt;script type="module" src="app.js">&lt;/script>
+&lt;script nomodule src="classic-app-bundle.js">&lt;/script></pre>
+
+  <p>In modern user agents that support <span data-x="module script">module scripts</span>, the
+  <code>script</code> element with the <code data-x="attr-script-nomodule">nomodule</code> attribute
+  will be ignored, and the <code>script</code> element with a <code
+  data-x="attr-script-type">type</code> of "<code data-x="">module</code>" will be fetched and
+  evaluated (as a <span>module script</span>). Conversely, older user agents will ignore the
+  <code>script</code> element with a <code data-x="attr-script-type">type</code> of "<code
+  data-x="">module</code>", as that is an unknown script type for them — but they will have no
+  problem fetching and evaluating the other <code>script</code> element (as a <span>classic
+  script</span>), since they do not implement the <code
+  data-x="attr-script-nomodule">nomodule</code> attribute.</p>
 
   </div>
 

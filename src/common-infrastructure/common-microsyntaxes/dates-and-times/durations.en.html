@@ -104,7 +104,7 @@
 
     <ol>
 
-     <li><p>Zero or more <span data-x="space character">space characters</span>.</p></li>
+     <li><p>Zero or more <span>ASCII whitespace</span>.</p></li>
 
      <li><p>One or more <span>ASCII digits</span>, representing a number of time units, scaled by
      the <span>duration time component scale</span> specified (see below) to represent a number of
@@ -114,7 +114,7 @@
      seconds), then, optionally, a U+002E FULL STOP character (.) followed by one, two, or three
      <span>ASCII digits</span>, representing a fraction of a second.</p></li>
 
-     <li><p>Zero or more <span data-x="space character">space characters</span>.</p></li>
+     <li><p>Zero or more <span>ASCII whitespace</span>.</p></li>
 
      <li>
 
@@ -152,8 +152,7 @@
 
      </li>
 
-     <li><p>Zero or more <span data-x="space character">space
-     characters</span>.</p></li>
+     <li><p>Zero or more <span>ASCII whitespace</span>.</p></li>
 
     </ol>
 
@@ -196,15 +195,16 @@
 
    </li>
 
-   <li><p><span>Skip whitespace</span>.</p></li>
+   <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+   <var>position</var>.</p></li>
 
    <li><p>If <var>position</var> is past the end of <var>input</var>, then
    fail.</p></li>
 
-   <li><p>If the character in <var>input</var> pointed to by <var>position</var>
-   is a U+0050 LATIN CAPITAL LETTER P character, then advance <var>position</var> to the
-   next character, set <var>M-disambiguator</var> to <i>months</i>, and <span>skip
-   whitespace</span>.</p></li>
+   <li><p>If the character in <var>input</var> pointed to by <var>position</var> is a U+0050 LATIN
+   CAPITAL LETTER P character, then advance <var>position</var> to the next character, set
+   <var>M-disambiguator</var> to <i>months</i>, and <span>skip ASCII whitespace</span> within
+   <var>input</var> given <var>position</var>.</p></li>
 
    <li>
 
@@ -223,10 +223,10 @@
      <li><p>If <var>position</var> is past the end of <var>input</var>, then break
      the loop.</p></li>
 
-     <li><p>If the character in <var>input</var> pointed to by <var>position</var>
-     is a U+0054 LATIN CAPITAL LETTER T character, then advance <var>position</var> to the
-     next character, set <var>M-disambiguator</var> to <i>minutes</i>, <span>skip
-     whitespace</span>, and return to the top of the loop.</p></li>
+     <li><p>If the character in <var>input</var> pointed to by <var>position</var> is a U+0054 LATIN
+     CAPITAL LETTER T character, then advance <var>position</var> to the next character, set
+     <var>M-disambiguator</var> to <i>minutes</i>, <span>skip ASCII whitespace</span> within
+     <var>input</var> given <var>position</var>, and return to the top of the loop.</p></li>
 
      <li><p>Set <var>next character</var> to the character in <var>input</var>
      pointed to by <var>position</var>.</p></li>
@@ -237,8 +237,9 @@
       of below.)</p>
 
       <p>Otherwise, if <var>next character</var> is an <span data-x="ASCII digits">ASCII
-      digit</span>, then <span>collect a sequence of characters</span> that are <span>ASCII
-      digits</span>, interpret the resulting sequence as a base-ten integer, and let <var>N</var> be that number.</p>
+      digit</span>, then <span>collect a sequence of code points</span> that are <span>ASCII
+      digits</span> from <var>input</var> given <var>position</var>, interpret the resulting
+      sequence as a base-ten integer, and let <var>N</var> be that number.</p>
 
       <p>Otherwise <var>next character</var> is not part of a number; fail.</p>
 
@@ -259,8 +260,9 @@
 
       <ol>
 
-       <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>. Let
-       <var>s</var> be the resulting sequence.</p></li>
+       <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+       <var>input</var> given <var>position</var>. Let <var>s</var> be the resulting
+       sequence.</p></li>
 
        <li><p>If <var>s</var> is the empty string, then fail.</p></li>
 
@@ -271,7 +273,8 @@
 
        <li><p>Increment <var>N</var> by <var>fraction</var>.</p></li>
 
-       <li><p><span>Skip whitespace</span>.</p></li>
+       <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+       <var>position</var>.</p></li>
 
        <li><p>If <var>position</var> is past the end of <var>input</var>, then
        fail.</p></li>
@@ -291,8 +294,10 @@
 
       <ol>
 
-       <li><p>If <var>next character</var> is a <span>space character</span>, then
-       <span>skip whitespace</span>, set <var>next character</var> to the character in <var>input</var> pointed to by <var>position</var>, and advance <var>position</var> to the next character.</p></li>
+       <li><p>If <var>next character</var> is <span>ASCII whitespace</span>, then <span>skip ASCII
+       whitespace</span> within <var>input</var> given <var>position</var>, set <var>next
+       character</var> to the character in <var>input</var> pointed to by <var>position</var>, and
+       advance <var>position</var> to the next character.</p></li>
 
        <li>
 
@@ -369,7 +374,8 @@
 
      </li>
 
-     <li><p><span>Skip whitespace</span>.</p></li>
+     <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+     <var>position</var>.</p></li>
 
     </ol>
 

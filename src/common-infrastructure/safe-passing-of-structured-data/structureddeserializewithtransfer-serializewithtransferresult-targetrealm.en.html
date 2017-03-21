@@ -1,0 +1,36 @@
+  <h4 id="structureddeserializewithtransfer" data-export=""
+  data-lt="StructuredDeserializeWithTransfer"
+  data-dfn-type="abstract-op"><dfn>StructuredDeserializeWithTransfer</dfn> (
+  <var>serializeWithTransferResult</var>, <var>targetRealm</var> )</h4>
+
+  <ol>
+   <li>
+    <p>Let <var>memory</var> be an empty <span data-x="ordered map">map</span>.</p>
+
+    <p class="note">In addition to how it is used normally by <span>StructuredDeserialize</span>, in
+    this algorithm <var>memory</var> is also used to help us determine the list of transferred
+    values.</p>
+   </li>
+
+   <li><p>Let <var>deserialized</var> be ?
+   <span>StructuredDeserialize</span>(<var>serializeWithTransferResult</var>.[[Serialized]],
+   <var>targetRealm</var>, <var>memory</var>).</p></li>
+
+   <li><p>Let <var>transferredValues</var> be a new empty <span
+   data-x="js-List">List</span>.</p></li>
+
+   <li>
+    <p><span data-x="list iterate">For each</span> <var>transferDataHolder</var> of
+    <var>serializeWithTransferResult</var>.[[TransferDataHolders]]:</p>
+
+    <ol>
+     <li><p><span data-x="list append">Append</span>
+     <var>memory</var>[<var>transferDataHolder</var>] to <var>transferredValues</var>.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Return { [[Deserialized]]: <var>deserialized</var>, [[TransferredValues]]:
+   <var>transferredValues</var> }.</p></li>
+  </ol>
+
+

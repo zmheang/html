@@ -48,7 +48,7 @@ interface <span>OffscreenCanvasRenderingContext2D</span> {
 
   <p>An <code>OffscreenCanvasRenderingContext2D</code> object also has an <dfn
   data-x="offscreencontext2d-alpha">alpha</dfn> flag, which can be set to true or false. Initially,
-  when the context is created, its alpha flag must be set to true. When a
+  when the context is created, its alpha flag must be set to true. When an
   <code>OffscreenCanvasRenderingContext2D</code> object has its <span
   data-x="offscreencontext2d-alpha">alpha</span> flag set to false, then its alpha channel must be
   fixed to 1.0 (fully opaque) for all pixels, and attempts to change the alpha component of any pixel
@@ -145,7 +145,7 @@ interface <span>OffscreenCanvasRenderingContext2D</span> {
      referenced as the <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code>
      element</span>'s <span>output bitmap</span>, then this task will result in a change in
      the <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code>
-     element</span>'s <span data-x="intrinsic dimensions">intrinsic size</span>, which may affect
+     element</span>'s <span data-x="intrinsic dimensions">intrinsic size</span>, which can affect
      document layout.</p>
     </li>
   </ol>
@@ -154,14 +154,14 @@ interface <span>OffscreenCanvasRenderingContext2D</span> {
   the <span>browsing context</span> <span>event loop</span> for the purposes of updating the
   contents of a <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code>
   element</span> to the display. This could mean, for example, that the <code
-  data-x="offscreencontext2d-commit">commit()</code> method may copy the bitmap contents directly
+  data-x="offscreencontext2d-commit">commit()</code> method can copy the bitmap contents directly
   to a graphics buffer that is mapped to the physical display location of the <span
   data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>. This or
-  similar short-circuiting approaches may significantly reduce display latency, especially in cases
+  similar short-circuiting approaches can significantly reduce display latency, especially in cases
   where the <code data-x="offscreencontext2d-commit">commit()</code> method is invoked from a worker
   and the <span>event loop</span> of the <span
   data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>'s
-  <span>browsing context</span> is busy. However, such shortcuts must not have any
+  <span>browsing context</span> is busy. However, such shortcuts can not have any
   script-observable side-effects. This means that the committed bitmap still needs to be sent to
   the <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>, in
   case the element is used as a <code>CanvasImageSource</code>, as an

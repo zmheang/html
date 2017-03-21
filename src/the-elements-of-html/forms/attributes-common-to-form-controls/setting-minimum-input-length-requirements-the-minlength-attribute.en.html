@@ -1,10 +1,10 @@
   <h5>Setting minimum input length requirements: the <code data-x="attr-fe-minlength">minlength</code> attribute</h5>
 
-  <p>A <dfn data-x="attr-fe-minlength">form control <code data-x="">minlength</code> attribute</dfn>,
-  controlled by a <var>dirty value flag</var>, declares a lower bound on the number of
-  characters a user can input. The "number of characters" is measured using <span>code-unit
-  length</span> and, in the case of <code>textarea</code> elements, with all line breaks normalized
-  to a single character (as opposed to CRLF pairs).</p>
+  <p>A <dfn data-x="attr-fe-minlength">form control <code data-x="">minlength</code>
+  attribute</dfn>, controlled by the <span data-x="concept-fe-dirty">dirty value flag</span>,
+  declares a lower bound on the number of characters a user can input. The "number of characters" is
+  measured using <span>code-unit length</span> and, in the case of <code>textarea</code> elements,
+  with all line breaks normalized to a single character (as opposed to CRLF pairs).</p>
 
   <p class="note">The <code data-x="attr-fe-minlength">minlength</code> attribute does not imply the
   <code data-x="">required</code> attribute. If the form control has no <code
@@ -27,7 +27,7 @@
   <div w-nodev>
 
   <p><strong>Constraint validation</strong>: If an element has a <span>minimum allowed value
-  length</span>, its <var>dirty value flag</var> is true, its <span
+  length</span>, its <span data-x="concept-fe-dirty">dirty value flag</span> is true, its <span
   data-x="concept-fe-value">value</span> was last changed by a user edit (as opposed to a change
   made by a script), its <span data-x="concept-fe-value">value</span> is not the empty string, and
   the <span>code-unit length</span> of the element's <span data-x="concept-fe-api-value">API

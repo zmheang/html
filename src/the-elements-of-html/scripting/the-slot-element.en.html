@@ -33,6 +33,16 @@ dictionary <dfn>AssignedNodesOptions</dfn> {
   string value. It represents a <span data-x="concept-slot">slot</span>'s <span
   data-x="slot-name">name</span>.</p>
 
+  <p class="note">The <code data-x="attr-slot-name">name</code> attribute is used to <span
+  data-x="assign a slot">assign slots</span> to other elements: a <code>slot</code> element with a
+  <code data-x="attr-slot-name">name</code> attribute creates a named <span
+  data-x="concept-slot">slot</span> to which any element is <span data-x="assign a
+  slot">assigned</span> if that element has a <code data-x="attr-slot">slot</code> attribute whose
+  value matches that <code data-x="attr-slot-name">name</code> attribute's value, and the
+  <code>slot</code> element is a child of the <span>shadow tree</span> whose <span>root</span>'s
+  <span data-x="concept-DocumentFragment-host">host</span> has that corresponding <code
+  data-x="attr-slot">slot</code> attribute value.</p>
+
   <dl class="domintro">
    <dt><var>slot</var> . <code subdfn data-x="dom-slot-name">name</code></dt>
    <dd>Can be used to get and set <var>slot</var>'s <span data-x="slot-name">name</span>.</dd>

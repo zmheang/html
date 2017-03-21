@@ -19,6 +19,49 @@
 
   <div w-nodev>
 
+  <p>To determine if a string <var>hostSuffixString</var> <dfn data-export="" data-lt="is a
+  registrable domain suffix of or is equal to|is not a registrable domain suffix of and is not equal
+  to">is a registrable domain suffix of or is equal to</dfn> a <span
+  data-x="concept-host">host</span> <var>originalHost</var>, run these steps:</p>
+  <!-- Web platform usage: document.domain, Cookies, Web Authentication -->
+
+  <ol>
+   <li><p>If <var>hostSuffixString</var> is the empty string, then return false.</p></li>
+
+   <li><p>Let <var>host</var> be the result of <span data-x="host parser">parsing</span>
+   <var>hostSuffixString</var>.</p></li>
+
+   <li><p>If <var>host</var> is failure, then return false.</p></li>
+
+   <li>
+    <p>If <var>host</var> is <em>not</em> <span data-x="host equals">equal</span> to
+    <var>originalHost</var>, then run these substeps:</p>
+
+    <ol>
+     <li>
+      <p>If <var>host</var> or <var>originalHost</var> is not a <span
+      data-x="concept-domain">domain</span>, then return false.</p>
+
+      <p class="note">This is meant to exclude <span data-x="concept-host">hosts</span> that are an
+      <span>IPv4 address</span> or an <span>IPv6 address</span>.</p>
+     </li>
+
+     <li><p>If <var>host</var>, prefixed by a U+002E FULL STOP (.), does not exactly match the end
+     of <var>originalHost</var>, then return false.</p></li>
+
+     <li>
+      <p>If <var>host</var> matches a suffix in the Public Suffix List, or, if <var>host</var>,
+      prefixed by a U+002E FULL STOP (.), matches the end of a suffix in the Public Suffix List,
+      then return false. <ref spec=PSL></p>
+
+      <p>Suffixes must be compared after applying the <span>host parser</span> algorithm.</p>
+     </li>
+    </ol>
+   </li>
+
+   <li><p>Return true.</p></li>
+  </ol>
+
   <p>The <dfn><code data-x="dom-document-domain">domain</code></dfn> attribute's getter must run
   these steps:</p>
 
@@ -29,8 +72,7 @@
    <li><p>Let <var>effectiveDomain</var> be this <code>Document</code>'s <span>origin</span>'s <span
    data-x="concept-origin-effective-domain">effective domain</span>.
 
-   <li><p>If <var>effectiveDomain</var> is an <span data-x="concept-origin-opaque">opaque
-   origin</span>, then return the empty string.</p></li>
+   <li><p>If <var>effectiveDomain</var> is null, then return the empty string.</p></li>
 
    <li><p>Return <var>effectiveDomain</var>, <span data-x="host
    serializer">serialized</span>.</p></li>
@@ -49,50 +91,19 @@
    flag</span> set, then throw a <span>"<code>SecurityError</code>"</span>
    <code>DOMException</code>.</p></li>
 
-   <li><p>If the given value is the empty string, then throw a
+   <li><p>Let <var>effectiveDomain</var> be this <code>Document</code>'s <span>origin</span>'s <span
+   data-x="concept-origin-effective-domain">effective domain</span>.
+
+   <li><p>If <var>effectiveDomain</var> is null, then throw a
    <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
-   <li><p>Let <var>host</var> be the result of <span data-x="host parser">parsing</span> the given
-   value.</p></li>
-
-   <li><p>If <var>host</var> is failure, then throw a <span>"<code>SecurityError</code>"</span>
-   <code>DOMException</code>.</p></li>
-
-   <li><p>Let <var>effectiveDomain</var> be this <code>Document</code> object's
-   <span>origin</span>'s <span data-x="concept-origin-effective-domain">effective
-   domain</span>.</p></li>
-
-   <li>
-    <p>If <var>host</var> is <em>not</em> <span data-x="host equals">equal</span> to
-    <var>effectiveDomain</var>, then run these substeps:</p>
-
-    <ol>
-     <li>
-      <p>If <var>host</var> or <var>effectiveDomain</var> is not a <span
-      data-x="concept-domain">domain</span>, then throw a <span>"<code>SecurityError</code>"</span>
-      <code>DOMException</code>.</p>
-
-      <p class="note">This is meant to exclude <span data-x="concept-host">hosts</span> that are an
-      <span>IPv4 address</span> or an <span>IPv6 address</span>.</p>
-     </li>
-
-     <li><p>If <var>host</var>, prefixed by a U+002E FULL STOP (.), does not exactly match the end
-     of <var>effectiveDomain</var>, then throw a <span>"<code>SecurityError</code>"</span>
-     <code>DOMException</code>.</p></li>
-
-     <li>
-      <p>If <var>host</var> matches a suffix in the Public Suffix List, or, if <var>host</var>,
-      prefixed by a U+002E FULL STOP (.), matches the end of a suffix in the Public Suffix List,
-      then throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>. <ref
-      spec=PSL></p>
-
-      <p>Suffixes must be compared after applying the <span>host parser</span> algorithm.</p>
-     </li>
-    </ol>
-   </li>
+   <li><p>If the given value <span data-x="is a registrable domain suffix of or is equal to">is not
+   a registrable domain suffix of and is not equal to</span> <var>effectiveDomain</var>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Set this <code>Document</code> object's <span>origin</span>'s <span
-   data-x="concept-origin-domain">domain</span> to <var>host</var>.</p></li>
+   data-x="concept-origin-domain">domain</span> to the result of <span data-x="host
+   parser">parsing</span> the given value.</p></li>
   </ol>
 
   </div>

@@ -3,7 +3,6 @@
   <pre class="idl">[Global=(Worker,SharedWorker),Exposed=SharedWorker]
 interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   readonly attribute DOMString <span data-x="dom-SharedWorkerGlobalScope-name">name</span>;
-  readonly attribute <span>ApplicationCache</span> <span data-x="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</span>; // deprecated
 
   void <span data-x="dom-SharedWorkerGlobalScope-close">close</span>();
 
@@ -60,15 +59,6 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
    <tbody>
     <tr><td><dfn><code data-x="handler-SharedWorkerGlobalScope-onconnect">onconnect</code></dfn> <td> <code data-x="event-WorkerGlobalScope-connect">connect</code>
   </table>
-
-  <p>For the purposes of the <span>application cache</span> networking model, a shared worker is its
-  own <span>cache host</span>. The <span>run a worker</span> algorithm takes care of associating the
-  worker with an <span>application cache</span>.</p>
-
-  <p class="note">The <code
-  data-x="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</code> attribute returns the
-  <code>ApplicationCache</code> object for the worker.</p><!-- normative conf criteria is in the
-  appcache section -->
 
 
 

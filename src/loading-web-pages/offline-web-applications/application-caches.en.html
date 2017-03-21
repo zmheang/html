@@ -142,18 +142,14 @@
 
   <hr>
 
-  <p>A <dfn>cache host</dfn> is a <code>Document</code> or a <code>SharedWorkerGlobalScope</code>
-  object. A <span>cache host</span> can be associated with an <span>application cache</span>.</p>
-
-  <p>A <code>Document</code> initially is not associated with an <span>application cache</span>, but
-  can become associated with one early during the page load process, when steps <a
-  href="#parser-appcache">in the parser</a> and in the <span data-x="navigate">navigation</span>
-  sections cause <span data-x="concept-appcache-init">cache selection</span> to occur.</p>
-
-  <p>A <code>SharedWorkerGlobalScope</code> can be associated with an <span>application cache</span>
-  when it is created.</p>
+  <p>A <dfn>cache host</dfn> is a <code>Document</code> object.</p>
 
   <p>Each <span>cache host</span> has an associated <code>ApplicationCache</code> object.</p>
+
+  <p>Each <span>cache host</span> initially is not associated with an <span>application
+  cache</span>, but can become associated with one early during the page load process, when steps <a
+  href="#parser-appcache">in the parser</a> and in the <span data-x="navigate">navigation</span>
+  sections cause <span data-x="concept-appcache-init">cache selection</span> to occur.</p>
 
   <hr>
 

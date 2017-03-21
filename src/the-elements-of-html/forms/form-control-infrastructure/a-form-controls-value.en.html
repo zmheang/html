@@ -16,6 +16,12 @@
   email fields might translate that into a <span data-x="concept-fe-value">value</span> of "<code
   data-x="">awesome@example.com</code>" (without the leading whitespace).</p>
 
+  <p id="concept-input-value-dirty-flag"><span id="concept-textarea-dirty"></span><code>input</code>
+  and <code>textarea</code> elements have a <dfn data-x="concept-fe-dirty">dirty value flag</dfn>.
+  This is used to track the interaction between the <span data-x="concept-fe-value">value</span> and
+  default value. If it is false, <span data-x="concept-fe-value">value</span> mirrors the default
+  value. If it is true, the default value is ignored.</p>
+
   <p>To define the behavior of constraint validation in the face of the <code>input</code>
   element's <code data-x="attr-input-multiple">multiple</code> attribute, <code>input</code> elements
   can also have separately defined <dfn data-x="concept-fe-values">value<em>s</em></dfn>.</p>

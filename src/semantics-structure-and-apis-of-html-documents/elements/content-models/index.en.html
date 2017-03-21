@@ -6,11 +6,11 @@
   model. The <dfn data-x="concept-html-contents">contents</dfn> of an element are its children in the
   DOM.</p>
 
-  <p>The <span data-x="space character">space characters</span> are always allowed between elements.
-  User agents represent these characters between elements in the source markup as <code>Text</code>
-  nodes in the DOM.<!-- not a conf criteria since the parser now requires this --> Empty
-  <code>Text</code> nodes and <code>Text</code> nodes consisting of just sequences of those
-  characters are considered <dfn>inter-element whitespace</dfn>.</p>
+  <p>The <span>ASCII whitespace</span> are always allowed between elements. User agents represent
+  these characters between elements in the source markup as <code>Text</code> nodes in the DOM.<!--
+  not a conf criteria since the parser now requires this --> Empty <code>Text</code> nodes and
+  <code>Text</code> nodes consisting of just sequences of those characters are considered
+  <dfn>inter-element whitespace</dfn>.</p>
 
   <p><span>Inter-element whitespace</span>, comment nodes, and processing instruction nodes must be
   ignored when establishing whether an element's contents match the element's content model or not,

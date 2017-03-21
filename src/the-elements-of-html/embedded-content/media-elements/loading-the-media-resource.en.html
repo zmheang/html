@@ -15,7 +15,7 @@
 
   <div w-nodev>
 
-  <p>All <span data-x="media element">media elements</span> have an <dfn>autoplaying flag</dfn>,
+  <p>All <span data-x="media element">media elements</span> have a <dfn>can autoplay flag</dfn>,
   which must begin in the true state, and a <dfn>delaying-the-load-event flag</dfn>, which must
   begin in the false state. While the <span>delaying-the-load-event flag</span> is true, the element
   must <span>delay the load event</span> of its document.</p>
@@ -150,7 +150,7 @@
    the <code data-x="dom-media-defaultPlaybackRate">defaultPlaybackRate</code> attribute.</p></li>
 
    <li><p>Set the <code data-x="dom-media-error">error</code> attribute to null and the
-   <span>autoplaying flag</span> to true.</p></li>
+   <span>can autoplay flag</span> to true.</p></li>
 
    <li><p>Invoke the <span>media element</span>'s <span
    data-x="concept-media-load-algorithm">resource selection algorithm</span>.</li>
@@ -454,9 +454,8 @@
 
     <ol>
 
-     <li><p>Set the <code data-x="dom-media-error">error</code> attribute to a new
-     <code>MediaError</code> object whose <code data-x="dom-MediaError-code">code</code> attribute
-     is set to <code
+     <li><p>Set the <code data-x="dom-media-error">error</code> attribute to the result of
+     <span>creating a <code>MediaError</code></span> with <code
      data-x="dom-MediaError-MEDIA_ERR_SRC_NOT_SUPPORTED">MEDIA_ERR_SRC_NOT_SUPPORTED</code>.</p></li>
 
      <li><p><span>Forget the media element's media-resource-specific tracks</span>.</p></li>
@@ -960,9 +959,9 @@
 
        <li><p>The user agent should cancel the fetching process.</p></li>
 
-       <li><p>Set the <code data-x="dom-media-error">error</code> attribute to a new
-       <code>MediaError</code> object whose <code data-x="dom-MediaError-code">code</code> attribute
-       is set to <code data-x="dom-MediaError-MEDIA_ERR_NETWORK">MEDIA_ERR_NETWORK</code>.</p></li>
+       <li><p>Set the <code data-x="dom-media-error">error</code> attribute to the result of
+       <span>creating a <code>MediaError</code></span> with <code
+       data-x="dom-MediaError-MEDIA_ERR_NETWORK">MEDIA_ERR_NETWORK</code>.</p></li>
 
        <li><p>Set the element's <code data-x="dom-media-networkState">networkState</code> attribute
        to the <code data-x="dom-media-NETWORK_IDLE">NETWORK_IDLE</code> value.</p></li>
@@ -995,9 +994,9 @@
 
        <li><p>The user agent should cancel the fetching process.</p></li>
 
-       <li><p>Set the <code data-x="dom-media-error">error</code> attribute to a new
-       <code>MediaError</code> object whose <code data-x="dom-MediaError-code">code</code> attribute
-       is set to <code data-x="dom-MediaError-MEDIA_ERR_DECODE">MEDIA_ERR_DECODE</code>.</p></li>
+       <li><p>Set the <code data-x="dom-media-error">error</code> attribute to the result of
+       <span>creating a <code>MediaError</code></span> with <code
+       data-x="dom-MediaError-MEDIA_ERR_DECODE">MEDIA_ERR_DECODE</code>.</p></li>
 
        <li><p>Set the element's <code data-x="dom-media-networkState">networkState</code> attribute
        to the <code data-x="dom-media-NETWORK_IDLE">NETWORK_IDLE</code> value.</p></li>
@@ -1029,9 +1028,9 @@
 
        <li><p>The user agent should cancel the fetching process.</p></li>
 
-       <li><p>Set the <code data-x="dom-media-error">error</code> attribute to a new
-       <code>MediaError</code> object whose <code data-x="dom-MediaError-code">code</code> attribute
-       is set to <code data-x="dom-MediaError-MEDIA_ERR_ABORTED">MEDIA_ERR_ABORTED</code>.</p></li>
+       <li><p>Set the <code data-x="dom-media-error">error</code> attribute to the result of
+       <span>creating a <code>MediaError</code></span> with <code
+       data-x="dom-MediaError-MEDIA_ERR_ABORTED">MEDIA_ERR_ABORTED</code>.</p></li>
 
        <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
        data-x="event-media-abort">abort</code> at the <span>media element</span>.</p></li>

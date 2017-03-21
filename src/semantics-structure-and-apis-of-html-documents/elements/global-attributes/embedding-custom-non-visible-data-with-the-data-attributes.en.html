@@ -2,7 +2,8 @@
 
   <p>A <dfn>custom data attribute</dfn> is an attribute in no namespace whose name starts with the
   string "<dfn><code data-x="attr-data-*">data-</code></dfn>", has at least one character after the
-  hyphen, is <span>XML-compatible</span>, and contains no <span>uppercase ASCII letters</span>.</p>
+  hyphen, is <span>XML-compatible</span>, and contains no <span data-x="ASCII upper alpha">ASCII
+  upper alphas</span>.</p>
 
   <p class="note">All attribute names on <span>HTML elements</span> in <span>HTML documents</span>
   get ASCII-lowercased automatically, so the restriction on ASCII uppercase letters doesn't affect
@@ -154,15 +155,15 @@ interface <dfn>DOMStringMap</dfn> {
    <li><p>For each content attribute on the <code>DOMStringMap</code>'s <span
    data-x="concept-DOMStringMap-element">associated element</span> whose first five characters are
    the string "<code data-x="">data-</code>" and whose remaining characters (if any) do not include
-   any <span>uppercase ASCII letters</span>, in the order that those attributes are listed in the
-   element's <span>attribute list</span>, add a name-value pair to <var>list</var> whose name is the
-   attribute's name with the first five characters removed and whose value is the attribute's
-   value.</p></li>
+   any <span data-x="ASCII upper alpha">ASCII upper alphas</span>, in the order that those
+   attributes are listed in the element's <span>attribute list</span>, add a name-value pair to
+   <var>list</var> whose name is the attribute's name with the first five characters removed and
+   whose value is the attribute's value.</p></li>
 
-   <li><p>For each name in <var>list</var>, for each U+002D HYPHEN-MINUS character (-) in the
-   name that is followed by a <span data-x="lowercase ASCII letters">lowercase ASCII letter</span>,
-   remove the U+002D HYPHEN-MINUS character (-) and replace the character that followed it by the
-   same character <span>converted to ASCII uppercase</span>.</p></li>
+   <li><p>For each name in <var>list</var>, for each U+002D HYPHEN-MINUS character (-) in the name
+   that is followed by an <span>ASCII lower alpha</span>, remove the U+002D HYPHEN-MINUS character
+   (-) and replace the character that followed it by the same character <span>converted to ASCII
+   uppercase</span>.</p></li>
 
    <li><p>Return <var>list</var>.</p></li>
   </ol>
@@ -182,13 +183,13 @@ interface <dfn>DOMStringMap</dfn> {
   property name <var>name</var> and a new value <var>value</var>, run the following steps:</p>
 
   <ol>
-   <li><p>If <var>name</var> contains a U+002D HYPHEN-MINUS character (-) followed by a
-   <span data-x="lowercase ASCII letters">lowercase ASCII letter</span>, then throw a
-   <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> and abort these steps.</p></li>
+   <li><p>If <var>name</var> contains a U+002D HYPHEN-MINUS character (-) followed by an <span>ASCII
+   lower alpha</span>, then throw a <span>"<code>SyntaxError</code>"</span>
+   <code>DOMException</code> and abort these steps.</p></li>
 
-   <li><p>For each <span data-x="uppercase ASCII letters">uppercase ASCII letter</span> in
-   <var>name</var>, insert a U+002D HYPHEN-MINUS character (-) before the character and replace the
-   character with the same character <span>converted to ASCII lowercase</span>.</p></li>
+   <li><p>For each <span>ASCII upper alpha</span> in <var>name</var>, insert a U+002D HYPHEN-MINUS
+   character (-) before the character and replace the character with the same character
+   <span>converted to ASCII lowercase</span>.</p></li>
 
    <li><p>Insert the string <code data-x="">data-</code> at the front of <var>name</var>.</p></li>
 
@@ -206,14 +207,14 @@ interface <dfn>DOMStringMap</dfn> {
 
   <ol>
 <!--(can't happen while the DOMStringMap deleter has no name)
-   <li><p>If <var>name</var> contains a U+002D HYPHEN-MINUS character (-) followed by a
-   <span data-x="lowercase ASCII letters">lowercase ASCII letter</span>, throw a
-   <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> and abort these steps.</p></li>
+   <li><p>If <var>name</var> contains a U+002D HYPHEN-MINUS character (-) followed by an <span>ASCII
+   lower alpha</span>, then throw a <span>"<code>SyntaxError</code>"</span>
+   <code>DOMException</code> and abort these steps.</p></li>
 -->
 
-   <li><p>For each <span data-x="uppercase ASCII letters">uppercase ASCII letter</span> in
-   <var>name</var>, insert a U+002D HYPHEN-MINUS character (-) before the character and replace the
-   character with the same character <span>converted to ASCII lowercase</span>.</p></li>
+   <li><p>For each <span>ASCII upper alpha</span> in <var>name</var>, insert a U+002D HYPHEN-MINUS
+   character (-) before the character and replace the character with the same character
+   <span>converted to ASCII lowercase</span>.</p></li>
 
    <li><p>Insert the string <code data-x="">data-</code> at the front of <var>name</var>.</p></li>
 

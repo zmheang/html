@@ -4,7 +4,7 @@
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
    <dd>None.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
-   <dd>As a child of a <code>menu</code> element whose <code data-x="attr-menu-type">type</code> attribute is in the <span data-x="popup menu state">popup menu</span> state.</dd>
+   <dd>As a child of a <code>menu</code> element whose <code data-x="attr-menu-type">type</code> attribute is in the <span data-x="context menu state">context menu</span> state.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
    <dd><span data-x="text content">Text</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
@@ -32,9 +32,8 @@ interface <dfn>HTMLMenuItemElement</dfn> : <span>HTMLElement</span> {
    </dd>
   </dl><!--TOPIC:HTML-->
 
-  <p>The <code>menuitem</code> element represents a command that the user can invoke from a popup
-  menu (either a <span data-x="attr-contextmenu">context menu</span> or the menu of a <span
-  data-x="attr-button-type-menu-state">menu button</span>).</p>
+  <p>The <code>menuitem</code> element represents a command that the user can invoke from a <span
+  data-x="attr-contextmenu">context menu</span>.</p>
 
   <p>A <code>menuitem</code> element that uses one or more of the
    <code data-x="attr-menuitem-type">type</code>,
@@ -83,9 +82,9 @@ interface <dfn>HTMLMenuItemElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <dfn data-x="concept-menuitem-label">label</dfn> of a <code>menuitem</code> element is the
   value of the <code data-x="attr-menuitem-label">label</code> content attribute, if there is one
-  and its value is not the empty string, or, otherwise, the result of <span
-  data-x="strip and collapse whitespace">stripping and collapsing whitespace</span> from the
-  <span>child text content</span> of the <code>menuitem</code> element. The <span
+  and its value is not the empty string, or, otherwise, the result of <span data-x="strip and
+  collapse ASCII whitespace">stripping and collapsing ASCII whitespace</span> from the <span>child
+  text content</span> of the <code>menuitem</code> element. The <span
   data-x="concept-menuitem-label">label</span> must not be the empty string if the element's <code
   data-x="attr-menuitem-type">type</code> attribute value is in the <span
   data-x="attr-menuitem-type-state-command">Command</span> state.</p>
@@ -195,36 +194,9 @@ interface <dfn>HTMLMenuItemElement</dfn> : <span>HTMLElement</span> {
 
   </dl>
 
-  <p class="note">Firing a synthetic <code data-x="event-click">click</code> event at the element
-  does not cause any of the actions described above to happen.</p>
-
-  <!-- v2COMMAND: Expose the Triggers facet again. -->
-
   </div>
 
   <p class="note">The <code>menuitem</code> element is not rendered except as <span
-  data-x="menu">part of a popup menu</span>.</p>
-
-  <div class="example">
-
-   <p>Here is an example of a pop-up menu button with three options that let the user toggle between
-   left, center, and right alignment. One could imagine such a toolbar as part of a text editor. The
-   menu also has a separator followed by another menu item labeled "Publish", though that menu item
-   is disabled.</p>
-
-   <pre>&lt;button type=menu menu=editmenu>Commands...&lt;/button>
-&lt;menu type="context" id="editmenu">
- &lt;menuitem type="radio" radiogroup="alignment" checked="checked"
-          label="Left" icon="icons/alL.png" onclick="setAlign('left')">
- &lt;menuitem type="radio" radiogroup="alignment"
-          label="Center" icon="icons/alC.png" onclick="setAlign('center')">
- &lt;menuitem type="radio" radiogroup="alignment"
-          label="Right" icon="icons/alR.png" onclick="setAlign('right')">
- &lt;hr>
- &lt;menuitem type="command" disabled
-          label="Publish" icon="icons/pub.png" onclick="publish()">
-&lt;/menu></pre>
-
-  </div>
+  data-x="menu">part of a context menu</span>.</p>
 
 

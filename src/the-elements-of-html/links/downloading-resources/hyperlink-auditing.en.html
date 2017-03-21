@@ -5,10 +5,10 @@
   the value of the element's <code data-x="attr-hyperlink-href">href</code> attribute can be <span
   data-x="parse a url">parsed</span>, relative to the element's <span>node document</span>, without
   failure, then the user agent must take the <code data-x="attr-hyperlink-ping">ping</code>
-  attribute's value, <span data-x="split a string on spaces">split that string on spaces</span>,
-  <span data-x="parse a url">parse</span> each resulting token relative to the element's <span>node
-  document</span>, and then run these substeps for each <span>resulting URL record</span> <var>ping
-  URL</var>, ignoring tokens that fail to parse:</p>
+  attribute's value, <span data-x="split a string on ASCII whitespace">split that string on ASCII
+  whitespace</span>, <span data-x="parse a url">parse</span> each resulting token relative to the
+  element's <span>node document</span>, and then run these substeps for each <span>resulting URL
+  record</span> <var>ping URL</var>, ignoring tokens that fail to parse:</p>
 
   <ol>
    <li><p>If <var>ping URL</var>'s <span data-x="concept-url-scheme">scheme</span> is not an

@@ -356,39 +356,9 @@
          <dd><p>Set the <span>current target element</span> to the <span>immediate user
          selection</span> anyway.</p></dd>
 
-
-         <dt>If the <span>immediate user selection</span> is an element with a <code
-         data-x="attr-dropzone">dropzone</code> attribute that <span
-         data-x="concept-dropzone-match">matches</span> the <span>drag data store</span></dt>
-
-         <dd><p>Set the <span>current target element</span> to the <span>immediate user
-         selection</span> anyway.</p></dd>
-
-
-         <dt>If the <span>immediate user selection</span> is an element that itself has an ancestor
-         element with a <code data-x="attr-dropzone">dropzone</code> attribute that <span
-         data-x="concept-dropzone-match">matches</span> the <span>drag data store</span></dt>
-
-         <dd>
-
-          <p>Let <var>new target</var> be the nearest (deepest) such ancestor element.</p>
-
-          <p>If the <span>immediate user selection</span> is <var>new target</var>, then leave the
-          <span>current target element</span> unchanged.</p>
-
-          <p>Otherwise, <span>fire a DND event</span> named <code
-          data-x="event-dnd-dragenter">dragenter</code> at <var>new target</var>, with the current
-          <span>current target element</span> as the specific <var>related target</var>. Then, set
-          the <span>current target element</span> to <var>new target</var>, regardless of whether
-          that event was canceled or not.</p>
-
-         </dd>
-
-
          <dt>If the <span>immediate user selection</span> is <span>the body element</span></dt>
 
          <dd><p>Leave the <span>current target element</span> unchanged.</p></dd>
-
 
          <dt>Otherwise</dt>
 
@@ -442,26 +412,6 @@
        data-x="concept-current-drag-operation-copy">copy</code>" or "<code
        data-x="concept-current-drag-operation-move">move</code>", as appropriate given the platform
        conventions.</p></dd>
-
-
-       <dt>If the <span>current target element</span> is an element with a <code
-       data-x="attr-dropzone">dropzone</code> attribute that <span
-       data-x="concept-dropzone-match">matches</span> the <span>drag data store</span> and <span
-       data-x="concept-dropzone-operation">specifies an operation</span></dt>
-
-       <dd><p>Set the <span>current drag operation</span> to the operation <span
-       data-x="concept-dropzone-operation">specified</span> by the <code
-       data-x="attr-dropzone">dropzone</code> attribute of the <span>current target
-       element</span>.</p>
-
-
-       <dt>If the <span>current target element</span> is an element with a <code
-       data-x="attr-dropzone">dropzone</code> attribute that <span
-       data-x="concept-dropzone-match">matches</span> the <span>drag data store</span> and does not
-       <span data-x="concept-dropzone-operation">specify an operation</span></dt>
-
-       <dd><p>Set the <span>current drag operation</span> to "<code
-       data-x="concept-current-drag-operation-copy">copy</code>".</p>
 
 
        <dt>Otherwise</dt>
@@ -567,7 +517,7 @@
 
       <p>If the <span>current drag operation</span> is "<code
       data-x="concept-current-drag-operation-none">none</code>" (no drag operation), or, if the user
-      ended the drag-and-drop operation by canceling it (e.g. by hitting the <kbd>Escape</kbd> key),
+      ended the drag-and-drop operation by canceling it (e.g. by hitting the <kbd><kbd>Escape</kbd></kbd> key),
       or if the <span>current target element</span> is null, then the drag operation failed. Run
       these substeps:</p>
 

@@ -18,11 +18,11 @@
    situation according to the specification that defines the <span>relevant types</span> for the
    item, or</li>
 
-   <li>A <span>valid URL</span> that is an <span>absolute URL</span> defined as an item property
-   name allowed in this situation by a vocabulary specification, or</li>
+   <li>A <span>valid URL string</span> that is an <span>absolute URL</span> defined as an item
+   property name allowed in this situation by a vocabulary specification, or</li>
 
-   <li>A <span>valid URL</span> that is an <span>absolute URL</span>, used as a proprietary item
-   property name (i.e. one used by the author for private purposes, not defined in a public
+   <li>A <span>valid URL string</span> that is an <span>absolute URL</span>, used as a proprietary
+   item property name (i.e. one used by the author for private purposes, not defined in a public
    specification), or</li>
 
    <li>If the item is not a <span>typed item</span>: a string that contains no U+002E FULL STOP
@@ -33,12 +33,12 @@
 
   <p>Specifications that introduce <span data-x="defined property name">defined property names</span>
   must ensure all such property names contain no U+002E FULL STOP characters (.), no U+003A COLON
-  characters (:), and no <span data-x="space character">space characters</span>.</p>
+  characters (:), and no <span>ASCII whitespace</span>.</p>
 
   <p class="note">The rules above disallow U+003A COLON characters (:) in non-URL values because
   otherwise they could not be distinguished from URLs. Values with U+002E FULL STOP characters (.)
-  are reserved for future extensions. <span data-x="space character">Space characters</span> are
-  disallowed because otherwise the values would be parsed as multiple tokens.</p>
+  are reserved for future extensions. <span>ASCII whitespace</span> are disallowed because otherwise
+  the values would be parsed as multiple tokens.</p>
 
   <p>When an element with an <code data-x="attr-itemprop">itemprop</code> attribute <span data-x="the
   properties of an item">adds a property</span> to multiple <span data-x="concept-item">items</span>,
@@ -59,8 +59,8 @@
 
   <p>The <dfn>property names</dfn> of an element are the tokens that the element's <code
   data-x="attr-itemprop">itemprop</code> attribute is found to contain when its value is <span
-  data-x="split a string on spaces">split on spaces</span>, with the order preserved but with
-  duplicates removed (leaving only the first occurrence of each name).</p>
+  data-x="split a string on ASCII whitespace">split on ASCII whitespace</span>, with the order
+  preserved but with duplicates removed (leaving only the first occurrence of each name).</p>
 
   <p>Within an <span data-x="concept-item">item</span>, the properties are unordered with respect to
   each other, except for properties with the same name, which are ordered in the order they are

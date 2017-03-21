@@ -72,13 +72,13 @@
   <p><dfn data-x="text content">Text</dfn>, in the context of content models, means either nothing,
   or <code>Text</code> nodes. <span data-x="text content">Text</span> is sometimes used as a content
   model on its own, but is also <span>phrasing content</span>, and can be <span>inter-element
-  whitespace</span> (if the <code>Text</code> nodes are empty or contain just <span data-x="space
-  character">space characters</span>).</p>
+  whitespace</span> (if the <code>Text</code> nodes are empty or contain just <span>ASCII
+  whitespace</span>).</p>
 
   <p><code>Text</code> nodes and attribute values must consist of <span data-x="Unicode
   character">Unicode characters</span>, must not contain U+0000 characters, must not contain
-  permanently undefined Unicode characters (noncharacters), and must not contain <span>control characters</span>
-  other than <span data-x="space character">space characters</span>.
+  permanently undefined Unicode characters (noncharacters), and must not contain <span>control
+  characters</span> other than <span>ASCII whitespace</span>.
 
   <!--<code>Text</code> nodes and attribute values may begin with an <i>isolated combining
   character</i>.--> <!-- commented out since nothing disallows it currently, so it's implicit;

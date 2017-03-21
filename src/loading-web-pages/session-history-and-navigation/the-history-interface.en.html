@@ -38,7 +38,7 @@ interface <dfn>History</dfn> {
 
    <dd>
 
-    <p>Returns the current <span>state object</span>.</p>
+    <p>Returns the current <span>serialized state</span>, deserialized into an object.</p>
 
    </dd>
 
@@ -290,8 +290,8 @@ interface <dfn>History</dfn> {
    <li><p>Let <var>targetRealm</var> be this <code>History</code> object's <span
    data-x="concept-relevant-realm">relevant Realm</span>.</p></li>
 
-   <li><p>Let <var>cloned data</var> be <span>StructuredClone</span>(<var>data</var>,
-   <var>targetRealm</var>). Rethrow any exceptions.</p></li>
+   <li><p>Let <var>serializedData</var> be <span>StructuredSerialize</span>(<var>data</var>).
+   Rethrow any exceptions.</p></li>
 
    <li>
 
@@ -355,11 +355,11 @@ interface <dfn>History</dfn> {
      agent wishes to persist. The entry is then said to be <span>an entry with persisted user
      state</span>.</p></li>
 
-     <li><p>Add a <span>state object</span> entry to the session history, after the <span>current
-     entry</span>, with <var>cloned data</var> as the <span>state object</span>, the given
-     <var>title</var> as the title, <var>new URL</var> as the <span>URL</span>
-     of the entry, and the <span>scroll restoration mode</span> of the current entry in the
-     <span>session history</span> as the scroll restoration mode.</p></li>
+     <li><p>Add a <span>session history entry</span> entry to the session history, after the
+     <span>current entry</span>, with <var>serializedData</var> as the <span>serialized
+     state</span>, the given <var>title</var> as the title, <var>new URL</var> as the
+     <span>URL</span> of the entry, and the <span>scroll restoration mode</span> of the current
+     entry in the <span>session history</span> as the scroll restoration mode.</p></li>
 
      <li><p>Update the <span>current entry</span> to be this newly added entry.</p></li>
 
@@ -370,8 +370,10 @@ interface <dfn>History</dfn> {
 
     <ol>
 
-     <li><p>Update the <span>current entry</span> in the session history so that <var>cloned data</var> is the entry's new state object, the given <var>title</var>
-     is the new title, and <var>new URL</var> is the entry's new <span>URL</span>.</p></li>
+     <li><p>Update the <span>current entry</span> in the session history so that
+     <var>serializedData</var> is the entry's new <span>serialized state</span>, the given
+     <var>title</var> is the new title, and <var>new URL</var> is the entry's new
+     <span>URL</span>.</p></li>
 
     </ol>
 
@@ -392,13 +394,11 @@ interface <dfn>History</dfn> {
 
    </li>
 
-   <li>
+   <li><p>Let <var>state</var> be <span>StructuredDeserialize</span>(<var>serializedData</var>,
+   <var>targetRealm</var>). If this throws an exception, ignore the exception and set
+   <var>state</var> to null.</p></li>
 
-    <p>Set <code data-x="dom-history-state">history.state</code> to
-    <span>StructuredClone</span>(<var>cloned data</var>, <var>targetRealm</var>).</p> <!-- it's a
-    clone of /cloned data/, not /data/, so that there's no risk of running scripts again -->
-
-   </li>
+   <li><p>Set <code data-x="dom-history-state">history.state</code> to <var>state</var>.</p></li>
 
    <li><p>Set the <span>current entry</span>'s <code>Document</code> object's <span>latest
    entry</span> to the <span>current entry</span>.</p></li>
@@ -510,7 +510,7 @@ State: &lt;OUTPUT NAME=I>1&lt;/OUTPUT> &lt;INPUT VALUE="Increment" TYPE=BUTTON O
 
   <div class="example">
    <p>Most applications want to use the same <span>scroll restoration mode</span> value for all of
-   their history entries. To achieve this they should set the <code
+   their history entries. To achieve this they can set the <code
    data-x="dom-history-scroll-restoration">scrollRestoration</code> attribute as soon as possible
    (e.g., in the first <code>script</code> element in the document's <code>head</code> element) to
    ensure that any entry added to the history session gets the desired scroll restoration mode.</p>

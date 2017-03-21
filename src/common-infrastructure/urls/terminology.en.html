@@ -1,18 +1,15 @@
   <h4>Terminology</h4>
 
-  <p>A <span>URL</span> is a <dfn>valid URL</dfn> if it conforms to the authoring conformance
-  requirements in the WHATWG URL standard. <ref spec=URL></p>
-
-  <p>A string is a <dfn>valid non-empty URL</dfn> if it is a <span>valid URL</span> but it is not
-  the empty string.</p>
+  <p>A string is a <dfn>valid non-empty URL</dfn> if it is a <span>valid URL string</span> but it is
+  not the empty string.</p>
 
   <p>A string is a <dfn>valid URL potentially surrounded by spaces</dfn> if, after <span
-  data-x="strip leading and trailing whitespace">stripping leading and trailing whitespace</span>
-  from it, it is a <span>valid URL</span>.</p>
+  data-x="strip leading and trailing ASCII whitespace">stripping leading and trailing ASCII
+  whitespace</span> from it, it is a <span>valid URL string</span>.</p>
 
   <p>A string is a <dfn>valid non-empty URL potentially surrounded by spaces</dfn> if, after <span
-  data-x="strip leading and trailing whitespace">stripping leading and trailing whitespace</span>
-  from it, it is a <span>valid non-empty URL</span>.</p>
+  data-x="strip leading and trailing ASCII whitespace">stripping leading and trailing ASCII
+  whitespace</span> from it, it is a <span>valid non-empty URL</span>.</p>
 
   <p>This specification defines the URL <dfn><code>about:legacy-compat</code></dfn> as a reserved,
   though unresolvable, <code data-x="about protocol">about:</code> URL, for use in <span

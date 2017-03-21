@@ -107,49 +107,58 @@
    <dt><dfn data-x="dom-input-value-value">value</dfn>
 
    <dd>
+    <p>On getting, return the current <span data-x="concept-fe-value">value</span> of the
+    element.</p>
 
-    <p>On getting, it must return the current <span data-x="concept-fe-value">value</span> of the
-    element. On setting, it must set the element's <span data-x="concept-fe-value">value</span> to
-    the new value, set the element's <span data-x="concept-input-value-dirty-flag">dirty value
-    flag</span> to true, invoke the <span>value sanitization algorithm</span>, if the element's
-    <code data-x="attr-input-type">type</code> attribute's current state defines one, and then, if
-    the element has a text entry cursor position, should move the text entry cursor position to the
-    end of the text control, unselecting any selected text and resetting the selection direction to
-    <i>none</i>.</p>
+    <p>On setting:</p>
 
+    <ol>
+     <li><p>Set the element's <span data-x="concept-fe-value">value</span> to the new
+     value.</p></li>
+
+     <li><p>Set the element's <span data-x="concept-fe-dirty">dirty value flag</span> to
+     true.</p></li>
+
+     <li><p>Invoke the <span>value sanitization algorithm</span>, if the element's <code
+     data-x="attr-input-type">type</code> attribute's current state defines one.</p></li>
+
+     <li><p>If the element has a text entry cursor position, move the text entry cursor position to
+     the end of the text control, unselecting any selected text and <span data-x="set the selection
+     direction">resetting the selection direction</span> to "<code data-x="">none</code>".</p></li>
+    </ol>
    </dd>
 
    <dt><dfn data-x="dom-input-value-default">default</dfn>
 
    <dd>
+    <p>On getting, if the element has a <code data-x="attr-input-value">value</code> content
+    attribute, return that attribute's value; otherwise, return the empty string.</p>
 
-    <p>On getting, if the element has a <code data-x="attr-input-value">value</code> attribute, it
-    must return that attribute's value; otherwise, it must return the empty string. On setting, it
-    must set the element's <code data-x="attr-input-value">value</code> attribute to the new
-    value.</p>
-
+    <p>On setting, set the value of the element's <code data-x="attr-input-value">value</code>
+    content attribute to the new value.</p>
    </dd>
 
    <dt><dfn data-x="dom-input-value-default-on">default/on</dfn>
 
    <dd>
+    <p>On getting, if the element has a <code data-x="attr-input-value">value</code> content
+    attribute, return that attribute's value; otherwise, return the string "<code
+    data-x="">on</code>".</p>
 
-    <p>On getting, if the element has a <code data-x="attr-input-value">value</code> attribute, it
-    must return that attribute's value; otherwise, it must return the string "<code
-    data-x="">on</code>". On setting, it must set the element's <code
-    data-x="attr-input-value">value</code> attribute to the new value.</p>
-
+    <p>On setting, set the value of the element's <code data-x="attr-input-value">value</code>
+    content attribute to the new value.</p>
    </dd>
 
    <dt><dfn data-x="dom-input-value-filename">filename</dfn>
 
    <dd id="fakepath-orly">
 
-    <p>On getting, it must return the string "<code data-x="">C:\fakepath\</code>" followed by the
-    name of the first file in the list of <span data-x="concept-input-type-file-selected">selected
-    files</span>, if any, or the empty string if the list is empty. On setting, if the new value is
-    the empty string, it must empty the list of <span
-    data-x="concept-input-type-file-selected">selected files</span>; otherwise, it must throw an
+    <p>On getting, return the string "<code data-x="">C:\fakepath\</code>" followed by the name of
+    the first file in the list of <span data-x="concept-input-type-file-selected">selected
+    files</span>, if any, or the empty string if the list is empty.</p>
+
+    <p>On setting, if the new value is the empty string, empty the list of <span
+    data-x="concept-input-type-file-selected">selected files</span>; otherwise, throw an
     <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p>
 
     <p class="note">This "fakepath" requirement is a sad accident of history. See <a

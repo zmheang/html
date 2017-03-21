@@ -3,7 +3,7 @@
   <p>Each channel has two message ports. Data sent through one port is received by the other port,
   and vice versa.</p>
 
-  <pre class="idl">[Exposed=(Window,Worker)]
+  <pre class="idl">[Exposed=(Window,Worker), <span>Transferable</span>]
 interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
   void <span data-x="dom-MessagePort-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
   void <span data-x="dom-MessagePort-start">start</span>();
@@ -131,60 +131,53 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
 
   </ol>
 
-  <p id="transferMessagePort"><code>MessagePort</code> objects are <span>transferable
-  objects</span>.</p>
+  <hr>
 
-  <p>Each <code>MessagePort</code> object's [[<span>Transfer</span>]] internal method, given a
-  <var>targetRealm</var>, must run these steps:</p>
+  <p id="transferMessagePort"><code>MessagePort</code> objects are <span>transferable
+  objects</span>. Their <span>transfer steps</span>, given <var>value</var> and
+  <var>dataHolder</var>, are:</p>
 
   <ol>
+   <li><p>Set <var>value</var>'s <span>has been shipped</span> flag to true.</p></li>
 
-   <li><p>Set <b>this</b>'s <span>has been shipped</span> flag to true.</p></li>
-
-   <li><p>Let <var>new</var> be a <span data-x="create a new MessagePort object">new
-   <code>MessagePort</code> object</span> in <var>targetRealm</var> whose <span
-   data-x="concept-port-owner">owner</span> is <var>targetRealm</var>'s <span
-   data-x="concept-realm-settings-object">settings object</span>.</p></li>
-
-   <li><p>Set <var>new</var>'s <span>has been shipped</span> flag to true.</p></li>
-
-   <li><p>Move all the <span data-x="concept-task">tasks</span> that are to fire <code
-   data-x="event-message">message</code> events in the <span>port message queue</span> of
-   <b>this</b> to the <span>port message queue</span> of <var>new</var>, if any, leaving
-   <var>new</var>'s <span>port message queue</span> in its initial disabled state, and, if
-   <var>new</var>'s <span data-x="concept-port-owner">owner</span> specifies a <span>responsible
-   event loop</span> that is a <span>browsing context</span> <span>event loop</span>, associating
-   the moved <span data-x="concept-task">tasks</span> with the <span>responsible document</span>
-   specified by <var>new</var>'s <span data-x="concept-port-owner">owner</span>.</p></li>
-
-<!--ILLFATED
-   <li><p>If <var>original port</var> is <span>related to an ill-fated port</span>, then create a
-   <span data-x="concept-task">task</span> that <span data-x="concept-event-fire">fires an
-   event</span> named <code data-x="event-error">error</code> at the <var>new port</var>, and add
-   the <span data-x="concept-task">task</span> to the <span>port message queue</span> of <var>new
-   port</var>. If the <var>new port</var>'s <span data-x="concept-port-owner">owner</span> specifies
-   a <span>responsible event loop</span> that is a <span>browsing context</span> <span>event
-   loop</span>, the <span data-x="concept-task">task</span> must be associated with the
-   <span>responsible document</span> specified by <var>new port</var>'s <span
-   data-x="concept-port-owner">owner</span>.</p></li>
--->
+   <li><p>Set <var>dataHolder</var>.[[PortMessageQueue]] to <var>value</var>'s <span>port message
+   queue</span>.</p></li>
 
    <li>
-    <p>If <b>this</b> is entangled with another port, then run these substeps:</p>
+    <p>If <var>value</var> is entangled with another port <var>remotePort</var>, then:</p>
 
     <ol>
-     <li><p>Let <var>remote port</var> be the port with which <b>this</b> is entangled.</p></li>
+     <li><p>Set <var>remotePort</var>'s <span>has been shipped</span> flag to true.</p></li>
 
-     <li><p>Set <var>remote port</var>'s <span>has been shipped</span> flag to true.</p></li>
-
-     <li><p><span>Entangle</span> <var>remote port</var> and <var>new</var>. <b>this</b> will be
-     disentangled by this process.</p></li>
+     <li><p>Set <var>dataHolder</var>.[[RemotePort]] to <var>remotePort</var>.</p></li>
     </ol>
    </li>
 
-   <li><p>Set <b>this</b>'s [[<span>Detached</span>]] internal slot value to true.</p></li>
+   <li><p>Otherwise, set <var>dataHolder</var>.[[RemotePort]] to null.</p></li>
+  </ol>
 
-   <li><p>Return <var>new</var>. It is the clone.</p></li>
+  <p>Their <span>transfer-receiving steps</span>, given <var>dataHolder</var> and <var>value</var>,
+  are:</p>
+
+  <ol>
+   <li><p>Set <var>value</var>'s <span>has been shipped</span> flag to true.</p></li>
+
+   <li><p>Set <var>value</var>'s <span
+   data-x="concept-port-owner">owner</span> to <var>value</var>'s <span>relevant settings
+   object</span>.</p></li>
+
+   <li><p>Move all the <span data-x="concept-task">tasks</span> that are to fire <code
+   data-x="event-message">message</code> events in <var>dataHolder</var>.[[PortMessageQueue]] to the
+   <span>port message queue</span> of <var>value</var>, if any, leaving
+   <var>value</var>'s <span>port message queue</span> in its initial disabled state, and, if
+   <var>value</var>'s <span data-x="concept-port-owner">owner</span> specifies a <span>responsible
+   event loop</span> that is a <span>browsing context</span> <span>event loop</span>, associating
+   the moved <span data-x="concept-task">tasks</span> with the <span>responsible document</span>
+   specified by <var>value</var>'s <span data-x="concept-port-owner">owner</span>.</p></li>
+
+   <li><p>If <var>dataHolder</var>.[[RemotePort]] is not null, then <span>entangle</span>
+   <var>dataHolder</var>.[[RemotePort]] and <var>value</var>. (This will disentangle
+   <var>dataHolder</var>.[[RemotePort]] from the original port that was transferred.)</p></li>
   </ol>
 
   <hr>
@@ -197,45 +190,20 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
    <li><p>Let <var>targetPort</var> be the port with which this <code>MessagePort</code> is
    entangled, if any; otherwise let it be null.</p></li>
 
-   <li>
-    <p>Let <var>doomed</var> be false.</p>
-
-    <p class="note">It is set to true if a condition is detected that will make this message cause
-    the port to be unusable; specifically, if the message contains <var>target port</var> as one of
-    the objects being transferred. (This condition cannot necessarily be detected when the method is
-    called.)</p>
-   </li>
-
    <li><p>If any of the objects in <var>transfer</var> are this <code>MessagePort</code>, then throw
    a <span>"<code>DataCloneError</code>"</span> <code>DOMException</code> and abort these
    steps.</p></li>
+
+   <li><p>Let <var>doomed</var> be false.</p></li>
 
    <li><p>If <var>targetPort</var> is not null and any of the objects in <var>transfer</var> are
    <var>targetPort</var>, then set <var>doomed</var> to true, and optionally report to a developer
    console that the target port was posted to itself, causing the communication channel to be
    lost.</p></li>
 
-   <li>
-    <p>Let <var>targetRealm</var> be <var>targetPort</var>'s <span
-    data-x="concept-port-owner">owner</span>'s <span data-x="environment settings object's
-    realm">Realm</span>, if <var>targetPort</var> is non-null and <var>doomed</var> is false;
-    otherwise let <var>targetRealm</var> be some arbitrary Realm.</p>
-
-    <p class="note"><var>targetRealm</var> is used when cloning and transferring objects below. If
-    there is no target port, or if the <var>targetPort</var> is one of the objects being
-    transferred, the transferable objects given in the second argument, if any, are still
-    transferred, but since they are then discarded, it doesn't matter where they are transferred
-    to.)</p>
-   </li>
-
-   <li><p>Let <var>cloneRecord</var> be <span>StructuredCloneWithTransfer</span>(<var>message</var>,
-   <var>transfer</var>, <var>targetRealm</var>). Rethrow any exceptions.</p></li>
-
-   <li><p>Let <var>messageClone</var> be <var>cloneRecord</var>.[[Clone]].</p></li>
-
-   <li><p>Let <var>newPorts</var> be a new <span>frozen array</span> consisting of all
-   <code>MessagePort</code> objects in <var>cloneRecord</var>.[[TransferList]], if any, maintaining
-   their relative order.</p></li>
+   <li><p>Let <var>serializeWithTransferResult</var> be
+   <span>StructuredSerializeWithTransfer</span>(<var>message</var>, <var>transfer</var>). Rethrow
+   any exceptions.</p></li>
 
    <li><p>If there is no <var>targetPort</var> (i.e. if this <code>MessagePort</code> is not
    entangled), or if <var>doomed</var> is true, then abort these steps.</p></li>
@@ -246,24 +214,44 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
    algorithm runs scripts). We don't throw an exception for 'doomed' being true, because this can't
    necessarily be detected right now every time -->
 
-   <li><p>Let <var>e</var> be the result of <span>creating an event</span> using
-   <code>MessageEvent</code>.</p></li>
-
-   <li><p>Initialize <var>e</var>'s <code data-x="dom-Event-type">type</code> attribute to <code
-   data-x="event-message">message</code>, its <code data-x="dom-MessageEvent-data">data</code>
-   attribute to <var>messageClone</var>, and its <code data-x="dom-MessageEvent-ports">ports</code>
-   attribute to <var>newPorts</var>.</p></li>
-
    <li>
     <p>Add a <span data-x="concept-task">task</span> that runs the following steps to the <span>port
     message queue</span> of <var>targetPort</var>:</p>
 
     <ol>
-     <li><p>Let <var>target</var> be the <code>MessagePort</code> in whose <span>port message
-     queue</span> the event <var>e</var> now finds itself.</p></li>
+     <li>
+      <p>Let <var>finalTargetPort</var> be the <code>MessagePort</code> in whose <span>port message
+      queue</span> the task now finds itself.</p>
+
+      <p class="note">This can be different from <var>targetPort</var>, if <var>targetPort</var>
+      itself was transferred and thus all its tasks moved along with it.</p>
+     </li>
+
+     <li><p>Let <var>targetRealm</var> be <var>finalTargetPort</var>'s <span
+     data-x="concept-relevant-realm">relevant Realm</span>.</p></li>
+
+     <li><p>Let <var>deserializeRecord</var> be
+     <span>StructuredDeserializeWithTransfer</span>(<var>serializeWithTransferResult</var>,
+     <var>targetRealm</var>).</p></li>
+     <!-- TODO: deal with exceptions: deliver "messageerror" or similar. See discussion in
+     https://github.com/whatwg/html/issues/936. -->
+
+     <li><p>Let <var>messageClone</var> be <var>deserializeRecord</var>.[[Deserialized]].</p></li>
+
+     <li><p>Let <var>newPorts</var> be a new <span>frozen array</span> consisting of all
+     <code>MessagePort</code> objects in <var>deserializeRecord</var>.[[TransferredValues]], if any,
+     maintaining their relative order.</p></li>
+
+     <li><p>Let <var>e</var> be the result of <span>creating an event</span> using
+     <code>MessageEvent</code> in <var>targetRealm</var>.</p></li>
+
+     <li><p>Initialize <var>e</var>'s <code data-x="dom-Event-type">type</code> attribute to <code
+     data-x="event-message">message</code>, its <code data-x="dom-MessageEvent-data">data</code>
+     attribute to <var>messageClone</var>, and its <code
+     data-x="dom-MessageEvent-ports">ports</code> attribute to <var>newPorts</var>.</p></li>
 
      <li><p><span data-x="concept-event-dispatch">Dispatch</span> <var>e</var> at
-     <var>target</var>.</p></li>
+     <var>finalTargetPort</var>.</p></li>
     </ol>
    </li>
   </ol>

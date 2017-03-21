@@ -53,10 +53,10 @@
 
   <p>Any namespace-less attribute that is relevant to the element's functioning, as determined by
   the element's author, may be specified on an <span>autonomous custom element</span>, so long as
-  the attribute name is <span>XML-compatible</span> and contains no <span>uppercase ASCII
-  letters</span>. The exception is the <code data-x="attr-is">is</code> attribute, which must not
-  be specified on an <span>autonomous custom element</span> (and which will have no effect if it
-  is).</p>
+  the attribute name is <span>XML-compatible</span> and contains no <span data-x="ASCII upper
+  alpha">ASCII upper alphas</span>. The exception is the <code data-x="attr-is">is</code> attribute,
+  which must not be specified on an <span>autonomous custom element</span> (and which will have no
+  effect if it is).</p>
 
   <p><span data-x="customized built-in element">Customized built-in elements</span> follow the
   normal requirements for attributes, based on the elements they extend. To add custom
@@ -114,11 +114,11 @@
    custom element names</span>:</p>
 
    <ul>
-    <li><p>They start with a <span data-x="lowercase ASCII letters">lowercase ASCII letter</span>,
-    ensuring that the HTML parser will treat them as tags instead of as text.</li>
+    <li><p>They start with an <span>ASCII lower alpha</span>, ensuring that the HTML parser will
+    treat them as tags instead of as text.</li>
 
-    <li><p>They do not contain any <span>uppercase ASCII letters</span>, ensuring that the user
-    agent can always treat HTML elements ASCII-case-insensitively.</p></li>
+    <li><p>They do not contain any <span data-x="ASCII upper alpha">ASCII upper alphas</span>,
+    ensuring that the user agent can always treat HTML elements ASCII-case-insensitively.</p></li>
 
     <li><p>They contain a hyphen, used for namespacing and to ensure forward compatibility (since no
     elements will be added to HTML, SVG, or MathML with hyphen-containing local names in the

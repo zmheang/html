@@ -66,9 +66,9 @@
    <li><p>If the <code>Document</code> object is not an <span>active document</span>, then abort
    these steps.</p></li>
 
-   <li><p>If the <span>origin</span> of the <code>Document</code> is not equal to the
-   <span>origin</span> of the <span>responsible document</span> specified by the <span>entry
-   settings object</span>, throw a <span>"<code>SecurityError</code>"</span>
+   <li><p>If the <span>origin</span> of the <code>Document</code> is not <span>same origin</span>
+   with the <span>origin</span> of the <span>responsible document</span> specified by the
+   <span>entry settings object</span>, throw a <span>"<code>SecurityError</code>"</span>
    <code>DOMException</code> and abort these steps.</p></li>
 
    <li>
@@ -215,7 +215,7 @@
     <p>If the <var>type</var> string contains a U+003B SEMICOLON character (;), remove the
     first such character and all characters from it up to the end of the string.</p>
 
-    <p><span>Strip leading and trailing whitespace</span> from <var>type</var>.</p>
+    <p><span>Strip leading and trailing ASCII whitespace</span> from <var>type</var>.</p>
 
    </li>
 

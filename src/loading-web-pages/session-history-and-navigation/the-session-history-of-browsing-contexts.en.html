@@ -5,15 +5,16 @@
   context">nested browsing contexts</span>, has a distinct session history. A <span>browsing
   context</span>'s session history consists of a flat list of <span data-x="session history
   entry">session history entries</span>. Each <dfn>session history entry</dfn> consists, at a
-  minimum, of a <span>URL</span>, and each entry may in addition have a <span>state object</span>, a
-  title, a <code>Document</code> object, form data, a <span>scroll restoration mode</span>, a scroll
-  position, a <span>browsing context name</span>, and other information associated with it.</p>
+  minimum, of a <span>URL</span>, and each entry may in addition have <span>serialized state</span>,
+  a title, a <code>Document</code> object, form data, a <span>scroll restoration mode</span>, a
+  scroll position, a <span>browsing context name</span>, and other information associated with
+  it.</p>
 
   <p class="note">Each entry, when first created, has a <code>Document</code>. However, when a
   <code>Document</code> is not <span data-x="fully active">active</span>, it's possible for it to be
   <span data-x="discard a Document">discarded</span> to free resources. The <span>URL</span> and
   other data in a <span>session history entry</span> is then used to bring a new
-  <code>Document</code> into being to take the place of the original, should the user agent find
+  <code>Document</code> into being to take the place of the original, in case the user agent finds
   itself having to reactivate that <code>Document</code>.</p>
 
   <p class="note">Titles associated with <span data-x="session history entry">session history
@@ -21,8 +22,8 @@
   <code>Document</code>. The title of a <span>session history entry</span> is intended to explain
   the state of the document at that point, so that the user can navigate the document's history.</p>
 
-  <p>URLs without associated <span data-x="state object">state objects</span> are added to the
-  session history as the user (or script) navigates from page to page.</p>
+  <p>URLs without associated <span>serialized state</span> are added to the session history as the
+  user (or script) navigates from page to page.</p>
 
   <hr>
 
@@ -41,22 +42,26 @@
 
   <hr>
 
-  <p>A <dfn>state object</dfn> is an object representing a user interface state.</p>
+  <p id="state-object"><dfn>Serialized state</dfn> is a serialization (via
+  <span>StructuredSerialize</span>) of an object representing a user interface state. We sometimes
+  informally refer to "state objects", which are the objects representing user interface state
+  supplied by the author, or alternately the objects created by deserializing (via
+  <span>StructuredDeserialize</span>) serialized state.</p>
 
-  <p>Pages can <span data-x="dom-history-pushState">add</span> <span data-x="state object">state
-  objects</span> to the session history. These are then <span data-x="event-popstate">returned to the
-  script</span> when the user (or script) goes back in the history, thus enabling authors to use the
-  "navigation" metaphor even in one-page applications.</p>
+  <p>Pages can <span data-x="dom-history-pushState">add</span> <span>serialized state</span> to the
+  session history. These are then <span data-x="StructuredDeserialize">deserialized</span> and <span
+  data-x="event-popstate">returned to the script</span> when the user (or script) goes back in the
+  history, thus enabling authors to use the "navigation" metaphor even in one-page applications.</p>
 
   <div class="note">
 
-   <p><span data-x="state object">State objects</span> are intended to be used for two main purposes:
-   first, storing a preparsed description of the state in the <span>URL</span> so that in the simple
-   case an author doesn't have to do the parsing (though one would still need the parsing for
-   handling <span data-x="URL">URLs</span> passed around by users, so it's only a minor
-   optimization), and second, so that the author can store state that one wouldn't store in the URL
-   because it only applies to the current <code>Document</code> instance and it would have to be
-   reconstructed if a new <code>Document</code> were opened.</p>
+   <p><span>Serialized state</span> is intended to be used for two main purposes: first, storing a
+   preparsed description of the state in the <span>URL</span> so that in the simple case an author
+   doesn't have to do the parsing (though one would still need the parsing for handling <span
+   data-x="URL">URLs</span> passed around by users, so it's only a minor optimization). Second, so
+   that the author can store state that one wouldn't store in the URL because it only applies to the
+   current <code>Document</code> instance and it would have to be reconstructed if a new
+   <code>Document</code> were opened.</p>
 
    <p>An example of the latter would be something like keeping track of the precise coordinate from
    which a pop-up <code>div</code> was made to animate, so that if the user goes back, it can be
@@ -77,8 +82,7 @@
 
   <p class="note">The <span>current entry</span> is usually an entry for the <span
   data-x="concept-document-url">URL</span> of the <code>Document</code>. However, it can also be one
-  of the entries for <span data-x="state object">state objects</span> added to the history by that
-  document.</p>
+  of the entries for <span>serialized state</span> added to the history by that document.</p>
 
   <p><dfn>An entry with persisted user state</dfn> is one that also has user-agent defined state.
   This specification does not specify what kind of state can be stored.</p>
@@ -106,8 +110,8 @@
   <p>If unspecified, the <span>scroll restoration mode</span> of a new entry must be set to
   "<code data-x="dom-ScrollRestoration-auto">auto</code>".</p>
 
-  <p>Entries that consist of <span data-x="state object">state objects</span> share the same
-  <code>Document</code> as the entry for the page that was active when they were added.</p>
+  <p>Entries that contain <span>serialized state</span> share the same <code>Document</code> as the
+  entry for the page that was active when they were added.</p>
 
   <p>Contiguous entries that differ just by their <span data-x="URL">URLs</span>' <span
   data-x="concept-url-fragment">fragments</span> also share the same <code>Document</code>.</p>

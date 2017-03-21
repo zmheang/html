@@ -85,7 +85,7 @@
     canvas are replaced wholesale, with no composition, alpha blending, no shadows, etc.</p>
 
     <p>Throws an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> if the
-    <var>imagedata</var> object's data's [[<span>Detached</span>]] internal slot value is true.</p>
+    <var>imagedata</var> object's data's <span>[[Detached]]</span> internal slot value is true.</p>
 
    </dd>
 
@@ -100,30 +100,11 @@
   <dfn><code data-x="dom-context-2d-createImageData">createImageData()</code></dfn> methods are
   used to instantiate new <code>ImageData</code> objects.</p>
 
-  <p><code>ImageData</code> objects are <span>cloneable objects</span>.</p>
-
-  <p>Each <code>ImageData</code> object's [[<span>Clone</span>]] internal method, given
-  <var>targetRealm</var> and <var>memory</var>, must run these steps:</p>
-
-  <ol>
-   <li><p>Let <var>inputData</var> be the value of <b>this</b>'s <code
-   data-x="dom-imagedata-data">data</code> attribute.</p></li>
-
-   <li><p>Let <var>clonedData</var> be ? <span>StructuredClone</span>(<var>inputData</var>,
-   <var>targetRealm</var>, <var>memory</var>).</p></li>
-
-   <li><p>Return the result of <span data-x="create an ImageData object">creating an
-   <code>ImageData</code> object</span>, with parameter <var>pixelsPerRow</var> set to the value of
-   <b>this</b>'s <code data-x="dom-imagedata-width">width</code> attribute, <var>rows</var> set to
-   the value of <b>this</b>'s <code data-x="dom-imagedata-height">height</code> attribute, and using
-   <var>clonedData</var>.</p></li>
-  </ol>
-
   <p>When the <code data-x="dom-imagedata">ImageData()</code> constructor is invoked with two
   numeric arguments <var>sw</var> and <var>sh</var>, it must <span>create an <code>ImageData</code>
   object</span> with parameter <var>pixelsPerRow</var> set to <var>sw</var>, and <var>rows</var> set
   to <var>sh</var>. The image data of the newly created <code>ImageData</code> object must be
-  intializedzed to transparent black. If both <var>sw</var> and <var>sh</var> are non-zero, then
+  initialized to transparent black. If both <var>sw</var> and <var>sh</var> are non-zero, then
   return the new <code>ImageData</code> object. If one or both of <var>sw</var> and <var>sh</var>
   are zero, then the constructor must throw an <span>"<code>IndexSizeError</code>"</span>
   <code>DOMException</code> instead.</p>
@@ -221,7 +202,7 @@
   steps:</p>
 
   <ol>
-   <li><p>Let <var>imageData</var> be a new uninitialized <span>ImageData</span> object.</p></li>
+   <li><p>Let <var>imageData</var> be a new uninitialized <code>ImageData</code> object.</p></li>
 
    <li><p>If <var>source</var> is specified, then assign the <dfn><code
    data-x="dom-imagedata-data">data</code></dfn> attribute of <var>imageData</var> to
@@ -251,6 +232,34 @@
    <li><p>Return <var>imageData</var>.</p></li>
   </ol>
 
+  <p><code>ImageData</code> objects are <span>serializable objects</span>. Their <span>serialization
+  steps</span>, given <var>value</var> and <var>serialized</var>, are:</p>
+
+  <ol>
+   <li><p>Set <var>serialized</var>.[[Data]] to the <span>sub-serialization</span> of the value of
+   <var>value</var>'s <code data-x="dom-imagedata-data">data</code> attribute.</p></li>
+
+   <li><p>Set <var>serialized</var>.[[Width]] to the value of <var>value</var>'s <code
+   data-x="dom-imagedata-width">width</code> attribute.</p></li>
+
+   <li><p>Set <var>serialized</var>.[[Height]] to the value of <var>value</var>'s <code
+   data-x="dom-imagedata-height">height</code> attribute.</p></li>
+  </ol>
+
+  <p>Their <span>deserialization steps</span>, given <var>serialized</var> and <var>value</var>,
+  are:</p>
+
+  <ol>
+   <li><p>Initialize <var>value</var>'s <code data-x="dom-imagedata-data">data</code> attribute
+   to the <span>sub-deserialization</span> of <var>serialized</var>.[[Data]].</p></li>
+
+   <li><p>Initialize <var>value</var>'s <code data-x="dom-imagedata-width">width</code> attribute
+   to <var>serialized</var>.[[Width]].</p></li>
+
+   <li><p>Initialize <var>value</var>'s <code data-x="dom-imagedata-height">height</code> attribute
+   to <var>serialized</var>.[[Height]].</p></li>
+  </ol>
+
   <p>A <dfn>Canvas Pixel <code data-x="idl-ArrayBuffer">ArrayBuffer</code></dfn> is an <code
   data-x="idl-ArrayBuffer">ArrayBuffer</code> whose data is represented in left-to-right order, row
   by row top to bottom, starting with the top left, with each pixel's red, green, blue, and alpha
@@ -275,7 +284,7 @@
    <li>
 
     <p>If <var>imagedata</var>'s <code data-x="dom-imagedata-data">data</code> attribute value's
-    [[<span>Detached</span>]] internal slot value is true, then throw an
+    <span>[[Detached]]</span> internal slot value is true, then throw an
     <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> and abort these
     steps.</p>
 

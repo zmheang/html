@@ -23,7 +23,8 @@
 
    <li><p>Let <var>sign</var> have the value "positive".</p></li>
 
-   <li><p><span>Skip whitespace</span>.</p></li>
+   <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
+   <var>position</var>.</p></li>
 
    <li><p>If <var>position</var> is past the end of <var>input</var>, return an error.</p></li>
 
@@ -62,9 +63,9 @@
    <!-- Ok. At this point we know we have a number. It might have trailing garbage which we'll
    ignore, but it's a number, and we won't return an error. -->
 
-   <li><p><span>Collect a sequence of characters</span> that are <span>ASCII digits</span>, and
-   interpret the resulting sequence as a base-ten integer. Let <var>value</var> be that
-   integer.</p></li>
+   <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
+   <var>input</var> given <var>position</var>, and interpret the resulting sequence as a base-ten
+   integer. Let <var>value</var> be that integer.</p></li>
 
    <li><p>If <var>sign</var> is "positive", return <var>value</var>, otherwise return the result of
    subtracting <var>value</var> from zero.</p></li>

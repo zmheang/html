@@ -29,7 +29,7 @@ interface <dfn>HTMLMeterElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute double <span data-x="dom-meter-low">low</span>;
   [<span>CEReactions</span>] attribute double <span data-x="dom-meter-high">high</span>;
   [<span>CEReactions</span>] attribute double <span data-x="dom-meter-optimum">optimum</span>;
-  [SameObject] readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
+  readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
 };</pre>
    </dd>
   </dl><!--TOPIC:HTML-->
@@ -40,8 +40,8 @@ interface <dfn>HTMLMeterElement</dfn> : <span>HTMLElement</span> {
 
   <p>This is also known as a gauge.</p>
 
-  <p class="note">The <code>meter</code> element should not be used to indicate progress (as in a
-  progress bar). For that role, HTML provides a separate <code>progress</code> element.</p>
+  <p>The <code>meter</code> element should not be used to indicate progress (as in a progress bar).
+  For that role, HTML provides a separate <code>progress</code> element.</p>
 
   <p class="note">The <code>meter</code> element also does not represent a scalar value of arbitrary
   range &mdash; for example, it would be wrong to use this to report a weight, or height, unless

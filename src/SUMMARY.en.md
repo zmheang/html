@@ -88,17 +88,21 @@
     3. [The <code>DOMStringList</code> interface](common-infrastructure/common-dom-interfaces/the-domstringlist-interface.en.html)
     4. [Garbage collection](common-infrastructure/common-dom-interfaces/garbage-collection.en.html)
   7. [Safe passing of structured data](common-infrastructure/safe-passing-of-structured-data/index.en.html)
-    1. [<dfn>Cloneable objects</dfn>](common-infrastructure/safe-passing-of-structured-data/cloneable-objects.en.html)
+    1. [<dfn>Serializable objects</dfn>](common-infrastructure/safe-passing-of-structured-data/serializable-objects.en.html)
     2. [<dfn>Transferable objects</dfn>](common-infrastructure/safe-passing-of-structured-data/transferable-objects.en.html)
-    3. [<dfn>StructuredCloneWithTransfer</dfn> ( <var>input</var>,
-  <var>transferList</var>, <var>targetRealm</var> )](common-infrastructure/safe-passing-of-structured-data/structuredclonewithtransfer-input-transferlist-targetrealm.en.html)
-    4. [<dfn>StructuredClone</dfn> ( <var>input</var>, <var>targetRealm</var>
-  [ , <var>memory</var> ] )](common-infrastructure/safe-passing-of-structured-data/structuredclone-input-targetrealm-memory.en.html)
-    5. [<dfn>IsTransferable</dfn> ( <var>O</var> )](common-infrastructure/safe-passing-of-structured-data/istransferable-o.en.html)
-    6. [<dfn
-  data-x="transfer-abstract-op">Transfer</dfn> ( <var>input</var>, <var>targetRealm</var> )](common-infrastructure/safe-passing-of-structured-data/transfer-input-targetrealm.en.html)
-    7. [Performing structured clones from other specifications](common-infrastructure/safe-passing-of-structured-data/performing-structured-clones-from-other-specifications.en.html)
-    8. [Monkey patch for <code>Blob</code> and <code>FileList</code> objects](common-infrastructure/safe-passing-of-structured-data/monkey-patch-for-blob-and-filelist-objects.en.html)
+    3. [<dfn>StructuredSerialize</dfn> ( <var>value</var> [ ,
+  <var>memory</var> ] )](common-infrastructure/safe-passing-of-structured-data/structuredserialize-value-memory.en.html)
+    4. [<dfn>StructuredDeserialize</dfn> ( <var>serialized</var>,
+  <var>targetRealm</var> [ , <var>memory</var> ] )](common-infrastructure/safe-passing-of-structured-data/structureddeserialize-serialized-targetrealm-memory.en.html)
+    5. [<dfn>StructuredSerializeWithTransfer</dfn> ( <var>value</var>,
+  <var>transferList</var> )](common-infrastructure/safe-passing-of-structured-data/structuredserializewithtransfer-value-transferlist.en.html)
+    6. [<dfn>StructuredDeserializeWithTransfer</dfn> (
+  <var>serializeWithTransferResult</var>, <var>targetRealm</var> )](common-infrastructure/safe-passing-of-structured-data/structureddeserializewithtransfer-serializewithtransferresult-targetrealm.en.html)
+    7. [<dfn>StructuredCloneWithTransfer</dfn> ( <var>value</var>,
+  <var>transferList</var>, <var>targetRealm</var> )](common-infrastructure/safe-passing-of-structured-data/structuredclonewithtransfer-value-transferlist-targetrealm.en.html)
+    8. [Performing serialization and
+  transferring from other specifications](common-infrastructure/safe-passing-of-structured-data/performing-serialization-and-transferring-from-other-specifications.en.html)
+    9. [Monkey patch for <code>Blob</code> and <code>FileList</code> objects](common-infrastructure/safe-passing-of-structured-data/monkey-patch-for-blob-and-filelist-objects.en.html)
 7. [Semantics, structure, and APIs of HTML documents](semantics-structure-and-apis-of-html-documents/index.en.html)
   1. [Documents](semantics-structure-and-apis-of-html-documents/documents/index.en.html)
     1. [The <code>Document</code> object](semantics-structure-and-apis-of-html-documents/documents/the-document-object.en.html)
@@ -242,12 +246,13 @@
       15. [Link type "<dfn><code data-x="rel-preload">preload</code></dfn>"](the-elements-of-html/links/link-types/link-type-preload.en.html)
       16. [Link type "<dfn><code data-x="rel-prerender">prerender</code></dfn>"](the-elements-of-html/links/link-types/link-type-prerender.en.html)
       17. [Link type "<dfn><code data-x="rel-search">search</code></dfn>"](the-elements-of-html/links/link-types/link-type-search.en.html)
-      18. [Link type "<dfn><code data-x="rel-stylesheet">stylesheet</code></dfn>"](the-elements-of-html/links/link-types/link-type-stylesheet.en.html)
-      19. [Link type "<dfn><code data-x="rel-tag">tag</code></dfn>"](the-elements-of-html/links/link-types/link-type-tag.en.html)
-      20. [Sequential link types](the-elements-of-html/links/link-types/sequential-link-types/index.en.html)
+      18. [Link type "<dfn><code data-x="rel-serviceworker">serviceworker</code></dfn>"](the-elements-of-html/links/link-types/link-type-serviceworker.en.html)
+      19. [Link type "<dfn><code data-x="rel-stylesheet">stylesheet</code></dfn>"](the-elements-of-html/links/link-types/link-type-stylesheet.en.html)
+      20. [Link type "<dfn><code data-x="rel-tag">tag</code></dfn>"](the-elements-of-html/links/link-types/link-type-tag.en.html)
+      21. [Sequential link types](the-elements-of-html/links/link-types/sequential-link-types/index.en.html)
         1. [Link type "<dfn><code data-x="rel-next">next</code></dfn>"](the-elements-of-html/links/link-types/sequential-link-types/link-type-next.en.html)
         2. [Link type "<dfn><code data-x="rel-prev">prev</code></dfn>"](the-elements-of-html/links/link-types/sequential-link-types/link-type-prev.en.html)
-      21. [Other link types](the-elements-of-html/links/link-types/other-link-types.en.html)
+      22. [Other link types](the-elements-of-html/links/link-types/other-link-types.en.html)
   7. [Edits](the-elements-of-html/edits/index.en.html)
     1. [The <dfn><code>ins</code></dfn> element](the-elements-of-html/edits/the-ins-element.en.html)
     2. [The <dfn><code>del</code></dfn> element](the-elements-of-html/edits/the-del-element.en.html)
@@ -585,7 +590,8 @@
   6. [Editing](user-interaction/editing/index.en.html)
     1. [Making document regions editable: The <code
   data-x="attr-contenteditable">contenteditable</code> content attribute](user-interaction/editing/making-document-regions-editable-the-contenteditable-content-attribute.en.html)
-    2. [Making entire documents editable: The <code data-x="dom-document-designMode">designMode</code> IDL attribute](user-interaction/editing/making-entire-documents-editable-the-designmode-idl-attribute.en.html)
+    2. [Making entire documents editable: the <code data-x="dom-document-designMode">designMode</code>
+  IDL attribute](user-interaction/editing/making-entire-documents-editable-the-designmode-idl-attribute.en.html)
     3. [Best practices for in-page editors](user-interaction/editing/best-practices-for-in-page-editors.en.html)
     4. [Editing APIs](user-interaction/editing/editing-apis.en.html)
     5. [Spelling and grammar checking](user-interaction/editing/spelling-and-grammar-checking.en.html)
@@ -599,13 +605,12 @@
     5. [Processing model](user-interaction/drag-and-drop/processing-model.en.html)
     6. [Events summary](user-interaction/drag-and-drop/events-summary.en.html)
     7. [The <dfn><code data-x="attr-draggable">draggable</code></dfn> attribute](user-interaction/drag-and-drop/the-draggable-attribute.en.html)
-    8. [The <dfn><code data-x="attr-dropzone">dropzone</code></dfn> attribute](user-interaction/drag-and-drop/the-dropzone-attribute.en.html)
-    9. [Copy and paste](user-interaction/drag-and-drop/copy-and-paste/index.en.html)
+    8. [Copy and paste](user-interaction/drag-and-drop/copy-and-paste/index.en.html)
       1. [Copy to clipboard](user-interaction/drag-and-drop/copy-and-paste/copy-to-clipboard.en.html)
       2. [Cut to clipboard](user-interaction/drag-and-drop/copy-and-paste/cut-to-clipboard.en.html)
       3. [Paste from clipboard](user-interaction/drag-and-drop/copy-and-paste/paste-from-clipboard.en.html)
       4. [Paste from selection](user-interaction/drag-and-drop/copy-and-paste/paste-from-selection.en.html)
-    10. [Security risks in the drag-and-drop model](user-interaction/drag-and-drop/security-risks-in-the-drag-and-drop-model.en.html)
+    9. [Security risks in the drag-and-drop model](user-interaction/drag-and-drop/security-risks-in-the-drag-and-drop-model.en.html)
 11. [Loading Web pages](loading-web-pages/index.en.html)
   1. [Browsing contexts](loading-web-pages/browsing-contexts/index.en.html)
     1. [Nested browsing contexts](loading-web-pages/browsing-contexts/nested-browsing-contexts/index.en.html)

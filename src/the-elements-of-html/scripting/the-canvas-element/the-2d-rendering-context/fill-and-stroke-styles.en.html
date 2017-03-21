@@ -89,20 +89,21 @@
   value is a string, computed as follows: if it has alpha equal to 1.0, then the string is a
   lowercase six-digit hex value, prefixed with a "#" character (U+0023 NUMBER SIGN), with the first
   two digits representing the red component, the next two digits representing the green component,
-  and the last two digits representing the blue component, the digits being <span>lowercase ASCII
-  hex digits</span>. Otherwise, the color value has alpha less than 1.0, and the string is the color
-  value in the CSS <code data-x="">rgba()</code> functional-notation format: the literal string
-  "<code data-x="">rgba</code>" (U+0072 U+0067 U+0062 U+0061) followed by a U+0028 LEFT PARENTHESIS,
-  a base-ten integer in the range 0-255 representing the red component (using <span>ASCII
-  digits</span> in the shortest form possible), a literal U+002C COMMA and U+0020 SPACE, an integer
-  for the green component, a comma and a space, an integer for the blue component, another comma and
-  space, a U+0030 DIGIT ZERO, if the alpha value is greater than zero then a U+002E FULL STOP
-  (representing the decimal point), if the alpha value is greater than zero then one or more
-  <span>ASCII digits</span> representing the fractional part of the alpha<!-- value with no trailing
-  zeros (implied by next sentence)-->, and finally a U+0029 RIGHT PARENTHESIS. User agents must
-  express the fractional part of the alpha value, if any, with the level of precision necessary for
-  the alpha value, when reparsed, to be interpreted as the same alpha value.</p> <!-- if people
-  complain this is unreadable, expand it into a <dl> with two nested <ol>s -->
+  and the last two digits representing the blue component, the digits being <span data-x="ASCII
+  lower hex digit">ASCII lower hex digits</span>. Otherwise, the color value has alpha less than
+  1.0, and the string is the color value in the CSS <code data-x="">rgba()</code>
+  functional-notation format: the literal string "<code data-x="">rgba</code>" (U+0072 U+0067 U+0062
+  U+0061) followed by a U+0028 LEFT PARENTHESIS, a base-ten integer in the range 0-255 representing
+  the red component (using <span>ASCII digits</span> in the shortest form possible), a literal
+  U+002C COMMA and U+0020 SPACE, an integer for the green component, a comma and a space, an integer
+  for the blue component, another comma and space, a U+0030 DIGIT ZERO, if the alpha value is
+  greater than zero then a U+002E FULL STOP (representing the decimal point), if the alpha value is
+  greater than zero then one or more <span>ASCII digits</span> representing the fractional part of
+  the alpha<!-- value with no trailing zeros (implied by next sentence)-->, and finally a U+0029
+  RIGHT PARENTHESIS. User agents must express the fractional part of the alpha value, if any, with
+  the level of precision necessary for the alpha value, when reparsed, to be interpreted as the same
+  alpha value.</p>
+  <!-- if people complain this is unreadable, expand it into a <dl> with two nested <ol>s -->
 
   <p>When the context is created, the <code
   data-x="dom-context-2d-fillStyle">fillStyle</code> and <code

@@ -59,8 +59,8 @@
    character (#).</p></li>
 
    <li><p>Convert the red, green, and blue components in turn to two-digit hexadecimal numbers using
-   <span>lowercase ASCII hex digits</span>, zero-padding if necessary, and append these numbers to
-   <var>result</var>, in the order red, green, blue.</p>
+   <span data-x="ASCII lower hex digit">ASCII lower hex digits</span>, zero-padding if necessary,
+   and append these numbers to <var>result</var>, in the order red, green, blue.</p>
 
    <li><p>Return <var>result</var>, which will be a <span>valid lowercase simple
    color</span>.</p></li>
@@ -81,7 +81,7 @@
 
    <li><p>If <var>input</var> is the empty string, then return an error.</p></li>
 
-   <li><p><span>Strip leading and trailing whitespace</span> from <var>input</var>.</p></li>
+   <li><p><span>Strip leading and trailing ASCII whitespace</span> from <var>input</var>.</p></li>
 
    <li><p>If <var>input</var> is an <span>ASCII case-insensitive</span> match for the
    string "<code data-x="">transparent</code>", then return an error.</p></li>
