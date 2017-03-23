@@ -1,0 +1,84 @@
+  <h3>文档</h3>
+
+  <p>在 HTML 的 User Agent 中，每一个 XML 或者 HTML 文档都会以 <code>Document</code> 对象的形式表
+  示。<ref spec=DOM></p>
+
+  <p><code>Document</code> 对象的 <dfn id="the-document's-address" data-x="concept-document-url" 
+  data-x-href="https://dom.spec.whatwg.org/#concept-document-url" data-x-for="Document">URL</dfn> 
+  定义在了 WHATWG DOM 标准中。当 <code>Document</code> 对象被创建时 <dfn id="the-document's-address"
+  data-x="concept-document-url" data-x-href="https://dom.spec.whatwg.org/#concept-document-url"
+  data-x-for="Document">URL</dfn> 会设置一个初始值，在 <code>Document</code> 对象的生命周期中可以改变；
+  比如, 当用户<span data-x="navigate">导航</span>到页面的一个 <span data-x="navigate-fragid">fragment</span> 或者
+  以一个新的 <span>URL</span> 调用 <code data-x="dom-history-pushState">pushState()</code> 方法时，
+  它会发生改变。<ref spec=DOM></p>
+  <!--
+    https://www.hixie.ch/tests/adhoc/dom/level0/history/pushState/002/
+    https://www.hixie.ch/tests/adhoc/html/navigation/fragids/016.html
+  -->
+
+  <p class="warning">交互式的用户代理通常会在界面中展示 <code>Document</code> 对象的 
+  <span data-x="concept-document-url">URL</span> 属性。 这是一种基本机制，它可以使用户
+  清楚地辨别一个网站是不是对其所希望访问网页的模仿或者伪造。</p>
+
+  <p>当一个 <span data-x="concept-script">脚本</span> 执行 <code data-x="dom-DOMImplementation-createDocument">
+  createDocument()</code> 或者 <code data-x="dom-DOMImplementation-createHTMLDocument">
+  createHTMLDocument()</code> 创建了一个 <code>文档</code> ，<code>文档</code> 会随即
+   <span>准备好执行后加载任务</span> 并被标记为 <span>完全载入（completely loaded）</span>。</p>
+
+  <p><dfn data-x="The document's referrer">文档的引用 （The Document's referer）</dfn> 是一个字符串 (代表了一个 <span>URL</span>)
+  当<code>文档</code>被创建的同时它会被赋值。但如果它没有被明确设置，这个字符串的值则为空。</p>
+
+  <p>每个 <code>Document</code> object has a <dfn>reload override flag</dfn> that is originally
+  unset. The flag is set by the <code data-x="dom-document-open">document.open()</code> and <code
+  data-x="dom-document-open">document.write()</code> methods in certain situations. When the flag is
+  set, the <code>Document</code> also has a <dfn>reload override buffer</dfn> which is a Unicode
+  string that is used as the source of the document when it is reloaded.</p>
+
+  <p>When the user agent is to perform <dfn>an overridden reload</dfn>, given a <span>source
+  browsing context</span>, it must act as follows:</p>
+
+  <ol>
+
+   <li><p>Let <var>source</var> be the value of the <span>browsing context</span>'s
+   <span>active document</span>'s <span>reload override buffer</span>.</p></li>
+
+   <li><p>Let <var>address</var> be the <span>browsing context</span>'s <span>active
+   document</span>'s <span data-x="concept-document-url">URL</span>.</p></li>
+
+   <li><p>Let <var>HTTPS state</var> be the <span data-x="concept-document-https-state">HTTPS
+   state</span> of the <span>browsing context</span>'s <span>active document</span>.</p></li>
+
+   <li><p>Let <var>referrer policy</var> be the <span
+   data-x="concept-document-referrer-policy">referrer policy</span> of the <span>browsing
+   context</span>'s <span>active document</span>.</p></li>
+
+   <li><p>Let <var>CSP list</var> be the <span data-x="concept-document-csp-list">CSP list</span>
+   of the <span>browsing context</span>'s <span>active document</span>.</p></li>
+
+   <li>
+
+    <p><span>Navigate</span><!--DONAV reload after d.open()--> the <span>browsing context</span> to
+    a new <span data-x="concept-response">response</span> whose <span
+    data-x="concept-response-body">body</span> is <var>source</var>, <span
+    data-x="concept-response-header-list">header list</span> is `<code
+    data-x="http-referrer-policy">Referrer-Policy</code>`/<var>referrer policy</var>, <span
+    data-x="concept-response-csp-list">CSP list</span> is <var>CSP list</var> and <span
+    data-x="concept-response-https-state">HTTPS state</span> is <var>HTTPS state</var>, with the
+    <var><span>exceptions enabled flag</span></var> set and <span>replacement enabled</span>. The
+    <span>source browsing context</span> is that given to the <span data-x="an overridden
+    reload">overridden reload</span> algorithm. When the <span>navigate</span> algorithm creates a
+    <code>Document</code> object for this purpose, set that <code>Document</code>'s <span>reload
+    override flag</span> and set its <span>reload override buffer</span> to <var>source</var>.
+    Rethrow any exceptions.</p>
+
+    <p>When it comes time to <span>set the document's address</span> in the <span
+    data-x="navigate">navigation algorithm</span>, use <var>address</var> as the
+    <span>override URL</span>.</p>
+
+   </li>
+
+
+  </ol>
+
+
+
