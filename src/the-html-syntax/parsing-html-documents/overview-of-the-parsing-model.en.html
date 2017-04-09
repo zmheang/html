@@ -2,10 +2,9 @@
 
   <p class="overview"><img src="/images/parsing-model-overview.svg" width="345" height="535" alt=""></p>
 
-  <p>The input to the HTML parsing process consists of a stream of <span data-x="Unicode code
-  point">Unicode code points</span>, which is passed through a <span>tokenization</span> stage
-  followed by a <span>tree construction</span> stage. The output is a <code>Document</code>
-  object.</p>
+  <p>The input to the HTML parsing process consists of a stream of <span data-x="code point">code
+  points</span>, which is passed through a <span>tokenization</span> stage followed by a <span>tree
+  construction</span> stage. The output is a <code>Document</code> object.</p>
 
   <p class="note">Implementations that <a href="#non-scripted">do not support scripting</a> do not
   have to actually create a DOM <code>Document</code> object, but the DOM tree in such cases is

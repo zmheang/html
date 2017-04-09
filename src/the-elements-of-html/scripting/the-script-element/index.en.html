@@ -135,7 +135,9 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   data-x="classic script">Classic scripts</span> may specify <code
   data-x="attr-script-defer">defer</code> or <code data-x="attr-script-async">async</code>; <span
   data-x="module script">module scripts</span> may specify <code
-  data-x="attr-script-async">async</code>.</p>
+  data-x="attr-script-async">async</code>. The <code data-x="attr-script-defer">defer</code> and
+  <code data-x="attr-script-async">async</code> attributes must not be specified if the <code
+  data-x="attr-script-src">src</code> attribute is not present.</p>
 
   <p>There are several possible modes that can be selected using these attributes, and depending on
   the script's type.</p>

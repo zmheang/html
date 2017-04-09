@@ -79,13 +79,6 @@
   algorithms without needing to <span>prepare to run script</span> and <span>prepare to run a
   callback</span>.</p>
 
-  <p class="example"><span data-x="url parser">Parsing</span> URLs can happen at a variety of times
-  that are not the synchronous result of author code. However, the URL parser only applies
-  <span>StructuredSerialize</span> to <code>Blob</code> objects, so it is not in danger of running
-  author code with incorrect <span data-x="concept-entry-everything">entry</span> and <span
-  data-x="concept-incumbent-everything">incumbent</span> values, and thus it too does not need to
-  perform these preparation steps.</p>
-
   <p class="example">In contrast, a hypothetical API that used <span>StructuredSerialize</span> to
   serialize some author-supplied object periodically, directly from a <span
   data-x="concept-task">task</span> on the <span>event loop</span>, would need to ensure it performs

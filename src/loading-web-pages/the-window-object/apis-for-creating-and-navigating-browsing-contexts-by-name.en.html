@@ -8,8 +8,8 @@
 
     <p>Opens a window to show <var>url</var> (defaults to <code>about:blank</code>), and returns it.
     The <var>target</var> argument gives the name of the new window. If a window exists with that
-    name already, it is reused. The <var data-x="dom-open-features">features</var> argument can be
-    used to influence the rendering of the new window.</p>
+    name already, it is reused. The <var>features</var> argument can be used to influence the
+    rendering of the new window.</p>
 
    </dd>
 
@@ -104,8 +104,12 @@
    indicating a preference for navigating a new <span>top-level browsing context</span>, then let
    <var>new</var> be true. Otherwise, let it be false.</p></li>
 
-   <li><p>Interpret <var>features</var> <span data-x="dom-open-features">as defined in the CSSOM
-   View specification</span>. <ref spec="CSSOMVIEW"></p></li>
+   <li><p>Let <var>tokenizedFeatures</var> be the result of <span
+   data-x="concept-window-open-features-tokenize">tokenizing</span> <var>features</var>.</p></li>
+
+   <li><p>If <var>target browsing context</var> is a new <span>auxiliary browsing context</span>,
+   then <span>set up browsing context features</span> for <var>target browsing context</var> given
+   <var>tokenizedFeatures</var>. <ref spec="CSSOMVIEW"></p></li>
 
    <li>
 
@@ -160,10 +164,9 @@
 
     <ol>
 
-     <li><p>If the result of <span data-x="split a string on commas">splitting <var>features</var>
-     on commas</span> contains the token "<code data-x="">noopener</code>", then <span
-     data-x="disowned its opener">disown <var>target browsing context</var>'s opener</span> and
-     return null.</p></li>
+     <li><p>If <var>tokenizedFeatures</var> <span data-x="map exists">contains</span> an entry with
+     the key "<code data-x="">noopener</code>", then <span data-x="disowned its opener">disown
+     <var>target browsing context</var>'s opener</span> and return null.</p></li>
 
      <li><p>Otherwise, return the <code>WindowProxy</code> object of <var>target browsing
      context</var>.</p></li>
@@ -173,6 +176,102 @@
    </li>
 
   </ol>
+
+  <p>To <dfn data-x="concept-window-open-features-tokenize">tokenize the <var>features</var>
+  argument</dfn>:</p>
+
+  <ol>
+   <li><p>Let <var>tokenizedFeatures</var> be a new <span>ordered map</span>.</p></li>
+
+   <li><p>Let <var>position</var> point at the first code point of <var>features</var>.</p></li>
+
+   <li>
+    <p><span>While</span> <var>position</var> is not past the end of <var>features</var>:</p>
+
+    <ol>
+     <li><p>Let <var>name</var> be the empty string.</p></li>
+
+     <li><p>Let <var>value</var> be the empty string.</p></li>
+
+     <li><p><span>Collect a sequence of code points</span> that are <span data-x="feature
+     separator">feature separators</span> from <var>features</var> given <var>position</var>. This
+     skips past leading separators before the name.</p></li>
+
+     <li><p><span>Collect a sequence of code points</span> that are not <span data-x="feature
+     separator">feature separators</span> from <var>features</var> given <var>position</var>. Set
+     <var>name</var> to the collected characters, <span>converted to ASCII lowercase</span>.</p></li>
+
+     <li><p>Set <var>name</var> to the result of <span>normalizing the feature name</span>
+     <var>name</var>.</p></li>
+
+     <li>
+      <p><span>While</span> <var>position</var> is not past the end of <var>features</var> and the
+      code point at <var>position</var> in <var>features</var> is not U+003D (=):</p>
+
+      <ol>
+       <li><p>If the code point at <var>position</var> in <var>features</var> is U+002C (,), or if
+       it is not a <span>feature separator</span>, then <span>break</span>.</p></li>
+
+       <li><p>Advance <var>position</var> by 1.</p></li>
+      </ol>
+
+      <p class="note">This skips to the first U+003D (=) but does not skip past a U+002C (,) or a
+      non-separator.</p>
+     </li>
+
+     <li>
+      <p>If the code point at <var>position</var> in <var>features</var> is a <span>feature
+      separator</span>:</p>
+
+      <ol>
+       <li>
+        <p>While <var>position</var> is not past the end of <var>features</var> and the code point
+        at <var>position</var> in <var>features</var> is a <span>feature separator</span>:</p>
+
+        <ol>
+         <li><p>If the code point at <var>position</var> in <var>features</var> is U+002C (,), then
+         <span>break</span>.</p></li>
+
+         <li><p>Advance <var>position</var> by 1.</p></li>
+        </ol>
+
+        <p class="note">This skips to the first non-separator but does not skip past a U+002C
+        (,).</p>
+       </li>
+
+       <li><p><span>Collect a sequence of code points</span> that are not <span data-x="feature
+       separator">feature separators</span> code points from <var>features</var> given
+       <var>position</var>. Set <var>value</var> to the collected code points, <span>converted to
+       ASCII lowercase</span>.</p></li>
+      </ol>
+     </li>
+
+     <li><p>If <var>name</var> is not the empty string, then set
+     <var>tokenizedFeatures</var>[<var>name</var>] to <var>value</var>.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Return <var>tokenizedFeatures</var>.</p></li>
+  </ol>
+
+  <p>A code point is a <dfn>feature separator</dfn> if it is <span>ASCII whitespace</span>, U+003D
+  (=), or U+002C (,).</p>
+
+  <p>For legacy reasons, there are some aliases of some feature names. To <dfn data-x="normalizing
+  the feature name">normalize a feature name</dfn> <var>name</var>, switch on <var>name</var>:</p>
+
+  <dl class="switch">
+   <dt>"<code data-x="">screenx</code>"
+   <dd>Return "<code data-x="">left</code>".
+   <dt>"<code data-x="">screeny</code>"
+   <dd>Return "<code data-x="">top</code>".
+   <dt>"<code data-x="">innerwidth</code>"
+   <dd>Return "<code data-x="">width</code>".
+   <dt>"<code data-x="">innerheight</code>"
+   <dd>Return "<code data-x="">height</code>".
+   <dt>Anything else
+   <dd>Return <var>name</var>.
+  </dl>
 
   <hr>
 

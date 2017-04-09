@@ -9,7 +9,7 @@
 
   <table id="table-charref-overrides">
     <thead>
-    <tr><th>Number <th colspan=2>Unicode character
+    <tr><th>Number <th colspan=2>Code point
     <tbody>
     <tr><td>0x00 <td>0xFFFD <td>REPLACEMENT CHARACTER
     <!-- <tr><td>0x0D <td>0x000D <td>CARRIAGE RETURN (CR) -->
@@ -60,9 +60,9 @@
   0x9FFFF, 0xAFFFE, 0xAFFFF, 0xBFFFE, 0xBFFFF, 0xCFFFE, 0xCFFFF, 0xDFFFE, 0xDFFFF, 0xEFFFE,
   0xEFFFF, 0xFFFFE, 0xFFFFF, 0x10FFFE, or 0x10FFFF, then this is a <span>parse error</span>.</p>
 
-  <p>Set the <var data-x="temporary buffer">temporary buffer</var> to the empty string. Append the
-  Unicode character with code point equal to the <var data-x="character reference code">character
-  reference code</var> to the <var data-x="temporary buffer">temporary buffer</var>. Switch to the
-  <span>character reference end state</span>.</p>
+  <p>Set the <var data-x="temporary buffer">temporary buffer</var> to the empty string. Append a
+  code point equal to the <var data-x="character reference code">character reference code</var> to
+  the <var data-x="temporary buffer">temporary buffer</var>. Switch to the <span>character reference
+  end state</span>.</p>
 
 

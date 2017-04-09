@@ -4,12 +4,11 @@
   element's start tag.</p>
 
   <p>Attributes have a name and a value. <dfn data-x="syntax-attribute-name">Attribute names</dfn>
-  must consist of one or more characters other than the <span>ASCII whitespace</span>, U+0000 NULL,
-  U+0022 QUOTATION MARK (&#x22;), U+0027 APOSTROPHE (&#x27;), U+003E GREATER-THAN SIGN (&gt;),
-  U+002F SOLIDUS (/), and U+003D EQUALS SIGN (=) characters, the <span>control characters</span>,
-  and any characters that are not defined by Unicode. In the HTML syntax, attribute names, even
-  those for <span>foreign elements</span>, may be written with any mix of lower- and uppercase
-  letters that are an <span>ASCII case-insensitive</span> match for the attribute's name.</p>
+  must consist of one or more characters other than <span data-x="control">controls</span>,
+  U+0020 SPACE, U+0022 ("), U+0027 ('), U+003E (&gt;), U+002F (/), U+003D (=), and <span
+  data-x="noncharacter">noncharacters</span>. In the HTML syntax, attribute names, even those for
+  <span>foreign elements</span>, may be written with any mix of <span data-x="ASCII lower
+  alpha">ASCII lower</span> and <span data-x="ASCII upper alpha">ASCII upper alphas</span>.</p>
 
   <p><dfn data-x="syntax-attribute-value">Attribute values</dfn> are a mixture of <span
   data-x="syntax-text">text</span> and <span data-x="syntax-charref">character references</span>,

@@ -208,8 +208,10 @@
     other words, it represents nested invocations of this algorithm, not of a particular method.</p>
    </li>
 
-   <li><p>If <var>nesting level</var> is greater than 5, and <var>timeout</var> is
-   less than 4, then increase <var>timeout</var> to 4.</p></li>
+   <li><p>If <var>timeout</var> is less than 0, then set <var>timeout</var> to 0.</p></li>
+
+   <li><p>If <var>nesting level</var> is greater than 5, and <var>timeout</var> is less than 4, then
+   set <var>timeout</var> to 4.</p></li>
 
    <li><p>Increment <var>nesting level</var> by one.</p></li>
 

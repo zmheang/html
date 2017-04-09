@@ -61,10 +61,18 @@
   <span data-x="concept-supported-tokens">supported tokens</span> must only include the tokens from
   this list that the user agent implements the processing model for.</p>
 
-  <p>Other specifications may add <a href="#linkTypes">HTML link types</a> as
-  defined in <a href="#other-link-types">Other link types</a>. These specifications may require
-  that their link types be included in <code data-x="attr-hyperlink-rel">rel</code>'s supported
-  tokens.</p>
+  <p>Other specifications may add <a href="#linkTypes">HTML link types</a> as defined in <a
+  href="#other-link-types">Other link types</a>, with the following additional requirements:</p>
+
+  <ul>
+
+   <li>Such specifications may require that their link types be included in <code
+   data-x="attr-link-rel">rel</code>'s <span data-x="concept-supported-tokens">supported
+   tokens</span>.</li>
+
+   <li>Such specifications may specify that their link types are <span>body-ok</span>.</li>
+
+  </ul>
 
   <p>The <code data-x="attr-hyperlink-rel">rel</code> attribute has no default value. If the
   attribute is omitted or if none of the values in the attribute are recognized by the user agent,

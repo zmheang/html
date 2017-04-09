@@ -1,0 +1,72 @@
+  <h5>Obtaining a resource from a <code>link</code> element</h5>
+
+  <p>For external resources that are represented in the DOM (for example, style sheets), the DOM
+  representation must be made available (modulo cross-origin restrictions) even if the resource is
+  not applied. To <dfn data-x="concept-link-obtain">obtain the resource</dfn>, the user agent must
+  run the following steps:</p>
+
+  <ol>
+
+   <li><p>If the <code data-x="attr-link-href">href</code> attribute's value is the empty string,
+   then abort these steps.</p></li>
+
+   <li><p><span data-x="parse a url">Parse</span> the <span>URL</span> given by the <code
+   data-x="attr-link-href">href</code> attribute, relative to the element's <span>node
+   document</span>. If that fails, then abort these steps. Otherwise, let <var>url</var> be the
+   <span>resulting URL record</span>.</p></li>
+
+   <li><p>Let <var>corsAttributeState</var> be the current state of the element's <code
+   data-x="attr-link-crossorigin">crossorigin</code> content attribute.</p></li>
+
+   <li><p>Let <var>request</var> be the result of <span
+   data-x="create a potential-CORS request">creating a potential-CORS request</span> given
+   <var>url</var>, the empty string, and <var>corsAttributeState</var>.
+
+   <li><p>Set <var>request</var>'s <span data-x="concept-request-client">client</span> to the
+   <code>link</code> element's <span>node document</span>'s <code>Window</code> object's
+   <span>environment settings object</span>.
+
+   <li><p>Set <var>request</var>'s <span data-x="concept-request-nonce-metadata">cryptographic
+   nonce metadata</span> to the current value of the <code>link</code> element's <code
+   data-x="attr-link-nonce">nonce</code> content attribute.</p></li>
+
+   <li><p>Set <var>request</var>'s <span data-x="concept-request-integrity-metadata">integrity
+   metadata</span> to the current value of the <code>link</code> element's <code
+   data-x="attr-link-integrity">integrity</code> content attribute.</p></li>
+
+   <li><p>Set <var>request</var>'s
+   <span data-x="concept-request-referrer-policy">referrer policy</span> to the current state of the
+   <code>link</code> element's <code data-x="attr-link-referrerpolicy">referrerpolicy</code>
+   attribute.</p></li>
+
+   <!--FETCH--><li><p><span data-x="concept-fetch">Fetch</span> <var>request</var>.</p></li>
+
+  </ol>
+
+  <p>User agents may opt to only try to obtain such resources when they are needed, instead of
+  pro-actively fetching all the external resources that are not applied.</p>
+
+  <p>The semantics of the protocol used (e.g. HTTP) must be followed when fetching external
+  resources. (For example, redirects will be followed and 404 responses will cause the external
+  resource to not be applied.)</p>
+
+  <!-- the next few paragraph are similar to text in the <style> element section -->
+  <p>Once the attempts to obtain the resource and its <span>critical subresources</span> are
+  complete, the user agent must, if the loads were successful, <span>queue a task</span> to
+  <span data-x="concept-event-fire">fire an event</span> named <code data-x="event-load">load</code>
+  at the <code>link</code> element, or, if the resource or one of its <span>critical
+  subresources</span> failed to completely load for any reason (e.g. DNS error, HTTP 404 response, a
+  connection being prematurely closed, unsupported Content-Type), <span>queue a task</span> to <span
+  data-x="concept-event-fire">fire an event</span> named <code data-x="event-error">error</code> at
+  the <code>link</code> element. Non-network errors in processing the resource or its subresources
+  (e.g. CSS parse errors, PNG decoding errors) are not failures for the purposes of this
+  paragraph.</p>
+
+  <p>The <span>task source</span> for these <span data-x="concept-task">tasks</span> is the
+  <span>DOM manipulation task source</span>.</p>
+
+  <p>The element must <span>delay the load event</span> of the element's <span>node document</span>
+  until all the attempts to obtain the resource and its <span>critical subresources</span> are
+  complete.  (Resources that the user agent has not yet attempted to obtain, e.g. because it is
+  waiting for the resource to be needed, do not <span>delay the load event</span>.)</p>
+

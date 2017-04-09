@@ -3,7 +3,8 @@
   <p><code>DataTransfer</code> objects are used to expose the <span>drag data store</span> that
   underlies a drag-and-drop operation.</p>
 
-  <pre class="idl">interface <dfn>DataTransfer</dfn> {
+  <pre class="idl">[<span data-x="dom-DataTransfer">Constructor</span>, Exposed=(Window)]
+  interface <dfn>DataTransfer</dfn> {
   attribute DOMString <span data-x="dom-DataTransfer-dropEffect">dropEffect</span>;
   attribute DOMString <span data-x="dom-DataTransfer-effectAllowed">effectAllowed</span>;
 
@@ -20,6 +21,15 @@
 };</pre>
 
   <dl class="domintro">
+
+   <dt><var>dataTransfer</var> = new <code data-x="dom-DataTransfer">DataTransfer</code>()</dt>
+
+   <dd>
+
+    <p>Creates a new <code>DataTransfer</code> object with an empty <span>drag data
+    store</span>.</p>
+
+   </dd>
 
    <dt><var>dataTransfer</var> . <code subdfn data-x="dom-DataTransfer-dropEffect">dropEffect</code> [ = <var>value</var> ]</dt>
 
@@ -129,8 +139,8 @@
 
   </dl>
 
-  <p><code>DataTransfer</code> objects are used during the <a href="#dndevents">drag-and-drop
-  events</a>, and are only valid while those events are being fired.</p>
+  <p><code>DataTransfer</code> objects that are created as part of <a
+  href="#dndevents">drag-and-drop events</a> are only valid while those events are being fired.</p>
 
   <div w-nodev>
 
@@ -168,6 +178,20 @@
 
    <li><p>Set the <code>DataTransfer</code> object's <span data-x="concept-DataTransfer-types">types
    array</span> to the result of <span>creating a frozen array</span> from <var>L</var>.</p></li>
+  </ol>
+
+  <p>The <dfn><code data-x="dom-DataTransfer">DataTransfer()</code></dfn> constructor, when
+  invoked, must return a newly created <code>DataTransfer</code> object initialized as follows:</p>
+
+  <ol>
+   <li><p>Set the <span>drag data store</span>'s <span data-x="drag data store item list">item
+   list</span> to be an empty list.</p></li>
+
+   <li><p>Set the <span>drag data store</span>'s <span data-x="drag data store mode">mode</span> to
+   <span data-x="concept-dnd-rw">read/write mode</span>.</p></li>
+
+   <li><p>Set the <code data-x="dom-DataTransfer-dropEffect">dropEffect</code> and
+   <code data-x="dom-DataTransfer-effectAllowed">effectAllowed</code> to "none".</p></li>
   </ol>
 
   <p>The <dfn><code data-x="dom-DataTransfer-dropEffect">dropEffect</code></dfn> attribute controls

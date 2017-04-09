@@ -344,26 +344,6 @@
 
   </ol>
 
-  <p>The handling of pixel rounding when the specified coordinates are not integers is not defined
-  by this specification, except that the following must result in no visible changes to the
-  rendering:</p>
-
-  <pre>context.putImageData(context.getImageData(x, y, w, h), p, q);</pre>
-
-  <p>...for any value of <var>x</var>, <var>y</var>, <var>w</var>, and
-  <var>h</var> and where <var>p</var> is the smaller of <var>x</var>
-  and the sum of <var>x</var> and <var>w</var>, and <var>q</var> is
-  the smaller of <var>y</var> and the sum of <var>y</var> and <var>h</var>; and except that the following two calls:</p>
-
-  <pre>context.createImageData(w, h);
-context.getImageData(0, 0, w, h);</pre>
-
-  <p>...must return <code>ImageData</code> objects with the same dimensions as each other, for any
-  value of <var>w</var> and <var>h</var>. In other words, while user agents may
-  round the arguments of these methods, any rounding performed must be performed consistently for
-  all of the methods described in this section. (The constructors only work with integer
-  values.)</p>
-
   <p class="note">Due to the lossy nature of converting to and from premultiplied alpha color
   values, pixels that have just been set using <code
   data-x="dom-context-2d-putImageData">putImageData()</code> might be returned to an equivalent

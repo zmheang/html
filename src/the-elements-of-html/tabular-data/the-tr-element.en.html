@@ -22,7 +22,7 @@ interface <dfn>HTMLTableRowElement</dfn> : <span>HTMLElement</span> {
   readonly attribute long <span data-x="dom-tr-rowIndex">rowIndex</span>;
   readonly attribute long <span data-x="dom-tr-sectionRowIndex">sectionRowIndex</span>;
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-tr-cells">cells</span>;
-  <span>HTMLElement</span> <span data-x="dom-tr-insertCell">insertCell</span>(optional long index = -1);
+  <span>HTMLTableCellElement</span> <span data-x="dom-tr-insertCell">insertCell</span>(optional long index = -1);
   [<span>CEReactions</span>] void <span data-x="dom-tr-deleteCell">deleteCell</span>(long index);
 };</pre>
    </dd>

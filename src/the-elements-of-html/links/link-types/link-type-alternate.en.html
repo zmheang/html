@@ -16,6 +16,23 @@
     data-x="rel-stylesheet">stylesheet</code> keyword in the way described for that keyword. The
     <code data-x="rel-alternate">alternate</code> keyword does not create a link of its own.</p>
 
+    <div class="example">
+
+     <p>Here, a set of <code>link</code> elements provide some style sheets:</p>
+
+     <pre>&lt;!-- a persistent style sheet -->
+&lt;link rel="stylesheet" href="default.css">
+
+&lt;!-- the preferred alternate style sheet -->
+&lt;link rel="stylesheet" href="green.css" title="Green styles">
+
+&lt;!-- some alternate style sheets -->
+&lt;link rel="alternate stylesheet" href="contrast.css" title="High contrast">
+&lt;link rel="alternate stylesheet" href="big.css" title="Big fonts">
+&lt;link rel="alternate stylesheet" href="wide.css" title="Wide screen"></pre>
+
+    </div>
+
    </dd>
 
 
@@ -92,9 +109,15 @@
 
     <div class="example">
 
-     <p>For example, the following link is a French translation that uses the PDF format:</p>
+     <p>The following example shows how you can specify versions of the page that use alternative
+     formats, are aimed at other languages, and that are intended for other media:</p>
 
-     <pre>&lt;link rel=alternate type=application/pdf hreflang=fr href=manual-fr></pre>
+     <pre>&lt;link rel=alternate href="/en/html" hreflang=en type=text/html title="English HTML">
+&lt;link rel=alternate href="/fr/html" hreflang=fr type=text/html title="French HTML">
+&lt;link rel=alternate href="/en/html/print" hreflang=en type=text/html media=print title="English HTML (for printing)">
+&lt;link rel=alternate href="/fr/html/print" hreflang=fr type=text/html media=print title="French HTML (for printing)">
+&lt;link rel=alternate href="/en/pdf" hreflang=en type=application/pdf title="English PDF">
+&lt;link rel=alternate href="/fr/pdf" hreflang=fr type=application/pdf title="French PDF"></pre>
 
     </div>
 

@@ -1,0 +1,65 @@
+  <h5>Processing the <code data-x="attr-link-type">type</code> attribute</h5>
+
+  <p>If <code data-x="attr-link-type">type</code> attribute is present, then the user agent must
+  assume that the resource is of the given type (even if that is not a <span>valid MIME type</span>,
+  e.g. the empty string). If the attribute is omitted, but the <span>external resource link</span>
+  type has a default type defined, then the user agent must assume that the resource is of that
+  type. If the UA does not support the given <span>MIME type</span> for the given link relationship,
+  then the UA should not <span data-x="concept-link-obtain">obtain</span> the resource; if the UA
+  does support the given <span>MIME type</span> for the given link relationship, then the UA should
+  <span data-x="concept-link-obtain">obtain</span> the resource at the appropriate time as specified
+  for the <span>external resource link</span>'s particular type.  If the attribute is omitted, and
+  the <span>external resource link</span> type does not have a default type defined, but the user
+  agent would <span data-x="concept-link-obtain">obtain</span> the resource if the type was known
+  and supported, then the user agent should <span data-x="concept-link-obtain">obtain</span> the
+  resource under the assumption that it will be supported.</p>
+
+  <p>User agents must not consider the <code data-x="attr-link-type">type</code> attribute
+  authoritative &mdash; upon fetching the resource, user agents must not use the <code
+  data-x="attr-link-type">type</code> attribute to determine its actual type. Only the actual type
+  (as defined in the next paragraph) is used to determine whether to <em>apply</em> the resource,
+  not the aforementioned assumed type.</p>
+
+  <p id="concept-link-type-sniffing">If the <span>external resource link</span> type defines rules
+  for processing the resource's <span data-x="Content-Type">Content-Type metadata</span>, then those
+  rules apply.  Otherwise, if the resource is expected to be an image, user agents may apply the
+  <span data-x="Content-Type sniffing: image">image sniffing rules</span>, with the <var>official
+  type</var> being the type determined from the resource's <span data-x="Content-Type">Content-Type
+  metadata</span>, and use the resulting <span data-x="Content-Type sniffing">computed type of the
+  resource</span> as if it was the actual type.  Otherwise, if neither of these conditions apply or
+  if the user agent opts not to apply the image sniffing rules, then the user agent must use the
+  resource's <span data-x="Content-Type">Content-Type metadata</span> to determine the type of the
+  resource. If there is no type metadata, but the <span>external resource link</span> type has a
+  default type defined, then the user agent must assume that the resource is of that type.</p>
+
+  <p class="note">The <code data-x="rel-stylesheet">stylesheet</code> link type defines rules for
+  processing the resource's <span data-x="Content-Type">Content-Type metadata</span>.</p>
+
+  <p>Once the user agent has established the type of the resource, the user agent must apply the
+  resource if it is of a supported type and the other relevant conditions apply, and must ignore the
+  resource otherwise.</p>
+
+  <div class="example">
+
+   <p>If a document contains style sheet links labeled as follows:</p>
+
+   <pre>&lt;link rel="stylesheet" href="A" type="text/plain"&gt;
+&lt;link rel="stylesheet" href="B" type="text/css"&gt;
+&lt;link rel="stylesheet" href="C"&gt;</pre>
+
+   <p>...then a compliant UA that supported only CSS style sheets would fetch the B and C files, and
+   skip the A file (since <code>text/plain</code> is not the <span>MIME type</span> for CSS style
+   sheets).</p>
+
+   <p>For files B and C, it would then check the actual types returned by the server. For those that
+   are sent as <code>text/css</code>, it would apply the styles, but for those labeled as
+   <code>text/plain</code>, or any other type, it would not.</p>
+
+   <p>If one of the two files was returned without a <span>Content-Type</span> metadata, or with a
+   syntactically incorrect type like <code data-x="">Content-Type:&nbsp;"null"</code>, then the
+   default type for <code data-x="rel-stylesheet">stylesheet</code> links would kick in. Since that
+   default type is <code data-x="">text/css</code>, the style sheet <em>would</em> nonetheless be
+   applied.</p>
+
+  </div>
+
