@@ -1,0 +1,35 @@
+  <h4 id="custom-element-conformance">对 custom element 构造器的要求</h4>
+
+  <p>当写作 <span data-x="custom element constructor">custom element 构造器</span> 时，
+  作者应满足下列一致性要求：</p>
+
+  <ul>
+   <li><p>构造器体中第一条声明必须是无参数的 <code data-x="">super()</code> 调用，
+   以此在后续代码执行之前建立正确的原型链以及 <b>this</b>。</p></li>
+
+   <li><p>构造器体中禁止出现 <code data-x="">return</code> 声明，除非是一个简单的早返回
+   （<code data-x="">return</code> 或者 <code data-x="">return this</code>）。</p></li>
+
+   <li><p>构造器禁止使用 <code data-x="dom-document-write">document.write()</code>
+   或者 <code data-x="dom-document-open">document.open()</code> 方法。</p></li>
+
+   <li><p>禁止检查该元素的属性和子节点，因为在非 <span data-x="custom-element-upgrades">upgrade</span>
+   的情形下什么都不会有，但如果依赖于升级会降低该元素的可用性。</p></li>
+
+   <li><p>该元素禁止获取任何属性或子节点，这不符合使用
+   <code data-x="dom-Document-createElement">createElement</code> 或 <code
+   data-x="dom-Document-createElementNS">createElementNS</code> 方法的用户的预期。</p></li>
+
+   <li><p>通常，应尽可能将工作推迟到 <code data-x="">connectedCallback</code>
+   尤其是涉及获取资源和渲染。然而，注意到 <code data-x="">connectedCallback</code>
+   可能被调用多次，所以你可能需要一个守卫变量，来防止一次性的任何初始化工作被运行多次。</p></li>
+
+   <li><p>通常，构造器应该用于设置初始状态和默认值，
+   以及建立事件监听器，或者一个 <span>shadow root</span>。</p></li>
+  </ul>
+
+  <p>在 <span data-x="create an element">元素创建过程</span>，上面的部分要求会被直接或间接地检查。
+  如果不遵循它们将会导致 Custom Element 无法被解析器或 DOM API 实例化。
+  这些要求在构造器发起的 <span>microtask</span>  中仍然有效，
+  因为在构造后会立即发生一个 <span data-x="perform a microtask checkpoint">microtask 检查点</span>。</p>
+
