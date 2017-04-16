@@ -1,0 +1,265 @@
+  <h4 id="custom-elements-api"><code>CustomElementRegistry</code> 接口</h4>
+
+  <p>每个 <code>Window</code> 对象都关联是一个唯一的
+  <code>CustomElementRegistry</code> 对象实例，当 <code>Window</code> 对象创建时分配。</p>
+
+  <p class="note">Custom element registries 与 <code>Window</code> 对象而不是 <code>Document</code>
+  对象关联，因为每个 <span data-x="custom element constructor">custom element 构造器</span> 继承自 <code>HTMLElement</code> 接口，而每个 <code>Window</code> 对象只有一个 <code>HTMLElement</code> 接口。</p>
+
+  <p><code>Window</code> 接口的 <dfn><code data-x="dom-window-customElements">customElements</code></dfn>
+  属性必须返回该 <code>Window</code> 对象的 <code>CustomElementRegistry</code> 对象。</p>
+
+  <pre class="idl">interface <dfn>CustomElementRegistry</dfn> {
+  [<span>CEReactions</span>] void <span data-x="dom-CustomElementRegistry-define">define</span>(DOMString name， Function constructor， optional ElementDefinitionOptions options);
+  any <span data-x="dom-CustomElementRegistry-get">get</span>(DOMString name);
+  Promise&lt;void&gt; <span data-x="dom-CustomElementRegistry-whenDefined">whenDefined</span>(DOMString name);
+};
+
+dictionary <dfn>ElementDefinitionOptions</dfn> {
+  DOMString extends;
+};</pre>
+
+  <p>每个 <code>CustomElementRegistry</code> 有一个 <span data-x="custom element
+  definition">custom element 定义</span> 的集合，初始为空。通常本标准中的算法在 registry 中通过
+  <span data-x="concept-custom-element-definition-name">name</span>，
+  <span data-x="concept-custom-element-definition-local-name">local name</span>，
+  或 <span data-x="concept-custom-element-definition-constructor">constructor</span>
+  中的任意一个进行查找。</p>
+
+  <p>每个 <code>CustomElementRegistry</code> 还有一个
+  <dfn data-x="element definition is running">element 定义正在运行</dfn> 标记，
+  用来防止 <span data-x="element definition">元素定义</span> 被再次调用。
+  初始未设置。</p>
+
+  <p>每个 <code>CustomElementRegistry</code> 还有一个 <dfn data-x="when-defined promise map">when-defined Promise 映射</dfn>，
+  将 <span data-x="valid custom element name">合法的 custom element 名</span> 映射为 Promise。
+  用来实现 <code data-x="dom-CustomElementRegistry-whenDefined">whenDefined()</code> 方法。</p>
+
+  <dl class="domintro">
+   <dt><var>window</var> . <code data-x="dom-window-customElements">customElements</code> . <code
+   subdfn data-x="dom-CustomElementRegistry-define">define</code>(<var>name</var>，
+   <var>constructor</var>)</dt>
+
+   <dd>定义一个新的 <span>custom element</span>，作为 <span>autonomous custom element</span>，并将指定的名称映射到指定的构造器。</dd>
+
+
+   <dt><var>window</var> . <code data-x="dom-window-customElements">customElements</code> . <code
+   data-x="dom-CustomElementRegistry-define">define</code>(<var>name</var>， <var>constructor</var>，
+   { extends: <var>baseLocalName</var> })</dt>
+
+   <dd>定义一个新的 <span>custom element</span>，作为 <span data-x="customized built-in element">定制内建元素</span>，其 <span data-x="element type">元素类型</span> 由 <var>baseLocalName</var> 标识的。
+   同时将给定的 name 映射到给定的 constructor。当尝试扩展 <span>custom element</span> 或未知元素时，
+   将会抛出 <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>。</dd>
+
+   <dt><var>window</var> . <code data-x="dom-window-customElements">customElements</code> . <code
+   subdfn data-x="dom-CustomElementRegistry-get">get</code>(<var>name</var>)</dt>
+
+   <dd>获取定义为 <span data-x="concept-custom-element-definition-name">name</span> 的
+   <span data-x="custom element constructor">custom element 构造器</span> 。如果没有
+   <span data-x="custom element definition">custom element 定义</span> 拥有给定的 <span
+   data-x="concept-custom-element-definition-name">name</span> 则返回 undefined。</dd>
+
+   <dt><var>window</var> . <code data-x="dom-window-customElements">customElements</code> . <code
+   subdfn data-x="dom-CustomElementRegistry-whenDefined">whenDefined</code>(<var>name</var>)</dt>
+
+   <dd>返回一个 promise，当有着给定 name 的 <span>custom element</span> 变成已定义时被完成。
+   （如果这样的 <span>custom element</span> 已经定义，返回的 promise 将会立即完成。）
+   如果没有给定 <span data-x="valid custom element name">合法的 Custom Element 名称</span>
+   则返回一个已经以
+   <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> 拒绝的 Promise。</dd>
+  </dl>
+
+  <p><dfn data-x="element definition">元素定义</dfn> 是向 <code>CustomElementRegistry</code>
+  新增一个 <span data-x="custom element definition">custom element 定义</span> 的过程。
+  由 <code data-x="dom-CustomElementRegistry-define">define()</code> 方法完成。
+  <dfn><code data-x="dom-CustomElementRegistry-define">define(<var>name</var>， <var>constructor</var>，
+  <var>options</var>)</code></dfn> 方法被调用时必须运行下列步骤：</p>
+
+  <ol>
+   <li><p>如果 <span>IsConstructor</span>(<var>constructor</var>) 为 false，抛出一个
+   <code>TypeError</code> 并中止这些步骤。</p></li>
+
+   <li><p>如果 <var>name</var> 不是一个 <span data-x="valid custom element name">合法的 custom element 名</span>，则抛出一个
+   <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> 并中止这些步骤。</p></li>
+
+   <li><p>如果该 <code>CustomElementRegistry</code> 包含 <span
+   data-x="concept-custom-element-definition-name">name</span> 值为 <var>name</var> 的项目，
+   则抛出一个 <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code> 并中止这些步骤。</p></li>
+
+   <li><p>如果该 <code>CustomElementRegistry</code> 包含 <span
+   data-x="concept-custom-element-definition-constructor">constructor</span> 值为 <var>constructor</var> 的项目，
+   则抛出一个 <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code> 并中止这些步骤。</p></li>
+
+   <li><p>令 <var>localName</var> 为 <var>name</var>。</p></li>
+
+   <li><p>令 <var>extends</var> 为 <var>options</var> 的 <code data-x="">extends</code> 成员（没有该成员则为 null）。</p></li>
+
+   <li>
+    <p>如果 <var>extends</var> 不为 null，则：</p>
+
+    <ol>
+     <li><p>如果 <var>extends</var> 是一个 <span data-x="valid custom element name">合法的 custom element 名</span>，则抛出
+     <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>。</p></li>
+
+     <li><p>如果 <var>extends</var> 的 <span data-x="element interface">元素接口</span> 的 <span>HTML
+     namespace</span> 是 <code>HTMLUnknownElement</code> （例如，如果 <var>extends</var> 表示的元素定义不在本标准中），则抛出
+     <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>。</p></li>
+
+     <li><p>设置 <var>localName</var> 为 <var>extends</var>。</p></li>
+    </ol>
+   </li>
+
+   <li><p>如果该 <code>CustomElementRegistry</code> 的 <span data-x="element definition is running">元素定义正在运行</span>
+   标记被设置，则抛出一个 <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code> 并中止这些步骤。</p></li>
+
+   <li><p>设置该 <code>CustomElementRegistry</code> 的 <span data-x="element definition is running">元素定义正在运行</span>
+   标记。</p></li>
+
+   <li>
+    <p>运行下列子步骤并捕获所有异常：</p>
+
+    <ol>
+     <li><p>令 <var>prototype</var> 为 <span data-x="js-Get">Get</span>(<var>constructor</var>，
+     "prototype")。重新抛出任何异常。</p></li>
+
+     <li><p>如果 <span data-x="js-Type">Type</span>(<var>prototype</var>) 不是 Object，则抛出
+     <code>TypeError</code> 异常。</p></li>
+
+     <li><p>令 <var>lifecycleCallbacks</var> 为生命周期回调映射，并拥有四个键 "<code
+     data-x="">connectedCallback</code>"， "<code data-x="">disconnectedCallback</code>"， "<code
+     data-x="">adoptedCallback</code>"， 和 "<code data-x="">attributeChangedCallback</code>"，
+     每一项对应的值均为 null。</p>
+
+     <li>
+      <p>对 <var>lifecycleCallbacks</var> 四个键中的每一项 <var>callbackName</var>，按照上一步列出的顺序：</p>
+
+      <ol>
+       <li><p>令 <var>callbackValue</var> 为 <span data-x="js-Get">Get</span>(<var>prototype</var>，
+       <var>callbackName</var>)。重新抛出任何异常。</p>
+
+       <li><p>如果 <var>callbackValue</var> 不是 undefined，则设置 <var>lifecycleCallbacks</var> 中键为
+       <var>callbackName</var> 的项目的值为 <var>callbackValue</var> <span data-x="concept-idl-convert">转换</span>  为 Web IDL
+       <code data-x="idl-Function">Function</code> 回调类型的结果。重新抛出任何转换过程中的异常。</p></li>
+      </ol>
+     </li>
+
+     <li><p>令 <var>observedAttributes</var> 为一个空的 <code data-x="">sequence&lt;DOMString></code>。</p></li>
+
+     <li>
+      <p>如果 <var>lifecycleCallbacks</var> 中键为 "<code data-x="">attributeChangedCallback</code>" 的项目的值不是 null，则：</p>
+
+      <ol>
+       <li><p>令 <var>observedAttributesIterable</var> 为 <span
+       data-x="js-Get">Get</span>(<var>constructor</var>， "observedAttributes")。 重新抛出任何异常。</p></li>
+
+       <li><p>如果 <var>observedAttributesIterable</var> 不是 undefined，则设置
+       <var>observedAttributes</var> 为 <var>observedAttributesIterable</var> <span data-x="concept-idl-convert">转换</span> 为
+       <code data-x="">sequence&lt;DOMString></code> 的结果。重新抛出任何转换过程中的异常。</p></li>
+      </ol>
+    </ol>
+
+    <p>然后执行下列的子步骤，不论上述步骤是否抛出异常：</p>
+
+    <ol>
+     <li><p>重置 <code>CustomElementRegistry</code> 的 <span data-x="element definition is running">元素定义正在运行</span> 标记。</p></li>
+    </ol>
+
+    <p>最终，如果第一批子步骤抛出了异常，则重新抛出该异常并终止算法。否则继续。</p>
+   </li>
+
+   <li><p>令 <var>definition</var> 为一个新的 <span data-x="custom element definition">custom element 定义</span>，
+   其 <span data-x="concept-custom-element-definition-name">name</span> 为 <var>name</var>，
+   其 <span data-x="concept-custom-element-definition-local-name">local name</span> 为 <var>localName</var>，
+   其 <span data-x="concept-custom-element-definition-constructor">constructor</span> 为 <var>constructor</var>，
+   其 <span data-x="concept-custom-element-definition-observed-attributes">observed attributes</span> 为 <var>observedAttributes</var>，
+   其 <span data-x="concept-custom-element-definition-lifecycle-callbacks">lifecycle callbacks</span> 为 <var>lifecycleCallbacks</var>。</p></li>
+
+   <li><p>添加 <var>definition</var> 到该该 <code>CustomElementRegistry</code>。</p></li>
+
+   <li><p>令 <var>document</var> 为该 <code>CustomElementRegistry</code> 的 <span
+   data-x="concept-relevant-global">相关全局对象</span> 的 <span
+   data-x="concept-document-window">关联的 <code>Document</code></span>。</p></li>
+
+   <li><p>令 <var>upgrade candidates</var> 为
+   <var>document</var> 的所有 <span data-x="shadow-including descendant">shadow-including 后代</span> 中，
+   命名空间为 <span>HTML namespace</span> 且 local name 为 <var>localName</var> 的元素，
+   以 <span data-x="shadow-including tree order">shadow-including 树序</span>。
+   此外如果 <var>extends</var> 不是 null，则只包括 <span data-x="concept-element-is-value"><code data-x="">is</code>
+   的值</span> 等于 <var>name</var> 的元素。</p></li>
+
+   <li><p>对 <var>upgrade candidates</var> 中的每一个元素 <var>element</var>，
+   <span data-x="enqueue a custom element upgrade reaction">将一个 Custom Element 升级响应加入队列</span>，并指定 <var>element</var> 和
+   <var>definition</var>。</p></li>
+
+   <!-- It is equivalent to just try to upgrade all elements in the document， and let "try to
+   upgrade" bail out， but this seems a bit more explicit。 -->
+
+   <li>
+    <p>如果该 <code>CustomElementRegistry</code> 的 <span data-x="when-defined promise map">when-defined Promise 映射</span>
+    包含键为 <var>name</var> 的项目：</p>
+
+    <ol>
+     <li><p>令 <var>promise</var> 为该项目的值。</p></li>
+
+     <li><p>以 undefined 完成 <var>promise</var>。</p></li>
+
+     <li><p>从该 <code>CustomElementRegistry</code> 的 <span data-x="when-defined promise map">when-defined promise 映射</span>
+     中删除键为 <var>name</var> 的项目。</p></li>
+    </ol>
+   </li>
+  </ol>
+
+  <p><dfn><code data-x="dom-CustomElementRegistry-get">get(<var>name</var>)</code></dfn> 方法被调用时必须执行这些步骤：</p>
+
+  <ol>
+   <li><p>如果该 <code>CustomElementRegistry</code> 包含 <span
+   data-x="concept-custom-element-definition-name">name</span> 为 <var>name</var> 条目，则返回该条目的
+   <span data-x="concept-custom-element-definition-constructor">构造器</span>。</p></li>
+
+   <li><p>否则返回 undefined。</p></li>
+  </ol>
+
+  <p><dfn><code data-x="dom-CustomElementRegistry-whenDefined">whenDefined(<var>name</var>)</code></dfn> 方法被调用时必须执行这些步骤：</p>
+
+  <ol>
+   <li><p>如果 <var>name</var> 不是一个 <span data-x="valid custom element name">合法的 custom element 名称</span>，则返回一个新的
+   promise，以 <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> 拒绝它并中止这些步骤。</p></li>
+
+   <li><p>如果该 <code>CustomElementRegistry</code> 包含一个 <span
+   data-x="concept-custom-element-definition-name">name</span> 为 <var>name</var> 的条目，则返回一个新的
+   promise，以 undefined 完成并中止这些步骤。</p></li>
+
+   <li><p>令 <var>map</var> 为该 <code>CustomElementRegistry</code> 的 <span data-x="when-defined promise map">when-defined promise 映射</span>。</p></li>
+
+   <li><p>如果 <var>map</var> 不包含键为 <var>name</var> 的条目，在 <var>map</var> 中创建一个条目，
+   其键为 <var>name</var>，值为一个新的 promise。</p></li>
+
+   <li><p>令 <var>promise</var> 为 <var>map</var> 中键为 <var>name</var> 的条目的值。</p></li>
+
+   <li><p>返回 <var>promise</var>。</p></li>
+  </ol>
+
+  <div class="example">
+   <p><code data-x="dom-CustomElementRegistry-whenDefined">whenDefined()</code> 方法可以用来避免
+   在合适的 <span data-x="custom element">custom elements</span> <span data-x="concept-element-defined">被定义</span> 之前执行操作。
+   这个例子中我们将它与 <code data-x="selector-defined">:defined</code> 伪类结合，
+   来隐藏一个动态载入的文章内容，直到我们确定它使用的所有
+   <span data-x="autonomous custom element">自主 Custom Element </span> 已经定义。</p>
+
+   <pre>articleContainer.hidden = true;
+
+fetch(articleURL)
+  .then(response => response.text())
+  .then(text => {
+    articleContainer.innerHTML = text;
+
+    return Promise.all(
+      [...articleContainer.querySelectorAll(":not(:defined)")]
+        .map(el => customElements.whenDefined(el.localName))
+    );
+  })
+  .then(() => {
+    articleContainer.hidden = false;
+  });</pre>
+  </div>
+

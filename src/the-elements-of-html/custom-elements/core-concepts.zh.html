@@ -1,0 +1,184 @@
+  <h4 id="custom-elements-core-concepts">核心概念</h4>
+
+  <p><dfn>custom element</dfn> 是 <span data-x="concept-element-custom">自定义的</span> 元素。
+  非形式化地，这意味着它的构造器和原型链由作者而不是用户代理定义。
+  作者提供的构造函数称为 <dfn data-export="" data-x="custom element constructor">custom element 构造器</dfn>。</p>
+
+  <p>可以定义两种不同的 <span data-x="custom element">custom elements</span>：</p>
+
+  <ol>
+
+   <li><p><dfn data-export="" data-x="autonomous custom element">自主的 custom element</dfn> 定义时不包含 <code
+   data-x="">extends</code> 选项。这类 custom elements 的 local name 等于它们
+   <span data-x="concept-custom-element-definition-name">定义的名称</span>。</p></li>
+
+   <li><p>A <dfn data-export="" data-x="customized built-in element">定制内建元素</dfn> 定义时包含 <code
+   data-x="">extends</code> 选项。这类 custom elements 的 local name 等于它们
+   在 <code data-x="">extends</code> 选项中传入的值，它们的 <span
+   data-x="concept-custom-element-definition-name">定义的名称</span> 被用于
+   <dfn><code data-x="attr-is">is</code></dfn> 属性的值，因此它必须是一个
+   <span data-x="valid custom element name">合法的 custom element 名</span>。</p></li>
+
+  </ol>
+
+  <p>在 <span>custom element</span> 被 <span data-x="create an element">创建</span> 后，
+  更改 <code data-x="attr-is">is</code> 属性的值不会更改该元素的行为，因为它只是
+  保存为该元素的 <span data-x="concept-element-is-value"><code data-x="">is</code> 的值</span>。</p>
+
+  <p><span data-x="autonomous custom element">自主的 custom elements</span> 有下列的元素定义：</p>
+
+  <dl class="element">
+   <dt><span data-x="concept-element-categories">类别</span>：</dt>
+   <dd><span>Flow content</span>。</dd>
+   <dd><span>Phrasing content</span>。</dd>
+   <dd><span>Palpable content</span>。</dd>
+   <dt><span data-x="concept-element-contexts">该元素可使用的上下文</span>：</dt>
+   <dd>应该出现 <span>phrasing content</span> 的地方。</dd>
+   <dt><span data-x="concept-element-content-model">内容模型</span>：</dt>
+   <dd><span>Transparent</span>。</dd>
+   <dt><span data-x="concept-element-attributes">内容属性</span>：</dt>
+   <dd>除 <code data-x="attr-is">is</code> 之外的 <span data-x="Global attributes">全局属性</span>。</dd>
+   <dd>任何其他没有命名空间的属性。</dd>
+   <dt><span data-x="concept-element-dom">DOM 接口</span>：</dt>
+   <dd>由元素作者提供（继承自 <code>HTMLElement</code>）</dd>
+  </dl>
+
+
+  <p><span data-x="autonomous custom element">自主的 custom element</span> 没有任何特殊含义：它
+  <span data-x="represents">表示</span> 它的子节点。 <span data-x="customized built-in element">定制内建元素</span> 继承了它扩展的元素的语义。</p>
+
+  <p>任何没有命名空间的并与元素功能相关的属性，都可以按照元素作者的决定添加到
+  <span data-x="autonomous custom element">自主的 custom element</span> 上，
+  只要该属性名是 <span data-x="XML-compatible">XML 兼容的</span> 其不含 <span data-x="ASCII upper
+  alpha">ASCII 大写字母</span>。<code data-x="attr-is">is</code> 属性较为特殊，
+  它不能声明在 <span data-x="autonomous custom element">自主的 custom element</span> 上（如果设置的话不会有任何效果）。</p>
+
+  <p><span data-x="customized built-in element">定制内建元素</span> 遵循普通的属性名要求
+  （基于它们扩展的元素）。新增自定义的基于属性的行为，可使用
+  <code data-x="attr-data-*">data-*</code> 属性。</p>
+
+  <hr>
+
+  <p><dfn data-export="" data-x="valid custom element name">合法的 custom element 名</dfn> <var>name</var> 是一个满足下列所有要求的字符序列：</p>
+
+  <ul>
+   <li>
+    <p><var>name</var> 必须匹配 <code
+    data-x="prod-PotentialCustomElementName">PotentialCustomElementName</code> 生成式：</p>
+
+    <dl>
+     <dt><code data-x=""><dfn
+     data-x="prod-PotentialCustomElementName">PotentialCustomElementName</dfn> ::=</code></dt>
+     <dd><code data-x="">[a-z] （<span data-x="prod-PCENChar">PCENChar</span>）* '-'
+     （<span data-x="prod-PCENChar">PCENChar</span>）*</code></dd>
+
+     <dt><code data-x=""><dfn data-x="prod-PCENChar">PCENChar</dfn> ::=</code></dt>
+     <dd><code data-x="">"-" | "." | [0-9] | "_" | [a-z] | #xB7 | [#xC0-#xD6] | [#xD8-#xF6] |
+     [#xF8-#x37D] | [#x37F-#x1FFF] | [#x200C-#x200D] | [#x203F-#x2040] | [#x2070-#x218F] |
+     [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] |
+     [#x10000-#xEFFFF]</code></dd>
+    </dl>
+
+    <p>这使用了 <cite>XML</cite> 标准中的 <a href="https://www.w3.org/TR/xml/#sec-notation">EBNF 记法</a> 。 <ref spec=XML></p>
+   </li>
+
+   <li>
+    <p><var>name</var> 不可是下列之一：</p>
+
+    <ul class="brief">
+     <li><code data-x="">annotation-xml</code></li>
+     <li><code data-x="">color-profile</code></li>
+     <li><code data-x="">font-face</code></li>
+     <li><code data-x="">font-face-src</code></li>
+     <li><code data-x="">font-face-uri</code></li>
+     <li><code data-x="">font-face-format</code></li>
+     <li><code data-x="">font-face-name</code></li>
+     <li><code data-x="">missing-glyph</code></li>
+    </ul>
+
+    <p class="note">上述名字列表总结了所有包含横线的元素名，包括
+    <cite>SVG</cite> 和 <cite>MathML</cite>
+    <span data-x="other applicable specifications">相关标准</span>。
+    <ref spec=SVG> <ref spec=MATHML></p>
+   </li>
+  </ul>
+
+  <div class="note">
+   <p>上述要求保证了 <span data-x="valid custom element name">合法 custom element 名</span> 的这些目标：</p>
+
+   <ul>
+    <li><p>以 <span data-x="ASCII lower alpha">ASCII 小写字母</span> 起始，确保 HTML 解析器将它们当做标签而不是文本。</li>
+
+    <li><p>不包含任何 <span data-x="ASCII upper alpha">ASCII 大写字母</span>，
+    确保用户代理总是可以将 HTML 元素当做大小写不敏感的 ASCII 来处理。</p></li>
+
+    <li><p>包含一个横线，用于做命名空间来确保向后兼容（因为 HTML、SVG、MathML 中新增的元素 local name 不会包含横线）。</p></li>
+
+    <li><p>总是可以使用 <code
+    data-x="dom-Document-createElement">createElement()</code> 和 <code
+    data-x="dom-Document-createElementNS">createElementNS()</code> 来创建它们，
+    这些 API 有着比解析器更高的限制。</p></li>
+   </ul>
+
+   <p>除这些限制之外，允许了大量的名字来给像
+   <code data-x="">&lt;math-α></code> 或 <code data-x="">&lt;emotion-😍></code> 这样的用例最大的自由。</p>
+  </div>
+
+  <p><dfn data-x="custom element definition">Custom Element 定义</dfn> 描述了一个 <span>custom element</span> 的组成：</p>
+
+  <dl>
+   <dt><dfn data-x="concept-custom-element-definition-name" data-export=""
+   data-dfn-for="custom element definition">name</dfn></dt>
+   <dd>一个 <span data-x="valid custom element name">合法的 Custom Element 名称</span></dd>
+
+   <dt><dfn data-x="concept-custom-element-definition-local-name" data-export=""
+   data-dfn-for="custom element definition">local name</dfn></dt>
+   <dd>一个 local name</dd>
+
+   <dt><dfn data-x="concept-custom-element-definition-constructor" data-export=""
+   data-dfn-for="custom element definition">constructor</dfn></dt>
+   <dd>一个Web IDL <code data-x="idl-Function">Function</code> 回调函数类型的值，包装了
+   <span data-x="custom element constructor">custom element 构造器</span></dd>
+
+   <dt><dfn data-x="concept-custom-element-definition-observed-attributes">被观察的属性</dfn>列表</dt>
+   <dd>一个 <code data-x="">sequence&lt;DOMString></code></dd>
+
+   <dt><dfn data-x="concept-custom-element-definition-lifecycle-callbacks">生命周期回调</dfn>列表</dt>
+   <dd>一个映射，其四个键是字符串 "<code data-x="">connectedCallback</code>"，
+   "<code data-x="">disconnectedCallback</code>"， "<code data-x="">adoptedCallback</code>"，和
+   "<code data-x="">attributeChangedCallback</code>"。相应的值是 Web IDL
+   <code data-x="idl-Function">Function</code> 回调函数类型的值，或者 null。默认每一项的值都是null。</dd>
+
+   <dt>一个<dfn data-x="concept-custom-element-definition-construction-stack">construction
+   stack</dfn></dt>
+   <dd>一个初始为空的列表，由 <span data-x="concept-upgrade-an-element">元素升级</span> 算法和
+   和 <a href="#html-element-constructors">HTML 元素构造器</a> 操作。列表中每一项都将是一个元素或者一个
+   <dfn data-x="concept-already-constructed-marker"><i>已经构造的</i> 标记</dfn>。</dd>
+  </dl>
+
+  <p>给定一个 <var>document</var>，<var>namespace</var>，<var>localName</var>，以及 <var>is</var>，
+  <dfn data-export="" data-x="look up a custom element definition">查找一个 custom element 的定义</dfn> 应执行下列步骤（
+  返回一个 <span data-x="custom element definition">custom element 定义</span> 或 null）：</p>
+
+  <ol>
+   <li><p>如果 <var>namespace</var> 不是 <span>HTML namespace</span>，返回 null。</p></li>
+
+   <li><p>如果 <var>document</var> 没有 <span data-x="concept-document-bc">浏览上下文</span>，返回 null。</p></li>
+
+   <li><p>令 <var>registry</var> 为 <var>document</var> 的 <span
+   data-x="concept-document-bc">浏览上下文</span> 所在 <code>Window</code> 的
+   <code>CustomElementRegistry</code> 对象。</p></li>
+
+   <li><p>如果在 <var>registry</var> 中有一个 <span data-x="custom element definition">custom element 定义</span> 的
+   <span data-x="concept-custom-element-definition-name">name</span> 和 <span
+   data-x="concept-custom-element-definition-local-name">local name</span> 都等于
+   <var>localName</var>，返回该 <span data-x="custom element definition">custom element 定义</span>。</p></li>
+
+   <li><p>如果在 <var>registry</var> 中有一个 <span data-x="custom element definition">custom element 定义</span> 的
+   <span data-x="concept-custom-element-definition-name">name</span> 等于 <var>is</var> 且
+   <span data-x="concept-custom-element-definition-local-name">local name</span> 等于 <var>localName</var>，返回该
+   <span data-x="custom element definition">custom element 定义</span>。</p></li>
+
+   <li><p>返回 null。</p></li>
+  </ol>
+
