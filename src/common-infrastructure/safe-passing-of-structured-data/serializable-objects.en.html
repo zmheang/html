@@ -17,7 +17,8 @@
 
   <dl>
    <dt><dfn data-export="">serialization steps</dfn>, taking a <span>platform object</span>
-   <var>value</var> and a <span>Record</span> <var>serialized</var></dt>
+   <var>value</var>, a <span>Record</span> <var>serialized</var>, and a boolean
+   <var>forStorage</var></dt>
    <dd>
     <p>A set of steps that serializes the data in <var>input</var> into fields of
     <var>serialized</var>. The resulting data serialized into <var>serialized</var> must be
@@ -28,6 +29,9 @@
     <p>These steps may perform a <span>sub-serialization</span> to serialize nested data
     structures. They should not call <span>StructuredSerialize</span> directly, as doing so will
     omit the important <var>memory</var> argument.</p>
+
+    <p>The introduction of these steps should omit mention of the <var>forStorage</var> argument if
+    it is not relevant to the algorithm.</p>
    </dd>
 
    <dt><dfn data-export="">deserialization steps</dfn>, taking a <span>Record</span>

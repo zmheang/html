@@ -136,15 +136,15 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
        data-x="dom-MessageEvent-source">source</code> attribute initialized to <var>inside
        port</var>.</p></li>
 
-       <li><p><span data-x="add a document to the worker's Documents">Add to <var>worker global
-       scope</var>'s list of <span>the worker's <code>Document</code>s</span></span> the
-       <span>list of relevant <code>Document</code> objects to add</span> given <var>outside
-       settings</var>.</p></li>
+       <li><p><span data-x="set append">Append</span> the <span>relevant owner to add</span> given
+       <var>outside settings</var> to <var>worker global scope</var>'s <span>owner
+       set</span>.</p></li>
 
        <li><p>If <var>outside settings</var>'s <span data-x="concept-settings-object-global">global
-       object</span> is a <code>WorkerGlobalScope</code> object, add <var>worker global scope</var>
-       to the list of <span>the worker's workers</span> of <var>outside settings</var>'s <span
-       data-x="concept-settings-object-global">global object</span>.</p></li>
+       object</span> is a <code>WorkerGlobalScope</code> object, then <span data-x="set
+       append">append</span> <var>worker global scope</var> to <var>outside settings</var>'s <span
+       data-x="concept-settings-object-global">global object</span>'s <span>worker
+       set</span>.</p></li>
       </ol>
      </li>
 

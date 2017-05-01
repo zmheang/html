@@ -48,7 +48,9 @@
              <dfn data-x="map get" data-x-href="https://infra.spec.whatwg.org/#map-get">getting the value of an entry</dfn>, and
              <dfn data-x="map set" data-x-href="https://infra.spec.whatwg.org/#map-set">setting the value of an entry</dfn></li>
      <li>The <dfn data-x-href="https://infra.spec.whatwg.org/#list">list</dfn> data structure and the associated definitions for
-             <dfn data-x="list append" data-x-href="https://infra.spec.whatwg.org/#list-append">append</dfn>, and
+             <dfn data-x="list append" data-x-href="https://infra.spec.whatwg.org/#list-append">append</dfn>,
+             <dfn data-x="list remove" data-x-href="https://infra.spec.whatwg.org/#list-remove">remove</dfn>,
+             <dfn data-x="list empty" data-x-href="https://infra.spec.whatwg.org/#list-empty">empty</dfn>,
              <dfn data-x="list contains" data-x-href="https://infra.spec.whatwg.org/#list-contain">contains</dfn>,
              <dfn data-x="list size" data-x-href="https://infra.spec.whatwg.org/#list-size">size</dfn>,
              <dfn data-x="list is empty" data-x-href="https://infra.spec.whatwg.org/#list-is-empty">is empty</dfn>, and
@@ -56,7 +58,8 @@
      <li>The <dfn data-x-href="https://infra.spec.whatwg.org/#stack">stack</dfn> data structure and the associated definitions for
              <dfn data-x="stack push" data-x-href="https://infra.spec.whatwg.org/#stack-push">push</dfn> and
              <dfn data-x="stack pop" data-x-href="https://infra.spec.whatwg.org/#stack-pop">pop</dfn></li>
-     <li>The <dfn data-x="set" data-x-href="https://infra.spec.whatwg.org/#ordered-set">ordered set</dfn> data structure</li>
+     <li>The <dfn data-x="set" data-x-href="https://infra.spec.whatwg.org/#ordered-set">ordered set</dfn> data structure and the associated definition for
+             <dfn data-x="set append" data-x-href="https://infra.spec.whatwg.org/#set-append">append</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#html-namespace">HTML namespace</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#mathml-namespace">MathML namespace</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#svg-namespace">SVG namespace</dfn></li>
@@ -499,6 +502,8 @@
 
     <ul class="brief">
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#active-function-object">active function object</dfn></li>
+     <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-agents">agent</dfn> and
+         <dfn data-x-href="https://tc39.github.io/ecma262/#sec-agent-clusters">agent cluster</dfn></li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion">automatic semicolon insertion</dfn></li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#current-realm">current Realm Record</dfn></li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#early-error-rule">early error</dfn></li>
@@ -554,6 +559,7 @@
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-isconstructor">IsConstructor</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-isdatadescriptor">IsDataDescriptor</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-isdetachedbuffer">IsDetachedBuffer</dfn> abstract operation</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-issharedarraybuffer">IsSharedArrayBuffer</dfn> abstract operation</li>
      <li>The <dfn data-x="js-NewObjectEnvironment" data-x-href="https://tc39.github.io/ecma262/#sec-newobjectenvironment">NewObjectEnvironment</dfn> abstract operation</li>
      <!-- the next set of Ordinary* abstract operations are in order of appearance -->
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-ordinarygetprototypeof">OrdinaryGetPrototypeOf</dfn> abstract operation</li>
@@ -580,6 +586,7 @@
      <li>The <dfn data-x="js-abstract-equality" data-x-href="https://tc39.github.io/ecma262/#sec-abstract-equality-comparison">Abstract Equality Comparison</dfn> algorithm</li>
      <li>The <dfn data-x="js-strict-equality" data-x-href="https://tc39.github.io/ecma262/#sec-strict-equality-comparison">Strict Equality Comparison</dfn> algorithm</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-date-objects"><code>Date</code></dfn> class</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-sharedarraybuffer-objects"><code>SharedArrayBuffer</code></dfn> class</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror"><code>TypeError</code></dfn> class</li>
      <li>The <dfn data-x="js-RangeError" data-x-href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-rangeerror"><code>RangeError</code></dfn> class</li>
      <li>The <dfn data-x="js-typeof" data-x-href="https://tc39.github.io/ecma262/#sec-typeof-operator"><code>typeof</code></dfn> operator</li>
@@ -1383,7 +1390,7 @@
     <p>The following terms are defined in <cite>Content Security Policy</cite>: <ref spec="CSP"></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#policy">Content Security Policy</dfn></li>
+     <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#content-security-policy-object">Content Security Policy</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#directives">Content Security Policy directive</dfn></li>
      <li>The <dfn data-x-href="https://w3c.github.io/webappsec-csp/#grammardef-serialized-policy">Content Security Policy syntax</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#enforced">enforce the policy</dfn></li>
@@ -1424,6 +1431,7 @@
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-serviceworker-link">serviceworker link</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworker"><code>ServiceWorker</code></dfn> interface</li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkercontainer"><code>ServiceWorkerContainer</code></dfn> interface</li>
+     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkerglobalscope"><code>ServiceWorkerGlobalScope</code></dfn> interface</li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-use-cache">use cache</dfn></li>
     </ul>
 
@@ -1546,6 +1554,17 @@
 
     <ul class="brief">
      <li><dfn data-x-href="https://drafts.fxtf.org/filters/#typedef-filter-function-list">&lt;filter-function-list&gt;</dfn></li>
+    </ul>
+   </dd>
+
+   <dt>Worklets</dt>
+
+   <dd>
+    <p>The following feature is defined in the <cite>Worklets</cite> specification: <ref
+    spec=WORKLETS></p>
+
+    <ul class="brief">
+     <li><dfn data-x-href="https://drafts.css-houdini.org/worklets/#workletglobalscope"><code>WorkletGlobalScope</code></dfn></li>
     </ul>
    </dd>
 

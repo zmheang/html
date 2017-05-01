@@ -1,0 +1,56 @@
+  <h5>Integration with the JavaScript agent formalism</h5>
+
+  <p>JavaScript defines the concept of an <span>agent</span>. Until such a time that this standard
+  has a better handle on lifetimes, we define five types of <span data-x="agent">agents</span> that
+  user agents must allocate at the appropriate time.</p>
+
+  <p class="note">In the future, when this specification has a better handle on lifetimes, we hope
+  to define exactly when <span data-x="agent">agents</span> and <span data-x="agent cluster">agent
+  clusters</span> are created.</p>
+
+  <p class="&#x0058;&#x0058;&#x0058;">JavaScript is expected to define <span
+  data-x="agent">agents</span> in more detail; in particular that they hold a set of <span
+  data-x="concept-global-object-realm">realms</span>: <a
+  href="https://github.com/tc39/ecma262/issues/882">tc39/ecma262 issue #882</a>.</p>
+
+  <dl>
+   <dt><dfn data-export="">Similar-origin window agent</dfn></dt>
+   <dd>
+    <p>An <span>agent</span> whose [[CanBlock]] is false and whose set of <span
+    data-x="JavaScript realm">realms</span> consists of all <span
+    data-x="concept-global-object-realm">realms</span> of <code>Window</code> objects whose
+    <span>relevant settings object</span>'s <span>responsible browsing context</span> is in the same
+    <span>unit of related similar-origin browsing contexts</span>.</p>
+
+    <p class="note">Two <code>Window</code> objects that are <span>same origin</span> can be in
+    different <span data-x="similar-origin window agent">similar-origin window agents</span>, for
+    instance if they are each in their own <span>unit of related similar-origin browsing
+    contexts</span>.</p>
+   </dd>
+
+   <dt><dfn data-export="">Dedicated worker agent</dfn></dt>
+   <dd><p>An <span>agent</span> whose [[CanBlock]] is true and whose set of <span data-x="JavaScript
+   realm">realms</span> consists of a single <code>DedicatedWorkerGlobalScope</code> object's <span
+   data-x="concept-global-object-realm">Realm</span>.</p></dd>
+
+   <dt><dfn data-export="">Shared worker agent</dfn></dt>
+   <dd><p>An <span>agent</span> whose [[CanBlock]] is true and whose set of <span data-x="JavaScript
+   realm">realms</span> consists a single <code>SharedWorkerGlobalScope</code> object's <span
+   data-x="concept-global-object-realm">Realm</span>.</p></dd>
+
+   <dt><dfn data-export="">Service worker agent</dfn></dt>
+   <dd><p>An <span>agent</span> whose [[CanBlock]] is false and whose set of <span data-x="JavaScript
+   realm">realms</span> consists of a single <code>ServiceWorkerGlobalScope</code> object's <span
+   data-x="concept-global-object-realm">Realm</span>.</p></dd>
+
+   <dt><dfn data-export="">Worklet agent</dfn></dt>
+   <dd>
+    <p>An <span>agent</span> whose [[CanBlock]] is false and whose set of <span
+    data-x="JavaScript realm">realms</span> consists of a single <code>WorkletGlobalScope</code>
+    object's <span data-x="concept-global-object-realm">Realm</span>.</p>
+
+    <p class="note">While conceptually it might be cleaner for worklets that end up with multiple
+    realms to put all those in the same agent, it is not observable in practice.</p>
+   </dd>
+  </dl>
+

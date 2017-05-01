@@ -50,7 +50,7 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
 
   readonly attribute DOMString <span data-x="dom-textarea-type">type</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-textarea-defaultValue">defaultValue</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-textarea-value">value</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-textarea-value">value</span>;
   readonly attribute unsigned long <span data-x="dom-textarea-textLength">textLength</span>;
 
   readonly attribute boolean <span data-x="dom-cva-willValidate">willValidate</span>;
@@ -419,15 +419,19 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   perform the following steps:</p>
 
   <ol>
+   <li><p>Let <var>oldAPIValue</var> be this element's <span
+   data-x="concept-fe-api-value">API value</span>.</p></li>
+
    <li><p>Set this element's <span data-x="concept-textarea-raw-value">raw value</span> to the new
    value.</p></li>
 
    <li><p>Set this element's <span data-x="concept-fe-dirty">dirty value flag</span> to
    true.</p></li>
 
-   <li><p>Move the text entry cursor position to the end of the text control, unselecting any
-   selected text and <span data-x="set the selection direction">resetting the selection
-   direction</span> to "<code data-x="">none</code>".</p></li>
+   <li><p>If the new <span data-x="concept-fe-api-value">API value</span> is different from
+   <var>oldAPIValue</var>, then move the text entry cursor position to the end of the text control,
+   unselecting any selected text and <span data-x="set the selection direction">resetting the
+   selection direction</span> to "<code data-x="">none</code>".</p></li>
   </ol>
 
   <p>The <dfn><code data-x="dom-textarea-textLength">textLength</code></dfn> IDL attribute must

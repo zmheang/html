@@ -18,6 +18,10 @@
   <p>Navigation always involves <dfn data-export="">source browsing context</dfn>, which is the
   browsing context which was responsible for starting the navigation.</p>
 
+  <p class="&#x0058;&#x0058;&#x0058;">As explained in <a
+  href="https://github.com/whatwg/html/issues/1130">issue #1130</a> the use of a browsing context as
+  source might not be the correct architecture.</p>
+
   <!-- NAVIGATE <dfn>navigate</dfn> -->
   <!-- For places that _call_ this, as opposed to just referring to
   it, search for "DONAV" -->
@@ -157,9 +161,15 @@
         below if either of the following are true:</p>
 
         <ul>
-         <li><p>The <span>source browsing context</span>'s <span>active document</span>'s
-         <span>origin</span> is not the <span>same origin</span> as <var>browsingContext</var>'s
-         <span>active document</span>'s <span>origin</span>.</p></li>
+         <li>
+          <p>The <span>source browsing context</span>'s <span>active document</span>'s
+          <span>origin</span> is not the <span>same origin</span> as <var>browsingContext</var>'s
+          <span>active document</span>'s <span>origin</span>.</p>
+
+          <p class="&#x0058;&#x0058;&#x0058;">As explained in <a
+          href="https://github.com/whatwg/html/issues/2591">issue #2591</a> this step does not work
+          and presents a security issue.</p>
+         </li>
 
          <li><p>The <span>Should navigation request of type from source in target be blocked by
          Content Security Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when

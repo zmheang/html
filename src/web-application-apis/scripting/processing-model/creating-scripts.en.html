@@ -46,9 +46,14 @@
    <var>script source</var> be the empty string. Otherwise, let <var>script source</var> be the
    provided script source.</p></li>
 
-   <li><p>Let <var>result</var> be <span
-   data-x="js-ParseModule">ParseModule</span>(<var>script source</var>, <var>realm</var>,
-   <var>script</var>).</p></li>
+   <li>
+    <p>Let <var>result</var> be <span
+    data-x="js-ParseModule">ParseModule</span>(<var>script source</var>, <var>realm</var>,
+    <var>script</var>).</p>
+
+    <p class="note">Passing <var>script</var> as the last parameter here ensures
+    <var>result</var>.[[HostDefined]] will be <var>script</var>.</p>
+   </li>
 
    <li><p>If <var>result</var> is a <span>List</span> of errors, <span>report the exception</span>
    given by the first element of <var>result</var> for <var>script</var>, return null, and abort

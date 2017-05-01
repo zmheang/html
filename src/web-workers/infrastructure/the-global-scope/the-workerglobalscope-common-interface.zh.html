@@ -15,6 +15,19 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onunhandledrejection">onunhandledrejection</span>;
 };</pre>
 
+  <p id="the-worker's-documents"><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn
+  id="concept-WorkerGlobalScope-owner-set" data-export="" data-for="WorkerGlobalScope">owner
+  set</dfn> （<code>Document</code> 和 <code>WorkerGlobalScope</code> 对象的 <span data-x="set">集合</span>）。
+  初始为空，当创建或获取 Worker 时填充。</p>
+
+  <p class="note">拥有者不止一个，它是一个 <span data-x="set">集合</span> 来适应
+  <code>SharedWorkerGlobalScope</code> 对象。</p>
+
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn id="the-worker's-workers"
+  data-export="" data-for="WorkerGlobalScope">worker set</dfn> （
+  <code>WorkerGlobalScope</code> 对象的 <span data-x="set">集合</span>）。
+  它初始为空，当创建或获取其他 Worker 时填充。</p>
+
   <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-type">type</dfn> （"<code
   data-x="">classic</code>" 或 "<code data-x="">module</code>"）。在创建时设置。

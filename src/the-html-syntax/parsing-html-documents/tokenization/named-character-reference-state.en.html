@@ -1,0 +1,60 @@
+  <h5><dfn>Named character reference state</dfn></h5>
+
+  <p>Consume the maximum number of characters possible, with the consumed characters matching one
+  of the identifiers in the first column of the <span>named character references</span> table (in
+  a <span>case-sensitive</span> manner). Append each character to the <var data-x="temporary
+  buffer">temporary buffer</var> when it's consumed.</p>
+
+  <dl class="switch">
+
+   <dt>If there is a match</dt>
+
+   <dd>
+    <p>If the character reference was consumed as part of an attribute (<var data-x="return
+    state">return state</var> is either <span>attribute value (double-quoted) state</span>,
+    <span>attribute value (single-quoted) state</span> or <span>attribute value (unquoted)
+    state</span>), and the last character matched is not a U+003B SEMICOLON character (;), and the
+    <span>next input character</span> is either a U+003D EQUALS SIGN character (=) or an
+    <span>ASCII alphanumeric</span>, then, for historical reasons, switch to the <span>character
+    reference end state</span>.</p>
+    <!-- "=" added because of https://www.w3.org/Bugs/Public/show_bug.cgi?id=9207#c5 -->
+
+    <p>Otherwise:</p>
+
+    <ol>
+     <li><p>If the last character matched is not a U+003B SEMICOLON character (;), then this is a
+     <span>parse error</span>.</p></li>
+
+     <li><p>Set the <var data-x="temporary buffer">temporary buffer</var> to the empty string.
+     Append one or two characters corresponding to the character reference name (as given by the
+     second column of the <span>named character references</span> table) to the <var
+     data-x="temporary buffer">temporary buffer</var>.</p></li>
+    </ol>
+   </dd>
+
+   <dt>Otherwise</dt>
+
+   <dd>If the <var data-x="temporary buffer">temporary buffer</var> consists of a U+0026 AMPERSAND
+   character (&amp;) followed by a sequence of one or more <span data-x="ASCII alphanumeric">ASCII
+   alphanumerics</span> and a U+003B SEMICOLON character (;), then this is a <span>parse
+   error</span>.</dd>
+
+  </dl>
+
+  <p>Switch to the <span>character reference end state</span>.</p>
+
+  <div class="example">
+
+    <p>If the markup contains (not in an attribute) the string <code data-x="">I'm &amp;notit; I
+    tell you</code>, the character reference is parsed as "not", as in, <code data-x="">I'm &not;it;
+    I tell you</code> (and this is a parse error). But if the markup was <code data-x="">I'm
+    &amp;notin; I tell you</code>, the character reference would be parsed as "notin;", resulting
+    in <code data-x="">I'm &notin; I tell you</code> (and no parse error).</p>
+
+    <p>However, if the markup contains the string <code data-x="">I'm &amp;notit; I tell you</code>
+    in an attribute, no character reference is parsed and string remains intact (and there is no
+    parse error).</p>
+
+  </div>
+
+

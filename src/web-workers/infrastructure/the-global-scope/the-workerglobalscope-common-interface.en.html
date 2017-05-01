@@ -15,6 +15,19 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onunhandledrejection">onunhandledrejection</span>;
 };</pre>
 
+  <p id="the-worker's-documents">A <code>WorkerGlobalScope</code> object has an associated <dfn
+  id="concept-WorkerGlobalScope-owner-set" data-export="" data-for="WorkerGlobalScope">owner
+  set</dfn> (a <span>set</span> of <code>Document</code> and <code>WorkerGlobalScope</code>
+  objects). It is initially empty and populated when the worker is created or obtained.</p>
+
+  <p class="note">It is a <span>set</span>, instead of a single owner, to accomodate
+  <code>SharedWorkerGlobalScope</code> objects.</p>
+
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn id="the-worker's-workers"
+  data-export="" data-for="WorkerGlobalScope">worker set</dfn> (a <span>set</span> of
+  <code>WorkerGlobalScope</code> objects). It is initially empty and populated when the worker
+  creates or obtains further workers.</p>
+
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-type">type</dfn> ("<code
   data-x="">classic</code>" or "<code data-x="">module</code>"). It is set during creation.

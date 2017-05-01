@@ -1,10 +1,11 @@
   <h4>Attributes common to <code>td</code> and <code>th</code> elements</h4>
 
   <p>The <code>td</code> and <code>th</code> elements may have a <dfn><code data-x="attr-tdth-colspan">colspan</code></dfn> content attribute specified, whose value must
-  be a <span>valid non-negative integer</span> greater than zero.</p>
+  be a <span>valid non-negative integer</span> greater than zero and less than or equal to 1000.</p>
 
   <p>The <code>td</code> and <code>th</code> elements may also have a <dfn><code data-x="attr-tdth-rowspan">rowspan</code></dfn> content attribute specified, whose value must
-  be a <span>valid non-negative integer</span>. For this attribute, the value zero means that the
+  be a <span>valid non-negative integer</span> less than or equal to 65534.
+  For this attribute, the value zero means that the
   cell is to span all the remaining rows in the row group.</p> <!-- only in no-quirks and
   limited-quirks mode though, for back compat! -->
 
@@ -63,18 +64,20 @@
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-tdth-colSpan">colSpan</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-tdth-colspan">colspan</code> content attribute. Its
-  default value is 1.</p>
-
   <!--
    https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1699
    https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1700
   -->
 
+  <!-- For colSpan/rowSpan rationale: https://github.com/whatwg/html/issues/1198 -->
+
+  <p>The <dfn><code data-x="dom-tdth-colSpan">colSpan</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-tdth-colspan">colspan</code> content attribute. It is
+  <span>clamped to the range</span> [1, 1000], and its default value is 1.</p>
+
   <p>The <dfn><code data-x="dom-tdth-rowSpan">rowSpan</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-tdth-rowspan">rowspan</code> content attribute. Its
-  default value is 1.</p>
+  <span>reflect</span> the <code data-x="attr-tdth-rowspan">rowspan</code> content attribute. It is
+  <span>clamped to the range</span> [0, 65534], and its default value is 1.</p>
 
   <p>The <dfn><code data-x="dom-tdth-headers">headers</code></dfn> IDL attribute must
   <span>reflect</span> the content attribute of the same name.</p>

@@ -36,7 +36,7 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-href">href</span>;
   [<span>CEReactions</span>] attribute DOMString? <span data-x="dom-link-crossOrigin">crossOrigin</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-rel">rel</span>;
-  [<span>CEReactions</span>] attribute <span>RequestDestination</span> <span data-x="dom-link-as">as</span>; // (default "")
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-as">as</span>; // (default "")
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-relList">relList</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-media">media</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-nonce">nonce</span>;
@@ -73,6 +73,8 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   used are allowed according to the definitions in this specification, then the element does not
   create any links.</span></p>
 
+  <div w-nodev>
+
   <p><code data-x="attr-link-rel">rel</code>'s
   <span data-x="concept-supported-tokens">supported tokens</span> are the keywords defined in
   <a href="#linkTypes">HTML link types</a> which are allowed on <code>link</code> elements, impact
@@ -93,6 +95,15 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <code data-x="attr-link-rel">rel</code>'s <span data-x="concept-supported-tokens">supported
   tokens</span> must only include the tokens from this list that the user agent implements the
   processing model for.</p>
+
+  <p class="note">Theoretically a user agent could support the processing model for the <code
+  data-x="rel-canonical">canonical</code> keyword — if it were a search engine that executed
+  JavaScript. But in practice that's quite unlikely. So in most cases, <code
+  data-x="rel-canonical">canonical</code> ought not be included in <code
+  data-x="attr-link-rel">rel</code>'s <span data-x="concept-supported-tokens">supported
+  tokens</span>.</p>
+
+  </div>
 
   <p>A <code>link</code> element must have either a <code data-x="attr-link-rel">rel</code>
   attribute or an <code data-x="attr-itemprop">itemprop</code> attribute, but not both.</p>
@@ -149,9 +160,8 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   link's location within the document.</p>
 
   <p>The exact behavior for <span data-x="external resource link">links to external resources</span>
-  depends on the exact relationship, as defined for the relevant <a href="#linkTypes">link type</a>.
-  Some of the attributes control whether or not the external resource is to be applied (as defined
-  below).</p>
+  depends on the exact relationship, as defined for the relevant <a href="#linkTypes">link
+  type</a>.</p>
 
   <p>The <dfn><code data-x="attr-link-media">media</code></dfn> attribute says which media the
   resource applies to. The value must be a <span>valid media query list</span>.</p>
@@ -221,11 +231,13 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <dfn><code data-x="attr-link-as">as</code></dfn> attribute specifies the <span
   data-x="concept-request-destination">destination</span> for a preload request for the resource
-  given by the <code data-x="attr-link-href">href</code> attribute. If the attribute is present, the
-  value must <span data-x="case-sensitive">case-sensitively</span> match one of the <span
-  data-x="concept-request-destination">destination keywords</span>. The default value is the empty
-  string. The attribute may be omitted. The attribute must not be specified on <code>link</code>
-  elements that do not have a <code data-x="attr-link-rel">rel</code> attribute that contains the
+  given by the <code data-x="attr-link-href">href</code> attribute. It is an <span>enumerated
+  attribute</span>. Each <span data-x="concept-request-destination">request destination</span>,
+  including the empty string, is a keyword for this attribute, mapping to a state of the same name.
+  The attribute's <i data-x="missing value default">missing value default</i> and <i data-x="invalid
+  value default">invalid value default</i> are both the empty string state. The attribute may be
+  omitted. The attribute must not be specified on <code>link</code> elements that do not have a
+  <code data-x="attr-link-rel">rel</code> attribute that contains the
   <code data-x="rel-preload">preload</code> keyword.<span w-nodev> User agents must implement the
   processing model of the <code data-x="attr-link-as">as</code> attribute described in
   <cite>Preload</cite>. <ref spec=FETCH> <ref spec=PRELOAD></span></p>
@@ -273,7 +285,6 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <hr>
 
   <p>The IDL attributes
-  <dfn><code data-x="dom-link-as">as</code></dfn>,
   <dfn><code data-x="dom-link-href">href</code></dfn>,
   <dfn><code data-x="dom-link-hreflang">hreflang</code></dfn>,
   <dfn><code data-x="dom-link-integrity">integrity</code></dfn>,
@@ -287,6 +298,10 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <p class="note">There is no reflecting IDL attribute for the <code
   data-x="attr-link-color">color</code> attribute, but this might be added later.</p>
+
+  <p>The <dfn><code data-x="dom-link-as">as</code></dfn> IDL attribute must <span>reflect</span> the
+  <code data-x="attr-link-as">as</code> content attribute, <span>limited to only known
+  values</span>.</p>
 
   <p>The <dfn><code data-x="dom-link-crossOrigin">crossOrigin</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-link-crossorigin">crossorigin</code> content

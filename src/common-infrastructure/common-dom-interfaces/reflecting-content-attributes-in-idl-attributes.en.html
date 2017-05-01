@@ -41,13 +41,6 @@
   data-x="idl-USVString">USVString</code> attribute but doesn't fall into any of the above
   categories, then the getting and setting must be done in a transparent, case-preserving manner.</p>
 
-  <p>If a reflecting IDL attribute is an <span>IDL enumeration</span> attribute, then, on getting,
-  if the corresponding content attribute's value <span
-  data-x="case-sensitive">case-sensitively</span> matches one of the enumerated values, then the IDL
-  attribute must return the content attribute's value; otherwise it must return the content
-  attribute's default value. On setting, the content attribute must be set to the specified new
-  value.</p>
-
   <p>If a reflecting IDL attribute is a <code data-x="idl-boolean">boolean</code> attribute, then on
   getting the IDL attribute must return true if the content attribute is set, and false if it is
   absent. On setting, the content attribute must be removed if the IDL attribute is set to false,
@@ -119,6 +112,16 @@
   default value; then, <var>n</var> must be converted to the shortest possible string representing
   the number as a <span>valid non-negative integer</span> and that string must be used as the new
   content attribute value.</p> <!-- see previous paragraph for note about the weird range -->
+
+  <p>If a reflecting IDL attribute has an unsigned integer type (<code
+  data-x="idl-unsigned-long">unsigned long</code>) that is <dfn>clamped to the range</dfn>
+  [<var>min</var>, <var>max</var>], then on getting, the content attribute must first be parsed
+  according to the <span>rules for parsing non-negative integers</span>, and if that is successful,
+  and the value is between <var>min</var> and <var>max</var> inclusive, the resulting value must be
+  returned. If it fails, the default value must be returned. If it succeeds but the value is less
+  than <var>min</var>, <var>min</var> must be returned. If it succeeds but the value is greater than
+  <var>max</var>, <var>max</var> must be returned. On setting, it behaves the same as setting a
+  regular reflected unsigned integer.</p>
 
   <p>If a reflecting IDL attribute has a floating-point number type (<code
   data-x="idl-double">double</code> or <code data-x="idl-unrestricted-double">unrestricted

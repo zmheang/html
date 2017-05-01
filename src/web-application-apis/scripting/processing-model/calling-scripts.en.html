@@ -15,10 +15,15 @@
 
    <li><p><span>Prepare to run script</span> with <var>settings</var>.</p></li>
 
-   <li><p>Let <var>result</var> be <span
-   data-x="js-ParseScript">ParseScript</span>(<var>s</var>'s <span
-   data-x="concept-classic-script-source-text">source text</span>, <var>realm</var>,
-   <var>s</var>).</p></li>
+   <li>
+    <p>Let <var>result</var> be <span
+    data-x="js-ParseScript">ParseScript</span>(<var>s</var>'s <span
+    data-x="concept-classic-script-source-text">source text</span>, <var>realm</var>,
+    <var>s</var>).</p>
+
+    <p class="note">Passing <var>s</var> as the last parameter here ensures
+    <var>result</var>.[[HostDefined]] will be <var>s</var>.</p>
+   </li>
 
    <li><p>If <var>result</var> is a <span>List</span> of errors, set <var>result</var> to the first
    element of <var>result</var> and go to the step labeled <i>error</i>.</p></li>
@@ -124,9 +129,6 @@
 
   <ol>
 
-   <li><p>Increment <var>settings</var>'s <span>realm execution context</span>'s <span>entrance
-   counter</span> by one.</p></li>
-
    <li><p>Push <var>settings</var>'s <span>realm execution context</span> onto the <span>JavaScript
    execution context stack</span>; it is now the <span>running JavaScript execution
    context</span>.</p></li>
@@ -143,9 +145,6 @@
 
    <li><p>Remove <var>settings</var>'s <span>realm execution context</span> from the
    <span>JavaScript execution context stack</span>.</p></li>
-
-   <li><p>Decrement <var>settings</var>'s <span>realm execution context</span>'s <span>entrance
-   counter</span> by one.</p></li>
 
    <li><p>If the <span>JavaScript execution context stack</span> is now empty, <span>perform a
    microtask checkpoint</span>. (If this runs scripts, these algorithms will be invoked

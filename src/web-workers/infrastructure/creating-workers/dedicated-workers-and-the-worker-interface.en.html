@@ -6,6 +6,7 @@ interface <dfn>Worker</dfn> : <span>EventTarget</span> {
 
   void <span data-x="dom-Worker-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
   attribute <span>EventHandler</span> <span data-x="handler-Worker-onmessage">onmessage</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-Worker-onmessageerror">onmessageerror</span>;
 };
 
 dictionary <dfn>WorkerOptions</dfn> {
@@ -37,9 +38,9 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-Worker-terminate">terminate()</code></dfn> method, when invoked, must
-  cause the "<span>terminate a worker</span>" algorithm to be run on the worker with which the object
-  is associated.</p>
+  <p>The <dfn><code data-x="dom-Worker-terminate">terminate()</code></dfn> method, when invoked,
+  must cause the <span>terminate a worker</span> algorithm to be run on the worker with which the
+  object is associated.</p>
 
   <p><code>Worker</code> objects act as if they had an implicit <code>MessagePort</code> associated
   with them. This port is part of a channel that is set up when the worker is created, but it is not
@@ -73,6 +74,7 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
     <tr><th><span data-x="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody>
     <tr><td><dfn><code data-x="handler-Worker-onmessage">onmessage</code></dfn> <td> <code data-x="event-message">message</code>
+    <tr><td><dfn><code data-x="handler-Worker-onmessageerror">onmessageerror</code></dfn> <td> <code data-x="event-messageerror">messageerror</code>
   </table>
 
   <div w-nodev>
@@ -113,9 +115,6 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
    <var>outside port</var>.</p></li>
 
    <li><p>Associate the <var>outside port</var> with <var>worker</var>.</p></li>
-
-   <li><p>Let <var>docs</var> be the <span>list of relevant <code>Document</code> objects to
-   add</span> given <var>outside settings</var>.</p></li>
 
    <li><p>Return <var>worker</var>, and run the following step <span>in parallel</span>.</p></li>
 

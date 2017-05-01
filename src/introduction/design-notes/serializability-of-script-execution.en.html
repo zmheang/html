@@ -8,6 +8,13 @@
   be thought of as completely serializing the execution of all scripts in all <span data-x="browsing
   context">browsing contexts</span>.</p>
 
+  <p>The exception to this general design principle is the JavaScript <code>SharedArrayBuffer</code>
+  class. Using <code>SharedArrayBuffer</code> objects, it can in fact be observed that scripts in
+  other <span data-x="agent">agents</span> are executing simultaneously. Furthermore, due to the
+  JavaScript memory model, there are situations which not only are un-representable via serialized
+  <em>script</em> execution, but also un-representable via serialized <em>statement</em> execution
+  among those scripts.</p>
+
   </div>
 
 

@@ -37,11 +37,6 @@
   data-x="idl-USVString">USVString</code> 属性但不归于上述类别中，
   那么获取和设置必须透明地，保持大小写地进行。</p>
 
-  <p>如果反应内容属性的 IDL 属性是 <span data-x="IDL enumeration">IDL 枚举</span> 属性，
-  那么当获取时，如果对应的内容属性值 <span data-x="case-sensitive">大小写敏感地</span> 匹配
-  某一个枚举值， 那么该 IDL 属性必须返回内容属性的值；否则必须返回内容属性的默认值。
-  当设置时，必须设置内容属性的值为给定的新值。</p>
-
   <p>如果反应内容属性的 IDL 属性是 <code data-x="idl-boolean">布尔</code> 属性，
   当获取该 IDL 属性时，如果设置了该内容属性则必须返回 true，
   如果不存在则返回 false。当设置时，如果该 IDL 属性被设为 false 则必须移除该内容属性。
@@ -108,6 +103,13 @@
   否则令 <var>n</var> 为默认值；然后必须将 <var>n</var> 转换为可将该数字表示为
   <span data-x="valid non-negative integer">合法非负整数</span>
   的可能的最短字符串，然后该字符串必须被用作新的内容属性值。</p> <!-- see previous paragraph for note about the weird range -->
+
+  <p>如果反应内容属性的 IDL 属性是<dfn data-x="clamped to the range">固定范围</dfn>
+  到 [<var>min</var>, <var>max</var>] 的无符号整数类型（<code data-x="idl-unsigned-long">unsigned long</code>），
+  当获取时，必须先根据 <span data-x="rules for parsing non-negative integers">解析非负整数的规则</span>
+  解析内容属性，如果解析成功且值在 <var>min</var> 和 <var>max</var> 之间（包含），
+  必须返回该结果值。如果失败，必须返回默认值。如果解析成功但值小于 <var>min</var>，必须返回 <var>min</var>。
+  如果解析成功但值大于 <var>max</var>，必须返回 <var>max</var>。当设置时，其行为与设置普通无符号整数一样。</p>
 
   <p>如果反应内容属性的 IDL 属性是浮点数类型（<code data-x="idl-double">double</code> 或
   <code data-x="idl-unrestricted-double">unrestricted double</code>），那么当获取时，

@@ -84,7 +84,7 @@
 
        <li>
 
-        <p>For each value of <var>y</var> from <var>principal<sub>y</sub></var> to <span data-x=""><var>principal<sub>y</sub></var>+<var>principal<sub>height</sub></var>-1</span>, run
+        <p>For each value of <var>y</var> from <var>principal<sub>y</sub></var> to <var>principal<sub>y</sub></var>+<var>principal<sub>height</sub></var>-1, run
         the <span>internal algorithm for scanning and assigning header cells</span>, with the <var>principal cell</var>, the <var>header list</var>, the initial coordinate
         (<var>principal<sub>x</sub></var>,<var>y</var>), and the
         increments <span data-x="">&Delta;<var>x</var>=&#x2212;1</span> and <span
@@ -97,7 +97,7 @@
 
        <li>
 
-        <p>For each value of <var>x</var> from <var>principal<sub>x</sub></var> to <span data-x=""><var>principal<sub>x</sub></var>+<var>principal<sub>width</sub></var>-1</span>, run
+        <p>For each value of <var>x</var> from <var>principal<sub>x</sub></var> to <var>principal<sub>x</sub></var>+<var>principal<sub>width</sub></var>-1, run
         the <span>internal algorithm for scanning and assigning header cells</span>, with the <var>principal cell</var>, the <var>header list</var>, the initial coordinate
         (<var>x</var>,<var>principal<sub>y</sub></var>), and the
         increments <span data-x="">&Delta;<var>x</var>=0</span> and <span
@@ -113,8 +113,8 @@
         <p>If the <var>principal cell</var> is anchored in a <span
         data-x="concept-row-group">row group</span>, then add all header cells that are <span
         data-x="row group header">row group headers</span> and are anchored in the same row group
-        with an <var>x</var>-coordinate less than or equal to <span data-x=""><var>principal<sub>x</sub></var>+<var>principal<sub>width</sub></var>-1</span> and a <var>y</var>-coordinate less than or
-        equal to <span data-x=""><var>principal<sub>y</sub></var>+<var>principal<sub>height</sub></var>-1</span> to <var>header
+        with an <var>x</var>-coordinate less than or equal to <var>principal<sub>x</sub></var>+<var>principal<sub>width</sub></var>-1 and a <var>y</var>-coordinate less than or
+        equal to <var>principal<sub>y</sub></var>+<var>principal<sub>height</sub></var>-1 to <var>header
         list</var>.</p>
 
         <!-- this might introduce principal accidentally; fixed below -->
@@ -129,8 +129,8 @@
         <p>If the <var>principal cell</var> is anchored in a <span
         data-x="concept-column-group">column group</span>, then add all header cells that are <span
         data-x="column group header">column group headers</span> and are anchored in the same column
-        group with an <var>x</var>-coordinate less than or equal to <span data-x=""><var>principal<sub>x</sub></var>+<var>principal<sub>width</sub></var>-1</span> and a <var>y</var>-coordinate less than or
-        equal to <span data-x=""><var>principal<sub>y</sub></var>+<var>principal<sub>height</sub></var>-1</span> to <var>header
+        group with an <var>x</var>-coordinate less than or equal to <var>principal<sub>x</sub></var>+<var>principal<sub>width</sub></var>-1 and a <var>y</var>-coordinate less than or
+        equal to <var>principal<sub>y</sub></var>+<var>principal<sub>height</sub></var>-1 to <var>header
         list</var>.</p>
 
         <!-- this might introduce principal accidentally; fixed below -->
@@ -351,7 +351,7 @@
    <li>The cell's <code data-x="attr-th-scope">scope</code> attribute is in the <span
    data-x="attr-th-scope-auto">auto</span> state, the cell is not a <span>column header</span>, and
    there are no data cells in any of the cells covering slots with <var>x</var>-coordinates
-   <var>x</var> .. <span data-x=""><var>x</var>+<var>width</var>-1</span>.</li>
+   <var>x</var> .. <var>x</var>+<var>width</var>-1.</li>
 
   </ul>
 

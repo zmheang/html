@@ -19,6 +19,7 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
   void <span data-x="dom-BroadcastChannel-postMessage">postMessage</span>(any message);
   void <span data-x="dom-BroadcastChannel-close">close</span>();
   attribute <span>EventHandler</span> <span data-x="handler-BroadcastChannel-onmessage">onmessage</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-BroadcastChannel-onmessageerror">onmessageerror</span>;
 };</pre>
 
   <dl class="domintro">
@@ -110,7 +111,7 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
        <li><p>a <span data-x="concept-settings-object-global">global object</span> that is a
        <code>WorkerGlobalScope</code> object whose <span
        data-x="dom-WorkerGlobalScope-closing">closing</span> flag is false and whose
-       <span>worker</span> is a <span>suspendable worker</span>.</p></li>
+       <span>worker</span> is not a <span>suspendable worker</span>.</p></li>
       </ul>
      </li>
 
@@ -143,10 +144,17 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
      <li><p>Let <var>targetRealm</var> be <var>destination</var>'s <span
      data-x="concept-relevant-realm">relevant Realm</span>.</p></li>
 
-     <li><p>Let <var>data</var> be <span>StructuredDeserialize</span>(<var>serialized</var>,
-     <var>targetRealm</var>).</p></li>
-     <!-- TODO: deal with exceptions: deliver "messageerror" or similar. See discussion in
-     https://github.com/whatwg/html/issues/936. -->
+     <li>
+      <p>Let <var>data</var> be <span>StructuredDeserialize</span>(<var>serialized</var>,
+      <var>targetRealm</var>).</p>
+
+      <p>If this throws an exception, then <span data-x="concept-event-fire">fire an event</span>
+      named <code data-x="event-messageerror">messageerror</code> at <var>destination</var>, using
+      <code>MessageEvent</code>, with the <code data-x="dom-MessageEvent-origin">origin</code>
+      attribute initialized to the <span data-x="Unicode serialization of an origin">Unicode
+      serialization</span> of <var>sourceSettings</var>'s <span
+      data-x="concept-settings-object-origin">origin</span>, and then abort these steps.</p>
+     </li>
 
      <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
      data-x="event-message">message</code> at <var>destination</var>, using
@@ -197,6 +205,7 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
     <tr><th><span data-x="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody>
     <tr><td><dfn><code data-x="handler-BroadcastChannel-onmessage">onmessage</code></dfn> <td> <code data-x="event-message">message</code>
+    <tr><td><dfn><code data-x="handler-BroadcastChannel-onmessageerror">onmessageerror</code></dfn> <td> <code data-x="event-messageerror">messageerror</code>
   </table>
 
   </div>

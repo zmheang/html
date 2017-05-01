@@ -13,26 +13,26 @@
   <p>A <dfn data-x="concept-cell">cell</dfn> is a set of slots anchored at a slot (<var>cell<sub>x</sub></var>, <var>cell<sub>y</sub></var>), and with
   a particular <var>width</var> and <var>height</var> such that the cell covers
   all the slots with coordinates (<var>x</var>, <var>y</var>) where <span
-  data-x=""><var>cell<sub>x</sub></var>&nbsp;&le;&nbsp;<var>x</var>&nbsp;&lt;&nbsp;<var>cell<sub>x</sub></var>+<var>width</var></span> and <span data-x=""><var>cell<sub>y</sub></var>&nbsp;&le;&nbsp;<var>y</var>&nbsp;&lt;&nbsp;<var>cell<sub>y</sub></var>+<var>height</var></span>. Cells can either be <em>data cells</em>
+  data-x=""><var>cell<sub>x</sub></var>&nbsp;&le;&nbsp;<var>x</var>&nbsp;&lt;&nbsp;<var>cell<sub>x</sub></var>+<var>width</var></span> and <var>cell<sub>y</sub></var>&nbsp;&le;&nbsp;<var>y</var>&nbsp;&lt;&nbsp;<var>cell<sub>y</sub></var>+<var>height</var>. Cells can either be <em>data cells</em>
   or <em>header cells</em>. Data cells correspond to <code>td</code> elements, and header cells
   correspond to <code>th</code> elements. Cells of both types can have zero or more associated
   header cells.</p>
 
   <p>It is possible, in certain error cases, for two cells to occupy the same slot.</p>
 
-  <p>A <dfn data-x="concept-row">row</dfn> is a complete set of slots from <span data-x=""><var>x</var>=0</span> to <span data-x=""><var>x</var>=<var>x<sub>width</sub></var>-1</span>, for a particular value of <var>y</var>. Rows usually
+  <p>A <dfn data-x="concept-row">row</dfn> is a complete set of slots from <var>x</var>=0 to <var>x</var>=<var>x<sub>width</sub></var>-1, for a particular value of <var>y</var>. Rows usually
   correspond to <code>tr</code> elements, though a <span data-x="concept-row-group">row group</span>
   can have some implied <span data-x="concept-row">rows</span> at the end in some cases involving
   <span data-x="concept-cell">cells</span> spanning multiple rows.</p>
 
-  <p>A <dfn data-x="concept-column">column</dfn> is a complete set of slots from <span data-x=""><var>y</var>=0</span> to <span data-x=""><var>y</var>=<var>y<sub>height</sub></var>-1</span>, for a particular value of <var>x</var>. Columns can
+  <p>A <dfn data-x="concept-column">column</dfn> is a complete set of slots from <var>y</var>=0 to <var>y</var>=<var>y<sub>height</sub></var>-1, for a particular value of <var>x</var>. Columns can
   correspond to <code>col</code> elements. In the absence of <code>col</code> elements, columns are
   implied.</p>
 
   <p>A <dfn data-x="concept-row-group">row group</dfn> is a set of <span
   data-x="concept-row">rows</span> anchored at a slot (0, <var>group<sub>y</sub></var>) with a particular <var>height</var> such that the row group
   covers all the slots with coordinates (<var>x</var>, <var>y</var>) where <span
-  data-x="">0&nbsp;&le;&nbsp;<var>x</var>&nbsp;&lt;&nbsp;<var>x<sub>width</sub></var></span> and <span data-x=""><var>group<sub>y</sub></var>&nbsp;&le;&nbsp;<var>y</var>&nbsp;&lt;&nbsp;<var>group<sub>y</sub></var>+<var>height</var></span>. Row groups correspond to
+  data-x="">0&nbsp;&le;&nbsp;<var>x</var>&nbsp;&lt;&nbsp;<var>x<sub>width</sub></var></span> and <var>group<sub>y</sub></var>&nbsp;&le;&nbsp;<var>y</var>&nbsp;&lt;&nbsp;<var>group<sub>y</sub></var>+<var>height</var>. Row groups correspond to
   <code>tbody</code>, <code>thead</code>, and <code>tfoot</code> elements. Not every row is
   necessarily in a row group.</p>
 

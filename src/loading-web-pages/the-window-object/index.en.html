@@ -31,7 +31,7 @@ interface <dfn data-export="" data-dfn-type="interface">Window</dfn> : <span>Eve
   attribute any <span data-x="dom-opener">opener</span>;
   [Replaceable] readonly attribute <span>WindowProxy</span>? <span data-x="dom-parent">parent</span>;
   readonly attribute <span>Element</span>? <span data-x="dom-frameElement">frameElement</span>;
-  <span>WindowProxy</span>? <span data-x="dom-open">open</span>(optional USVString url = "about:blank", optional DOMString target = "_blank", [TreatNullAs=EmptyString] optional DOMString features = "");
+  <span>WindowProxy</span>? <span data-x="dom-open">open</span>(optional USVString url = "about:blank", optional DOMString target = "_blank", optional [TreatNullAs=EmptyString] DOMString features = "");
   <a href="#dom-window-nameditem">getter</a> <span data-x="idl-object">object</span> (DOMString name);
   // Since this is the global object, the IDL named getter adds a NamedPropertiesObject exotic
   // object on the prototype chain. Indeed, this does not make the global object an exotic object.

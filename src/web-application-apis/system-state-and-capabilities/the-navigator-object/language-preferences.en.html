@@ -7,18 +7,19 @@ interface <dfn>NavigatorLanguage</dfn> {
 };</pre>
 
   <dl class="domintro">
+   <dt><var>self</var> . <code data-x="dom-navigator">navigator</code> . <code subdfn
+   data-x="dom-navigator-language">language</code></dt>
+   <dd><p>Returns a language tag representing the user's preferred language.</p></dd>
 
-   <dt><var>window</var> . <code data-x="dom-navigator">navigator</code> . <code subdfn data-x="dom-navigator-language">language</code></dt>
+   <dt><var>self</var> . <code data-x="dom-navigator">navigator</code> . <code subdfn
+   data-x="dom-navigator-languages">languages</code></dt>
    <dd>
-    <p>Returns a language tag representing the user's preferred language.</p>
-   </dd>
+    <p>Returns an array of language tags representing the user's preferred languages, with the most
+    preferred language first.</p>
 
-   <dt><var>window</var> . <code data-x="dom-navigator">navigator</code> . <code subdfn data-x="dom-navigator-languages">languages</code></dt>
-   <dd>
-    <p>Returns an array of language tags representing the user's preferred languages, with the most preferred language first.</p>
-    <p>The most preferred language is the one returned by <code data-x="dom-navigator-language">navigator.language</code>.</p>
+    <p>The most preferred language is the one returned by <code
+    data-x="dom-navigator-language">navigator.language</code>.</p>
    </dd>
-
   </dl>
 
   <p class="note">A <code data-x="event-languagechange">languagechange</code> event is fired at the

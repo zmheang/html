@@ -1,13 +1,14 @@
-  <h4 id="structuredserialize" data-export="" data-lt="StructuredSerialize"
-  data-dfn-type="abstract-op"><dfn>StructuredSerialize</dfn> ( <var>value</var> [ ,
-  <var>memory</var> ] )</h4>
+  <h4 id="structuredserializeinternal" data-noexport="" data-lt="StructuredSerializeInternal"
+  data-dfn-type="abstract-op"><dfn>StructuredSerializeInternal</dfn> ( <var>value</var>,
+  <var>forStorage</var> [ , <var>memory</var> ] )</h4>
 
-  <p>The <span>StructuredSerialize</span> abstract operation takes as input a JavaScript value
-  <var>value</var> and serializes it to a <span data-x="JavaScript Realm">Realm</span>-independent
-  form, represented here as a <span>Record</span>. This serialized form has all the information
-  necessary to later deserialize into a new JavaScript value in a different Realm.</p>
+  <p>The <span>StructuredSerializeInternal</span> abstract operation takes as input a JavaScript
+  value <var>value</var> and serializes it to a <span data-x="JavaScript
+  Realm">Realm</span>-independent form, represented here as a <span>Record</span>. This serialized
+  form has all the information necessary to later deserialize into a new JavaScript value in a
+  different Realm.</p>
 
-  <p>This process may throw an exception, for example when trying to serialize un-serializable
+  <p>This process can throw an exception, for example when trying to serialize un-serializable
   objects.</p>
 
   <ol>
@@ -56,23 +57,43 @@
     <p>Otherwise, if <var>value</var> has an [[ArrayBufferData]] internal slot, then:</p>
 
     <ol>
-     <li><p>If <span>IsDetachedBuffer</span>(<var>value</var>) is true, then throw a
-     <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
-
      <li><p>Let <var>size</var> be <var>value</var>.[[ArrayBufferByteLength]].</p></li>
 
      <li>
-      <p>Let <var>dataCopy</var> be ? <span>CreateByteDataBlock</span>(<var>size</var>).</p>
+      <p>If ! <span>IsSharedArrayBuffer</span>(<var>value</var>) is true, then:
 
-      <p class="note">This can throw a <code data-x="js-RangeError">RangeError</code> exception upon
-      allocation failure.</p>
+      <ol>
+       <li><p>If <var>forStorage</var> is true, then throw a
+       <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
+
+       <li><p>Set <var>serialized</var> to { [[Type]]: "SharedArrayBuffer", [[ArrayBufferData]]:
+       <var>value</var>.[[ArrayBufferData]], [[ArrayBufferByteLength]]: <var>size</var>,
+       [[AgentCluster]]: the <span>current Realm Record</span>'s corresponding <span>agent
+       cluster</span> }.</p></li>
+      </ol>
      </li>
 
-     <li><p>Perform ! <span>CopyDataBlockBytes</span>(<var>dataCopy</var>, 0,
-     <var>value</var>.[[ArrayBufferData]], 0, <var>size</var>).</p></li>
+     <li>
+      <p>Otherwise:</p>
 
-     <li><p>Set <var>serialized</var> to { [[Type]]: "ArrayBuffer", [[ArrayBufferData]]:
-     <var>dataCopy</var>, [[ArrayBufferByteLength]]: <var>size</var> }.</p></li>
+      <ol>
+       <li><p>If ! <span>IsDetachedBuffer</span>(<var>value</var>) is true, then throw a
+       <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
+
+       <li>
+        <p>Let <var>dataCopy</var> be ? <span>CreateByteDataBlock</span>(<var>size</var>).</p>
+
+        <p class="note">This can throw a <code data-x="js-RangeError">RangeError</code> exception
+        upon allocation failure.</p>
+       </li>
+
+       <li><p>Perform ! <span>CopyDataBlockBytes</span>(<var>dataCopy</var>, 0,
+       <var>value</var>.[[ArrayBufferData]], 0, <var>size</var>).</p></li>
+
+       <li><p>Set <var>serialized</var> to { [[Type]]: "ArrayBuffer", [[ArrayBufferData]]:
+       <var>dataCopy</var>, [[ArrayBufferByteLength]]: <var>size</var> }.</p></li>
+      </ol>
+     </li>
     </ol>
    </li>
 
@@ -83,7 +104,8 @@
      <li><p>Let <var>buffer</var> be the value of <var>value</var>'s [[ViewedArrayBuffer]] internal
      slot.</p></li>
 
-     <li><p>Let <var>bufferSerialized</var> be ? <span>StructuredSerialize</span>(<var>buffer</var>,
+     <li><p>Let <var>bufferSerialized</var> be ?
+     <span>StructuredSerializeInternal</span>(<var>buffer</var>, <var>forStorage</var>,
      <var>memory</var>).</p></li>
 
      <li><p>Assert: <var>bufferSerialized</var>.[[Type]] is "ArrayBuffer".</p></li>
@@ -228,10 +250,12 @@
 
         <ol>
          <li><p>Let <var>serializedKey</var> be ?
-         <span>StructuredSerialize</span>(<var>entry</var>.[[Key]], <var>memory</var>).</p></li>
+         <span>StructuredSerializeInternal</span>(<var>entry</var>.[[Key]], <var>forStorage</var>,
+         <var>memory</var>).</p></li>
 
          <li><p>Let <var>serializedValue</var> be ?
-         <span>StructuredSerialize</span>(<var>entry</var>.[[Value]], <var>memory</var>).</p></li>
+         <span>StructuredSerializeInternal</span>(<var>entry</var>.[[Value]], <var>forStorage</var>,
+         <var>memory</var>).</p></li>
 
          <li><p><span data-x="list append">Append</span> { [[Key]]: <var>serializedKey</var>,
          [[Value]]: <var>serializedValue</var> } to <var>serialized</var>.[[MapData]].</p></li>
@@ -260,7 +284,8 @@
 
         <ol>
          <li><p>Let <var>serializedEntry</var> be ?
-         <span>StructuredSerialize</span>(<var>entry</var>, <var>memory</var>).</p></li>
+         <span>StructuredSerializeInternal</span>(<var>entry</var>, <var>forStorage</var>,
+         <var>memory</var>).</p></li>
 
          <li><p><span data-x="list append">Append</span> <var>serializedEntry</var> to
          <var>serialized</var>.[[SetData]].</p></li>
@@ -272,13 +297,15 @@
      <li>
       <p>Otherwise, if <var>value</var> is a <span>platform object</span> that is a <span
       data-x="serializable objects">serializable object</span>, then perform the appropriate
-      <span>serialization steps</span> given <var>value</var> and <var>serialized</var>.</p>
+      <span>serialization steps</span> given <var>value</var>, <var>serialized</var>, and
+      <var>forStorage</var>.</p>
 
       <p>The <span>serialization steps</span> may need to perform a <dfn
       data-export="">sub-serialization</dfn>. This is an operation which takes as input a value
-      <var>subValue</var>, and returns <span>StructuredSerialize</span>(<var>subValue</var>,
-      <var>memory</var>). (In other words, a <span>sub-serialization</span> is a specialization of
-      <span>StructuredSerialize</span> to be consistent within this invocation.)</p>
+      <var>subValue</var>, and returns <span>StructuredSerializeInternal</span>(<var>subValue</var>,
+      <var>forStorage</var>, <var>memory</var>). (In other words, a <span>sub-serialization</span>
+      is a specialization of <span>StructuredSerializeInternal</span> to be consistent within this
+      invocation.)</p>
      </li>
 
      <li>
@@ -316,7 +343,7 @@
            <var>value</var>).</p></li>
 
            <li><p>Let <var>outputValue</var> be ?
-           <span>StructuredSerialize</span>(<var>inputValue</var>, <var>targetRealm</var>,
+           <span>StructuredSerializeInternal</span>(<var>inputValue</var>, <var>forStorage</var>,
            <var>memory</var>).</p></li>
 
            <li><p><span data-x="list append">Append</span> { [[Key]]: <var>key</var>, [[Value]]:
@@ -341,9 +368,9 @@
 
   <div class="example">
    <p>It's important to realize that the <span data-x="Record">Records</span>
-   produced by <span>StructuredSerialize</span> might contain "pointers" to other records that
-   create circular references. For example, when we pass the following JavaScript object into
-   <span>StructuredSerialize</span>:</p>
+   produced by <span>StructuredSerializeInternal</span> might contain "pointers" to other records
+   that create circular references. For example, when we pass the following JavaScript object into
+   <span>StructuredSerializeInternal</span>:</p>
 
   <pre>const o = {};
 o.myself = o;</pre>

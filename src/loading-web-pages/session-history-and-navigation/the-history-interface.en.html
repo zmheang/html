@@ -290,8 +290,8 @@ interface <dfn>History</dfn> {
    <li><p>Let <var>targetRealm</var> be this <code>History</code> object's <span
    data-x="concept-relevant-realm">relevant Realm</span>.</p></li>
 
-   <li><p>Let <var>serializedData</var> be <span>StructuredSerialize</span>(<var>data</var>).
-   Rethrow any exceptions.</p></li>
+   <li><p>Let <var>serializedData</var> be
+   <span>StructuredSerializeForStorage</span>(<var>data</var>). Rethrow any exceptions.</p></li>
 
    <li>
 

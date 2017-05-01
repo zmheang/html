@@ -7,6 +7,7 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
   void <span data-x="dom-DedicatedWorkerGlobalScope-close">close</span>();
 
   attribute <span>EventHandler</span> <span data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-DedicatedWorkerGlobalScope-onmessageerror">onmessageerror</span>;
 };</pre>
 
   <p><code>DedicatedWorkerGlobalScope</code> objects act as if they had an implicit
@@ -67,6 +68,7 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
     <tr><th><span data-x="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody>
     <tr><td><dfn><code data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</code></dfn> <td> <code data-x="event-message">message</code>
+    <tr><td><dfn><code data-x="handler-DedicatedWorkerGlobalScope-onmessageerror">onmessageerror</code></dfn> <td> <code data-x="event-messageerror">messageerror</code>
   </table>
 
   <p>For the purposes of the <span>application cache</span> networking model, a dedicated worker is

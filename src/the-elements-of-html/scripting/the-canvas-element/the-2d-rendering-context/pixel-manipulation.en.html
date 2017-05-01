@@ -191,7 +191,7 @@
   data-x=""><var>sx</var>+<var>sw</var></span>, <var>sy</var>), (<span
   data-x=""><var>sx</var>+<var>sw</var></span>, <span
   data-x=""><var>sy</var>+<var>sh</var></span>), (<var>sx</var>,
-  <span data-x=""><var>sy</var>+<var>sh</var></span>), in the bitmap's coordinate space units.
+  <var>sy</var>+<var>sh</var>), in the bitmap's coordinate space units.
   Pixels outside the <span>output bitmap</span> must be set to transparent black. Pixel values
   must not be premultiplied by alpha.</p>
 
@@ -312,12 +312,12 @@
 
    <li>
 
-    <p>If <span data-x=""><var>dirtyX</var>+<var>dirtyWidth</var></span> is greater than the <code
+    <p>If <var>dirtyX</var>+<var>dirtyWidth</var> is greater than the <code
     data-x="dom-imagedata-width">width</code> attribute of the <var>imagedata</var> argument, then
     let <var>dirtyWidth</var> be the value of that <code data-x="dom-imagedata-width">width</code>
     attribute, minus the value of <var>dirtyX</var>.</p>
 
-    <p>If <span data-x=""><var>dirtyY</var>+<var>dirtyHeight</var></span> is greater than the <code
+    <p>If <var>dirtyY</var>+<var>dirtyHeight</var> is greater than the <code
     data-x="dom-imagedata-height">height</code> attribute of the <var>imagedata</var> argument, then
     let <var>dirtyHeight</var> be the value of that <code
     data-x="dom-imagedata-height">height</code> attribute, minus the value of <var>dirtyY</var>.</p>
@@ -339,7 +339,7 @@
    four channels of the pixel with coordinate (<var>x</var>, <var>y</var>) in
    the <var>imagedata</var> data structure's <span>Canvas Pixel
    <code data-x="idl-ArrayBuffer">ArrayBuffer</code></span> to the pixel with coordinate (<span
-   data-x=""><var>dx</var>+<var>x</var></span>, <span data-x=""><var>dy</var>+<var>y</var></span>)
+   data-x=""><var>dx</var>+<var>x</var></span>, <var>dy</var>+<var>y</var>)
    in the rendering context's <span>output bitmap</span>.</p></li>
 
   </ol>

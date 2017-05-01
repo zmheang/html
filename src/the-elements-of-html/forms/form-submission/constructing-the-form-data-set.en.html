@@ -14,15 +14,12 @@
    empty.</p></li>
 
    <li>
-
-    <p><i>Loop</i>: For each element <var>field</var> in <var>controls</var>, in
-    <span>tree order</span>, run the following substeps:</p>
+    <p>For each element <var>field</var> in <var>controls</var>, in <span>tree order</span>:</p>
 
     <ol>
 
      <li>
-
-      <p>If any of the following conditions are met, then skip these substeps for this element:</p>
+      <p>If any of the following is true:</p>
 
       <ul>
 
@@ -55,8 +52,7 @@
 
       </ul>
 
-      <p>Otherwise, process <var>field</var> as follows:</p>
-
+      <p>Then continue.</p>
      </li>
 
      <li><p>Let <var>type</var> be the value of the <code data-x="">type</code> IDL
@@ -64,14 +60,11 @@
      will get ignored. -->
 
      <li>
-
       <p>If the <var>field</var> element is an <code>input</code> element whose <code
       data-x="attr-input-type">type</code> attribute is in the <span
-      data-x="attr-input-type-image">Image Button</span> state, then run these further nested
-      substeps:</p>
+      data-x="attr-input-type-image">Image Button</span> state, then:</p>
 
       <ol>
-
        <li><p>If the <var>field</var> element has a <code data-x="attr-fe-name">name</code>
        attribute specified and its value is not the empty string, let <var>name</var> be
        that value followed by a single U+002E FULL STOP character (.). Otherwise, let <var>name</var> be the empty string.</p></li>
@@ -95,11 +88,8 @@
        <li><p>Append an entry to the <var>form data set</var> with the name <var>name<sub>y</sub></var> and the value <var>y</var>, and the type
        <var>type</var>.</p></li>
 
-       <li><p>Skip the remaining substeps for this element: if there are any more elements in <var>controls</var>, return to the top of the <i>loop</i> step, otherwise, jump to the
-       <i>end</i> step below.</p></li>
-
+       <li><p>Continue.</p></li>
       </ol>
-
      </li>
 
      <li><p>Let <var>name</var> be the value of the <var>field</var> element's
@@ -181,22 +171,16 @@
       <code data-x="attr-input-type">type</code> attribute is in either the <span
       data-x="attr-input-type-text">Text</span> state or the <span
       data-x="attr-input-type-search">Search</span> state.</p>
-
      </li>
-
     </ol>
-
    </li>
 
    <li>
-
-    <p><i>End</i>: For the name of each entry in the <var>form data set</var>, and for the
-    value of each entry in the <var>form data set</var> whose type is not "<code
-    data-x="">file</code>" or "<code data-x="">textarea</code>", replace every occurrence of a U+000D
-    CARRIAGE RETURN (CR) character not followed by a U+000A LINE FEED (LF) character, and every
-    occurrence of a U+000A LINE FEED (LF) character not preceded by a U+000D CARRIAGE RETURN (CR)
-    character, by a two-character string consisting of a U+000D CARRIAGE RETURN U+000A LINE FEED
-    (CRLF) character pair.</p>
+    <p>For the name of each entry in the <var>form data set</var>, and for the value of each entry
+    in the <var>form data set</var> whose type is not "<code data-x="">file</code>" or "<code
+    data-x="">textarea</code>", replace every occurrence of U+000D (CR) not followed by U+000A (LF),
+    and every occurrence of U+000A (LF) not preceded by U+000D (CR), by a string consisting of a
+    U+000D (CR) and U+000A (LF).</p>
 
     <p class="note">In the case of the <span data-x="concept-fe-value">value</span> of
     <code>textarea</code> elements, this newline normalization is already performed during the
@@ -205,7 +189,6 @@
     wrapping). In the case of <code>input</code> elements <code data-x="attr-input-type">type</code>
     attributes in the <span data-x="attr-input-type-file">File Upload</span> state, the value is not
     normalized.</p>
-
    </li>
 
    <li><p>Replace the name of each entry in the <var>form data set</var>, and the value of each

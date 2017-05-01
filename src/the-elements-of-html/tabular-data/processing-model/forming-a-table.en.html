@@ -155,7 +155,7 @@
           <p>Let all the last <span data-x="concept-column">columns</span> in <var>the
           table</var> from <span data-x="">x=<var>x<sub>start</sub></var></span> to
           <span data-x="">x=<var>x<sub>width</sub></var>-1</span> form a new <span
-          data-x="concept-column-group">column group</span>, anchored at the slot (<var>x<sub>start</sub></var>, 0), with width <span data-x=""><var>x<sub>width</sub></var>-<var>x<sub>start</sub></var></span>, corresponding to the <code>colgroup</code> element.</p>
+          data-x="concept-column-group">column group</span>, anchored at the slot (<var>x<sub>start</sub></var>, 0), with width <var>x<sub>width</sub></var>-<var>x<sub>start</sub></var>, corresponding to the <code>colgroup</code> element.</p>
 
          </li>
 
@@ -194,7 +194,7 @@
 
           <p>Let the last <var>span</var> <span data-x="concept-column">columns</span> in
           <var>the table</var> form a new <span data-x="concept-column-group">column
-          group</span>, anchored at the slot (<span data-x=""><var>x<sub>width</sub></var>-<var>span</var></span>, 0), with width <var>span</var>, corresponding to the <code>colgroup</code> element.</p>
+          group</span>, anchored at the slot (<var>x<sub>width</sub></var>-<var>span</var>, 0), with width <var>span</var>, corresponding to the <code>colgroup</code> element.</p>
 
          </li>
 
@@ -358,9 +358,9 @@
    <li>
 
     <!-- if we added any rows, make them part of a row group -->
-    <p>If <span data-x=""><var>y<sub>height</sub></var>&nbsp;&gt;&nbsp;<var>y<sub>start</sub></var></span>, then let all the last <span
+    <p>If <var>y<sub>height</sub></var>&nbsp;&gt;&nbsp;<var>y<sub>start</sub></var>, then let all the last <span
     data-x="concept-row">rows</span> in <var>the table</var> from <span data-x="">y=<var>y<sub>start</sub></var></span> to <span data-x="">y=<var>y<sub>height</sub></var>-1</span> form a new <span data-x="concept-row-group">row
-    group</span>, anchored at the slot with coordinate (0, <var>y<sub>start</sub></var>), with height <span data-x=""><var>y<sub>height</sub></var>-<var>y<sub>start</sub></var></span>, corresponding
+    group</span>, anchored at the slot with coordinate (0, <var>y<sub>start</sub></var>), with height <var>y<sub>height</sub></var>-<var>y<sub>start</sub></var>, corresponding
     to the element being processed.</p>
 
    </li>
@@ -469,6 +469,8 @@
 
     <p>If parsing that value failed, or returned zero, or if the attribute is absent, then let <var>colspan</var> be 1, instead.</p>
 
+    <p>If <var>colspan</var> is greater than 1000, let it be 1000 instead.</p>
+
    </li>
 
    <li>
@@ -478,6 +480,8 @@
     value</span>, and let <var>rowspan</var> be the result.</p>
 
     <p>If parsing that value failed or if the attribute is absent, then let <var>rowspan</var> be 1, instead.</p>
+
+    <p>If <var>rowspan</var> is greater than 65534, let it be 65534 instead.</p>
 
    </li>
 
@@ -491,20 +495,20 @@
 
    <li>
 
-    <p>If <span data-x=""><var>x<sub>width</sub></var>&nbsp;&lt;&nbsp;<var>x<sub>current</sub></var>+<var>colspan</var></span>, then let <var>x<sub>width</sub></var> be <span data-x=""><var>x<sub>current</sub></var>+<var>colspan</var></span>.</p>
+    <p>If <var>x<sub>width</sub></var>&nbsp;&lt;&nbsp;<var>x<sub>current</sub></var>+<var>colspan</var>, then let <var>x<sub>width</sub></var> be <var>x<sub>current</sub></var>+<var>colspan</var>.</p>
 
    </li>
 
    <li>
 
-    <p>If <span data-x=""><var>y<sub>height</sub></var>&nbsp;&lt;&nbsp;<var>y<sub>current</sub></var>+<var>rowspan</var></span>, then let <var>y<sub>height</sub></var> be <span data-x=""><var>y<sub>current</sub></var>+<var>rowspan</var></span>.</p>
+    <p>If <var>y<sub>height</sub></var>&nbsp;&lt;&nbsp;<var>y<sub>current</sub></var>+<var>rowspan</var>, then let <var>y<sub>height</sub></var> be <var>y<sub>current</sub></var>+<var>rowspan</var>.</p>
 
    </li>
 
    <li>
 
     <p>Let the slots with coordinates (<var>x</var>, <var>y</var>) such that <span
-    data-x=""><var>x<sub>current</sub></var>&nbsp;&le;&nbsp;<var>x</var>&nbsp;&lt;&nbsp;<var>x<sub>current</sub></var>+<var>colspan</var></span> and <span data-x=""><var>y<sub>current</sub></var>&nbsp;&le;&nbsp;<var>y</var>&nbsp;&lt;&nbsp;<var>y<sub>current</sub></var>+<var>rowspan</var></span> be covered by a
+    data-x=""><var>x<sub>current</sub></var>&nbsp;&le;&nbsp;<var>x</var>&nbsp;&lt;&nbsp;<var>x<sub>current</sub></var>+<var>colspan</var></span> and <var>y<sub>current</sub></var>&nbsp;&le;&nbsp;<var>y</var>&nbsp;&lt;&nbsp;<var>y<sub>current</sub></var>+<var>rowspan</var> be covered by a
     new <span data-x="concept-cell">cell</span> <var>c</var>, anchored at (<var>x<sub>current</sub></var>, <var>y<sub>current</sub></var>),
     which has width <var>colspan</var> and height <var>rowspan</var>,
     corresponding to the <var>current cell</var> element.</p>
