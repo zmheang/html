@@ -11,7 +11,7 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-dialog-open">open</code></dd>
-   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt><!--TOPIC:DOM APIs-->
+   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
@@ -22,7 +22,7 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] void <span data-x="dom-dialog-close">close</span>(optional DOMString returnValue);
 };</pre>
    </dd>
-  </dl><!--TOPIC:HTML-->
+  </dl>
 
   <p>The <code>dialog</code> element represents a part of an application that a user interacts with
   to perform a task, for example a dialog box, inspector, or window.</p>
@@ -66,7 +66,6 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   <p>The <code data-x="attr-tabindex">tabindex</code> attribute must not be specified on
   <code>dialog</code> elements.</p>
 
-<!--TOPIC:DOM APIs-->
 
   <dl class="domintro">
 
@@ -220,7 +219,6 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   with an argument, that argument must be used as the return value; otherwise, there is no return
   value.</p>
 
-<!--TOPIC:HTML-->
 
   <p>When a <code>dialog</code> element <var>subject</var> is to be <dfn data-x="close the
   dialog">closed</dfn>, optionally with a return value <var>result</var>, the user agent
@@ -260,11 +258,9 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   </ol>
 
-<!--TOPIC:DOM APIs-->
   <p>The <dfn><code data-x="dom-dialog-returnValue">returnValue</code></dfn> IDL attribute, on
   getting, must return the last value to which it was set. On setting, it must be set to the new
   value. When the element is created, it must be set to the empty string.</p>
-<!--TOPIC:HTML-->
 
   <hr>
 
@@ -334,10 +330,8 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-<!--TOPIC:DOM APIs-->
   <p>The <dfn><code data-x="dom-dialog-open">open</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-dialog-open">open</code> content attribute.</p>
-<!--TOPIC:HTML-->
 
   </div>
 

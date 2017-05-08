@@ -198,43 +198,41 @@
   following steps:</p>
 
   <ol>
-
-   <li><p>Let the <span>performing a microtask checkpoint</span> flag be true.</p></li>
-
-   <li><p><i>Microtask queue handling</i>: If the <span>event loop</span>'s <span>microtask
-   queue</span> is empty, jump to the <i>done</i> step below.</p></li>
-
-   <li><p>Select the oldest <span>microtask</span> on the <span>event loop</span>'s <span>microtask
-   queue</span>.</p></li>
-
-   <li><p>Set the <span>event loop</span>'s <span>currently running task</span> to the <span
-   data-x="concept-task">task</span> selected in the previous step.</p></li>
+   <li><p>Set the <span>performing a microtask checkpoint</span> flag to true.</p></li>
 
    <li>
+    <p>While the <span>event loop</span>'s <span>microtask queue</span> is not empty:</p>
 
-    <p><i>Run</i>: Run the selected <span data-x="concept-task">task</span>.</p>
+    <ol>
+     <li><p>Let <var>oldestMicrotask</var> be the oldest <span>microtask</span> on the <span>event
+     loop</span>'s <span>microtask queue</span>.</p></li>
 
-    <p class="note">This might involve invoking scripted callbacks, which eventually calls the
-    <span>clean up after running script</span> steps, which call this <span>perform a microtask
-    checkpoint</span> algorithm again, which is why we use the <span>performing a microtask
-    checkpoint</span> flag to avoid reentrancy.</p>
+     <li><p>Set the <span>event loop</span>'s <span>currently running task</span> to
+     <var>oldestMicrotask</var>.</p></li>
 
+     <li>
+      <p><i>Run</i>: Run <var>oldestMicrotask</var>.</p>
+
+      <p class="note">This might involve invoking scripted callbacks, which eventually calls the
+      <span>clean up after running script</span> steps, which call this <span>perform a microtask
+      checkpoint</span> algorithm again, which is why we use the <span>performing a microtask
+      checkpoint</span> flag to avoid reentrancy.</p>
+     </li>
+
+     <li><p>Set the <span>event loop</span>'s <span>currently running task</span> back to
+     null.</p></li>
+
+     <li><p>Remove <var>oldestMicrotask</var> from the <span>microtask queue</span>.</p></li>
+    </ol>
    </li>
 
-   <li><p>Set the <span>event loop</span>'s <span>currently running task</span> back to
-   null.</p></li>
-
-   <li><p>Remove the <span>microtask</span> run in the step above from the <span>microtask
-   queue</span>, and return to the <i>microtask queue handling</i> step.</p></li>
-
-   <li><p><i>Done</i>: For each <span>environment settings object</span> whose <span>responsible
-   event loop</span> is this <span>event loop</span>, <span>notify about rejected promises</span>
-   on that <span>environment settings object</span>.</p></li>
+   <li><p>For each <span>environment settings object</span> whose <span>responsible event
+   loop</span> is this <span>event loop</span>, <span>notify about rejected promises</span> on that
+   <span>environment settings object</span>.</p></li>
 
    <li><p><span>Cleanup Indexed Database transactions</span>.</p></li>
 
-   <li><p>Let the <span>performing a microtask checkpoint</span> flag be false.</p></li>
-
+   <li><p>Set the <span>performing a microtask checkpoint</span> flag to false.</p></li>
   </ol>
 
   <p>If, while a <span>compound microtask</span> is running, the user agent is required to

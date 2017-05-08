@@ -129,18 +129,8 @@
 
     <p>Otherwise, <span data-x="parse a url">parse</span> <var>url</var> relative to <var>entry
     settings</var>, and let <var>resource</var> be the <span>resulting URL record</span>, if any. If
-    the <span>parse a URL</span> algorithm failed, then run one of the following two steps
-    instead:</p>
-
-    <ul>
-
-     <li><p>Let <var>resource</var> be a resource representing an inline error page.</p></li>
-
-     <li><p>If <var>new</var> is false, jump to the step labeled <i>end</i>, otherwise, let
-     <var>resource</var> be the <span>URL</span> "<code>about:blank</code>".</p></li>
-
-    </ul>
-
+    the <span>parse a URL</span> algorithm failed, then throw a
+    <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p>
    </li>
 
    <li>
