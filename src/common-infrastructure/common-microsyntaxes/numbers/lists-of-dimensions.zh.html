@@ -1,0 +1,107 @@
+  <h5>维度值列表</h5>
+
+  <!-- no definition of a type since no conforming feature uses this syntax （it's only used in
+  cols="" and rows="" on <frameset> elements -->
+
+  <p><dfn data-x="rules for parsing a list of dimensions">解析维度值列表的规则</dfn> 如下。
+  这些规则返回一个由数字或单位组成的偶对列表，包含0个或更多偶对。
+  其中的单位是 <i>percentage</i>, <i>relative</i>，和 <i>absolute</i> 之一。</p>
+
+  <ol>
+
+   <li><p>令<var>raw input</var> 为被解析的字符串。</p></li>
+
+   <li><p>如果 <var>raw input</var> 的最后一个字符是 U+002C COMMA character（,）,
+   则从 <var>raw input</var> 中移除该字符。</p></li>
+
+   <li><p><span data-x="split a string on commas">用逗号分割 <var>raw input</var> 字符串</span>。
+   令<var>raw tokens</var> 为得到的标记列表。</p></li>
+
+   <li><p>令<var>result</var> 为 number/unit 偶对的空列表。</p></li>
+
+   <li>
+
+    <p>对 <var>raw tokens</var> 中的每一个标记，运行以下子步骤：</p>
+
+    <ol>
+
+     <li><p>令<var>input</var> 为该标记。</p></li>
+
+     <li><p>令<var>position</var> 为 <var>input</var> 中的指针，初始指向字符串的开始。</p></li>
+
+     <li><p>令<var>value</var> 为数字 0。</p></li>
+
+     <li><p>令<var>unit</var> 为 <i>absolute</i>。</p></li>
+
+     <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，将 <var>unit</var> 设为 <i>relative</i> 并跳到最后一个子步骤。</p></li>
+
+     <li><p>如果 <var>position</var> 处的字符是 <span data-x="ASCII digits">ASCII 数字</span>，
+     从 <var>input</var> 的给定 <var>position</var>
+     <span data-x="Collect a sequence of code points">收集</span>
+     是 <span data-x="ASCII digits">ASCII 数字</span> 的代码点序列，将得到的序列解释为以10为基的整数，
+     将 <var>value</var> 递增这个整数。</p></li>
+
+     <li>
+
+      <p>如果在 <var>position</var> 处的字符是 U+002E（.），则：</p>
+
+      <ol>
+
+       <li><p>从 <var>input</var> 的给定 <var>position</var>
+       <span data-x="Collect a sequence of code points">收集</span>
+       是 <span data-x="ASCII whitespace">ASCII 空格</span> 或
+       <span data-x="ASCII digits">ASCII 数字</span> 的代码点序列，
+       令 <var>s</var> 为得到的结果序列。</p></li>
+
+       <li><p>移除 <var>s</var> 中所有的 <span data-x="ASCII whitespace">ASCII 空格</span>。</p></li>
+
+       <li>
+
+        <p>如果 <var>s</var> 不是空字符串，则：</p>
+
+        <ol>
+
+         <li><p>令<var>length</var> 为 <var>s</var> 中（移除空格后的）字符数。</p></li>
+
+         <li><p>令<var>fraction</var> 为将 <var>s</var> 解释为以10为基的整数后的结果，
+         将这个数字除以 <span data-x="">10<sup><var>length</var></sup></span>。</li>
+
+         <li><p>将 <var>value</var> 递增 <var>fraction</var>。</p></li>
+
+        </ol>
+
+       </li>
+
+      </ol>
+
+     </li>
+
+     <li><p>从给定的 <var>position</var>
+     <span data-x="Skip ASCII whitespace">跳过 <var>input</var> 中的 ASCII 空白字符</span>。</p></li>
+
+     <li>
+
+      <p>如果 <var>position</var> 处的字符是 U+0025 PERCENT SIGN 字符（%）,
+      将 <var>unit</var> 设为 <i>percentage</i>。</p>
+
+      <p>否则，如果 <var>position</var> 处的字符是 U+002A ASTERISK 字符（*），
+      则将 <var>unit</var> 设为 <i>relative</i>。</p>
+
+     </li>
+
+     <!-- the remaining characters in /input/ are ignored -->
+
+     <li><p>在 <var>result</var> 中增加一项，包含由 <var>value</var> 给定的数字，
+     以及由 <var>unit</var> 给定的单位。</p></li>
+
+    </ol>
+
+   </li>
+
+   <li><p>返回 <var>result</var> 列表。</p></li>
+
+  </ol>
+
+  </div>
+
+
