@@ -36,7 +36,7 @@
         <p>如果 <var>当前节点</var> 是 <span data-x="HTML namespace">HTML 命名空间</span>，
         <span data-x="MathML namespace">MathML 命名空间</span>，
         或 <span data-x="SVG namespace">SVG 命名空间</span>
-        中的一个元素，则令 <var>tagname</var> 为 <var>当前节点</var> 的 local name。 否则，令 <var>tagname</var> 为 <var>当前节点</var>的 qualified name。</p>
+        中的一个元素，则令 <var>tagname</var> 为 <var>当前节点</var> 的 局部名。 否则，令 <var>tagname</var> 为 <var>当前节点</var>的 qualified name。</p>
 
         <p>追加一个 U+003C LESS-THAN SIGN 字符（&lt;），以及 <var>tagname</var>。</p>
 
@@ -57,32 +57,32 @@
 
          <dd>
 
-          <p>该属性的序列化名称为该属性的 local name。</p>
+          <p>该属性的序列化名称为该属性的 局部名。</p>
 
           <p class="note">对于由 <span data-x="HTML parser">HTML 解析器</span> 或 <code data-x="">Element.setAttribute()</code>
-          设置的 <span data-x="HTML elements">HTML 元素</span> 上的属性，local name 将会是小写的。</p>
+          设置的 <span data-x="HTML elements">HTML 元素</span> 上的属性，局部名 将会是小写的。</p>
 
          </dd>
 
 
          <dt>如果该属性在 <span data-x="XML namespace">XML 命名空间</span></dt>
 
-         <dd><p>该属性的序列化名称是：字符串 "<code data-x="">xml:</code>" 紧跟着该属性的 local name。</p></dd>
+         <dd><p>该属性的序列化名称是：字符串 "<code data-x="">xml:</code>" 紧跟着该属性的 局部名。</p></dd>
 
 
-         <dt>如果该属性在 <span data-x="XMLNS namespace">XMLNS 命名空间</span> 且该属性的 local name 是 <code data-x="">xmlns</code></dt>
+         <dt>如果该属性在 <span data-x="XMLNS namespace">XMLNS 命名空间</span> 且该属性的 局部名 是 <code data-x="">xmlns</code></dt>
 
          <dd><p>该属性的序列化名称为字符串 "<code data-x="">xmlns</code>"。</p></dd>
 
 
-         <dt>如果该属性在 <span data-x="XMLNS namespace">XMLNS 命名空间</span> 且该属性的 local name 不是<code data-x="">xmlns</code></dt>
+         <dt>如果该属性在 <span data-x="XMLNS namespace">XMLNS 命名空间</span> 且该属性的 局部名 不是<code data-x="">xmlns</code></dt>
 
-         <dd><p>该属性的序列化名称为字符串 "<code data-x="">xmlns:</code>" 紧跟着该属性的 local name。</p></dd>
+         <dd><p>该属性的序列化名称为字符串 "<code data-x="">xmlns:</code>" 紧跟着该属性的 局部名。</p></dd>
 
 
          <dt>如果该属性在 <span data-x="XLink namespace">XLink 命名空间</span></dt>
 
-         <dd><p>该属性的序列化名称为字符串 "<code data-x="">xlink:</code>" 紧跟着该属性的 local name。</p></dd>
+         <dd><p>该属性的序列化名称为字符串 "<code data-x="">xlink:</code>" 紧跟着该属性的 局部名。</p></dd>
 
 
          <dt>如果该属性在其他命名空间</dt>

@@ -9,11 +9,11 @@
   <ol>
 
    <li><p><dfn data-export="" data-x="autonomous custom element">自主的 custom element</dfn> 定义时不包含 <code
-   data-x="">extends</code> 选项。这类 custom elements 的 local name 等于它们
+   data-x="">extends</code> 选项。这类 custom elements 的 局部名 等于它们
    <span data-x="concept-custom-element-definition-name">定义的名称</span>。</p></li>
 
    <li><p>A <dfn data-export="" data-x="customized built-in element">定制内建元素</dfn> 定义时包含 <code
-   data-x="">extends</code> 选项。这类 custom elements 的 local name 等于它们
+   data-x="">extends</code> 选项。这类 custom elements 的 局部名 等于它们
    在 <code data-x="">extends</code> 选项中传入的值，它们的 <span
    data-x="concept-custom-element-definition-name">定义的名称</span> 被用于
    <dfn><code data-x="attr-is">is</code></dfn> 属性的值，因此它必须是一个
@@ -112,7 +112,7 @@
     <li><p>不包含任何 <span data-x="ASCII upper alpha">ASCII 大写字母</span>，
     确保用户代理总是可以将 HTML 元素当做大小写不敏感的 ASCII 来处理。</p></li>
 
-    <li><p>包含一个横线，用于做命名空间来确保向后兼容（因为 HTML、SVG、MathML 中新增的元素 local name 不会包含横线）。</p></li>
+    <li><p>包含一个横线，用于做命名空间来确保向后兼容（因为 HTML、SVG、MathML 中新增的元素 局部名 不会包含横线）。</p></li>
 
     <li><p>总是可以使用 <code
     data-x="dom-Document-createElement">createElement()</code> 和 <code
@@ -132,8 +132,8 @@
    <dd>一个 <span data-x="valid custom element name">合法的 Custom Element 名称</span></dd>
 
    <dt><dfn data-x="concept-custom-element-definition-local-name" data-export=""
-   data-dfn-for="custom element definition">local name</dfn></dt>
-   <dd>一个 local name</dd>
+   data-dfn-for="custom element definition">局部名</dfn></dt>
+   <dd>一个 局部名</dd>
 
    <dt><dfn data-x="concept-custom-element-definition-constructor" data-export=""
    data-dfn-for="custom element definition">constructor</dfn></dt>
@@ -163,20 +163,20 @@
   <ol>
    <li><p>如果 <var>namespace</var> 不是 <span>HTML namespace</span>，返回 null。</p></li>
 
-   <li><p>如果 <var>document</var> 没有 <span data-x="concept-document-bc">浏览上下文</span>，返回 null。</p></li>
+   <li><p>如果 <var>document</var> 没有 <span data-x="concept-document-bc">浏览环境</span>，返回 null。</p></li>
 
    <li><p>令 <var>registry</var> 为 <var>document</var> 的 <span
-   data-x="concept-document-bc">浏览上下文</span> 所在 <code>Window</code> 的
+   data-x="concept-document-bc">浏览环境</span> 所在 <code>Window</code> 的
    <code>CustomElementRegistry</code> 对象。</p></li>
 
    <li><p>如果在 <var>registry</var> 中有一个 <span data-x="custom element definition">custom element 定义</span> 的
    <span data-x="concept-custom-element-definition-name">name</span> 和 <span
-   data-x="concept-custom-element-definition-local-name">local name</span> 都等于
+   data-x="concept-custom-element-definition-local-name">局部名</span> 都等于
    <var>localName</var>，返回该 <span data-x="custom element definition">custom element 定义</span>。</p></li>
 
    <li><p>如果在 <var>registry</var> 中有一个 <span data-x="custom element definition">custom element 定义</span> 的
    <span data-x="concept-custom-element-definition-name">name</span> 等于 <var>is</var> 且
-   <span data-x="concept-custom-element-definition-local-name">local name</span> 等于 <var>localName</var>，返回该
+   <span data-x="concept-custom-element-definition-local-name">局部名</span> 等于 <var>localName</var>，返回该
    <span data-x="custom element definition">custom element 定义</span>。</p></li>
 
    <li><p>返回 null。</p></li>

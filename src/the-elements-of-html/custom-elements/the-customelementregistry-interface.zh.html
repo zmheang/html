@@ -22,7 +22,7 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
   <p>每个 <code>CustomElementRegistry</code> 有一个 <span data-x="custom element
   definition">custom element 定义</span> 的集合，初始为空。通常本标准中的算法在 registry 中通过
   <span data-x="concept-custom-element-definition-name">name</span>，
-  <span data-x="concept-custom-element-definition-local-name">local name</span>，
+  <span data-x="concept-custom-element-definition-local-name">局部名</span>，
   或 <span data-x="concept-custom-element-definition-constructor">constructor</span>
   中的任意一个进行查找。</p>
 
@@ -169,7 +169,7 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
 
    <li><p>令 <var>definition</var> 为一个新的 <span data-x="custom element definition">custom element 定义</span>，
    其 <span data-x="concept-custom-element-definition-name">name</span> 为 <var>name</var>，
-   其 <span data-x="concept-custom-element-definition-local-name">local name</span> 为 <var>localName</var>，
+   其 <span data-x="concept-custom-element-definition-local-name">局部名</span> 为 <var>localName</var>，
    其 <span data-x="concept-custom-element-definition-constructor">constructor</span> 为 <var>constructor</var>，
    其 <span data-x="concept-custom-element-definition-observed-attributes">observed attributes</span> 为 <var>observedAttributes</var>，
    其 <span data-x="concept-custom-element-definition-lifecycle-callbacks">lifecycle callbacks</span> 为 <var>lifecycleCallbacks</var>。</p></li>
@@ -182,7 +182,7 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
 
    <li><p>令 <var>upgrade candidates</var> 为
    <var>document</var> 的所有 <span data-x="shadow-including descendant">shadow-including 后代</span> 中，
-   命名空间为 <span>HTML namespace</span> 且 local name 为 <var>localName</var> 的元素，
+   命名空间为 <span>HTML namespace</span> 且 局部名 为 <var>localName</var> 的元素，
    以 <span data-x="shadow-including tree order">shadow-including 树序</span>。
    此外如果 <var>extends</var> 不是 null，则只包括 <span data-x="concept-element-is-value"><code data-x="">is</code>
    的值</span> 等于 <var>name</var> 的元素。</p></li>

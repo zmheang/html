@@ -43,7 +43,7 @@ customElements.define("x-foo"， class extends HTMLElement {
    <li><p>对 <var>element</var> 的 <span data-x="attribute list">属性列表</span> 中每一个 <var>attribute</var>，
    按顺序 <span data-x="enqueue a custom element callback reaction">入队一个 Custom Element 反应</span>
    （元素为 <var>element</var>，回调名为 "<code data-x="">attributeChangedCallback</code>"），
-   参数列表为 <var>attribute</var> 的 local name，null，<var>attribute</var>的值，以及 <var>attribute</var> 的命名空间。</p></li>
+   参数列表为 <var>attribute</var> 的 局部名，null，<var>attribute</var>的值，以及 <var>attribute</var> 的命名空间。</p></li>
 
    <li><p>如果 <var>element</var> <span data-x="connected">已连接</span>，
     <span data-x="enqueue a custom element callback reaction">入队一个 Custom Element 反应</span>
@@ -123,7 +123,7 @@ customElements.define("x-foo"， class extends HTMLElement {
 
   <ol>
    <li><p>令 <var>definition</var> 为给定 <var>element</var> 的 <span data-x="node document">节点文档</span>，
-     <var>element</var>的命名空间， <var>element</var>的 local name，以及 <var>element</var> 的 <span data-x="concept-element-is-value"><code data-x="">is</code> 值</span>，
+     <var>element</var>的命名空间， <var>element</var>的 局部名，以及 <var>element</var> 的 <span data-x="concept-element-is-value"><code data-x="">is</code> 值</span>，
      <span data-x="look up a custom element definition">查找 custom element 定义</span> 的结果。</p></li>
 
    <li><p>如果 <var>definition</var> 不是 null，那么 <span data-x="enqueue a custom element upgrade reaction">入队一个 Custom Element 升级反应</span>，

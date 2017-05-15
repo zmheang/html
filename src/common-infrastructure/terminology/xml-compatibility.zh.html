@@ -1,0 +1,22 @@
+  <h4 id="xml">XML 兼容性</h4>
+
+  <p id="html-namespace">为了方便从 HTML 迁移到 XML，遵循本标准的用户代理会把 HTML 中的元素放在
+  <code data-x="HTML namespace">http://www.w3.org/1999/xhtml</code> 命名空间，
+  至少是为了 DOM 和 CSS 的目的。
+  本标准中使用的术语 "<dfn data-x="HTML elements">HTML 元素</dfn>"，是指所有在那个命名空间中的元素，
+  包括 XML 文档中的。</p>
+
+  <p>除非另有声明，所有本标准中定义和提到的元素均位于
+  <span data-x="HTML namespace">HTML</span>
+  （"<code data-x="">http：//www.w3.org/1999/xhtml</code>"），
+  本标准中所有定义和提到的属性（Attribute）没有命名空间。</p>
+
+  <p>术语 <dfn data-x="element type">元素类型</dfn> 用于指代给定命名空间和局部名的那些元素。
+  例如，<code>button</code> 元素的元素类型为 <code>button</code>，意味着它们的局部名为
+  "<code data-x="">button</code>" 且（如上述定义地）命名空间为
+  <span data-x="HTML namespace">HTML</span>。</p>
+
+  <p>如果属性名匹配 XML 中定义的 <code data-x="xml-Name">Name</code> 生成式且不包含
+  U+003A COLON 字符（：），那么它就是 <dfn data-x="XML-compatible">XML 兼容的</dfn> <ref spec=XML></p>
+
+
