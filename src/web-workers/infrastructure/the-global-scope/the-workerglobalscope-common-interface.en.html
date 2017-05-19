@@ -37,6 +37,19 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   <span>URL</span>). It is initially null.
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
+  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-name">name</dfn> (a string). It
+  is set during creation.
+
+  <p class="note">The <span data-x="concept-WorkerGlobalScope-name">name</span> can have different
+  semantics for each subclass of of <code>WorkerGlobalScope</code>. For
+  <code>DedicatedWorkerGlobalScope</code> instances, it is simply a developer-supplied name, useful
+  mostly for debugging purposes. For <code>SharedWorkerGlobalScope</code> instances, it allows
+  obtaining a reference to a common shared worker via the <code
+  data-x="dom-SharedWorker">SharedWorker()</code> constructor. For
+  <code>ServiceWorkerGlobalScope</code> objects, it doesn't make sense (and as such isn't exposed
+  through the JavaScript API at all).</p>
+
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-https-state">HTTPS state</dfn>
   (an <span>HTTPS state value</span>). It is initially "<code data-x="">none</code>".
 

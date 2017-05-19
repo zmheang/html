@@ -45,71 +45,50 @@
   away the document by implicitly calling <code data-x="dom-document-open">document.open()</code>.
   Initially, the counter must be set to zero.</p>
 
-  <p>The <dfn><code data-x="dom-document-write">document.write(...)</code></dfn> method must act as
-  follows:</p>
+  <p>The <dfn>document write steps</dfn>, given a <code>Document</code> object <var>document</var>
+  and a string <var>input</var>, are as follows:</p>
 
   <ol>
+   <li><p>If <var>document</var> is an <span data-x="XML documents">XML document</span>, then throw
+   an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
+   <!-- Where would document.write() insert?
+        Consider: data:text/xml,<script xmlns="http://www.w3.org/1999/xhtml"><![CDATA[ document.write('<foo>Test</foo>'); ]]></script>
+   -->
+
+   <li><p>If <var>document</var>'s <span>throw-on-dynamic-markup-insertion counter</span> is greater
+   than 0, then throw an <span>"<code>InvalidStateError</code>"</span>
+   <code>DOMException</code>.</p></li>
+
+   <li><p>If <var>document</var> is not an <span>active document</span>, then return.</p></li>
 
    <li>
+    <p>If the <span>insertion point</span> is undefined, then:
 
-    <p>If the method was invoked on an <span data-x="XML documents">XML document</span>, throw an
-    <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> and abort these
-    steps.</p>
+    <ol>
+     <li><p>If <var>document</var>'s <span>ignore-opens-during-unload counter</span> is greater than
+     0 or <var>document</var>'s <span>ignore-destructive-writes counter</span> is greater than 0,
+     then return.</p></li>
 
-    <!--
-    Where would document.write() insert?
-    Consider: data:text/xml,<script xmlns="http://www.w3.org/1999/xhtml"><![CDATA[ document.write('<foo>Test</foo>'); ]]></script>
-    -->
-
+     <li><p>Run the <span>document open steps</span> with <var>document</var>, "<code
+     data-x="">text/html</code>", and the empty string. If the user <span>refused to allow the
+     document to be unloaded</span>, then abort these steps. Otherwise, the <span>insertion
+     point</span> will point at just before the end of the (empty) <span>input
+     stream</span>.</p></li>
+     <!-- The second and third argument passed above are the defaults per document.open()'s IDL. -->
+    </ol>
    </li>
 
-   <li><p>If the <code>Document</code> object's <span>throw-on-dynamic-markup-insertion
-   counter</span> is greater than zero, then throw an <span>"<code>InvalidStateError</code>"</span>
-   <code>DOMException</code> and abort these steps.</p></li>
+   <li><p>Insert <var>input</var> into the <span>input stream</span> just before the <span>insertion
+   point</span>.</p></li>
 
-   <li><p>If the <code>Document</code> object is not an <span>active document</span>, then abort
-   these steps.</p></li>
-
-   <li>
-
-    <p>If the <span>insertion point</span> is undefined and either the <code>Document</code>'s
-    <span>ignore-opens-during-unload counter</span> is greater than zero or the
-    <code>Document</code>'s <span>ignore-destructive-writes counter</span> is greater than zero,
-    abort these steps.</p>
-
-   </li>
+   <li><p>If <var>document</var>'s <span>reload override flag</span> is set, then append
+   <var>input</var> to <var>document</var>'s <span>reload override buffer</span>.</p></li>
 
    <li>
-
-    <p>If the <span>insertion point</span> is undefined, call the <code
-    data-x="dom-document-open">open()</code> method on the <code data-x="Document">document</code>
-    object (with no arguments). If the user <span>refused to allow the document to be
-    unloaded</span>, then abort these steps. Otherwise, the <span>insertion point</span> will point
-    at just before the end of the (empty) <span>input stream</span>.</p>
-
-   </li>
-
-   <li>
-
-    <p>Insert the string consisting of the concatenation of all the arguments to the method into the
-    <span>input stream</span> just before the <span>insertion point</span>.</p>
-
-   </li>
-
-   <li>
-
-    <p>If the <code>Document</code> object's <span>reload override flag</span> is set, then append
-    the string consisting of the concatenation of all the arguments to the method to the
-    <code>Document</code>'s <span>reload override buffer</span>.</p>
-
-   </li>
-
-   <li>
-
     <p>If there is no <span>pending parsing-blocking script</span>, have the <span>HTML
-    parser</span> process the characters that were inserted, one at a time, processing resulting
-    tokens as they are emitted, and stopping when the tokenizer reaches the insertion point or when
-    the processing of the tokenizer is aborted by the tree construction stage (this can happen if a
+    parser</span> process <var>input</var>, one code point at a time, processing resulting tokens as
+    they are emitted, and stopping when the tokenizer reaches the insertion point or when the
+    processing of the tokenizer is aborted by the tree construction stage (this can happen if a
     <code>script</code> end tag token is emitted by the tokenizer).
 
     <p class="note">If the <code data-x="dom-document-write">document.write()</code> method was
@@ -118,16 +97,13 @@
     parser</a>. If the <span>parser pause flag</span> is set, the tokenizer will abort immediately
     and no HTML will be parsed, per the tokenizer's <a href="#check-parser-pause-flag">parser pause
     flag check</a>.</p>
-
    </li>
-
-   <li>
-
-    <p>Finally, return from the method.</p>
-
-   </li>
-
   </ol>
+
+  <p>The <dfn><code data-x="dom-document-write">document.write(...)</code></dfn> method, when
+  invoked, must run the <span>document write steps</span> with this <code>Document</code> object and
+  a string that is the concatanation of all arguments passed.</p>
+
 
   </div>
 

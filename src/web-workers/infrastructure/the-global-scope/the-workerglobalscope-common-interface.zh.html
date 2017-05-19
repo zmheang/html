@@ -23,7 +23,7 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   <p class="note">拥有者不止一个，它是一个 <span data-x="set">集合</span> 来适应
   <code>SharedWorkerGlobalScope</code> 对象。</p>
 
-  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn id="the-worker's-workers"
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn id="the-workers-workers"
   data-export="" data-for="WorkerGlobalScope">worker set</dfn> （
   <code>WorkerGlobalScope</code> 对象的 <span data-x="set">集合</span>）。
   它初始为空，当创建或获取其他 Worker 时填充。</p>
@@ -35,6 +35,17 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-url">url</dfn> （null 或一个
   <span>URL</span>）。初始值为 null。
+
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
+  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-name">名称</dfn>（一个字符串）。在创建过程中设置。
+
+  <p class="note"><span data-x="concept-WorkerGlobalScope-name">名称</span> 可以对每个
+  <code>WorkerGlobalScope</code> 的子类有不同的语义。
+  对于 <code>DedicatedWorkerGlobalScope</code> 的实例, 它就是一个简单的开发者提供的名字，主要用于调试用途。
+  对于 <code>SharedWorkerGlobalScope</code> 的实例，它允许通过
+  <code data-x="dom-SharedWorker">SharedWorker()</code>
+  构造器获得一个通用共享 Worker 的引用。
+  对于 <code>ServiceWorkerGlobalScope</code> 对象，名字没有意义（同样地，它也根本没有通过 JavaScript API 暴露出来）。</p>
 
   <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-https-state">HTTPS 状态</dfn>

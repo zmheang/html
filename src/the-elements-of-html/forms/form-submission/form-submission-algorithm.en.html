@@ -89,18 +89,15 @@
    <li><p>Let <var>target</var> be the <var>submitter</var> element's <span
    data-x="concept-fs-target">target</span>.</p></li>
 
-   <li><p>If the user indicated a specific <span>browsing context</span> to use when submitting the
-   form, then let <var>target browsing context</var> be that <span>browsing context</span>.
-   Otherwise, apply <span>the rules for choosing a browsing context given a browsing context
-   name</span> using <var>target</var> as the name and <var>form browsing
-   context</var> as the context in which the algorithm is executed, and let <var>target
-   browsing context</var> be the resulting <span>browsing context</span>.</p></li>
+   <li><p>Let <var>target browsing context</var> and <var>replace</var> be the result of applying
+   <span>the rules for choosing a browsing context</span> using <var>target</var> and <var>form
+   browsing context</var>.</p></li>
 
-   <li><p>If <var>target browsing context</var> was created in the previous step, or,
-   alternatively, if the <var>form document</var> has not yet <span>completely
-   loaded</span> and the <var>submitted from <code data-x="dom-form-submit">submit()</code>
-   method</var> flag is set, then let <var>replace</var> be true. Otherwise, let it be
-   false.</p></li>
+   <li><p>If <var>target browsing context</var> is null, then return.</p></li>
+
+   <li><p>If <var>form document</var> has not yet <span>completely loaded</span> and the
+   <var>submitted from <code data-x="dom-form-submit">submit()</code> method</var> flag is set, then
+   set <var>replace</var> to true.</p></li>
 
    <li>
 

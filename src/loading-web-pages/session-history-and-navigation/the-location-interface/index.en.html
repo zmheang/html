@@ -211,8 +211,8 @@
    <li><p>Let <var>current</var> be <var>current</var>'s <span>parent browsing
    context</span>.</p></li>
 
-   <li><p><span data-x="list append">Append</span> the <span data-x="Unicode serialization of an
-   origin">Unicode serialization</span> of <var>current</var>'s <span>active document</span>'s
+   <li><p><span data-x="list append">Append</span> the <span data-x="serialization of an
+   origin">serialization</span> of <var>current</var>'s <span>active document</span>'s
    <span>origin</span> to <var>output</var>.</p></li>
 
    <li><p>Return to the step labeled <i>loop</i>.</p></li>
@@ -304,13 +304,10 @@
    object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
    <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
-   <li><p>Return the <span data-x="Unicode serialization of an origin">Unicode serialization</span>
-   of this <code>Location</code> object's <span data-x="concept-location-url">url</span>'s <span
+   <li><p>Return the <span data-x="serialization of an origin">serialization</span> of this
+   <code>Location</code> object's <span data-x="concept-location-url">url</span>'s <span
    data-x="concept-url-origin">origin</span>.</p></li>
   </ol>
-
-  <p class="note no-backref">It returns the Unicode rather than the ASCII serialization for
-  compatibility with <code>MessageEvent</code>.</p>
 
   <p>The <dfn><code data-x="dom-location-protocol">protocol</code></dfn> attribute's getter must run
   these steps:</p>

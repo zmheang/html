@@ -2,6 +2,8 @@
 
   <pre class="idl">[Global=(Worker,DedicatedWorker),Exposed=DedicatedWorker]
 interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
+  readonly attribute DOMString <span data-x="dom-DedicatedWorkerGlobalScope-name">name</span>;
+
   void <span data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
 
   void <span data-x="dom-DedicatedWorkerGlobalScope-close">close</span>();
@@ -19,6 +21,10 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
   <code>DedicatedWorkerGlobalScope</code> object.</p>
 
   <dl class="domintro">
+   <dt><var>dedicatedWorkerGlobal</var> . <code subdfn data-x="dom-DedicatedWorkerGlobalScope-name">name</code></dt>
+   <dd>Returns <var>dedicatedWorkerGlobal</var>'s <span
+   data-x="concept-WorkerGlobalScope-name">name</span>.</dd>
+
    <dt><var>dedicatedWorkerGlobal</var> . <code subdfn
    data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</code>(<var>message</var> [,
    <var>transfer</var> ])</dt>
@@ -30,6 +36,11 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
    data-x="dom-DedicatedWorkerGlobalScope-close">close</code>()</dt>
    <dd>Aborts <var>dedicatedWorkerGlobal</var>.</dd>
   </dl>
+
+  <p>The <dfn><code data-x="dom-DedicatedWorkerGlobalScope-name">name</code></dfn> attribute must
+  return the <code>DedicatedWorkerGlobalScope</code> object's <span
+  data-x="concept-WorkerGlobalScope-name">name</span>. Its value represents the name given to the
+  worker using the <code>Worker</code> constructor, used primarily for debugging purposes.</p>
 
   <p>The <dfn><code data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage()</code></dfn>
   method on <code>DedicatedWorkerGlobalScope</code> objects must act as if, when invoked, it

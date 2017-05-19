@@ -128,22 +128,22 @@
 
     <ol>
      <li><p>Let <var>deserializedArrayBuffer</var> be ?
-     <span>StructuredDeserialize</span>(<var>input</var>.[[ArrayBufferSerialized]],
+     <span>StructuredDeserialize</span>(<var>serialized</var>.[[ArrayBufferSerialized]],
      <var>targetRealm</var>, <var>memory</var>).</p></li>
 
-     <li><p>If <var>input</var>.[[Constructor]] is "DataView", then set <var>value</var> to a new DataView object in
-     <var>targetRealm</var> whose [[ViewedArrayBuffer]] internal slot value is
-     <var>deserializedArrayBuffer</var>, whose [[ByteLength]] internal slot value is
+     <li><p>If <var>serialized</var>.[[Constructor]] is "DataView", then set <var>value</var> to a
+     new DataView object in <var>targetRealm</var> whose [[ViewedArrayBuffer]] internal slot value
+     is <var>deserializedArrayBuffer</var>, whose [[ByteLength]] internal slot value is
      <var>serialized</var>.[[ByteLength]], and whose [[ByteOffset]] internal slot value is
      <var>serialized</var>.[[ByteOffset]].</p></li>
 
      <li><p>Otherwise, set <var>value</var> to a new typed array object in <var>targetRealm</var>,
-     using the constructor given by <var>input</var>.[[Constructor]], whose [[ViewedArrayBuffer]]
-     internal slot value is <var>deserializedArrayBuffer</var>, whose [[TypedArrayName]] internal
-     slot value is <var>input</var>.[[Constructor]], whose [[ByteLength]] internal slot value is
-     <var>serialized</var>.[[ByteLength]], whose [[ByteOffset]] internal slot value is
-     <var>serialized</var>.[[ByteOffset]], and whose [[ArrayLength]] internal slot value is
-     <var>serialized</var>.[[ArrayLength]].</p></li>
+     using the constructor given by <var>serialized</var>.[[Constructor]], whose
+     [[ViewedArrayBuffer]] internal slot value is <var>deserializedArrayBuffer</var>, whose
+     [[TypedArrayName]] internal slot value is <var>serialized</var>.[[Constructor]], whose
+     [[ByteLength]] internal slot value is <var>serialized</var>.[[ByteLength]], whose
+     [[ByteOffset]] internal slot value is <var>serialized</var>.[[ByteOffset]], and whose
+     [[ArrayLength]] internal slot value is <var>serialized</var>.[[ArrayLength]].</p></li>
     </ol>
    </li>
 

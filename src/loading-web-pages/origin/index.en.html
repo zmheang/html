@@ -19,8 +19,8 @@
   <dl>
    <dt>An <dfn data-export="" data-x="concept-origin-opaque">opaque origin</dfn></dt>
    <dd><p>An internal value, with no serialization it can be recreated from (it is serialized as
-   "<code data-x="">null</code>" per <span>ASCII serialization of an origin</span>), for which the
-   only meaningful operation is testing for equality.</p></dd>
+   "<code data-x="">null</code>" per <span>serialization of an origin</span>), for which the only
+   meaningful operation is testing for equality.</p></dd>
 
    <dt>A <dfn data-export="" data-x="concept-origin-tuple">tuple origin</dfn></dt>
    <dd>
@@ -193,42 +193,9 @@
 
   <hr>
 
-  <p>The <!--en-GB--><dfn id="unicode-serialisation-of-an-origin" data-export="">Unicode
-  serialization of an origin</dfn> is the string obtained by applying the following algorithm to the
-  given <span>origin</span> <var>origin</var>:</p>
-
-  <ol>
-   <li><p>If <var>origin</var> is an <span data-x="concept-origin-opaque">opaque origin</span>, then
-   return "<code data-x="">null</code>".</p></li>
-
-   <li><p>Let <var>host</var> be <var>origin</var>'s <span
-   data-x="concept-origin-host">host</span>.</p></li>
-
-   <li><p>Let <var>unicodeHost</var> be <var>host</var> if <var>host</var> is not a <span
-   data-x="concept-domain">domain</span>, and the result of applying <span>domain to Unicode</span>
-   to <var>host</var> otherwise.</p></li>
-
-   <li><p>Let <var>unicodeOrigin</var> be a new <span data-x="concept-origin-tuple">tuple
-   origin</span> consisting <var>origin</var>'s <span data-x="concept-origin-scheme">scheme</span>,
-   <var>unicodeHost</var>, and <var>origin</var>'s <span
-   data-x="concept-origin-port">port</span>.</p></li>
-
-   <li>
-    <p>Return the <span>ASCII serialization of an origin</span>, given <var>unicodeOrigin</var>.</p>
-
-    <p class="note">The name <span>ASCII serialization of an origin</span> is misleading, as it
-    merely serializes an origin, which are all ASCII by default due to the <span>URL
-    parser</span>.</p>
-   </li>
-  </ol>
-
-  <p class="example">The <span data-x="Unicode serialization of an origin">Unicode
-  serialization</span> of ("<code data-x="">https</code>", "<code
-  data-x="">xn--maraa-rta.example</code>", null, null) is "<code
-  data-x="">https://maraña.example</code>".</p>
-
-  <p>The <!--en-GB--><dfn id="ascii-serialisation-of-an-origin" data-export="">ASCII serialization
-  of an origin</dfn> is the string obtained by applying the following algorithm to the given
+  <p>The <!--en-GB--><dfn id="ascii-serialisation-of-an-origin" data-export=""
+  data-lt="serialization of an origin|ASCII serialization of an origin">serialization of an
+  origin</dfn> is the string obtained by applying the following algorithm to the given
   <span>origin</span> <var>origin</var>:</p>
 
   <ol>
@@ -250,6 +217,13 @@
 
    <li><p>Return <var>result</var>.</p></li>
   </ol>
+
+  <p class="example">The <span data-x="serialization of an origin">serialization</span> of ("<code
+  data-x="">https</code>", "<code data-x="">xn--maraa-rta.example</code>", null, null) is "<code
+  data-x="">https://xn--maraa-rta.example</code>".</p>
+
+  <!--en-GB--><p class="note" id="unicode-serialisation-of-an-origin">There used to also be a
+  <i>Unicode serialization of an origin</i>. However, it was never widely adopted.</p>
 
   <hr>
 

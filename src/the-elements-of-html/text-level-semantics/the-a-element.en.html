@@ -94,31 +94,10 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
   <p>The <span>activation behavior</span> of <code>a</code> elements that create <span
   data-x="hyperlink">hyperlinks</span> is to run the following steps:</p>
 
-  <ol><!-- c.f. <area>'s similar section, also <link>'s -->
-
+  <ol><!-- c.f. <link> and <area>'s similar section -->
    <li><p>If the <code>a</code> element's <span>node document</span> is not <span>fully active</span>, then abort these steps.</p></li>
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2033 -->
    <!-- https://www.hixie.ch/tests/adhoc/html/navigation/iframe/002.html -->
-
-   <li>
-
-    <p>If the user has not indicated a specific <span>browsing context</span> for following the
-    link, and the element's <code data-x="attr-hyperlink-target">target</code> attribute is present,
-    and applying <span>the rules for choosing a browsing context given a browsing context
-    name</span>, using the value of the <code data-x="attr-hyperlink-target">target</code> attribute
-    as the browsing context name, would result in there not being a chosen browsing context,
-    then:</p>
-
-    <ol>
-
-     <li><p>If there is an <span>entry settings object</span>, throw an
-     <span>"<code>InvalidAccessError</code>"</span> <code>DOMException</code>.</p></li>
-
-     <li><p>Abort these steps without following the hyperlink.</p></li>
-
-    </ol>
-
-   </li>
 
    <li><p>If the target of the <code data-x="event-click">click</code> event is an <code>img</code>
    element with an <code data-x="attr-img-ismap">ismap</code> attribute specified, then server-side
@@ -150,12 +129,11 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
 
    </li>
 
-   <li><p>Finally, the user agent must <span data-x="following hyperlinks">follow the
-   hyperlink</span> or <span data-x="downloading hyperlinks">download the hyperlink</span> created
-   by the <code>a</code> element, as determined by the <code
-   data-x="attr-hyperlink-download">download</code> attribute and any expressed user preference,
-   passing <var>hyperlink suffix</var>, if the steps above defined it.</p></li>
-
+   <li><p><span data-x="following hyperlinks">Follow the hyperlink</span> or <span
+   data-x="downloading hyperlinks">download the hyperlink</span> created by the <code>a</code>
+   element, as determined by the <code data-x="attr-hyperlink-download">download</code> attribute
+   and any expressed user preference, passing <var>hyperlink suffix</var>, if the steps above
+   defined it.</p></li>
   </ol>
 
   </div>

@@ -3,9 +3,8 @@
   <p>When a user agent is to <dfn data-export="">run a worker</dfn> for a script with
   <code>Worker</code> or <code>SharedWorker</code> object <var>worker</var>, <span>URL</span>
   <var>url</var>, <span>environment settings object</span> <var>outside settings</var>,
-  <code>MessagePort</code> <var>outside port</var>, a <code>WorkerOptions</code> dictionary
-  <var>options</var>, and an optional string <var>name</var>, it must run the following steps.
-  (<var>name</var> is always provided when <var>worker</var> is a <code>SharedWorker</code>.)</p>
+  <code>MessagePort</code> <var>outside port</var>, and a <code>WorkerOptions</code> dictionary
+  <var>options</var>, it must run the following steps.</p>
 
   <ol>
 
@@ -50,6 +49,10 @@
    context</var> and <var>outside settings</var>, and let <var>inside settings</var> be the
    result.</p></li>
 
+   <li><p>Set <var>worker global scope</var>'s <span
+   data-x="concept-WorkerGlobalScope-name">name</span> to the value of <var>options</var>'s
+   <code data-x="">name</code> member.</p></li>
+
    <li>
     <p>If <var>is shared</var> is true, then:</p>
 
@@ -62,9 +65,6 @@
      <li><p>Set <var>worker global scope</var>'s <span
      data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor url</span> to
      <var>url</var>.</p></li>
-
-     <li><p>Set <var>worker global scope</var>'s <span
-     data-x="concept-SharedWorkerGlobalScope-name">name</span> to <var>name</var>.</p></li>
     </ol>
    </li>
 

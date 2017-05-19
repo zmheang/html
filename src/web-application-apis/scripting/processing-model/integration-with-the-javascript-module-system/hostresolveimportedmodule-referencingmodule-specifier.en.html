@@ -12,19 +12,44 @@
    object</span>'s <span data-x="concept-settings-object-module-map">module map</span>.</p></li>
 
    <li><p>Let <var>url</var> be the result of <span data-x="resolve a module specifier">resolving a
-   module specifier</span> given <var>referencing module script</var> and <var>specifier</var>. If
-   the result is failure, then throw a <code>TypeError</code> exception and abort these
-   steps.</p></li>
+   module specifier</span> given <var>referencing module script</var> and
+   <var>specifier</var>.</p></li>
 
-   <li><p>Let <var>resolved module script</var> be <var>moduleMap</var>[<var>url</var>]. If no such
-   entry <span data-x="map exists">exists</span>, or if <var>resolved module script</var> is null or
-   "<code data-x="">fetching</code>", then throw a <code>TypeError</code> exception and abort these
-   steps.</p></li>
+   <li><p>Assert: <var>url</var> is never failure, because <span data-x="resolve a module
+   specifier">resolving a module specifier</span> must have been previously successful with these
+   same two arguments during the appropriate invocation of <span>fetch the descendants of and
+   instantiate a module script</span>.</p></li>
+
+   <li><p>Let <var>resolved module script</var> be <var>moduleMap</var>[<var>url</var>]. (This entry
+   must <span data-x="map exists">exist</span> for us to have gotten to this point.)</p></li>
+
+   <li>
+    <p>If <var>resolved module script</var> is null, then throw a <code>TypeError</code>
+    exception and abort these steps.</p>
+
+    <div class="example">
+     <p>This occurs when we have previously tried to <span data-x="fetch a single module
+     script">fetch</span> <var>url</var>, and failed, but are now rediscovering that fact in a new
+     module script graph. For example, given a file <code data-x="">module.js</code> whose contents
+     are</p>
+
+     <pre>import "./404.js";</pre>
+
+     <p>then we could get here as part of <span data-x="fetch a module script graph">fetching the
+     graph</span> for the second <code>script</code> element in the following HTML:</p>
+
+     <pre>&lt;script type="module" src="404.js">&lt;/script>
+&lt;script type="module" src="module.js">&lt;/script></pre>
+    </div>
+   </li>
+
+   <li><p>Assert: <var>resolved module script</var> is a <span>module script</span> (i.e., is not
+   "<code data-x="">fetching</code>").</p></li>
 
    <li><p>If <var>resolved module script</var>'s <span
-   data-x="concept-module-script-instantiation-state">instantiation state</span> is "<code
-   data-x="">errored</code>", then throw <var>resolved module script</var>'s <span
-   data-x="concept-module-script-instantiation-error">instantiation error</span>.</p></li>
+   data-x="concept-module-script-state">state</span> is "<code data-x="">errored</code>", then throw
+   <var>resolved module script</var>'s <span
+   data-x="concept-module-script-error">error</span>.</p></li>
 
    <li><p>Assert: <var>resolved module script</var>'s <span
    data-x="concept-module-script-module-record">module record</span> is not null.</p></li>

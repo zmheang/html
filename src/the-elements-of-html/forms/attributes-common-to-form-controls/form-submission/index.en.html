@@ -151,11 +151,12 @@
   <p>The <dfn data-x="concept-fs-target">target</dfn> of an element is the value of the element's
   <code data-x="attr-fs-formtarget">formtarget</code> attribute, if the element is a <span
   data-x="concept-submit-button">submit button</span> and has such an attribute; or the value of its
-  <span>form owner</span>'s <code data-x="attr-fs-target">target</code> attribute, if <em>it</em> has
-  such an attribute; or, if the <code>Document</code> contains a <code>base</code> element with a
-  <code data-x="attr-base-target">target</code> attribute, then the value of the <code
-  data-x="attr-base-target">target</code> attribute of the first such <code>base</code> element; or,
-  if there is no such element, the empty string.</p> <!-- c.f. hyperlink following -->
+  <span>form owner</span>'s <code data-x="attr-fs-target">target</code> attribute, if <em>it</em>
+  has such an attribute; or, if the element's <span>node document</span> contains a
+  <code>base</code> element with a <code data-x="attr-base-target">target</code> attribute, then the
+  value of the <code data-x="attr-base-target">target</code> attribute of the first such
+  <code>base</code> element; or, if there is no such element, null.</p>
+  <!-- c.f. hyperlink following -->
 
   <hr>
 

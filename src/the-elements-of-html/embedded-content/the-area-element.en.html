@@ -168,37 +168,14 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
   <p>The <span>activation behavior</span> of <code>area</code> elements is to run the following
   steps:</p>
 
-  <ol><!-- c.f. <a>'s similar section -->
+  <ol><!-- c.f. <link> and <a>'s similar section -->
+   <li><p>If the <code>area</code> element's <span>node document</span> is not <span>fully
+   active</span>, then abort these steps.</p></li>
 
-   <li><p>If the <code>area</code> element's <span>node document</span> is not <span>fully active</span>,
-   then abort these steps.</p></li>
-
-   <li>
-
-    <p>If the user has not indicated a specific <span>browsing context</span> for following the
-    link, and the element's <code data-x="attr-hyperlink-target">target</code> attribute is present,
-    and applying <span>the rules for choosing a browsing context given a browsing context
-    name</span>, using the value of the <code data-x="attr-hyperlink-target">target</code> attribute
-    as the browsing context name, would result in there not being a chosen browsing context,
-    then:</p>
-
-    <ol>
-
-     <li><p>If there is an <span>entry settings object</span>, throw an
-     <span>"<code>InvalidAccessError</code>"</span> <code>DOMException</code>.</p></li>
-
-     <li><p>Abort these steps without following the hyperlink.</p></li>
-
-    </ol>
-
-   </li>
-
-   <li><p>Otherwise, the user agent must <span data-x="following hyperlinks">follow the
-   hyperlink</span> or <span data-x="downloading hyperlinks">download the hyperlink</span> created
-   by the <code>area</code> element, if any, and as determined by the <code
-   data-x="attr-hyperlink-download">download</code> attribute and any expressed user
-   preference.</p></li>
-
+   <li><p><span data-x="following hyperlinks">Follow the hyperlink</span> or <span
+   data-x="downloading hyperlinks">download the hyperlink</span> created by the <code>area</code>
+   element, if any, and as determined by the <code data-x="attr-hyperlink-download">download</code>
+   attribute and any expressed user preference.</p></li>
   </ol>
 
   <p>The IDL attributes <dfn><code data-x="dom-area-alt">alt</code></dfn>, <dfn><code

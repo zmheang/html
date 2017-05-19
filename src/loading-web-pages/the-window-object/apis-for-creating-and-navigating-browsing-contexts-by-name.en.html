@@ -51,12 +51,8 @@
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-open">open(<var>url</var>, <var>target</var>,
-  <var>features</var>)</code></dfn> method on <code>Window</code> objects provides a mechanism for
-  <span data-x="navigate">navigating</span> an existing <span>browsing context</span> or opening and
-  navigating an <span>auxiliary browsing context</span>.</p>
-
-  <p>When the method is invoked, the user agent must run the following steps:</p>
+  <p>The <dfn>window open steps</dfn>, given a string <var>url</var>, a string <var>target</var>,
+  and a string <var>features</var>, are as follows:</p>
 
   <ol>
 
@@ -65,107 +61,67 @@
    <li><p>Let <var>source browsing context</var> be the <span>responsible browsing context</span>
    specified by <var>entry settings</var>.</p></li>
 
-   <li><p>If <var>target</var> is the empty string, let it be the string "<code
-   data-x="">_blank</code>" instead.</p></li>
+   <li><p>If <var>target</var> is the empty string, then set <var>target</var> to "<code
+   data-x="">_blank</code>".</p></li>
 
    <li>
+    <p>Let <var>target browsing context</var> and <var>new</var> be the result of applying
+    <span>the rules for choosing a browsing context</span> given <var>target</var> and
+    <var>source browsing context</var>.
 
-    <p>If the user has indicated a preference for which <span>browsing context</span> to navigate,
-    follow these substeps:</p>
-
-    <ol>
-
-     <li><p>Let <var>target browsing context</var> be the <span>browsing context</span> indicated by
-     the user.</p></li>
-
-     <li><p>If <var>target browsing context</var> is a new <span>top-level browsing context</span>,
-     let the <var>source browsing context</var> be set as <var>target browsing context</var>'s
-     <span>one permitted sandboxed navigator</span>.</p></li>
-
-    </ol>
-
-    <p class="example">For example, suppose there is a user agent that supports control-clicking a
-    link to open it in a new tab. If a user clicks in that user agent on an element whose <code
+    <p class="example">If there is a user agent that supports control-clicking a link to open it in
+    a new tab, and the user control-clicks on an element whose <code
     data-x="handler-onclick">onclick</code> handler uses the <code
-    data-x="dom-open">window.open()</code> API to open a page in an iframe, but, while doing so,
-    holds the control key down, the user agent could override the selection of the target browsing
-    context to instead target a new tab.</p>
-
-    <p>Otherwise, apply <span>the rules for choosing a browsing context given a browsing context
-    name</span> using <var>target</var> as the name and <var>source browsing context</var> as the
-    context in which the algorithm is executed. If this results in there not being a chosen browsing
-    context, then return null. Otherwise, let <var>target browsing context</var> be the
-    <span>browsing context</span> so obtained.</p>
-
+    data-x="dom-open">window.open()</code> API to open a page in an <code>iframe</code> element, the
+    user agent could override the selection of the target browsing context to instead target a new
+    tab.</p>
    </li>
 
-   <li><p>If <var>target browsing context</var> was just created, either as part of <span>the rules
-   for choosing a browsing context given a browsing context name</span> or due to the user
-   indicating a preference for navigating a new <span>top-level browsing context</span>, then let
-   <var>new</var> be true. Otherwise, let it be false.</p></li>
+   <li><p>If <var>target browsing context</var> is null, then return null.</p></li>
 
    <li><p>Let <var>tokenizedFeatures</var> be the result of <span
    data-x="concept-window-open-features-tokenize">tokenizing</span> <var>features</var>.</p></li>
 
-   <li><p>If <var>target browsing context</var> is a new <span>auxiliary browsing context</span>,
-   then <span>set up browsing context features</span> for <var>target browsing context</var> given
-   <var>tokenizedFeatures</var>. <ref spec="CSSOMVIEW"></p></li>
+   <li><p>Let <var>resource</var> be the <span>URL</span> "<code>about:blank</code>".</p></li>
 
    <li>
-
-    <p>If <var>url</var> is the empty string, run the appropriate steps from the following list:</p>
-
-    <dl>
-
-     <dt>If <var>new</var> is false</dt>
-
-     <dd><p>Jump to the step labeled <i>end</i>.</p></dd>
-
-     <dt>If <var>new</var> is true</dt>
-
-     <dd><p>Let <var>resource</var> be the <span>URL</span> "<code>about:blank</code>".</p></dd>
-
-    </dl>
-
-    <p>Otherwise, <span data-x="parse a url">parse</span> <var>url</var> relative to <var>entry
-    settings</var>, and let <var>resource</var> be the <span>resulting URL record</span>, if any. If
-    the <span>parse a URL</span> algorithm failed, then throw a
-    <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p>
-   </li>
-
-   <li>
-
-    <p>If <var>resource</var> is "<code>about:blank</code>" and <var>new</var> is true, then
-    <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
-    data-x="event-load">load</code> at <var>target browsing context</var>'s <code>Window</code>
-    object, with <var>legacy target override flag</var> set.</p>
-
-    <p>Otherwise, <span>navigate</span><!--DONAV window.open()--> <var>target browsing context</var>
-    to <var>resource</var>, with the <var><span>exceptions enabled flag</span></var> set. If
-    <var>new</var> is true, then <span data-x="replacement enabled">replacement must be
-    enabled</span>. The <span>source browsing context</span> is <var>source browsing context</var>.
-    Rethrow any exceptions.</p>
-
-   </li>
-
-
-   <li>
-    <p><i>End</i>:</p>
+    <p>If <var>url</var> is not the empty string or <var>new</var> is true, then:
 
     <ol>
+     <li><p>If <var>url</var> is not the empty string, then <span data-x="parse a url">parse</span>
+     <var>url</var> relative to <var>entry settings</var>, and set <var>resource</var> to the
+     <span>resulting URL record</span>, if any. If the <span>parse a URL</span> algorithm failed,
+     then throw a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
 
-     <li><p>If <var>tokenizedFeatures</var> <span data-x="map exists">contains</span> an entry with
-     the key "<code data-x="">noopener</code>", then <span data-x="disowned its opener">disown
-     <var>target browsing context</var>'s opener</span> and return null.</p></li>
+     <li><p>If <var>resource</var> is "<code>about:blank</code>" and <var>new</var> is true, then
+     <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
+     data-x="event-load">load</code> at <var>target browsing context</var>'s <code>Window</code>
+     object, with the <var>legacy target override flag</var> set.</p>
 
-     <li><p>Otherwise, return the <code>WindowProxy</code> object of <var>target browsing
-     context</var>.</p></li>
-
+     <li><p>Otherwise, <span>navigate</span><!--DONAV window.open()--> <var>target browsing
+     context</var> to <var>resource</var>, with the <var><span>exceptions enabled flag</span></var>
+     set. If <var>new</var> is true, then <span data-x="replacement enabled">replacement must be
+     enabled</span>. The <span>source browsing context</span> is <var>source browsing context</var>.
+     Rethrow any exceptions.</p></li>
     </ol>
-
    </li>
 
+   <li><p>If <var>tokenizedFeatures</var> <span data-x="map exists">contains</span> an entry with
+   the key "<code data-x="">noopener</code>", then <span data-x="disowned its opener">disown
+   <var>target browsing context</var>'s opener</span> and return null.</p></li>
+
+   <li><p>Return <var>target browsing context</var>'s <code>WindowProxy</code> object.</p></li>
   </ol>
+
+  <p>The <dfn><code data-x="dom-open">open(<var>url</var>, <var>target</var>,
+  <var>features</var>)</code></dfn> method on <code>Window</code> objects provides a mechanism for
+  <span data-x="navigate">navigating</span> an existing <span>browsing context</span> or opening and
+  navigating an <span>auxiliary browsing context</span>.</p>
+
+  <p>When the method is invoked, the user agent must run the <span>window open steps</span> with
+  <var>url</var>, <var>target</var>, and <var>features</var>.</p>
+
+  <hr>
 
   <p>To <dfn data-x="concept-window-open-features-tokenize">tokenize the <var>features</var>
   argument</dfn>:</p>

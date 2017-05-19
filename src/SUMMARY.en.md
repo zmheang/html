@@ -628,7 +628,6 @@
     3. [Security](loading-web-pages/browsing-contexts/security.en.html)
     4. [Groupings of browsing contexts](loading-web-pages/browsing-contexts/groupings-of-browsing-contexts.en.html)
     5. [Browsing context names](loading-web-pages/browsing-contexts/browsing-context-names.en.html)
-    6. [Script settings for browsing contexts](loading-web-pages/browsing-contexts/script-settings-for-browsing-contexts.en.html)
   2. [Security infrastructure for <code>Window</code>,
   <code>WindowProxy</code>, and <code>Location</code> objects](loading-web-pages/security-infrastructure-for-window-windowproxy-and-location-objects/index.en.html)
     1. [Integration with IDL](loading-web-pages/security-infrastructure-for-window-windowproxy-and-location-objects/integration-with-idl.en.html)
@@ -648,6 +647,7 @@
     4. [Garbage collection and browsing contexts](loading-web-pages/the-window-object/garbage-collection-and-browsing-contexts.en.html)
     5. [Closing browsing contexts](loading-web-pages/the-window-object/closing-browsing-contexts.en.html)
     6. [Browser interface elements](loading-web-pages/the-window-object/browser-interface-elements.en.html)
+    7. [Script settings for <code>Window</code> objects](loading-web-pages/the-window-object/script-settings-for-window-objects.en.html)
   4. [The <code>WindowProxy</code> exotic object](loading-web-pages/the-windowproxy-exotic-object/index.en.html)
     1. [[[GetPrototypeOf]] ( )](loading-web-pages/the-windowproxy-exotic-object/getprototypeof.en.html)
     2. [[[SetPrototypeOf]] ( <var>V</var> )](loading-web-pages/the-windowproxy-exotic-object/setprototypeof-v.en.html)

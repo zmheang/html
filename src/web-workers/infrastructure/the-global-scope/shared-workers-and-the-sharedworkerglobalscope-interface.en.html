@@ -11,13 +11,11 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
 
   <p>A <code>SharedWorkerGlobalScope</code> object has an associated <dfn
   data-dfn-for="SharedWorkerGlobalScope"
-  data-x="concept-SharedWorkerGlobalScope-constructor-origin">constructor origin</dfn>, <dfn
+  data-x="concept-SharedWorkerGlobalScope-constructor-origin">constructor origin</dfn>, and <dfn
   data-dfn-for="SharedWorkerGlobalScope"
-  data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor url</dfn>, and <dfn
-  data-dfn-for="SharedWorkerGlobalScope"
-  data-x="concept-SharedWorkerGlobalScope-name">name</dfn>. They are initialized when the
-  <code>SharedWorkerGlobalScope</code> object is created, in the <span>run a worker</span>
-  algorithm.
+  data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor url</dfn>. They are
+  initialized when the <code>SharedWorkerGlobalScope</code> object is created, in the <span>run a
+  worker</span> algorithm.
 
   <p>Shared workers receive message ports through <code
   data-x="event-WorkerGlobalScope-connect">connect</code> events on their <code>SharedWorkerGlobalScope</code> object for each
@@ -26,7 +24,7 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   <dl class="domintro">
    <dt><var>sharedWorkerGlobal</var> . <code subdfn data-x="dom-SharedWorkerGlobalScope-name">name</code></dt>
    <dd>Returns <var>sharedWorkerGlobal</var>'s <span
-   data-x="concept-SharedWorkerGlobalScope-name">name</span>.</dd>
+   data-x="concept-WorkerGlobalScope-name">name</span>.</dd>
 
    <dt><var>sharedWorkerGlobal</var> . <code subdfn
    data-x="dom-SharedWorkerGlobalScope-close">close</code>()</dt>
@@ -37,7 +35,7 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
 
   <p>The <dfn><code data-x="dom-SharedWorkerGlobalScope-name">name</code></dfn> attribute must
   return the <code>SharedWorkerGlobalScope</code> object's <span
-  data-x="concept-SharedWorkerGlobalScope-name">name</span>. Its value represents the name that can
+  data-x="concept-WorkerGlobalScope-name">name</span>. Its value represents the name that can
   be used to obtain a reference to the worker using the <code>SharedWorker</code> constructor.</p>
 
   <p>The <dfn><code data-x="dom-SharedWorkerGlobalScope-close">close()</code></dfn> method, when

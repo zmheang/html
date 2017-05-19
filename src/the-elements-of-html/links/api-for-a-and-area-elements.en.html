@@ -164,13 +164,10 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
    <li><p>If this element's <span data-x="concept-hyperlink-url">url</span> is null, return the
    empty string.</p></li>
 
-   <li><p>Return the <span data-x="Unicode serialization of an origin">Unicode serialization</span>
-   of this element's <span data-x="concept-hyperlink-url">url</span>'s <span
+   <li><p>Return the <span data-x="serialization of an origin">serialization</span> of this
+   element's <span data-x="concept-hyperlink-url">url</span>'s <span
    data-x="concept-url-origin">origin</span>.</p></li>
   </ol>
-
-  <p class="note no-backref">It returns the Unicode rather than the ASCII serialization for
-  compatibility with <code>MessageEvent</code>.</p>
 
   <p>The <dfn><code data-x="dom-hyperlink-protocol">protocol</code></dfn> attribute's getter must
   run these steps:</p>

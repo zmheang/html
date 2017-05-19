@@ -24,13 +24,10 @@ interface <dfn>WorkerLocation</dfn> {
   data-x="concept-url-serializer">serialized</span>.</p>
 
   <p>The <dfn><code data-x="dom-WorkerLocation-origin">origin</code></dfn> attribute's getter must
-  return the <span data-x="Unicode serialization of an origin">Unicode serialization</span> of the
-  associated <span data-x="concept-WorkerLocation-WorkerGlobalScope"><code>WorkerGlobalScope</code>
-  object</span>'s <span data-x="concept-WorkerGlobalScope-url">url</span>'s <span
+  return the <span data-x="serialization of an origin">serialization</span> of the associated <span
+  data-x="concept-WorkerLocation-WorkerGlobalScope"><code>WorkerGlobalScope</code> object</span>'s
+  <span data-x="concept-WorkerGlobalScope-url">url</span>'s <span
   data-x="concept-url-origin">origin</span>.</p>
-
-  <p class="note no-backref">It returns the Unicode rather than the ASCII serialization for
-  compatibility with <code>MessageEvent</code>.</p>
 
   <p>The <dfn><code data-x="dom-WorkerLocation-protocol">protocol</code></dfn> attribute's getter
   must run return the associated <span

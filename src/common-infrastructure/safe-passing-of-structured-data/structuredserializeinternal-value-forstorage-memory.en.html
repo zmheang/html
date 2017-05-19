@@ -157,12 +157,12 @@
     <!-- IsArray supports proxies too, which we cannot -->
 
     <ol>
-     <li><p>Let <var>inputLenDescriptor</var> be ?
+     <li><p>Let <var>valueLenDescriptor</var> be ?
      <span>OrdinaryGetOwnProperty</span>(<var>value</var>, "<code data-x="">length</code>").</p></li>
 
-     <li><p>Let <var>inputLen</var> be <var>inputLenDescriptor</var>.[[Value]].</p></li>
+     <li><p>Let <var>valueLen</var> be <var>valueLenDescriptor</var>.[[Value]].</p></li>
 
-     <li><p>Set <var>serialized</var> to { [[Type]]: "Array", [[Length]]: <var>inputLen</var>,
+     <li><p>Set <var>serialized</var> to { [[Type]]: "Array", [[Length]]: <var>valueLen</var>,
      [[Properties]]: a new empty <span data-x="js-List">List</span> }.</p></li>
 
      <li><p>Set <var>deep</var> to true.</p></li>
@@ -322,9 +322,10 @@
           <p>If <span data-x="js-Type">Type</span>(<var>key</var>) is String, then:</p>
 
           <ol>
-           <li><p>Let <var>inputDesc</var> be ! <var>value</var>.[[GetOwnProperty]](<var>key</var>).</p></li>
+           <li><p>Let <var>valueDesc</var> be !
+           <var>value</var>.[[GetOwnProperty]](<var>key</var>).</p></li>
 
-           <li><p>If <var>inputDesc</var>.[[Enumerable]] is true, then <span data-x="list
+           <li><p>If <var>valueDesc</var>.[[Enumerable]] is true, then <span data-x="list
            append">append</span> <var>key</var> to <var>enumerableKeys</var>.</p></li>
           </ol>
          </li>

@@ -12,18 +12,18 @@
   <code data-x="event-pageshow">pageshow</code>, or vice versa).</p>
 
   <p><span data-x="event loop">Event loops</span> have a <dfn>termination nesting level</dfn>
-  counter, which must initially be zero.</p>
+  counter, which must initially be 0.</p>
 
-  <p>When a user agent is to <dfn>prompt to unload a document</dfn>, it must run the following
-  steps.</p>
+  <p>To <dfn id="prompt-to-unload-a-document">prompt to unload</dfn>, given a <code>Document</code>
+  object <var>document</var> and optionally a <var>recursiveFlag</var>, run these steps:</p>
 
   <ol>
 
    <li><p>Increase the <span>event loop</span>'s <span>termination nesting level</span> by
-   one.</p></li>
+   1.</p></li>
 
-   <li><p>Increase the <code>Document</code>'s <span>ignore-opens-during-unload counter</span> by
-   one.</p></li>
+   <li><p>Increase the <var>document</var>'s <span>ignore-opens-during-unload counter</span> by
+   1.</p></li>
 
    <li><p>Let <var>event</var> be the result of <span>creating an event</span> using
    <code>BeforeUnloadEvent</code>.</p></li>
@@ -33,18 +33,17 @@
    data-x="dom-Event-cancelable">cancelable</code> attribute true.</p></li>
 
    <li><p><i>Dispatch</i>: <span data-x="concept-event-dispatch">Dispatch</span> <var>event</var> at
-   the <code>Document</code>'s <code>Window</code> object.</p></li>
+   <var>document</var>'s <code>Window</code> object.</p></li>
 
    <li><p>Decrease the <span>event loop</span>'s <span>termination nesting level</span> by
-   one.</p></li>
+   1.</p></li>
 
-   <li><p>If any event listeners were triggered by the earlier <i>dispatch</i> step, then set the
-   <code>Document</code>'s <i data-x="concept-document-salvageable">salvageable</i> state to
+   <li><p>If any event listeners were triggered by the earlier <i>dispatch</i> step, then set
+   <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state to
    false.</p></li>
 
    <li>
-
-    <p>If the <code>Document</code>'s <span>active sandboxing flag set</span> does not have its
+    <p>If <var>document</var>'s <span>active sandboxing flag set</span> does not have its
     <span>sandboxed modals flag</span> set, and the <code
     data-x="dom-BeforeUnloadEvent-returnValue">returnValue</code> attribute of the <var>event</var>
     object is not the empty string, or if the event was canceled, then the user agent may ask the
@@ -64,42 +63,36 @@
 
     <p>If the user did not confirm the page navigation, then the user agent <dfn>refused to allow
     the document to be unloaded</dfn>.</p>
-
    </li>
-
-   <li><p>If this algorithm was invoked by another instance of the "prompt to unload a document"
-   algorithm (i.e. through the steps below that invoke this algorithm for all descendant browsing
-   contexts), then jump to the step labeled <i>end</i>.</p></li>
-
-   <li><p>Let <var>descendants</var> be the <span>list of the descendant browsing
-   contexts</span> of the <code>Document</code>.</p></li>
 
    <li>
-
-    <p>If <var>descendants</var> is not an empty list, then for each <span>browsing
-    context</span> <var>b</var> in <var>descendants</var> run the following
-    substeps:</p>
+    <p>If the <var>recursiveFlag</var> is not set, then:</p>
 
     <ol>
+     <li><p>Let <var>descendants</var> be the <span>list of the descendant browsing contexts</span>
+     of <var>document</var>.</p></li>
 
-     <li><p><span data-x="prompt to unload a document">Prompt to unload</span> the <span>active
-     document</span> of the <span>browsing context</span> <var>b</var>. If the user
-     <span>refused to allow the document to be unloaded</span>, then the user implicitly also <span
-     data-x="refused to allow the document to be unloaded">refused to allow <em>this</em> document to
-     be unloaded</span>; jump to the step labeled <i>end</i>.</p>
+     <li>
+      <p>For each <var>browsingContext</var> in <var>descendants</var>:</p>
 
-     <li><p>If the <i data-x="concept-document-salvageable">salvageable</i> state of the <span>active
-     document</span> of the <span>browsing context</span> <var>b</var> is false, then set
-     the <i data-x="concept-document-salvageable">salvageable</i> state of <em>this</em> document to
-     false also.</p></li>
+      <ol>
+       <li><p><span>Prompt to unload</span> <var>browsingContext</var>'s <span>active
+       document</span> with the <var>recursiveFlag</var> set. If the user <span>refused to allow
+       the document to be unloaded</span>, then the user implicitly also <span data-x="refused to
+       allow the document to be unloaded">refused to allow <var>document</var> to be
+       unloaded</span>; <span>break</span>.</p></li>
 
+       <li><p>If the <i data-x="concept-document-salvageable">salvageable</i> state of
+       <var>browsingContext</var>'s <span>active document</span> is false, then set the <i
+       data-x="concept-document-salvageable">salvageable</i> state of <var>document</var> to
+       false.</p></li>
+      </ol>
+     </li>
     </ol>
-
    </li>
 
-   <li><p><i>End</i>: Decrease the <code>Document</code>'s <span>ignore-opens-during-unload
-   counter</span> by one.</p></li>
-
+   <li><p>Decrease the <var>document</var>'s <span>ignore-opens-during-unload counter</span> by
+   1.</p></li>
   </ol>
 
   <p>When a user agent is to <dfn data-export="">unload a document</dfn>, it must run the following

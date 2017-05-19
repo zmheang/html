@@ -12,6 +12,7 @@ interface <dfn>Worker</dfn> : <span>EventTarget</span> {
 dictionary <dfn>WorkerOptions</dfn> {
   <span>WorkerType</span> type = "classic";
   <span>RequestCredentials</span> credentials = "omit"; // credentials is only used if type is "module"
+  DOMString name = "";
 };
 
 enum <dfn>WorkerType</dfn> { "classic", "module" };
@@ -22,10 +23,12 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
    <dt><var>worker</var> = new <code subdfn data-x="dom-Worker">Worker</code>(<var>scriptURL</var> [, <var>options</var> ])</dt>
    <dd>Returns a new <code>Worker</code> object. <var>scriptURL</var> will be fetched and executed
    in the background, creating a new global environment for which <var>worker</var> represents the
-   communication channel. <var>options</var> can be used to ensure this new global environment
-   supports JavaScript modules (specify <code data-x="">type: "module"</code>) and if that is
-   specified, can also be used to specify how <var>scriptURL</var> is fetched through the <code
-   data-x="">credentials</code> option.</dd>
+   communication channel. <var>options</var> can be used to define the <span
+   data-x="concept-WorkerGlobalScope-name">name</span> of that global environment via the <code
+   data-x="">name</code> option, primarily for debugging purposes. It can also ensure this new
+   global environment supports JavaScript modules (specify <code data-x="">type: "module"</code>),
+   and if that is specified, can also be used to specify how <var>scriptURL</var> is fetched through
+   the <code data-x="">credentials</code> option.
 
    <dt><var>worker</var> . <code subdfn data-x="dom-Worker-terminate">terminate</code>()</dt>
    <dd>Aborts <var>worker</var>'s associated global environment.</dd>
