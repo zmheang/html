@@ -2,6 +2,7 @@ function! TranslatePunc()
     execute '%s/\zs\.\ze\(<\|$\| \)/。/g'
     execute '%s/, /，/g'
     execute '%s/:/：/g'
+    execute '%s/https?：/:/g'
     execute '%s/(/（/g'
     execute '%s/)/）/g'
 endfunction
