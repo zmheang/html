@@ -1,0 +1,74 @@
+  <h5>月份</h5>
+
+  <p><dfn data-x="concept-month">月份</dfn> 由特定的
+  <span data-x="proleptic-Gregorian date">外推格里历日期</span> 组成，
+  不包含时区信息，也不包含年和月以上的日的信息。<ref spec=GREGORIAN></p>
+
+  <p>表示 <var>year</var> 年 <var>month</var> 月的
+  <dfn data-x="valid month string">合法的月字符串</dfn>
+  包含下列部分（有序）：</p>
+
+  <ol>
+
+   <li>表示 <var>year</var> 年的 4 个或更多 <span data-x="ASCII digits">ASCII 数字</span>，
+   其中 <var>year</var>&nbsp;&gt;&nbsp;0</li>
+
+   <li>一个 U+002D HYPHEN-MINUS 字符（-）</li>
+
+   <li>表示 <var>month</var> 月的两个 <span data-x="ASCII digits">ASCII 数字</span>，在范围
+   1&nbsp;&le;&nbsp;<var>month</var>&nbsp;&le;&nbsp;12 之内</li>
+
+  </ol>
+
+  <div w-nodev>
+
+  <p><dfn data-x="parse a month string">解析月字符串</dfn> 的规则如下。将返回年和月，或者什么都不返回。
+  如果算法的任何一个点说它 "失败了"，这意味着它在那一点退出并什么都不返回。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为待解析字符串。</p></li>
+
+   <li><p>令<var>position</var> 为 <var>input</var> 内的指针初始指向字符串开始。</p></li>
+
+   <li><p><span data-x="Parse a month component">解析月的部分</span> 来获得 <var>year</var> 和 <var>month</var>。
+   如果它没有返回，则失败。</p>
+
+   <li><p>如果 <var>position</var> <em>没有</em> 超出 <var>input</var> 的结尾，则失败。</p></li>
+
+   <li><p>返回 <var>year</var> 和 <var>month</var>。</p></li>
+
+  </ol>
+
+  <p>给定 <var>input</var> 字符串和位置 <var>position</var>，
+  <dfn data-x="parse a month component">解析月的部分</dfn> 的规则如下。
+  将返回年和月，或者什么都不返回。
+  如果算法的任何一个步说它 "失败了"，这意味着它在那一步退出并什么都不返回。</p>
+
+  <ol>
+
+   <li><p>从 <var>input</var> 中给定的位置 <var>position</var>
+   <span data-x="Collect a sequence of code points">收集</span> <span data-x="ASCII digits">ASCII 数字</span>
+   组成的代码点序列。 如果收集到的序列不够 4 个字符则失败。
+   否则将结果序列解释为 10 进制整数。令那个数为 <var>year</var>。</p></li>
+
+   <li><p>如果 <var>year</var> 不是大于0的数字则失败。。</p></li>
+
+   <li><p>如果 <var>position</var> 超出了 <var>input</var> 的末尾或者
+   <var>position</var> 处的字符不是 U+002D HYPHEN-MINUS 字符，则失败。
+   否则将 <var>position</var> 前进一个字符。</p></li>
+
+   <li><p>从 <var>input</var> 中给定的位置 <var>position</var>
+   <span data-x="Collect a sequence of code points">收集</span> <span data-x="ASCII digits">ASCII 数字</span>
+   组成的代码点序列。 如果收集到的序列不是恰好 2 个字符则失败。
+   否则将结果序列解释为 10 进制整数。令那个数为 <var>month</var>。</p></li>
+
+   <li><p>如果 <var>month</var> 不是 1&nbsp;&le;&nbsp;<var>month</var>&nbsp;&le;&nbsp;12 范围内的数字就失败。</p></li>
+
+   <li><p>返回 <var>year</var> 和 <var>month</var>。</p></li>
+
+  </ol>
+
+  </div>
+
+
