@@ -3,7 +3,8 @@ function! TranslatePunc()
     execute '%s/, /，/g'
     execute '%s/,$/，/g'
     execute '%s/:/：/g'
-    execute '%s/https\?：/:/g'
+    execute '%s/https：/https:/g'
+    execute '%s/http：/http:/g'
     execute '%s/(/（/g'
     execute '%s/)/）/g'
     execute '%s/（）/()/g'
@@ -18,6 +19,7 @@ function! TranslateTerm()
     execute '%s/for instance, /例如/gi'
     execute '%s/i\.e\./即/g'
     execute '%s/If/如果/g'
+    execute '%s/return an error/返回一个错误/g'
     execute '%s/Return/返回/g'
 endfunction
 

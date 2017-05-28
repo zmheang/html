@@ -51,9 +51,6 @@ deploy-force:
 clean-cache:
 	rm -rf html-build/.cache
 
-update-term:
-	node ./bin/update-term.js
-
 # `npm install http-server` first
 serve:
 	echo open http://localhost:8899/html
