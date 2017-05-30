@@ -1,0 +1,63 @@
+  <h4>基 URL 的动态变化</h4>
+
+  <p>当一个文档的 <span data-x="document base URL">文档基 URL</span> 变化时，该文档中所有元素多
+  <span data-x="affected by a base URL change">受基 URL 变化的影响</span>。</p>
+
+  <p>当一个元素 <span data-x="affected by a base URL change">受基 URL 变化影响</span> 时执行下面的
+  <span data-x="base URL change steps">基 URL 变化步骤</span>（定义在 DOM 标准中）：</p>
+
+  <dl class="switch">
+
+   <dt>如果该元素创建了 <span data-x="hyperlink">超链接</span></dt>
+
+   <dd>
+
+    <p>如果该超链接标识的 <span>URL</span> 正在展现给用户，
+    或任何从该 <span>URL</span> 来的数据正在影响显示，那么应该相对于该元素的
+    <span data-x="node document">节点文档</span>
+    <span data-x="parse a url">重新解析</span>
+    <code data-x="attr-hyperlink-href">href</code> 属性并适当地更新 UI。</p>
+
+    <p class="example">例如 CSS <code data-x="selector-link">:link</code>/<code data-x="selector-visited">:visited</code>
+    <span data-x="pseudo-class">伪类</span> 可能不受影响。</p>
+
+    <p>如果该超链接有 <code data-x="attr-hyperlink-ping">ping</code> 属性
+    且它的 <span>URL</span> 正在展现给用户，那么应该相对于该元素的
+    <span data-x="node document">节点文档</span>
+    <span data-x="parse a url">重新解析</span>
+    <code data-x="attr-hyperlink-ping">ping</code> 属性的令牌并适当地更新 UI。</p>
+
+   </dd>
+
+   <dt>如果该属性是有 <code data-x="">cite</code> 属性的 <code>q</code>，<code>blockquote</code>，
+   <code>ins</code>，或 <code>del</code> 元素</dt>
+
+   <dd>
+
+    <p>如果 <code data-x="">cite</code> 属性标识的 <span>URL</span> 正在展现给用户，
+    或任何从该 <span>URL</span> 来的数据正在影响显示，那么应该相对于该元素的
+    <span data-x="node document">节点文档</span>
+    <span data-x="parse a url">重新解析</span>
+    <code data-x="attr-hyperlink-href">href</code> 属性并适当地更新 UI。</p>
+
+   </dd>
+
+   <dt>否则</dt>
+
+   <dd>
+
+    <p>该元素不直接受影响。</p>
+
+    <p class="example">例如更改基 URL 不影响 <code>img</code> 元素显示的图片，
+    尽管脚本中后续对 <code data-x="dom-img-src">src</code> IDL 属性的访问将返回新的
+    <span data-x="absolute URL">绝对 URL</span>，可能不再对应于正在显示的图片。</p>
+
+   </dd>
+
+  </dl>
+
+  </div>
+
+
+  <div w-nodev>
+

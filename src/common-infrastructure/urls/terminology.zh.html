@@ -1,0 +1,79 @@
+  <h4>术语</h4>
+
+  <p>一个字符串如果是<span data-x="valid URL string">合法 URL 字符串</span>，同时是非空字符串，
+  那么它就是 <dfn data-x="valid non-empty URL">合法的非空 URL</dfn>。</p>
+
+  <p>如果
+  <span data-x="strip leading and trailing ASCII whitespace">去掉前后 ASCII 空白</span>
+  后是一个 <span data-x="valid URL string">合法 URL 字符串</span>，
+  那么它就是一个
+  <dfn data-x="valid URL potentially surrounded by spaces">可能由空格包裹的合法 URL</dfn>。</p>
+
+  <p>如果
+  <span data-x="strip leading and trailing ASCII whitespace">去掉前后 ASCII 空白</span>
+  后是一个 <span data-x="valid non-empty URL">合法的非空 URL</span>，
+  那么它就是一个
+  <dfn data-x="valid non-empty URL potentially surrounded by spaces">可能由空格包裹的合法的非空 URL</dfn>。</p>
+
+  <p>本标准将 <dfn><code>about:legacy-compat</code></dfn> 定义为保留 URL。
+  因为 <code data-x="about protocol">about:</code> URL 不可解析，当需要兼容 XML 工具时，
+  用在 <span data-x="HTML documents">HTML 文档</span> 的 <span data-x="syntax-doctype">DOCTYPE</span> 中。<ref spec=ABOUT></p>
+
+  <p>本标准将 <dfn><code>about:html-kind</code></dfn> 定义为保留 URL。
+  因为 <code data-x="about protocol">about:</code> URL 不可解析，可用于媒体轨道的类型标识。<ref spec=ABOUT></p>
+
+  <p>本标准将 <dfn><code>about:srcdoc</code></dfn> 定义为保留 URL。
+  因为 <code data-x="about protocol">about:</code> URL 不可解析，
+  被用于 <span data-x="an iframe srcdoc document"><code>iframe</code> <code data-x="attr-iframe-srcdoc">srcdoc</code> 文档</span>
+  的 <span data-x="concept-document-url">URL</span> <ref spec=ABOUT></p>
+
+  <p><code>Document</code> 对象 <var>document</var> 的 <dfn data-x="fallback base URL">后备基 URL</dfn>
+  是通过执行这些步骤获得的 <span data-x="URL record">URL 记录</span>：</p>
+
+  <ol>
+   <li><p>如果 <var>document</var> 是 <span data-x="an iframe srcdoc document">
+   <code>iframe</code> <code data-x="attr-iframe-srcdoc">srcdoc</code> 文档</span>，
+   则返回
+   <var>document</var> 的 <span data-x="concept-document-bc">浏览环境</span> 的
+   <span data-x="browsing context container">浏览环境容器</span> 的 <span data-x="node document">节点文档</span> 的
+   <span data-x="document base URL">文档基 URL</span>。</p></li>
+
+   <li>
+
+    <!-- https://www.hixie.ch/tests/adhoc/html/navigation/javascript-url/ -->
+
+    <!-- this should be tested in the case of a browsing context that was navigated to about:blank
+    after having been elsewhere，as opposed to the about:blank used at the time of the browsing
+    context's creation。 -->
+
+    <p>如果 <var>document</var> 的 <span data-x="concept-document-url">URL</span> 为 <code>about:blank</code>，
+    且 <var>document</var> 的 <span data-x="concept-document-bc">浏览环境</span> 有一个
+    <span data-x="creator browsing context">创建者浏览环境</span>，那么返回该
+    <span data-x="creator base URL">创建者的基 URL</span>。</p>
+
+   </li>
+
+   <!-- https://www.hixie.ch/tests/adhoc/dom/level0/history/pushState/001/ -->
+
+   <li><p>返回 <var>document</var> 的 <span data-x="concept-document-url">URL</span>。</p></li>
+  </ol>
+
+  <p><code>Document</code> 对象的 <dfn data-export="" data-x="document base URL">文档基 URL</dfn> 是通过执行这些步骤获得的
+  <span data-x="absolute URL">绝对 URL</span>：</p>
+
+  <ol>
+
+   <li><p>如果 <code>Document</code> 中不存在拥有 <code data-x="attr-base-href">href</code>
+   属性的 <code>base</code> 元素，那么 <span data-x="document base URL">文档基 URL</span> 为
+   <code>Document</code> 的 <span data-x="fallback base URL">后备基 URL</span>；中止这些步骤。</p></li>
+
+   <li><p>否则，<span data-x="document base URL">文档基 URL</span> 为
+   <code>Document</code> 中按照 <span data-x="tree order">树序</span> 的
+   第一个有 <code data-x="attr-base-href">href</code> 属性的
+   <code>base</code> 元素的 <span data-x="frozen base URL">冻结的基 URL</span>。</p></li>
+
+  </ol>
+
+
+  <div w-nodev>
+

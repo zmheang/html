@@ -12,6 +12,7 @@ endfunction
 
 function! TranslateTerm()
     execute '%s/Let /令/g'
+    execute "%s/'s/的/g"
     execute '%s/one or more/一个或更多/g'
     execute '%s/Optionally/可选地/g'
     execute '%s/e\.g\./例如/g'
