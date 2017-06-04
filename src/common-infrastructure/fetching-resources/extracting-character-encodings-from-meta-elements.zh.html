@@ -1,0 +1,63 @@
+  <h4>从 <code>meta</code> 元素提取字符编码</h4>
+
+  <p>给定字符串 <var>s</var>，<dfn
+  data-x="algorithm for extracting a character encoding from a meta element">
+  从一个 <code>meta</code> 元素提起字符编码的算法</dfn> 如下。
+  它或者返回一个字符编码，或者什么都不返回。</p>
+
+  <ol> <!-- https://www.hixie.ch/tests/adhoc/html/parsing/encoding/all.html -->
+
+   <li><p>令 <var>position</var> 为 <var>s</var> 中的指针初始指向字符串开始。</p></li>
+
+   <li><p><i>Loop</i>：在 <var>s</var> 中找到 <var>position</var> 后面
+   <span data-x="ASCII case-insensitive">ASCII 大小写不敏感地</span> 匹配 "<code data-x="">charset</code>"
+   的前 7 个字符。 如果没有找到这样的匹配，什么都不返回并中止这些步骤。</p></li>
+
+   <li><p>跳过所有紧接着 "<code data-x="">charset</code>" 后面的
+   <span data-x="ASCII whitespace">ASCII 空白</span>（也可能没有）。</p></li>
+
+   <li><p>如果下一个字符不是 U+003D EQUALS SIGN （=），让 <var>position</var> 指向下一个字符之前，
+   跳回到标记为 <i>loop</i> 的步骤。</p></li>
+
+   <li><p>跳过所有紧接着等号后面的
+   <span data-x="ASCII whitespace">ASCII 空白</span>（也可能没有）。</p></li>
+
+   <li>
+
+    <p>处理下一个字符：</p>
+
+    <dl class="switch">
+
+     <dt>如果它是一个 U+0022 QUOTATION MARK 字符（"）且 <var>s</var> 中后面还有一个
+     U+0022 QUOTATION MARK 字符 （"）</dt>
+     <dt>如果它是一个 U+0027 APOSTROPHE 字符 （'）且 <var>s</var> 中后面还有一个
+     U+0027 APOSTROPHE 字符 （'）</dt>
+     <dd>返回从当前字符到当前字符的下一次出现的子字符串
+     <span data-x="getting an encoding">获取编码</span> 的结果。</dd>
+
+     <dt>如果它是一个没有闭合的 U+0022 QUOTATION MARK 字符 （"）</dt>
+     <dt>如果它是一个没有闭合的 U+0027 APOSTROPHE 字符 （'）</dt>
+     <dt>如果没有下一个字符</dt>
+     <dd>什么都不返回。</dd>
+
+     <dt>否则</dt>
+     <dd>返回从当前字符到（不包含）第一个
+     <span data-x="ASCII whitespace">ASCII 空白</span> 或 U+003B SEMICOLON 字符（;）
+     或 <var>s</var> 的末尾（取决于哪一个先出现）
+     构成的子字符串中 <span data-x="getting an encoding">获取编码</span> 的结果。</dd>
+
+    </dl>
+
+   </li>
+
+  </ol>
+
+  <p class="note">该算法与 HTTP 规范中的算法不同
+  （例如，HTTP 不允许使用单引号，并且需要支持该算法不支持的反斜线转义机制）。
+  <!-- not to mention not having any rules for error-handling，
+  which is of course why we're having to define it ourselves -->
+  虽然在历史上本算法用于 HTTP 相关的上下文，但不同的实现支持的语法前段时间就不一样了。<ref spec=HTTP></p>
+
+  </div>
+
+

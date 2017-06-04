@@ -1,0 +1,53 @@
+  <h4><code>DOMStringList</code> 接口</h4>
+
+  <p><code>DOMStringList</code> 接口是表示字符串列表的一种毫不时髦的复古的方式。</p>
+
+  <pre class="idl">[Exposed=(Window,Worker)]
+interface <dfn>DOMStringList</dfn> {
+  readonly attribute unsigned long <span data-x="dom-DOMStringList-length">length</span>;
+  getter DOMString? <span data-x="dom-DOMStringList-item">item</span>(unsigned long index);
+  boolean <span data-x="dom-DOMStringList-contains">contains</span>(DOMString string);
+};</pre>
+
+  <p w-nodev class="warning">新 API 必须使用 <code data-x="">sequence&lt;DOMString></code> 或
+  其他等价的接口，而不是 <code>DOMStringList</code>。</p>
+
+  <dl class="domintro">
+
+   <dt><var>strings</var> . <code subdfn data-x="dom-DOMStringList-length">length</code></dt>
+   <dd><p>返回 <var>strings</var> 中字符串的个数。</p></dd>
+
+   <dt><var>strings</var>[<var>index</var>]</dt>
+   <dt><var>strings</var> . <code subdfn data-x="dom-DOMStringList-item">item</code>(<var>index</var>)</dt>
+   <dd><p>返回 <var>strings</var> 中下标为 <var>index</var> 的字符串。</p></dd>
+
+   <dt><var>strings</var> . <code subdfn data-x="dom-DOMStringList-contains">contains</code>(<var>string</var>)</dt>
+   <dd><p>如果 <var>strings</var> 包含 <var>string</var> 则返回 true，否则返回 false。</p></dd>
+  </dl>
+
+  <div w-nodev>
+
+  <p>每个 <code>DOMStringList</code> 对象有一个与之关联的 <span data-x="list">列表</span>。</p>
+
+  <p><code>DOMStringList</code> 对象 <span data-x="supported property indices">支持的属性下标</span>
+  为 0 到关联列表的 <span data-x="list size">大小</span> 减 1。如果与它关联的列表
+  <span data-x="list is empty">为空</span>，它就没有
+  <span data-x="supported property indices">支持的属性下标</span>。</p>
+
+  <p><dfn data-x="dom-DOMStringList-length"><code>length</code></dfn> 属性的读取方法必须返回
+  与该 <code>DOMStringList</code> 对象关联的列表的 <span data-x="list size">大小</span>。</p>
+
+  <p><dfn data-x="dom-DOMStringList-item"><code>item(<var>index</var>)</code></dfn> 方法被调用时，
+  必须返回该 <code>DOMStringList</code> 对象的关联列表中第 <var>index</var> 个项目，
+  如果 <var>index</var> 加一大于该 <code>DOMStringList</code> 对象的关联列表的 <span data-x="list size">大小</span>。</p>
+
+  <p><dfn data-x="dom-DOMStringList-contains"><code>contains(<var>string</var>)</code></dfn>
+  方法被调用时，如果该 <code>DOMStringList</code> 对象的关联列表
+  <span data-x="list contains">包含</span> <var>string</var>，则必须返回 true，
+  否则必须返回 false。</p>
+
+  </div>
+
+
+  <div w-nodev>
+

@@ -1,0 +1,109 @@
+  <h4><dfn data-x="Serializable objects">可序列化对象</dfn></h4>
+
+  <p><span data-x="Serializable objects">可序列化对象</span> 支持被序列化以及之后反序列化，
+  且这一过程与给定的 <span data-x="JavaScript Realm">JavaScript 领域</span> 无关。
+  这允许它们存储在磁盘中用于后续恢复，或者在文档和 worker 的边界上克隆
+  （包括不同 <span data-x="origin">域</span> 的文档之间，
+  或者不同的 <span data-x="event loop">事件循环</span> 之间）。</p>
+
+  <p>并非所有对象都是 <span data-x="serializable objects">可序列化对象</span>，也并不是
+  <span data-x="serializable  objects">可克隆的对象</span> 的所有方面都需要在序列化时保留。</p>
+
+  <p><span data-x="platform object">平台对象</span> 可以是
+  <span data-x="serializable objects">可序列化对象</span>
+  只要它们实现了用 <dfn data-export="" data-dfn-type="extended-attribute" data-lt="Serializable"
+  data-x="Serializable"><code>[Serializable]</code></dfn>
+  IDL <span data-x="extended attribute">扩展属性</span> 标注的接口。
+  这样的接口必须定义下面的算法：</p>
+
+  <dl>
+   <dt><dfn data-export="" data-x="serialization steps">序列化步骤</dfn>，
+   接受一个 <span data-x="platform object">平台对象</span> <var>value</var>，
+   一个 <span data-x="Record">记录</span> <var>serialized</var>，
+   和一个布尔值 <var>forStorage</var></dt>
+   <dd>
+   <p>把 <var>value</var> 中的数据序列化为 <var>serialized</var> 字段的一系列步骤。
+   序列化到 <var>serialized</var> 中的结果数据必须独立于任何 <span data-x="JavaScript Realm">JavaScript 领域</span>。</p>
+
+    <p>如果不可能序列化，这些步骤会抛出异常。</p>
+
+    <p>这些步骤可能会执行一个 <span data-x="sub-serialization">子序列化</span> 来序列化嵌套的数据结构。
+    它们不应直接调用 <span>StructuredSerialize</span>，因为这样做会忽略
+    一个重要的 <var>memory</var> 参数。</p>
+
+    <p>引入这些步骤，如果与该算法无关，则不应该提及 <var>forStorage</var> 参数。</p>
+   </dd>
+
+   <dt><dfn data-export="" data-x="deserialization steps">反序列化步骤</dfn>，
+   接受一个 <span data-x="Record">记录</span> <var>serialized</var>
+   和一个 <span data-x="platform object">平台对象</span> <var>value</var></dt>
+   <dd>
+    <p>把 <var>serialized</var> 中的数据反序列化的一系列步骤，用它适当地建立 <var>value</var>。
+    <var>value</var> 将会是一个新创建的相应 <span data-x="platform object">平台对象</span> 类型的实例，
+    它的内部数据还未建立；这一工作交给这些步骤：</p>
+
+    <p>如果不可能反序列化这些步骤会抛出一个异常。</p>
+
+    <p>这些步骤可能会执行一个 <span data-x="sub-deserialization">子反序列化</span>
+    来反序列化嵌套的数据结构。
+    它们不能直接调用 <span>StructuredDeserialize</span>，一文这样做会忽略
+    重要的 <var>targetRealm</var> 和 <var>memory</var> 参数。</p>
+   </dd>
+  </dl>
+
+  <p>由平台对象的定义决定哪些数据被这些步骤序列化和反序列化。通常这些步骤是非常对称的。</p>
+
+  <p><code data-x="Serializable">[Serializable]</code> 扩展属性不允许有任何参数，
+  并且不能出现任何不是接口的地方。在一个接口上它必须只出现一次。它不能用在回调接口上。
+  如果它出现在部分接口（partial interface）上，或者一个混入接口（mixin）上，
+  那么它必须也出现在原始（original）或被混入（mixed-in-to）接口上，
+  并且部分接口或混入提供任何的 <span data-x="serialization steps">序列化步骤</span> 和
+  <span data-x="deserialization steps">反序列化步骤</span> 应该理解为
+  增加到原始或被混入接口的对应步骤上。</p>
+
+  <div class="example">
+   <p>加入我们在定义一个平台对象 <code data-x="">Person</code>，它与两部分数据相关联：</p>
+
+   <ul class="brief">
+    <li>一个名字值，是一个字符串；</li>
+    <li>最好朋友的值，是另一个 <code data-x="">Person</code> 实例或 null</li>
+   </ul>
+
+   <p>接着，我们使用 <code data-x="Serializable">[Serializable]</code>
+   <span data-x="extended attribute">扩展属性</span>
+   标注 <code data-x="">Person</code> 接口，可以把 <code data-x="">Person</code> 实例定义为
+   <span data-x="serializable objects">可序列化对象</span>，同时定义下列算法：</p>
+
+   <dl>
+    <dt><span data-x="serialization steps">序列化步骤</span></dt>
+    <dd>
+     <ol>
+      <li><p>设置 <var>serialized</var>.[[Name]] 为 <var>value</var> 关联的名字值。</p></li>
+
+      <li><p>令 <var>serializedBestFriend</var> 为 <var>value</var> 关联的最好朋友的值的
+      <span data-x="sub-serialization">子序列化</span>。</p></li>
+
+      <li><p>设置 <var>serialized</var>.[[BestFriend]] 为 <var>serializedBestFriend</var>。</p></li>
+     </ol>
+    </dd>
+
+    <dt><span data-x="deserialization steps">反序列化步骤</span></dt>
+    <dd>
+     <ol>
+      <li><p>设置 <var>value</var> 关联的名字值为 <var>serialized</var>.[[Name]]。</p></li>
+
+      <li><p>令 <var>deserializedBestFriend</var> 为 <var>serialized</var>.[[BestFriend]] 的
+      <span data-x="sub-deserialization">子反序列化</span>。</p></li>
+
+      <li><p>设置 <var>value</var> 关联的最好朋友值为 <var>deserializedBestFriend</var>。</p></li>
+     </ol>
+    </dd>
+   </dl>
+  </div>
+
+  <p>在 JavaScript 规范中定义的对象直接由 <span>StructuredSerialize</span> 抽象操作处理。</p>
+
+  <p class="note" id="cloneable-objects">最初，本规范定义了“克隆对象”的概念，
+  可以从一个 <span data-x="JavaScript Realm">JavaScript 领域</span> 克隆到另一个。
+  但为了更好地指定某些更复杂的情况的行为，更新了模型来显示地进行序列化和反序列化。</p>
+

@@ -1,0 +1,39 @@
+  <h4>CORS 设置属性</h4>
+
+  <p><dfn data-x="CORS settings attribute">CORS 设置属性</dfn> 是一个
+  <span data-x="enumerated attribute">枚举属性</span>。下表列出了关键字以及属性状态
+  &mdash; 左侧一列的关键字对应第二列同一行中的状态。</p>
+
+  <table>
+   <thead>
+    <tr>
+     <th> 关键字
+     <th> 状态
+     <th> 简要介绍
+   <tbody>
+    <tr>
+     <td><dfn><code data-x="attr-crossorigin-anonymous-keyword">anonymous</code></dfn>
+     <td><dfn data-x="attr-crossorigin-anonymous">匿名</dfn>
+     <td>该元素的 <span data-x="concept-request">请求</span> 会把 <span
+     data-x="concept-request-mode">模式</span> 设置为 "<code data-x="">cors</code>"
+     把 <span data-x="concept-request-credentials-mode">credentials 模式</span> 设置为
+     "<code data-x="">same-origin</code>"。
+    <tr>
+     <td><dfn><code data-x="attr-crossorigin-use-credentials-keyword">use-credentials</code></dfn>
+     <td><dfn data-x="attr-crossorigin-use-credentials">使用 Credentials</dfn>
+     <td>该元素的 <span data-x="concept-request">请求</span> 会把 <span
+     data-x="concept-request-mode">模式</span> 设置为 "<code data-x="">cors</code>"
+     把 <span data-x="concept-request-credentials-mode">credentials 模式</span> 设置为
+     "<code data-x="">include</code>"。
+  </table>
+
+  <p>空字符串也是合法的关键字，对应 <span data-x="attr-crossorigin-anonymous">匿名</span> 状态。
+  该属性的 <i data-x="invalid value default">非法值的默认</i> 是
+  <span data-x="attr-crossorigin-anonymous">匿名</span> 状态。
+  为了 <span data-x="reflect">反映</span> 的目的，
+  <span data-x="attr-crossorigin-anonymous">匿名</span> 状态的正规的
+  关键字是 <code data-x="attr-crossorigin-anonymous-keyword">anonymous</code>。
+  <i data-x="missing value default">缺失值的默认</i>（当属性被省略时使用）是
+  <dfn data-x="attr-crossorigin-none">No CORS</dfn> 状态。</p>
+
+

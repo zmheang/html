@@ -1,6 +1,6 @@
   <h4>在 IDL 属性中反映内容属性</h4>
 
-  <p>定义有些 IDL 属性是为了 <dfn data-x="reflect">反应</dfn> 特定的内容属性。
+  <p>定义有些 IDL 属性是为了 <dfn data-x="reflect">反映</dfn> 特定的内容属性。
   这意味着在获取 IDL 属性时返回的是内容属性的当前值，
   在设置 IDL 属性时将内容属性更改为给定的值。</p>
 
@@ -18,7 +18,7 @@
   为 <code data-x="idl-USVString">USVString</code> 并返回。
   在设置时，必须设置内容属性的值为新值。</p>
 
-  <p>如果反应内容属性的 IDL 属性是 <code data-x="idl-DOMString">DOMString</code>属性，
+  <p>如果反映内容属性的 IDL 属性是 <code data-x="idl-DOMString">DOMString</code>属性，
   且它的内容属性是 <span data-x="enumerated attribute">枚举属性</span>，
   且该 IDL 属性 <dfn data-x="limited to only known values">只限于已知的一些值</dfn>，
   那么当获取时，如果该 IDL 属性所处状态有相关联的一致的值，IDL 属性必须返回它。
@@ -27,30 +27,30 @@
   IDL 属性必须返回空字符串。
   当设置时，必须设置内容属性的值为指定的新值。</p>
 
-  <p>如果反应内容属性的 IDL 属性是可为空的 <code data-x="idl-DOMString">DOMString</code>  属性，
+  <p>如果反映内容属性的 IDL 属性是可为空的 <code data-x="idl-DOMString">DOMString</code>  属性，
   且它的内容属性是一个 <span data-x="enumerated attribute">枚举属性</span>， 那么当获取时，
   如果对应的内容属性处于它的 <i data-x="missing value default">默认缺失值</i>，
   那么该 IDL 属性必须返回 null，否则必须返回与该属性所处状态相关联的一致的值。
   当设置时，如果新值为 null 则必须移除该内容属性，否则必须设置内容属性为给定的新值。</p>
 
-  <p>如果反应内容属性的 IDL 属性是 <code data-x="idl-DOMString">DOMString</code> 或 <code
+  <p>如果反映内容属性的 IDL 属性是 <code data-x="idl-DOMString">DOMString</code> 或 <code
   data-x="idl-USVString">USVString</code> 属性但不归于上述类别中，
   那么获取和设置必须透明地，保持大小写地进行。</p>
 
-  <p>如果反应内容属性的 IDL 属性是 <code data-x="idl-boolean">布尔</code> 属性，
+  <p>如果反映内容属性的 IDL 属性是 <code data-x="idl-boolean">布尔</code> 属性，
   当获取该 IDL 属性时，如果设置了该内容属性则必须返回 true，
   如果不存在则返回 false。当设置时，如果该 IDL 属性被设为 false 则必须移除该内容属性。
   如果该 IDL 属性被设为 true 则必须将内容属性设为空字符串。
   （这与<span data-x="boolean attribute">布尔内容属性</span>的规则对应。）</p>
 
-  <p>如果反应内容属性的 IDL 属性是有符号整数类型 （<code data-x="idl-long">long</code>），
+  <p>如果反映内容属性的 IDL 属性是有符号整数类型 （<code data-x="idl-long">long</code>），
   那么当获取时，必须根据<span data-x="rules for parsing integers">解析有符号整数的规则</span>
   解析内容属性，如果解析成功且值在该 IDL 属性的类型的取值范围内，则必须返回结果值。
   如果解析失败或返回了范围外的值，或者该属性不存在，则必须返回默认值，如果没有默认值则返回0。
   当设置时，必须将给定的值转换为可以将该数字表示为<span data-x="valid integer">合法整数</span>
   的可能的最短字符串，然后该字符串必须被用作新的内容属性值。</p>
 
-  <p>如果反应内容属性的 IDL 属性是有符号整数类型 （<code data-x="idl-long">long</code>）
+  <p>如果反映内容属性的 IDL 属性是有符号整数类型 （<code data-x="idl-long">long</code>）
   且 <dfn data-x="limited to only non-negative numbers">仅限为非负数字</dfn>，那么当获取时，
   该内容属性必须根据<span data-x="rules for parsing non-negative integers">解析非负整数的规则</span>
   解析，如果解析成功且值在该 IDL 属性类型的取值范围内，必须返回结果值。
@@ -62,7 +62,7 @@
   <span data-x="valid non-negative integer">合法非负整数</span> 的可能的最短字符串，
   然后该字符串必须被用作新的内容属性值。</p>
 
-  <p>如果反应内容属性的 IDL 属性是 <em data-x="unsigned">无符号</em> 整数类型 （<code
+  <p>如果反映内容属性的 IDL 属性是 <em data-x="unsigned">无符号</em> 整数类型 （<code
   data-x="idl-unsigned-long">unsigned long</code>） ，那么当获取时，必须根据
   <span data-x="rules for parsing non-negative integers">解析非负整数的规则</span>
   解析内容属性，如果解析成功且值在 0 到 2147483647 范围内（含），
@@ -78,7 +78,7 @@
        。。。for why the range is clamped to 2147483647 rather the normal unsigned long maximum value
        of 4294967295 -->
 
-  <p>如果反应内容属性的 IDL 属性是无符号整数类型（<code
+  <p>如果反映内容属性的 IDL 属性是无符号整数类型（<code
   data-x="idl-unsigned-long">unsigned long</code>） 且
   <dfn data-x="limited to only non-negative numbers greater than zero">仅限于大于零的非负整数
   </dfn>，那么行为与上一种情形类似，但零是不允许的。
@@ -92,7 +92,7 @@
   <span data-x="valid non-negative integer">合法非负整数</span>
   的可能的最短字符串，然后该字符串必须被用作新的内容属性值。</p> <!-- see previous paragraph for note about the weird range -->
 
-  <p>如果反应内容属性的 IDL 属性是无符号整数类型（<code
+  <p>如果反映内容属性的 IDL 属性是无符号整数类型（<code
   data-x="idl-unsigned-long">unsigned long</code>） 且
   <dfn data-x="limited to only non-negative numbers greater than zero with fallback">
   仅限于有fallback 的大于0的非负整数</dfn>，则行为与前一种情形类似，但不允许的值将被转换为默认值。
@@ -104,14 +104,14 @@
   <span data-x="valid non-negative integer">合法非负整数</span>
   的可能的最短字符串，然后该字符串必须被用作新的内容属性值。</p> <!-- see previous paragraph for note about the weird range -->
 
-  <p>如果反应内容属性的 IDL 属性是<dfn data-x="clamped to the range">固定范围</dfn>
+  <p>如果反映内容属性的 IDL 属性是<dfn data-x="clamped to the range">固定范围</dfn>
   到 [<var>min</var>, <var>max</var>] 的无符号整数类型（<code data-x="idl-unsigned-long">unsigned long</code>），
   当获取时，必须先根据 <span data-x="rules for parsing non-negative integers">解析非负整数的规则</span>
   解析内容属性，如果解析成功且值在 <var>min</var> 和 <var>max</var> 之间（包含），
   必须返回该结果值。如果失败，必须返回默认值。如果解析成功但值小于 <var>min</var>，必须返回 <var>min</var>。
   如果解析成功但值大于 <var>max</var>，必须返回 <var>max</var>。当设置时，其行为与设置普通无符号整数一样。</p>
 
-  <p>如果反应内容属性的 IDL 属性是浮点数类型（<code data-x="idl-double">double</code> 或
+  <p>如果反映内容属性的 IDL 属性是浮点数类型（<code data-x="idl-double">double</code> 或
   <code data-x="idl-unrestricted-double">unrestricted double</code>），那么当获取时，
   必须根据 <span data-x="rules for parsing floating-point number values">
   解析浮点数值的规则</span> 解析内容属性，如果解析成功则必须返回结果值。
@@ -119,7 +119,7 @@
   必须将给定的值转换为 <span data-x="best representation of the number as a floating-point number">
   浮点数的最佳表示</span>，然后该字符串必须被用作新的内容属性值。</p>
 
-  <p>如果反应内容属性的 IDL 属性是浮点数类型（<code
+  <p>如果反映内容属性的 IDL 属性是浮点数类型（<code
   data-x="idl-double">double</code> 或 <code data-x="idl-unrestricted-double">unrestricted
   double</code>）且 <dfn data-x="limited to numbers greater than zero">
   仅限于大于零的数字</dfn>，那么行为与上一种情形类似但不允许零和负值。当获取时，必须根据
@@ -134,11 +134,11 @@
   <p class="note">当设置 Infinity 和 Not-a-Number （NaN）这些值时会抛出异常。
   定义在 Web IDL 标准中。 <ref spec=WEBIDL></p>
 
-  <p>如果反应内容属性的 IDL 属性的类型为 <code>DOMTokenList</code>，那么当获取时，
+  <p>如果反映内容属性的 IDL 属性的类型为 <code>DOMTokenList</code>，那么当获取时，
   必须返回 <code>DOMTokenList</code> 对象，与它关联的元素为被查询的元素，
   与它关联的属性的本地名称为被查询的属性名。</p>
 
-  <p>如果反应内容属性的 IDL 属性为 <code>HTMLElement</code> 类型，
+  <p>如果反映内容属性的 IDL 属性为 <code>HTMLElement</code> 类型，
   或者依赖于 <code>HTMLElement</code> 的接口，那么当获取时，
   它必须运行下列算法（在第一个返回值的地方停机）：</p>
 

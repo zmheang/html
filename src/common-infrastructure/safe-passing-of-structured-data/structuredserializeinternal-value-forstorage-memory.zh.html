@@ -1,0 +1,387 @@
+  <h4 id="structuredserializeinternal" data-noexport="" data-lt="StructuredSerializeInternal"
+  data-dfn-type="abstract-op"><dfn>StructuredSerializeInternal</dfn> ( <var>value</var>，
+  <var>forStorage</var> [ ，<var>memory</var> ] )</h4>
+
+  <p><span>StructuredSerializeInternal</span> 抽象操作接受一个 JavaScript 值 <var>value</var> 作为输入，
+  把它序列化为一个 <span data-x="JavaScript Realm">领域</span> 无关的形式，在这里表示为一个
+  <span data-x="Record">记录</span>。这一序列化的形式有着后续反序列化到不同领域的新
+  JavaScript 值需要的所有必要信息。</p>
+
+  <p>这一过程可能会抛出一个异常，例如当尝试序列化不可序列化对象时。</p>
+
+  <ol>
+   <li>
+    <p>如果没有提供 <var>memory</var>，令 <var>memory</var> 为一个空的 <span
+    data-x="ordered map">映射</span>。</p>
+
+    <p class="note"><var>memory</var> 映射是为了避免把对象序列化两次。
+    最终会用于保持环状结构以及标识图中的重复对象。</p>
+   </li>
+
+   <li><p>如果 <var>memory</var>[<var>value</var>] <span data-x="map exists">存在</span>，则
+   返回 <var>memory</var>[<var>value</var>]。</p></li>
+
+   <li><p>令<var>deep</var> 为 false。</p></li>
+
+   <li><p>如果 <span data-x="js-Type">Type</span>(<var>value</var>) 为 Undefined，Null，Boolean，
+   String 或 Number，则返回 { [[Type]]: "primitive"，[[Value]]: <var>value</var> }。</p></li>
+
+   <li><p>如果 <span data-x="js-Type">Type</span>(<var>value</var>) 为 Symbol，则抛出一个
+   <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+   <li><p>令<var>serialized</var> 为一个未初始化的值。</p></li>
+
+   <li><p>如果 <var>value</var> 有一个 [[BooleanData]] 内部槽，则把 <var>serialized</var> 设置为
+   { [[Type]]: "Boolean",[[BooleanData]]: <var>value</var>.[[BooleanData]] }。</p></li>
+
+   <li><p>否则，如果 <var>value</var> 有一个 [[NumberData]] 内部槽，则把
+   <var>serialized</var> 设置为 { [[Type]]: "Number",[[NumberData]]: <var>value</var>.[[NumberData]]
+   }。</p></li>
+
+   <li><p>否则，如果 <var>value</var> 有一个 [[StringData]] 内部槽，则把
+   <var>serialized</var> 设置为 { [[Type]]: "String",[[StringData]]: <var>value</var>.[[StringData]]
+   }。</p></li>
+
+   <li><p>否则，如果 <var>value</var> 有一个 [[DateValue]] 内部槽，则把
+   <var>serialized</var> 设置为 { [[Type]]: "Date",[[DateValue]]: <var>value</var>.[[DateValue]]
+   }。</p></li>
+
+   <li><p>否则，如果 <var>value</var> 有一个 [[RegExpMatcher]] 内部槽，则把
+   <var>serialized</var> 设置为 { [[Type]]: "RegExp",[[RegExpMatcher]]:
+   <var>value</var>.[[RegExpMatcher]]，[[OriginalSource]]: <var>value</var>.[[OriginalSource]]，
+   [[OriginalFlags]]: <var>value</var>.[[OriginalFlags]] }。</p></li>
+
+   <li>
+    <p>否则，如果 <var>value</var> 有一个 [[ArrayBufferData]] 内部槽，则：</p>
+
+    <ol>
+     <li><p>令<var>size</var> 为 <var>value</var>.[[ArrayBufferByteLength]]。</p></li>
+
+     <li>
+      <p>如果 ! <span>IsSharedArrayBuffer</span>(<var>value</var>) 为 true，则：
+
+      <ol>
+       <li><p>如果 <var>forStorage</var> 为 true，则抛出一个
+       <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+       <li><p>把 <var>serialized</var> 设置为 { [[Type]]: "SharedArrayBuffer",[[ArrayBufferData]]:
+       <var>value</var>.[[ArrayBufferData]],[[ArrayBufferByteLength]]: <var>size</var>,
+       [[AgentCluster]]: <span data-x="current Realm Record">当前领域记录</span> 对应的
+       <span data-x="agent cluster">代理集群</span> }。</p></li>
+      </ol>
+     </li>
+
+     <li>
+      <p>否则：</p>
+
+      <ol>
+       <li><p>如果 ! <span>IsDetachedBuffer</span>(<var>value</var>) 为 true，则抛出一个
+       <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+       <li>
+        <p>令<var>dataCopy</var> 为 ? <span>CreateByteDataBlock</span>(<var>size</var>)。</p>
+
+        <p class="note">在分配地址失败时可能会抛出一个 <code data-x="js-RangeError">RangeError</code> 异常。</p>
+       </li>
+
+       <li><p>执行 ! <span>CopyDataBlockBytes</span>(<var>dataCopy</var>,0,<var>value</var>.[[ArrayBufferData]],0,<var>size</var>)。</p></li>
+
+       <li><p>把 <var>serialized</var> 设置为 { [[Type]]: "ArrayBuffer",[[ArrayBufferData]]:
+       <var>dataCopy</var>,[[ArrayBufferByteLength]]: <var>size</var> }。</p></li>
+      </ol>
+     </li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>value</var> 有一个 [[ViewedArrayBuffer]] 内部槽，则：</p>
+
+    <ol>
+     <li><p>令 <var>buffer</var> 为 <var>value</var> 的 [[ViewedArrayBuffer]] 内部槽的值。</p></li>
+
+     <li><p>令 <var>bufferSerialized</var> 为 ?
+     <span>StructuredSerializeInternal</span>(<var>buffer</var>,<var>forStorage</var>,
+     <var>memory</var>)。</p></li>
+
+     <li><p>断言： <var>bufferSerialized</var>.[[Type]] 是 "ArrayBuffer"。</p></li>
+
+     <li><p>如果 <var>value</var> 有一个 [[DataView]] 内部槽，则把 <var>serialized</var> 设置为
+     { [[Type]]: "ArrayBufferView",[[Constructor]]: "DataView",[[ArrayBufferSerialized]]:
+     <var>bufferSerialized</var>,[[ByteLength]]: <var>value</var>.[[ByteLength]],[[ByteOffset]]:
+     <var>value</var>.[[ByteOffset]] }。</p></li>
+
+     <li>
+      <p>否则：</p>
+
+      <ol>
+       <li><p>断言： <var>value</var> 有一个 [[TypedArrayName]] 内部槽。</p></li>
+
+       <li><p>把 <var>serialized</var> 设置为 { [[Type]]: "ArrayBufferView",[[Constructor]]:
+       <var>value</var>.[[TypedArrayName]],[[ArrayBufferSerialized]]: <var>bufferSerialized</var>,
+       [[ByteLength]]: <var>value</var>.[[ByteLength]],[[ByteOffset]]:
+       <var>value</var>.[[ByteOffset]],[[ArrayLength]]: <var>value</var>.[[ArrayLength]] }。</p></li>
+      </ol>
+     </li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>value</var> 有 [[MapData]] 内部槽，则：</p>
+
+    <ol>
+     <li><p>设置<var>serialized</var> 为 { [[Type]]: "Map",[[MapData]]: 一个新的空 <span
+     data-x="js-List">列表</span> }。</p></li>
+
+     <li><p>设置<var>deep</var> 为 true。</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则，if <var>value</var> 有 [[SetData]] 内部槽，则：</p>
+
+    <ol>
+     <li><p>设置 <var>serialized</var> 为 { [[Type]]: "Set",[[SetData]]: 一个新的空 <span
+     data-x="js-List">列表</span> }。</p></li>
+
+     <li><p>设置 <var>deep</var> 为 true。</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>value</var> 是一个外来 Array 对象，那么：</p>
+    <!-- IsArray supports proxies too，which we cannot -->
+
+    <ol>
+     <li><p>令<var>valueLenDescriptor</var> 为 ?
+     <span>OrdinaryGetOwnProperty</span>(<var>value</var>，"<code data-x="">length</code>")。</p></li>
+
+     <li><p>令<var>valueLen</var> 为 <var>valueLenDescriptor</var>.[[Value]]。</p></li>
+
+     <li><p>设置<var>serialized</var> 为 { [[Type]]: "Array",[[Length]]: <var>valueLen</var>,
+     [[Properties]]: 一个新的空 <span data-x="js-List">列表</span> }。</p></li>
+
+     <li><p>设置<var>deep</var> 为 true。</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>value</var> 是一个 <span data-x="serializable objects">可序列化的</span>
+    <span data-x="platform object">平台对象</span>：</p>
+
+    <ol>
+     <li><p>如果 <var>value</var> 有一个 <span>[[Detached]]</span> 内部槽且值为 true，
+     则抛出一个 <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+     <li><p>令<var>typeString</var> 为 <var>value</var> 的
+     <span data-x="primary interface">主接口</span> 标识。</p></li>
+
+     <li><p>设置<var>serialized</var> 为 { [[Type]]: <var>typeString</var> }。</p></li>
+
+     <li><p>设置<var>deep</var> 为 true。</p></li>
+    </ol>
+   </li>
+
+   <li><p>否则，如果 <var>value</var> 是一个 <span data-x="platform object">平台对象</span>，则抛出一个
+   <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+   <li><p>否则，如果 <span>IsCallable</span>(<var>value</var>) 为 true，则抛出一个
+   <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+   <li>
+    <p>否则，如果 <var>value</var> 有除了 [[Prototype]] 和 [[Extensible]] 之外的任何内部槽，
+    则抛出一个 <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p>
+
+    <p class="example">例如 [[PromiseState]] 或 [[WeakMapData]] 内部槽。</p>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>value</var> 是一个外来对象，则抛出一个
+    <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p>
+
+    <p class="example">例如代理对象。</p>
+   </li>
+
+   <li>
+    <p>否则：</p>
+
+    <ol>
+     <li><p>设置<var>serialized</var> 为 { [[Type]]: "Object",[[Properties]]: 一个新的空 <span
+     data-x="js-List">列表</span> }。</p></li>
+
+     <li><p>设置<var>deep</var> 为 true。</p></li>
+    </ol>
+   </li>
+
+   <li><p><span data-x="map set">设置</span> <var>memory</var>[<var>value</var>] 为
+   <var>serialized</var>。</p></li>
+
+   <li>
+    <p>如果 <var>deep</var> 为 true，则：</p>
+
+    <ol>
+     <li>
+      <p>如果 <var>value</var> 有一个 [[MapData]] 内部槽，则：
+
+      <ol>
+       <li><p>令 <var>copiedList</var> 为一个新的空 <span data-x="js-List">列表</span>。
+
+       <li>
+        <p>对 <var>value</var>.[[MapData]] 中的 <span data-x="list iterate">每一个</span>
+        <span data-x="Record">记录</span> { [[Key]]，[[Value]] } <var>entry</var>：</p>
+
+        <ol>
+         <li><p>令<var>copiedEntry</var> 为一个新的 <span data-x="Record">记录</span>
+         { [[Key]]: <var>entry</var>.[[Key]]，[[Value]]: <var>entry</var>.[[Value]] }。</p></li>
+
+         <li><p>如果 <var>copiedEntry</var>.[[Key]] 不是特殊值 <i>empty</i>，<span
+         data-x="list append">追加</span> <var>copiedEntry</var> 到 <var>copiedList</var>。</p></li>
+        </ol>
+       </li>
+
+       <li>
+        <p>对 <var>copiedList</var> 中的 <span data-x="list iterate">每一个</span>
+        <span data-x="Record">记录</span> { [[Key]]，[[Value]] } <var>entry</var>：</p>
+
+        <ol>
+         <li><p>令 <var>serializedKey</var> 为 ?
+         <span>StructuredSerializeInternal</span>(<var>entry</var>.[[Key]],<var>forStorage</var>,
+         <var>memory</var>)。</p></li>
+
+         <li><p>令 <var>serializedValue</var> 为 ?
+         <span>StructuredSerializeInternal</span>(<var>entry</var>.[[Value]],<var>forStorage</var>,
+         <var>memory</var>)。</p></li>
+
+         <li><p><span data-x="list append">追加</span> { [[Key]]: <var>serializedKey</var>,
+         [[Value]]: <var>serializedValue</var> } 到 <var>serialized</var>.[[MapData]]。</p></li>
+        </ol>
+       </li>
+      </ol>
+     </li>
+
+     <li>
+      <p>否则，如果 <var>value</var> 有一个 [[SetData]] 内部槽，则：</p>
+
+      <ol>
+       <li><p>令<var>copiedList</var> 为一个新的空 <span data-x="js-List">列表</span>。
+
+       <li>
+        <p>对 <var>value</var>.[[SetData]] 中 <span data-x="list iterate">每一个</span>
+        <var>entry</var>：</p>
+
+        <ol>
+         <li><p>如果 <var>entry</var> 不是特殊值 <i>empty</i>，<span data-x="list
+         append">追加</span> <var>entry</var> 到 <var>copiedList</var>。</p></li>
+        </ol>
+       </li>
+
+       <li>
+        <p>对 <var>copiedList</var> 中 <span data-x="list iterate">每一个</span> <var>entry</var>：</p>
+
+        <ol>
+         <li><p>令 <var>serializedEntry</var> 为 ?
+         <span>StructuredSerializeInternal</span>(<var>entry</var>,<var>forStorage</var>,
+         <var>memory</var>)。</p></li>
+
+         <li><p><span data-x="list append">追加</span> <var>serializedEntry</var> 到
+         <var>serialized</var>.[[SetData]]。</p></li>
+        </ol>
+       </li>
+      </ol>
+     </li>
+
+     <li>
+      <p>否则，如果 <var>value</var> 是一个
+      <span data-x="serializable objects">可序列化的</span>
+      <span data-x="platform object">平台对象</span>，则给定
+      <var>value</var>，<var>serialized</var>，和 <var>forStorage</var> 执行适当的
+      <span data-x="serialization steps">序列化步骤</span>。</p>
+
+      <p><span data-x="serialization steps">序列化步骤</span> 可能需要执行一个 <dfn
+      data-export="" data-x="sub-serialization">字序列化</dfn>。
+      该操作接受 <var>subValue</var> 值作为输入，返回 <span>StructuredSerializeInternal</span>
+      (<var>subValue</var>, <var>forStorage</var>,<var>memory</var>)。
+      （换句话说，<span data-x="sub-serialization">子序列化</span> 是
+      <span>StructuredSerializeInternal</span> 的与该调用一致的特化。）</p>
+     </li>
+
+     <li>
+      <p>否则：
+
+      <ol>
+       <li><p>令 <var>enumerableKeys</var> 为一个新的空 <span data-x="js-List">列表</span>。</p></li>
+
+       <li>
+        <p>对 <var>value</var>.[[OwnPropertyKeys]]() 中的每一个 <var>key</var>：</p>
+
+        <ol>
+         <li>
+          <p>如果 <span data-x="js-Type">Type</span>(<var>key</var>) 为 String，则：</p>
+
+          <ol>
+           <li><p>令<var>valueDesc</var> 为 !
+           <var>value</var>.[[GetOwnProperty]](<var>key</var>)。</p></li>
+
+           <li><p>如果 <var>valueDesc</var>.[[Enumerable]] 为 true，则 <span data-x="list
+           append">追加</span> <var>key</var> 到 <var>enumerableKeys</var>。</p></li>
+          </ol>
+         </li>
+        </ol>
+       </li>
+
+       <li>
+        <p>对 <var>enumerableKeys</var> 中的每一个 <var>key</var> ：</p>
+
+        <ol>
+         <li>
+          <p>如果 ! <span>HasOwnProperty</span>(<var>value</var>,<var>key</var>) 为 true，则：</p>
+
+          <ol>
+           <li><p>令<var>inputValue</var> 为 ? <var>value</var>.[[Get]](<var>key</var>,
+           <var>value</var>)。</p></li>
+
+           <li><p>令<var>outputValue</var> 为 ?
+           <span>StructuredSerializeInternal</span>(<var>inputValue</var>,<var>forStorage</var>,
+           <var>memory</var>)。</p></li>
+
+           <li><p><span data-x="list append">追加</span> { [[Key]]: <var>key</var>,[[Value]]:
+           <var>outputValue</var> } 到 <var>serialized</var>.[[Properties]]。</p></li>
+          </ol>
+         </li>
+        </ol>
+       </li>
+      </ol>
+
+      <p class="note">
+      上面执行的键的集合非常类似于 JavaScript 规范的 <span>EnumerableOwnProperties</span> 操作，
+      但最关键的是它使用 [[OwnPropertyKeys]] 内部方法提供的确定性排序，
+      而不是像 <span>EnumerableOwnProperties</span> 那样以非未定义的方式对键进行重新排序。
+      <ref spec=JAVASCRIPT></p>
+     </li>
+    </ol>
+   </li>
+
+   <li><p>返回 <var>serialized</var>。</p></li>
+  </ol>
+
+  <div class="example">
+   <p>注意 <span>StructuredSerializeInternal</span> 产生的 <span data-x="Record">记录</span>
+   可能包含其他记录的 "指针"，这产生了环装引用。例如当我们传递下面的 JavaScript 对象到
+   <span>StructuredSerializeInternal</span> 中时：</p>
+
+  <pre>const o = {};
+o.myself = o;</pre>
+
+  <p>它产生了下面的结果：</p>
+
+  <pre><samp>{
+  [[Type]]: "Object",
+  [[Properties]]: «
+    {
+      [[Key]]: "myself",
+      [[Value]]: <i>&lt;一个指向整个结构的指针></i>
+    }
+  »
+}</samp></pre>
+  </div>
+
+

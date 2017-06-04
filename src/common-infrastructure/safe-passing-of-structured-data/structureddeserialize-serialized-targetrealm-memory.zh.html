@@ -1,0 +1,300 @@
+  <h4 id="structureddeserialize" data-export="" data-lt="StructuredDeserialize"
+  data-dfn-type="abstract-op"><dfn>StructuredDeserialize</dfn> ( <var>serialized</var>，
+  <var>targetRealm</var> [ ，<var>memory</var> ] )</h4>
+
+  <p><span>StructuredDeserialize</span> 抽象操作接受一个 <span data-x="Record">记录</span>
+  <var>serialized</var> 作为输入，它由之前的 <span>StructuredSerialize</span> 或
+  <span>StructuredSerializeForStorage</span> 产生，把它反序列化到一个新的
+  <var>targetRealm</var> 中创建的 JavaScript 值。</p>
+
+  <p>该过程可能抛出一个异常，例如为新的对象尝试分配内存时（尤其是 <code data-x="">ArrayBuffer</code> 对象）。</p>
+
+  <ol>
+   <li>
+    <p>如果没有提供 <var>memory</var>，令 <var>memory</var> 为一个空的 <span
+    data-x="ordered map">映射</span>。</p>
+
+    <p class="note"><var>memory</var> 映射是为了避免把对象反序列化两次。
+    最终会用于保持环状结构以及标识图中的重复对象。</p>
+   </li>
+
+   <li><p>如果 <var>memory</var>[<var>sirialized</var>] <span data-x="map exists">存在</span>，则
+   返回 <var>memory</var>[<var>serialized</var>]。</p></li>
+
+   <li><p>令<var>deep</var> 为 false。</p></li>
+
+   <li><p>令<var>value</var> 为一个未初始化的值。</p></li>
+
+   <li>
+    <p>如果 <var>serialized</var> 包含一个 [[TransferConsumed]] 字段，则：</p>
+
+    <ol>
+     <li><p>断言： <var>serialized</var>.[[TransferConsumed]] 为 false。
+     （一定不能进入这种情况：在同一个序列化上调用多次 <span>StructuredDeserialize</span>，而那个序列化又包含了传输数据容器。）</p></li>
+
+     <li><p>设置 <var>serialized</var>.[[TransferConsumed]] 为 true。</p></li>
+
+     <li>
+      <p>如果 <var>serialized</var>.[[Type]] 是 "ArrayBuffer"，则设置 <var>value</var> 为一个新的
+      <var>targetRealm</var> 中的 ArrayBuffer 对象，其 [[ArrayBufferData]] 内部槽值为
+      <var>serialized</var>.[[ArrayBufferData]]，其 [[ArrayBufferByteLength]] 内部槽值为
+      <var>serialized</var>.[[ArrayBufferByteLength]]。</p>
+
+      <p class="note">在反序列化期间可以访问 [[ArrayBufferData]] 占用的原始内存的情况下，
+      此步骤不大可能会引发异常，因为不需要分配新的内存：
+      只是把 [[ArrayBufferData]] 占用的内存转移到新的 ArrayBuffer 中。
+      例如当源和目标 Realm 都在同一进程中时，就属于这种情况。
+     </li>
+
+     <li>
+      <p>否则：</p>
+
+      <ol>
+       <li><p>令 <var>interfaceName</var> 为 <var>serialized</var>.[[Type]]。</p></li>
+
+       <li><p>如果由 <var>interfaceName</var> 标识的接口没有暴露在
+       <var>targetRealm</var> 中，则抛出一个 <span>"<code>DataCloneError</code>"</span>
+       <code>DOMException</code>。</p></li>
+
+       <li><p>设置 <var>value</var> 为一个在 <var>targetRealm</var> 中创建的
+       新的由 <var>interfaceName</var> 标识的接口的实例。</p></li>
+
+       <li><p>给定 <var>serialized</var> 和 <var>value</var>，为 <var>interfaceName</var> 标识的接口
+       执行适当的 <span data-x="transfer-receiving steps">接收步骤</span>。</p></li>
+      </ol>
+     </li>
+    </ol>
+   </li>
+
+   <li><p>否则，如果 <var>serialized</var>.[[Type]] 是 "primitive"，则设置 <var>value</var> 为
+   <var>serialized</var>.[[Value]]。</p>
+
+   <li><p>否则，如果 <var>serialized</var>.[[Type]] 是 "Boolean"，则设置 <var>value</var>
+   为一个 <var>targetRealm</var> 中的新的 Boolean 对象，其 [[BooleanData]] 内部槽值为
+   <var>serialized</var>.[[BooleanData]]。</p></li>
+
+   <li><p>否则，如果 <var>serialized</var>.[[Type]] 是 "Number"，则设置 <var>value</var>
+   为一个 <var>targetRealm</var> 中的新的 Number 对象，其 [[NumberData]] 内部槽值为
+   <var>serialized</var>.[[NumberData]]。</p></li>
+
+   <li><p>否则，如果 <var>serialized</var>.[[Type]] 是 "String"，则设置 <var>value</var>
+   为一个 <var>targetRealm</var> 中的新的 String 对象，其 [[StringData]] 内部槽值为
+   <var>serialized</var>.[[StringData]]。</p></li>
+
+   <li><p>否则，如果 <var>serialized</var>.[[Type]] 是 "Date"，则设置 <var>value</var>
+   为一个 <var>targetRealm</var> 中的新的 Date 对象，其 [[DateValue]] 内部槽值为
+   <var>serialized</var>.[[DateValue]]。</p></li>
+
+   <li><p>否则，如果 <var>serialized</var>.[[Type]] 是 "RegExp"，则设置 <var>value</var>
+   为一个 <var>targetRealm</var> 中的新的 RegExp 对象，其 [[RegExpMatcher]] 内部槽值为
+   <var>serialized</var>.[[RegExpMatcher]]，其 [[OriginalSource]] 内部槽值为
+   <var>serialized</var>.[[OriginalSource]]，其 [[OriginalFlags]] 内部槽值为
+   <var>serialized</var>.[[OriginalFlags]]。</p></li>
+
+   <li>
+    <p>否则，如果 <var>serialized</var>.[[Type]] 是 "SharedArrayBuffer"，则：</p>
+
+    <ol>
+     <li><p>如果 <var>targetRealm</var> 对应的 <span>agent cluster</span> 不是
+     <var>serialized</var>.[[AgentCluster]]，则抛出一个
+     <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+     <li><p>否则，设置 <var>value</var> 到一个 <var>targetRealm</var> 中的新的 SharedArrayBuffer 对象，
+     其 [[ArrayBufferData]] 内部槽值为 <var>serialized</var>.[[ArrayBufferData]]，
+     其 [[ArrayBufferByteLength]] 内部槽值是 <var>serialized</var>.[[ArrayBufferByteLength]]。</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>serialized</var>.[[Type]] 是 "ArrayBuffer"，则设置 <var>value</var>
+    为一个 <var>targetRealm</var> 中新的 ArrayBuffer 对象，其 [[ArrayBufferData]] 内部槽值为
+    <var>serialized</var>.[[ArrayBufferData]]，其 [[ArrayBufferByteLength]] 内部槽值为
+    <var>serialized</var>.[[ArrayBufferByteLength]]。</p>
+
+    <p>如果这抛出了一个异常，则抛出一个 <span>"<code>DataCloneError</code>"</span>
+    <code>DOMException</code>。</p>
+
+    <p class="note">如果没有足够的内存来创建这样一个 ArrayBuffer 对象，该步骤可能会抛出异常。</p>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>serialized</var>.[[Type]] 是 "ArrayBufferView"，则：</p>
+
+    <ol>
+     <li><p>令<var>deserializedArrayBuffer</var> 为 ?
+     <span>StructuredDeserialize</span>(<var>serialized</var>.[[ArrayBufferSerialized]],
+     <var>targetRealm</var>,<var>memory</var>)。</p></li>
+
+     <li><p>如果 <var>serialized</var>.[[Constructor]] 是 "DataView"，则设置 <var>value</var> 为
+     <var>targetRealm</var> 中的一个新的 DataView 对象，其 [[ViewedArrayBuffer]] 内部槽值为
+     <var>deserializedArrayBuffer</var>，其 [[ByteLength]] 内部槽值为
+     <var>serialized</var>.[[ByteLength]]，其 [[ByteOffset]] 内部槽值为
+     <var>serialized</var>.[[ByteOffset]]。</p></li>
+
+     <li><p>否则，设置 <var>value</var> 为一个 <var>targetRealm</var> 中新的有类型数组对象，
+     使用 <var>serialized</var>.[[Constructor]] 给出的构造器，其
+     [[ViewedArrayBuffer]] 内部槽值为 <var>deserializedArrayBuffer</var>，其
+     [[TypedArrayName]] 内部槽值为 <var>serialized</var>.[[Constructor]]，其
+     [[ByteLength]] 内部槽值为 <var>serialized</var>.[[ByteLength]]，其
+     [[ByteOffset]] 内部槽值为 <var>serialized</var>.[[ByteOffset]]，其
+     [[ArrayLength]] 内部槽值为 <var>serialized</var>.[[ArrayLength]]。</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>serialized</var>.[[Type]] 是 "Map"，则：</p>
+
+    <ol>
+     <li><p>设置<var>value</var> 为 <var>targetRealm</var> 中一个新的 Map 对象，其 [[MapData]]
+     内部槽值为一个新的空 <span data-x="js-List">列表</span>。</p></li>
+
+     <li><p>设置<var>deep</var> to true。</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>serialized</var>.[[Type]] 是 "Set"，则：</p>
+
+    <ol>
+     <li><p>设置<var>value</var> 为一个 <var>targetRealm</var> 中新的设置对象，其 [[SetData]]
+     内部槽值为一个新的空 <span data-x="js-List">列表</span>。</p></li>
+
+     <li><p>设置<var>deep</var> 为 true。</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>serialized</var>.[[Type]] 是 "Array"，则：</p>
+
+    <ol>
+     <li><p>令<var>outputProto</var> 为 <var>targetRealm</var> 中的 <span>%ArrayPrototype%</span> 固有对象。</p></li>
+
+     <li><p>设置 <var>value</var> 为 ! <span>ArrayCreate</span>(<var>serialized</var>.[[Length]],
+     <var>outputProto</var>)。</p></li>
+
+     <li><p>设置<var>deep</var> 为 true。</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则，如果 <var>serialized</var>.[[Type]] 是 "Object"，则：</p>
+
+    <ol>
+     <li><p>设置<var>value</var> 为 <var>targetRealm</var> 中一个新的 Object。</p></li>
+
+     <li><p>设置<var>deep</var> 为 true。</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>否则：</p>
+
+    <ol>
+     <li><p>令 <var>interfaceName</var> 为 <var>serialized</var>.[[Type]]。</p></li>
+
+     <li><p>如果 <var>interfaceName</var> 标识的接口没有暴露在
+     <var>targetRealm</var> 中，则抛出一个 <span>"<code>DataCloneError</code>"</span>
+     <code>DOMException</code>。</p></li>
+
+     <li><p>设置<var>value</var> 为在 <var>targetRealm</var> 中创建的、
+     以 <var>interfaceName</var> 标识的接口的一个新的实例。</p>
+
+     <li><p>设置<var>deep</var> 为 true。</p></li>
+    </ol>
+   </li>
+
+   <li><p><span data-x="map set">设置</span> <var>memory</var>[<var>serialized</var>] 为
+   <var>value</var>。</p></li>
+
+   <li>
+    <p>如果 <var>deep</var> 为 true，则：</p>
+
+    <ol>
+     <li>
+      <p>如果 <var>serialized</var>.[[Type]] 是 "Map"，则：</p>
+
+      <ol>
+       <li>
+        <p>对 <var>serialized</var>.[[MapData]] 中的 <span data-x="list iterate">每一个</span>
+        <span data-x="Record">记录</span> { [[Key]]，[[Value]] } <var>entry</var>：</p>
+
+        <ol>
+         <li><p>令<var>deserializedKey</var> 为 ?
+         <span>StructuredDeserialize</span>(<var>entry</var>.[[Key]],<var>targetRealm</var>,
+         <var>memory</var>)。</p></li>
+
+         <li><p>令<var>deserializedValue</var> 为 ?
+         <span>StructuredDeserialize</span>(<var>entry</var>.[[Value]],<var>targetRealm</var>,
+         <var>memory</var>)。</p></li>
+
+         <li><p><span data-x="list append">追加</span> { [[Key]]: <var>deserializedKey</var>,
+         [[Value]]: <var>deserializedValue</var> } 到 <var>value</var>.[[MapData]]。</p></li>
+        </ol>
+       </li>
+      </ol>
+     </li>
+
+     <li>
+      <p>否则，如果 <var>serialized</var>.[[Type]] 是 "Set"，则：</p>
+
+      <ol>
+       <li>
+        <p>对 <var>serialized</var>.[[SetData]] 中 <span data-x="list iterate">每一个</span>
+        <var>entry</var>：</p>
+
+        <ol>
+         <li><p>令<var>deserializedEntry</var> 为 ?
+         <span>StructuredDeserialize</span>(<var>entry</var>,<var>targetRealm</var>,
+         <var>memory</var>)。</p></li>
+
+         <li><p><span data-x="list append">追加</span> <var>deserializedEntry</var> 到
+         <var>value</var>.[[SetData]]。</p></li>
+        </ol>
+       </li>
+      </ol>
+     </li>
+
+     <li>
+      <p>否则，如果 <var>serialized</var>.[[Type]] 是 "Array" 或 "Object"，则：</p>
+
+      <ol>
+       <li>
+        <p>对 <var>serialized</var>.[[Properties]] 中的 <span data-x="list iterate">每一个</span>
+        <span data-x="Record">记录</span> { [[Key]]，[[Value]] } <var>entry</var>：</p>
+
+        <ol>
+         <li><p>令<var>deserializedValue</var> 为 ?
+         <span>StructuredDeserialize</span>(<var>entry</var>.[[Value]],<var>targetRealm</var>,
+         <var>memory</var>)。</p></li>
+
+         <li><p>令<var>result</var> 为 ! <span>CreateDataProperty</span>(<var>value</var>,
+         <var>entry</var>.[[Key]],<var>deserializedValue</var>)。</p></li>
+
+         <li><p>断言： <var>result</var> 为 true。</p></li>
+        </ol>
+       </li>
+      </ol>
+     </li>
+
+     <li>
+      <p>否则：</p>
+
+      <ol>
+       <li>
+        <p>给定 <var>serialized</var> 和 <var>value</var>，为 <var>serialized</var>.[[Type]] 标识的接口
+        执行适当的 <span data-x="deserialization steps">反序列化步骤</span>。</p>
+
+        <p><span data-x="deserialization steps">反序列化步骤</span> 可能会执行一个 <dfn
+        data-export="" data-x="sub-deserialization">子反序列化</dfn>。该操作接受
+        先前序列化后的 <span>Record</span> <var>subSerialized</var> 作为输入，返回
+        <span>StructuredDeserialize</span>(<var>subSerialized</var>,<var>targetRealm</var>,
+        <var>memory</var>)。（换句话说，<span data-x="sub-deserialization">子反序列化</span> 是
+        是 <span>StructuredDeserialize</span> 的与该调用一致的特化。）</p>
+       </li>
+      </ol>
+    </ol>
+   </li>
+
+   <li><p>返回 <var>value</var>。</p></li>
+  </ol>
+

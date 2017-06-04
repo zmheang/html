@@ -1,0 +1,23 @@
+  <h4 id="content-type-sniffing">确定响应类型</h4>
+
+  <p>必须获取响应的 <dfn data-x="Content-Type">Content-Type 元数据</dfn>
+  并按照 WHATWG MIME Sniffing 标准的要求解释。<ref spec=MIMESNIFF></p>
+
+  <p>必须按照 WHATWG MIME Sniffing 标准的要求找到资源的 <dfn data-x="Content-Type sniffing"
+  data-x-href="https://mimesniff.spec.whatwg.org/#computed-mime-type">计算后的 MIME 类型</dfn>。
+  <ref spec=MIMESNIFF></p>
+
+  <p><dfn data-x="Content-Type sniffing: image"
+  data-x-href="https://mimesniff.spec.whatwg.org/#rules-for-sniffing-images-specifically">
+  嗅探图片 Content-Type 的规则</dfn>，
+  <dfn data-x="Content-Type sniffing: text or binary"
+  data-x-href="https://mimesniff.spec.whatwg.org/#rules-for-text-or-binary">
+  区分资源是文本还是二进制的规则</dfn>，以及
+  <dfn data-x="Content-Type sniffing: video"
+  data-x-href="https://mimesniff.spec.whatwg.org/#rules-for-sniffing-audio-and-video-specifically">
+  嗅探音频和视频的规则</dfn> 也定义在 WHATWG MIME Sniffing 标准中。
+  这些规则返回的结果是一个 <span data-x="MIME type">MIME 类型</span>。 <ref spec=MIMESNIFF></p>
+
+  <p class="warning">WHATWG MIME Sniffing 标准中的规则必须严格遵守。 当用户代理使用与服务器所期望的内容类型检测不同的启发式方法时，可能会发生安全问题。 有关更多详细信息，请参阅 WHATWG MIME Sniffing 标准。 <ref spec=MIMESNIFF></p>
+
+

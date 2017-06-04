@@ -1,0 +1,28 @@
+  <h4>引荐来源策略属性</h4>
+
+  <p><dfn data-export="" data-x="referrer policy attribute">引荐来源策略属性</dfn>
+  是一个 <span data-x="enumerated attribute">枚举属性</span>。
+  每个 <span data-x="referrer policy">引荐来源策略</span>包括空字符串都是该属性的关键字，
+  都映射到一个同名的状态。</p>
+
+  <p>该属性的 <i data-x="invalid value default">非法值的默认</i> 和 <i
+  data-x="missing value default">缺失值的默认</i> 都是空字符串状态。</p>
+
+  <p>这些状态对各种 <span data-x="concept-fetch">获取</span> 处理模型的影响详细地定义在
+  本标准中，WHATWG Fetch 标准中，以及 <cite>Referrer Policy</cite> 中。 <ref spec=FETCH> <ref
+  spec=REFERRERPOLICY></p>
+
+  <div class="note">
+   <p>对给定的 <span data-x="concept-fetch">获取</span> 使用哪个处理模型取决于多个信号；
+   引荐来源策略属性只是其中之一。一般来说，这些信号的处理顺序是：</p>
+
+   <ol>
+    <li><p>首先，是否出现一个 <code data-x="rel-noreferrer">noreferrer</code> 超链接类型；</p></li>
+    <li><p>然后，<span data-x="referrer policy attribute">引荐来源策略属性</span> 的值；</p></li>
+    <li><p>然后，是否出现任何 <code data-x="attr-meta-name">name</code> 属性设为
+    <code data-x="meta-referrer">referrer</code> 的 <code>meta</code> 元素。</p></li>
+    <li><p>最后，`<code data-x="http-referrer-policy">Referrer-Policy</code>` HTTP 头。</p></li>
+   </ol>
+  </div>
+
+

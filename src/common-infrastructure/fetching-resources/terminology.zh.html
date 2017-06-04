@@ -1,0 +1,39 @@
+  <h4>术语</h4>
+
+  <p><span data-x="concept-response-type">类型</span> 为 "<code data-x="">basic</code>"，
+  "<code data-x="">cors</code>"，或 "<code data-x="">default</code>" 的
+  <span data-x="concept-response">响应</span> 称为 <dfn>CORS-same-origin</dfn>。 <ref
+  spec=FETCH></p>
+
+  <p><span data-x="concept-response-type">类型</span> 为
+  "<code data-x="">opaque</code>" 或 "<code data-x="">opaqueredirect</code>" 的
+  <span data-x="concept-response">响应</span> 称为 <dfn>CORS-cross-origin</dfn>。</p>
+
+  <p><span data-x="concept-response">响应</span> 的 <dfn data-export="" data-x="unsafe response">不安全响应</dfn>
+  是它的 <span data-x="concept-internal-response">内部响应</span>（如果有的话），否则就是
+  <span data-x="concept-response">响应</span> 自己。</p>
+
+  <p>给定 <var>url</var>，<var>destination</var>， <var>corsAttributeState</var>，以及可能有的 <i>same-origin fallback 标志</i>，
+  <dfn data-x="create a potential-CORS request">创建一个可能 CORS 的请求</dfn> 应该执行以下步骤：</p>
+
+  <ol>
+   <li><p>如果 <var>corsAttributeState</var> 是 <span data-x="attr-crossorigin-none">No CORS</span>，
+   令 <var>mode</var> 为 "<code data-x="">no-cors</code>" ，否则令 <var>mode</var> 为 "<code data-x="">cors</code>"。</p></li>
+
+   <li><p>如果设置了 <i>same-origin fallback 标志</i> 且 <var>mode</var> 为
+   "<code data-x="">no-cors</code>"，则将 <var>mode</var> 设置为 "<code data-x="">same-origin</code>"。</p></li>
+
+   <li><p>令 <var>credentialsMode</var> 为 "<code data-x="">include</code>"。</p></li>
+
+   <li><p>如果 <var>corsAttributeState</var> 为 <span data-x="attr-crossorigin-anonymous">Anonymous</span>，
+   将 <var>credentialsMode</var> 设为 "<code data-x="">same-origin</code>"。</p></li>
+
+   <li><p>令 <var>request</var> 为一个新的 <span data-x="concept-request">request</span>，
+   其 <span data-x="concept-request-url">url</span> 为 <var>url</var>，
+   <span data-x="concept-request-destination">目标地址</span> 为 <var>destination</var>，
+   <span data-x="concept-request-mode">模式</span> 为 <var>mode</var>，
+   <span data-x="concept-request-credentials-mode">credentials 模式</span> 为 <var>credentialsMode</var>，
+   且设置了 <span data-x="use-URL-credentials flag">use-URL-credentials 标志</span>。</p></li>
+  </ol>
+
+
