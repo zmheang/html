@@ -3,13 +3,16 @@
   <p>The <dfn>input stream</dfn> consists of the characters pushed into it as the <span>input byte
   stream</span> is decoded or from the various APIs that directly manipulate the input stream.</p>
 
-  <p>Any occurrences of <span data-x="surrogate">surrogates</span>, <span
-  data-x="noncharacter">noncharacters</span>, or <span data-x="control">controls</span> other than
-  <span>ASCII whitespace</span> and U+0000 NULL characters are <span data-x="parse error">parse
-  errors</span>.</p>
-
-  <p class="note">Isolated surrogates can only find their way into the input stream via script APIs
-  such as <code data-x="dom-document-write">document.write()</code>.</p>
+  <p>Any occurrences of <span data-x="surrogate">surrogates</span> are <span
+  data-x="parse-error-surrogate-in-input-stream">surrogate-in-input-stream</span>
+  <span data-x="parse error">parse errors</span>. Any occurrences of <span
+  data-x="noncharacter">noncharacters</span> are <span
+  data-x="parse-error-noncharacter-in-input-stream">noncharacter-in-input-stream</span>
+  <span data-x="parse error">parse errors</span> and any occurrences of <span
+  data-x="control">controls</span> other than <span>ASCII whitespace</span> and U+0000 NULL
+  characters are <span
+  data-x="parse-error-control-character-in-input-stream">control-character-in-input-stream</span>
+  <span data-x="parse error">parse errors</span>.</p>
 
   <p class="note">The handling of U+0000 NULL characters varies based on where the characters are
   found and happens at the later stages of the parsing. In general, they are ignored except where

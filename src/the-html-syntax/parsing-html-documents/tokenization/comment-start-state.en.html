@@ -8,7 +8,9 @@
    <dd>Switch to the <span>comment start dash state</span>.</dd>
 
    <dt>U+003E GREATER-THAN SIGN (&gt;)</dt>
-   <dd><span>Parse error</span>. Switch to the <span>data state</span>. Emit the comment token.</dd>
+   <dd>This is an <span
+   data-x="parse-error-abrupt-closing-of-empty-comment">abrupt-closing-of-empty-comment</span> <span>parse
+   error</span>. Switch to the <span>data state</span>. Emit the comment token.</dd>
 
    <dt>Anything else</dt>
    <dd><span>Reconsume</span> in the <span>comment state</span>.</dd>

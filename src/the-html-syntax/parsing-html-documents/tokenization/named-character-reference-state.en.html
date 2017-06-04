@@ -23,6 +23,8 @@
 
     <ol>
      <li><p>If the last character matched is not a U+003B SEMICOLON character (;), then this is a
+     <span
+     data-x="parse-error-missing-semicolon-after-character-reference">missing-semicolon-after-character-reference</span>
      <span>parse error</span>.</p></li>
 
      <li><p>Set the <var data-x="temporary buffer">temporary buffer</var> to the empty string.
@@ -36,8 +38,9 @@
 
    <dd>If the <var data-x="temporary buffer">temporary buffer</var> consists of a U+0026 AMPERSAND
    character (&amp;) followed by a sequence of one or more <span data-x="ASCII alphanumeric">ASCII
-   alphanumerics</span> and a U+003B SEMICOLON character (;), then this is a <span>parse
-   error</span>.</dd>
+   alphanumerics</span> and a U+003B SEMICOLON character (;), then this is an <span
+   data-x="parse-error-unknown-named-character-reference">unknown-named-character-reference</span>
+   <span>parse error</span>.</dd>
 
   </dl>
 

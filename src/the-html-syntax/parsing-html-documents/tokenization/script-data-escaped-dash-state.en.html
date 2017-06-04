@@ -12,11 +12,15 @@
    <dd>Switch to the <span>script data escaped less-than sign state</span>.</dd>
 
    <dt>U+0000 NULL</dt>
-   <dd><span>Parse error</span>. Switch to the <span>script data escaped state</span>. Emit a U+FFFD
-   REPLACEMENT CHARACTER character token.</dd>
+   <dd>This is an <span
+   data-x="parse-error-unexpected-null-character">unexpected-null-character</span> <span>parse
+   error</span>. Switch to the <span>script data escaped state</span>. Emit a U+FFFD REPLACEMENT
+   CHARACTER character token.</dd>
 
    <dt>EOF</dt>
-   <dd><span>Parse error</span>. Emit an end-of-file token.</dd>
+   <dd>This is an <span
+   data-x="parse-error-eof-in-script-html-comment-like-text">eof-in-script-html-comment-like-text</span>
+   <span>parse error</span>. Emit an end-of-file token.</dd>
 
    <dt>Anything else</dt>
    <dd>Switch to the <span>script data escaped state</span>. Emit the <span>current input

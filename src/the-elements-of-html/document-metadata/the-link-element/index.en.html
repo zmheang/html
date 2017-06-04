@@ -230,17 +230,21 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <hr>
 
   <p>The <dfn><code data-x="attr-link-as">as</code></dfn> attribute specifies the <span
-  data-x="concept-request-destination">destination</span> for a preload request for the resource
-  given by the <code data-x="attr-link-href">href</code> attribute. It is an <span>enumerated
-  attribute</span>. Each <span data-x="concept-request-destination">request destination</span>,
-  including the empty string, is a keyword for this attribute, mapping to a state of the same name.
-  The attribute's <i data-x="missing value default">missing value default</i> and <i data-x="invalid
-  value default">invalid value default</i> are both the empty string state. The attribute may be
-  omitted. The attribute must not be specified on <code>link</code> elements that do not have a
-  <code data-x="attr-link-rel">rel</code> attribute that contains the
-  <code data-x="rel-preload">preload</code> keyword.<span w-nodev> User agents must implement the
-  processing model of the <code data-x="attr-link-as">as</code> attribute described in
-  <cite>Preload</cite>. <ref spec=FETCH> <ref spec=PRELOAD></span></p>
+  data-x="concept-potential-destination">potential destination</span> for a preload request for the
+  resource given by the <code data-x="attr-link-href">href</code> attribute. It is an
+  <span>enumerated attribute</span>. Each <span data-x="concept-potential-destination">potential
+  destination</span> is a keyword for this attribute, mapping to a state of the same name. The
+  attribute must be specified on <code>link</code> elements that have a <code
+  data-x="attr-link-rel">rel</code> attribute that contains the <code
+  data-x="rel-preload">preload</code> keyword, but must not be specified on <code>link</code>
+  elements which do not. <span w-nodev>The processing model for how the <code
+  data-x="attr-link-as">as</code> attribute is used is given in the <span
+  data-x="concept-link-obtain">steps to obtain the resource</span>.</span></p>
+
+  <p class="note">The attribute does not have a <i data-x="missing value default">missing value
+  default</i> or <i data-x="invalid value default">invalid value default</i>, meaning that invalid
+  or missing values for the attribute map to no state. This is accounted for in the processing
+  model.</p>
 
   <hr>
 

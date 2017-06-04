@@ -18,7 +18,8 @@
    <dd>Switch to the <span>attribute value (single-quoted) state</span>.</dd>
 
    <dt>U+003E GREATER-THAN SIGN (&gt;)</dt>
-   <dd><span>Parse error</span>. Treat it as per the "anything else" entry below.</dd>
+   <dd>This is a <span data-x="parse-error-missing-attribute-value">missing-attribute-value</span>
+   <span>parse error</span>. Switch to the <span>data state</span>. Emit the current tag token.</dd>
 
    <dt>Anything else</dt>
    <dd><span>Reconsume</span> in the <span>attribute value (unquoted) state</span>.</dd>

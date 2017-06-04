@@ -5,6 +5,7 @@
   <dl class="switch">
 
    <dt>Two U+002D HYPHEN-MINUS characters (-)</dt>
+
    <dd>Consume those two characters, create a comment token whose data is the empty string, and
    switch to the <span>comment start state</span>.</dd>
 
@@ -13,13 +14,18 @@
 
    <dt><span>Case-sensitive</span> match for the string "[CDATA[" (the five uppercase letters
    "CDATA" with a U+005B LEFT SQUARE BRACKET character before and after)</dt>
-   <dd>If there is an <span>adjusted current node</span> and it is not an element in the <span>HTML
-   namespace</span>, then consume those characters and switch to the <span>CDATA section
-   state</span>. Otherwise, act as described in the "anything else" entry below.</dd>
+   <dd>Consume those characters. If there is an <span>adjusted current node</span> and it is not
+   an element in the <span>HTML namespace</span>, then switch to the <span>CDATA section
+   state</span>. Otherwise, this is a <span
+   data-x="parse-error-cdata-in-html-content">cdata-in-html-content</span> <span>parse
+   error</span>. Create a comment token whose data is the "[CDATA[" string. Switch to the
+   <span>bogus comment state</span>.</dd>
 
    <dt>Anything else</dt>
-   <dd><span>Parse error</span>. Create a comment token whose data is the empty string. Switch to
-   the <span>bogus comment state</span> (don't consume anything in the current state).</dd>
+   <dd>This is an <span
+   data-x="parse-error-incorrectly-opened-comment">incorrectly-opened-comment</span>
+   <span>parse error</span>. Create a comment token whose data is the empty string. Switch to the
+   <span>bogus comment state</span> (don't consume anything in the current state).</dd>
 
   </dl>
 

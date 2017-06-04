@@ -42,12 +42,18 @@
 
   <p>When a start tag token is emitted with its <i data-x="self-closing flag">self-closing flag</i> set, if the flag is not
   <dfn data-x="acknowledge self-closing flag">acknowledged</dfn> when it is processed by the tree
-  construction stage, that is a <span>parse error</span>.</p>
+  construction stage, that is a <span
+  data-x="parse-error-non-void-html-element-start-tag-with-trailing-solidus">non-void-html-element-start-tag-with-trailing-solidus</span>
+  <span>parse error</span>.</p>
 
-  <p>When an end tag token is emitted with attributes, that is a <span>parse error</span>.</p>
-
-  <p>When an end tag token is emitted with its <i data-x="self-closing flag">self-closing flag</i> set, that is a <span>parse
+  <p>When an end tag token is emitted with attributes, that is an <span
+  data-x="parse-error-end-tag-with-attributes">end-tag-with-attributes</span> <span>parse
   error</span>.</p>
+
+  <p>When an end tag token is emitted with its <i data-x="self-closing flag">self-closing flag</i>
+  set, that is an <span
+  data-x="parse-error-end-tag-with-trailing-solidus">end-tag-with-trailing-solidus</span>
+  <span>parse error</span>.</p>
 
   <p>An <dfn>appropriate end tag token</dfn> is an end tag token whose tag name matches the tag name
   of the last start tag to have been emitted from this tokenizer, if any. If no start tag has been

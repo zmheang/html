@@ -29,4 +29,6 @@ function! PreTranslate()
     call TranslatePunc()
 endfunction
 
+set sw=2 ts=2
+
 nnoremap <F6> :call PreTranslate()<CR>

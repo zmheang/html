@@ -7,14 +7,20 @@
   following steps:</p>
 
   <ol>
+   <li>
+    <p>If <var>form</var> is not <span>connected</span>, then return.</p>
+
+    <p class="&#x0058;&#x0058;&#x0058;">This check is currently under discussion, and may be
+    either removed or expanded. See <a href="https://github.com/whatwg/html/issues/2615">issue
+    #2615</a> and <a href="https://github.com/whatwg/html/issues/2708">issue #2708</a>.</p>
+   </li>
 
    <li><p>Let <var>form document</var> be the <var>form</var>'s
    <span>node document</span>.</p></li>
 
-   <li id="sandboxSubmitBlocked"><p>If <var>form document</var> is not <span>connected</span>, has
-   no associated <span data-x="concept-document-bc">browsing context</span>, or its <span>active
-   sandboxing flag set</span> has its <span>sandboxed forms browsing context flag</span> set, then
-   abort these steps without doing anything.</p></li>
+   <li id="sandboxSubmitBlocked"><p>If <var>form document</var> has no associated <span
+   data-x="concept-document-bc">browsing context</span>, or its <span>active sandboxing flag
+   set</span> has its <span>sandboxed forms browsing context flag</span> set, then return.</p></li>
 
    <li><p>Let <var>form browsing context</var> be the <span data-x="concept-document-bc">browsing
    context</span> of <var>form document</var>.</p></li>

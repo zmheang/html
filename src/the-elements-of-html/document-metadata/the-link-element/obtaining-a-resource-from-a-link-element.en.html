@@ -39,6 +39,22 @@
    <code>link</code> element's <code data-x="attr-link-referrerpolicy">referrerpolicy</code>
    attribute.</p></li>
 
+   <li>
+    <p>If the <code data-x="attr-link-rel">rel</code> attribute contains the <code
+    data-x="rel-preload">preload</code> keyword, then:</p>
+
+    <ol>
+     <li><p>Let <var>as</var> be the current state of the <code data-x="attr-link-as">as</code>
+     attribute.</p></li>
+
+     <li><p>If <var>as</var> is no state, then return.</p></li>
+
+     <li><p>Set <var>request</var>'s <span data-x="concept-request-destination">destination</span>
+     to the result of <span data-x="concept-potential-destination-translate">translating</span>
+     <var>as</var>.</p></li>
+    </ol>
+   </li>
+
    <!--FETCH--><li><p><span data-x="concept-fetch">Fetch</span> <var>request</var>.</p></li>
 
   </ol>
@@ -65,8 +81,9 @@
   <p>The <span>task source</span> for these <span data-x="concept-task">tasks</span> is the
   <span>DOM manipulation task source</span>.</p>
 
-  <p>The element must <span>delay the load event</span> of the element's <span>node document</span>
-  until all the attempts to obtain the resource and its <span>critical subresources</span> are
-  complete.  (Resources that the user agent has not yet attempted to obtain, e.g. because it is
-  waiting for the resource to be needed, do not <span>delay the load event</span>.)</p>
+  <p>Unless otherwise specified for a given <code data-x="attr-link-rel">rel</code> keyword, the
+  element must <span>delay the load event</span> of the element's <span>node document</span> until
+  all the attempts to obtain the resource and its <span>critical subresources</span> are complete.
+  (Resources that the user agent has not yet attempted to obtain, e.g. because it is waiting for the
+  resource to be needed, do not <span>delay the load event</span>.)</p>
 

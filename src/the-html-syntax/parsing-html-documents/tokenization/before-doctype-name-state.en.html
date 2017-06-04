@@ -17,17 +17,21 @@
    <span>DOCTYPE name state</span>.</dd>
 
    <dt>U+0000 NULL</dt>
-   <dd><span>Parse error</span>. Create a new DOCTYPE token. Set the token's name to a U+FFFD
-   REPLACEMENT CHARACTER character. Switch to the <span>DOCTYPE name state</span>.</dd>
+   <dd>This is an <span
+   data-x="parse-error-unexpected-null-character">unexpected-null-character</span> <span>parse
+   error</span>. Create a new DOCTYPE token. Set the token's name to a U+FFFD REPLACEMENT CHARACTER
+   character. Switch to the <span>DOCTYPE name state</span>.</dd>
 
    <dt>U+003E GREATER-THAN SIGN (&gt;)</dt>
-   <dd><span>Parse error</span>. Create a new DOCTYPE token. Set its <i data-x="force-quirks
-   flag">force-quirks flag</i> to <i>on</i>. Switch to the <span>data state</span>.
-   Emit the token.</dd>
+   <dd>This is a <span data-x="parse-error-missing-doctype-name">missing-doctype-name</span>
+   <span>parse error</span>. Create a new DOCTYPE token. Set its <i
+   data-x="force-quirks flag">force-quirks flag</i> to <i>on</i>. Switch to the <span>data
+   state</span>. Emit the token.</dd>
 
    <dt>EOF</dt>
-   <dd><span>Parse error</span>. Create a new DOCTYPE token. Set its <i data-x="force-quirks
-   flag"> force-quirks flag</i> to <i>on</i>. Emit the token. Emit an end-of-file token.</dd>
+   <dd>This is an <span data-x="parse-error-eof-in-doctype">eof-in-doctype</span> <span>parse
+   error</span>. Create a new DOCTYPE token. Set its <i data-x="force-quirks flag"> force-quirks
+   flag</i> to <i>on</i>. Emit the token. Emit an end-of-file token.</dd>
 
    <dt>Anything else</dt>
    <dd>Create a new DOCTYPE token. Set the token's name to the <span>current input character</span>.

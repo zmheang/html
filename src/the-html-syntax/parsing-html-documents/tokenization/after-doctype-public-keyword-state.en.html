@@ -12,24 +12,33 @@
    <dd>Switch to the <span>before DOCTYPE public identifier state</span>.</dd>
 
    <dt>U+0022 QUOTATION MARK (&quot;)</dt>
-   <dd><span>Parse error</span>. Set the DOCTYPE token's public identifier to the empty string (not
+   <dd>This is a <span
+   data-x="parse-error-missing-whitespace-after-doctype-public-keyword">missing-whitespace-after-doctype-public-keyword</span>
+   <span>parse error</span>. Set the DOCTYPE token's public identifier to the empty string (not
    missing), then switch to the <span>DOCTYPE public identifier (double-quoted) state</span>.</dd>
 
    <dt>U+0027 APOSTROPHE (')</dt>
-   <dd><span>Parse error</span>. Set the DOCTYPE token's public identifier to the empty string (not
+   <dd>This is a <span
+   data-x="parse-error-missing-whitespace-after-doctype-public-keyword">missing-whitespace-after-doctype-public-keyword</span>
+   <span>parse error</span>. Set the DOCTYPE token's public identifier to the empty string (not
    missing), then switch to the <span>DOCTYPE public identifier (single-quoted) state</span>.</dd>
 
    <dt>U+003E GREATER-THAN SIGN (&gt;)</dt>
-   <dd><span>Parse error</span>. Set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks flag</i> to <i>on</i>.
-   Switch to the <span>data state</span>. Emit that DOCTYPE token.</dd>
+   <dd>This is a <span
+   data-x="parse-error-missing-doctype-public-identifier">missing-doctype-public-identifier</span> <span>parse
+   error</span>. Set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks flag</i> to
+   <i>on</i>. Switch to the <span>data state</span>. Emit that DOCTYPE token.</dd>
 
    <dt>EOF</dt>
-   <dd><span>Parse error</span>. Set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks
-   flag</i> to <i>on</i>. Emit that DOCTYPE token. Emit an end-of-file token.</dd>
+   <dd>This is an <span data-x="parse-error-eof-in-doctype">eof-in-doctype</span> <span>parse
+   error</span>. Set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks flag</i> to
+   <i>on</i>. Emit that DOCTYPE token. Emit an end-of-file token.</dd>
 
    <dt>Anything else</dt>
-   <dd><span>Parse error</span>. Set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks flag</i> to <i>on</i>.
-   Switch to the <span>bogus DOCTYPE state</span>.</dd>
+   <dd>This is a <span
+   data-x="parse-error-missing-quote-before-doctype-public-identifier">missing-quote-before-doctype-public-identifier</span>
+   <span>parse error</span>. Set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks
+   flag</i> to <i>on</i>. Switch to the <span>bogus DOCTYPE state</span>.</dd>
 
   </dl>
 
