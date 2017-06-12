@@ -30,7 +30,8 @@ interface <dfn>HTMLTableColElement</dfn> : <span>HTMLElement</span> {
 
   <p>If the <code>colgroup</code> element contains no <code>col</code> elements, then the element
   may have a <dfn><code data-x="attr-colgroup-span">span</code></dfn> content attribute specified,
-  whose value must be a <span>valid non-negative integer</span> greater than zero.</p>
+  whose value must be a <span>valid non-negative integer</span> greater than zero and less than or
+  equal to 1000.</p>
 
   <div w-nodev>
 
@@ -38,8 +39,8 @@ interface <dfn>HTMLTableColElement</dfn> : <span>HTMLElement</span> {
   attribute take part in the <span>table model</span>.</p>
 
   <p>The <dfn><code data-x="dom-colgroup-span">span</code></dfn> IDL attribute must
-  <span>reflect</span> the content attribute of the same name. The value must be <span>limited to
-  only non-negative numbers greater than zero with fallback</span>, with a default value of 1.</p>
+  <span>reflect</span> the content attribute of the same name. It is <span>clamped to the
+  range</span> [1, 1000], and its default value is 1.</p>
 
   </div>
 

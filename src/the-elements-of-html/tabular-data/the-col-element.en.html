@@ -26,7 +26,8 @@
   data-x="concept-column-group">column group</span> represented by that <code>colgroup</code>.</p>
 
   <p>The element may have a <dfn><code data-x="attr-col-span">span</code></dfn> content attribute
-  specified, whose value must be a <span>valid non-negative integer</span> greater than zero.</p>
+  specified, whose value must be a <span>valid non-negative integer</span> greater than zero and
+  less than or equal to 1000.</p>
 
   <div w-nodev>
 
@@ -34,8 +35,8 @@
   part in the <span>table model</span>.</p>
 
   <p>The <dfn><code data-x="dom-col-span">span</code></dfn> IDL attribute must <span>reflect</span>
-  the content attribute of the same name. The value must be <span>limited to only non-negative
-  numbers greater than zero with fallback</span>, with a default value of 1.</p>
+  the content attribute of the same name. It is <span>clamped to the range</span> [1, 1000], and
+  its default value is 1.</p>
 
   </div>
 

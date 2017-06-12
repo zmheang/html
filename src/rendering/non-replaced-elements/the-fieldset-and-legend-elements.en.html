@@ -37,14 +37,15 @@ legend {
   <p>A <code>fieldset</code> element's <span>rendered legend</span>, if any, is expected to be
   rendered over the <span>block-start</span> <span>border edge</span> of the <code>fieldset</code>
   element as a <span>block box</span> (overriding any explicit <span>'display'</span> value). In the
-  absence of an explicit <span>inline size</span>, the box should shrink-wrap. If the
-  <code>legend</code> element in question has an <code data-x="attr-legend-align">align</code>
-  attribute, and its value is an <span>ASCII case-insensitive</span> match for one of the strings in
-  the first column of the following table, then the <code>legend</code> is expected to be rendered
-  aligned in the inline direction over the <span>border edge</span> in the position given in the
-  corresponding cell on the same row in the second column. If the attribute is absent or has a value
-  that doesn't match any of the cases in the table, then the position is expected to be on the
-  <span>inline-start</span> side. <ref spec=CSSWM></p>
+  absence of an explicit <span>inline size</span>, the box should shrink-wrap. The element is
+  expected to establish a new block formatting context. If the <code>legend</code> element in
+  question has an <code data-x="attr-legend-align">align</code> attribute, and its value is an
+  <span>ASCII case-insensitive</span> match for one of the strings in the first column of the
+  following table, then the <code>legend</code> is expected to be rendered aligned in the inline
+  direction over the <span>border edge</span> in the position given in the corresponding cell on the
+  same row in the second column. If the attribute is absent or has a value that doesn't match any of
+  the cases in the table, then the position is expected to be on the <span>inline-start</span> side.
+  <ref spec=CSSWM></p>
 
   <table>
    <thead>

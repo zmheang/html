@@ -106,9 +106,8 @@
      <td> <span>Encoding label</span>*
     <tr>
      <th> <code data-x="">checked</code>
-     <td> <code data-x="attr-menuitem-checked">menuitem</code>;
-          <code data-x="attr-input-checked">input</code>
-     <td> Whether the command or control is checked
+     <td> <code data-x="attr-input-checked">input</code>
+     <td> Whether the control is checked
      <td> <span>Boolean attribute</span>
     <tr>
      <th> <code data-x="">cite</code>
@@ -149,11 +148,6 @@
      <td> <span data-x="attr-contenteditable">HTML elements</span>
      <td> Whether the element is editable
      <td> "<code data-x="">true</code>"; "<code data-x="">false</code>"
-    <tr>
-     <th> <code data-x="">contextmenu</code>
-     <td> <span data-x="attr-contextmenu">HTML elements</span>
-     <td> The element's context menu
-     <td> <span data-x="concept-id">ID</span>*
     <tr>
      <th> <code data-x="">controls</code>
      <td> <code data-x="attr-media-controls">audio</code>;
@@ -201,11 +195,6 @@
           <span>valid duration string</span>
     <tr>
      <th> <code data-x="">default</code>
-     <td> <code data-x="attr-menuitem-default">menuitem</code>
-     <td> Mark the command as being a default command
-     <td> <span>Boolean attribute</span>
-    <tr>
-     <th> <code data-x="">default</code>
      <td> <code data-x="attr-track-default">track</code>
      <td> Enable the track if no other <span>text track</span> is more suitable
      <td> <span>Boolean attribute</span>
@@ -233,7 +222,6 @@
     <tr>
      <th> <code data-x="">disabled</code>
      <td> <code data-x="attr-fe-disabled">button</code>;
-          <code data-x="attr-menuitem-disabled">menuitem</code>;
           <code data-x="attr-fieldset-disabled">fieldset</code>;
           <code data-x="attr-fe-disabled">input</code>;
           <code data-x="attr-optgroup-disabled">optgroup</code>;
@@ -364,11 +352,6 @@
      <td> Pragma directive
      <td> <a href="#attribute-text">Text</a>*
     <tr>
-     <th> <code data-x="">icon</code>
-     <td> <code data-x="attr-menuitem-icon">menuitem</code>
-     <td> Icon for the command
-     <td> <span>Valid non-empty URL potentially surrounded by spaces</span>
-    <tr>
      <th> <code data-x="">id</code>
      <td> <span data-x="attr-id">HTML elements</span>
      <td> The element's <span data-x="concept-id">ID</span>
@@ -443,9 +426,7 @@
           "<code data-x="attr-track-kind-metadata">metadata</code>"
     <tr>
      <th> <code data-x="">label</code>
-     <td> <code data-x="attr-menuitem-label">menuitem</code>;
-          <code data-x="attr-menu-label">menu</code>;
-          <code data-x="attr-optgroup-label">optgroup</code>;
+     <td> <code data-x="attr-optgroup-label">optgroup</code>;
           <code data-x="attr-option-label">option</code>;
           <code data-x="attr-track-label">track</code>
      <td> User-visible label
@@ -643,11 +624,6 @@
      <td> "<code data-x="attr-media-preload-none">none</code>";
           "<code data-x="attr-media-preload-metadata">metadata</code>";
           "<code data-x="attr-media-preload-auto">auto</code>"
-    <tr>
-     <th> <code data-x="">radiogroup</code>
-     <td> <code data-x="attr-menuitem-radiogroup">menuitem</code>
-     <td> Name of group of commands to treat as a radio button group
-     <td> <a href="#attribute-text">Text</a>
     <tr>
      <th> <code data-x="">readonly</code>
      <td> <code data-x="attr-input-readonly">input</code>;
@@ -854,11 +830,6 @@
      <td> <a href="#attribute-text">Text</a>
     <tr>
      <th> <code data-x="">title</code>
-     <td> <code data-x="attr-menuitem-title">menuitem</code>
-     <td> Hint describing the command
-     <td> <a href="#attribute-text">Text</a>
-    <tr>
-     <th> <code data-x="">title</code>
      <td> <code data-x="attr-link-title">link</code>
      <td> Title of the link
      <td> <a href="#attribute-text">Text</a>
@@ -902,18 +873,6 @@
      <td> <span data-x="attr-input-type"><code>input</code> type keyword</span>
     <tr>
      <th> <code data-x="">type</code>
-     <td> <code data-x="attr-menu-type">menu</code>
-     <td> Type of menu
-     <td> "<code data-x="context menu state">context</code>"; "<code data-x="toolbar state">toolbar</code>"
-    <tr>
-     <th> <code data-x="">type</code>
-     <td> <code data-x="attr-menuitem-type">menuitem</code>
-     <td> Type of command
-     <td> "<code data-x="attr-menuitem-type-keyword-command">command</code>";
-          "<code data-x="attr-menuitem-type-keyword-checkbox">checkbox</code>";
-          "<code data-x="attr-menuitem-type-keyword-radio">radio</code>"
-    <tr>
-     <th> <code data-x="">type</code>
      <td> <code data-x="attr-ol-type">ol</code>
      <td> Kind of list marker
      <td> "<code data-x="attr-ol-type-keyword-decimal">1</code>";
@@ -927,10 +886,10 @@
      <td> Whether the <code data-x="attr-object-type">type</code> attribute and the <span>Content-Type</span> value need to match for the resource to be used
      <td> <span>Boolean attribute</span>
     <tr>
-     <th> <code data-x="">usecache</code>
-     <td> <code data-x="attr-link-usecache">link</code>
-     <td> Whether to set <span>use cache</span> to true for a <span>service worker registration</span> (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>")
-     <td> <span>Boolean attribute</span>
+     <th> <code data-x="">updateviacache</code>
+     <td> <code data-x="attr-link-updateviacache">link</code>
+     <td> <span>Update via cache mode</span> for a <span>service worker registration</span> (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>")
+     <td> <span>Update via cache mode</span>
     <tr>
      <th> <code data-x="">usemap</code>
      <td> <code data-x="attr-hyperlink-usemap">img</code>;
@@ -1429,12 +1388,6 @@
      <td> <span data-x="event handler content attributes">Event handler content attribute</span>
 
     <tr>
-     <th id="ix-handler-onshow"> <code data-x="">onshow</code>
-     <td> <span data-x="handler-onshow">HTML elements</span>
-     <td> <code data-x="event-show">show</code> event handler
-     <td> <span data-x="event handler content attributes">Event handler content attribute</span>
-
-    <tr>
      <th id="ix-handler-onstalled"> <code data-x="">onstalled</code>
      <td> <span data-x="handler-onstalled">HTML elements</span>
      <td> <code data-x="event-media-stalled">stalled</code> event handler
@@ -1497,4 +1450,3 @@
   </table>
 
 
-<!-- v2 for completeness: (also search for REFLECTIDL)

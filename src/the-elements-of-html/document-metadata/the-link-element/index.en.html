@@ -25,7 +25,7 @@
    <dd><code data-x="attr-link-sizes">sizes</code></dd>
    <dd><code data-x="attr-link-as">as</code></dd>
    <dd><code data-x="attr-link-scope">scope</code></dd>
-   <dd><code data-x="attr-link-usecache">usecache</code></dd>
+   <dd><code data-x="attr-link-updateviacache">updateviacache</code></dd>
    <dd><code data-x="attr-link-workertype">workertype</code></dd>
    <dd><code data-x="attr-link-color">color</code></dd>
    <dd>Also, the <code data-x="attr-link-title">title</code> attribute <span data-x="attr-link-title">has special semantics</span> on this element.</dd>
@@ -46,8 +46,8 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-sizes">sizes</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-referrerPolicy">referrerPolicy</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-scope">scope</span>;
-  [<span>CEReactions</span>] attribute <span>WorkerType</span> <span data-x="dom-link-workertype">workerType</span>;
-  [<span>CEReactions</span>] attribute boolean <span data-x="dom-link-useCache">useCache</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-workertype">workerType</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-updateviacache">updateViaCache</span>;
 };
 <span>HTMLLinkElement</span> implements <span>LinkStyle</span>;</pre>
    </dd>
@@ -254,20 +254,23 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   specified on <code>link</code> elements that do not have a <code data-x="attr-link-rel">rel</code>
   attribute that contains the <code data-x="rel-serviceworker">serviceworker</code> keyword.</p>
 
-  <p>The <dfn><code data-x="attr-link-usecache">usecache</code></dfn> attribute is a <span>boolean
-  attribute</span> which sets <span>use cache</span> to true for a <span>service worker
-  registration</span>. The attribute must not be specified on <code>link</code> elements that do not
-  have a <code data-x="attr-link-rel">rel</code> attribute that contains the <code
-  data-x="rel-serviceworker">serviceworker</code> keyword.</p>
+  <p>The <dfn><code data-x="attr-link-updateviacache">updateviacache</code></dfn> attribute
+  specifies the <span>update via cache mode</span> for a <span>service worker registration</span>.
+  It is an <span>enumerated attribute</span>. Each <span>update via cache mode</span> is a keyword
+  for this attribute, mapping to a state of the same name. The <span>missing value default</span> is
+  the <i>imports</i> state. The attribute must not be specified on <code>link</code> elements that
+  do not have a <code data-x="attr-link-rel">rel</code> attribute that contains the
+  <code data-x="rel-serviceworker">serviceworker</code> keyword.</p>
 
   <p>The <dfn><code data-x="attr-link-workertype">workertype</code></dfn> attribute is an
   <span>enumerated attribute</span> that specifies the <span>service worker type</span> for a
   <span>service worker registration</span>. The attribute's keywords are <code
   data-x="">classic</code> and <code data-x="">module</code>, which map to the respective states
   <i>classic</i> and <i>module</i>. The <span>missing value default</span> is the <i>classic</i>
-  state. The attribute must not be specified on <code>link</code> elements that do not have a <code
-  data-x="attr-link-rel">rel</code> attribute that contains the <code
-  data-x="rel-serviceworker">serviceworker</code> keyword.</p>
+  state. There is an additional state, not represented by a keyword: the <i>invalid</i> state. The
+  <span>invalid value default</span> is the <i>invalid</i> state. The attribute must not be
+  specified on <code>link</code> elements that do not have a <code data-x="attr-link-rel">rel</code>
+  attribute that contains the <code data-x="rel-serviceworker">serviceworker</code> keyword.</p>
 
   <hr>
 
@@ -318,10 +321,11 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <p>The <dfn><code data-x="dom-link-rellist">relList</code></dfn> IDL attribute must <span
   data-x="reflect">reflect</span> the <code data-x="attr-link-rel">rel</code> content attribute.</p>
 
-  <p>The <dfn><code data-x="dom-link-useCache">useCache</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-link-usecache">usecache</code> content attribute.</p>
+  <p>The <dfn><code data-x="dom-link-updateViaCache">updateViaCache</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-link-updateviacache">updateviacache</code> content
+  attribute, <span>limited to only known values</span>.</p>
 
   <p>The <dfn><code data-x="dom-link-workerType">workerType</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-link-workertype">workertype</code> content
-  attribute.</p>
+  attribute, <span>limited to only known values</span>.</p>
 

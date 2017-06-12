@@ -24,16 +24,21 @@
    <dt><dfn><code>isindex</code></dfn></dt>
    <dd><p>Use an explicit <code>form</code> and <span data-x="attr-input-type-text">text control</span> combination instead.</p></dd>
 
-   <dt><dfn><code>listing</code></dfn></dt>
-   <dd><p>Use <code>pre</code> and <code>code</code> instead.</p></dd>
-
    <dt><dfn><code>keygen</code></dfn></dt>
    <dd>
     <p>For enterprise device management use cases, use native on-device management capabilities.</p>
 
-    <p>For certificate enrollment use cases, use the Web Cryptography API to generate a keypair for the certificate, and
-    then export the certificate and key to allow the user to install them manually. <ref spec=WEBCRYPTO></p>
+    <p>For certificate enrollment use cases, use the Web Cryptography API to generate a keypair for
+    the certificate, and then export the certificate and key to allow the user to install them
+    manually. <ref spec=WEBCRYPTO></p>
    </dd>
+
+   <dt><dfn><code>listing</code></dfn></dt>
+   <dd><p>Use <code>pre</code> and <code>code</code> instead.</p></dd>
+
+   <dt><dfn><code>menuitem</code></dfn></dt>
+   <dd><p>To implement a custom context menu, use script to handle the <code
+   data-x="event-contextmenu">contextmenu</code> event.</p></dd>
 
    <dt><dfn><code>nextid</code></dfn></dt>
    <dd><p>Use GUIDs instead.</p></dd>
@@ -165,6 +170,18 @@
 
    <dt><dfn><code data-x="attr-link-target">target</code></dfn> on <code>link</code> elements</dt>
    <dd><p>Unnecessary. Omit it altogether.</p></dd>
+
+   <dt><dfn><code data-x="attr-menu-type">type</code></dfn> on <code>menu</code> elements</dt>
+   <dd><p>To implement a custom context menu, use script to handle the <code
+   data-x="event-contextmenu">contextmenu</code> event. For toolbar menus, omit the
+   attribute.</p></dd>
+
+   <dt><dfn><code data-x="attr-menu-label">label</code></dfn> on <code>menu</code> elements</dt>
+   <dt><dfn><code data-x="attr-contextmenu">contextmenu</code></dfn> on all elements</dt>
+   <dt><dfn><code data-x="handler-onshow">onshow</code></dfn> on all elements</dt>
+   <dt><dfn><code data-x="handler-onhide">onhide</code></dfn> on all elements</dt>
+   <dd><p>To implement a custom context menu, use script to handle the <code
+   data-x="event-contextmenu">contextmenu</code> event.</p></dd>
 
    <dt><dfn><code data-x="attr-meta-scheme">scheme</code></dfn> on <code>meta</code> elements</dt>
    <dd><p>Use only one scheme per field, or make the scheme declaration part of the value.</p></dd>
