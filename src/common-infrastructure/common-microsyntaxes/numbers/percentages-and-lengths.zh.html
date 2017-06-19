@@ -1,0 +1,73 @@
+  <h5 id="percentages-and-dimensions">百分数和长度</h5>
+
+  <p><dfn data-x="rules for parsing dimension values">解析维度值的规则</dfn>
+  由下面算法给出。被调用时必须按给定顺序执行这些步骤，并在第一个有返回值的步骤中止。
+  本算法将会返回一个大于等于 0.0 的数字，或者一个错误；如果返回了数字，
+  那么它可能是百分数或者长度。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为被解析的字符串。</p></li>
+
+   <li><p>令<var>position</var> 为 <var>input</var> 中的指针，初始指向字符串的开始。</p></li>
+
+   <li><p><span data-x="Skip ASCII whitespace">跳过</span> <var>input</var> 中的 ASCII 空格，得到 <var>position</var>。</p></li>
+
+   <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，返回一个错误。</p></li>
+
+   <li><p>如果 <var>position</var> 处的字符是一个 U+002B PLUS SIGN 字符 （+），
+   将 <var>position</var> 前进到下一个字符</p>。</li>
+
+   <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，返回一个错误。</p></li>
+
+   <li><p>如果 <var>position</var> 处的字符不是 <span data-x="ASCII
+   digits">ASCII 数字</span>，则返回一个错误。</p></li>
+
+   <!-- Ok。 At this point we know we have a number。 It might have trailing garbage which we'll
+   ignore，but it's a number，and we won't return an error。 -->
+
+   <li><p>从 <var>input</var> 的给定 <var>position</var>
+   <span data-x="Collect a sequence of code points">收集</span>
+   是 <span data-x="ASCII digits">ASCII 数字</span> 的代码点序列，将得到的序列解释为以 10 为基的整数。
+   令 <var>value</var> 为该整数。</p></li>
+
+   <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，将 <var>value</var> 作为长度返回。</p></li>
+
+   <li>
+
+    <p>如果 <var>position</var> 处的字符是 U+002E FULL STOP character （.）：</p>
+
+    <ol>
+
+     <li><p>将 <var>position</var> 前进到下一个字符。</p></li>
+
+     <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，或者 <var>position</var>
+     处的字符不是 <span data-x="ASCII digits">ASCII 数字</span>，则将 <var>value</var> 作为长度返回。</li>
+
+     <li><p>令<var>divisor</var> 值为 1。</p></li>
+
+     <li><p><i>Fraction loop</i>：将 <var>divisor</var> 乘以 10。</p></li>
+
+     <li> 按照十进制（0..9）解释 <var>position</var> 处的字符，除以 <var>divisor</var>，
+     加到 <var>value</var> 上。</li>
+
+     <li><p>将 <var>position</var> 前进到下一个字符。</p></li>
+
+     <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，则将 <var>value</var> 作为长度返回。</li>
+
+     <li><p>如果 <var>position</var> 处的字符是一个 <span data-x="ASCII digits">ASCII 数字</span>，
+     返回到标记为 <i>fraction loop</i> 的子步骤。</p></li>
+
+    </ol>
+
+   </li>
+
+   <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，则将 <var>value</var> 作为长度返回。</li>
+
+   <li><p>如果 <var>position</var> 处的字符是 U+0025 PERCENT SIGN character（%）,
+   将 <var>value</var> 作为百分数返回。</p></li>
+
+   <li><p>将 <var>value</var> 作为长度返回。</p></li>
+
+  </ol>
+

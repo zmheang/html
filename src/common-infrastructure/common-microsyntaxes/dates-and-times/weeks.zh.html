@@ -1,0 +1,82 @@
+  <h5>星期</h5>
+
+  <p><dfn data-x="concept-week">星期</dfn> 由一个表示年的数字（星期年）和一个表示星期的数字（周号）组成，表示从周一开始的 7 天时间段。
+  在这个日历系统中，每个星期年有 52 或 53 个这样的 7 天，定义如下。这样的 7 天周期从格里历 1969 年 12 月 29 日（1969-12-29）开始，
+  这一周被定义为 1970 年的第 1 周。后续的星期都依次进行编号。一个星期年的第一周之前是上一个星期年的最后一周，反之亦反。
+  <ref spec=GREGORIAN></p>
+
+  <p>如果编号为 <var>year</var> 的星期年对应的 <span data-x="proleptic Gregorian calendar">外推格里历</span> 年 <var>year</var>
+  第一天（1月1日）是周二，或者这一天是周三且 <var>year</var> 可被 400 整除或可被 4 整除但不可被 100 整除，
+  那么这一星期年有 53 周。其他所有星期年都有 52 周。</p>
+
+  <p>有 53 周的星期年的 <dfn data-x="week number of the last day">最后一天的周号</dfn> 是 53；
+  有 52 周的星期年的最后一天的周号是 52。</p>
+
+  <p class="note">特定日期的星期年的编号可能与包含这一天的
+  <span data-x="proleptic Gregorian calendar">外推格里历</span>
+  年不同。 星期年 <var>y</var> 的第一周为包含第一个周二的格里历年 <var>y</var>。</p>
+
+  <p class="note">为了现代目的，这里定义的 <span data-x="concept-week">星期</span>
+  等价于定义在 ISO 8601 中的 ISO 星期。 <ref spec=ISO8601></p>
+
+  <p>表示星期年 <var>year</var> 和周号 <var>week</var> 的
+  <dfn data-x="valid week string">合法的星期字符串</dfn> 有下列几个有序的组成部分：</p>
+
+  <ol>
+
+   <li>表示 <var>year</var> 的 4 个或更多 <span data-x="ASCII digits">ASCII 数字</span>，其中 <var>year</var>&nbsp;&gt;&nbsp;0</li>
+
+   <li>一个 U+002D HYPHEN-MINUS 字符 （-）</li>
+
+   <li>一个 U+0057 LATIN CAPITAL LETTER W 字符 （W）</li>
+
+   <li>表示周号 <var>week</var> 的两个 <span data-x="ASCII digits">ASCII 数字</span>，其中
+   1&nbsp;&le;&nbsp;<var>week</var>&nbsp;&le;&nbsp;<var>maxweek</var>。
+   <var>maxweek</var> 为星期年 <var>year</var> <span data-x="week number of the last day">最后一天的周号</span>。</li>
+
+  </ol>
+
+  <div w-nodev>
+
+  <p><dfn data-x="parse a week string">解析星期字符串</dfn> 的规则如下。将会返回星期年和周号两个数字，或者什么都不返回。
+  如果算法的任何一个点说它 "失败了"，这意味着它在那一点退出并什么都不返回。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为待解析字符串。</p></li>
+
+   <li><p>令<var>position</var> 为 <var>input</var> 内的指针初始指向字符串开始。</p></li>
+
+   <li><p>从 <var>input</var> 中给定的位置 <var>position</var>
+   <span data-x="Collect a sequence of code points">收集</span> <span data-x="ASCII digits">ASCII 数字</span>
+   组成的代码点序列。 如果收集到的序列长度小于 4 个字符长度则失败。
+   否则将结果序列解释为 10 进制整数。令那个数为 <var>year</var>。</p></li>
+
+   <li><p>如果 <var>year</var> 小于等于零则失败。</p></li>
+
+   <li><p>如果 <var>position</var> 超出了 <var>input</var> 的末尾或者
+   <var>position</var> 处的字符不是 U+002D HYPHEN-MINUS 字符则失败。
+   否则将 <var>position</var> 前进一个字符。</p></li>
+
+   <li><p>如果 <var>position</var> 超出了 <var>input</var> 的末尾或者
+   <var>position</var> 处的字符不是 U+0057 LATIN CAPITAL LETTER W 字符（W）则失败。
+   否则将 <var>position</var> 前进一个字符。</p></li>
+
+   <li><p>从 <var>input</var> 中给定的位置 <var>position</var>
+   <span data-x="Collect a sequence of code points">收集</span> <span data-x="ASCII digits">ASCII 数字</span>
+   组成的代码点序列。 如果收集到的序列不是恰好 2 个字符长度则失败。
+   否则将结果序列解释为 10 进制整数。令那个数为 <var>week</var>。</p></li>
+
+   <li><p>令<var>maxweek</var> 为 <var>year</var> 年 <span data-x="week number of the last day">最后一天的周号</span>。</p></li>
+
+   <li><p>如果 <var>week</var> 不是在 1&nbsp;&le;&nbsp;<var>week</var>&nbsp;&le;&nbsp;<var>maxweek</var> 范围内的数字就失败。</p></li>
+
+   <li><p>如果 <var>position</var> <em>没有</em> 超出 <var>input</var> 末尾，则失败。</p></li>
+
+   <li><p>返回星期年 <var>year</var> 和周号 <var>week</var>。</p></li>
+
+  </ol>
+
+  </div>
+
+

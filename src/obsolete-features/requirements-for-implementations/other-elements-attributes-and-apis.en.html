@@ -47,11 +47,11 @@
   <hr>
 
   <pre class="idl">partial interface <span id="HTMLBodyElement-partial">HTMLBodyElement</span> {
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-body-text">text</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-body-link">link</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-body-vLink">vLink</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-body-aLink">aLink</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-body-bgColor">bgColor</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-body-text">text</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-body-link">link</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-body-vLink">vLink</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-body-aLink">aLink</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-body-bgColor">bgColor</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-body-background">background</span>;
 };</pre>
 
@@ -174,7 +174,7 @@ interface <dfn>HTMLDirectoryElement</dfn> : <span>HTMLElement</span> {
 
   <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-font-color">color</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-font-color">color</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-font-face">face</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-font-size">size</span>; <!-- yes, DOMString, not long (so says DOM2 HTML) -->
 };</pre>
@@ -235,8 +235,8 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-frameBorder">frameBorder</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-iframe-longDesc">longDesc</span>;
 
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-iframe-marginHeight">marginHeight</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-iframe-marginWidth">marginWidth</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-iframe-marginHeight">marginHeight</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-iframe-marginWidth">marginWidth</span>;
 };</pre>
 
   <p>The <dfn><code data-x="dom-iframe-align">align</code></dfn> and <dfn><code data-x="dom-iframe-scrolling">scrolling</code></dfn> IDL attributes of the
@@ -270,7 +270,7 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-img-vspace">vspace</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-img-longDesc">longDesc</span>;
 
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-img-border">border</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-img-border">border</span>;
 };</pre>
 
   <p>The <dfn><code data-x="dom-img-name">name</code></dfn>, <dfn><code data-x="dom-img-align">align</code></dfn>, <dfn><code data-x="dom-img-border">border</code></dfn>, <dfn><code data-x="dom-img-hspace">hspace</code></dfn>, and <dfn><code data-x="dom-img-vspace">vspace</code></dfn> IDL attributes of the <code>img</code> element
@@ -397,7 +397,7 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-codeBase">codeBase</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-codeType">codeType</span>;
 
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-object-border">border</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-object-border">border</span>;
 };</pre>
 
   <p>The <dfn><code data-x="dom-object-align">align</code></dfn>, <dfn><code data-x="dom-object-archive">archive</code></dfn>, <dfn><code data-x="dom-object-border">border</code></dfn>, <dfn><code data-x="dom-object-code">code</code></dfn>, <dfn><code data-x="dom-object-declare">declare</code></dfn>, <dfn><code data-x="dom-object-hspace">hspace</code></dfn>, <dfn><code data-x="dom-object-standby">standby</code></dfn>, and <dfn><code data-x="dom-object-vspace">vspace</code></dfn> IDL attributes of the <code>object</code>
@@ -484,9 +484,9 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-table-summary">summary</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-table-width">width</span>;
 
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-table-bgColor">bgColor</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-table-cellPadding">cellPadding</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-table-cellSpacing">cellSpacing</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-table-bgColor">bgColor</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-table-cellPadding">cellPadding</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-table-cellSpacing">cellSpacing</span>;
 };</pre>
 
   <p>The <dfn><code data-x="dom-table-align">align</code></dfn>, <dfn><code data-x="dom-table-border">border</code></dfn>, <dfn><code data-x="dom-table-frame">frame</code></dfn>, <dfn><code data-x="dom-table-summary">summary</code></dfn>, <dfn><code data-x="dom-table-rules">rules</code></dfn>, and <dfn><code data-x="dom-table-width">width</code></dfn>, IDL attributes of the <code>table</code> element
@@ -542,7 +542,7 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-tdth-noWrap">noWrap</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tdth-vAlign">vAlign</span>;
 
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-tdth-bgColor">bgColor</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-tdth-bgColor">bgColor</span>;
 };</pre>
 
   <p>The <dfn><code data-x="dom-tdth-align">align</code></dfn>, <dfn><code data-x="dom-tdth-axis">axis</code></dfn>, <dfn><code data-x="dom-tdth-height">height</code></dfn>, and <dfn><code data-x="dom-tdth-width">width</code></dfn> IDL attributes of the <code>td</code> and
@@ -577,7 +577,7 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tr-chOff">chOff</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tr-vAlign">vAlign</span>;
 
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-tr-bgColor">bgColor</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-tr-bgColor">bgColor</span>;
 };</pre>
 
   <p>The <dfn><code data-x="dom-tr-align">align</code></dfn> IDL attribute of the <code>tr</code>
@@ -618,11 +618,11 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   <hr>
 
   <pre class="idl">partial interface <span id="Document-partial">Document</span> {
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-document-fgColor">fgColor</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-document-linkColor">linkColor</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-document-vlinkColor">vlinkColor</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-document-alinkColor">alinkColor</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-document-bgColor">bgColor</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-document-fgColor">fgColor</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-document-linkColor">linkColor</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-document-vlinkColor">vlinkColor</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-document-alinkColor">alinkColor</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-document-bgColor">bgColor</span>;
 
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-document-anchors">anchors</span>;
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-document-applets">applets</span>;

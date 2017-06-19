@@ -1,0 +1,36 @@
+  <h4 id="syntax-references">引用</h4>
+
+  <p><var>type</var> 类型的元素的 <dfn data-x="valid hash-name reference">合法的哈希名引用</dfn>
+  字符串由一个 U+0023 NUMBER SIGN 字符（#）和完全匹配
+  同一个 <span data-x="tree">树</span> 中的 <var>type</var> 元素的 <code data-x="">name</code> 属性的字符串构成。</p>
+
+  <div w-nodev>
+
+  <p>给定上下文节点 <var>scope</var>，<dfn data-x="rules for parsing a hash-name reference">解析对
+  <var>type</var> 类型的元素的哈希名引用的规则</dfn> 如下：</p>
+
+  <ol>
+
+   <li><p>如果被解析字符串不包含 U+0023 NUMBER SIGN 字符，或者第一个这样的字符是字符串的最后一个字符，
+   则返回 null 并中止这些步骤。</p></li>
+
+   <li><p>令<var>s</var> 为从紧接着第一个 U+0023 NUMBER SIGN 字符之后的字符开始，直到待解析字符串结尾的字符串。</p></li>
+
+   <li>
+    <p>返回 <var>scope</var> 的 <span data-x="tree">树</span> 中，按照 <span data-x="tree order">树序</span> 的第一个
+    <code data-x="attr-id">id</code> 或 <code data-x="">name</code> 属性的值是 <var>s</var>
+    的类型为 <var>type</var> 的元素。如果没有这样的元素就返回 null。</p>
+
+    <p class="note">虽然解析时用到了 <code data-x="attr-id">id</code> 属性，
+    但它不用于决定一个值是否是 <span data-x="valid hash-name reference"><em>合法的</em> 哈希名引用</span>。
+    也就是说，一个基于 <code data-x="attr-id">id</code> 引用元素的哈希名引用是符合性错误。
+    （除非那个元素也有一个具有相同值的 <code data-x="">name</code> 属性）。</p>
+   </li>
+
+   <!-- History behind case-sensitive matching above： https://github.com/whatwg/html/issues/1666 -->
+
+  </ol>
+
+  </div>
+
+

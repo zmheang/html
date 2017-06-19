@@ -44,8 +44,8 @@
   </ol>
 
   <p class="note">Whenever a <code>Document</code> object is <span data-x="discard a
-  Document">discarded</span>, it is also removed from the list of <span>the worker's
-  <code>Document</code>s</span> of each worker whose list contains that <code>Document</code>.</p>
+  Document">discarded</span>, it is also removed from the <span>owner set</span> of each worker
+  whose set contains that <code>Document</code>.</p>
 
   <p>When <dfn data-export="">a <em>browsing context</em> is discarded</dfn>, the strong reference
   from the user agent itself to the <span>browsing context</span> must be severed, and all the

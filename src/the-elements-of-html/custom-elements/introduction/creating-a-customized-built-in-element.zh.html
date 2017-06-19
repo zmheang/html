@@ -1,0 +1,87 @@
+  <h5 id="custom-elements-customized-builtin-example">创建定制的内建元素</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p><span data-x="customized built-in element">定制的内建元素</span> 是一种独特的
+  <span>custom element</span>，它的定义稍有不同，但使用方式与
+  <span data-x="autonomous custom element">自主的 custom elements</span> 很不一样。
+  它们的存在是为了允许通过扩展新的定制功能来复用现存 HTML 元素的行为。
+  因为如果只使用 <span data-x="autonomous custom element">自主的 custom elements</span>
+  很多 HTML 元素的现存行为可能需要重复实现，
+  但使用 <span data-x="customized built-in element">定制的内建元素</span> 允许给既有的元素
+  安装自定义的构造行为、生命周期钩子、以及原型链。
+  本质上就是在已经有的元素上 "混入" 这些定制的功能。</p>
+
+  <p><span data-x="customized built-in element">定制的内建元素</span> 要求一种与
+  <span data-x="autonomous custom element">自主的 custom elements</span>
+  不同的语法，因为用户代理和其他软件会提取元素的 局部名 来识别元素的语义和行为。
+  就是说建立在既有行为基础上的 <span data-x="customized built-in element">定制的内建元素</span> 的概念
+  严重依赖于被扩展的元素保持他们原有的 局部名。</p>
+
+  <p>在这个例子中，我们将会创建一个名为 <code data-x="">plastic-button</code> 的
+  <span data-x="customized built-in element">定制的内建元素</span>。它像一个普通按钮一样，但是当点击时有漂亮的动画效果。
+  就像以前一样，我们从定义一个类开始，虽然这次我们扩展的是 <code>HTMLButtonElement</code>
+  而不是 <code>HTMLElement</code>：</p>
+
+  <pre>class PlasticButton extends HTMLButtonElement {
+  constructor() {
+    super();
+
+    this.addEventListener("click", () => {
+      // Draw some fancy animation effects!
+    });
+  }
+}</pre>
+
+  <p>在定义我们的 custom element 时，我们必须同时声明 <code data-x="">extends</code>
+  选项：</p>
+
+  <pre>customElements.define("plastic-button", PlasticButton, { extends: "button" });</pre>
+
+  <p>通常被扩展元素的名字不能简单地通过看它扩展了什么元素接口来确定，
+  因为很多元素共用同样的接口（比如 <code>q</code> 和 <code>blockquote</code>
+  共用 <code>HTMLQuoteElement</code>）。</p>
+
+  <p>为了使用我们的 <span data-x="customized built-in element">定制内建元素</span>，
+  我们使用 <code>button</code> 元素上的 <code data-x="attr-is">is</code> 属性：</p>
+
+  <pre>&lt;button is="plastic-button">Click Me!&lt;/button></pre>
+
+  <p>尝试将 <span data-x="customized built-in element">定制的内建元素</span> 当做
+  <span data-x="autonomous custom element">自主 custom element</span> 使用 <em>不会</em> 奏效；
+  也就是说 <code data-x="">&lt;plastic-button>Click me?&lt;/plastic-button></code>
+  只会创建一个没有特殊行为的 <code>HTMLElement</code>。</p>
+
+  <p>如果你需要编程方式创建一个类型扩展的元素，可以使用下面的形式
+  <code data-x="dom-Document-createElement">createElement()</code>：</p>
+
+  <pre>const plasticButton = document.createElement("button", { is: "plastic-button" });
+plasticButton.textContent = "Click me!";</pre>
+
+  <p>像以前一样，构造器也好使：</p>
+
+  <pre>const plasticButton2 = new PlasticButton();
+console.log(plasticButton2.localName);          // 将会输出 "button"
+console.log(plasticButton2.getAttribute("is")); // 将会输出 "plastic-button"</pre>
+
+  <p>值得一提的是，所有 <code>button</code> 的特殊行为也适用于该 "plastic buttons"：
+  获得焦点行为、参与 <span data-x="concept-form-submit">表单提交</span> 的能力、
+  <code data-x="attr-fe-disabled">disabled</code> 属性，等等。</p>
+
+  <p id="customized-built-in-element-restrictions"><span data-x="customized built-in
+  element">定制的内建元素</span> 设计为允许扩展既有 HTML 元素，尤其是那些用户代理提供了
+  有用行为或者 API 的元素。它们只能扩展在本标准中定义的现存 HTML 元素，不可继承遗留元素，
+  比如 <code>bgsound</code>， <code>blink</code>， <code>isindex</code>， <code>keygen</code>，
+  <code>multicol</code>， <code>nextid</code>， 或者
+  使用 <code>HTMLUnknownElement</code> 作为它们的 <span data-x="element interface">元素接口</span>
+  来定义的 <code>spacer</code>。</p>
+
+  <p>这一要求的一个原因是向后兼容性：如果定义了一个
+  <span data-x="customized built-in element">定制内建元素</span>，扩展了
+  一个目前未知的元素，比如 <code data-x="">combobox</code>，这将会阻止本标准在将来定义一个
+  <code data-x="">combobox</code> 元素，因为派生过
+  <span data-x="customized built-in element">定制内建元素</span> 的客户可能依赖于它们的基元素
+  没有那些有趣的用户代理提供的行为。</p>
+
+  <p>此外， <code>applet</code> 元素不可被扩展，因为它们正在被 Web 平台移除的过程中。</p>
+

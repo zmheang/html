@@ -47,7 +47,7 @@
    <dd><code data-x="attr-input-value">value</code></dd>
    <dd><code data-x="attr-dim-width">width</code></dd>
    <dd>Also, the <code data-x="attr-input-title">title</code> attribute <span data-x="attr-input-title">has special semantics</span> on this element.</dd>
-   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt><!--TOPIC:DOM APIs-->
+   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
@@ -85,7 +85,7 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-input-step">step</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-input-type">type</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-input-defaultValue">defaultValue</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-input-value">value</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-input-value">value</span>;
   attribute <span data-x="idl-object">object</span>? <span data-x="dom-input-valueAsDate">valueAsDate</span>;
   attribute unrestricted double <span data-x="dom-input-valueAsNumber">valueAsNumber</span>;
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-input-width">width</span>;
@@ -111,7 +111,7 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   void <span data-x="dom-textarea/input-setSelectionRange">setSelectionRange</span>(unsigned long start, unsigned long end, optional DOMString direction);
 };</pre>
    </dd>
-  </dl><!--TOPIC:HTML-->
+  </dl>
 
   <p>The <code>input</code> element <span>represents</span> a typed data field, usually with a form
   control to allow the user to edit the data.</p>

@@ -1,249 +1,206 @@
-  <h4>Conformance classes</h4>
+  <h4>符合性类别</h4>
 
-  <p>This specification describes the conformance criteria for <span w-nodev>user agents
-  (relevant to implementors) and</span> documents<span w-nodev> (relevant to authors and
-  authoring tool implementors)</span>.</p>
+  <p>本标准描述了 <span w-nodev>用户代理（实现者相关）和</span> 文档
+  <span w-nodev> （作者和编写工具的实现者相关）</span> 的符合性标准。</p>
 
-  <p><dfn>Conforming documents</dfn> are those that comply with all the conformance criteria for
-  documents. For readability, some of these conformance requirements are phrased as conformance
-  requirements on authors; such requirements are implicitly requirements on documents: by
-  definition, all documents are assumed to have had an author. (In some cases, that author may
-  itself be a user agent &mdash; such user agents are subject to additional rules, as explained
-  below.)</p>
+  <p><dfn data-x="Conforming documents">符合规范的文档</dfn> 是符合所有符合性要求的文档。
+  为了提高可读性，有些符合性要求是对作者提出的；这些是对文档的隐性要求：
+  按照定义所有文档都有对应的作者。（有些情况下，作者本身可能是一个用户代理
+  &mdash; 这些用户代理受其他规则的约束，见下文。）
+  </p>
 
-  <p class="example">For example, if a requirement states that "authors must not use the <code
-  data-x="">foobar</code> element", it would imply that documents are not allowed to contain
-  elements named <code data-x="">foobar</code>.</p>
+  <p class="example">例如，如果一项要求声明 "作者 <!--non-normative-->禁止使用
+  <code data-x="">foobar</code> 元素"，意味着文档不允许包含名为 <code data-x="">foobar</code> 的元素。</p>
 
-  <p class="note impl">There is no implied relationship between document conformance requirements
-  and implementation conformance requirements. User agents are not free to handle non-conformant
-  documents as they please; the processing model described in this specification applies to
-  implementations regardless of the conformity of the input documents.</p>
+  <p class="note impl">文档的符合性要求与实现的符合性要求没有隐含的关系。
+  用户代理不能随意处理不合规范的文档；不论输入的文档是否合规，本标准中描述的处理模型都适用。</p>
 
-  <p>User agents fall into several (overlapping) categories with different conformance
-  requirements.</p>
+  <p>按照不同的符合性要求，用户代理分为（有重合的）几类。</p>
 
   <dl>
 
-   <dt id="interactive">Web browsers and other interactive user agents</dt>
+   <dt id="interactive">Web 浏览器和其他交互式用户代理</dt>
 
    <dd>
 
-    <p>Web browsers that support <span data-x="The XML syntax">XML 语法</span> must process elements and attributes
-    from the <span>HTML namespace</span> found in XML documents as described in this specification,
-    so that users can interact with them, unless the semantics of those elements have been
-    overridden by other specifications.</p>
+    <p>支持 <span data-x="the XML syntax">XML 语法</span> 的 Web 浏览器必须按照本标准的描述
+    处理 XML 文档中 <span data-x="HTML namespace">HTML 命名空间</span> 的元素和属性，
+    以便用户与之交互，除非那些元素的语义已经被其他标准覆盖。</p>
 
-    <p class="example">A conforming Web browser would, upon finding a <code>script</code> element in
-    an XML document, execute the script contained in that element. However, if the element is found
-    within a transformation expressed in XSLT (assuming the user agent also supports XSLT), then the
-    processor would instead treat the <code>script</code> element as an opaque element that forms
-    part of the transform.</p>
+    <p class="example">在 XML 文档中查找 <code>script</code> 元素时，符合规范的 Web
+    浏览器会执行该元素包含的脚本。然而，如果该元素处于 XSLT 变换中（假设用户代理也支持 XSLT），
+    那么处理器会将 <code>script</code> 元素作为组成这一变换的不透明元素处理。</p>
 
-    <p>Web browsers that support <span>the HTML syntax</span> must process documents labeled with an
-    <span>HTML MIME type</span> as described in this specification, so that users can interact with
-    them.</p>
+    <p>支持 <span data-x="the HTML syntax">HTML 语法</span> 的 Web 浏览器必须按照本标准的描述
+    处理标记为 <span data-x="HTML MIME type">HTML MIME 类型</span> 的文档，以便用户与它们交互。</p>
 
-    <p>User agents that support scripting must also be conforming implementations of the IDL
-    fragments in this specification, as described in the Web IDL specification. <ref
+    <p>支持脚本的用户代理也必须一致地实现本标准中的 IDL 片段，IDL 片段定义在 Web IDL 标准中。 <ref
     spec=WEBIDL></p>
 
-    <p class="note">Unless explicitly stated, specifications that override the semantics of HTML
-    elements do not override the requirements on DOM objects representing those elements. For
-    example, the <code>script</code> element in the example above would still implement the
-    <code>HTMLScriptElement</code> interface.</p>
+    <p class="note">除非明确声明，覆盖 HTML 元素语义的标准不覆盖对（表示这些元素的） DOM 对象的要求。
+    例如，上面例子中的 <code>script</code> 元素仍然实现 <code>HTMLScriptElement</code> 接口。</p>
 
    </dd>
 
-   <dt id="non-interactive">Non-interactive presentation user agents</dt>
+   <dt id="non-interactive">表示性的非交互式用户代理</dt>
 
    <dd>
 
-    <p>User agents that process HTML and XML documents purely to render non-interactive versions of
-    them must comply to the same conformance criteria as Web browsers, except that they are exempt
-    from requirements regarding user interaction.</p>
+    <p>处理 HTML 和 XML 文档并纯粹地渲染它们的非交互式版本的用户代理必须遵循与
+    Web 浏览器同样的符合性规范，除了它们可以免除用户交互的要求。</p>
 
-    <p class="note">Typical examples of non-interactive presentation user agents are printers
-    (static UAs) and overhead displays (dynamic UAs). It is expected that most static
-    non-interactive presentation user agents will also opt to <a href="#non-scripted">lack scripting
-    support</a>.</p>
+    <p class="note">非交互式用户代理的典型例子就是打印机（静态 UA）和投影仪（动态 UA）。
+    多数静态的非交互式用户代理 <a href="#non-scripted">不支持脚本</a>。</p>
 
-    <p class="example">A non-interactive but dynamic presentation UA would still execute scripts,
-    allowing forms to be dynamically submitted, and so forth. However, since the concept of "focus"
-    is irrelevant when the user cannot interact with the document, the UA would not need to support
-    any of the focus-related DOM APIs.</p>
+    <p class="example">非交互式的动态 UA 仍然会执行脚本，以便动态提交表单。
+    但是因为没有获得焦点的概念，这些 UA 可能不需要实现焦点相关的 DOM API。</p>
 
    </dd>
 
-   <dt id="renderingUA">Visual user agents that support the suggested default rendering</dt>
+   <dt id="renderingUA">支持建议默认渲染的可视化用户代理</dt>
 
    <dd>
 
-    <p>User agents, whether interactive or not, may be designated (possibly as a user option) as
-    supporting the suggested default rendering defined by this specification.</p>
+    <p>无论是交互式还是非交互式用户代理，都可以被指定（比如通过作为用户选项）本标准定义的建议默认渲染。</p>
 
-    <p>This is not required. In particular, even user agents that do implement the suggested default
-    rendering are encouraged to offer settings that override this default to improve the experience
-    for the user, e.g. changing the color contrast, using different focus styles, or otherwise
-    making the experience more accessible and usable to the user.</p>
+    <p>这并非强制要求，特别是即使用户代理实现了建议默认渲染，也建议为此提供设置来提升用户体验，
+    例如改变色彩对比度，使用不同的焦点样式，或者其他提升可访问性和可用性的方式。</p>
 
-    <p>User agents that are designated as supporting the suggested default rendering must, while so
-    designated, implement the rules <a href="#rendering">the rendering section</a> defines as the
-    behavior that user agents are <em>expected</em> to implement.</p>
+    <p>如果指定了建议默认渲染，支持建议默认渲染的用户代理必须根据
+    <a href="#rendering">渲染部分</a> 定义的规则实现
+    用户代理 <em>期望</em> 实现的行为。</p>
 
    </dd>
 
-   <dt id="non-scripted">User agents with no scripting support</dt>
+   <dt id="non-scripted">不支持脚本的用户代理</dt>
 
    <dd>
 
-    <p>Implementations that do not support scripting (or which have their scripting features
-    disabled entirely) are exempt from supporting the events and DOM interfaces mentioned in this
-    specification. For the parts of this specification that are defined in terms of an events model
-    or in terms of the DOM, such user agents must still act as if events and the DOM were
-    supported.</p>
+    <p>不支持脚本的实现（或者完全禁用了其脚本特性的用户代理）可以不支持本标准中提到的事件和 DOM 接口。
+    但对于本标准中定义的事件模型和 DOM，这些用户代理仍然必须表现地像支持事件和 DOM 一样。</p>
 
-    <p class="note">Scripting can form an integral part of an application. Web browsers that do not
-    support scripting, or that have scripting disabled, might be unable to fully convey the author's
-    intent.</p>
+    <p class="note">脚本可能是构成应用的一部分。不支持脚本或禁用了脚本的 Web 浏览器可能无法完全表达作者的意图。</p>
 
    </dd>
 
 
-   <dt>Conformance checkers</dt>
+   <dt>符合性检查器</dt>
 
    <dd id="conformance-checkers">
 
-    <p>Conformance checkers must verify that a document conforms to the applicable conformance
-    criteria described in this specification. Automated conformance checkers are exempt from
-    detecting errors that require interpretation of the author's intent (for example, while a
-    document is non-conforming if the content of a <code>blockquote</code> element is not a quote,
-    conformance checkers running without the input of human judgement do not have to check that
-    <code>blockquote</code> elements only contain quoted material).</p>
+    <p>符合性检查器必须验证文档是否符合
 
-    <p>Conformance checkers must check that the input document conforms when parsed without a
-    <span data-x="concept-document-bc">browsing context</span> (meaning that no scripts are run, and
-    that the parser's <span>scripting flag</span> is disabled), and should also check that the input
-    document conforms when parsed with a <span data-x="concept-document-bc">browsing context</span>
-    in which scripts execute, and that the scripts never cause non-conforming states to occur other
-    than transiently during script execution itself. (This is only a "SHOULD" and not a "MUST"
-    requirement because it has been proven to be impossible. <ref spec=COMPUTABLE>)</p>
+    符合性检查程序必须验证文档是否符合本规范中描述的适用的一致性标准。
+    自动化的符合检查程序可以不必检测需要解释作者意图的错误（例如，
+    <code>blockquote</code> 的内容不是引用文档就不符合标准，如果符合性检查程序在运行时没有人为判断的输入，
+    就不必检查 <code>blockquote</code>  元素是否只包含引用的内容）。</p>
 
-    <p>The term "HTML validator" can be used to refer to a conformance checker that itself conforms
-    to the applicable requirements of this specification.</p>
+    <p>符合性检查器必须检查没有
+    <span data-x="concept-document-bc">浏览环境</span>
+    （意味着没有脚本运行，并且禁用了解析器的
+    <span data-x="scripting flag">脚本标志</span>
+    ）时解析输入文档符合规范，
+    还应检查在会执行脚本的
+    <span data-x="concept-document-bc">浏览环境</span>
+    下解析输入文档符合规范，并且脚本的执行永远不会导致不符合规范的状态（脚本执行过程中除外）出现。
+    （这只是一个“应该”而不是“必须”的要求，因为这已被证明是不可能的。<ref spec=COMPUTABLE>）</p>
+
+    <p>"HTML 校验器" 可以指代遵循本标准中的适用要求的符合性检查器。</p>
 
     <div class="note">
 
-     <p>XML DTDs cannot express all the conformance requirements of this specification. Therefore, a
-     validating XML processor and a DTD cannot constitute a conformance checker. Also, since neither
-     of the two authoring formats defined in this specification are applications of SGML, a
-     validating SGML system cannot constitute a conformance checker either.</p>
+     <p>XML DTD 无法表达本标准的所有符合性要求。因此 XML 校验器加 DTD 不能代替符合性检查器。
+     此外本标准中定义的这两种写作格式都不属于 SGML，因此 SGML 系统也不能代替符合性检查器。</p>
 
-     <p>To put it another way, there are three types of conformance criteria:</p>
+     <p>换句话说，有三种符合性规则：</p>
 
      <ol>
 
-      <li>Criteria that can be expressed in a DTD.</li>
+      <li>DTD 可表达的规则。</li>
 
-      <li>Criteria that cannot be expressed by a DTD, but can still be checked by a machine.</li>
+      <li>DTD 不可表达但仍然可以由机器检查的规则。</li>
 
-      <li>Criteria that can only be checked by a human.</li>
+      <li>只能由人工检查的规则。</li>
 
      </ol>
 
-     <p>A conformance checker must check for the first two. A simple DTD-based validator only checks
-     for the first class of errors and is therefore not a conforming conformance checker according
-     to this specification.</p>
+     <p>符合性检查器可以检查前面两种。简单的基于 DTD 的校验器只能检查第一类错误，
+     因此根据本标准，它不是一种遵循标准的符合性检查器。</p>
 
     </div>
    </dd>
 
 
-   <dt>Data mining tools</dt>
+   <dt>数据挖掘工具</dt>
 
    <dd id="data-mining">
 
-    <p>Applications and tools that process HTML and XML documents for reasons other than to either
-    render the documents or check them for conformance should act in accordance with the semantics
-    of the documents that they process.</p>
+    <p>不是出于渲染文档或检查文档是否符合规范目的的，处理 HTML 和 XML 文档的应用程序和工具，
+    其行为应当与其处理的文档的语义保持一致。</p>
 
-    <p class="example">A tool that generates <span data-x="outline">document outlines</span> but
-    increases the nesting level for each paragraph and does not increase the nesting level for each
-    section would not be conforming.</p>
+    <p class="example">只增加每个段落（paragraph）的嵌套层级但不增加每个章节（section）的嵌套层级的
+    <span data-x="outline">文档大纲</span> 生成工具是不合规范的。</p>
+
+    <p class="comment">只增加 <code data-x="">&lt;p&gt;</code> 的层级而不增加
+    <code data-x="">&lt;section&gt;</code> 的层级会破坏 DOM 原有的语义，比如让段落变成了子段落。</p>
 
    </dd>
 
 
-   <dt id="editors">Authoring tools and markup generators</dt>
+   <dt id="editors">编写工具和标记生成器</dt>
 
    <dd>
 
-    <p>Authoring tools and markup generators must generate <span>conforming documents</span>.
-    Conformance criteria that apply to authors also apply to authoring tools, where appropriate.</p>
+    <p>编写工具和标记生成器必须生成 <span data-x="conforming documents">符合规范的文档</span>。
+    在适当的地方，适用于作者的符合性规则也适用于编写工具。</p>
 
-    <p>Authoring tools are exempt from the strict requirements of using elements only for their
-    specified purpose, but only to the extent that authoring tools are not yet able to determine
-    author intent. However, authoring tools must not automatically misuse elements or encourage
-    their users to do so.</p>
+    <p>如果编写工具还不能决定作者的意图，可以免除“只能按规定的用途使用元素”的严格要求。
+    但是编写工具禁止自动地错误使用元素或鼓励它们的用户这样做。</p>
 
-    <p class="example">For example, it is not conforming to use an <code>address</code> element for
-    arbitrary contact information; that element can only be used for marking up contact information
-    for the author of the document or section. However, since an authoring tool is likely unable to
-    determine the difference, an authoring tool is exempt from that requirement. This does not mean,
-    though, that authoring tools can use <code>address</code> elements for any block of italics text
-    (for instance); it just means that the authoring tool doesn't have to verify that when the user
-    uses a tool for inserting contact information for a section, that the user really is doing that
-    and not inserting something else instead.</p>
+    <p class="example">例如，将 <code>address</code> 元素用于任意的联系信息是不合规范的；
+    该元素只能用于标记文档或章节作者的联系信息。因为编写工具不能区分此意图，所以可以免除这项要求。
+    但这不意味着（比如）编写工具可以为了斜体字而任意地使用 <code>address</code> 元素；
+    只意味着编写工具可以在用户给章节插入联系信息时不验证它，
+    也不需保证用户没用它做别的事或插入别的东西。</p>
 
-    <p class="note">In terms of conformance checking, an editor has to output documents that conform
-    to the same extent that a conformance checker will verify.</p>
+    <p class="note">在符合性检查方面，文本编辑器必须像符合性检查器一样输出符合规范的文档。</p>
 
-    <p>When an authoring tool is used to edit a non-conforming document, it may preserve the
-    conformance errors in sections of the document that were not edited during the editing session
-    (i.e. an editing tool is allowed to round-trip erroneous content). However, an authoring tool
-    must not claim that the output is conformant if errors have been so preserved.</p>
+    <p>当使用编写工具编辑不符合规范的文档时，可以保持未编辑部分的符合性错误。
+    （即允许错误的内容经过编辑工具而不发生改变）。
+    但如果保持了错误，禁止编写工具声明其输出是符合规范的。</p>
 
-    <p>Authoring tools are expected to come in two broad varieties: tools that work from structure
-    or semantic data, and tools that work on a What-You-See-Is-What-You-Get media-specific editing
-    basis (WYSIWYG).</p>
+    <p>编写工具大致分为两类：在结构化或语义数据上进行编辑，
+    或者在所见即所得的（WYSIWYG）特定媒体上进行编辑。</p>
 
-    <p>The former is the preferred mechanism for tools that author HTML, since the structure in the
-    source information can be used to make informed choices regarding which HTML elements and
-    attributes are most appropriate.</p>
+    <p>前者是编写 HTML 工具的理想机制，因为源码信息中的结构可用于更好地选择 HTML 元素和属性。</p>
 
-    <p>However, WYSIWYG tools are legitimate. WYSIWYG tools should use elements they know are
-    appropriate, and should not use elements that they do not know to be appropriate. This might in
-    certain extreme cases mean limiting the use of flow elements to just a few elements, like
-    <code>div</code>, <code>b</code>, <code>i</code>, and <code>span</code> and making liberal use
-    of the <code data-x="attr-style">style</code> attribute.</p>
+    <p>但是 WYSIWYG 工具也是合理的。WYSIWYG 工具应该使用它们认为合适的元素，
+    不应该使用它们不确定是否合适的元素。这可能在特定极端情况下意味着对能够使用的流式元素做出限制，
+    比如 <code>div</code>，<code>b</code>，<code>i</code>，以及 <code>span</code>，以及使用大量的
+    <code data-x="attr-style">style</code> 属性。</p>
 
-    <p>All authoring tools, whether WYSIWYG or not, should make a best effort attempt at enabling
-    users to create well-structured, semantically rich, media-independent content.</p>
+    <p>不论是不是 WYSIWYG，所有编写工具都应该尽量让用户创建良构的、语义丰富的、媒体无关的内容。</p>
 
    </dd>
 
   </dl>
 
-  <p id="hardwareLimitations">User agents may impose implementation-specific limits on otherwise
-  unconstrained inputs, e.g. to prevent denial of service attacks, to guard against running out of
-  memory, or to work around platform-specific limitations.
+  <p id="hardwareLimitations">为了防范诸如 DoS 攻击、内存耗尽，或解决平台相关的限制，
+  用户代理可能会对本来不受约束的输入强加实现相关的限制。
   <!--INSERT FINGERPRINT-->
   </p>
 
-  <p>For compatibility with existing content and prior specifications, this specification describes
-  two authoring formats: one based on <span data-x="the XML syntax">XML</span>, and one using a <a
-  href="#writing">custom format</a> inspired by SGML (referred to as <span>the HTML syntax</span>).
-  Implementations must support at least one of these two formats, although supporting both is
-  encouraged.</p>
+  <p>为了兼容既有内容与标准，本标准描述了两种写作格式：
+  一种基于 <span data-x="the XML syntax">XML</span>，
+  另一种基于 SGML 启发的 <a href="#writing">自定义格式</a>
+  （称为 <span data-x="the HTML syntax">HTML 语法</span>）。
+  本标准鼓励实现同时支持以上两种格式，但至少支持其中一种。</p>
 
-  <p>Some conformance requirements are phrased as requirements on elements, attributes, methods or
-  objects. Such requirements fall into two categories: those describing content model restrictions,
-  and those describing implementation behavior. Those in the former category are requirements on
-  documents and authoring tools. Those in the second category are requirements on user agents.
-  Similarly, some conformance requirements are phrased as requirements on authors; such requirements
-  are to be interpreted as conformance requirements on the documents that authors produce. (In other
-  words, this specification does not distinguish between conformance criteria on authors and
-  conformance criteria on documents.)</p>
+  <p>一些符合性要求称为元素、属性、方法或对象的要求。
+  这些要求分为两类：描述内容模型限制的，和描述实现行为的。
+  前者是对文档和编写工具的要求，后者是对用户代理的要求。
+  类似地，另一些符合性要求称为对作者的要求；这些要求应解释为对作者产出的文档的符合性要求。
+  （换句话说，本标准不区分对作者和对文档的符合性要求）</p>
 
   </div>
 

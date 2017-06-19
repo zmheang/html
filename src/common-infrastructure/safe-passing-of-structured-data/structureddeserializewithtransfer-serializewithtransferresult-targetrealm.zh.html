@@ -1,0 +1,34 @@
+  <h4 id="structureddeserializewithtransfer" data-export=""
+  data-lt="StructuredDeserializeWithTransfer"
+  data-dfn-type="abstract-op"><dfn>StructuredDeserializeWithTransfer</dfn> (
+  <var>serializeWithTransferResult</var>，<var>targetRealm</var> )</h4>
+
+  <ol>
+   <li>
+    <p>令 <var>memory</var> 为一个空的 <span data-x="ordered map">映射</span>。</p>
+
+    <p class="note">除了它在 <span>StructuredDeserialize</span> 中的正常使用外，
+    在本算法中 <var>memory</var> 还用来帮助我们确定传输值的列表。</p>
+   </li>
+
+   <li><p>令<var>deserialized</var> 为 ?
+   <span>StructuredDeserialize</span>(<var>serializeWithTransferResult</var>.[[Serialized]],
+   <var>targetRealm</var>,<var>memory</var>)。</p></li>
+
+   <li><p>令<var>transferredValues</var> 为一个新的空 <span data-x="js-List">列表</span>。</p></li>
+
+   <li>
+    <p>对 <var>serializeWithTransferResult</var>.[[TransferDataHolders]] 中的
+    <span data-x="list iterate">每一个</span> <var>transferDataHolder</var>：</p>
+
+    <ol>
+     <li><p><span data-x="list append">追加</span>
+     <var>memory</var>[<var>transferDataHolder</var>] 到 <var>transferredValues</var>。</p></li>
+    </ol>
+   </li>
+
+   <li><p>返回 { [[Deserialized]]: <var>deserialized</var>,[[TransferredValues]]:
+   <var>transferredValues</var> }。</p></li>
+  </ol>
+
+

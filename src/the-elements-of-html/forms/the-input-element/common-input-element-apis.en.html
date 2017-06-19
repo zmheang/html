@@ -113,6 +113,9 @@
     <p>On setting:</p>
 
     <ol>
+     <li><p>Let <var>oldValue</var> be the element's <span
+     data-x="concept-fe-value">value</span>.</p></li>
+
      <li><p>Set the element's <span data-x="concept-fe-value">value</span> to the new
      value.</p></li>
 
@@ -122,8 +125,10 @@
      <li><p>Invoke the <span>value sanitization algorithm</span>, if the element's <code
      data-x="attr-input-type">type</code> attribute's current state defines one.</p></li>
 
-     <li><p>If the element has a text entry cursor position, move the text entry cursor position to
-     the end of the text control, unselecting any selected text and <span data-x="set the selection
+     <li><p>If the element's <span data-x="concept-fe-value">value</span> (after applying the
+     <span>value sanitization algorithm</span>) is different from <var>oldValue</var>, and the
+     element has a text entry cursor position, move the text entry cursor position to the end of the
+     text control, unselecting any selected text and <span data-x="set the selection
      direction">resetting the selection direction</span> to "<code data-x="">none</code>".</p></li>
     </ol>
    </dd>
@@ -290,7 +295,7 @@
 
     <p>Otherwise (<var>value</var> subtracted from the <span
     data-x="concept-input-min-zero">step base</span> is an integral multiple of the <span
-    data-x="concept-input-step">allowed value step</span>), run the following substeps:</p>
+    data-x="concept-input-step">allowed value step</span>):</p>
 
     <ol>
 
@@ -349,7 +354,6 @@
   <span data-x="concept-input-list">suggestions source element</span>, if any, or null otherwise.</p>
 
   </div>
-<!--TOPIC:HTML-->
 
 
   <div w-nodev>

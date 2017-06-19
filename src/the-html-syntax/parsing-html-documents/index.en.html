@@ -28,23 +28,6 @@
 
   </div>
 
-  <p>This specification defines the parsing rules for HTML documents, whether they are syntactically
-  correct or not. Certain points in the parsing algorithm are said to be <dfn data-x="parse
-  error">parse errors</dfn>. The error handling for parse errors is well-defined (that's the
-  processing rules described throughout this specification), but user agents, while parsing an HTML
-  document, may <span data-x="abort a parser">abort the parser</span> at the first <span>parse
-  error</span> that they encounter for which they do not wish to apply the rules described in this
-  specification.</p>
-
-  <p>Conformance checkers must report at least one parse error condition to the user if one or more
-  parse error conditions exist in the document and must not report parse error conditions if none
-  exist in the document. Conformance checkers may report more than one parse error condition if more
-  than one parse error condition exists in the document.</p>
-
-  <p class="note">Parse errors are only errors with the <em>syntax</em> of HTML. In addition to
-  checking for parse errors, conformance checkers will also verify that the document obeys all the
-  other conformance requirements described in this specification.</p>
-
   <p>For the purposes of conformance checkers, if a resource is determined to be in <span>the HTML
   syntax</span>, then it is an <span data-x="HTML documents">HTML document</span>.</p>
 

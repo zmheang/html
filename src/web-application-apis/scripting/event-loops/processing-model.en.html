@@ -5,53 +5,41 @@
   exists:</p>
 
   <ol>
-
    <!-- lots of places in the spec refer to "step 1" -->
+   <li id="step1"><p>Let <var>oldestTask</var> be the oldest <span data-x="concept-task">task</span>
+   on one of the <span>event loop</span>'s <span data-x="task queue">task queues</span>, if any,
+   ignoring, in the case of a <span>browsing context</span> <span>event loop</span>, tasks whose
+   associated <code>Document</code>s are not <span>fully active</span>. The user agent may pick any
+   <span>task queue</span>. If there is no task to select, then jump to the <i>microtasks</i> step
+   below.</p></li>
 
-   <li id="step1">
+   <li><p>Set the <span>event loop</span>'s <span>currently running task</span> to
+   <var>oldestTask</var>.</p></li>
 
-    <p>Select the oldest <span data-x="concept-task">task</span> on one of the <span>event
-    loop</span>'s <span data-x="task queue">task queues</span>, if any, ignoring, in the case of a
-    <span>browsing context</span> <span>event loop</span>, tasks whose associated
-    <code>Document</code>s are not <span>fully active</span>. The user agent may pick any <span>task
-    queue</span>. If there is no task to select, then jump to the <i>microtasks</i> step below.</p>
-
-   </li>
-
-   <!-- note: reference to 'previous step' below -->
-
-   <li><p>Set the <span>event loop</span>'s <span>currently running task</span> to the <span
-   data-x="concept-task">task</span> selected in the previous step.</p></li>
-
-   <li><p><i>Run</i>: Run the selected <span data-x="concept-task">task</span>.</p></li>
+   <li><p>Run <var>oldestTask</var>.</p></li>
 
    <li><p>Set the <span>event loop</span>'s <span>currently running task</span> back to
    null.</p></li>
 
-   <li><p>Remove the task that was run in the <i>run</i> step above from its <span>task
-   queue</span>.</p></li>
+   <li><p>Remove <var>oldestTask</var> from its <span>task queue</span>.</p></li>
 
    <li><p><i>Microtasks</i>: <span>Perform a microtask checkpoint</span>.</p></li>
 
    <li>
-
     <p><i>Update the rendering</i>: If this <span>event loop</span> is a <span>browsing
     context</span> <span>event loop</span> (as opposed to a <a href="#workers">worker</a>
     <span>event loop</span>), then run the following substeps.</p>
 
     <ol>
-
      <li><p>Let <var>now</var> be the value that would be returned by the <code>Performance</code>
      object's <code data-x="dom-Performance-now">now()</code> method. <ref spec=HRT></p>
 
      <li>
-
       <p>Let <var>docs</var> be the list of <code>Document</code> objects associated with the
       <span>event loop</span> in question, sorted arbitrarily except that the following conditions
       must be met:</p>
 
       <ul>
-
        <li><p>Any <code>Document</code> <var>B</var> that is <span data-x="browsing context nested
        through">nested through</span> a <code>Document</code> <var>A</var> must be listed after
        <var>A</var> in the list.</p></li>
@@ -64,16 +52,13 @@
        list must match the relative <span>tree order</span> of their respective <span
        data-x="browsing context container">browsing context containers</span> in
        <var>C</var>.</p></li>
-
       </ul>
 
       <p>In the steps below that iterate over <var>docs</var>, each <code>Document</code> must be
       processed in the order it is found in the list.</p>
-
      </li>
 
      <li>
-
       <p>If there are <span data-x="top-level browsing context">top-level browsing contexts</span>
       <var>B</var> that the user agent believes would not benefit from having their rendering
       updated at this time, then remove from <var>docs</var> all <code>Document</code> objects whose
@@ -98,11 +83,9 @@
        callbacks</span> interleaved). For example, a user agent might wish to coalesce timer
        callbacks together, with no intermediate rendering updates.</p>
       </div>
-
      </li>
 
      <li>
-
       <p>If there are a <span data-x="nested browsing context">nested browsing contexts</span>
       <var>B</var> that the user agent believes would not benefit from having their rendering
       updated at this time, then remove from <var>docs</var> all <code>Document</code> objects whose
@@ -115,7 +98,6 @@
       third-party content, especially if it is not currently visible to the user or if resources are
       constrained. In such cases, the browser could decide to update the rendering for such content
       infrequently or never.</p>
-
      </li>
 
      <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>, <span>run the resize
@@ -149,9 +131,7 @@
      <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>, update the
      rendering or user interface of that <code>Document</code> and its <span
      data-x="concept-document-bc">browsing context</span> to reflect the current state.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>If this is a <a href="#workers">worker</a> <span>event loop</span> (i.e. one running for a
@@ -161,9 +141,6 @@
    data-x="dom-WorkerGlobalScope-closing">closing</span> flag is true, then destroy the <span>event
    loop</span>, aborting these steps, resuming the <span>run a worker</span> steps described in the
    <a href="#workers">Web workers</a> section below.</p></li>
-
-   <li><p>Return to the <a href="#step1">first step</a> of the <span>event loop</span>.</p></li>
-
   </ol>
 
   <hr>
@@ -198,43 +175,41 @@
   following steps:</p>
 
   <ol>
-
-   <li><p>Let the <span>performing a microtask checkpoint</span> flag be true.</p></li>
-
-   <li><p><i>Microtask queue handling</i>: If the <span>event loop</span>'s <span>microtask
-   queue</span> is empty, jump to the <i>done</i> step below.</p></li>
-
-   <li><p>Select the oldest <span>microtask</span> on the <span>event loop</span>'s <span>microtask
-   queue</span>.</p></li>
-
-   <li><p>Set the <span>event loop</span>'s <span>currently running task</span> to the <span
-   data-x="concept-task">task</span> selected in the previous step.</p></li>
+   <li><p>Set the <span>performing a microtask checkpoint</span> flag to true.</p></li>
 
    <li>
+    <p>While the <span>event loop</span>'s <span>microtask queue</span> is not empty:</p>
 
-    <p><i>Run</i>: Run the selected <span data-x="concept-task">task</span>.</p>
+    <ol>
+     <li><p>Let <var>oldestMicrotask</var> be the oldest <span>microtask</span> on the <span>event
+     loop</span>'s <span>microtask queue</span>.</p></li>
 
-    <p class="note">This might involve invoking scripted callbacks, which eventually calls the
-    <span>clean up after running script</span> steps, which call this <span>perform a microtask
-    checkpoint</span> algorithm again, which is why we use the <span>performing a microtask
-    checkpoint</span> flag to avoid reentrancy.</p>
+     <li><p>Set the <span>event loop</span>'s <span>currently running task</span> to
+     <var>oldestMicrotask</var>.</p></li>
 
+     <li>
+      <p>Run <var>oldestMicrotask</var>.</p>
+
+      <p class="note">This might involve invoking scripted callbacks, which eventually calls the
+      <span>clean up after running script</span> steps, which call this <span>perform a microtask
+      checkpoint</span> algorithm again, which is why we use the <span>performing a microtask
+      checkpoint</span> flag to avoid reentrancy.</p>
+     </li>
+
+     <li><p>Set the <span>event loop</span>'s <span>currently running task</span> back to
+     null.</p></li>
+
+     <li><p>Remove <var>oldestMicrotask</var> from the <span>microtask queue</span>.</p></li>
+    </ol>
    </li>
 
-   <li><p>Set the <span>event loop</span>'s <span>currently running task</span> back to
-   null.</p></li>
-
-   <li><p>Remove the <span>microtask</span> run in the step above from the <span>microtask
-   queue</span>, and return to the <i>microtask queue handling</i> step.</p></li>
-
-   <li><p><i>Done</i>: For each <span>environment settings object</span> whose <span>responsible
-   event loop</span> is this <span>event loop</span>, <span>notify about rejected promises</span>
-   on that <span>environment settings object</span>.</p></li>
+   <li><p>For each <span>environment settings object</span> whose <span>responsible event
+   loop</span> is this <span>event loop</span>, <span>notify about rejected promises</span> on that
+   <span>environment settings object</span>.</p></li>
 
    <li><p><span>Cleanup Indexed Database transactions</span>.</p></li>
 
-   <li><p>Let the <span>performing a microtask checkpoint</span> flag be false.</p></li>
-
+   <li><p>Set the <span>performing a microtask checkpoint</span> flag to false.</p></li>
   </ol>
 
   <p>If, while a <span>compound microtask</span> is running, the user agent is required to

@@ -17,9 +17,11 @@
    <dd><span>Reconsume</span> in the <span>after attribute name state</span>.</dd>
 
    <dt>U+003D EQUALS SIGN (=)</dt>
-   <dd><span>Parse error</span>. Start a new attribute in the current tag token. Set that
-   attribute's name to the <span>current input character</span>, and its value to the empty string.
-   Switch to the <span>attribute name state</span>.</dd>
+   <dd>This is an <span
+   data-x="parse-error-unexpected-equals-sign-before-attribute-name">unexpected-equals-sign-before-attribute-name</span>
+   <span>parse error</span>. Start a new attribute in the current tag token. Set that attribute's
+   name to the <span>current input character</span>, and its value to the empty string. Switch to
+   the <span>attribute name state</span>.</dd>
 
    <dt>Anything else</dt>
    <dd>Start a new attribute in the current tag token. Set that attribute name and value to the

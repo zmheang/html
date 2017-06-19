@@ -11,8 +11,8 @@
   scripts</span> versus <span data-x="module script">module scripts</span>, since both of them use
   the <code>script</code> element.</p>
 
-  <p>A <dfn>module map</dfn> is a <span data-x="ordered map">map</span> of <span data-x="absolute
-  URL">absolute URLs</span> to values that are either a <span>module script</span>, null (used to
+  <p>A <dfn>module map</dfn> is a <span data-x="ordered map">map</span> of <span data-x="URL
+  record">URL records</span> to values that are either a <span>module script</span>, null (used to
   represent failed fetches), or a placeholder value "<code data-x="">fetching</code>". <span
   data-x="module map">Module maps</span> are used to ensure that imported JavaScript modules are
   only fetched, parsed, and evaluated once per <code>Document</code> or <a
@@ -49,8 +49,8 @@ import "https://example.com/foo/../module2.js";</pre>
   </div>
 
   <p>To <dfn>resolve a module specifier</dfn> given a <span>module script</span> <var>script</var>
-  and a string <var>specifier</var>, perform the following steps. It will return either an
-  <span>absolute URL</span> or failure.</p>
+  and a string <var>specifier</var>, perform the following steps. It will return either a <span>URL
+  record</span> or failure.</p>
 
   <ol>
    <li><p>Apply the <span>URL parser</span> to <var>specifier</var>. If the result is not failure,

@@ -1,0 +1,74 @@
+  <h5>Integration with the JavaScript agent cluster formalism</h5>
+
+  <p><dfn>Can share memory with</dfn> defines an equivalence relation. An <span>agent cluster</span>
+  consists of all <span data-x="agent">agents</span> in the same equivalence class with respect to
+  the <span>can share memory with</span> equivalence relation.</p>
+
+  <p>A <span>similar-origin window agent</span>, <span>dedicated worker agent</span>, <span>shared
+  worker agent</span>, or <span>service worker agent</span>, <var>agent</var>, <span>can share
+  memory with</span> any <span>dedicated worker agent</span> whose single <span data-x="JavaScript
+  realm">realm</span>'s <span data-x="concept-realm-global">global object</span>'s <span>owner
+  set</span> contains an item whose <span data-x="concept-relevant-realm">relevant Realm</span>
+  belongs to <var>agent</var>.</p>
+
+  <p class="note">We use item above as an <span>owner set</span> can contain <code>Document</code>
+  objects.</p>
+
+  <p class="&#x0058;&#x0058;&#x0058;">A <span>worklet agent</span> &hellip; currently worklets have
+  no clearly defined owner, see: <a
+  href="https://github.com/w3c/css-houdini-drafts/issues/224">w3c/css-houdini-drafts issue
+  #224</a>.</p>
+
+  <p>In addition, any <span>agent</span> <var>A</var> <span>can share memory with</span>:</p>
+
+  <ul class="brief">
+   <li><var>A</var>,</li>
+
+   <li>any <span>agent</span> <var>B</var> such that <var>B</var> <span>can share memory with</span>
+   <var>A</var>, and</li>
+
+   <li>any <span>agent</span> <var>B</var> such that there exists an <span>agent</span>
+   <var>C</var>, where <var>A</var> <span>can share memory with</span> <var>C</var> and <var>C</var>
+   <span>can share memory with</span> <var>B</var>.</li>
+  </ul>
+
+  <p>The <span>agent cluster</span> concept is crucial for defining the JavaScript memory model, and
+  in particular among which <span data-x="agent">agents</span> the backing data of
+  <code>SharedArrayBuffer</code> objects can be shared.</p>
+
+  <div class="example">
+   <p>The following pairs of global objects are each within the same <span>agent cluster</span>, and
+   thus can use <code>SharedArrayBuffer</code> instances to share memory with each other:</p>
+
+   <ul class="brief">
+    <li>A <code>Window</code> object and a dedicated worker that it created.</li>
+
+    <li>A worker (of any type) and a dedicated worker it created.</li>
+
+    <li>A <code>Window</code> object <var>A</var> and the <code>Window</code> object of an
+    <code>iframe</code> element that <var>A</var> created that could be <span>same
+    origin-domain</span> with <var>A</var>.</li>
+
+    <li>A <code>Window</code> object and a <span>same origin-domain</span> <code>Window</code>
+    object that opened it.</li>
+   </ul>
+
+   <p>The following pairs of global objects are <em>not</em> within the same <span>agent
+   cluster</span>, and thus cannot share memory:</p>
+
+   <ul class="brief">
+    <li>A <code>Window</code> object and a shared worker it created.</li>
+
+    <li>A worker (of any type) and a shared worker it created.</li>
+
+    <li>A <code>Window</code> object and a service worker it created.</li>
+
+    <li>A <code>Window</code> object <var></var> and the <code>Window</code> object of an
+    <code>iframe</code> element that <var>A</var> created that cannot be <span>same
+    origin-domain</span> with <var>A</var>.</li>
+   </ul>
+  </div>
+
+  </div>
+
+

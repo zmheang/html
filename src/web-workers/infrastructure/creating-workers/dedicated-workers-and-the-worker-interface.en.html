@@ -6,11 +6,13 @@ interface <dfn>Worker</dfn> : <span>EventTarget</span> {
 
   void <span data-x="dom-Worker-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
   attribute <span>EventHandler</span> <span data-x="handler-Worker-onmessage">onmessage</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-Worker-onmessageerror">onmessageerror</span>;
 };
 
 dictionary <dfn>WorkerOptions</dfn> {
   <span>WorkerType</span> type = "classic";
   <span>RequestCredentials</span> credentials = "omit"; // credentials is only used if type is "module"
+  DOMString name = "";
 };
 
 enum <dfn>WorkerType</dfn> { "classic", "module" };
@@ -21,10 +23,12 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
    <dt><var>worker</var> = new <code subdfn data-x="dom-Worker">Worker</code>(<var>scriptURL</var> [, <var>options</var> ])</dt>
    <dd>Returns a new <code>Worker</code> object. <var>scriptURL</var> will be fetched and executed
    in the background, creating a new global environment for which <var>worker</var> represents the
-   communication channel. <var>options</var> can be used to ensure this new global environment
-   supports JavaScript modules (specify <code data-x="">type: "module"</code>) and if that is
-   specified, can also be used to specify how <var>scriptURL</var> is fetched through the <code
-   data-x="">credentials</code> option.</dd>
+   communication channel. <var>options</var> can be used to define the <span
+   data-x="concept-WorkerGlobalScope-name">name</span> of that global environment via the <code
+   data-x="">name</code> option, primarily for debugging purposes. It can also ensure this new
+   global environment supports JavaScript modules (specify <code data-x="">type: "module"</code>),
+   and if that is specified, can also be used to specify how <var>scriptURL</var> is fetched through
+   the <code data-x="">credentials</code> option.
 
    <dt><var>worker</var> . <code subdfn data-x="dom-Worker-terminate">terminate</code>()</dt>
    <dd>Aborts <var>worker</var>'s associated global environment.</dd>
@@ -37,9 +41,9 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-Worker-terminate">terminate()</code></dfn> method, when invoked, must
-  cause the "<span>terminate a worker</span>" algorithm to be run on the worker with which the object
-  is associated.</p>
+  <p>The <dfn><code data-x="dom-Worker-terminate">terminate()</code></dfn> method, when invoked,
+  must cause the <span>terminate a worker</span> algorithm to be run on the worker with which the
+  object is associated.</p>
 
   <p><code>Worker</code> objects act as if they had an implicit <code>MessagePort</code> associated
   with them. This port is part of a channel that is set up when the worker is created, but it is not
@@ -73,6 +77,7 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
     <tr><th><span data-x="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody>
     <tr><td><dfn><code data-x="handler-Worker-onmessage">onmessage</code></dfn> <td> <code data-x="event-message">message</code>
+    <tr><td><dfn><code data-x="handler-Worker-onmessageerror">onmessageerror</code></dfn> <td> <code data-x="event-messageerror">messageerror</code>
   </table>
 
   <div w-nodev>
@@ -113,9 +118,6 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
    <var>outside port</var>.</p></li>
 
    <li><p>Associate the <var>outside port</var> with <var>worker</var>.</p></li>
-
-   <li><p>Let <var>docs</var> be the <span>list of relevant <code>Document</code> objects to
-   add</span> given <var>outside settings</var>.</p></li>
 
    <li><p>Return <var>worker</var>, and run the following step <span>in parallel</span>.</p></li>
 

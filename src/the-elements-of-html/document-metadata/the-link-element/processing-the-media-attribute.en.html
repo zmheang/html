@@ -1,0 +1,20 @@
+  <h5>Processing the <code data-x="attr-link-media">media</code> attribute</h5>
+
+  <p>If the link is a <span>hyperlink</span> then the <code data-x="attr-link-media">media</code>
+  attribute is purely advisory, and describes for which media the document in question was
+  designed.</p>
+
+  <p>However, if the link is an <span>external resource link</span>, then the <code
+  data-x="attr-link-media">media</code> attribute is prescriptive. The user agent must apply the
+  external resource when the <code data-x="attr-link-media">media</code> attribute's value
+  <span>matches the environment</span> and the other relevant conditions apply, and must not apply
+  it otherwise.</p><!-- note similar text in <style> element section -->
+
+  <p id="default-media">The default, if the <code data-x="attr-link-media">media</code> attribute is
+  omitted, is "<code data-x="">all</code>", meaning that by default links apply to all media.</p>
+
+  <p class="note">The external resource might have further restrictions defined within that limit
+  its applicability. For example, a CSS style sheet might have some <code data-x="">@media</code>
+  blocks. This specification does not override such further restrictions or requirements.</p><!--
+  note similar text in <style> element section -->
+

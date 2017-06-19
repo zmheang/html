@@ -18,11 +18,14 @@
    <dd>Switch to the <span>data state</span>. Emit the current tag token.</dd>
 
    <dt>EOF</dt>
-   <dd><span>Parse error</span>. Emit an end-of-file token.</dd>
+   <dd>This is an <span data-x="parse-error-eof-in-tag">eof-in-tag</span> <span>parse error</span>.
+   Emit an end-of-file token.</dd>
 
    <dt>Anything else</dt>
-   <dd><span>Parse error</span>. <span>Reconsume</span> in the <span>before attribute name
-   state</span>.</dd>
+   <dd>This is a <span
+   data-x="parse-error-missing-whitespace-between-attributes">missing-whitespace-between-attributes</span>
+   <span>parse error</span>. <span>Reconsume</span> in the <span>before attribute name state</span>.
+   </dd>
 
   </dl>
 

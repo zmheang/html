@@ -1,0 +1,158 @@
+  <h5>时区</h5>
+
+  <p><dfn data-x="concept-timezone">时区</dfn> 由一个小时和分钟的有符号数字组成。</p>
+
+  <p>表示时区的 <dfn data-x="valid time-zone offset string">合法的时区字符串</dfn>
+  包含下列之一：</p>
+
+
+  <ul>
+
+   <li><p>一个 U+005A LATIN CAPITAL LETTER Z 字符 （Z），只有时区为 UTC 时才允许</p></li>
+
+   <li>
+
+    <p>或者下列有序的几部分：</p>
+
+    <ol>
+
+     <li>一个 U+002B PLUS SIGN 字符 （+） 或者（如果时区不为零的话）U+002D
+     HYPHEN-MINUS 字符（-），表示时区偏移的符号</li>
+     <!-- the -00：00 offset is disallowed because RFC3339 gives it a special semantic -->
+
+     <li>两个 <span data-x="ASCII digits">ASCII 数字</span>，
+     表示时区偏移的小时 <var>hour</var>，
+     必须在 0&nbsp;&le;&nbsp;<var>hour</var>&nbsp;&le;&nbsp;23 范围内</li>
+
+     <li>可选地，一个 U+003A COLON 字符 （:）</li>
+
+     <li>两个 <span data-x="ASCII digits">ASCII 数字</span>，
+     表示时区偏移的分钟 <var>minute</var>，
+     必须在 0&nbsp;&le;&nbsp;<var>minute</var>&nbsp;&le;&nbsp;59 范围内</li>
+
+    </ol>
+
+   </li>
+
+  </ul>
+
+  <p class="note">此格式允许从-23:59到+23:59的时区偏移。
+  现在，实际时区的偏移范围是-12:00到+14:00，分钟分量始终是 00，30 或 45。
+  但不能保证情况永远是这样的，因为时区被用作政治足球，受到异想天开的政策的支配。</p>
+
+  <p class="note">另请参阅下面的
+  <span data-x="concept-datetime">全球日期和时间</span>
+  部分的使用说明和示例，具体了解如何在正式的时区形成之前的历史时间上使用时区偏移。</p>
+
+  <div w-nodev>
+
+  <p><dfn data-x="parse a time-zone offset string">解析时区偏移字符串</dfn> 的规则如下。
+  将会返回一个时区偏移或者什么都不返回。
+  如果算法的任何一个点说它 "失败了"，这意味着它在那一点退出并什么都不返回。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为待解析字符串。</p></li>
+
+   <li><p>令<var>position</var> 为 <var>input</var> 内的指针初始指向字符串开始。</p></li>
+
+   <li><p><span data-x="Parse a time-zone offset component">解析时区偏移部分</span> 来获得
+   <var>timezone<sub>hours</sub></var> 和 <var>timezone<sub>minutes</sub></var>。
+   如果它没有返回，则失败。</p>
+
+   <li><p>如果 <var>position</var> <em>没有</em> 超出 <var>input</var> 的结尾，则失败。</p></li>
+
+   <li><p>返回距离 UTC <var>timezone<sub>hours</sub></var> 小时
+   <var>timezone<sub>minutes</sub></var> 分钟的时区偏移。</p></li>
+
+  </ol>
+
+  <p>给定 <var>input</var> 字符串和位置 <var>position</var>，
+  <dfn data-x="parse a time-zone offset component">解析时区偏移部分</dfn> 的规则如下。
+  将会返回一个时区偏移的小时和分钟，或者什么都不返回。
+  如果算法的任何一个点说它 "失败了"，这意味着它在那一点退出并什么都不返回。</p>
+
+  <ol>
+
+   <li>
+
+    <p>如果 <var>position</var> 处的字符是一个 U+005A LATIN CAPITAL LETTER Z 字符（Z），则：</p>
+
+    <ol>
+
+     <li><p>令<var>timezone<sub>hours</sub></var> 为 0。</p></li>
+
+     <li><p>令<var>timezone<sub>minutes</sub></var> 为 0。</p></li>
+
+     <li><p>将 <var>position</var> 前进到 <var>input</var> 的下一个字符。</p></li>
+
+    </ol>
+
+    <p>否则，如果 <var>position</var> 是 U+002B PLUS SIGN （+）或 U+002D HYPHEN-MINUS （-），则：</p>
+
+    <ol>
+
+     <li><p>如果 <var>position</var> 处的字符是一个 U+002B PLUS SIGN （+），令 <var>sign</var> 为 "正"。
+     如果它是一个 U+002D HYPHEN-MINUS （-），则令 <var>sign</var> 为 "负"。</p></li>
+
+     <li><p>将 <var>position</var> 前进到 <var>input</var> 的下一个字符。</p></li>
+
+     <li><p>从 <var>input</var> 中给定的位置 <var>position</var>
+     <span data-x="Collect a sequence of code points">收集</span> <span data-x="ASCII digits">ASCII 数字</span>
+     组成的代码点序列。令 <var>s</var> 为收集到的序列。</p></li>
+
+     <li>
+
+      <p>如果 <var>s</var> 恰好是两个字符长度，则：</p>
+
+      <ol>
+
+       <li><p>将 <var>s</var> 解释为10进制整数，并赋值给 <var>timezone<sub>hours</sub></var>。</p></li>
+
+       <li><p>如果 <var>position</var> 超出了 <var>input</var> 的末尾或者 <var>position</var> 处的字符不是 U+003A COLON  则失败。
+       否则将 <var>position</var> 前进一个字符。</p></li>
+
+       <li><p>从 <var>input</var> 中给定的位置 <var>position</var>
+       <span data-x="Collect a sequence of code points">收集</span> <span data-x="ASCII digits">ASCII 数字</span>
+       组成的代码点序列。 如果收集到的序列不是恰好 2 个字符则失败。
+       否则将结果序列解释为 10 进制整数。令那个数为 <var>timezone<sub>minutes</sub></var>。</p></li>
+
+      </ol>
+
+      <p>如果 <var>s</var> 恰好是 4 个字符长度，则：</p>
+
+      <ol>
+
+       <li><p>将 <var>s</var> 的前两个字解释为 10 进制整数，并赋值给 <var>timezone<sub>hours</sub></var>。</p></li>
+
+       <li><p>将 <var>s</var> 的后两个字解释为 10 进制整数，并赋值给 <var>timezone<sub>minutes</sub></var>。</p></li>
+
+      </ol>
+
+      <p>其他情况失败。</p>
+
+     </li>
+
+     <li>如果 <var>timezone<sub>hours</sub></var> 不在
+     0&nbsp;&le;&nbsp;<var>timezone<sub>hours</sub></var>&nbsp;&le;&nbsp;23 范围内则失败。</li>
+
+     <li>如果 <var>sign</var> 为 "负"，则对 <var>timezone<sub>hours</sub></var> 求反。</li>
+
+     <li>如果 <var>timezone<sub>minutes</sub></var> 不在
+     0&nbsp;&le;&nbsp;<var>timezone<sub>minutes</sub></var>&nbsp;&le;&nbsp;59 范围内则失败。</li>
+
+     <li>如果 <var>sign</var> 为 "负"，则对 <var>timezone<sub>minutes</sub></var> 求反。</li>
+
+    </ol>
+
+    <p>其他情况失败。</p>
+
+   </li>
+
+   <li><p>返回 <var>timezone<sub>hours</sub></var> 和 <var>timezone<sub>minutes</sub></var>。</p></li>
+
+  </ol>
+
+  </div>
+
+

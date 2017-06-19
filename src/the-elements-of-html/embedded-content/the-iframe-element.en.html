@@ -23,7 +23,7 @@
    <dd><code data-x="attr-dim-width">width</code></dd>
    <dd><code data-x="attr-dim-height">height</code></dd>
    <dd><code data-x="attr-iframe-referrerpolicy">referrerpolicy</code></dd>
-   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt><!--TOPIC:DOM APIs-->
+   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
@@ -42,7 +42,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   <span>Document</span>? <span data-x="dom-media-getSVGDocument">getSVGDocument</span>();
 };</pre>
    </dd>
-  </dl><!--TOPIC:HTML-->
+  </dl>
 
   <!-- INTRO -->
 
@@ -590,7 +590,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
     <li>
      <p>If <var>allowattribute</var> is <code
-     data-x="attr-iframe-allowfullscreen">allowfullscreen</code>, then follow these substeps:</p>
+     data-x="attr-iframe-allowfullscreen">allowfullscreen</code>, then:</p>
 
      <ol>
       <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has
@@ -607,7 +607,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
     </li>
 
     <li>
-     <p>Otherwise, follow these substeps:</p>
+     <p>Otherwise:</p>
 
      <ol>
       <li><p>If <var>document</var> has the <var><var>allowattribute</var> flag</var> set, and

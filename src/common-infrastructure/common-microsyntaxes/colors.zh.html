@@ -1,0 +1,146 @@
+  <!--en-GB--><h4 id="colours">颜色</h4>
+
+  <p><!--en-GB--><dfn id="simple-colour" data-x="simple color">简单颜色</dfn>
+  由三个在 0..255 范围的 8 位数字组成。
+  分别表示 sRGB 色彩空间的颜色的红、绿、蓝分量。 <ref spec=SRGB></p>
+
+  <p><!--en-GB--><dfn id="valid-simple-colour" data-x="valid simple color">合法的简单颜色</dfn>
+  字符串应恰好包含 7 个字符长度，
+  第一个字符是 U+0023 NUMBER SIGN 字符（#），剩下的 6 个都是 <span data-x="ASCII hex digits">ASCII 十六进制数</span>，
+  其中前两个表示红色分量，中间两个表示绿色分量，最后两个表示蓝色分量，均为 16 进制。</p>
+
+  <p><!--en-GB--><dfn id="valid-lowercase-simple-colour" data-x="valid lowercase simple color">
+  合法的小写简单颜色</dfn> 字符串是
+  不使用任何 U+0041 LATIN CAPITAL LETTER A 到 U+0046 LATIN CAPITAL LETTER F 字符的 <span data-x="valid simple color">合法的简单颜色</span>。</p>
+
+  <div w-nodev>
+
+  <p><!--en-GB--><dfn id="rules-for-parsing-simple-colour-values"
+  data-x="rules for parsing simple color values">解析简单色值的规则</dfn> 由下列算法给出。
+  被调用时必须依次执行这些步骤，在第一个有返回值的步骤中止。该算法将会返回一个 <span data-x="simple color">简单颜色</span> 或者错误。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为待解析字符串。</p></li>
+
+   <li><p>如果 <var>input</var> 不是恰好 7 个字符则返回一个错误。</p></li>
+
+   <li><p>如果 <var>input</var> 的首字符不是 U+0023 NUMBER SIGN 字符（#），则返回一个错误。</p></li>
+
+   <li><p>如果 <var>input</var> 的后面 6 个字符不都是 <span data-x="ASCII hex digits">ASCII 十六进制数字</span>，则返回一个错误。</p></li>
+
+   <li><p>令<var>result</var> 为一个 <span data-x="simple color">简单颜色</span>。</p>
+
+   <li><p>将第2、3个字符解释为 16 进制数，令该结果为 <var>result</var> 的红色分量。</p>
+   <li><p>将第4、5个字符解释为 16 进制数，令该结果为 <var>result</var> 的绿色分量。</p>
+   <li><p>将第6、7个字符解释为 16 进制数，令该结果为 <var>result</var> 的蓝色分量。</p>
+
+   <li><p>返回 <var>result</var>。</p>
+
+  </ol>
+
+  <p>给定 <span data-x="simple color">简单颜色</span>
+  <!--en-GB--><dfn id="rules-for-serialising-simple-colour-values"
+  data-x="rules for serializing simple color values">序列化简单色值的规则</dfn>
+  在下列算法中给出：</p>
+
+  <ol>
+
+   <li><p>令<var>result</var> 为包含一个 U+0023 NUMBER SIGN 字符（#）的字符串。</p></li>
+
+   <li><p>将红、绿、蓝分量依次转换为两位 16 进制数字，并使用 <span data-x="ASCII lower hex digit">ASCII 小写十六进制数字</span>，
+   需要的话填充零。将这些数字按照红绿蓝的顺序追加到 <var>result</var>。</p>
+
+   <li><p>返回 <var>result</var>，它将是一个 <span data-x="valid lowercase simple color">合法的小写简单颜色</span>。</p></li>
+
+  </ol>
+
+  <hr>
+
+  <p>有些废弃的遗留属性以更复杂的方式解析颜色，它们使用
+  <!--en-GB--><dfn id="rules-for-parsing-a-legacy-colour-value"
+  data-x="rules for parsing a legacy color
+  value">解析遗留色值的规则</dfn>，由以下算法给出。
+  被调用时必须依次执行这些步骤，在第一个有返回值的步骤中止。该算法将会返回一个 <span data-x="simple color">简单颜色</span> 或者错误。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为待解析字符串。</p></li>
+
+   <li><p>如果 <var>input</var> 位空字符串则返回一个错误。</p></li>
+
+   <li><p>从 <var>input</var> 中 <span data-x="Strip leading and trailing ASCII whitespace">移除前后的 ASCII 空白</span>。</p></li>
+
+   <li><p>如果 <var>input</var> <span data-x="ASCII case-insensitive">ASCII 大小写不敏感地</span> 匹配
+   字符串 "<code data-x="">transparent</code>"，则返回一个错误。</p></li>
+
+   <li>
+
+    <p>如果 <var>input</var> <span data-x="ASCII case-insensitive">ASCII 大小写不敏感地</span> 匹配
+    <span data-x="named color">命名颜色</span>，则返回该关键字对应的 <span data-x="simple color">简单颜色</span>。 <ref spec=CSSCOLOR></p>
+
+    <p class="note">没有识别 <a
+    href="https://www.w3.org/TR/css3-color/#css2-system">CSS2 System Colors</a>。</p>
+
+   </li>
+
+   <li>
+
+    <p>如果 <var>input</var> 是 4 个字符长度，且 <var>input</var> 的第一个字符是 U+0023（#），
+    且 <var>input</var> 后面的 3 个字符都是 <span data-x="ASCII hex digits">ASCII 十六进制数字</span>，则：</p>
+
+    <ol>
+
+     <li><p>令<var>result</var> 为一个 <span data-x="simple color">简单颜色</span>。</p>
+
+     <li><p>将 <var>input</var> 第二个字符解释为十六进制数字；令 <var>result</var> 的红色分量为得到的数字乘以 17。</p>
+
+     <li><p>将 <var>input</var> 第三个字符解释为十六进制数字；令 <var>result</var> 的绿色分量为得到的数字乘以 17。</p>
+
+     <li><p>将 <var>input</var> 第四个字符解释为十六进制数字；令 <var>result</var> 的蓝色分量为得到的数字乘以 17。</p>
+
+     <li><p>返回 <var>result</var>。</p>
+
+    </ol>
+
+   </li>
+
+   <li><p>将 <var>input</var> 中任何代码点大于 U+FFFF 的字符（即任何不在基本多文种平面的字符）替换为两个字符的字符串 "<code data-x="">00</code>"。</p></li>
+
+   <li><p>如果 <var>input</var> 字符长度大于 128，把 <var>input</var> 截断到只有 128 个字符。</p></li>
+
+   <li><p>如果 <var>input</var> 中第一个字符是 U+0023 NUMBER SIGN 字符（#），移除它。</p></li>
+
+   <li><p>将 <var>input</var> 中任何非 <span data-x="ASCII hex digits">ASCII 十六进制数字</span> 的字符替换为 U+0030 DIGIT ZERO（0）。</p></li>
+
+   <li><p>While <var>input</var> 长度为零或者不是 3 的倍数，添加一个 U+0030 DIGIT ZERO （0）字符到 <var>input</var>。</p></li>
+
+   <li><p>将 <var>input</var> 分割成三个等长字符来获得三个分量。
+   令<var>length</var> 为这三个分量的长度（<var>input</var> 长度的三分之一）。</p></li>
+
+   <li><p>如果 <var>length</var> 大于 8，移除每个分量中前面的 <span data-x=""><var>length</var>-8</span> 个字符，并且令 <var>length</var> 为 8。</p></li>
+
+   <li><p>While <var>length</var> 大于 2 并且每个分量的第一个字符是 U+0030 DIGIT ZERO （0）字符，移除该字符并将 <var>length</var> 减一。</p></li>
+
+   <li><p>如果 <var>length</var> <em>仍然</em> 大于 2，截断每个分量，分别只保留前两个字符。</p></li>
+
+   <li><p>令<var>result</var> 为一个 <span data-x="simple color">简单颜色</span>。</p>
+
+   <li><p>将第一个分量解释为十六进制数字；令 <var>result</var> 的红色分量为得到的数字。</p></li>
+
+   <li><p>将第二个分量解释为十六进制数字；令 <var>result</var> 的绿色分量为得到的数字。</p></li>
+
+   <li><p>将第三个分量解释为十六进制数字；令 <var>result</var> 的蓝色分量为得到的数字。</p></li>
+
+   <li><p>返回 <var>result</var>。</p>
+
+  </ol>
+
+  </div>
+
+  <hr>
+
+  <p class="note"><span data-x="canvas-context-2d">2D 图形上下文</span> 有单独的颜色语法，还处理了不透明度。</p>
+
+
+

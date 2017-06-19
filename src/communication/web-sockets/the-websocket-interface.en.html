@@ -19,7 +19,7 @@ interface <dfn>WebSocket</dfn> : <span>EventTarget</span> {
   attribute <span>EventHandler</span> <span data-x="handler-WebSocket-onclose">onclose</span>;
   readonly attribute DOMString <span data-x="dom-WebSocket-extensions">extensions</span>;
   readonly attribute DOMString <span data-x="dom-WebSocket-protocol">protocol</span>;
-  void <span data-x="dom-WebSocket-close">close</span>([Clamp] optional unsigned short code, optional <span data-x="idl-USVString">USVString</span> reason);
+  void <span data-x="dom-WebSocket-close">close</span>(optional [Clamp] unsigned short code, optional <span data-x="idl-USVString">USVString</span> reason);
 
   // messaging
   attribute <span>EventHandler</span> <span data-x="handler-WebSocket-onmessage">onmessage</span>;

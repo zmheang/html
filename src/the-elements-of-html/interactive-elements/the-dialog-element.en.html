@@ -11,7 +11,7 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-dialog-open">open</code></dd>
-   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt><!--TOPIC:DOM APIs-->
+   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
@@ -22,7 +22,7 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] void <span data-x="dom-dialog-close">close</span>(optional DOMString returnValue);
 };</pre>
    </dd>
-  </dl><!--TOPIC:HTML-->
+  </dl>
 
   <p>The <code>dialog</code> element represents a part of an application that a user interacts with
   to perform a task, for example a dialog box, inspector, or window.</p>
@@ -66,7 +66,6 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   <p>The <code data-x="attr-tabindex">tabindex</code> attribute must not be specified on
   <code>dialog</code> elements.</p>
 
-<!--TOPIC:DOM APIs-->
 
   <dl class="domintro">
 
@@ -139,7 +138,7 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   <p>When an element is added to the <span>pending dialog stack</span>, it must also be <span
   data-x="top-layer-add">added</span> to the <span>top layer</span>. When an element is removed from
-  the <span>pending dialog stack</span>, it must be <span data-x="top-layer-remove">removed</span>
+  the <span>pending dialog stack</span>, it must be <span data-x="list remove">removed</span>
   from the <span>top layer</span>. <ref spec=FULLSCREEN></p>
 
   <p>When the <dfn><code data-x="dom-dialog-showModal">showModal()</code></dfn> method is invoked,
@@ -220,7 +219,6 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   with an argument, that argument must be used as the return value; otherwise, there is no return
   value.</p>
 
-<!--TOPIC:HTML-->
 
   <p>When a <code>dialog</code> element <var>subject</var> is to be <dfn data-x="close the
   dialog">closed</dfn>, optionally with a return value <var>result</var>, the user agent
@@ -240,7 +238,7 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
    <li>
 
     <p>If <var>subject</var> is in its <code>Document</code>'s <span>pending dialog
-    stack</span>, then run these substeps:</p>
+    stack</span>, then:</p>
 
     <ol>
 
@@ -260,11 +258,9 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   </ol>
 
-<!--TOPIC:DOM APIs-->
   <p>The <dfn><code data-x="dom-dialog-returnValue">returnValue</code></dfn> IDL attribute, on
   getting, must return the last value to which it was set. On setting, it must be set to the new
   value. When the element is created, it must be set to the empty string.</p>
-<!--TOPIC:HTML-->
 
   <hr>
 
@@ -295,39 +291,47 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   element. The <span>centered alignment</span> mode is only used for <code>dialog</code> elements
   that are in the <span>top layer</span>. <ref spec=FULLSCREEN> <ref spec=CSS></p>
 
-  <p>When an element <var>subject</var> is placed in <span>centered alignment</span> mode,
-  and when it is in that mode and has new rendering boxes created, the user agent must set up the
-  element such that its top static position, for the purposes of calculating the
-  <span>used value</span> of the <span>'top'</span> property, is the value that would place the
-  element's top <span>margin edge</span> as far from the top of the <span>viewport</span> as the
-  element's bottom <span>margin edge</span> from the bottom of the <span>viewport</span>, if the
-  element's height is less than the height of the <span>viewport</span>, and otherwise is the value
-  that would place the element's top <span>margin edge</span> at the top of the
+  <p>When an element <var>subject</var> is placed in <span>centered alignment</span> mode, and when
+  it is in that mode and has new rendering boxes created, the user agent must set up the element
+  such that its static position of the edge that corresponds to <var>subject</var>'s parent's
+  <span>block-start</span> edge, for the purposes of calculating the <span>used value</span> of the
+  appropriate box offset property (<span>'top'</span>, <span>'right'</span>, <span>'bottom'</span>,
+  or <span>'left'</span>), is the value that would place the element's <span>margin edge</span> on
+  the side that corresponds to <var>subject</var>'s parent's <span>block-start</span> side as far
+  from the same-side edge of the <span>viewport</span> as the element's opposing side <span>margin
+  edge</span> from that same-side edge of the <span>viewport</span>, if the element's dimension
+  (<span>'width'</span> or <span>'height'</span>) in <var>subject</var>'s parent's <span>block flow
+  direction</span> is less than the same-axis dimension of the <span>viewport</span>, and otherwise
+  is the value that would place the element's <span>margin edge</span> on the side that corresponds
+  to <var>subject</var>'s parent's <span>block-start</span> side at the same-side edge of the
   <span>viewport</span>.</p>
 
   <p>If there is a <code>dialog</code> element with <span>centered alignment</span> and that is
   <span>being rendered</span> when its <span>browsing context</span> changes <span>viewport</span>
-  width (as measured in <span data-x="'px'">CSS pixels</span>), then the user agent must recreate
-  the element's boxes, recalculating its top static position as in the previous paragraph.</p>
+  dimensions (as measured in <span data-x="'px'">CSS pixels</span>), or when this
+  <code>dialog</code> element's parent changes <span>block flow direction</span>, then the user
+  agent must recreate the element's boxes, recalculating its edge that corresponds to this
+  <code>dialog</code> element's parent's <span>block-start</span> edge as in the previous
+  paragraph.</p>
 
-  <p>This top static position of a <code>dialog</code> element with <span>centered alignment</span>
-  must remain the element's top static position until its boxes are recreated. (The element's static
-  position is only used in calculating the <span>used value</span> of the <span>'top'</span>
-  property in certain situations; it's not used, for instance, to position the element if its
-  <span>'position'</span> property is set to 'static'.)</p>
+  <p>This static position of a <code>dialog</code> element's edge with <span>centered
+  alignment</span> must remain the element's static position of that edge until its boxes are
+  recreated. (The element's static position is only used in calculating the <span>used value</span>
+  of the appropriate box offset property (<span>'top'</span>, <span>'right'</span>,
+  <span>'bottom'</span>, or <span>'left'</span>) in certain situations; it's not used, for instance,
+  to position the element if its <span>'position'</span> property is set to
+  <span>'static'</span>.)</p>
 
   <p>User agents in visual interactive media should allow the user to pan the <span>viewport</span>
   to access all parts of a <code>dialog</code> element's <span>border box</span>, even if the
   element is larger than the <span>viewport</span> and the <span>viewport</span> would otherwise not
   have a scroll mechanism (e.g. because the <span>viewport</span>'s <span>'overflow'</span> property
-  is set to 'hidden').</p>
+  is set to <span>'hidden'</span>).</p>
 
   <hr>
 
-<!--TOPIC:DOM APIs-->
   <p>The <dfn><code data-x="dom-dialog-open">open</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-dialog-open">open</code> content attribute.</p>
-<!--TOPIC:HTML-->
 
   </div>
 

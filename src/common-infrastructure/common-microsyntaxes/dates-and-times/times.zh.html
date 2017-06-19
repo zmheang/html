@@ -1,0 +1,135 @@
+  <h5>时间</h5>
+
+  <p><dfn data-x="concept-time">时间</dfn> 由一个没有时区信息的特定时间组成。
+  包含小时、分钟、秒，以及秒的小数。</p>
+
+  <p>
+  <var>hour</var> 时 <var>minute</var> 分 <var>second</var> 秒的
+  <dfn data-x="valid time string">合法的时间字符串</dfn>
+  由以下有序的几部分组成：</p>
+
+  <ol>
+
+   <li>表示 <var>hour</var> 的两个 <span data-x="ASCII digits">ASCII 数字</span>，
+   在 0&nbsp;&le;&nbsp;<var>hour</var>&nbsp;&le;&nbsp;23 范围内</li>
+
+   <li>一个 U+003A COLON 字符 （:）</li>
+
+   <li>表示 <var>minute</var> 的两个 <span data-x="ASCII digits">ASCII 数字</span>，
+   在 0&nbsp;&le;&nbsp;<var>minute</var>&nbsp;&le;&nbsp;59 范围内</li>
+
+   <li>如果 <var>second</var> 不是零（是零也合法）：
+
+    <ol>
+
+     <li>一个 U+003A COLON 字符（:）</li>
+
+     <li>表示 <var>second</var> 的两个 <span data-x="ASCII digits">ASCII 数字</span>，
+     在 0&nbsp;&le;&nbsp;<var>second</var>&nbsp;&le;&nbsp;59 范围内</li>
+
+     <li>如果 <var>second</var> 不是整数（是整数也合法）：
+
+      <ol>
+
+       <li>一个 U+002E FULL STOP 字符（.）</li>
+
+       <li>表示 <var>second</var> 的一到三个 <span data-x="ASCII digits">ASCII 数字</span></li>
+
+      </ol>
+
+     </li>
+
+    </ol>
+
+   </li>
+
+  </ol>
+
+  <p class="note"><var>second</var> 部分不可以是 60 或 61；闰秒无法表示。</p>
+
+  <div w-nodev>
+
+  <p><dfn data-x="parse a time string">解析时间字符串</dfn> 的规则如下。将会返回一个时间或者什么都不返回。
+  如果算法的任何一个点说它 "失败了"，这意味着它在那一点退出并什么都不返回。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为待解析字符串。</p></li>
+
+   <li><p>令<var>position</var> 为 <var>input</var> 内的指针初始指向字符串开始。</p></li>
+
+   <li><p><span data-x="Parse a time component">解析时间部分</span> 来获得 <var>hour</var>，<var>minute</var> 和 <var>second</var>。
+   如果它没有返回，则失败。</p>
+
+   <li><p>如果 <var>position</var> <em>没有</em> 超出 <var>input</var> 的结尾，则失败。</p></li>
+
+   <li><p>令<var>time</var> 的时分秒分别为 <var>hour</var>，<var>minute</var>，<var>second</var>。</p></li>
+
+   <li><p>返回 <var>time</var>。</p></li>
+
+  </ol>
+
+  <p>给定 <var>input</var> 字符串和位置 <var>position</var>，
+  <dfn data-x="parse a time component">解析时间部分</dfn> 的规则如下。
+  将返回时、分、秒，或者什么都不返回。
+  如果算法的任何一个点说它 "失败了"，这意味着它在那一点退出并什么都不返回。</p>
+
+  <ol>
+
+   <li><p>从 <var>input</var> 中给定的位置 <var>position</var>
+   <span data-x="Collect a sequence of code points">收集</span> <span data-x="ASCII digits">ASCII 数字</span>
+   组成的代码点序列。 如果收集到的序列不是恰好 2 个字符则失败。
+   否则将结果序列解释为 10 进制整数。令那个数为 <var>hour</var>。</p></li>
+
+   <li><p>如果 <var>hour</var> 不是 0&nbsp;&le;&nbsp;<var>hour</var>&nbsp;&le;&nbsp;23 范围内的数字就失败。</p></li>
+
+   <li><p>如果 <var>position</var> 超出了 <var>input</var> 的末尾或者
+   <var>position</var> 处的字符不是 U+003A COLON 字符，则失败。
+   否则将 <var>position</var> 前进一个字符。</p></li>
+
+   <li><p>从 <var>input</var> 中给定的位置 <var>position</var>
+   <span data-x="Collect a sequence of code points">收集</span> <span data-x="ASCII digits">ASCII 数字</span>
+   组成的代码点序列。 如果收集到的序列不是恰好 2 个字符则失败。
+   否则将结果序列解释为 10 进制整数。令那个数为 <var>minute</var>。</p></li>
+
+   <li><p>如果 <var>minute</var> 不是 0&nbsp;&le;&nbsp;<var>minute</var>&nbsp;&le;&nbsp;59 范围内的数字就失败。</p></li>
+
+   <li><p>令<var>second</var> 为 0。</p></li>
+
+   <li>
+
+    <p>如果 <var>position</var> 没有超出 <var>input</var> 的末尾并且
+    <var>position</var> 处的字符是 U+003A（:），则：
+
+    <ol>
+
+     <li><p>将 <var>position</var> 前进一个字符。</p></li>
+
+
+     <li><p>如果 <var>position</var> 恰好位于或者超出了 <var>input</var> 的末尾，
+     或者 <var>input</var> 中从 <var>position</var> 开始的 <em>两个</em> 字符不都是
+     <span data-x="ASCII digits">ASCII 数字</span>，则失败。</p></li>
+
+     <li><p>从 <var>input</var> 中给定的位置 <var>position</var>
+     <span data-x="Collect a sequence of code points">收集</span>
+     <span data-x="ASCII digits">ASCII 数字</span> 或 U+002E FULL STOP 字符
+     组成的代码点序列。 如果收集到的序列长度为 3，
+     或者长度大于 3 且第 3 个字符不是 U+002E FULL STOP 字符，
+     或者有多于一个的 U+002E FULL STOP 字符，则失败。
+     否则将结果序列解释为 10 进制数（可能有小数部分）。
+     将 <var>second</var> 设置为那个数字。</p></li>
+
+     <li><p>如果 <var>second</var> 不是
+     0&nbsp;&le;&nbsp;<var>second</var>&nbsp;&lt;&nbsp;60 范围内的数字就失败。</p></li>
+
+    </ol>
+
+   </li>
+
+   <li><p>返回 <var>hour</var>，<var>minute</var> 和 <var>second</var>。</p></li>
+
+  </ol>
+
+  </div>
+
+

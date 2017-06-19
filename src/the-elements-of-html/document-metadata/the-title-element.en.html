@@ -9,14 +9,14 @@
    <dd><span data-x="text content">Text</span> that is not <span>inter-element whitespace</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
-   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt><!--TOPIC:DOM APIs-->
+   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
     <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLTitleElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-title-text">text</span>;
 };</pre>
    </dd>
-  </dl><!--TOPIC:HTML-->
+  </dl>
 
   <p>The <code>title</code> element <span>represents</span> the document's title or name. Authors
   should use titles that identify their documents even when they are used out of context, for
@@ -30,7 +30,6 @@ interface <dfn>HTMLTitleElement</dfn> : <span>HTMLElement</span> {
   <code>title</code> element is probably not required. See the <code>head</code> element's content
   model for a description of when the element is required.</p>
 
-<!--TOPIC:DOM APIs-->
   <dl class="domintro">
 
    <dt><var>title</var> . <code subdfn data-x="dom-title-text">text</code> [ = <var>value</var> ]</dt>
@@ -52,7 +51,6 @@ interface <dfn>HTMLTitleElement</dfn> : <span>HTMLElement</span> {
   same way as the <code>textContent</code> IDL attribute.</p>
 
   </div>
-<!--TOPIC:HTML-->
 
   <div class="example">
 

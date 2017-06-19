@@ -1,10 +1,10 @@
   <h4 id="worker-event-loop">事件循环</h4>
 
   <p>每个 <code>WorkerGlobalScope</code> 对象有一个单独的 <span data-x="event loop">事件循环</span>，
-  与 <span data-x="unit of related similar-origin browsing contexts">相关的相似源浏览上下文单元</span>
+  与 <span data-x="unit of related similar-origin browsing contexts">相关的相似源浏览环境单元</span>
   使用的那些事件循环相分离。
   该 <span data-x="event loop">事件循环</span> 没有与之关联的
-  <span data-x="browsing context">浏览上下文</span>，
+  <span data-x="browsing context">浏览环境</span>，
   它的 <span data-x="task queue">任务队列</span> 只有事件、回调，以及网络活动
   <span data-x="concept-task">任务</span>。
   这些 <span data-x="event loop">事件循环</span> 由 <span data-x="run a worker">运行 Worker</span>

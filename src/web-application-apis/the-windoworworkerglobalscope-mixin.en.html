@@ -30,12 +30,6 @@ interface <dfn>WindowOrWorkerGlobalScope</dfn> {
 <span>Window</span> implements <span>WindowOrWorkerGlobalScope</span>;
 <span>WorkerGlobalScope</span> implements <span>WindowOrWorkerGlobalScope</span>;</pre>
 
-  <!-- Demonstrating the need for wrapping of the timeout argument value treated as long rather than clamping or treating as double:
-          https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1228
-       Demonstrating the need for the timeout argument to be signed rather than unsigned:
-          https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1229
-  -->
-
   <dl class="domintro">
    <dt><var>origin</var> = self . <code subdfn data-x="dom-origin">origin</code></dt>
 
@@ -61,7 +55,7 @@ document.body.appendChild(frame)</pre>
 
   <p>The <dfn data-x="dom-origin"><code>origin</code></dfn> attribute's getter must return this
   object's <span>relevant settings object</span>'s <span
-  data-x="concept-settings-object-origin">origin</span>, <span data-x="Unicode serialization of an
+  data-x="concept-settings-object-origin">origin</span>, <span data-x="serialization of an
   origin">serialized</span>.</p>
 
 

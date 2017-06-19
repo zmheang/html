@@ -34,5 +34,7 @@
 
   <p>Several of these requirements are checked during <span data-x="create an element">element
   creation</span>, either directly or indirectly, and failing to follow them will result in a custom
-  element that cannot be instantiated by the parser or DOM APIs.</p>
+  element that cannot be instantiated by the parser or DOM APIs. This is true even if the work is
+  done inside a constructor-initiated <span>microtask</span>, as a <span data-x="perform a microtask
+  checkpoint">microtask checkpoint</span> can occur immediately after construction.</p>
 

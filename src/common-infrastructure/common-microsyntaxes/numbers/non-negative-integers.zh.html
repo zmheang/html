@@ -1,0 +1,37 @@
+  <h5>非负整数</h5>
+
+  <p>由一个或更多 <span data-x="ASCII digits">ASCII 数字</span> 组成的字符串就是
+  <dfn data-x="valid non-negative integer">合法的非负整数</dfn>
+  。</p>
+
+  <p>
+  <span data-x="valid non-negative integer">合法的非负整数</span>
+  表示该数字字符串以10为基所表示的数字。</p>
+
+  <div w-nodev>
+
+  <p><dfn data-x="rules for parsing non-negative integers">解析非负整数的规则</dfn>
+  由以下算法给出，被调用时该算法必须按顺序执行以下步骤，在第一个有返回值的步骤中止。
+  该算法将返回 0，正整数或者错误。</p>
+
+  <ol>
+
+   <li><p>令 <var>input</var> 为被解析的字符串。</p></li>
+
+   <li><p>令 <var>value</var> 为使用
+   <span data-x="rules for parsing integers">解析整数的规则</span>
+   解析 <var>input</var> 的结果。</p></li>
+
+   <li><p>如果 <var>value</var> 是一个错误, 返回一个错误。</p></li>
+
+   <li><p>如果 <var>value</var> 小于零, 返回一个错误。</p></li>
+
+   <li><p>返回 <var>value</var>。</p></li>
+
+  </ol>
+
+  <!-- Implications: A leading + is ignored. A leading - is ignored if the value is zero. -->
+
+  </div>
+
+

@@ -1,0 +1,80 @@
+  <h5>模糊的时间</h5>
+
+  <p><dfn data-x="valid date string with optional time">合法的可选时间的日期字符串</dfn>
+  是下列中的一种：</p>
+
+  <ul>
+
+   <li><span data-x="valid date string">合法的日期字符串</span></li>
+
+   <li><span data-x="valid global date and time string">合法的全球日期与时间字符串</span></li>
+
+  </ul>
+
+  <div w-nodev>
+
+  <hr>
+
+  <p><dfn data-x="parse a date or time string">解析日期或时间字符串</dfn> 的规则如下。
+  该算法将会返回一个 <span data-x="concept-date">date</span>，<span data-x="concept-time">time</span>，或 <span
+  data-x="concept-datetime">全球日期和时间</span> 或者什么都不返回。
+  如果算法的任何一个点说它 "失败了"，这意味着它在那一点退出并什么都不返回。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为待解析字符串。</p></li>
+
+   <li><p>令<var>position</var> 为 <var>input</var> 内的指针初始指向字符串开始。</p></li>
+
+   <li><p>将 <var>start position</var> 设置为 <var>position</var>。</p></li>
+
+   <li><p>将 <var>date present</var> 和 <var>time present</var> 标志设置为 true。</p></li>
+
+   <li><p><span data-x="Parse a date component">解析日期部分</span> 来获得 <var>year</var>，<var>month</var> 和 <var>day</var>。
+   如果它没有返回，设置 <var>date present</var> 为 false。</p>
+
+   <li>
+
+    <p>如果 <var>date present</var> 为 true，且 <var>position</var> 没有越过 <var>input</var> 的末尾，
+    且 <var>position</var> 处的字符是 U+0054 LATIN CAPITAL LETTER T 字符 （T）或 U+0020 SPACE 字符，
+    将 <var>position</var> 前进到 <var>input</var> 的下一个字符。</p>
+
+    <p>否则，如果 <var>date present</var> 为 true，并且 <var>position</var> 越过了 <var>input</var> 的末尾或
+    <var>position</var> 处的字符既不是 U+0054 LATIN CAPITAL LETTER T 字符 （T）也不是 U+0020 SPACE 字符，
+    则设置 <var>time present</var> 为 false。</p>
+
+    <p>否则，如果 <var>date present</var> 为 false，将 <var>position</var> 设置回 <var>start position</var>。</p>
+
+   </li>
+
+   <li><p>如果 <var>time present</var> 为 true，则 <span data-x="Parse a time component">解析时间部分</span>
+   来获得 <var>hour</var>，<var>minute</var> 和 <var>second</var>。 如果它没有返回，则失败。</p>
+
+   <li><p>如果 <var>date present</var> 和 <var>time present</var> 标志都是 true，
+   但 <var>position</var> 越过了 <var>input</var> 的末尾，则失败。</p></li>
+
+   <li><p>如果 <var>date present</var> 和 <var>time present</var> 标志都是 true，
+   <span data-x="Parse a time-zone offset component">解析时区偏移部分</span> 来获得
+   <var>timezone<sub>hours</sub></var> 和 <var>timezone<sub>minutes</sub></var>。如果它没有返回则失败。</p>
+
+   <li><p>如果 <var>position</var> <em>没有</em> 越过 <var>input</var> 的结尾，则失败。</p></li>
+
+   <li>
+
+    <p>如果 <var>date present</var> 标志为 true 且 <var>time present</var> 标志为 false，
+    则令 <var>date</var> 为年与日分别为 <var>year</var>，<var>month</var>，<var>day</var> 的日期并返回 <var>date</var>。</p>
+    <p>否则，如果 <var>time present</var> 标志为 true 且 <var>date present</var> 标志为 false，
+    则令 <var>time</var> 为时分秒分别为 <var>hour</var>，<var>minute</var>，<var>second</var> 的时间并返回 <var>time</var>。</p>
+
+    <p>否则，令 <var>time</var> 为 <var>year</var> 年 <var>month</var> 月 <var>day</var> 日 <var>hour</var> 时m<var>minute</var> 分 <var>second</var> 秒，
+    减去 <var>timezone<sub>hours</sub></var> 小时 <var>timezone<sub>minutes</sub></var>分钟，这一时刻是 UTC 时区的时间；
+    令 <var>timezone</var> 距离 UTC <var>timezone<sub>hours</sub></var> 小时 <var>timezone<sub>minutes</sub></var> 分钟；
+    返回 <var>time</var> 和 <var>timezone</var>。</p>
+
+   </li>
+
+  </ol>
+
+  </div>
+
+

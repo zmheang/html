@@ -19,26 +19,28 @@
    <span data-x="concept-ID">ID</span> <var>ID</var>, then add the first such element to
    <var>pending</var>.</p></li>
 
-   <li><p><i>Loop</i>: If <var>pending</var> is empty, jump to the step labeled <i>end of
-   loop</i>.</p></li>
+   <li>
+    <p>While <var>pending</var> is not empty:</p>
 
-   <li><p>Remove an element from <var>pending</var> and let <var>current</var> be
-   that element.</p></li>
+    <ol>
+     <li><p>Remove an element from <var>pending</var> and let <var>current</var> be that
+     element.</p></li>
 
-   <li><p>If <var>current</var> is already in <var>memory</var>, there is a
-   <span>microdata error</span>; return to the step labeled <i>loop</i>.</p></li>
+     <li><p>If <var>current</var> is already in <var>memory</var>, there is a
+     <span>microdata error</span>; continue.</p></li>
 
-   <li><p>Add <var>current</var> to <var>memory</var>.</p></li>
+     <li><p>Add <var>current</var> to <var>memory</var>.</p></li>
 
-   <li><p>If <var>current</var> does not have an <code
-   data-x="attr-itemscope">itemscope</code> attribute, then: add all the child elements of <var>current</var> to <var>pending</var>.</p></li>
+     <li><p>If <var>current</var> does not have an <code data-x="attr-itemscope">itemscope</code>
+     attribute, then: add all the child elements of <var>current</var> to
+     <var>pending</var>.</p></li>
 
-   <li><p>If <var>current</var> has an <code data-x="attr-itemprop">itemprop</code>
-   attribute specified and has one or more <span>property names</span>, then add <var>current</var> to <var>results</var>.</p></li>
+     <li><p>If <var>current</var> has an <code data-x="attr-itemprop">itemprop</code> attribute
+     specified and has one or more <span>property names</span>, then add <var>current</var> to
+     <var>results</var>.</p></li>
+    </ol>
 
-   <li><p>Return to the step labeled <i>loop</i>.</p></li>
-
-   <li><p><i>End of loop</i>: Sort <var>results</var> in <span>tree order</span>.</p></li>
+   <li><p>Sort <var>results</var> in <span>tree order</span>.</p></li>
 
    <li><p>Return <var>results</var>.</p></li>
 

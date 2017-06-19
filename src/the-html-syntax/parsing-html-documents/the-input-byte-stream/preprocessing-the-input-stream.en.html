@@ -3,18 +3,21 @@
   <p>The <dfn>input stream</dfn> consists of the characters pushed into it as the <span>input byte
   stream</span> is decoded or from the various APIs that directly manipulate the input stream.</p>
 
-  <p>Any occurrences of any characters in the ranges U+0001 to U+0008, <!-- HT, LF allowed --> <!--
-  U+000B is in the next list --> <!-- FF, CR allowed --> U+000E to U+001F, <!-- ASCII allowed -->
-  U+007F <!--to U+0084, (U+0085 NEL not allowed), U+0086--> to U+009F, U+FDD0 to U+FDEF, and
-  characters U+000B, U+FFFE, U+FFFF, U+1FFFE, U+1FFFF, U+2FFFE, U+2FFFF, U+3FFFE, U+3FFFF, U+4FFFE,
-  U+4FFFF, U+5FFFE, U+5FFFF, U+6FFFE, U+6FFFF, U+7FFFE, U+7FFFF, U+8FFFE, U+8FFFF, U+9FFFE, U+9FFFF,
-  U+AFFFE, U+AFFFF, U+BFFFE, U+BFFFF, U+CFFFE, U+CFFFF, U+DFFFE, U+DFFFF, U+EFFFE, U+EFFFF, U+FFFFE,
-  U+FFFFF, U+10FFFE, and U+10FFFF are <span data-x="parse error">parse errors</span>. These are all
-  <span>control characters</span> or permanently undefined Unicode characters (noncharacters).</p>
+  <p>Any occurrences of <span data-x="surrogate">surrogates</span> are <span
+  data-x="parse-error-surrogate-in-input-stream">surrogate-in-input-stream</span>
+  <span data-x="parse error">parse errors</span>. Any occurrences of <span
+  data-x="noncharacter">noncharacters</span> are <span
+  data-x="parse-error-noncharacter-in-input-stream">noncharacter-in-input-stream</span>
+  <span data-x="parse error">parse errors</span> and any occurrences of <span
+  data-x="control">controls</span> other than <span>ASCII whitespace</span> and U+0000 NULL
+  characters are <span
+  data-x="parse-error-control-character-in-input-stream">control-character-in-input-stream</span>
+  <span data-x="parse error">parse errors</span>.</p>
 
-  <p>Any <span>character</span> that is a not a <span>Unicode character</span>, i.e. any isolated
-  surrogate, is a <span>parse error</span>. (These can only find their way into the input stream via
-  script APIs such as <code data-x="dom-document-write">document.write()</code>.)</p>
+  <p class="note">The handling of U+0000 NULL characters varies based on where the characters are
+  found and happens at the later stages of the parsing. In general, they are ignored except where
+  doing so could plausibly introduce an attack vector. This handling is, by necessity, spread across
+  both the tokenization stage and the tree construction stage.</p>
 
   <p>U+000D CARRIAGE RETURN (CR) characters and U+000A LINE FEED (LF) characters are treated
   specially. Any LF character that immediately follows a CR character must be ignored, and all CR
@@ -40,11 +43,6 @@
   the <code data-x="dom-document-close">document.close()</code> method) is consumed. Otherwise, the
   "EOF" character is not a real character in the stream, but rather the lack of any further
   characters.</p>
-
-  <p class="note">The handling of U+0000 NULL characters varies based on where the characters are
-  found. In general, they are ignored except where doing so could plausibly introduce an attack
-  vector. This handling is, by necessity, spread across both the tokenization stage and the tree
-  construction stage.</p>
 
   </div>
 

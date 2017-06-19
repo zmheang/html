@@ -11,12 +11,12 @@
    <dd>Or: One or more <code>div</code> elements, optionally intermixed with <span>script-supporting elements</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
-   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt><!--TOPIC:DOM APIs-->
+   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
     <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLDListElement</dfn> : <span>HTMLElement</span> {};</pre>
    </dd>
-  </dl><!--TOPIC:HTML-->
+  </dl>
 
   <p>The <code>dl</code> element <span>represents</span> an association list consisting of zero or
   more name-value groups (a description list). A name-value group consists of one or more names
@@ -59,17 +59,17 @@ interface <dfn>HTMLDListElement</dfn> : <span>HTMLElement</span> {};</pre>
    <li><p>Let <var>grandchild</var> be null.</p></li>
 
    <li>
-    <p>While <var>child</var> is not null, follow these substeps:</p>
+    <p>While <var>child</var> is not null:</p>
 
     <ol>
      <li>
-      <p>If <var>child</var> is a <code>div</code> element, then follow these subsubsteps:</p>
+      <p>If <var>child</var> is a <code>div</code> element, then:</p>
 
       <ol>
        <li><p>Let <var>grandchild</var> be <var>child</var>'s <span>first child</span>.</p></li>
 
        <li>
-        <p>While <var>grandchild</var> is not null, follow these subsubsubsteps:</p>
+        <p>While <var>grandchild</var> is not null:</p>
 
         <ol>
          <li><p><span>Process <code>dt</code> or <code>dd</code></span> for
@@ -103,7 +103,7 @@ interface <dfn>HTMLDListElement</dfn> : <span>HTMLElement</span> {};</pre>
    those of the same name in the algorithm that invoked these steps.</p></li>
 
    <li>
-    <p>If <var>node</var> is a <code>dt</code> element, then follow these substeps:</p>
+    <p>If <var>node</var> is a <code>dt</code> element, then:</p>
 
     <ol>
      <li><p>If <var>seenDd</var> is true, then append <var>current</var> to <var>groups</var>, set

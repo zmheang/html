@@ -1,0 +1,242 @@
+  <h5>浮点数</h5>
+
+  <p><dfn data-x="valid floating-point number">合法的浮点数</dfn> 这样构成：</p>
+
+  <ol class="brief">
+
+   <li>一个可选的 U+002D HYPHEN-MINUS 字符（-）。</li>
+
+   <li>下面的其中一个或者依次的两个：
+
+    <ol>
+
+     <li>一个或更多 <span data-x="ASCII digits">ASCII 数字</span> 组成的序列。</li>
+
+     <li>依次出现：
+
+      <ol>
+
+       <li>单个 U+002E FULL STOP 字符（.）。</li>
+
+       <li>一个或更多 <span data-x="ASCII digits">ASCII 数字</span> 组成的序列。</li>
+
+      </ol>
+
+     </li>
+
+    </ol>
+
+   </li>
+
+   <li>可选地：
+
+    <ol>
+
+     <li>一个 U+0065 LATIN SMALL LETTER E 字符（e）或 U+0045 LATIN CAPITAL LETTER E
+     字符（E）。</li>
+
+     <li>可选地，一个 U+002D HYPHEN-MINUS 字符（-） 或 U+002B PLUS SIGN 字符 （+）。</li>
+
+     <li>一个或更多 <span data-x="ASCII digits">ASCII 数字</span> 组成的序列。</li>
+
+    </ol>
+
+   </li>
+
+  </ol>
+
+  <p><span data-x="valid floating-point number">合法的浮点数</span> 表示将有效数乘以10的指数。
+  其中有效数是第一个数字，按十进制解析（包括小数点和小数点后的数字，如果后面有的话）
+  如果整个字符串以 U+002D HYPHEN-MINUS character （-）字符开始且该数字不为零的话，
+  将有效数解析为负数。
+  其中指数是 E 后面的数字（如果有的话），如果在 E 和该数字之间有一个 U+002D HYPHEN-MINUS 字符（-）
+  且该数字不为零的话，解析为负数，如果在 E 和该数字之间有一个 U+002B PLUS SIGN 字符（+）的话忽略该字符。
+  如果没有 E，指数当做零来处理。</p>
+
+  <p class="note">Infinity 和 Not-a-Number （NaN）值不是
+  <span data-x="valid floating-point number">合法的浮点数</span>
+  。</p>
+
+  <div w-nodev>
+
+  <p class="note">典型地，
+  <span data-x="valid floating-point number">合法的浮点数</span>
+  的概念只用于限制作者，对用户代理的要求采用下面的
+  <span data-x="rules for parsing floating-point number values">解析浮点数值的规则</span>
+  （例如，<code>progress</code> 元素的 <code data-x="attr-progress-max">max</code> 属性）。
+  然而，在某些情况下要求用户代理检查字符串是否是
+  <span data-x="valid floating-point number">合法的浮点数</span>（例如，
+  <span data-x="attr-input-type-number">Number</span> 状态的 <code>input</code> 元素的
+  <span data-x="value sanitization algorithm">值清理算法</span>，或者
+  <span data-x="parse a srcset attribute">解析 srcset 属性</span> 算法）。</p>
+
+  <p><dfn data-x="best representation of the number as a floating-point number">
+  浮点数的最佳表示 <var>n</var></dfn> 是
+  运行 <span>ToString</span>（<var>n</var>）得到的字符串。
+  <span>ToString</span> 抽象方法不是唯一确定的。如果在特定的值上运行 <span>ToString</span>
+  可能得到多个字符串，用户代理必须对那个值总是返回同样的字符串
+  （虽然它可能和其他用户代理使用的值不同）。</p>
+
+  <p><dfn data-export="" data-x="rules for parsing floating-point number values">
+  解析浮点数值的规则</dfn> 由以下算法给出。
+  该算法必须在第一个有返回值的步骤中止。
+  该算法将会返回一个数字或者错误。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为被解析的字符串。</p></li>
+
+   <li><p>令<var>position</var> 为 <var>input</var> 内的指针，初始指向字符串的开始。</p></li>
+
+   <li><p>令<var>value</var> 的值为 1。</li>
+
+   <li><p>令<var>divisor</var> 的值为 1。</p></li>
+
+   <li><p>令<var>exponent</var> 的值为 1。</p></li>
+
+   <li><p><span data-x="Skip ASCII whitespace">跳过</span> <var>input</var> 中的 ASCII 空格，得到 <var>position</var>。</p></li>
+
+   <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，返回一个错误。</p></li>
+
+   <li>
+
+    <p>如果 <var>position</var> 处的（第一个）字符是一个 U+002D HYPHEN-MINUS 字符 （-）:</p>
+
+    <ol>
+
+     <li>将 <var>value</var> 和 <var>divisor</var> 改为 &#x2212;1。</li>
+
+     <li>将 <var>position</var> 前进到下一个字符。</li>
+
+     <li>如果 <var>position</var> 越过了 <var>input</var> 的末尾，返回一个错误。</li>
+
+    </ol>
+
+    <p>否则，如果 <var>position</var> 处的（第一个）字符是一个 U+002B PLUS SIGN 字符 （+）：</p>
+
+    <ol>
+
+     <li>将 <var>position</var> 前进到下一个字符。 （虽然 "<code data-x="">+</code>" 会被忽略但并不符合规范。）</li>
+
+     <li>如果 <var>position</var> 越过了 <var>input</var> 的末尾，返回一个错误。</li>
+
+    </ol>
+
+   </li>
+
+   <li><p>如果 <var>position</var> 处的字符是 U+002E FULL STOP （.），且不是
+   <var>input</var> 的最后一个字符，
+   而且 <var>position</var> 表示的字符的后一个字符是 <span data-x="ASCII digits">ASCII 数字</span>，
+   则将 <var>value</var> 设置为零并跳到 <i>fraction</i> 标记的步骤。</p> <!-- we have to check
+   there's a number so that ".e1" fails to parse but ".0" does not -->
+
+   <li><p>如果 <var>position</var> 处的数字不是 <span data-x="ASCII digits">ASCII 数字</span>，
+   则返回一个错误。</p></li>
+
+   <li><p>从 <var>input</var> 的给定 <var>position</var>
+     <span data-x="Collect a sequence of code points">收集</span>
+     是 <span data-x="ASCII digits">ASCII 数字</span> 的代码点序列，将得到的序列解释为以10为基的整数。
+     将 <var>value</var> 乘以该整数。</p></li>
+
+   <li>如果 <var>position</var> 越过了 <var>input</var> 的末尾，跳到标记为 <i>conversion</i> 的步骤。</li>
+
+   <li><p><i>Fraction</i>：如果 <var>position</var> 处的数字是 U+002E FULL STOP （.），运行以下子步骤：</p>
+
+    <ol>
+
+     <li><p>将 <var>position</var> 前进到下一个字符。</p></li>
+
+     <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾或者不是
+     <span data-x="ASCII digits">ASCII 数字</span>、
+     U+0065 LATIN SMALL LETTER E （e），或 U+0045 LATIN CAPITAL LETTER E （E），
+     跳到 <i>conversion</i> 标记的步骤。</li>
+
+     <li><p>如果 <var>position</var> 处的字符是 U+0065 LATIN SMALL LETTER E character （e）或
+     U+0045 LATIN CAPITAL LETTER E 字符（E），跳过下面的子步骤。</p>
+
+     <li><p><i>Fraction loop</i>： 将 <var>divisor</var> 乘以 10。</p></li>
+
+     <li> 按照十进制（0..9）解释 <var>position</var> 处的字符，除以 <var>divisor</var>，
+       加到 <var>value</var> 上。</li>
+
+     <li><p>将 <var>position</var> 前进到下一个字符。</p></li>
+
+     <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，
+       跳到 <i>conversion</i> 标记的步骤。</li>
+
+     <li><p>如果 <var>position</var> 处的字符是 <span data-x="ASCII digits">ASCII 数字</span>，
+       跳回到 <i>fraction loop</i> 标记的子步骤。</p></li>
+
+    </ol>
+
+   </li>
+
+   <li><p>如果 <var>position</var> 处的字符是 U+0065 （e）或 U+0045 （E），则：</p>
+
+    <ol>
+
+     <li><p>将 <var>position</var> 前进到下一个字符。</p></li>
+
+     <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，跳到标记为
+     <i>conversion</i> 的步骤。</li>
+
+     <li>
+
+      <p>如果 <var>position</var> 处的字符是 U+002D HYPHEN-MINUS 字符（-）：</p>
+
+      <ol>
+
+       <li>将 <var>exponent</var> 设置为 &#x2212;1。</li>
+
+       <li>将 <var>position</var> 前进到下一个字符。</li>
+
+       <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，跳到标记为
+       <i>conversion</i> 的步骤。</li>
+
+      </ol>
+
+      <p>否则，如果 <var>position</var> 处的字符是 U+002B PLUS SIGN 字符（+）：</p>
+
+      <ol>
+
+       <li>将 <var>position</var> 前进到下一个字符。</li>
+
+       <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，跳到标记为
+       <i>conversion</i> 的步骤。</li>
+
+      </ol>
+
+     </li>
+
+     <li><p>如果 <var>position</var> 处的字符不是 <span data-x="ASCII
+     digits">ASCII 数字</span>，则跳到标记为 <i>conversion</i> 的步骤。</li>
+
+     <li><p>从 <var>input</var> 的给定 <var>position</var>
+     <span data-x="Collect a sequence of code points">收集</span>
+     是 <span data-x="ASCII digits">ASCII 数字</span> 的代码点序列，将得到的序列解释为以 10 为基的整数。
+     将 <var>exponent</var> 乘以该整数。</p></li>
+
+     <li><p>将 <var>value</var> 乘以 10 的 <var>exponent</var> 指数。</p></li>
+
+    </ol>
+
+   </li>
+
+   <li><p><i>Conversion</i>： 令<var>S</var> 为 IEEE 754 双精度浮点数值的有限集，
+   &#x2212;0 除外，但新增 2<sup>1024</sup> 和 &#x2212;2<sup>1024</sup> 两个值。</p></li>
+
+   <li><p>令<var>rounded-value</var> 为 <var>S</var> 最接近 <var>value</var> 的数字，
+   如果有两个同样接近的数值，则选择有效数为奇数的数字。
+   （在这个处理中，2<sup>1024</sup> 和 &#x2212;2<sup>1024</sup>
+   这两个特殊值应视为有奇数的有效数。）</p></li>
+
+   <li><p>如果 <var>rounded-value</var> 是 2<sup>1024</sup> 或 &#x2212;2<sup>1024</sup>，返回错误。</p></li>
+
+   <li><p>返回 <var>rounded-value</var>。</p></li>
+
+  </ol>
+
+  </div>
+
+
+<div w-nodev>

@@ -15,10 +15,15 @@
 
    <li><p><span>Prepare to run script</span> with <var>settings</var>.</p></li>
 
-   <li><p>Let <var>result</var> be <span
-   data-x="js-ParseScript">ParseScript</span>(<var>s</var>'s <span
-   data-x="concept-classic-script-source-text">source text</span>, <var>realm</var>,
-   <var>s</var>).</p></li>
+   <li>
+    <p>Let <var>result</var> be <span
+    data-x="js-ParseScript">ParseScript</span>(<var>s</var>'s <span
+    data-x="concept-classic-script-source-text">source text</span>, <var>realm</var>,
+    <var>s</var>).</p>
+
+    <p class="note">Passing <var>s</var> as the last parameter here ensures
+    <var>result</var>.[[HostDefined]] will be <var>s</var>.</p>
+   </li>
 
    <li><p>If <var>result</var> is a <span>List</span> of errors, set <var>result</var> to the first
    element of <var>result</var> and go to the step labeled <i>error</i>.</p></li>
@@ -70,14 +75,12 @@
    <li><p><span>Check if we can run script</span> with <var>settings</var>. If this returns "do
    not run" then abort these steps.</p></li>
 
-   <li><p>If <var>s</var>'s <span data-x="concept-module-script-instantiation-state">instantiation
-   state</span> is "<code data-x="">errored</code>", then <span>report the
-   exception</span> given by <var>s</var>'s <span
-   data-x="concept-module-script-instantiation-error">instantiation error</span> for <var>s</var>
-   and abort these steps.</p></li>
+   <li><p>If <var>s</var>'s <span data-x="concept-module-script-state">state</span> is "<code
+   data-x="">errored</code>", then <span>report the exception</span> given by <var>s</var>'s <span
+   data-x="concept-module-script-error">error</span> for <var>s</var> and abort these
+   steps.</p></li>
 
-   <li><p>Assert: <var>s</var>'s <span
-   data-x="concept-module-script-instantiation-state">instantiation state</span> is "<code
+   <li><p>Assert: <var>s</var>'s <span data-x="concept-module-script-state">state</span> is "<code
    data-x="">instantiated</code>" (and thus its <span
    data-x="concept-module-script-module-record">module record</span> is not null).</p></li>
 
@@ -91,13 +94,24 @@
     data-x="js-ModuleEvaluation">ModuleEvaluation</span>().</p>
 
     <p class="note">This step will recursively evaluate all of the module's dependencies.</p>
+
+    <p>If <span data-x="js-ModuleEvaluation">ModuleEvaluation</span> fails to complete as a result
+    of the user agent <span data-x="abort a running script">aborting the running script</span>, then
+    set <var>evaluationStatus</var> to Completion { [[Type]]: throw, [[Value]]: a new
+    <span>"<code>QuotaExceededError</code>"</span> <code>DOMException</code>, [[Target]]: empty }.
    </li>
 
-   <li><p>If <var>evaluationStatus</var> is an abrupt completion, then <span>report the
-   exception</span> given by <var>evaluationStatus</var>.[[Value]] for <var>s</var>. (Do not perform
-   this step if <span data-x="js-ModuleEvaluation">ModuleEvaluation</span> fails to complete as a
-   result of the user agent <span data-x="abort a running script">aborting the running
-   script</span>.)</p></li>
+   <li>
+    <p>If <var>evaluationStatus</var> is an abrupt completion, then:</p>
+
+    <ol>
+     <li><p><span data-x="error a module script">Error</span> <var>script</var> with
+     <var>evaluationStatus</var>.[[Value]].</p></li>
+
+     <li><p><span>Report the exception</span> given by <var>evaluationStatus</var>.[[Value]] for
+     <var>s</var>.</p>
+    </ol>
+   </li>
 
    <li><p><span>Clean up after running script</span> with <var>settings</var>.</p></li>
   </ol>
@@ -124,9 +138,6 @@
 
   <ol>
 
-   <li><p>Increment <var>settings</var>'s <span>realm execution context</span>'s <span>entrance
-   counter</span> by one.</p></li>
-
    <li><p>Push <var>settings</var>'s <span>realm execution context</span> onto the <span>JavaScript
    execution context stack</span>; it is now the <span>running JavaScript execution
    context</span>.</p></li>
@@ -143,9 +154,6 @@
 
    <li><p>Remove <var>settings</var>'s <span>realm execution context</span> from the
    <span>JavaScript execution context stack</span>.</p></li>
-
-   <li><p>Decrement <var>settings</var>'s <span>realm execution context</span>'s <span>entrance
-   counter</span> by one.</p></li>
 
    <li><p>If the <span>JavaScript execution context stack</span> is now empty, <span>perform a
    microtask checkpoint</span>. (If this runs scripts, these algorithms will be invoked

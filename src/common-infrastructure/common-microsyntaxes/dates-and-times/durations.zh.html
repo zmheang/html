@@ -1,0 +1,365 @@
+  <h5>时间间隔</h5>
+
+  <!-- if you add support for year and month durations，then search for MONTHS throughout the spec
+  （not just this section） for things that have to change -->
+
+  <p><dfn data-x="concept-duration">时间间隔</dfn> 由 <!--MONTHS： either a number of
+  months or--> 秒数构成。</p>
+
+  <p class="note">由于月和秒是不可比较的（一月没有精确的秒数，
+  它的长度取决于究竟从哪天算起），本标准中定义的 <span data-x="concept-duration">时间间隔</span>
+  不允许包含 <!--MONTHS： consist of a mixture of both--> 月（或者年，它等于12个月）。
+  时间间隔只能描述秒数。</p>
+
+  <p>表示 <span data-x="concept-duration">时间间隔</span> <var>t</var> 的
+  <dfn data-x="valid duration string">合法的时间间隔字符串</dfn> 的组成方式可以是下列任何一种：</p>
+
+  <ul>
+
+   <li>
+
+    <!-- The ISO format -->
+
+    <!-- NOTE： ISO durations also have a number of formats we do not
+         consider conforming：
+
+         - a "week" format （例如 P4W）。 This one is actually supported
+           by the parser。
+
+         - P<date>T<time>，with or without hyphens
+
+         - All these formats，with commas instead of periods for the
+           seconds decimal
+
+    -->
+
+    <p>字面量 U+0050 LATIN CAPITAL LETTER P 字符加一个或更多下列有序的子组件，
+    其中 <!--the number of years，if any，multiplied by twelve，
+    plus the number of months，if any，equals the number of months in <var>t</var>，if the
+    duration is in months; or，if it is in seconds，-->天、小时、分钟和秒的数量对应
+    <var>t</var> 中同样数量的秒：</p>
+
+    <ol>
+<!--MONTHS：
+     <li><p>一个或更多 <span data-x="ASCII digits">ASCII 数字</span> followed by a U+0059 LATIN CAPITAL LETTER Y
+     字符，representing a number of years。</p></li>
+
+     <li><p>一个或更多 <span data-x="ASCII digits">ASCII 数字</span> followed by a U+004D LATIN CAPITAL LETTER M
+     字符，representing a number of months。</p></li>
+-->
+
+     <li><p>一个或更多 <span data-x="ASCII digits">ASCII 数字</span> 加 U+0044 LATIN CAPITAL LETTER D
+     字符，表示天数。</p></li>
+
+     <li>
+
+      <p>一个 U+0054 LATIN CAPITAL LETTER T 字符加一个或更多下列子组件，按照给定的顺序：</p>
+
+      <ol>
+
+       <li><p>一个或更多 <span data-x="ASCII digits">ASCII 数字</span> 加一个 U+0048 LATIN CAPITAL LETTER H 字符，表示小时数。</p></li>
+
+       <li><p>一个或更多 <span data-x="ASCII digits">ASCII 数字</span> 加一个 U+004D LATIN CAPITAL LETTER M 字符，表示分钟数。</p></li>
+
+       <li>
+
+        <p>下列组件：</p>
+
+        <ol>
+
+         <li><p>一个或更多 <span data-x="ASCII digits">ASCII 数字</span>，表示秒数。</p></li>
+
+         <li><p>可选地，一个 U+002E FULL STOP 字符（.） 加一个、两个或三个 <span data-x="ASCII digits">ASCII 数字</span>，
+         表示秒的小数组件。</p></li>
+
+         <li><p>一个 U+0053 LATIN CAPITAL LETTER S 字符。</p></li>
+
+        </ol>
+
+       </li>
+
+      </ol>
+
+     </li>
+
+    </ol>
+
+    <p class="note">和本标准中定义的其他时间日期相关的微语法一样，时间间隔也基于 ISO 8601 中定义的一种格式。 <ref spec=ISO8601></p>
+
+   </li>
+
+   <li>
+
+    <p>一个或更多任意顺序的 <span data-x="duration time component">时间间隔组件</span>，
+    每个都有不同的 <span data-x="duration time component scale">时间间隔</span>；
+    它们表示的描述之和等于 <var>t</var> 中的秒数。</p>
+
+    <p><dfn data-x="duration time component">时间间隔组件</dfn> 是一个包含下列组件的字符串：</p>
+
+    <ol>
+
+     <li><p>零个或更多 <span data-x="ASCII whitespace">ASCII 空格</span>。</p></li>
+
+     <li><p>一个或更多 <span data-x="ASCII digits">ASCII 数字</span>，在
+     <span data-x="duration time component scale">单位倍数</span>（见下文）下的秒的数量。</p></li>
+
+     <li><p>如果 <span data-x="duration time component scale">倍数</span> 为 1 （即单位是秒），
+     则可以有一个 U+002E FULL STOP 字符（.）接着一个、两个或三个 <span data-x="ASCII digits">ASCII 数字</span>，
+     表示秒的小数组件。</p></li>
+
+     <li><p>零个或更多 <span data-x="ASCII whitespace">ASCII 空白</span>。</p></li>
+
+     <li>
+
+      <p>下面的字符之一，表示 <span data-x="duration time component">时间间隔组件</span>
+      的数字部分使用的时间单位的 <dfn data-x="duration time component scale">倍数</dfn>：</p>
+
+      <dl>
+
+       <dt>U+0057 LATIN CAPITAL LETTER W 字符</dt>
+       <dt>U+0077 LATIN SMALL LETTER W 字符</dt>
+
+       <dd>星期。倍数是 604800。</dd>
+
+       <dt>U+0044 LATIN CAPITAL LETTER D 字符</dt>
+       <dt>U+0064 LATIN SMALL LETTER D 字符</dt>
+
+       <dd>天。倍数是 86400。</dd>
+
+       <dt>U+0048 LATIN CAPITAL LETTER H 字符</dt>
+       <dt>U+0068 LATIN SMALL LETTER H 字符</dt>
+
+       <dd>小时。倍数是 3600。</dd>
+
+       <dt>U+004D LATIN CAPITAL LETTER M 字符</dt>
+       <dt>U+006D LATIN SMALL LETTER M 字符</dt>
+
+       <dd>分钟。倍数是 60。</dd>
+
+       <dt>U+0053 LATIN CAPITAL LETTER S 字符</dt>
+       <dt>U+0073 LATIN SMALL LETTER S 字符</dt>
+
+       <dd>秒。倍数是 1。</dd>
+
+      </dl>
+
+     </li>
+
+     <li><p>零个或更多 <span data-x="ASCII whitespace">ASCII 空格</span>。</p></li>
+
+    </ol>
+
+    <p class="note">这并不基于 ISO 8601 中的任何格式。这是为了提出一种比 ISO 8601 时间间隔格式更加人类可读的选择。</p>
+
+   </li>
+
+  </ul>
+
+  <div w-nodev>
+
+  <p><dfn data-x="parse a duration string">解析时间间隔字符串</dfn> 的规则如下。将会返回一个
+  <span data-x="concept-duration">时间间隔</span> 或者什么都不返回。
+  如果算法的任何一个点说它 "失败了"，这意味着它在那一点退出并什么都不返回。</p>
+
+  <ol>
+
+   <!--MONTHS： this algorithm actually already parses months adequately，though it would need
+   tweaking if we introduced a "mo" unit for the non-ISO variant。 See other "MONTHS" annotations
+   below。 -->
+
+   <li><p>令<var>input</var> 为待解析字符串。</p></li>
+
+   <li><p>令<var>position</var> 为 <var>input</var> 内的指针初始指向字符串开始。</p></li>
+
+   <li><p>令<var>months</var>，<var>seconds</var>，和 <var>component count</var> 均为零。</p></li>
+
+   <li>
+
+    <p>令<var>M-disambiguator</var> 为 <i>minutes</i>。</p>
+
+    <!--MONTHS： this note would change-->
+    <p class="note">该标志的另一个值是 <i>months</i>。它用来消除 ISO8601 时间间隔中 "M" 单位的歧义，
+    在 ISO8601 中月和分钟都使用这个单位。虽然月是不允许的，但为了向前兼容，
+    以及避免误解 ISO8601 时间间隔（在其他上下文中仍然是合法的），
+    仍然对月进行了解析。</p>
+
+   </li>
+
+   <li><p>从 <var>position</var> 开始 <span data-x="Skip ASCII whitespace">跳过</span> <var>input</var> 中的 ASCII 空格。</p></li>
+
+   <li><p>如果 <var>position</var> 越过了 <var>input</var> 的结尾，则失败。</p></li>
+
+   <li><p>如果 <var>position</var> 处的字符是一个 U+0050 LATIN CAPITAL LETTER P 字符，
+   则将 <var>position</var> 前进一个字符。将 <var>M-disambiguator</var> 设置为 <i>months</i>，
+   并从 <var>position</var> 开始 <span data-x="Skip ASCII whitespace">跳过</span> <var>input</var> 中的 ASCII 空格。</p></li>
+
+   <li>
+
+    <p>while true:</p>
+
+    <ol>
+
+     <li><p>令<var>units</var> 为 undefined。它的值可能是：
+     <i>years</i>，<i>months</i>，<i>weeks</i>，<i>days</i>，<i>hours</i>，<i>minutes</i>，或 <i>seconds</i>。</p></li>
+
+     <li><p>令<var>next character</var> 为 undefined。用来从 <var>input</var> 中处理字符。</p></li>
+
+     <li><p>如果 <var>position</var> 越过了 <var>input</var> 的结尾，则 break。</p></li>
+
+     <li><p>如果 <var>position</var> 处的字符是一个 U+0050 LATIN CAPITAL LETTER T 字符，
+     则将 <var>position</var> 前进一个字符。将 <var>M-disambiguator</var> 设置为 <i>minutes</i>，
+     并从 <var>position</var> 开始 <span data-x="Skip ASCII whitespace">跳过</span> <var>input</var> 中的 ASCII 空格。</p></li>
+
+     <li><p>将 <var>next character</var> 设置为 <var>input</var> 中 <var>position</var> 处的字符。</p></li>
+
+     <li>
+
+      <p>如果 <var>next character</var> 为一个 U+002E FULL STOP 字符 （.），则令 <var>N</var> 等于 0。
+      （不要前进 <var>position</var>。下面会处理它。）</p>
+
+      <p>否则，如果 <var>next character</var> 是一个 <span data-x="ASCII digits">ASCII 数字</span>，则从
+      <var>input</var> 中给定的位置 <var>position</var>
+      <span data-x="Collect a sequence of code points">收集</span> <span data-x="ASCII digits">ASCII 数字</span>
+      组成的代码点序列。将结果序列解释为 10 进制整数。令 <var>N</var> 为那个数字。</p>
+
+      <p>否则如果 <var>next character</var> 不是数字，则失败。</p>
+
+     </li>
+
+     <li><p>如果 <var>position</var> 越过了 <var>input</var> 的结尾，则 break。</p></li>
+
+     <li><p>将 <var>next character</var> 设置为 <var>input</var> 中 <var>position</var> 处的字符，
+     这次将 <var>position</var> 前进到下一字符。
+     （如果 <var>next character</var> 刚才是一个 U+002E FULL STOP 字符（.），它将仍然是那个字符。）</p></li>
+
+     <li>
+
+      <p>如果 <var>next character</var> 是 U+002E （.），则：</p>
+
+      <ol>
+
+       <li><p>从 <var>input</var> 中给定的位置 <var>position</var>
+       <span data-x="Collect a sequence of code points">收集</span> <span data-x="ASCII digits">ASCII 数字</span>
+       组成的代码点序列。令 <var>day</var> 为结果序列。</p></li>
+
+       <li><p>如果 <var>s</var> 是空字符串则失败。</p></li>
+
+       <li><p>令<var>length</var> 为 <var>s</var> 中的字符数。</p></li>
+
+       <li><p>令<var>fraction</var> 为将 <var>s</var> 解释为10进制数的结果，
+       把这个数除以 <span data-x="">10<sup><var>length</var></sup></span>。</li>
+
+       <li><p>将 <var>N</var> 增加 <var>fraction</var>。</p></li>
+
+       <li><p>从 <var>position</var> 开始 <span data-x="Skip ASCII whitespace">跳过</span> <var>input</var> 中的 ASCII 空格。</p></li>
+
+       <li><p>如果 <var>position</var> 越过了 <var>input</var> 的结尾，则失败。</p></li>
+
+       <li><p>将 <var>next character</var> 设为 <var>input</var> 中 <var>position</var> 指向的字符，
+       并将 <var>position</var> 前进到下一字符。</p></li>
+
+       <li><p>如果 <var>next character</var> 既不是 U+0053 LATIN CAPITAL LETTER S
+       字符也不是 U+0073 LATIN SMALL LETTER S 字符，则失败。</p></li>
+
+       <li><p>将 <var>units</var> 设为 <i>seconds</i>。</p></li>
+
+      </ol>
+
+      <p>否则：</p>
+
+      <ol>
+
+       <li><p>如果 <var>next character</var> 是 <span data-x="ASCII whitespace">ASCII 空格</span>，
+       那么从 <var>position</var> 开始 <span data-x="Skip ASCII whitespace">跳过</span> <var>input</var> 中的 ASCII 空格。
+       将 <var>next character</var> 设为 <var>input</var> 中 <var>position</var> 指向的字符，
+       并将 <var>position</var> 前进到下一字符。</p></li>
+
+
+       <li>
+
+        <!--MONTHS： this would probably be where we would add more
+        logic to support a new unit like 'mo' -->
+
+        <p>如果 <var>next character</var> 是一个 U+0059 LATIN CAPITAL LETTER Y 字符或
+        U+0079 LATIN SMALL LETTER Y 字符，将 <var>units</var> 设置为 <i>years</i> 并将
+        <var>M-disambiguator</var> 设置为 <i>months</i>。</p>
+
+        <p>如果 <var>next character</var> 是一个 U+004D LATIN CAPITAL LETTER M 字符或
+        U+006D LATIN SMALL LETTER M 字符，且 <var>M-disambiguator</var> 是
+        <i>months</i>，则将 <var>units</var> 设置为 <i>months</i>。</p>
+
+        <p>如果 <var>next character</var> 是一个 U+0057 LATIN CAPITAL LETTER W 或
+        U+0077 LATIN SMALL LETTER W 字符，将 <var>units</var> 设置为 <i>weeks</i> 并将
+        <var>M-disambiguator</var> 设置为 <i>minutes</i>。</p>
+
+        <p>如果 <var>next character</var> 是一个 U+0044 LATIN CAPITAL LETTER D 或
+        U+0064 LATIN SMALL LETTER D 字符，将 <var>units</var> 设置为 <i>days</i> 并将
+        <var>M-disambiguator</var> 设置为 <i>minutes</i>。</p>
+
+        <p>如果 <var>next character</var> 是一个 U+0048 LATIN CAPITAL LETTER H 或
+        U+0068 LATIN SMALL LETTER H 字符，将 <var>units</var> 设置为 <i>hours</i> 并将
+        <var>M-disambiguator</var> 设置为 <i>minutes</i>。</p>
+
+        <p>如果 <var>next character</var> 是一个 U+004D LATIN CAPITAL LETTER M 字符或
+        U+006D LATIN SMALL LETTER M 字符，且 <var>M-disambiguator</var> 是
+        <i>minutes</i>，则将 <var>units</var> 设置为 <i>minutes</i>。</p>
+
+        <p>如果 <var>next character</var> 是一个 U+0053 LATIN CAPITAL LETTER S 或
+        U+0073 LATIN SMALL LETTER S 字符，将 <var>units</var> 设置为 <i>seconds</i> 并将
+        <var>M-disambiguator</var> 设置为 <i>minutes</i>。</p>
+
+        <p>否则如果 <var>next character</var> 不是上述任何字符，则失败。</p>
+
+       </li>
+
+      </ol>
+
+     </li>
+
+     <li><p>递增 <var>component count</var>。</p></li>
+
+     <li><p>令<var>multiplier</var> 为 1。</p></li>
+
+     <li><p>如果 <var>units</var> 为 <i>years</i>，将 <var>multiplier</var> 乘以 12 并设置
+     <var>units</var> 为 <i>months</i>。</p></li>
+
+     <li>
+
+      <p>如果 <var>units</var> 为 <i>months</i>，把 <var>N</var> 与 <var>multiplier</var> 的乘积加到 <var>months</var> 上。</p>
+
+      <p>否则：</p>
+
+      <ol>
+
+       <li><p>如果 <var>units</var> 为 <i>weeks</i>，将 <var>multiplier</var> 乘以 7 并设置 <var>units</var> 为 <i>days</i>。</p></li>
+
+       <li><p>如果 <var>units</var> 为 <i>days</i>，将 <var>multiplier</var> 乘以 24 并设置 <var>units</var> 为 <i>hours</i>。</p></li>
+
+       <li><p>如果 <var>units</var> 为 <i>hours</i>，将 <var>multiplier</var> 乘以 60 并设置 <var>units</var> 为 <i>minutes</i>。</p></li>
+
+       <li><p>如果 <var>units</var> 为 <i>minutes</i>，将 <var>multiplier</var> 乘以 60 并设置 <var>units</var> 为 <i>seconds</i>。</p></li>
+
+       <li><p>否则 <var>units</var> 只能是 <i>seconds</i> 了。 将 <var>N</var> 与 <var>multiplier</var> 的乘积加到 <var>seconds</var> 上。</p></li>
+
+      </ol>
+
+     </li>
+
+     <li><p>从 <var>position</var> 开始 <span data-x="Skip ASCII whitespace">跳过</span> <var>input</var> 中的 ASCII 空格。</p></li>
+
+    </ol>
+
+   </li>
+
+   <li><p>如果 <var>component count</var> 为零，则失败。</p></li>
+
+   <!--MONTHS： if we add month support this is where you'd return them-->
+   <li><p>如果 <var>months</var> 不为零，则失败。</p></li>
+
+   <li><p>返回包含 <var>seconds</var> 秒的 <span data-x="concept-duration">时间间隔</span>。</p></li>
+
+  </ol>
+
+  </div>
+
+

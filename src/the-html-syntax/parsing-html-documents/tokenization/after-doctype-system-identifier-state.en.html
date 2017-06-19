@@ -15,12 +15,15 @@
    <dd>Switch to the <span>data state</span>. Emit the current DOCTYPE token.</dd>
 
    <dt>EOF</dt>
-   <dd><span>Parse error</span>. Set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks
-   flag</i> to <i>on</i>. Emit that DOCTYPE token. Emit an end-of-file token.</dd>
+   <dd>This is an <span data-x="parse-error-eof-in-doctype">eof-in-doctype</span> <span>parse
+   error</span>. Set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks flag</i> to
+   <i>on</i>. Emit that DOCTYPE token. Emit an end-of-file token.</dd>
 
    <dt>Anything else</dt>
-   <dd><span>Parse error</span>. Switch to the <span>bogus DOCTYPE state</span>. (This does
-   <em>not</em> set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks flag</i> to <i>on</i>.)</dd>
+   <dd>This is an <span
+   data-x="parse-error-unexpected-character-after-doctype-system-identifier">unexpected-character-after-doctype-system-identifier</span>
+   <span>parse error</span>. Switch to the <span>bogus DOCTYPE state</span>. (This does <em>not</em>
+   set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks flag</i> to <i>on</i>.)</dd>
 
   </dl>
 

@@ -2,11 +2,14 @@
 
   <pre class="idl">[Global=(Worker,DedicatedWorker),Exposed=DedicatedWorker]
 interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
+  readonly attribute DOMString <span data-x="dom-DedicatedWorkerGlobalScope-name">name</span>;
+
   void <span data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
 
   void <span data-x="dom-DedicatedWorkerGlobalScope-close">close</span>();
 
   attribute <span>EventHandler</span> <span data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-DedicatedWorkerGlobalScope-onmessageerror">onmessageerror</span>;
 };</pre>
 
   <p><code>DedicatedWorkerGlobalScope</code> objects act as if they had an implicit
@@ -18,6 +21,10 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
   <code>DedicatedWorkerGlobalScope</code> object.</p>
 
   <dl class="domintro">
+   <dt><var>dedicatedWorkerGlobal</var> . <code subdfn data-x="dom-DedicatedWorkerGlobalScope-name">name</code></dt>
+   <dd>Returns <var>dedicatedWorkerGlobal</var>'s <span
+   data-x="concept-WorkerGlobalScope-name">name</span>.</dd>
+
    <dt><var>dedicatedWorkerGlobal</var> . <code subdfn
    data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</code>(<var>message</var> [,
    <var>transfer</var> ])</dt>
@@ -29,6 +36,11 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
    data-x="dom-DedicatedWorkerGlobalScope-close">close</code>()</dt>
    <dd>Aborts <var>dedicatedWorkerGlobal</var>.</dd>
   </dl>
+
+  <p>The <dfn><code data-x="dom-DedicatedWorkerGlobalScope-name">name</code></dfn> attribute must
+  return the <code>DedicatedWorkerGlobalScope</code> object's <span
+  data-x="concept-WorkerGlobalScope-name">name</span>. Its value represents the name given to the
+  worker using the <code>Worker</code> constructor, used primarily for debugging purposes.</p>
 
   <p>The <dfn><code data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage()</code></dfn>
   method on <code>DedicatedWorkerGlobalScope</code> objects must act as if, when invoked, it
@@ -67,6 +79,7 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
     <tr><th><span data-x="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody>
     <tr><td><dfn><code data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</code></dfn> <td> <code data-x="event-message">message</code>
+    <tr><td><dfn><code data-x="handler-DedicatedWorkerGlobalScope-onmessageerror">onmessageerror</code></dfn> <td> <code data-x="event-messageerror">messageerror</code>
   </table>
 
   <p>For the purposes of the <span>application cache</span> networking model, a dedicated worker is

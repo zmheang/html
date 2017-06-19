@@ -11,8 +11,8 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
 
   // event handlers
   attribute <span>EventHandler</span> <span data-x="handler-MessagePort-onmessage">onmessage</span>;
-<!--ILLFATED  attribute <span>EventHandler</span> <span data-x="handler-MessagePort-onerror">onerror</span>;
--->};</pre>
+  attribute <span>EventHandler</span> <span data-x="handler-MessagePort-onmessageerror">onmessageerror</span>;
+};</pre>
 
   <dl class="domintro">
 
@@ -230,11 +230,15 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
      <li><p>Let <var>targetRealm</var> be <var>finalTargetPort</var>'s <span
      data-x="concept-relevant-realm">relevant Realm</span>.</p></li>
 
-     <li><p>Let <var>deserializeRecord</var> be
-     <span>StructuredDeserializeWithTransfer</span>(<var>serializeWithTransferResult</var>,
-     <var>targetRealm</var>).</p></li>
-     <!-- TODO: deal with exceptions: deliver "messageerror" or similar. See discussion in
-     https://github.com/whatwg/html/issues/936. -->
+     <li>
+      <p>Let <var>deserializeRecord</var> be
+      <span>StructuredDeserializeWithTransfer</span>(<var>serializeWithTransferResult</var>,
+      <var>targetRealm</var>).</p>
+
+      <p>If this throws an exception, <span data-x="concept-event-fire">fire an event</span> named
+      <code data-x="event-messageerror">messageerror</code> at <var>finalTargetPort</var>, using
+      <code>MessageEvent</code>, and then abort these steps.
+     </li>
 
      <li><p>Let <var>messageClone</var> be <var>deserializeRecord</var>.[[Deserialized]].</p></li>
 
@@ -242,16 +246,12 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
      <code>MessagePort</code> objects in <var>deserializeRecord</var>.[[TransferredValues]], if any,
      maintaining their relative order.</p></li>
 
-     <li><p>Let <var>e</var> be the result of <span>creating an event</span> using
-     <code>MessageEvent</code> in <var>targetRealm</var>.</p></li>
-
-     <li><p>Initialize <var>e</var>'s <code data-x="dom-Event-type">type</code> attribute to <code
-     data-x="event-message">message</code>, its <code data-x="dom-MessageEvent-data">data</code>
-     attribute to <var>messageClone</var>, and its <code
-     data-x="dom-MessageEvent-ports">ports</code> attribute to <var>newPorts</var>.</p></li>
-
-     <li><p><span data-x="concept-event-dispatch">Dispatch</span> <var>e</var> at
-     <var>finalTargetPort</var>.</p></li>
+     <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
+     data-x="event-message">message</code> at <var>finalTargetPort</var>, using
+     <code>MessageEvent</code>, with the <code data-x="dom-MessageEvent-data">data</code> attribute
+     initialized to <var>messageClone</var> and the <code
+     data-x="dom-MessageEvent-ports">ports</code> attribute initialized to
+     <var>newPorts</var>.</p></li>
     </ol>
    </li>
   </ol>
@@ -268,55 +268,6 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
   disentangle the two ports. If the method is called on a port that is not entangled, then the
   method must do nothing.</p>
 
-<!--ILLFATED (search for '- -')
-  <hr>
-
-  <p>In some circumstances, an entangled <code>MessagePort</code> <var>source port</var>
-  that is not <a href="#ports-and-garbage-collection">eligible for garbage collection</a> will
-  nonetheless find itself prematurely destroyed, for example if the user manually terminates the
-  user agent's host process. Under such circumstances, user agents should attempt to following these
-  steps:</p>
-
-  <!- - don't fire this for navigation, it would break bfcache - ->
-  <!- - for consistency, we don't fire this for worker termination - ->
-  <!- - we don't fire it on .close() because that would let you probe GC behavior also - ->
-
-  <ol>
-
-   <li><p>Let <var>target port</var> be the port with which the ill-fated <var>source port</var> is entangled.</p></li>
-
-   <li><p>If there is no <var>target port</var> (i.e. if <var>source port</var>
-   is not entangled), or if <var>target port</var> is suffering the same fate as <var>source port</var> (e.g. if both ports are in the same host process), then abort these
-   steps.</p></li>
-
-   <li><p>Mark <var>target port</var> as being a <dfn>related to an ill-fated
-   port</dfn>.</p></li>
-
-   <li><p>Create a <span data-x="concept-task">task</span> that <span
-   data-x="concept-event-fire">fires an event</span> named <code data-x="event-error">error</code>
-   at <var>target port</var>, and add the <span data-x="concept-task">task</span> to the <span>port
-   message queue</span> of <var>target port</var>. If the <var>new port</var>'s <span
-   data-x="concept-port-owner">owner</span> specifies a <span>responsible event loop</span> that is
-   a <span>browsing context</span> <span>event loop</span>, the <span
-   data-x="concept-task">task</span> must be associated with the <span>responsible document</span>
-   specified by <var>source port</var>'s <span
-   data-x="concept-port-owner">owner</span>.</p></li>
-
-   <!- - X X X if this port can ever itself be transferred, we should update the previous step to
-   fire the event not on the current target port, but on the port of the port message queue it finds
-   itself on when executed - - >
-
-   <li><p>Disentangle the two ports.</p></li>
-
-  </ol>
-
-  <p class="note">This does not happen if the port is garbage collected or closed using the <code
-  data-x="dom-messageport-close">close()</code> method. It is intended only as a way for Web
-  applications that operate across multiple browser processes (e.g. using workers or communicating
-  across multiple tabs) to gracefully handle a catastrophic failure in one process. A strictly
-  conforming user agent would never fail unexpectedly, and thus would never send this event!</p>
--->
-
   <hr>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
@@ -329,8 +280,8 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
     <tr><th><span data-x="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody>
     <tr><td><dfn><code data-x="handler-MessagePort-onmessage">onmessage</code></dfn> <td> <code data-x="event-message">message</code>
-<!--ILLFATED    <tr><td><dfn><code data-x="handler-MessagePort-onerror">onerror</code></dfn> <td> <code data-x="event-error">error</code>
--->  </table>
+    <tr><td><dfn><code data-x="handler-MessagePort-onmessageerror">onmessageerror</code></dfn> <td> <code data-x="event-messageerror">messageerror</code>
+  </table>
 
   <p>The first time a <code>MessagePort</code> object's <code
   data-x="handler-MessagePort-onmessage">onmessage</code> IDL attribute is set, the port's <span>port

@@ -19,12 +19,15 @@
    character's code point) to the current DOCTYPE token's name.</dd>
 
    <dt>U+0000 NULL</dt>
-   <dd><span>Parse error</span>. Append a U+FFFD REPLACEMENT CHARACTER character to the current
-   DOCTYPE token's name.</dd>
+   <dd>This is an <span
+   data-x="parse-error-unexpected-null-character">unexpected-null-character</span> <span>parse
+   error</span>. Append a U+FFFD REPLACEMENT CHARACTER character to the current DOCTYPE token's
+   name.</dd>
 
    <dt>EOF</dt>
-   <dd><span>Parse error</span>. Set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks
-   flag</i> to <i>on</i>. Emit that DOCTYPE token. Emit an end-of-file token.</dd>
+   <dd>This is an <span data-x="parse-error-eof-in-doctype">eof-in-doctype</span> <span>parse
+   error</span>. Set the DOCTYPE token's <i data-x="force-quirks flag">force-quirks flag</i> to
+   <i>on</i>. Emit that DOCTYPE token. Emit an end-of-file token.</dd>
 
    <dt>Anything else</dt>
    <dd>Append the <span>current input character</span> to the current DOCTYPE token's name.</dd>

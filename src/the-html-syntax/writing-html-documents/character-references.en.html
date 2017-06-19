@@ -20,9 +20,9 @@
    <dt>Decimal numeric character reference</dt>
 
    <dd>The ampersand must be followed by a U+0023 NUMBER SIGN character (#), followed by one or more
-   <span>ASCII digits</span>, representing a base-ten integer that corresponds to a Unicode code
-   point that is allowed according to the definition below. The digits must then be followed by a
-   U+003B SEMICOLON character (;).</dd>
+   <span>ASCII digits</span>, representing a base-ten integer that corresponds to a code point that
+   is allowed according to the definition below. The digits must then be followed by a U+003B
+   SEMICOLON character (;).</dd>
 
 
    <dt>Hexadecimal numeric character reference</dt>
@@ -30,16 +30,14 @@
    <dd>The ampersand must be followed by a U+0023 NUMBER SIGN character (#), which must be followed
    by either a U+0078 LATIN SMALL LETTER X character (x) or a U+0058 LATIN CAPITAL LETTER X
    character (X), which must then be followed by one or more <span>ASCII hex digits</span>,
-   representing a hexadecimal integer that corresponds to a Unicode code point that is allowed
-   according to the definition below. The digits must then be followed by a U+003B SEMICOLON
-   character (;).</dd>
+   representing a hexadecimal integer that corresponds to a code point that is allowed according to
+   the definition below. The digits must then be followed by a U+003B SEMICOLON character (;).</dd>
 
   </dl>
 
-  <p>The numeric character reference forms described above are allowed to reference any Unicode code
-  point other than U+0000, U+000D, permanently undefined Unicode characters (noncharacters),
-  surrogates (U+D800&ndash;U+DFFF), and <span>control characters</span> other than <span>ASCII
-  whitespace</span>.</p>
+  <p>The numeric character reference forms described above are allowed to reference any code point
+  excluding U+000D CR, <span data-x="noncharacter">noncharacters</span>, and <span
+  data-x="control">controls</span> other than <span>ASCII whitespace</span>.</p>
 
   <p>An <dfn data-x="syntax-ambiguous-ampersand">ambiguous ampersand</dfn> is a U+0026 AMPERSAND
   character (&amp;) that is followed by one or more <span data-x="ASCII alphanumeric">ASCII

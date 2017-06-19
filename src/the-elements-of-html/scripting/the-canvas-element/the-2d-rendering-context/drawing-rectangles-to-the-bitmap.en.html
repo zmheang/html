@@ -10,7 +10,7 @@
   <p>The <span data-x="dom-context-2d-transformation">current transformation matrix</span> must be
   applied to the following four coordinates, which form the path that must then be closed to get the
   specified rectangle: <span data-x="">(<var>x</var>, <var>y</var>)</span>, <span
-  data-x="">(<span data-x=""><var>x</var>+<var>w</var></span>, <var>y</var>)</span>, <span data-x="">(<span data-x=""><var>x</var>+<var>w</var></span>, <span data-x=""><var>y</var>+<var>h</var></span>)</span>, <span data-x="">(<var>x</var>, <span data-x=""><var>y</var>+<var>h</var></span>)</span>.</p>
+  data-x="">(<var>x</var>+<var>w</var>, <var>y</var>)</span>, <span data-x="">(<var>x</var>+<var>w</var>, <var>y</var>+<var>h</var>)</span>, <span data-x="">(<var>x</var>, <var>y</var>+<var>h</var>)</span>.</p>
 
   <p>Shapes are painted without affecting the <span>current default path</span>, and are subject to
   the <span>clipping region</span>, and, with the exception of <code
@@ -98,12 +98,12 @@
   case).</p>
 
   <p>If just one of either <var>w</var> or <var>h</var> is zero, then the path has
-  a single subpath consisting of two points, with coordinates (<span data-x=""><var>x</var></span>, <span data-x=""><var>y</var></span>) and (<span data-x=""><var>x</var>+<var>w</var></span>, <span data-x=""><var>y</var></span>+<var>h</var>), in that order, connected by a single straight line.</p>
+  a single subpath consisting of two points, with coordinates (<var>x</var>, <var>y</var>) and (<var>x</var>+<var>w</var>, <var>y</var>+<var>h</var>), in that order, connected by a single straight line.</p>
 
   <p>Otherwise, the path has a single subpath consisting of four points, with coordinates (<span
-  data-x=""><var>x</var></span>, <span data-x=""><var>y</var></span>), (<span
-  data-x=""><var>x</var>+<var>w</var></span>, <span data-x=""><var>y</var></span>), (<span data-x=""><var>x</var>+<var>w</var></span>,
-  <span data-x=""><var>y</var></span>+<var>h</var>), and (<span data-x=""><var>x</var></span>, <span data-x=""><var>y</var>+<var>h</var></span>),
+  data-x=""><var>x</var></span>, <var>y</var>), (<span
+  data-x=""><var>x</var>+<var>w</var></span>, <var>y</var>), (<var>x</var>+<var>w</var>,
+  <var>y</var>+<var>h</var>), and (<var>x</var>, <var>y</var>+<var>h</var>),
   connected to each other in that order by straight lines.</p>
 
   </div>

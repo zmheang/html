@@ -156,14 +156,15 @@
 
    <li>
 
-    <p>If and while <var>line</var> is longer than <var>maximum length</var>
-    Unicode code points long, run the following substeps:</p>
+    <p>While <var>line</var>'s <span data-x="string length">length</span> is greater than
+    <var>maximum length</var>:</p>
 
     <ol>
 
-     <li><p>Append the first <var>maximum length</var> Unicode code points of <var>line</var> to <var>output</var>.</p></li>
+     <li><p>Append the first <var>maximum length</var> code points of <var>line</var> to
+     <var>output</var>.</p></li>
 
-     <li><p>Remove the first <var>maximum length</var> Unicode code points from <var>line</var>.</p></li>
+     <li><p>Remove the first <var>maximum length</var> code points from <var>line</var>.</p></li>
 
      <li><p>Append a U+000D CARRIAGE RETURN character (CR) to <var>output</var>.</p></li>
 

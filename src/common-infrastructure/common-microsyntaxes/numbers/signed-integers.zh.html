@@ -1,0 +1,70 @@
+  <h5>有符号整数</h5>
+
+  <p>由一个或更多 <span data-x="ASCII digits">ASCII 数字</span> 组成的字符串就是 <dfn data-x="valid integer">合法的整数</dfn>。
+  可以有一个 U+002D HYPHEN-MINUS 字符 （-） 作为前缀。</p>
+
+  <p>没有 U+002D HYPHEN-MINUS 字符 （-） 作为前缀的 <span data-x="valid integer">合法整数</span> 表示
+  该数字字符串以 10 为基所表示的数字。
+  <em>有着</em> U+002D HYPHEN-MINUS 字符 （-） 作为前缀的 <span data-x="valid integer">合法的整数</span>
+  表示零减去该字符串以 10 为基所表示的数字。</p>
+
+  <div w-nodev>
+
+  <p><dfn data-x="rules for parsing integers">解析整数的规则</dfn> 由下列算法给出。
+  被调用时，必须以给定的步骤执行，在第一个有返回值的步骤中止。该算法会返回一个整数或者一个错误。</p>
+
+  <ol>
+
+   <li><p>令 <var>input</var> 为被解析的字符串。</p></li>
+
+   <li><p>令 <var>position</var> 为 <var>input</var> 里面的指针，初始指向字符串的开始。</p></li>
+
+   <li><p>令 <var>sign</var> 拥有值 "positive"。</p></li>
+
+   <li><p><span data-x="Skip ASCII whitespace">跳过</span> <var>input</var> 中的 ASCII 空格，得到 <var>position</var>。</p></li>
+
+   <li><p>如果 <var>position</var> 越过了 <var>input</var> 的末尾，返回一个错误。</p></li>
+
+   <li>
+
+    <p>如果 <var>position</var> 处的（第一个）字符是一个 U+002D HYPHEN-MINUS 字符 （-）:</p>
+
+    <ol>
+
+     <li>令 <var>sign</var> 为 "negative"。</li>
+
+     <li>将 <var>position</var> 前进到下一个字符。</li>
+
+     <li>如果 <var>position</var> 越过了 <var>input</var> 的末尾，返回一个错误。</li>
+
+    </ol>
+
+    <p>否则，如果 <var>position</var> 处的（第一个）字符是一个 U+002B PLUS SIGN 字符 （+）:</p>
+
+    <ol>
+
+     <li>将 <var>position</var> 前进到下一个字符。 （虽然 "<code data-x="">+</code>" 会被忽略但并不符合规范。）</li>
+
+     <li>如果 <var>position</var> 越过了 <var>input</var> 的末尾，返回一个错误。</li>
+
+    </ol>
+
+   </li>
+
+   <li><p>如果 <var>position</var> 处的字符不是 <span data-x="ASCII digits">ASCII 数字</span>，则返回一个错误。</p></li>
+
+   <!-- Ok。 At this point we know we have a number。 It might have trailing garbage which we'll
+   ignore， but it's a number， and we won't return an error。 -->
+
+   <li><p>从 <var>input</var> 的给定 <var>position</var>
+     <span data-x="Collect a sequence of code points">收集</span>
+     是 <span data-x="ASCII digits">ASCII 数字</span> 的代码点序列，将得到的序列解释为以10为基的整数。
+     令 <var>value</var> 为该整数。</p></li>
+
+   <li><p>如果 <var>sign</var> 为 "positive"，返回 <var>value</var>，否则返回0减去 <var>value</var> 的结果。</p></li>
+
+  </ol>
+
+  </div>
+
+

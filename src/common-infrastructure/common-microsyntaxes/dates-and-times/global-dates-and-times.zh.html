@@ -1,0 +1,121 @@
+  <h5>全球日期和时间</h5>
+
+  <p><dfn data-x="concept-datetime">全球日期和时间</dfn> 由一个特定的
+  <span data-x="proleptic-Gregorian date">外推格里历日期</span>（包含年、月、日）
+  和时间（包含时、分、秒，以及秒的小数），以及附加的时区信息，一个包括小时和分钟的有符号数。<ref spec=GREGORIAN></p>
+
+  <p>表示日期、时间和时区的的
+  <dfn data-x="valid global date and time string">合法的全球日期和时间字符串</dfn>
+  由以下有序的部分组成：</p>
+
+  <ol>
+
+   <li>表示日期的 <span data-x="valid date string">合法的日期字符串</span></li>
+
+   <li>一个 U+0054 LATIN CAPITAL LETTER T 字符（T）或者 U+0020 SPACE 字符</li>
+
+   <li>表示时间的 <span data-x="valid time string">合法的时间字符串</span></li>
+
+   <li>表示时区的 <span data-x="valid time-zone offset string">合法的时区偏移字符串</span></li>
+
+  </ol>
+
+  <p>在 20 世纪中叶 UTC 形成之前的时间必须按照 UT1（0&deg; 经度处的太阳时）而不是 UTC（
+  UT1 的近似，按照 SI 制秒增长）表示和解析。时区形成前的时间必须按照 UT1 时间表示和解析，
+  且带有明确的时区信息，以此来近似适当的本地时间和伦敦格林尼治观测到的时间差。</p>
+
+  <div class="example">
+
+   <p>下面是按照 <span data-x="valid global date and time string">合法的全球日期和时间字符串</span> 编写的日期示例。</p>
+
+   <dl>
+
+    <dt>"<code data-x="">0037-12-13 00:00Z</code>"</dt>
+
+    <dd>使用伦敦时间的地区的午夜，罗马皇帝 Nero 的生日。关于实际对应的日期见下文的进一步讨论。</dd>
+
+    <dt>"<code data-x="">1979-10-14T12:00:00.001-04:00</code>"</dt>
+
+    <dd>美国东海岸夏令时的 1979 年 10 月 14 日正午之后的一毫秒。</dd>
+
+    <dt>"<code data-x="">8592-01-01T02:09+02:09</code>"</dt>
+
+    <dd>UTC 时间 8592 年 1 月 1 日午夜。其时区是快于 UTC 的 2 小时 9 分钟，
+    目前还没有这个时区，尽管如此，它是允许的。</dd>
+
+   </dl>
+
+   <p>关于这些日期，值得一提的是：</p>
+
+   <ul>
+
+    <li>少于四位数字的年份必须用零填充，即 "37-12-13" 不是合法的日期。</li>
+
+    <li>"<code data-x="">T</code>" 只能被一个空格代替。
+    字符串 "<code data-x="">2001-12-21&nbsp;&nbsp;12:00Z</code>"（两部分之间有两个空格）
+    不能成功解析。</li>
+
+    <li>为了无歧义地表示引入格里历（只要能无歧义地标识 UTC 形成之前的时刻）之前的时刻，
+    必须首先将日期从当时使用的日历（例如儒略历）转换为格里历。Nero 出生的日期是儒略历的 37 年 12 月 15 日，
+    在 <span data-x="proleptic-Gregorian date">外推格里历日期</span> 中是 37 年 12 月 13 日。</li>
+    <!-- This might not be true。 I can't find a reference that gives
+    his birthday with an explicit statement about the calendar being used。 However，it seems
+    unlikely that it would be given in the Gregorian calendar，so I assume sites use the Julian one。
+    -->
+
+    <li>事件和时区偏移部分不是可选的。</li>
+
+    <li>第 1 年之前的日期在本版本的 HTML 中不能表示为日期时间格式。</li>
+
+    <li>古代特定事件的时代最多只是近似的，因为当时的时间并没有得到很好的协调和测量，直到最近几十年。</li>
+
+    <li>时间偏移会受夏令时的影响。</li>
+
+   </ul>
+
+  </div>
+
+  <div w-nodev>
+
+  <p><dfn data-x="parse a global date and time string">解析全球日期和时间字符串</dfn> 的规则如下。
+  将会返回一个带有时区信息（为了能够往返转换或显示等用途）的 UTC 时间，或者什么都不返回。
+  如果算法的任何一个点说它 "失败了"，这意味着它在那一点退出并什么都不返回。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为待解析字符串。</p></li>
+
+   <li><p>令<var>position</var> 为 <var>input</var> 内的指针初始指向字符串开始。</p></li>
+
+   <li><p><span data-x="Parse a date component">解析日期部分</span> 来获得 <var>year</var>，<var>month</var> 和 <var>day</var>。
+   如果它没有返回，则失败。</p>
+
+   <li><p>如果 <var>position</var> 超出了 <var>input</var> 的末尾或者
+   <var>position</var> 处的字符是 U+0054 LATIN CAPITAL LETTER T 字符（T）
+   或 U+0020 SPACE 字符，则失败。否则将 <var>position</var> 前进一个字符。</p></li>
+
+   <li><p><span data-x="Parse a time component">解析时间部分</span> 来获得 <var>hour</var>，<var>minute</var> 和 <var>second</var>。
+   如果它没有返回，则失败。</p>
+
+   <li><p>如果 <var>position</var> 超出了 <var>input</var> 的结尾，则失败。</p></li>
+
+   <li><p><span data-x="Parse a time-zone offset component">解析时区偏移部分</span> 来获得
+   <var>timezone<sub>hours</sub></var> 和 <var>timezone<sub>minutes</sub></var>。 如果它没有返回，则失败。</p>
+
+   <li><p>如果 <var>position</var> <em>没有</em> 越过 <var>input</var> 的结尾，则失败。</p></li>
+
+   <li><p>令时刻 <var>time</var> 的年月日时分秒分别为 <var>year</var>，<var>month</var>，<var>day</var>，
+   <var>hour</var>，<var>minute</var>，<var>second</var>，减去
+   <var>timezone<sub>hours</sub></var> 小时 <var>timezone<sub>minutes</sub></var> 分钟。
+   该时刻的时区为 UTC 时区。</p></li>
+
+   <li><p>令<var>timezone</var> 为距 UTC <var>timezone<sub>hours</sub></var> 小时
+   <var>timezone<sub>minutes</sub></var> 分钟的时区偏移。</p></li>
+
+   <li><p>返回 <var>time</var> 和 <var>timezone</var>。</p></li>
+
+  </ol>
+
+  </div>
+
+

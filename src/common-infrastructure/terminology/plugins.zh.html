@@ -1,0 +1,48 @@
+  <h4>插件</h4>
+
+  <p>术语 <dfn data-x="plugin">插件</dfn> 是指一些用户代理定义的内容处理程序，用户代理用它们
+  参与 <code>Document</code> 对象的渲染，但不会作为 <code>Document</code> 的
+  <span data-x="child browsing context">子浏览环境</span>，也不会给
+  <code>Document</code> 的 DOM 引入任何 <code>Node</code> 对象。</p>
+
+  <p>通常，这样的内容处理程序由第三方提供，尽管用户代理也可以将内置的内容处理程序指定为插件。</p>
+
+  <div w-nodev>
+
+  <p>用户代理不得将 <code>text/plain</code> 和 <code>application/octet-stream</code> 类型视为注册有
+  <span data-x="plugin">插件</span>。</p> <!-- because
+  of the way <object> elements handles those types，if nothing else （it also doesn't make any sense
+  to have a plugin registered for those types，of course） -->
+
+  </div>
+
+  <p class="example">插件的一个例子是当用户导航到PDF文件时在
+  <span data-x="browsing context">浏览环境</span> 中实例化的PDF查看器。
+  无论执行PDF查看器组件的一方是否与实现用户代理本身的方相同，这将被视为插件。
+  但是根据定义，与用户代理（而不是使用相同的接口）分开启动的PDF查看器应用程序不是插件。</p>
+
+  <p class="note">该规范没有定义与插件交互的机制，因为插件预期就是用户代理和平台特定的。
+  UA 可以选择支持某种插件机制，比如 Netscape Plugin API；
+  也可以选择对某些类型使用远程内容转换器或提供内置支持。
+  实际上，本标准根本没有要求用户代理支持插件。<ref spec=NPAPI></p>
+
+  <p><dfn data-x="concept-plugin-secure">安全</dfn> 插件应该遵循
+  <code data-x="attr-iframe-sandbox">sandbox</code> 属性的语义。</p>
+
+  <p class="example">例如，在沙盒 <code>iframe</code> 中初始化的
+  安全插件应该阻止其中的内容创建弹出窗口。</p>
+
+  <div w-nodev>
+
+  <p class="warning">在与 <span data-x="plugin">插件</span> 的外部内容交互时，浏览器应该格外小心。
+  当第三方软件以与用户代理本身相同的权限运行时，第三方软件中的漏洞变得与用户代理中的漏洞同样危险。</p>
+
+  <p>因为不同的用户有不同的 <span data-x="plugin">插件</span>，这提供了唯一识别用户的指纹向量，
+  推荐用户代理对每个用户都支持同样的 <span data-x="plugin">plugins</span>。
+  <!--INSERT FINGERPRINT-->
+  </p>
+
+  </div>
+
+
+

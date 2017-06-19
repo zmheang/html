@@ -676,14 +676,14 @@ function loadMySprites() {
   var resolver;
   var promise = new Promise(function (arg) { resolver = arg });
   image.onload = function () {
-    resolver(Promise.all(
+    resolver(Promise.all([
       createImageBitmap(image,  0,  0, 40, 40).then(function (image) { sprites.woman = image }),
       createImageBitmap(image, 40,  0, 40, 40).then(function (image) { sprites.man   = image }),
       createImageBitmap(image, 80,  0, 40, 40).then(function (image) { sprites.tree  = image }),
       createImageBitmap(image,  0, 40, 40, 40).then(function (image) { sprites.hut   = image }),
       createImageBitmap(image, 40, 40, 40, 40).then(function (image) { sprites.apple = image }),
-      createImageBitmap(image, 80, 40, 40, 40).then(function (image) { sprites.snake = image }),
-    ));
+      createImageBitmap(image, 80, 40, 40, 40).then(function (image) { sprites.snake = image })
+    ]));
   };
   return promise;
 }
@@ -700,5 +700,4 @@ loadMySprites().then(runDemo);</pre>
   </div>
 
 
-<!--TOPIC:DOM APIs-->
 

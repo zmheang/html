@@ -27,6 +27,7 @@ build-zh:
 	sed -i -r \
 		-e 's/standard.css>/standard.css><link rel=stylesheet href=\/html\/resources\/zh-cn.css>/' \
 		-e 's/issue-url=[^ ]+\s+src=[^ ]+/issue-url=https:\/\/github.com\/whatwg-cn\/html\/issues\/new src=\/html\/resources\/file-issue.js/' \
+		-e 's/https:\/\/resources\.whatwg\.org\/dfn\.js/\/html\/resources\/dfn.js/' \
 		-e '$$a\<script src=\/html\/resources\/zh-cn.js></script>' \
 		$(HTMLS)
 	node ./bin/json-pretify.js ${OUTPUT}/multipage/fragment-links.json
@@ -35,6 +36,9 @@ build-zh:
 # Split subtree before deploy:
 # git subtree split --prefix output/html -b gh-pages
 deploy:
+	if [ -n "$$(git status --porcelain)" ]; then \
+		echo "there are changes, please commit to master first" && exit 1; \
+	fi
 	git add -f output/html
 	git commit -m 'dist'
 	git push origin `git subtree split --prefix output/html`:gh-pages --force
@@ -46,9 +50,6 @@ deploy-force:
 
 clean-cache:
 	rm -rf html-build/.cache
-
-update-term:
-	node ./bin/update-term.js
 
 # `npm install http-server` first
 serve:

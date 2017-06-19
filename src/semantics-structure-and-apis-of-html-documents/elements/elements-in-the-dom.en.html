@@ -36,7 +36,7 @@ interface <dfn>HTMLElement</dfn> : <span>Element</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-spellcheck">spellcheck</span>;
   void <span data-x="dom-forceSpellCheck">forceSpellCheck</span>();
 
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-innerText">innerText</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-innerText">innerText</span>;
 };
 <span>HTMLElement</span> implements <span>GlobalEventHandlers</span>;
 <span>HTMLElement</span> implements <span>DocumentAndElementEventHandlers</span>;

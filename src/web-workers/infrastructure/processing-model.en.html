@@ -3,9 +3,8 @@
   <p>When a user agent is to <dfn data-export="">run a worker</dfn> for a script with
   <code>Worker</code> or <code>SharedWorker</code> object <var>worker</var>, <span>URL</span>
   <var>url</var>, <span>environment settings object</span> <var>outside settings</var>,
-  <code>MessagePort</code> <var>outside port</var>, a <code>WorkerOptions</code> dictionary
-  <var>options</var>, and an optional string <var>name</var>, it must run the following steps.
-  (<var>name</var> is always provided when <var>worker</var> is a <code>SharedWorker</code>.)</p>
+  <code>MessagePort</code> <var>outside port</var>, and a <code>WorkerOptions</code> dictionary
+  <var>options</var>, it must run the following steps.</p>
 
   <ol>
 
@@ -22,15 +21,13 @@
    <li><p>Let <var>is shared</var> be true if <var>worker</var> is a <code>SharedWorker</code>
    object, and false otherwise.</p></li>
 
-   <li><p>Let <var>docs</var> be the <span>list of relevant <code>Document</code> objects to
-   add</span> given <var>outside settings</var>.</p></li>
+   <li><p>Let <var>owner</var> be the <span>relevant owner to add</span> given <var>outside
+   settings</var>.</p></li>
 
    <li><p>Let <var>parent worker global scope</var> be null.</p>
 
-   <li><p>If <var>outside settings</var>'s <span data-x="concept-settings-object-global">global
-   object</span> is a <code>WorkerGlobalScope</code> object (i.e. we are creating a nested worker),
-   set <var>parent worker global scope</var> to <var>outside settings</var>'s <span
-   data-x="concept-settings-object-global">global object</span>.</p></li>
+   <li><p>If <var>owner</var> is a <code>WorkerGlobalScope</code> object (i.e., we are creating a
+   nested worker), then set <var>parent worker global scope</var> to <var>owner</var>.</p></li>
 
    <li>
     <p>Call the JavaScript <span
@@ -52,6 +49,10 @@
    context</var> and <var>outside settings</var>, and let <var>inside settings</var> be the
    result.</p></li>
 
+   <li><p>Set <var>worker global scope</var>'s <span
+   data-x="concept-WorkerGlobalScope-name">name</span> to the value of <var>options</var>'s
+   <code data-x="">name</code> member.</p></li>
+
    <li>
     <p>If <var>is shared</var> is true, then:</p>
 
@@ -64,9 +65,6 @@
      <li><p>Set <var>worker global scope</var>'s <span
      data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor url</span> to
      <var>url</var>.</p></li>
-
-     <li><p>Set <var>worker global scope</var>'s <span
-     data-x="concept-SharedWorkerGlobalScope-name">name</span> to <var>name</var>.</p></li>
     </ol>
    </li>
 
@@ -137,13 +135,12 @@
 
    <li><p><span>Entangle</span> <var>outside port</var> and <var>inside port</var>.</p></li>
 
-   <li><p><span data-x="add a document to the worker's Documents">Add to <var>worker global
-   scope</var>'s list of <span>the worker's <code>Document</code>s</span></span> the
-   <code>Document</code> objects in <var>docs</var>.</p></li>
+   <li><p><span data-x="set append">Append</span> <var>owner</var> to <var>worker global
+   scope</var>'s <span>owner set</span>.</p></li>
 
-   <li><p>If <var>parent worker global scope</var> is not null, add <var>worker global scope</var>
-   to the list of <span>the worker's workers</span> of <var>parent worker global
-   scope</var>.</p></li>
+   <li><p>If <var>parent worker global scope</var> is not null, then <span data-x="set
+   append">append</span> <var>worker global scope</var> to <var>parent worker global scope</var>'s
+   <span>worker set</span>.</p></li>
 
    <li><p>Set <var>worker global scope</var>'s <span
    data-x="concept-WorkerGlobalScope-type">type</span> to the value of the <code
@@ -185,8 +182,7 @@
 
     <p class="note">In addition to the usual possibilities of returning a value or failing due to
     an exception, this could be <span data-x="abort a running script">prematurely aborted</span> by
-    the "<span>kill a worker</span>" or "<span>terminate a worker</span>" algorithms defined
-    below.</p>
+    the <span>terminate a worker</span> algorithm defined below.</p>
    </li>
 
    <li><p>Enable <var>outside port</var>'s <span>port message queue</span>.</p></li>
@@ -215,8 +211,8 @@
 
     <p class="note">The handling of events or the execution of callbacks by <span
     data-x="concept-task">tasks</span> run by the <span>event loop</span> might get <span
-    data-x="abort a running script">prematurely aborted</span> by the "<span>kill a worker</span>"
-    or "<span>terminate a worker</span>" algorithms defined below.</p>
+    data-x="abort a running script">prematurely aborted</span> by the <span>terminate a
+    worker</span> algorithm defined below.</p>
 
     <p class="note">The worker processing model remains on this step until the event loop is
     destroyed, which happens after the <span data-x="dom-WorkerGlobalScope-closing">closing</span>
@@ -239,39 +235,12 @@
    <li>
 
     <!-- this has no normative impact but makes it clearer that the worker is irrelevant now, and
-    doesn't have to survive until its Documents all die off too --> <p>Empty the worker's list of
-    <span>the worker's <code>Document</code>s</span>.</p>
+    doesn't have to survive until its Documents all die off too --> <p><span data-x="list
+    empty">Empty</span> <var>worker global scope</var>'s <span>owner set</span>.</p>
 
    </li>
 
   </ol>
-
-  <hr>
-
-  <p>When a user agent is to <dfn data-export="">kill a worker</dfn> it must run the following steps
-  <span>in parallel</span> with the worker's main loop (the "<span>run a worker</span>" processing
-  model defined above):</p>
-
-  <ol>
-
-   <li><p>Set the worker's <code>WorkerGlobalScope</code> object's <span
-   data-x="dom-WorkerGlobalScope-closing">closing</span> flag to true.</p></li>
-
-   <li><p>If there are any <span data-x="concept-task">tasks</span> queued in the
-   <code>WorkerGlobalScope</code> object's <span>event loop</span>'s <span data-x="task queue">task
-   queues</span>, discard them without processing them.</p></li>
-
-   <li><p>Wait a user-agent-defined amount of time.</p></li>
-
-   <li><p><span data-x="abort a running script">Abort the script</span> currently running in the
-   worker.</p></li>
-
-  </ol>
-
-  <p>User agents may invoke the "<span>kill a worker</span>" processing model on a worker at any
-  time, e.g. in response to user requests, in response to CPU quota management, or when a worker
-  stops being an <span>active needed worker</span> if the worker continues executing even after its
-  <span data-x="dom-WorkerGlobalScope-closing">closing</span> flag was set to true.</p>
 
   <hr>
 
@@ -297,6 +266,10 @@
    entangled with.</p></li>
 
   </ol>
+
+  <p>User agents may invoke the <span>terminate a worker</span> algorithm when a worker stops being
+  an <span>active needed worker</span> and the worker continues executing even after its <span
+  data-x="dom-WorkerGlobalScope-closing">closing</span> flag was set to true.</p>
 
   <hr>
 

@@ -138,8 +138,8 @@ interface <dfn>HTMLFrameElement</dfn> : <span>HTMLElement</span> {
   readonly attribute <span>Document</span>? <span data-x="dom-frame-contentDocument">contentDocument</span>;
   readonly attribute <span>WindowProxy</span>? <span data-x="dom-frame-contentWindow">contentWindow</span>;
 
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-frame-marginHeight">marginHeight</span>;
-  [<span>CEReactions</span>, TreatNullAs=EmptyString] attribute DOMString <span data-x="dom-frame-marginWidth">marginWidth</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-frame-marginHeight">marginHeight</span>;
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-frame-marginWidth">marginWidth</span>;
 };</pre>
 
   <p>The <dfn><code data-x="dom-frame-name">name</code></dfn>, <dfn><code data-x="dom-frame-scrolling">scrolling</code></dfn>, and <dfn><code data-x="dom-frame-src">src</code></dfn> IDL attributes of the <code>frame</code> element must

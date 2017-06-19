@@ -58,11 +58,19 @@
    <tbody>
 
     <tr>
-     <td><code data-x="rel-alternate">alternate</code></td> <!-- second most used <link rel> value -->
+     <td><code data-x="rel-alternate">alternate</code></td> <!-- fourth most used rel value -->
      <td><span>Hyperlink</span></td>
      <td><span>Hyperlink</span></td>
      <td class="no"> &middot; </td>
      <td>Gives alternate representations of the current document.</td>
+    </tr>
+
+    <tr>
+     <td><code data-x="rel-canonical">canonical</code></td> <!-- third most used rel value -->
+     <td><span>Hyperlink</span></td>
+     <td><em>not allowed</em></td>
+     <td class="no"> &middot; </td>
+     <td>Gives the preferred URL for the current document.</td>
     </tr>
 
     <tr>
@@ -109,7 +117,7 @@
     </tr>
 
     <tr>
-     <td><code data-x="rel-icon">icon</code></td> <!-- link rel="shortcut icon" and its ilk are the fourth, sixth, and ninth most used values -->
+     <td><code data-x="rel-icon">icon</code></td> <!-- second most used rel value -->
      <td><span data-x="external resource link">External Resource</span></td>
      <td><em>not allowed</em></td>
      <td class="no"> &middot; </td>
@@ -141,19 +149,19 @@
     </tr>
 
     <tr>
-     <td><code data-x="rel-noreferrer">noreferrer</code></td>
-     <td><em>not allowed</em></td>
-     <td><span data-x="hyperlink annotation">Annotation</span></td>
-     <td class="no"> &middot; </td>
-     <td>Requires that the user agent not send an HTTP `<code data-x="http-referer">Referer</code>` (sic) header if the user follows the hyperlink.</td>
-    </tr>
-
-    <tr>
      <td><code data-x="rel-noopener">noopener</code></td>
      <td><em>not allowed</em></td>
      <td><span data-x="hyperlink annotation">Annotation</span></td>
      <td class="no"> &middot; </td>
      <td>Requires any <span>browsing context</span> created by following the hyperlink to <span data-x="disowned its opener">disown its opener</span>.</td>
+    </tr>
+
+    <tr>
+     <td><code data-x="rel-noreferrer">noreferrer</code></td>
+     <td><em>not allowed</em></td>
+     <td><span data-x="hyperlink annotation">Annotation</span></td>
+     <td class="no"> &middot; </td>
+     <td>Requires that the user agent not send an HTTP `<code data-x="http-referer">Referer</code>` (sic) header if the user follows the hyperlink.</td>
     </tr>
 
     <tr>
@@ -185,7 +193,7 @@
      <td><span data-x="external resource link">External Resource</span></td>
      <td><em>not allowed</em></td>
      <td class="yes"> Yes </td>
-     <td>Specifies that the user agent must preemptively <span data-x="concept-fetch">fetch</span> and cache the target resource for current <span data-x="navigate">navigation</span> according to the <span data-x="concept-request-destination">destination</span> given by the <code data-x="attr-link-as">as</code> attribute (and the <span data-x="concept-request-priority">priority</span> associated with that <span data-x="concept-request-destination">destination</span>).</td>
+     <td>Specifies that the user agent must preemptively <span data-x="concept-fetch">fetch</span> and cache the target resource for current <span data-x="navigate">navigation</span> according to the <span data-x="concept-potential-destination">potential destination</span> given by the <code data-x="attr-link-as">as</code> attribute (and the <span data-x="concept-request-priority">priority</span> associated with the <span data-x="concept-potential-destination-translate">corresponding</span> <span data-x="concept-request-destination">destination</span>).</td>
     </tr>
 
     <tr>

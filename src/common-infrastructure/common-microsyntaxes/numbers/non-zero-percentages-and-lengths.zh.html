@@ -1,0 +1,28 @@
+  <h5>非零百分数和长度</h5>
+
+  <p><dfn data-x="rules for parsing non-zero dimension values">解析非零维度值的规则</dfn>
+  由下列算法给出。被调用时必须按给定顺序执行这些步骤，并在第一个有返回值的步骤中止。
+  本算法将会返回一个大于 0.0 的数字或者一个错误；如果返回了数字，
+  那么它可能是百分数或者长度。</p>
+
+  <ol>
+
+   <li><p>令<var>input</var> 为被解析的字符串。</p></li>
+
+   <li><p>令<var>value</var> 为使用
+   <span data-x="rules for parsing dimension values">解析维度值的规则</span>
+   解析 <var>input</var> 的结果。</p></li>
+
+   <li><p>如果 <var>value</var> 是一个错误，返回一个错误。</p></li>
+
+   <li><p>如果 <var>value</var> 为 0，返回一个错误。</p></li>
+
+   <li><p>如果 <var>value</var> 为百分数，将 <var>value</var> 作为百分数返回。</p></li>
+
+   <li><p>将 <var>value</var> 作为长度返回。</p></li>
+
+  </ol>
+
+  </div>
+
+

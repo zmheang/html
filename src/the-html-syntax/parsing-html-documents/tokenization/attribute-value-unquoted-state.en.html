@@ -19,18 +19,23 @@
    <dd>Switch to the <span>data state</span>. Emit the current tag token.</dd>
 
    <dt>U+0000 NULL</dt>
-   <dd><span>Parse error</span>. Append a U+FFFD REPLACEMENT CHARACTER character to the current
-   attribute's value.</dd>
+   <dd>This is an <span
+   data-x="parse-error-unexpected-null-character">unexpected-null-character</span> <span>parse
+   error</span>. Append a U+FFFD REPLACEMENT CHARACTER character to the current attribute's
+   value.</dd>
 
    <dt>U+0022 QUOTATION MARK (&quot;)</dt>
    <dt>U+0027 APOSTROPHE (')</dt>
    <dt>U+003C LESS-THAN SIGN (&lt;)</dt>
    <dt>U+003D EQUALS SIGN (=)</dt>
    <dt>U+0060 GRAVE ACCENT (`)</dt>
-   <dd><span>Parse error</span>. Treat it as per the "anything else" entry below.</dd>
+   <dd>This is an <span
+   data-x="parse-error-unexpected-character-in-unquoted-attribute-value">unexpected-character-in-unquoted-attribute-value</span>
+   <span>parse error</span>. Treat it as per the "anything else" entry below.</dd>
 
    <dt>EOF</dt>
-   <dd><span>Parse error</span>. Emit an end-of-file token.</dd>
+   <dd>This is an <span data-x="parse-error-eof-in-tag">eof-in-tag</span>
+   <span>parse error</span>. Emit an end-of-file token.</dd>
 
    <dt>Anything else</dt>
    <dd>Append the <span>current input character</span> to the current attribute's value.</dd>

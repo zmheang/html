@@ -15,7 +15,7 @@
    object</span>, <var>O</var>'s <span>relevant settings object</span>, and <var>P</var>.</p></li>
 
    <li>
-    <p>Repeat for each <var>e</var> that is an element of
+    <p>Repeat for each <var>e</var> that is an element of !
     <span>CrossOriginProperties</span>(<var>O</var>):</p>
 
     <ol>
@@ -38,7 +38,7 @@
         <ol>
          <li><p>Let <var>value</var> be <var>originalDesc</var>.[[Value]].</p></li>
 
-         <li><p>If <span>IsCallable</span>(<var>value</var>) is true, then set <var>value</var> to
+         <li><p>If ! <span>IsCallable</span>(<var>value</var>) is true, then set <var>value</var> to
          an anonymous built-in function, created in the <span>current Realm Record</span>, that
          performs the same steps as the IDL operation <var>P</var> on object <var>O</var>.</p></li>
 

@@ -1,0 +1,47 @@
+  <h4 id="resolving-urls">解析 URL</h4>
+
+  <p>解析 URL 是从字符串中获取它表示的 <span data-x="URL record">URL 记录</span> 的过程。
+  虽然这一过程定义在 WHATWG URL 标准中，但方便起见 HTML 标准也定义了一个包装过的版本。 <ref spec=URL></p>
+
+  <p class="note">这一包装只用于出于历史原因当 URL 解析器的字符编码必须匹配文档或环境设置对象时。
+  除此之外可以直接使用 <span data-x="URL parser">URL 解析器</span>。</p>
+
+  <p id="resolve-a-url">
+  相对于一个 <var>document</var> 或 <var>environment settings object</var>
+  <dfn data-x="parse a URL">解析 URL</dfn> <var>url</var>，
+  用户代理必须使用下列步骤。
+  解析 URL 的结果可能是失败，也可能是 <span data-x="resulting URL string">结果 URL 字符串</span>
+  和 <span data-x="resulting URL record">结果 URL 记录</span>。</p>
+
+  <ol>
+   <li><p>如果指定了 <var>document</var>，
+   令 <var>encoding</var> 为 <var>document</var> 的
+   <span data-x="document's character encoding">字符编码</span>，
+   否则令它为 <var>environment settings object</var> 的
+   <span data-x="API URL character encoding">API URL 字符编码</span>。</p></li>
+
+   <li><p>如果指定了 <var>document</var>，
+   令 <var>baseURL</var> 为 <var>document</var> 的
+   <span data-x="document base URL">基 URL</span>，
+   否则令它为 <var>environment settings object</var> 的
+   <span data-x="API base URL">API 基 URL</span>。</p></li>
+
+   <li><p>令 <var>urlRecord</var> 为
+   使用 <var>baseURL</var> 和 <var>encoding</var>，在 <var>url</var>
+   上应用 <span data-x="URL parser">URL 解析器</span> 的结果。</p></li>
+
+   <li><p>如果 <var>urlRecord</var> 解析失败，中止这些步骤并产生一个错误。</p></li>
+
+   <li><p>令<var>urlString</var> 为在 <var>urlRecord</var> 上应用
+   <span data-x="concept-url-serializer">URL 序列化</span> 的结果。</p></li>
+
+   <li><p>将 <var>urlString</var> 作为 <dfn data-x="resulting URL string">结果 URL 字符串</dfn>，
+   <var>urlRecord</var> 作为 <dfn data-x="resulting URL record">结果 URL 记录</dfn> 返回。</p></li>
+  </ol>
+
+  </div>
+
+
+
+  <div w-nodev>
+

@@ -113,8 +113,7 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
   data-x="concept-hyperlink-url-set">set the url</span>.</p>
 
   <p class="note">This is only observable for <code data-x="blob protocol">blob:</code> URLs as
-  <span data-x="url parser">parsing</span> them involves the <span>StructuredSerialize</span>
-  abstract operation.</p>
+  <span data-x="url parser">parsing</span> them involves a <span>Blob URL Store</span> lookup.</p>
 
   <p>An element implementing the <code>HTMLHyperlinkElementUtils</code> mixin has an associated
   <!--en-GB--><dfn id="reinitialise-url">reinitialize url</dfn> algorithm, which runs these
@@ -165,13 +164,10 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
    <li><p>If this element's <span data-x="concept-hyperlink-url">url</span> is null, return the
    empty string.</p></li>
 
-   <li><p>Return the <span data-x="Unicode serialization of an origin">Unicode serialization</span>
-   of this element's <span data-x="concept-hyperlink-url">url</span>'s <span
+   <li><p>Return the <span data-x="serialization of an origin">serialization</span> of this
+   element's <span data-x="concept-hyperlink-url">url</span>'s <span
    data-x="concept-url-origin">origin</span>.</p></li>
   </ol>
-
-  <p class="note no-backref">It returns the Unicode rather than the ASCII serialization for
-  compatibility with <code>MessageEvent</code>.</p>
 
   <p>The <dfn><code data-x="dom-hyperlink-protocol">protocol</code></dfn> attribute's getter must
   run these steps:</p>
@@ -457,7 +453,7 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
    data-x="concept-url-query">query</span> to null.
 
    <li>
-    <p>Otherwise, run these substeps:</p>
+    <p>Otherwise:</p>
 
     <ol>
      <li><p>Let <var>input</var> be the given value with a single leading "<code data-x="">?</code>"
@@ -507,7 +503,7 @@ interface <dfn>HTMLHyperlinkElementUtils</dfn> {
    data-x="concept-url-fragment">fragment</span> to null.
 
    <li>
-    <p>Otherwise, run these substeps:</p>
+    <p>Otherwise:</p>
 
     <ol>
      <li><p>Let <var>input</var> be the given value with a single leading "<code data-x="">#</code>"

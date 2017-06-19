@@ -4,11 +4,17 @@
 
   <dl class="switch">
 
+    <dt><span data-x="ASCII digits">ASCII digit</span></dt>
+    <dd>Multiply the <var data-x="character reference code">character reference code</var> by 16.
+    Add a numeric version of the <span>current input character</span> (subtract 0x0030 from the
+    character's code point) to the <var data-x="character reference code">character reference
+    code</var>.</dd>
+
     <dt><span>ASCII upper hex digit</span></dt>
     <dd>Multiply the <var data-x="character reference code">character reference code</var> by 16.
-    Add a numeric version of the <span>current input character</span> as a hexademical digit (subtract
-    0x0037 from the character's code point) to the <var data-x="character reference code">character
-    reference code</var>.</dd>
+    Add a numeric version of the <span>current input character</span> as a hexademical digit
+    (subtract 0x0037 from the character's code point) to the <var data-x="character reference
+    code">character reference code</var>.</dd>
 
     <dt><span>ASCII lower hex digit</span></dt>
     <dd>Multiply the <var data-x="character reference code">character reference code</var> by 16.
@@ -16,18 +22,14 @@
     (subtract 0x0057 from the character's code point) to the <var data-x="character reference
     code">character reference code</var>.</dd>
 
-    <dt><span data-x="ASCII digits">ASCII digit</span></dt>
-    <dd>Multiply the <var data-x="character reference code">character reference code</var> by 16.
-    Add a numeric version of the <span>current input character</span> (subtract 0x0030 from the
-    character's code point) to the <var data-x="character reference code">character reference
-    code</var>.</dd>
-
     <dt>U+003B SEMICOLON</dt>
     <dd>Switch to the <span>numeric character reference end state</span>.</dd>
 
     <dt>Anything else</dt>
-    <dd><span>Parse error</span>. <span>Reconsume</span> in the <span>numeric character reference
-    end state</span>.</dd>
+    <dd>This is a <span
+    data-x="parse-error-missing-semicolon-after-character-reference">missing-semicolon-after-character-reference</span>
+    <span>parse error</span>. <span>Reconsume</span> in the <span>numeric character reference end
+    state</span>.</dd>
 
   </dl>
 

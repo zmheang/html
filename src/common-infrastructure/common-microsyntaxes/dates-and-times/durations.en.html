@@ -208,8 +208,7 @@
 
    <li>
 
-    <p>Run the following substeps in a loop, until a step requiring the loop to be broken or the
-    entire algorithm to fail is reached:</p>
+    <p>While true:</p>
 
     <ol>
 
@@ -220,13 +219,12 @@
      <li><p>Let <var>next character</var> be undefined. It is used to process characters
      from the <var>input</var>.</p></li>
 
-     <li><p>If <var>position</var> is past the end of <var>input</var>, then break
-     the loop.</p></li>
+     <li><p>If <var>position</var> is past the end of <var>input</var>, then break.</p></li>
 
      <li><p>If the character in <var>input</var> pointed to by <var>position</var> is a U+0054 LATIN
      CAPITAL LETTER T character, then advance <var>position</var> to the next character, set
      <var>M-disambiguator</var> to <i>minutes</i>, <span>skip ASCII whitespace</span> within
-     <var>input</var> given <var>position</var>, and return to the top of the loop.</p></li>
+     <var>input</var> given <var>position</var>, and continue.</p></li>
 
      <li><p>Set <var>next character</var> to the character in <var>input</var>
      pointed to by <var>position</var>.</p></li>
@@ -255,8 +253,7 @@
 
      <li>
 
-      <p>If <var>next character</var> is a U+002E FULL STOP character (.), then run these
-      substeps:</p>
+      <p>If <var>next character</var> is U+002E (.), then:</p>
 
       <ol>
 
@@ -290,7 +287,7 @@
 
       </ol>
 
-      <p>Otherwise, run these substeps:</p>
+      <p>Otherwise:</p>
 
       <ol>
 
@@ -353,7 +350,7 @@
       <p>If <var>units</var> is <i>months</i>, add the product of <var>N</var> and
       <var>multiplier</var> to <var>months</var>.</p>
 
-      <p>Otherwise, run these substeps:</p>
+      <p>Otherwise:</p>
 
       <ol>
 

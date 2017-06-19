@@ -3,10 +3,11 @@
   <var>targetRealm</var> [ , <var>memory</var> ] )</h4>
 
   <p>The <span>StructuredDeserialize</span> abstract operation takes as input a <span>Record</span>
-  <var>serialized</var>, which was previously produced by <span>StructuredSerialize</span>, and
-  deserializes it into a new JavaScript value, created in <var>targetRealm</var>.</p>
+  <var>serialized</var>, which was previously produced by <span>StructuredSerialize</span> or
+  <span>StructuredSerializeForStorage</span>, and deserializes it into a new JavaScript value,
+  created in <var>targetRealm</var>.</p>
 
-  <p>This process may throw an exception, for example when trying to allocate memory for the new
+  <p>This process can throw an exception, for example when trying to allocate memory for the new
   objects (especially <code data-x="">ArrayBuffer</code> objects).</p>
 
   <ol>
@@ -95,10 +96,28 @@
    <var>serialized</var>.[[OriginalFlags]].</p></li>
 
    <li>
-    <p>Otherwise, if <var>serialized</var>.[[Type]] is "ArrayBuffer", then set <var>value</var> to a new ArrayBuffer
-    object in <var>targetRealm</var> whose [[ArrayBufferData]] internal slot value is
-    <var>serialized</var>.[[ArrayBufferData]], and whose [[ArrayBufferByteLength]] internal slot
+    <p>Otherwise, if <var>serialized</var>.[[Type]] is "SharedArrayBuffer", then:</p>
+
+    <ol>
+     <li><p>If <var>targetRealm</var>'s corresponding <span>agent cluster</span> is not
+     <var>serialized</var>.[[AgentCluster]], then then throw a
+     <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
+
+     <li><p>Otherwise, set <var>value</var> to a new SharedArrayBuffer object in
+     <var>targetRealm</var> whose [[ArrayBufferData]] internal slot value is
+     <var>serialized</var>.[[ArrayBufferData]] and whose [[ArrayBufferByteLength]] internal slot
+     value is <var>serialized</var>.[[ArrayBufferByteLength]].</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>Otherwise, if <var>serialized</var>.[[Type]] is "ArrayBuffer", then set <var>value</var> to a
+    new ArrayBuffer object in <var>targetRealm</var> whose [[ArrayBufferData]] internal slot value
+    is <var>serialized</var>.[[ArrayBufferData]], and whose [[ArrayBufferByteLength]] internal slot
     value is <var>serialized</var>.[[ArrayBufferByteLength]].</p>
+
+    <p>If this throws an exception, then throw a <span>"<code>DataCloneError</code>"</span>
+    <code>DOMException</code>.</p>
 
     <p class="note">This step might throw an exception if there is not enough memory available to
     create such an ArrayBuffer object.</p>
@@ -109,22 +128,22 @@
 
     <ol>
      <li><p>Let <var>deserializedArrayBuffer</var> be ?
-     <span>StructuredDeserialize</span>(<var>input</var>.[[ArrayBufferSerialized]],
+     <span>StructuredDeserialize</span>(<var>serialized</var>.[[ArrayBufferSerialized]],
      <var>targetRealm</var>, <var>memory</var>).</p></li>
 
-     <li><p>If <var>input</var>.[[Constructor]] is "DataView", then set <var>value</var> to a new DataView object in
-     <var>targetRealm</var> whose [[ViewedArrayBuffer]] internal slot value is
-     <var>deserializedArrayBuffer</var>, whose [[ByteLength]] internal slot value is
+     <li><p>If <var>serialized</var>.[[Constructor]] is "DataView", then set <var>value</var> to a
+     new DataView object in <var>targetRealm</var> whose [[ViewedArrayBuffer]] internal slot value
+     is <var>deserializedArrayBuffer</var>, whose [[ByteLength]] internal slot value is
      <var>serialized</var>.[[ByteLength]], and whose [[ByteOffset]] internal slot value is
      <var>serialized</var>.[[ByteOffset]].</p></li>
 
-     <li><p>Otherwise, set <var>value</var> to a new typed array object, using the constructor given by
-     <var>input</var>.[[Constructor]], whose [[ViewedArrayBuffer]] internal slot value is
-     <var>deserializedArrayBuffer</var>, whose [[TypedArrayName]] internal slot value is
-     <var>input</var>.[[Constructor]], whose [[ByteLength]] internal slot value is
-     <var>serialized</var>.[[ByteLength]], whose [[ByteOffset]] internal slot value is
-     <var>serialized</var>.[[ByteOffset]], and whose [[ArrayLength]] internal slot value is
-     <var>serialized</var>.[[ArrayLength]].</p></li>
+     <li><p>Otherwise, set <var>value</var> to a new typed array object in <var>targetRealm</var>,
+     using the constructor given by <var>serialized</var>.[[Constructor]], whose
+     [[ViewedArrayBuffer]] internal slot value is <var>deserializedArrayBuffer</var>, whose
+     [[TypedArrayName]] internal slot value is <var>serialized</var>.[[Constructor]], whose
+     [[ByteLength]] internal slot value is <var>serialized</var>.[[ByteLength]], whose
+     [[ByteOffset]] internal slot value is <var>serialized</var>.[[ByteOffset]], and whose
+     [[ArrayLength]] internal slot value is <var>serialized</var>.[[ArrayLength]].</p></li>
     </ol>
    </li>
 

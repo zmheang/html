@@ -18,6 +18,10 @@
   <p>Navigation always involves <dfn data-export="">source browsing context</dfn>, which is the
   browsing context which was responsible for starting the navigation.</p>
 
+  <p class="&#x0058;&#x0058;&#x0058;">As explained in <a
+  href="https://github.com/whatwg/html/issues/1130">issue #1130</a> the use of a browsing context as
+  source might not be the correct architecture.</p>
+
   <!-- NAVIGATE <dfn>navigate</dfn> -->
   <!-- For places that _call_ this, as opposed to just referring to
   it, search for "DONAV" -->
@@ -62,9 +66,9 @@
      https://github.com/whatwg/html/issues/1213
    -->
 
-   <li><p>If the <span>prompt to unload a document</span> algorithm is being run for the
-   <span>active document</span> of <var>browsingContext</var>, then abort these steps without
-   affecting the <span>prompt to unload a document</span> algorithm.</p></li>
+   <li><p>If the <span>prompt to unload</span> algorithm is being run for the <span>active
+   document</span> of <var>browsingContext</var>, then abort these steps without affecting the
+   <span>prompt to unload</span> algorithm.</p></li>
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1946 to 1955 -->
 
    <li id="navigate-fragid-step"><p>If this is not a <dfn>reload-triggered navigation</dfn>,
@@ -87,15 +91,13 @@
    later.)</p></li>
 
    <li>
-
-    <p><span data-x="prompt to unload a document">Prompt to unload</span> the <span>active
-    document</span> of <var>browsingContext</var>. If the user <span>refused to allow the document
-    to be unloaded</span>, then abort these steps.</p>
+    <p><span>Prompt to unload</span> the <span>active document</span> of <var>browsingContext</var>.
+    If the user <span>refused to allow the document to be unloaded</span>, then abort these
+    steps.</p>
 
     <p>If this instance of the <span data-x="navigate">navigation</span> algorithm gets canceled
-    while this step is running, the <span>prompt to unload a document</span> algorithm must
-    nonetheless be run to completion.</p>
-
+    while this step is running, the <span>prompt to unload</span> algorithm must nonetheless be run
+    to completion.</p>
    </li>
 
    <li><p><span data-x="abort a document">Abort</span> the <span>active document</span> of
@@ -157,9 +159,15 @@
         below if either of the following are true:</p>
 
         <ul>
-         <li><p>The <span>source browsing context</span>'s <span>active document</span>'s
-         <span>origin</span> is not the <span>same origin</span> as <var>browsingContext</var>'s
-         <span>active document</span>'s <span>origin</span>.</p></li>
+         <li>
+          <p>The <span>source browsing context</span>'s <span>active document</span>'s
+          <span>origin</span> is not the <span>same origin</span> as <var>browsingContext</var>'s
+          <span>active document</span>'s <span>origin</span>.</p>
+
+          <p class="&#x0058;&#x0058;&#x0058;">As explained in <a
+          href="https://github.com/whatwg/html/issues/2591">issue #2591</a> this step does not work
+          and presents a security issue.</p>
+         </li>
 
          <li><p>The <span>Should navigation request of type from source in target be blocked by
          Content Security Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when
@@ -458,8 +466,8 @@
 
   <p>To <dfn data-export="">process a navigate response</dfn>, given a <span
   data-x="concept-request">request</span> <var>request</var>, a <span
-  data-x="concept-response">response</span> <var>response</var>, a string <var>type</var>, two
-  <span data-x="browsing context">browsing contexts</span> <var>source</var> and
+  data-x="concept-response">response</span> <var>response</var>, a string <var>navigationType</var>,
+  two <span data-x="browsing context">browsing contexts</span> <var>source</var> and
   <var>browsingContext</var>, and an optional <span>environment</span>
   <var>reservedEnvironment</var>, run these steps:</p>
 
@@ -480,7 +488,8 @@
      <li><p>The <span>Should navigation response to navigation request of type from source in target
      be blocked by Content Security Policy?</span> algorithm returns "<code
      data-x="">Blocked</code>" when executed upon <var>request</var>, <var>response</var>,
-     <var>type</var>, <var>source</var>, and <var>browsingContext</var>. <ref spec="CSP"></p></li>
+     <var>navigationType</var>, <var>source</var>, and <var>browsingContext</var>. <ref
+     spec="CSP"></p></li>
     </ul>
 
     <p class="note">This is where the network errors defined and propagated by the WHATWG Fetch
@@ -585,20 +594,14 @@
     additionally run the following algorithm after creating the new object:</p>
 
     <ol>
-     <li><p>Let <var>window</var> be null.</p></li>
-
-     <li><p>Let <var>settingsObject</var> be null.</p></li>
-
      <li><p>If <var>browsingContext</var>'s only entry in its <span>session history</span> is the
      <code>about:blank</code> <code>Document</code> that was added when <var>browsingContext</var>
      was <span data-x="creating a new browsing context">created</span>, and navigation is occurring
      with <span>replacement enabled</span>, and that <code>Document</code> has the <span>same
-     origin</span> as the new <code>Document</code>, then set <var>window</var> to the
-     <code>Window</code> object of that <code>Document</code>, and set <var>settingsObject</var> to
-     <var>window</var>'s <span>relevant settings object</span>.</p></li>
+     origin</span> as the new <code>Document</code>, then do nothing.</p></li>
 
      <li>
-      <p>Otherwise,</p>
+      <p>Otherwise:</p>
 
       <ol>
        <li>
@@ -607,8 +610,7 @@
         with the following customizations:</p>
 
         <ul>
-         <li><p>For the global object, create a new <code>Window</code> object and set
-         <var>window</var> to it.</p></li>
+         <li><p>For the global object, create a new <code>Window</code> object.</p></li>
 
          <li><p>For the global <b>this</b> value, use <var>browsingContext</var>'s
          <code>WindowProxy</code> object.</p></li>
@@ -618,18 +620,10 @@
         </ul>
        </li>
 
-       <li><p><span>Set up a browsing context environment settings object</span> with <var>realm
-       execution context</var> and <var>reservedEnvironment</var>, if present, and set
-       <var>settingsObject</var> to the result.</p></li>
+       <li><p><span>Set up a window environment settings object</span> with <var>realm execution
+       context</var> and <var>reservedEnvironment</var>, if present.</p></li>
       </ol>
      </li>
-
-     <li><p>Set <var>window</var>'s <span data-x="concept-document-window">associated
-     <code>Document</code></span> to the new <code>Document</code>.</p></li>
-
-     <li><p>Set <var>browsingContext</var>'s <code>WindowProxy</code> object's
-     <span data-x="concept-windowproxy-window">[[Window]]</span> internal slot
-     value to <var>window</var>.</p></li>
 
      <li><p>Set the <code>Document</code>'s <span data-x="concept-document-https-state">HTTPS
      state</span> to the <span data-x="concept-response-https-state">HTTPS state</span> of the <span
@@ -662,35 +656,7 @@
      <li><p><span>Implement the sandboxing</span> for the <code>Document</code>.</p></li>
 
      <li><p><span>Set the allow* flags</span> for the <code>Document</code>.</p></li>
-
-     <li><p>Set <var>settingsObject</var>'s <span
-     data-x="concept-environment-execution-ready-flag">execution ready flag</span>.</p></li>
-
-     <li>
-      <p>If <var>settingsObject</var>'s <span
-      data-x="concept-environment-active-service-worker">active service worker</span> is not null,
-      then:</p>
-
-      <ol>
-       <li>
-        <p>If <var>settingsObject</var> is a <span data-x="secure-context">secure context</span>,
-        then:</p>
-
-        <ol>
-         <li><p>If <var>browsingContext</var> has an <span>opener browsing context</span> and
-         <var>request</var>'s <span data-x="concept-request-client">client</span> is a <span
-         data-x="non-secure-context">non-secure context</span>, then <span data-x="disowned its
-         opener">disown <var>browsingContext</var>'s opener</span>.</p></li>
-        </ol>
-       </li>
-
-       <li><p>Otherwise, set <var>settingsObject</var>'s <span
-       data-x="concept-environment-active-service-worker">active service worker</span> to
-       null.</p></li>
-      </ol>
-     </li>
     </ol>
-
    </li>
 
    <li id="navigate-non-Document">

@@ -7,7 +7,7 @@
   failure, then the user agent must take the <code data-x="attr-hyperlink-ping">ping</code>
   attribute's value, <span data-x="split a string on ASCII whitespace">split that string on ASCII
   whitespace</span>, <span data-x="parse a url">parse</span> each resulting token relative to the
-  element's <span>node document</span>, and then run these substeps for each <span>resulting URL
+  element's <span>node document</span>, and then run these steps for each <span>resulting URL
   record</span> <var>ping URL</var>, ignoring tokens that fail to parse:</p>
 
   <ol>
@@ -31,7 +31,7 @@
    <li>
     <p>Let <var>target URL</var> be the <span>resulting URL string</span> obtained from <span
     data-x="parse a url">parsing</span> the value of the element's <code
-    data-x="attr-hyperlink-href">href</code> attribute and then run these substeps:</p>
+    data-x="attr-hyperlink-href">href</code> attribute and then:</p>
 
     <dl class="switch">
      <dt>If the <span data-x="concept-document-url">URL</span> of the <code>Document</code> object

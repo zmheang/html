@@ -1,0 +1,132 @@
+  <h4><dfn data-x="custom-element-upgrades">升级</dfn></h4>
+
+  <p>给定输入 <span data-x="custom element definition">custom element 定义</span> <var>definition</var> 和一个元素 <var>element</var>，<dfn data-x="concept-upgrade-an-element" data-export="">升级元素</dfn> 应运行以下步骤：</p>
+
+  <ol>
+   <li>
+    <p>如果 <var>element</var> 是 <span data-x="concept-element-custom">自定义的</span>，中止这些步骤。</p>
+
+    <div class="example">
+     <p>这一情况在再次进入该算法时就会发生，比如下面的例子：</p>
+
+     <pre>&lt;!DOCTYPE html>
+&lt;x-foo id="a">&lt;/x-foo>
+&lt;x-foo id="b">&lt;/x-foo>
+
+&lt;script>
+// Defining enqueues upgrade reactions for both "a" and "b"
+customElements.define("x-foo"， class extends HTMLElement {
+  constructor() {
+    super();
+
+    const b = document.querySelector("#b");
+    b.remove();
+
+    // While this constructor is running for "a"， "b" is still
+    // undefined， and so inserting it into the document will enqueue a
+    // second upgrade reaction for "b" in addition to the one enqueued
+    // by defining x-foo.
+    document.body.appendChild(b);
+  }
+})
+&lt;/script></pre>
+
+     <p>这一步会使得第二次以 "<code data-x="">b</code>" 为参数调用
+       <span data-x="concept-upgrade-an-element">升级元素</span> 算法时直接早退出。
+     </p>
+    </div>
+   </li>
+
+   <li><p>如果 <var>element</var> 的 <span data-x="custom element state">custom element 状态</span> 是 <code
+   data-x="">failed</code>"，则中止这些步骤。</p></li>
+
+   <li><p>对 <var>element</var> 的 <span data-x="attribute list">属性列表</span> 中每一个 <var>attribute</var>，
+   按顺序 <span data-x="enqueue a custom element callback reaction">入队一个 Custom Element 反应</span>
+   （元素为 <var>element</var>，回调名为 "<code data-x="">attributeChangedCallback</code>"），
+   参数列表为 <var>attribute</var> 的 局部名，null，<var>attribute</var>的值，以及 <var>attribute</var> 的命名空间。</p></li>
+
+   <li><p>如果 <var>element</var> <span data-x="connected">已连接</span>，
+    <span data-x="enqueue a custom element callback reaction">入队一个 Custom Element 反应</span>
+   （元素为 <var>element</var>，回调名为 "<code data-x="">attributeChangedCallback</code>"），参数列表为空。
+   </p></li>
+
+   <li><p>将 <var>element</var> 添加到 <var>definition</var> 的 <span
+   data-x="concept-custom-element-definition-construction-stack">构造栈</span> 尾部。</p></li>
+
+   <li><p>令 <var>C</var> 为 <var>definition</var> 的 <span
+   data-x="concept-custom-element-definition-constructor">构造器</span>。</p></li>
+
+   <li>
+    <p>运行以下子步骤的同时捕获任何异常：</p>
+
+    <ol>
+     <li>
+      <p>令 <var>constructResult</var> 为无参数 <span data-x="es-constructing-callback-functions">构造</span>
+      <var>C</var> 的结果。</p>
+
+      <p class="note">如果 <var>C</var> <a href="#custom-element-conformance">不合规范地</a>
+      使用了以 <code data-x="CEReactions">[CEReactions]</code> 扩展属性修饰的 API，
+      那么就在这一步中，在 <var>C</var> 结束前执行本算法开始时入队的回调，此后将控制返回给本算法。
+      否则，在 <var>C</var> 和其他升级过程结束后再执行它们。</p>
+     </li>
+
+     <li>
+      <p>如果 <span>SameValue</span>(<var>constructResult</var>， <var>element</var>) 为 false，
+      那么抛出一个 <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>。</p>
+
+      <p class="note">如果 <var>C</var> 在调用 <code data-x="">super()</code> 之前构造了同一个 Custom Element 的另一个实例，
+      或者 <var>C</var> 使用了 JavaScript 的 <code data-x="">return</code>重写特性并在构造函数中返回一个任意的对象时，
+      就会发生这种情况。</p>
+     </li>
+    </ol>
+
+    <p>然后执行下列子步骤，无论上述步骤是否抛出了异常：</p>
+
+    <ol>
+     <li>
+      <p>从 <var>definition</var> 的 <span data-x="concept-custom-element-definition-construction-stack">构造栈</span> 尾部移除最后一个入口。</p>
+
+      <div class="note">
+       <p>假设 <var>C</var> 调用了 <code data-x="">super()</code> （如果它 <a
+       href="#custom-element-conformance">符合规范</a> 就会这样做)，并且该调用是成功的，此时 this 就是
+       <span data-x="concept-already-constructed-marker"><i>已构造</i> 标记</span>，替换了本算法最开始推入的 <var>element</var>。
+       （就是 <a href="#html-element-constructors">HTML 元素构造器</a> 执行了这个替换。)</p>
+
+       <p>如果 <var>C</var> 没有调用 <code data-x="">super()</code> （即它不 <a
+       href="#custom-element-conformance">符合规范</a>），或者在 <a
+       href="#html-element-constructors">HTML 元素构造</a> 中的任何一步抛出了异常，那么这个入口仍然是 <var>element</var>。</p>
+      </div>
+     </li>
+    </ol>
+
+    <p>最后，如果上述步骤抛出了异常：</p>
+
+    <ol>
+     <li><p>设置 <var>element</var> 的 <span data-x="custom element state">custom element 状态</span> 为 "<code
+     data-x="">failed</code>"。</p></li>
+
+     <li><p>清空 <var>element</var> 的 <span data-x="custom element reaction queue">custom element 反应队列</span>。</p>
+
+     <li><p>重新抛出该异常，终止本算法。</p></li>
+    </ol>
+   </li>
+
+   <li><p>设置 <var>element</var> 的 <span data-x="custom element state">custom element 状态</span> 为 "<code
+   data-x="">custom</code>"。</p></li>
+
+   <li><p>设置 <var>element</var> 的 <span data-x="concept-element-custom-element-definition">custom
+   element 定义</span> 为 <var>definition</var>。</p></li>
+  </ol>
+
+  <p>给定输入元素 <var>element</var>，<dfn data-x="concept-try-upgrade" data-export="">尝试升级元素</dfn>，
+   应执行下列步骤：</p>
+
+  <ol>
+   <li><p>令 <var>definition</var> 为给定 <var>element</var> 的 <span data-x="node document">节点文档</span>，
+     <var>element</var>的命名空间， <var>element</var>的 局部名，以及 <var>element</var> 的 <span data-x="concept-element-is-value"><code data-x="">is</code> 值</span>，
+     <span data-x="look up a custom element definition">查找 custom element 定义</span> 的结果。</p></li>
+
+   <li><p>如果 <var>definition</var> 不是 null，那么 <span data-x="enqueue a custom element upgrade reaction">入队一个 Custom Element 升级反应</span>，
+    其元素为 <var>element</var>，定义为 <var>definition</var>。</p></li>
+  </ol>
+

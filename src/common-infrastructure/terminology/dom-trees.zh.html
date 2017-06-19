@@ -1,0 +1,49 @@
+  <h4>DOM 树</h4>
+
+  <p>当声明 <dfn data-x="ignore">忽略</dfn> 某些元素或属性，或当作其他值处理，或当作其他东西处理时，
+  都是指节点在 DOM 中之后的处理。<span w-nodev>在这些情形下用户代理禁止改动 DOM。</span></p>
+
+  <p>只有内容属性的新值和原值不同时，才说内容属性的值发生了 <dfn data-x="">改变</dfn>；
+  将内容属性设置到它已有的值不会让它发生改变。</p>
+
+  <p>术语 <dfn data-x="">空</dfn> 用于属性值、<code data-x="Text">文本</code> 节点、或字符串时，
+  表示文本的长度是零（即不包含<span data-x="control">控制字符</span> 或 U+0020 SPACE）。</p>
+
+  <p>元素的 <dfn data-export="" data-x="child text content">子文本内容</dfn> 是指该元素的所有子节点中的
+  <code data-x="Text">文本</code> 节点（忽略其他的注释和元素节点）的
+  <span data-x="concept-cd-data">数据</span> 以 <span data-x="tree order">树序</span> 连接。</p>
+
+  <p><dfn data-x="nodes are inserted">插入节点 <var>A</var></dfn> 到节点 <var>B</var>
+  是指以 <var>A</var> 作为参数调用 <span data-x="concept-node-insert-ext">插入步骤</span>，
+  然后 <var>A</var> 新的父节点就是 <var>B</var>。类似地，从节点 <var>B</var>
+  <dfn data-x="nodes are removed">移除节点 <var>A</var></dfn> 是指以 <var>A</var> 作为
+  <var>removedNode</var> 参数，以 <var>B</var> 作为 <var>oldParent</var> 参数调用
+  <span data-x="concept-node-remove-ext">移除步骤</span>。</p>
+
+  <p><dfn id="insert-an-element-into-a-document" data-x="node is inserted into a document"
+  data-lt="inserted into a document|node is inserted into a document" data-export="">插入节点到文档</dfn>
+  是指把它作为参数调用 <span data-x="concept-node-insert-ext">插入步骤</span>，
+  然后它就 <span data-x="in a document tree">在文档树中</span> 了。类似地，
+  <dfn id="remove-an-element-from-a-document" data-x="node is removed from a
+  document" data-lt="removed from a document|node is removed from a document" data-export="">
+  从文档中移除节点</dfn> 是指把它作为参数调用 <span data-x="concept-node-remove-ext">移除步骤</span>，
+  然后它就不 <span data-x="in a document tree">在文档树中</span> 了。</p>
+
+  <p>把节点作为参数调用 <span data-x="concept-node-insert-ext">插入步骤</span> 后，
+  节点就 <dfn data-export="" data-x="becomes connected">变成已连接的</dfn>。
+  类似地，把它作为参数调用 <span data-x="concept-node-remove-ext">移除步骤</span> 后，
+  节点就 <dfn data-lt="become disconnected" data-x="becomes disconnected" data-export="">
+  变成了分离的</dfn>。</p>
+
+  <p>如果节点是 <span data-x="connected">已连接的</span> 且它的
+  <span data-x="shadow-including root">包含 Shadow 的根</span> 有
+  <span data-x="concept-document-bc">浏览环境</span>，那么它是
+  <dfn data-export="" data-x="browsing-context connected">连接到浏览环境的</dfn>。
+  把节点作为参数调用 <span data-x="concept-node-insert-ext">插入步骤</span> 后，
+  它就 <dfn data-x="becomes browsing-context connected" data-lt="become browsing-context connected" data-export="">连接到了浏览环境</dfn>。
+  把节点作为参数调用<span data-x="concept-node-remove-ext">移除步骤</span>，
+  或者它的 <span data-x="shadow-including root">包含 Shadow 的根</span> 不再拥有
+  <span data-x="concept-document-bc">浏览环境</span> 后，
+  它就 <dfn data-x="becomes browsing-context disconnected" data-lt="become browsing-context disconnected" data-export="">与浏览环境分离了</dfn>。
+
+

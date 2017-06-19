@@ -172,11 +172,11 @@ interface <dfn>CanvasDrawImage</dfn> {
 [NoInterfaceObject, Exposed=(Window,Worker)]
 interface <dfn>CanvasImageData</dfn> {
   // <span>pixel manipulation</span>
-  <span>ImageData</span> <span data-x="dom-context-2d-createImageData">createImageData</span>(double sw, double sh);
+  <span>ImageData</span> <span data-x="dom-context-2d-createImageData">createImageData</span>(long sw, long sh);
   <span>ImageData</span> <span data-x="dom-context-2d-createImageData">createImageData</span>(<span>ImageData</span> imagedata);
-  <span>ImageData</span> <span data-x="dom-context-2d-getImageData">getImageData</span>(double sx, double sy, double sw, double sh);
-  void <span data-x="dom-context-2d-putImageData">putImageData</span>(<span>ImageData</span> imagedata, double dx, double dy);
-  void <span data-x="dom-context-2d-putImageData">putImageData</span>(<span>ImageData</span> imagedata, double dx, double dy, double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight);
+  <span>ImageData</span> <span data-x="dom-context-2d-getImageData">getImageData</span>(long sx, long sy, long sw, long sh);
+  void <span data-x="dom-context-2d-putImageData">putImageData</span>(<span>ImageData</span> imagedata, long dx, long dy);
+  void <span data-x="dom-context-2d-putImageData">putImageData</span>(<span>ImageData</span> imagedata, long dx, long dy, long dirtyX, long dirtyY, long dirtyWidth, long dirtyHeight);
 };
 
 enum <dfn>CanvasLineCap</dfn> { "butt", "round", "square" };

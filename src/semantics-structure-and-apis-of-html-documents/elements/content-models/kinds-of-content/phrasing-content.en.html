@@ -75,10 +75,9 @@
   whitespace</span> (if the <code>Text</code> nodes are empty or contain just <span>ASCII
   whitespace</span>).</p>
 
-  <p><code>Text</code> nodes and attribute values must consist of <span data-x="Unicode
-  character">Unicode characters</span>, must not contain U+0000 characters, must not contain
-  permanently undefined Unicode characters (noncharacters), and must not contain <span>control
-  characters</span> other than <span>ASCII whitespace</span>.
+  <p><code>Text</code> nodes and attribute values must consist of <span data-x="scalar value">scalar
+  values</span>, excluding <span data-x="noncharacter">noncharacters</span>, and <span
+  data-x="control">controls</span> other than <span>ASCII whitespace</span>.
 
   <!--<code>Text</code> nodes and attribute values may begin with an <i>isolated combining
   character</i>.--> <!-- commented out since nothing disallows it currently, so it's implicit;

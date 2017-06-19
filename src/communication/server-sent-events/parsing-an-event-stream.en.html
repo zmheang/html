@@ -18,9 +18,9 @@ space         = %x0020 ; U+0020 SPACE
 colon         = %x003A ; U+003A COLON (:)
 bom           = %xFEFF ; U+FEFF BYTE ORDER MARK
 name-char     = %x0000-0009 / %x000B-000C / %x000E-0039 / %x003B-10FFFF
-                ; a <span>Unicode character</span> other than U+000A LINE FEED (LF), U+000D CARRIAGE RETURN (CR), or U+003A COLON (:)
+                ; a <span>scalar value</span> other than U+000A LINE FEED (LF), U+000D CARRIAGE RETURN (CR), or U+003A COLON (:)
 any-char      = %x0000-0009 / %x000B-000C / %x000E-10FFFF
-                ; a <span>Unicode character</span> other than U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR)</pre>
+                ; a <span>scalar value</span> other than U+000A LINE FEED (LF) or U+000D CARRIAGE RETURN (CR)</pre>
 
   <p>Event streams in this format must always be encoded as UTF-8. <ref spec=ENCODING></p>
 

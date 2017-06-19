@@ -1,0 +1,121 @@
+  <h5 id="custom-elements-autonomous-drawbacks">自主 custom element 的缺点</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>正如下文规定，以及上文提到的，简单地定义和使用一个称为
+  <code data-x="">taco-button</code> 不意味着这个元素代表 <span
+  data-x="represents">represent</span> 按钮。也就是说像 Web 浏览器、搜索引擎、
+  或可访问性技术这些工具将不会自动仅仅基于它定义的名字，就把它当做一个按钮。</p>
+
+  <p>为了向不同的用户表达期望的按钮语义，在使用
+  <span data-x="autonomous custom element">自主 custom element</span> 的时候，
+  就有必要应用下面这些技术了：</p>
+
+  <ul>
+   <li><p>添加 <code data-x="attr-tabindex">tabindex</code> 属性将会让
+   <code data-x="">taco-button</code> 变成 <span data-x="interactive content">交互内容</span>，
+   因此变得可以 <span data-x="focusable area">获得焦点</span>。
+   注意如果 <code data-x="">taco-button</code> 如果逻辑上被 disabled，
+   <code data-x="attr-tabindex">tabindex</code> 属性就需要被移除。</p></li>
+
+   <li><p>添加各种 ARIA 属性帮助我们向可访问性技术表达语义。比如，
+   设置 <code data-x="attr-aria-role">role</code> 属性为
+   "<code data-x="attr-aria-role-button">button</code>" 表示这是一个按钮，
+   使得用户可以在他们的可访问性技术中使用像按钮一样的工具，成功地与这一控件进行交互。
+   设置 <code data-x="attr-aria-label">aria-label</code> 属性很有必要，
+   这会给按钮一个 <span data-x="concept-accessible-name">可访问的名字</span>，
+   而不是让可访问性技术遍历它的子文本节点并声明。
+   当按钮逻辑上被 disabled 时，
+   设置 <code data-x="attr-aria-disabled">aria-disabled</code> 属性为 "<code data-x="">true</code>"
+   向可访问性技术表示该按钮被禁用的状态。</p></li>
+
+   <li><p>添加按钮常见的事件处理器来帮助向 Web 浏览器用户表达按钮的语义。
+   在这一情形下，最相关的事件处理器当数代理合适的
+   <code data-x="event-keydown">keydown</code> 事件并把它变成
+   <code data-x="event-click">click</code> 事件，这样你既可以用键盘也可以用鼠标来激活该按钮。</li>
+
+   <li><p>除了 <code data-x="">taco-button</code> 元素的默认视觉样式之外，
+   其视觉样式也将需要更新来反映其逻辑状态的变化，比如被禁用；
+   这就是说任何包含 <code data-x="">taco-button</code> 规则的样式表都将需要
+   包含 <code data-x="">taco-button[disabled]</code> 规则。</p></li>
+  </ul>
+
+  <p>考虑到这些点，一个全特性的 <code data-x="">taco-button</code> 想要负责表达按钮的语义
+  （包括被禁用的能力），看起来可能是这样的：</p>
+
+  <pre>class TacoButton extends HTMLElement {
+  static get observedAttributes() { return ["disabled"]; }
+
+  constructor() {
+    super();
+
+    this.addEventListener("keydown", e => {
+      if (e.keyCode === 32 || e.keyCode === 13) {
+        this.dispatchEvent(new MouseEvent("click", {
+          bubbles: true,
+          cancelable: true
+        }));
+      }
+    });
+
+    this.addEventListener("click", e => {
+      if (this.disabled) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+
+    this._observer = new MutationObserver(() => {
+      this.setAttribute("aria-label", this.textContent);
+    });
+  }
+
+  connectedCallback() {
+    this.setAttribute("role", "button");
+    this.setAttribute("tabindex", "0");
+
+    this._observer.observe(this, {
+      childList: true,
+      characterData: true,
+      subtree: true
+    });
+  }
+
+  disconnectedCallback() {
+    this._observer.disconnect();
+  }
+
+  get disabled() {
+    return this.hasAttribute("disabled");
+  }
+
+  set disabled(v) {
+    if (v) {
+      this.setAttribute("disabled", "");
+    } else {
+      this.removeAttribute("disabled");
+    }
+  }
+
+  attributeChangedCallback() {
+    // only is called for the disabled attribute due to observedAttributes
+    if (this.disabled) {
+      this.removeAttribute("tabindex");
+      this.setAttribute("aria-disabled", "true");
+    } else {
+      this.setAttribute("tabindex", "0");
+      this.setAttribute("aria-disabled", "false");
+    }
+  }
+}</pre>
+
+  <p>即使有这样复杂的元素定义，该元素对用户来讲并不好用：它不断地根据自己的意愿添加
+  <code data-x="attr-tabindex">tabindex</code> 和 <code data-x="attr-aria-*">aria-*</code> 属性。
+  这是因为现在还没有办法设置 Custom Element 的默认的可访问性语义或者获得焦点行为。
+  只能强制使用这些属性来完成这一工作（即使它们通常是保留的，只供用户来重写默认行为）。</p>
+
+  <p>相比而言，一个简单的 <span data-x="customized built-in element">定制内建元素</span>，
+  如上一节所述，将会自动继承 <code>button</code> 的语义和行为，不需手动实现这些行为。
+  通常对于任何有着建立在既有 HTML 元素之上的明显语义和行为的元素，
+  <span data-x="customized built-in element">定制内建元素</span> 更容易开发、维护，以及使用。</p>
+

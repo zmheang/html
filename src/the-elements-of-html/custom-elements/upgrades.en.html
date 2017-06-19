@@ -65,7 +65,9 @@ customElements.define("x-foo", class extends HTMLElement {
 
     <ol>
      <li>
-      <p>Let <var>constructResult</var> be <span>Construct</span>(<var>C</var>).</p>
+      <p>Let <var>constructResult</var> be the result of <span
+      data-x="es-constructing-callback-functions">constructing</span> <var>C</var>, with no
+      arguments.</p>
 
       <p class="note">If <var>C</var> <a href="#custom-element-conformance">non-conformantly</a>
       uses an API decorated with the <code data-x="CEReactions">[CEReactions]</code> extended

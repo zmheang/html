@@ -2,10 +2,10 @@
 
   <ol>
    <li>
-    <p>If <span>IsPlatformObjectSameOrigin</span>(<b>this</b>) is true, then:</p>
+    <p>If ! <span>IsPlatformObjectSameOrigin</span>(<b>this</b>) is true, then:</p>
 
     <ol>
-     <li><p>Let <var>desc</var> be <span>OrdinaryGetOwnProperty</span>(<b>this</b>,
+     <li><p>Let <var>desc</var> be ! <span>OrdinaryGetOwnProperty</span>(<b>this</b>,
      <var>P</var>).</p></li>
 
      <li><p>If the value of the <span>[[DefaultProperties]]</span> internal slot of <b>this</b>

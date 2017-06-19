@@ -6,11 +6,20 @@
    <b>this</b>.</p></li>
 
    <li>
-    <p>If <span>IsPlatformObjectSameOrigin</span>(<var>W</var>) is true, then:
+    <p>If ! <span>IsPlatformObjectSameOrigin</span>(<var>W</var>) is true, then:
 
     <ol>
-     <li><p>If <var>P</var> is an <span>array index property name</span>, then return
-     false.</p></li>
+     <li>
+      <p>If <var>P</var> is an <span>array index property name</span>, then:</p>
+
+      <ol>
+       <li><p>Let <var>desc</var> be ! <b>this</b>.[[GetOwnProperty]](<var>P</var>).</p></li>
+
+       <li><p>If <var>desc</var> is undefined, then return true.</p></li>
+
+       <li><p>Return false.</p></li>
+      </ol>
+     </li>
 
      <li><p>Return ? <span>OrdinaryDelete</span>(<var>W</var>, <var>P</var>).</p></li>
     </ol>

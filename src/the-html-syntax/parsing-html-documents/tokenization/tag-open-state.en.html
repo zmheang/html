@@ -15,12 +15,21 @@
    the <span>tag name state</span>.
 
    <dt>U+003F QUESTION MARK (?)</dt>
-   <dd><span>Parse error</span>. Create a comment token whose data is the empty string.
+   <dd>This is an <span
+   data-x="parse-error-unexpected-question-mark-instead-of-tag-name">unexpected-question-mark-instead-of-tag-name</span>
+   <span>parse error</span>. Create a comment token whose data is the empty string.
    <span>Reconsume</span> in the <span>bogus comment state</span>.</dd>
 
+   <dt>EOF</dt>
+   <dd>This is an <span data-x="parse-error-eof-before-tag-name">eof-before-tag-name</span>
+   <span>parse error</span>. Emit a U+003C LESS-THAN SIGN character token and an end-of-file
+   token.</dd>
+
    <dt>Anything else</dt>
-   <dd><span>Parse error</span>. Emit a U+003C LESS-THAN SIGN character token.
-   <span>Reconsume</span> in the <span>data state</span>.</dd>
+   <dd>This is an <span
+   data-x="parse-error-invalid-first-character-of-tag-name">invalid-first-character-of-tag-name</span>
+   <span>parse error</span>. Emit a U+003C LESS-THAN SIGN character token. <span>Reconsume</span> in
+   the <span>data state</span>.</dd>
 
   </dl>
 

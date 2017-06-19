@@ -11,34 +11,25 @@
    <li><p>Let <var>source</var> be <var>subject</var>'s <span>node document</span>'s <span
    data-x="concept-document-bc">browsing context</span>.</p></li>
 
-   <li>
+   <li><p>Let <var>targetAttributeValue</var> be null.</p></li>
 
-    <p>If the user indicated a specific <span>browsing context</span> when following the hyperlink,
-    or if the user agent is configured to follow hyperlinks by navigating a particular browsing
-    context, then let <var>target</var> be that <span>browsing context</span>. If this is a new
-    <span>top-level browsing context</span> (e.g. when the user followed the hyperlink using "Open
-    in New Tab"), then <var>source</var> must be set as the new <span>browsing context</span>'s
-    <span>one permitted sandboxed navigator</span>.</p>
+   <li><p>If <var>subject</var> is an <code>a</code> or <code>area</code> element that has a <code
+   data-x="attr-hyperlink-target">target</code> attribute, then set <var>targetAttributeValue</var>
+   to that attribute's value.</p></li>
 
-    <p>Otherwise, if <var>subject</var> is an <code>a</code> or <code>area</code> element
-    that has a <code data-x="attr-hyperlink-target">target</code> attribute, then let <var>target</var> be the <span>browsing context</span> that is chosen by applying <span>the
-    rules for choosing a browsing context given a browsing context name</span>, using the value of
-    the <code data-x="attr-hyperlink-target">target</code> attribute as the browsing context name. If
-    these rules result in the creation of a new <span>browsing context</span>, set <var>replace</var> to true.</p>
+   <li><p>Otherwise, if <var>subject</var> is an <code>a</code> or <code>area</code> element with no
+   <code data-x="attr-hyperlink-target">target</code> attribute, but <var>subject</var>'s <span>node
+   document</span> contains a <code>base</code> element with a <code
+   data-x="attr-base-target">target</code> attribute, then set <var>targetAttributeValue</var> to
+   the value of <code data-x="attr-base-target">target</code> attribute of the first such
+   <code>base</code> element.</p></li>
+   <!-- c.f. concept-fs-target -->
 
-    <p>Otherwise, if <var>target</var> is an <code>a</code> or <code>area</code> element
-    with no <code data-x="attr-hyperlink-target">target</code> attribute, but the
-    <code>Document</code> contains a <code>base</code> element with a <code
-    data-x="attr-base-target">target</code> attribute, then let <var>target</var> be the
-    <span>browsing context</span> that is chosen by applying <span>the rules for choosing a browsing
-    context given a browsing context name</span>, using the value of the <code
-    data-x="attr-base-target">target</code> attribute of the first such <code>base</code> element as
-    the browsing context name. If these rules result in the creation of a new <span>browsing
-    context</span>, set <var>replace</var> to true.</p> <!-- c.f. concept-fs-target -->
+   <li><p>Let <var>target</var> and <var>replace</var> be the result of applying <span>the rules for
+   choosing a browsing context</span> given <var>targetAttributeValue</var> and
+   <var>source</var>.</p></li>
 
-    <p>Otherwise, let <var>target</var> be <var>source</var>.</p>
-
-   </li>
+   <li><p>If <var>target</var> is null, then return.</p></li>
 
    <li><p>If <var>subject</var>'s <a href="#linkTypes">link types</a> include the <code
    data-x="rel-noreferrer">noreferrer</code> or <code data-x="rel-noopener">noopener</code> keyword,

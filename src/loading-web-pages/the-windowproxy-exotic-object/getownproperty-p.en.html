@@ -9,7 +9,7 @@
     <p>If <var>P</var> is an <span>array index property name</span>, then:</p>
 
     <ol>
-     <li><p>Let <var>index</var> be <span>ToUint32</span>(<var>P</var>).</p></li>
+     <li><p>Let <var>index</var> be ! <span>ToUint32</span>(<var>P</var>).</p></li>
 
      <li><p>Let <var>maxProperties</var> be the <span>number of document-tree child browsing
      contexts</span> of <var>W</var>.</p></li>
@@ -34,6 +34,8 @@
        <!-- sort order: https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2860 -->
       </ol>
 
+     <li><p>If <var>value</var> is undefined, then return undefined.</p></li>
+
      <li><p>Return <span>PropertyDescriptor</span>{
      [[Value]]: <var>value</var>,
      [[Writable]]: false,
@@ -43,7 +45,7 @@
    </li>
 
    <li>
-    <p>If <span>IsPlatformObjectSameOrigin</span>(<var>W</var>) is true, then return
+    <p>If ! <span>IsPlatformObjectSameOrigin</span>(<var>W</var>) is true, then return !
     <span>OrdinaryGetOwnProperty</span>(<var>W</var>, <var>P</var>).</p>
 
     <p class="note">This is a <span>willful violation</span> of the JavaScript specification's
@@ -52,10 +54,10 @@
     issue #672</a> for more information. <ref spec=JAVASCRIPT></p>
    </li>
 
-   <li><p>Let <var>property</var> be <span>CrossOriginGetOwnPropertyHelper</span>(<var>W</var>,
+   <li><p>Let <var>property</var> be ! <span>CrossOriginGetOwnPropertyHelper</span>(<var>W</var>,
    <var>P</var>).</p></li>
 
-   <li><p>If <var>property</var> is not undefined, return <var>property</var>.</p></li>
+   <li><p>If <var>property</var> is not undefined, then return <var>property</var>.</p></li>
 
    <li>
     <p>If <var>property</var> is undefined and <var>P</var> is in <var>W</var>'s <span>document-tree

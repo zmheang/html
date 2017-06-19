@@ -100,8 +100,9 @@
 
    <li>
 
-    <p>If <var>input</var> is four characters long, and the first character in <var>input</var> is a U+0023 NUMBER SIGN character (#), and the last three characters of
-    <var>input</var> are all <span>ASCII hex digits</span>, then run these substeps:</p>
+    <p>If <var>input</var> is four characters long, and the first character in <var>input</var> is
+    U+0023 (#), and the last three characters of <var>input</var> are all <span>ASCII hex
+    digits</span>, then:</p>
 
     <ol>
 
@@ -122,9 +123,9 @@
 
    </li>
 
-   <li><p>Replace any characters in <var>input</var> that have a Unicode code point greater
-   than U+FFFF (i.e. any characters that are not in the basic multilingual plane) with the
-   two-character string "<code data-x="">00</code>".</p></li>
+   <li><p>Replace any characters in <var>input</var> that have a code point greater than U+FFFF
+   (i.e., any characters that are not in the basic multilingual plane) with the two-character string
+   "<code data-x="">00</code>".</p></li>
 
    <li><p>If <var>input</var> is longer than 128 characters, truncate <var>input</var>, leaving only the first 128 characters.</p></li>
 

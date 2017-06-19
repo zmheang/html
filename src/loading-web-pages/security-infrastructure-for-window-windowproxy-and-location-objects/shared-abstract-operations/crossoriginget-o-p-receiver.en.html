@@ -5,14 +5,14 @@
 
    <li><p>Assert: <var>desc</var> is not undefined.</p></li>
 
-   <li><p>If <span>IsDataDescriptor</span>(<var>desc</var>) is true, then return
+   <li><p>If ! <span>IsDataDescriptor</span>(<var>desc</var>) is true, then return
    <var>desc</var>.[[Value]].</p></li>
 
    <li><p>Assert: <span>IsAccessorDescriptor</span>(<var>desc</var>) is true.</p></li>
 
    <li><p>Let <var>getter</var> be <var>desc</var>.[[Get]].</p></li>
 
-   <li><p>If <var>getter</var> is undefined, throw a <span>"<code>SecurityError</code>"</span>
+   <li><p>If <var>getter</var> is undefined, then throw a <span>"<code>SecurityError</code>"</span>
    <code>DOMException</code>.</p></li>
 
    <li><p>Return ? <span>Call</span>(<var>getter</var>, <var>Receiver</var>).</p></li>

@@ -1,0 +1,95 @@
+  <h4 id="structuredserializewithtransfer" data-export="" data-lt="StructuredSerializeWithTransfer"
+  data-dfn-type="abstract-op"><dfn>StructuredSerializeWithTransfer</dfn> ( <var>value</var>，
+  <var>transferList</var> )</h4>
+
+  <ol>
+   <li>
+    <p>令<var>memory</var> 为一个空的 <span data-x="ordered map">映射</span>。</p>
+
+    <p class="note">除了它在 <span>StructuredSerializeInternal</span> 中的正常使用外，
+    在本算法中 <var>memory</var> 还用来确保 <span>StructuredSerializeInternal</span>
+    忽略了 <var>transferList</var> 中的项目，来让我们做自己的处理。</p>
+   </li>
+
+   <li>
+    <p>对 <var>transferList</var> 中的 <span data-x="list iterate">每一个</span>
+    <var>transferable</var>：</p>
+
+    <ol>
+     <li><p>如果 <var>transferable</var> 既没有 [[ArrayBufferData]] 内部槽
+     又没有 <span>[[Detached]]</span> 内部槽，则抛出一个
+     <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+     <li><p>如果 <var>transferable</var> 有一个 [[ArrayBufferData]] 内部槽且
+     ! <span>IsSharedArrayBuffer</span>(<var>transferable</var>) 为 true 或
+     ! <span>IsDetachedBuffer</span>(<var>transferable</var>) 为 true，则抛出一个
+     <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+     <li><p>如果 <var>transferable</var> 有一个 <span>[[Detached]]</span> 内部槽且
+     <var>transferable</var>.<span>[[Detached]]</span> 为 true，则抛出一个
+     <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+     <li><p>令<var>placeholder</var> 为一个用户代理定义的占位对象。</p></li>
+
+     <li><p><span data-x="map set">设置</span> <var>memory</var>[<var>transferable</var>] 为
+     <var>placeholder</var>。</p></li>
+    </ol>
+   </li>
+
+   <li><p>令<var>serialized</var> 为 ? <span>StructuredSerializeInternal</span>(<var>value</var>,
+   false,<var>memory</var>)。</p></li>
+
+   <li><p>令<var>transferDataHolders</var> 为一个新的空 <span data-x="js-List">列表</span>。</p></li>
+
+   <li>
+    <p>对 <var>transferList</var> 中的 <span data-x="list iterate">每一个</span>
+    <var>transferable</var>：</p>
+
+    <ol>
+     <li><p>令<var>placeholder</var> 为 <var>memory</var>[<var>transferable</var>]。</p></li>
+
+     <li><p>令<var>dataHolder</var> 为一个未初始化的值。</p></li>
+
+     <li>
+      <p>如果 <var>transferable</var> 有一个 [[ArrayBufferData]] 内部槽，则：</p>
+
+      <ol>
+       <li><p>设置<var>dataHolder</var> 为 { [[TransferConsumed]]: false,[[Type]]: "ArrayBuffer",
+       [[ArrayBufferData]]: <var>transferable</var>.[[ArrayBufferData]],[[ArrayBufferByteLength]]:
+       <var>transferable</var>.[[ArrayBufferByteLength]] }。</p></li>
+
+       <li><p>执行 ! <span>DetachArrayBuffer</span>(<var>transferable</var>)。</p></li>
+      </ol>
+     </li>
+
+     <li>
+      <p>否则：</p>
+
+      <ol>
+       <li><p>断言： <var>transferable</var> 是一个 <span data-x="transferable objects">可传输的</span>
+       <span data-x="platform object">平台对象</span>。</p></li>
+
+       <li><p>令<var>interfaceName</var> 为 <var>transferable</var> 的
+       <span data-x="primary interface">主接口</span> 的标识符。</p></li>
+
+       <li><p>设置<var>dataHolder</var> 为 { [[TransferConsumed]]: false,[[Type]]:
+       <var>interfaceName</var> }。</p></li>
+
+       <li><p>指定 <var>transferable</var> 和 <var>dataHolder</var>，
+       为 <var>interfaceName</var> 标识的接口执行适当的 <span data-x="transfer steps">传输步骤</span>。</p></li>
+
+       <li><p>设置<var>transferable</var>.<span>[[Detached]]</span> 为 true。</p></li>
+      </ol>
+     </li>
+
+     <li><p>在 <var>serialized</var> 中，用 <var>dataHolder</var> 替换所有的 <var>placeholder</var> 实例。</p></li>
+
+     <li><p><span data-x="list append">追加</span> <var>dataHolder</var> 到
+     <var>transferDataHolders</var>。</p></li>
+    </ol>
+   </li>
+
+   <li><p>返回 { [[Serialized]]: <var>serialized</var>,[[TransferDataHolders]]:
+   <var>transferDataHolders</var> }。</p></li>
+  </ol>
+

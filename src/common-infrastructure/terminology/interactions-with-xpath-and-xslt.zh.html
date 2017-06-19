@@ -1,0 +1,100 @@
+  <h4 id="interactions-with-xpath-and-xslt">与 XPath 和 XSLT 交互</h4>
+
+  <p id="xpath-1.0-processors">
+  操作以本标准的方式解析或创建的 <span data-x="HTML documents">HTML 文档</span>
+  （例如作为 <code data-x="">document.evaluate()</code> API 的一部分）
+  的 XPath 1.0 的实现必须在 XPath 1.0 标准的基础上遵循以下改动。</p>
+
+  <p>首先，移除这一段话：</p>
+
+  <blockquote cite="https://www.w3.org/TR/1999/REC-xpath-19991116/#node-tests">
+
+   <p>节点测试中的 <a href="https://www.w3.org/TR/REC-xml-names/#NT-QName">QName</a>
+   使用表达式上下文的命名空间声明展开为
+   <a href="https://www.w3.org/TR/1999/REC-xpath-19991116/#dt-expanded-name">expanded-name</a>，
+   展开的方式与开始和结束标签的元素类型名称一样，但是不使用以
+   <code data-x="">xmlns</code> 声明的默认命名空间：如果
+   <a href="https://www.w3.org/TR/REC-xml-names/#NT-QName">QName</a> 没有前缀，那么命名空间 URI 就是 null
+   （这与属性名的展开方式相同）。
+   如果 <a href="https://www.w3.org/TR/REC-xml-names/#NT-QName">QName</a> 的命名空间前缀
+   在表达式上下文中没有声明将会引发错误。</p>
+
+  </blockquote>
+
+  <p>然后，在同样的位置插入下面一段：</p>
+
+  <blockquote cite="https://www.w3.org/Bugs/Public/show_bug.cgi?id=7059#c37">
+
+   <p>节点测试中的 QName 使用表达式上下文的命名空间声明展开为 expanded-name。
+   如果 QName 有前缀，则该前缀必须在表达式上下文中有一个 URI 与之关联的命名空间声明<!-- added 2009-10-27
+   - https://www.w3.org/Bugs/Public/show_bug.cgi?id=8062 -->，
+   且相应的<!-- typo fixed 2009-10-27 -
+   https://www.w3.org/Bugs/Public/show_bug.cgi?id=8063 -->。
+   如果 <a href="https://www.w3.org/TR/REC-xml-names/#NT-QName">QName</a> 的命名空间前缀
+   在表达式上下文中没有声明将会引发错误。</p>
+
+   <p>如果 QName 没有前缀且轴的主节点类型为元素，那么使用默认的元素命名空间。
+   否则，如果 QName 没有前缀，命名空间 URI 就是 null。
+   默认的元素命名空间是 XPath 表达式的上下文中的成员。
+   按照 DOM3 XPath API 执行 XPath 表达式时，默认的元素命名空间的值由以下方式决定：</p>
+
+   <ol>
+
+    <li>如果上下文节点来自 HTML DOM，默认元素命名空间是 "http://www.w3.org/1999/xhtml"。</li>
+
+    <li>否则，默认元素命名空间 URI is null。</li>
+
+   </ol>
+
+   <p class="note">这相当于将 XPath 2.0 的默认元素命名空间特性添加到 XPath 1.0，
+   并将 HTML 命名空间用作 HTML 文档的默认元素命名空间。这样做是希望实现兼容于遗留的 HTML 内容的同时，
+   支持本标准在 HTML 元素命名空间方面引入的变更，以及希望使用 XPath 1.0 而不是 XPath 2.0。</p>
+
+  </blockquote>
+
+  <p class="note">这一变更的 <span data-x="willful violation">有意的违反</span> XPath 1.0 标准，
+  这样做是希望实现兼容于遗留内容的同时支持本标准在 HTML 元素命名空间方面引入的变更。
+  <ref spec=XPATH10></p> <!-- note： version matters for this ref -->
+
+  <hr>
+
+  <p id="dom-based-xslt-1.0-processors">当输出方法为 "html" 时（显式地设置或采用了 XSLT 1.0 的默认规则），
+  XSLT 1.0 处理器的 DOM 输出受一下规则的影响：</p>
+
+  <p>如果转换程序输出没有命名空间的元素，
+  处理器必须在构造相应的 DOM 元素节点之前将元素的命名空间更改为
+  <span data-x="HTML namespace">HTML 命名空间</span>，
+  将局部名称
+  <span data-x="converted to ASCII lowercase">改为 ASCII 小写</span>，
+  并且把元素上无命名空间的属性名
+  <span data-x="converted to ASCII lowercase">改为 ASCII 小写</span>。</p>
+
+  <p class="note">本要求是 XSLT 1.0 标准的 <span data-x="willful violation">故意违反</span>，
+  本标准为了兼容基于 DOM 的 XSLT 转换，而改变了 HTML 的命名空间和大小写敏感性规则。
+  （不影响序列化该输出的处理器） <ref spec=XSLT10></p> <!-- note： version matters for this ref -->
+
+  <hr>
+
+  <p>本标准不指定 XSLT 处理具体如何与 <span data-x="HTML parser">HTML 解析器</span> 基础设施交互
+  （例如，XSLT 处理器是否将所有元素放到 <span data-x="stack of open elements">打开元素栈</span> 中）。
+  但是当成功地完成后，XSLT 处理器必须 <span data-x="stop parsing">停止解析</span>，
+  也必须首先将 <span data-x="current document readiness">当前文档就绪状态</span> 设置为
+  "<code data-x="">interactive</code>"<!-- this synchronously fires an
+  event -->，在退出后再设置为 "<code data-x="">complete</code>"<!-- this also synchronously fires an event
+  -->。</p>
+
+  <hr>
+
+  <p>本标准不指定 XSLT 如何与 <span data-x="navigate">导航</span> 算法进行交互，
+  如何与 <span data-x="event loop">事件循环</span> 相匹配，
+  也不指定错误页面如何处理（例如 XSLT 错误是替代 XSLT 增量输出，还是内联呈现等等）。</p>
+
+  <p class="note">
+  <a href="#scriptTagXSLT">在 <code>script</code> 元素部分</a>，有一些关于 XSLT 与 HTML 之间交互的非规范性注释，
+  <a href="#template-XSLT-XPath">在 <code>template</code> 元素部分</a> 有一些关于 XSLT，XPath，和 HTML 之间交互的非规范性注释。</p>
+
+  </div>
+
+
+
+

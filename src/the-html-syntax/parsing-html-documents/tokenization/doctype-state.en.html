@@ -11,13 +11,19 @@
    <dt>U+0020 SPACE</dt>
    <dd>Switch to the <span>before DOCTYPE name state</span>.</dd>
 
+   <dt>U+003E GREATER-THAN SIGN (&gt;)</dt>
+   <dd><span>Reconsume</span> in the <span>before DOCTYPE name state</span>.</dd>
+
    <dt>EOF</dt>
-   <dd><span>Parse error</span>. Create a new DOCTYPE token. Set its <i data-x="force-quirks
-   flag">force-quirks flag</i> to <i>on</i>. Emit the token. Emit an end-of-file token.</dd>
+   <dd>This is an <span data-x="parse-error-eof-in-doctype">eof-in-doctype</span> <span>parse
+   error</span>. Create a new DOCTYPE token. Set its <i data-x="force-quirks flag">force-quirks
+   flag</i> to <i>on</i>. Emit the token. Emit an end-of-file token.</dd>
 
    <dt>Anything else</dt>
-   <dd><span>Parse error</span>. <span>Reconsume</span> in the <span>before DOCTYPE name
-   state</span>.</dd>
+   <dd>This is a <span
+   data-x="parse-error-missing-whitespace-before-doctype-name">missing-whitespace-before-doctype-name</span>
+   <span>parse error</span>. <span>Reconsume</span> in the <span>before DOCTYPE name state</span>.
+   </dd>
 
   </dl>
 

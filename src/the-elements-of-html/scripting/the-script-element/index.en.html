@@ -30,7 +30,7 @@
    <dd><code data-x="attr-script-crossorigin">crossorigin</code></dd>
    <dd><code data-x="attr-script-nonce">nonce</code></dd>
    <dd><code data-x="attr-script-integrity">integrity</code></dd>
-   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt><!--TOPIC:DOM APIs-->
+   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
@@ -47,7 +47,7 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
 
 };</pre>
    </dd>
-  </dl><!--TOPIC:HTML-->
+  </dl>
 
   <p>The <code>script</code> element allows authors to include dynamic script and data blocks in
   their documents. The element does not <span data-x="represents">represent</span> content for the
@@ -135,7 +135,9 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   data-x="classic script">Classic scripts</span> may specify <code
   data-x="attr-script-defer">defer</code> or <code data-x="attr-script-async">async</code>; <span
   data-x="module script">module scripts</span> may specify <code
-  data-x="attr-script-async">async</code>.</p>
+  data-x="attr-script-async">async</code>. The <code data-x="attr-script-defer">defer</code> and
+  <code data-x="attr-script-async">async</code> attributes must not be specified if the <code
+  data-x="attr-script-src">src</code> attribute is not present.</p>
 
   <p>There are several possible modes that can be selected using these attributes, and depending on
   the script's type.</p>
@@ -240,7 +242,6 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-<!--TOPIC:DOM APIs-->
   <dl class="domintro">
 
    <dt><var>script</var> . <code subdfn data-x="dom-script-text">text</code> [ = <var>value</var> ]</dt>
@@ -262,7 +263,6 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   same way as the <code>textContent</code> IDL attribute.</p>
 
   </div>
-<!--TOPIC:HTML-->
 
   <p class="note">When inserted using the <code data-x="dom-document-write">document.write()</code>
   method, <code>script</code> elements execute (typically blocking further script execution or HTML parsing), but when inserted using

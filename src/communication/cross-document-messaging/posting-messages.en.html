@@ -76,37 +76,57 @@
     </ol>
    </li>
 
-   <li><p>Let <var>cloneRecord</var> be <span>StructuredCloneWithTransfer</span>(<var>message</var>,
-   <var>transfer</var>, <var>targetRealm</var>). Rethrow any exceptions.</p></li>
+   <li><p>Let <var>serializeWithTransferResult</var> be
+   <span>StructuredSerializeWithTransfer</span>(<var>message</var>, <var>transfer</var>). Rethrow
+   any exceptions.</p></li>
 
-   <li><p>Let <var>messageClone</var> be <var>cloneRecord</var>.[[Deserialized]].</p></li>
+   <li>
+    <p><span>Queue a task</span> on the <span>posted message task source</span> to run the
+    following steps:</p>
 
-   <li><p>Let <var>newPorts</var> be a new <span>frozen array</span> consisting of all
-   <code>MessagePort</code> objects in <var>cloneRecord</var>.[[TransferredValues]], if any,
-   maintaining their relative order.</p></li>
+    <ol>
+     <li><p>If the <var>targetOrigin</var> argument is not a single literal U+002A ASTERISK character
+     (*) and <var>targetWindow</var>'s <span data-x="concept-document-window">associated
+     <code>Document</code></span>'s <span>origin</span> is not <span>same origin</span> with
+     <var>targetOrigin</var>, then abort these steps.</p></li>
 
-   <li><p>Return, but continue running these steps in <span>in parallel</span>.</p></li>
+     <li><p>Let <var>origin</var> be the <span data-x="serialization of an
+     origin">serialization</span> of <var>incumbentSettings</var>'s <span
+     data-x="concept-settings-object-origin">origin</span>.</p></li>
 
-   <li><p>If the <var>targetOrigin</var> argument is not a single literal U+002A ASTERISK character
-   (*) and <var>targetWindow</var>'s <span data-x="concept-document-window">associated
-   <code>Document</code></span>'s <span>origin</span> is not <span>same origin</span> with
-   <var>targetOrigin</var>, then abort these steps.</p></li>
+     <li><p>Let <var>source</var> be the <code>WindowProxy</code> object's corresponding to
+     <var>incumbentSettings</var>'s <span data-x="concept-settings-object-global">global
+     object</span> (a <code>Window</code> object).</p></li>
 
-   <li><p><span>Queue a task</span> on the <span>posted message task source</span> to <span
-   data-x="concept-event-fire">fire an event</span> named <code
-   data-x="event-message">message</code> at <var>targetWindow</var>, using
-   <code>MessageEvent</code>, with the <code data-x="dom-MessageEvent-data">data</code> attribute
-   initialized to <var>messageClone</var>, the <code data-x="dom-MessageEvent-origin">origin</code>
-   attribute initialized to the <span data-x="Unicode serialization of an origin">Unicode
-   serialization</span> of <var>incumbentSettings</var>'s <span
-   data-x="concept-settings-object-origin">origin</span>, the <code
-   data-x="dom-MessageEvent-source">source</code> attribute initialized to the
-   <code>WindowProxy</code> object's corresponding <var>incumbentSettings</var>'s <span
-   data-x="concept-settings-object-global">global object</span> (a <code>Window</code> object), and
-   the <code data-x="dom-MessageEvent-ports">ports</code> attribute initialized to
-   <var>newPorts</var>.</p></li> <!-- invariant: the global object is always a Window if the
-   script can see this method -->
+     <li>
+      <p>Let <var>deserializeRecord</var> be
+      <span>StructuredDeserializeWithTransfer</span>(<var>serializeWithTransferResult</var>,
+      <var>targetRealm</var>).</p>
 
+      <p>If this throws an exception, <span data-x="concept-event-fire">fire an event</span> named
+      <code data-x="event-messageerror">messageerror</code> at <var>targetWindow</var>, using
+      <code>MessageEvent</code>, with the <code data-x="dom-MessageEvent-origin">origin</code>
+      attribute initialized to <var>origin</var> and the <code
+      data-x="dom-MessageEvent-source">source</code> attribute initialized to <var>source</var>, and
+      then abort these steps.</p>
+     </li>
+
+     <li><p>Let <var>messageClone</var> be <var>deserializeRecord</var>.[[Deserialized]].</p></li>
+
+     <li><p>Let <var>newPorts</var> be a new <span>frozen array</span> consisting of all
+     <code>MessagePort</code> objects in <var>deserializeRecord</var>.[[TransferredValues]], if any,
+     maintaining their relative order.</p></li>
+
+     <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
+     data-x="event-message">message</code> at <var>targetWindow</var>, using
+     <code>MessageEvent</code>, with the <code data-x="dom-MessageEvent-origin">origin</code>
+     attribute initialized to <var>origin</var>, the <code
+     data-x="dom-MessageEvent-source">source</code> attribute initialized to <var>source</var>, the
+     <code data-x="dom-MessageEvent-data">data</code> attribute initialized to
+     <var>messageClone</var>, and the <code data-x="dom-MessageEvent-ports">ports</code> attribute
+     initialized to <var>newPorts</var>.</p></li>
+    </ol>
+   </li>
   </ol>
 
   </div>

@@ -69,24 +69,24 @@
 
    </dd>
 
-   <dt>An <dfn data-x="concept-module-script-instantiation-state">instantiation state</dfn></dt>
+   <dt>A <dfn data-x="concept-module-script-state">state</dfn></dt>
 
    <dd>
 
     <p>One of "<code data-x="">uninstantiated</code>", "<code data-x="">errored</code>", or "<code
     data-x="">instantiated</code>", used to prevent reinvocation of <span
     data-x="js-ModuleDeclarationInstantiation">ModuleDeclarationInstantiation</span> on modules that
-    failed to instantiate previously.</p>
+    failed to instantiate previously, and to ensure errors during parsing, instantiation, or
+    evaluation are remembered and propagated correctly.</p>
 
    </dd>
 
-   <dt>An <dfn data-x="concept-module-script-instantiation-error">instantiation error</dfn></dt>
+   <dt>An <dfn data-x="concept-module-script-error">error</dfn></dt>
 
    <dd>
 
     <p>A JavaScript value, which has meaning only if the <span
-    data-x="concept-module-script-instantiation-state">instantiation state</span> is "<code
-    data-x="">errored</code>".</p>
+    data-x="concept-module-script-state">state</span> is "<code data-x="">errored</code>".</p>
 
    </dd>
 
@@ -119,6 +119,33 @@
 
   </dl>
 
+  <p>To <dfn>error a module script</dfn> <var>script</var> with a given value <var>error</var>,
+  perform the following steps:</p>
+
+  <ol>
+   <li><p>Assert: <var>script</var>'s <span data-x="concept-module-script-state">state</span> is not
+   "<code data-x="">errored</code>".</p></li>
+
+   <li>
+    <p>If <var>script</var>'s <span data-x="concept-module-script-module-record">module
+    record</span> is set, then:</p>
+
+    <ol>
+     <li><p>Set <var>script</var> <span data-x="concept-module-script-module-record">module
+     record</span>'s [[HostDefined]] field to undefined.</p></li>
+
+     <li><p>Set <var>script</var>'s <span data-x="concept-module-script-module-record">module
+     record</span> to null.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Set <var>script</var>'s <span data-x="concept-module-script-state">state</span> to
+   "<code data-x="">errored</code>".</p></li>
+
+   <li><p>Set <var>script</var>'s <span data-x="concept-module-script-error">error</span> to
+   <var>error</var>.</p></li>
+  </ol>
+
   <hr>
 
   <p>An <dfn data-export="">environment</dfn> is an object that identifies the settings of a
@@ -133,7 +160,7 @@
    <dt>A <dfn data-x="concept-environment-creation-url" data-export=""
    data-dfn-for="environment">creation URL</dfn></dt>
    <dd>
-    <p>An <span>absolute URL</span> that represents the location of the resource with which the
+    <p>A <span>URL record</span> that represents the location of the resource with which the
     <span>environment</span> is associated.</p>
 
     <p class="note">In the case of an <span>environment settings object</span>, this URL might be

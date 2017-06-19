@@ -11,13 +11,14 @@
 
   <p>A <span>browsing context</span> has a <span>session history</span>, which lists the
   <code>Document</code> objects that the <span>browsing context</span> has presented, is presenting,
-  or will present. At any time, one <code>Document</code> in each <span>browsing context</span> is
-  designated the <dfn data-export="">active document</dfn>.
-  A <dfn data-x="concept-document-bc" data-lt="browsing context" data-dfn-for="Document"
-  data-export=""><code>Document</code>'s browsing context</dfn> is the <span>browsing context</span>
-  whose <span>session history</span> contains the <code>Document</code>, if any such browsing
-  context exists and has not been <span data-x="a browsing context is
-  discarded">discarded</span>.</p>
+  or will present. A <span>browsing context</span>'s <dfn data-export="">active document</dfn> is
+  its <code>WindowProxy</code> object's <span data-x="concept-windowproxy-window">[[Window]]</span>
+  internal slot value's <span data-x="concept-document-window">associated
+  <code>Document</code></span>. A <dfn data-x="concept-document-bc" data-lt="browsing context"
+  data-dfn-for="Document" data-export=""><code>Document</code>'s browsing context</dfn> is the
+  <span>browsing context</span> whose <span>session history</span> contains the
+  <code>Document</code>, if any such browsing context exists and has not been <span data-x="a
+  browsing context is discarded">discarded</span>.</p>
 
   <p class="note">In general, there is a 1-to-1 mapping from the <code>Window</code> object to the
   <code>Document</code> object, as long as the <code>Document</code> object has a <span
@@ -39,6 +40,31 @@
   <span data-x="node is removed from a document">removed from the document</span>, has no associated
   browsing context, since that browsing context was <span data-x="a browsing context is
   discarded">discarded</span>.</p>
+
+  <p>To <dfn>set the active document</dfn> of a <span>browsing context</span>
+  <var>browsingContext</var> to a <code>Document</code> object <var>document</var>, optionally with
+  a <code>Window</code> object <var>window</var>, run these steps:</p>
+
+  <ol>
+   <li>
+    <p>If <var>window</var> is not given, let <var>window</var> be <var>document</var>'s <span
+    data-x="concept-relevant-global">relevant global object</span>.</p>
+
+    <p class="&#x0058;&#x0058;&#x0058;">Per this standard <var>document</var> can be created before
+    <var>window</var>, which does not make much sense. See <a
+    href="https://github.com/whatwg/html/issues/2688">issue #2688</a>.</p>
+   </li>
+
+   <li><p>Set <var>browsingContext</var>'s <code>WindowProxy</code> object's <span
+   data-x="concept-windowproxy-window">[[Window]]</span> internal slot value to
+   <var>window</var>.</p></li>
+
+   <li><p>Set <var>window</var>'s <span data-x="concept-document-window">associated
+   <code>Document</code></span> to <var>document</var>.</p></li>
+
+   <li><p>Set <var>window</var>'s <span>relevant settings object</span>'s <span
+   data-x="concept-environment-execution-ready-flag">execution ready flag</span>.</p></li>
+  </ol>
 
   <hr>
 
@@ -97,8 +123,8 @@
     </ul>
    </li>
 
-   <li><p><span>Set up a browsing context environment settings object</span> with <var>realm
-   execution context</var>, and let <var>settingsObject</var> be the result.</p></li>
+   <li><p><span>Set up a window environment settings object</span> with <var>realm execution
+   context</var>, and let <var>settingsObject</var> be the result.</p></li>
 
    <li><p>Let <var>document</var> be a new <code>Document</code>, marked as an <span data-x="HTML
    documents">HTML document</span> in <span>quirks mode</span>, whose <span
@@ -109,16 +135,8 @@
    <li><p>Ensure that <var>document</var> has a single child <code>html</code> node, which itself
    has two empty child nodes: a <code>head</code> element, and a <code>body</code> element.</p></li>
 
-   <li><p>Set <var>window</var>'s <span data-x="concept-document-window">associated
-   <code>Document</code></span> to <var>document</var>.</p></li>
-
-   <li>
-    <p>Set <var>browsingContext</var>'s <code>WindowProxy</code> object's
-    <span data-x="concept-windowproxy-window">[[Window]]</span> internal slot
-    value to <var>window</var>.</p>
-
-    <p class="note">The internal slot value is updated when navigations occur.</p>
-   </li>
+   <li><p><span>Set the active document</span> of <var>browsingContext</var> to
+   <var>document</var>.</p></li>
 
    <li>
     <p id="about-blank-origin">Set the <span>origin</span> of <var>document</var>:</p>
@@ -143,9 +161,6 @@
    <li><p><span>Implement the sandboxing</span> for <var>document</var>.</p></li>
 
    <li><p><span>Set the allow* flags</span> for <var>document</var>.</p></li>
-
-   <li><p>Set <var>settingsObject</var>'s <span
-   data-x="concept-environment-execution-ready-flag">execution ready flag</span>.</p></li>
 
    <li><p>Add <var>document</var> to <var>browsingContext</var>'s <span>session
    history</span>.</p></li>

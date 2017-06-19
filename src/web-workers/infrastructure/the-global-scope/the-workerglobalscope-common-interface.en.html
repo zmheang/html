@@ -15,6 +15,19 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onunhandledrejection">onunhandledrejection</span>;
 };</pre>
 
+  <p id="the-worker's-documents">A <code>WorkerGlobalScope</code> object has an associated <dfn
+  id="concept-WorkerGlobalScope-owner-set" data-export="" data-for="WorkerGlobalScope">owner
+  set</dfn> (a <span>set</span> of <code>Document</code> and <code>WorkerGlobalScope</code>
+  objects). It is initially empty and populated when the worker is created or obtained.</p>
+
+  <p class="note">It is a <span>set</span>, instead of a single owner, to accomodate
+  <code>SharedWorkerGlobalScope</code> objects.</p>
+
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn id="the-worker's-workers"
+  data-export="" data-for="WorkerGlobalScope">worker set</dfn> (a <span>set</span> of
+  <code>WorkerGlobalScope</code> objects). It is initially empty and populated when the worker
+  creates or obtains further workers.</p>
+
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-type">type</dfn> ("<code
   data-x="">classic</code>" or "<code data-x="">module</code>"). It is set during creation.
@@ -22,6 +35,19 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-url">url</dfn> (null or a
   <span>URL</span>). It is initially null.
+
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
+  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-name">name</dfn> (a string). It
+  is set during creation.
+
+  <p class="note">The <span data-x="concept-WorkerGlobalScope-name">name</span> can have different
+  semantics for each subclass of of <code>WorkerGlobalScope</code>. For
+  <code>DedicatedWorkerGlobalScope</code> instances, it is simply a developer-supplied name, useful
+  mostly for debugging purposes. For <code>SharedWorkerGlobalScope</code> instances, it allows
+  obtaining a reference to a common shared worker via the <code
+  data-x="dom-SharedWorker">SharedWorker()</code> constructor. For
+  <code>ServiceWorkerGlobalScope</code> objects, it doesn't make sense (and as such isn't exposed
+  through the JavaScript API at all).</p>
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-https-state">HTTPS state</dfn>

@@ -12,10 +12,21 @@
     <p>The following terms are defined in the WHATWG Infra standard: <ref spec=INFRA></p>
 
     <ul class="brief">
+     <li>The general iteration terms <dfn data-x-href="https://infra.spec.whatwg.org/#iteration-while">while</dfn>,
+             <dfn data-x-href="https://infra.spec.whatwg.org/#iteration-continue">continue</dfn>, and
+             <dfn data-x-href="https://infra.spec.whatwg.org/#iteration-break">break</dfn>.</li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#code-point">code point</dfn> and its synonym
+         <dfn data-x-href="https://infra.spec.whatwg.org/#code-point">character</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#surrogate">surrogate</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#scalar-value">scalar value</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#noncharacter">noncharacter</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#javascript-string-length">JavaScript string length</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#string-length">string length</dfn></li>
      <li><dfn id="space-characters" data-x-href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</dfn></li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#control">control</dfn></li>
      <li><dfn data-x="ASCII digits" data-x-href="https://infra.spec.whatwg.org/#ascii-digit">ASCII digit</dfn></li>
      <li><dfn id="uppercase-ascii-hex-digits" data-x-href="https://infra.spec.whatwg.org/#ascii-upper-hex-digit">ASCII upper hex digit</dfn></li>
-     <li><dfn id="lowercase-ascii-hex-digits" data-x-href="https://infra.spec.whatwg.org/#ascii-lower-hex-digit-lower">ASCII lower hex digit</dfn></li>
+     <li><dfn id="lowercase-ascii-hex-digits" data-x-href="https://infra.spec.whatwg.org/#ascii-lower-hex-digit">ASCII lower hex digit</dfn></li>
      <li><dfn data-x="ASCII hex digits" data-x-href="https://infra.spec.whatwg.org/#ascii-hex-digit">ASCII hex digit</dfn></li>
      <li><dfn id="uppercase-ascii-letters" data-x-href="https://infra.spec.whatwg.org/#ascii-upper-alpha">ASCII upper alpha</dfn></li>
      <li><dfn id="lowercase-ascii-letters" data-x-href="https://infra.spec.whatwg.org/#ascii-lower-alpha">ASCII lower alpha</dfn></li>
@@ -30,22 +41,25 @@
      <li><dfn id="split-a-string-on-spaces" data-x-href="https://infra.spec.whatwg.org/#split-on-ascii-whitespace">split a string on ASCII whitespace</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#split-on-commas">split a string on commas</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#collect-a-sequence-of-code-points">collect a sequence of code points</dfn> and its associated
-             <dfn data-x-href="https://infra.spec.whatwg.org/#string-position-variable">position variable</dfn></li>
+         <dfn data-x-href="https://infra.spec.whatwg.org/#string-position-variable">position variable</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#skip-ascii-whitespace">skip ASCII whitespace</dfn></li>
      <li>The <dfn data-x-href="https://infra.spec.whatwg.org/#ordered-map">ordered map</dfn> data structure and the associated definitions for
              <dfn data-x="map exists" data-x-href="https://infra.spec.whatwg.org/#map-exists">exists</dfn>,
              <dfn data-x="map get" data-x-href="https://infra.spec.whatwg.org/#map-get">getting the value of an entry</dfn>, and
              <dfn data-x="map set" data-x-href="https://infra.spec.whatwg.org/#map-set">setting the value of an entry</dfn></li>
      <li>The <dfn data-x-href="https://infra.spec.whatwg.org/#list">list</dfn> data structure and the associated definitions for
-             <dfn data-x="list append" data-x-href="https://infra.spec.whatwg.org/#list-append">append</dfn>, and
-             <dfn data-x="list contains" data-x-href="https://infra.spec.whatwg.org/#list-contains">contains</dfn>,
+             <dfn data-x="list append" data-x-href="https://infra.spec.whatwg.org/#list-append">append</dfn>,
+             <dfn data-x="list remove" data-x-href="https://infra.spec.whatwg.org/#list-remove">remove</dfn>,
+             <dfn data-x="list empty" data-x-href="https://infra.spec.whatwg.org/#list-empty">empty</dfn>,
+             <dfn data-x="list contains" data-x-href="https://infra.spec.whatwg.org/#list-contain">contains</dfn>,
              <dfn data-x="list size" data-x-href="https://infra.spec.whatwg.org/#list-size">size</dfn>,
              <dfn data-x="list is empty" data-x-href="https://infra.spec.whatwg.org/#list-is-empty">is empty</dfn>, and
              <dfn data-x="list iterate" data-x-href="https://infra.spec.whatwg.org/#list-iterate">iterate</dfn></li>
      <li>The <dfn data-x-href="https://infra.spec.whatwg.org/#stack">stack</dfn> data structure and the associated definitions for
              <dfn data-x="stack push" data-x-href="https://infra.spec.whatwg.org/#stack-push">push</dfn> and
              <dfn data-x="stack pop" data-x-href="https://infra.spec.whatwg.org/#stack-pop">pop</dfn></li>
-     <li>The <dfn data-x="set" data-x-href="https://infra.spec.whatwg.org/#ordered-set">ordered set</dfn> data structure</li>
+     <li>The <dfn data-x="set" data-x-href="https://infra.spec.whatwg.org/#ordered-set">ordered set</dfn> data structure and the associated definition for
+             <dfn data-x="set append" data-x-href="https://infra.spec.whatwg.org/#set-append">append</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#html-namespace">HTML namespace</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#mathml-namespace">MathML namespace</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#svg-namespace">SVG namespace</dfn></li>
@@ -200,7 +214,6 @@
      <li><dfn data-x-href="https://url.spec.whatwg.org/#percent-decode">Percent decode</dfn></li>
      <li><dfn data-x-href="https://url.spec.whatwg.org/#set-the-username">set the username</dfn></li>
      <li><dfn data-x-href="https://url.spec.whatwg.org/#set-the-password">set the password</dfn></li>
-     <li>The <dfn data-x-href="https://url.spec.whatwg.org/#concept-domain-to-unicode">domain to Unicode</dfn> algorithm</li>
      <li>The <dfn data-x-href="https://url.spec.whatwg.org/#concept-urlencoded"><code>application/x-www-form-urlencoded</code></dfn> format</li>
      <li>The <dfn data-x-href="https://url.spec.whatwg.org/#concept-urlencoded-serializer"><code>application/x-www-form-urlencoded</code> serializer</dfn></li>
     </ul>
@@ -324,6 +337,8 @@
        <li><dfn data-x="concept-request-initiator" data-x-href="https://fetch.spec.whatwg.org/#concept-request-initiator">initiator</dfn></li>
        <li><dfn data-x="concept-request-type" data-x-href="https://fetch.spec.whatwg.org/#concept-request-type">type</dfn></li>
        <li><dfn data-x="concept-request-destination" data-x-href="https://fetch.spec.whatwg.org/#concept-request-destination">destination</dfn></li>
+       <li><dfn data-x="concept-potential-destination" data-x-href="https://fetch.spec.whatwg.org/#concept-potential-destination">potential destination</dfn></li>
+       <li><dfn data-x="concept-potential-destination-translate" data-x-href="https://fetch.spec.whatwg.org/#concept-potential-destination-translate">translating</dfn> a <span data-x="concept-potential-destination">potential destination</span></li>
        <li><dfn data-x="concept-request-priority" data-x-href="https://fetch.spec.whatwg.org/#concept-request-priority">priority</dfn></li>
        <li><dfn data-dfn-for="request" data-x="concept-request-origin" data-x-href="https://fetch.spec.whatwg.org/#concept-request-origin">origin</dfn></li>
        <li><dfn data-x="concept-request-referrer" data-x-href="https://fetch.spec.whatwg.org/#concept-request-referrer">referrer</dfn></li>
@@ -364,7 +379,6 @@
    </dd>
 
 
-<!--TOPIC:DOM APIs-->
 
    <dt>Web IDL</dt>
 
@@ -400,7 +414,8 @@
          <dfn data-x-href="https://heycam.github.io/webidl/#dfn-create-frozen-array">creating a frozen array</dfn></li>
      <li><dfn data-x="dfn-callback-this-value" data-x-href="https://heycam.github.io/webidl/#dfn-callback-this-value">callback this value</dfn></li>
      <li><dfn data-x="concept-idl-convert" data-x-href="https://heycam.github.io/webidl/#es-type-mapping">converting</dfn> between Web IDL types and JS types</li>
-     <li><dfn data-x="es-invoking-callback-functions" data-x-href="https://heycam.github.io/webidl/#es-invoking-callback-functions">invoke the Web IDL callback function</dfn></li>
+     <li><dfn data-x="es-invoking-callback-functions" data-x-href="https://heycam.github.io/webidl/#invoke-a-callback-function">invoking</dfn> and
+         <dfn data-x="es-constructing-callback-functions" data-x-href="https://heycam.github.io/webidl/#construct-a-callback-function">constructing</dfn> callback functions</li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-obtain-unicode">converting to a
      sequence of Unicode scalar values</dfn></li>
     </ul>
@@ -487,6 +502,8 @@
 
     <ul class="brief">
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#active-function-object">active function object</dfn></li>
+     <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-agents">agent</dfn> and
+         <dfn data-x-href="https://tc39.github.io/ecma262/#sec-agent-clusters">agent cluster</dfn></li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion">automatic semicolon insertion</dfn></li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#current-realm">current Realm Record</dfn></li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#early-error-rule">early error</dfn></li>
@@ -542,6 +559,7 @@
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-isconstructor">IsConstructor</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-isdatadescriptor">IsDataDescriptor</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-isdetachedbuffer">IsDetachedBuffer</dfn> abstract operation</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-issharedarraybuffer">IsSharedArrayBuffer</dfn> abstract operation</li>
      <li>The <dfn data-x="js-NewObjectEnvironment" data-x-href="https://tc39.github.io/ecma262/#sec-newobjectenvironment">NewObjectEnvironment</dfn> abstract operation</li>
      <!-- the next set of Ordinary* abstract operations are in order of appearance -->
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-ordinarygetprototypeof">OrdinaryGetPrototypeOf</dfn> abstract operation</li>
@@ -568,6 +586,7 @@
      <li>The <dfn data-x="js-abstract-equality" data-x-href="https://tc39.github.io/ecma262/#sec-abstract-equality-comparison">Abstract Equality Comparison</dfn> algorithm</li>
      <li>The <dfn data-x="js-strict-equality" data-x-href="https://tc39.github.io/ecma262/#sec-strict-equality-comparison">Strict Equality Comparison</dfn> algorithm</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-date-objects"><code>Date</code></dfn> class</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-sharedarraybuffer-objects"><code>SharedArrayBuffer</code></dfn> class</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror"><code>TypeError</code></dfn> class</li>
      <li>The <dfn data-x="js-RangeError" data-x-href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-rangeerror"><code>RangeError</code></dfn> class</li>
      <li>The <dfn data-x="js-typeof" data-x-href="https://tc39.github.io/ecma262/#sec-typeof-operator"><code>typeof</code></dfn> operator</li>
@@ -777,9 +796,10 @@
     define how the Fullscreen API interacts with HTML: <ref spec=FULLSCREEN></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://fullscreen.spec.whatwg.org/#top-layer">top layer</dfn> and its
-         <dfn data-x="top-layer-add" data-x-href="https://fullscreen.spec.whatwg.org/#top-layer-add">add</dfn> and
-         <dfn data-x="top-layer-remove" data-x-href="https://fullscreen.spec.whatwg.org/#top-layer-remove">remove</dfn> algorithms</li>
+     <li><dfn data-x-href="https://fullscreen.spec.whatwg.org/#top-layer">top layer</dfn> (an
+         <span data-x="set">ordered set</span>) and its
+         <dfn data-x="top-layer-add" data-x-href="https://fullscreen.spec.whatwg.org/#top-layer-add">add</dfn>
+         operation</li>
      <li><dfn data-x-href="https://fullscreen.spec.whatwg.org/#dom-element-requestfullscreen"><code data-x="dom-element-requestFullscreen">requestFullscreen()</code></dfn></li>
     </ul>
 
@@ -811,6 +831,7 @@
      <li>The <dfn data-x-href="https://w3c.github.io/FileAPI/#filelist-section"><code>FileList</code></dfn> interface</li>
      <li>The concept of a <code>Blob</code>'s <dfn data-x-href="https://w3c.github.io/FileAPI/#snapshot-state">snapshot state</dfn></li>
      <li>The concept of <dfn data-x="file-error-read">read errors</dfn></li>
+     <li><dfn data-x-href="https://w3c.github.io/FileAPI/#BlobURLStore">Blob URL Store</dfn></li>
     </ul>
 
    </dd>
@@ -887,7 +908,6 @@
 
    </dd>
 
-<!--TOPIC:HTML-->
 
    <dt>Media Queries</dt>
 
@@ -910,7 +930,7 @@
 
     <p>When this specification requires that something be <dfn data-x="parse something according to
     a CSS grammar"
-    data-x-href="https://drafts.csswg.org/css-syntax/#parse-something-according-to-a-css-grammar">parsed
+    data-x-href="https://drafts.csswg.org/css-syntax/#parse-grammar">parsed
     according to a particular CSS grammar</dfn>, the relevant algorithm in the CSS Syntax
     specification must be followed. <ref spec=CSSSYNTAX></p>
 
@@ -954,6 +974,10 @@
               <dfn data-x-href="https://drafts.csswg.org/css2/box.html#propdef-padding-bottom">'padding-bottom'</dfn>,
               <dfn data-x-href="https://drafts.csswg.org/css2/box.html#propdef-padding-left">'padding-left'</dfn>, and
               <dfn data-x-href="https://drafts.csswg.org/css2/box.html#propdef-padding-right">'padding-right'</dfn> properties</li>
+      <li>The <dfn data-x-href="https://drafts.csswg.org/css2/visuren.html#propdef-top">'top'</dfn>,
+              <dfn data-x-href="https://drafts.csswg.org/css2/visuren.html#propdef-bottom">'bottom'</dfn>,
+              <dfn data-x-href="https://drafts.csswg.org/css2/visuren.html#propdef-left">'left'</dfn>, and
+              <dfn data-x-href="https://drafts.csswg.org/css2/visuren.html#propdef-right">'right'</dfn> properties</li>
       <li>The <dfn data-x-href="https://drafts.csswg.org/css2/visuren.html#float-position">'float'</dfn> property</li>
       <li>The <dfn data-x-href="https://drafts.csswg.org/css2/visuren.html#flow-control">'clear'</dfn> property</li>
       <li>The <dfn data-x-href="https://drafts.csswg.org/css2/visudet.html#the-width-property">'width'</dfn> property</li>
@@ -1068,14 +1092,16 @@
 
     <p>The <dfn
     data-x-href="https://drafts.csswg.org/css-overflow/#propdef-overflow">'overflow'</dfn> property
-    is defined in the <cite>CSS Overflow</cite> specification. <ref spec=CSSOVERFLOW></p>
+    and its <dfn
+    data-x-href="https://drafts.csswg.org/css-overflow/#valdef-overflow-hidden">'hidden'</dfn> value
+    are defined in the <cite>CSS Overflow</cite> specification. <ref spec=CSSOVERFLOW></p>
 
     <p>The following features are defined in the <cite>CSS Positioned Layout</cite> specification:
     <ref spec=CSSPOSITION></p>
 
     <ul class="brief">
-      <li>The <dfn data-x-href="https://drafts.csswg.org/css-position/#position-property">'position'</dfn> property</li>
-      <li>The <dfn data-x-href="https://drafts.csswg.org/css-position/#propdef-top">'top'</dfn> property</li>
+      <li>The <dfn data-x-href="https://drafts.csswg.org/css-position/#position-property">'position'</dfn> property and its
+              <dfn data-x-href="https://drafts.csswg.org/css-position/#valdef-position-static">'static'</dfn> value</li>
     </ul>
 
     <p>The <dfn
@@ -1111,7 +1137,8 @@
     <ul class="brief">
       <li>The <dfn data-x-href="https://drafts.csswg.org/css-writing-modes/#direction">'direction'</dfn> property</li>
       <li>The <dfn data-x-href="https://drafts.csswg.org/css-writing-modes/#unicode-bidi">'unicode-bidi'</dfn> property</li>
-      <li>The <dfn data-x-href="https://drafts.csswg.org/css-writing-modes/#block-size">block size</dfn>,
+      <li>The <dfn data-x-href="https://drafts.csswg.org/css-writing-modes/#block-flow-direction">block flow direction</dfn>,
+              <dfn data-x-href="https://drafts.csswg.org/css-writing-modes/#block-size">block size</dfn>,
               <dfn data-x-href="https://drafts.csswg.org/css-writing-modes/#inline-size">inline size</dfn>,
               <dfn data-x-href="https://drafts.csswg.org/css-writing-modes/#block-start">block-start</dfn>,
               <dfn data-x-href="https://drafts.csswg.org/css-writing-modes/#block-end">block-end</dfn>,
@@ -1172,7 +1199,7 @@
      <li><dfn data-x-href="https://drafts.csswg.org/cssom-view/#scroll-to-the-beginning-of-the-document">Scroll to the beginning of the document</dfn></li>
      <li>The <dfn data-x="event-resize" data-x-href="https://drafts.csswg.org/cssom-view/#eventdef-window-resize"><code>resize</code></dfn> event</li>
      <li>The <dfn data-x="event-scroll" data-x-href="https://drafts.csswg.org/cssom-view/#eventdef-document-scroll"><code>scroll</code></dfn> event</li>
-     <li><dfn data-x="dom-open-features" data-x-href="https://drafts.csswg.org/cssom-view/#the-features-argument-to-the-open()-method">The <var>features</var> argument of <code data-x="dom-open">window.open</code></dfn>
+     <li><dfn data-x-href="https://drafts.csswg.org/cssom-view/#set-up-browsing-context-features">set up browsing context features</dfn></li>
     </ul>
 
     <p>The following features and terms are defined in the <cite>CSS Syntax</cite> specifications:
@@ -1252,7 +1279,6 @@
    </dd>
 
 
-<!--TOPIC:Canvas-->
 
    <dt>WebGL</dt>
 
@@ -1267,7 +1293,6 @@
    </dd>
 
 
-<!--TOPIC:Video Text Tracks-->
 
    <dt>WebVTT</dt>
 
@@ -1292,7 +1317,6 @@
    </dd>
 
 
-<!--TOPIC:WebSocket API-->
 
    <dt>The WebSocket protocol</dt>
 
@@ -1324,7 +1348,6 @@
    </dd>
 
 
-<!--TOPIC:HTML-->
 
    <dt>ARIA</dt>
 
@@ -1363,7 +1386,7 @@
     <p>The following terms are defined in <cite>Content Security Policy</cite>: <ref spec="CSP"></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#policy">Content Security Policy</dfn></li>
+     <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#content-security-policy-object">Content Security Policy</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#directives">Content Security Policy directive</dfn></li>
      <li>The <dfn data-x-href="https://w3c.github.io/webappsec-csp/#grammardef-serialized-policy">Content Security Policy syntax</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#enforced">enforce the policy</dfn></li>
@@ -1404,6 +1427,7 @@
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-serviceworker-link">serviceworker link</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworker"><code>ServiceWorker</code></dfn> interface</li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkercontainer"><code>ServiceWorkerContainer</code></dfn> interface</li>
+     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkerglobalscope"><code>ServiceWorkerGlobalScope</code></dfn> interface</li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-use-cache">use cache</dfn></li>
     </ul>
 
@@ -1526,6 +1550,17 @@
 
     <ul class="brief">
      <li><dfn data-x-href="https://drafts.fxtf.org/filters/#typedef-filter-function-list">&lt;filter-function-list&gt;</dfn></li>
+    </ul>
+   </dd>
+
+   <dt>Worklets</dt>
+
+   <dd>
+    <p>The following feature is defined in the <cite>Worklets</cite> specification: <ref
+    spec=WORKLETS></p>
+
+    <ul class="brief">
+     <li><dfn data-x-href="https://drafts.css-houdini.org/worklets/#workletglobalscope"><code>WorkletGlobalScope</code></dfn></li>
     </ul>
    </dd>
 

@@ -1,0 +1,32 @@
+  <h4>布尔属性</h4>
+
+  <p>有些属性是 <dfn data-x="boolean attribute">布尔属性</dfn>。
+  布尔属性出现在元素上表示值为 true，不出现表示表示值为 false。</p>
+
+  <p>如果该属性出现，它的值必须为空字符串或者匹配属性的标准名称的
+  <span data-x="ASCII case-insensitive">ASCII 大小写不敏感</span> 字符串，
+  并且前后没有空格。</p>
+
+  <p class="note">布尔属性上不允许 "true" 和 "false" 值。
+  为了表示 false 值，应该一并忽略该属性。</p>
+
+  <div class="example">
+
+   <p>这里有一个例子，表示复选框被选中和禁用。
+   <code data-x="attr-input-checked">checked</code> 和
+   <code data-x="attr-fe-disabled">disabled</code> 属性就是布尔属性。</p>
+
+   <pre>&lt;label>&lt;input type=checkbox checked name=cheese disabled> Cheese&lt;/label></pre>
+
+   <p>这可以等价地写成：
+
+   <pre>&lt;label>&lt;input type=checkbox checked=checked name=cheese disabled=disabled> Cheese&lt;/label></pre>
+
+   <p>你也可以混合两种风格；下面的写法仍然是等价的：</p>
+
+   <pre>&lt;label>&lt;input type='checkbox' checked name=cheese disabled=""> Cheese&lt;/label></pre>
+
+  </div>
+
+
+
