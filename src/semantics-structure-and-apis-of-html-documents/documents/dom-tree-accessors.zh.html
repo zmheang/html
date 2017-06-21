@@ -1,0 +1,419 @@
+  <h4><dfn data-x="DOM tree accessors">DOM 树访问器</dfn></h4>
+
+  <p>如果文档是一个 <code>html</code> 元素，
+  它的 <dfn data-x="The html element"><code>html</code> 元素</dfn> 就是它的 <span data-x="document element">文档元素</span>，
+  否则就是 null。</p>
+
+  <hr>
+
+  <dl class="domintro">
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-head">head</code></dt>
+   <dd>
+    <p>返回 <span data-x="the head element"><code>head</code> 元素</span>。</p>
+   </dd>
+
+  </dl>
+
+  <p>文档的 <dfn data-x="the head element"><code>head</code> 元素</dfn> 是它的
+  <span data-x="the html element"><code>html</code> 元素</span> 的第一个 <code>head</code> 子元素。
+  如果没有这样的元素，则为 null。</p>
+
+  <div w-nodev>
+
+  <p>当读取 <dfn><code data-x="dom-document-head">head</code></dfn> 属性时，必须返回
+  文档的 <span data-x="the head element"><code>head</code> 元素</span>（一个 <code>head</code> 元素或 null）。</p>
+
+  </div>
+
+  <hr>
+
+  <dl class="domintro">
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-title">title</code> [ = <var>value</var> ]</dt>
+   <dd>
+
+    <p>返回文档的标题，对于 HTML 由 <span data-x="the title element"><code>title</code> 元素</span> 给出，
+    对于 SVG 由 <span data-x="SVG title">SVG <code>title</code></span> 元素给出。</p>
+
+    <p>可以被设置来更新文档的标题。如果没有合适的元素来更新，新的值将被忽略。</p>
+
+   </dd>
+
+  </dl>
+
+  <p>文档的 <dfn data-x="the title element"><code>title</code> 元素</dfn>
+  是文档中的第一个 <code>title</code> 元素（按 <span data-x="tree order">树序</span>），
+  如果没有则为 null。</p>
+
+  <div w-nodev>
+
+  <p>当读取时，<dfn id="document.title" data-x="dom-document-title"><code>title</code></dfn>
+  属性必须执行以下算法：</p>
+
+  <ol>
+
+   <li><p>如果 <span data-x="document element">文档元素</span> 是一个 <span>SVG <code>svg</code></span> 元素，
+   那么令 <var>value</var> 为 <span>document element</span> 的第一个子 <span>SVG <code>title</code></span> 元素的
+   <span data-x="child text content">子文本内容</span>。</p></li>
+
+   <li><p>否则，令 <var>value</var> 为 <span data-x="the title element"><code>title</code> 元素</span>
+   的 <span data-x="child text content">子文本内容</span>，
+   如果 <span data-x="the title element"><code>title</code> 元素</span> 是 null 则令 <var>value</var> 为空字符串。</p></li>
+
+   <li><p><span data-x="Strip and collapse ASCII whitespace">移除 <var>value</var> 前后和多余的 ASCII 空白</span>。</p></li>
+
+   <li><p>返回 <var>value</var>。</p></li>
+
+  </ol>
+
+  <p>当设置时，必须执行匹配下列第一个条件的对应步骤：</p>
+
+  <dl class="switch">
+
+   <dt>如果 <span data-x="document element">文档元素</span> 是一个 <span>SVG <code>svg</code></span> 元素</dt>
+
+   <dd>
+
+    <ol>
+
+     <li><p>如果 <span data-x="document element">文档元素</span> 有一个 <span>SVG <code>title</code></span> 子元素，
+     令 <var>element</var> 为第一个该元素。</p></li>
+
+     <li>
+      <p>否则：</p>
+
+      <ol>
+       <li><p>令 <var>element</var> 为给定 <span data-x="document element">文档元素</span> 的
+       <span data-x="node document">节点文档</span>，<code data-x="SVG title">title</code> 和 <span data-x="SVG namespace">SVG 命名空间</span>
+       <span data-x="create an element">创建一个元素</span> 的结果。</p>
+
+       <li><p>把 <var>element</var> 作为 <span data-x="first child">第一个子元素</span> 插入到 <span data-x="document element">文档元素</span> 中。</p></li>
+      </ol>
+     </li>
+
+     <li><p>如同 <var>element</var> 的 <code>textContent</code> IDL 属性设置为正在分配的新值一样表现。</p></li>
+
+    </ol>
+
+   </dd>
+
+   <dt>如果 <span data-x="document element">文档元素</span> 在 <span data-x="HTML namespace">HTML 命名空间</span></dt>
+
+   <dd>
+
+    <ol>
+
+     <li><p>如果 <span data-x="the title element"><code>title</code> 元素</span> 为 null 且
+     <span data-x="the head element">the <code>head</code> 元素</span> 为 null，则中止这些步骤。</p></li>
+
+     <li><p>如果 <span data-x="the title element"><code>title</code> 元素</span> 不是 null，令 <var>element</var> 为该
+     <span data-x="the title element"><code>title</code> 元素</span>。</p></li>
+
+     <li>
+      <p>否则：</p>
+
+      <ol>
+       <li><p>令 <var>element</var> 为给定 <span data-x="document element">文档元素</span> 的
+       <span data-x="node document">节点文档</span>，<code data-x="title">title</code> 和 <span data-x="HTML namespace">HTML 命名空间</span>
+       <span data-x="create an element">创建一个元素</span> 的结果。</p>
+
+       <li><p>把 <var>element</var> <span data-x="concept-node-append">追加</span> 到 <span data-x="the head element"><code>head</code> 元素</span> 中。</p></li>
+      </ol>
+     </li>
+
+     <li><p>如同 <var>element</var> 的 <code>textContent</code> IDL 属性设置为正在分配的新值一样表现。</p></li>
+
+    </ol>
+
+   </dd>
+
+   <dt>否则</dt>
+
+   <dd>
+
+    <p>什么都不做。</p>
+
+   </dd>
+
+  </dl>
+
+  </div>
+
+  <hr>
+
+  <dl class="domintro">
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-body">body</code> [ = <var>value</var> ]</dt>
+   <dd>
+
+    <p>返回 <span data-x="the body element">body 元素</span>。</p>
+
+    <p>被设置时替换 <span data-x="the body element">body 元素</span>。</p>
+
+    <p>如果新值不是一个 <code>body</code> 或 <code>frameset</code> 元素，这将会抛出一个
+    <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code>。</p>
+
+   </dd>
+
+  </dl>
+
+  <p>文档的 <dfn data-x="The body element">body 元素</dfn> 是 <span data-x="the html element"><code>html</code> 元素</span>
+  的第一个是 <code>body</code> 元素或 <code>frameset</code> 元素的子节点，没有的话就是 null。</p>
+
+  <div w-nodev>
+
+  <p>读取 <dfn><code data-x="dom-document-body">body</code></dfn> 属性时，必须返回
+  文档的 <span data-x="the body element">body 元素</span>（是一个 <code>body</code> 或 <code>frameset</code> 元素，或者是 null）。
+  当设置时，必须执行以下算法：</p>
+
+  <ol>
+
+   <!-- if changes are requested:
+    http://searchfox.org/mozilla-central/source/dom/html/nsHTMLDocument.cpp
+    search for ::GetBody ::SetBody
+    https://trac.webkit.org/browser/trunk/Source/WebCore/html/HTMLDocument.cpp
+    search for ::setBody
+    https://trac.webkit.org/browser/trunk/Source/WebCore/dom/Document.cpp
+    search for ::body
+   -->
+
+   <li>如果新值不是一个 <code>body</code> 或 <code>frameset</code> 元素则抛出一个
+   <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code> 并中止这些步骤。</li>
+
+   <li>否则，如果新值与 <span data-x="the body element">body 元素</span> 相同，什么都不做并中止这些步骤。</li>
+
+   <li>否则, 如果 <span data-x="the body element">body 元素</span> 不是 null，就在
+   <span data-x="the body element">body 元素</span> 的父元素中，把
+   <span data-x="the body element">body 元素</span> <span data-x="concept-node-replace">替换</span> 为新值并中止这些步骤。</li>
+
+   <li>否则, 如果不存在 <span data-x="document element">文档元素</span>，就抛出一个
+   <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code> 并中止这些步骤.</li>
+
+   <li>否则, <span data-x="the body element">body 元素</span> 是 null，
+   但有一个 <span data-x="document element">文档元素</span>，就把新值 <span data-x="concept-node-append">追加</span>
+   到 <span data-x="document element">文档元素</span> 上。</li>
+
+  </ol>
+
+  </div>
+
+  <hr>
+
+  <dl class="domintro">
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-images">images</code></dt>
+   <dd>
+    <p>返回一个 <code>Document</code> 中的 <code>img</code> 元素的 <code>HTMLCollection</code>。</p>
+   </dd>
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-embeds">embeds</code></dt>
+   <dt><var>document</var> . <code subdfn data-x="dom-document-plugins">plugins</code></dt>
+   <dd>
+    <p>返回一个 <code>Document</code> 中的 <code>embed</code> 元素的 <code>HTMLCollection</code>。</p>
+   </dd>
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-links">links</code></dt>
+   <dd>
+    <p>返回一个 <code>Document</code> 中的有 <code data-x="attr-hyperlink-href">href</code> 属性的
+    <code>a</code> 和 <code>area</code> 元素的 <code>HTMLCollection</code>。</p>
+   </dd>
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-forms">forms</code></dt>
+   <dd>
+    <p>返回一个 <code>Document</code> 中的 <code>form</code> 元素的 <code>HTMLCollection</code>。</p>
+   </dd>
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-scripts">scripts</code></dt>
+   <dd>
+    <p>返回一个 <code>Document</code> 中的 <code>script</code> 元素的 <code>HTMLCollection</code>。</p>
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <!-- these all return the same object each time because of a rule in the collection section -->
+
+  <p><dfn><code data-x="dom-document-images">images</code></dfn> 属性必须返回一个
+  根为 <code>Document</code> 节点的 <code>HTMLCollection</code> ，其过滤器只匹配
+  <code>img</code> 元素。</p>
+
+  <p><dfn><code data-x="dom-document-embeds">embeds</code></dfn> 属性必须返回一个
+  根为 <code>Document</code> 节点的 <code>HTMLCollection</code> ，其过滤器只匹配
+  <code>embed</code> 元素。</p>
+
+  <p><dfn><code data-x="dom-document-plugins">plugins</code></dfn> 属性必须返回
+  与 <code data-x="dom-document-embeds">embeds</code> 属性返回的相同的对象。</p>
+
+  <p><dfn><code data-x="dom-document-links">links</code></dfn> 属性必须返回一个
+  根为 <code>Document</code> 节点的 <code>HTMLCollection</code> ，其过滤器只匹配
+  有 <code data-x="attr-hyperlink-href">href</code> 属性的 <code>a</code> 元素，
+  以及有 <code data-x="attr-hyperlink-href">href</code> 属性的 <code>area</code> 元素。</p>
+
+  <p><dfn><code data-x="dom-document-forms">forms</code></dfn> 属性必须返回一个
+  根为 <code>Document</code> 节点的 <code>HTMLCollection</code> ，其过滤器只匹配
+  <code>form</code> 元素。</p>
+
+  <p><dfn><code data-x="dom-document-scripts">scripts</code></dfn> 属性必须返回一个
+  根为 <code>Document</code> 节点的 <code>HTMLCollection</code> ，其过滤器只匹配
+  <code>script</code> 元素。</p>
+
+  <hr>
+
+  </div>
+
+  <dl class="domintro">
+
+   <dt><var>collection</var> = <var>document</var> . <code subdfn data-x="dom-document-getElementsByName">getElementsByName</code>(<var>name</var>)</dt>
+   <dd>
+
+    <p>返回一个 <code>Document</code> 中的 <code data-x="">name</code> 属性值为 <var>name</var>
+    的 <code>NodeList</code>。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-document-getElementsByName">getElementsByName(<var>name</var>)</code></dfn>
+  方法接受一个字符串 <var>name</var>，必须返回一个 <span data-x="live">活的</span> <code>NodeList</code>，
+  包含该文档中
+  <code data-x="">name</code> 属性的值（<span data-x="case-sensitive">大小写敏感地</span> 地）等于 <var>name</var> 参数
+  的所有 <span data-x="HTML elements">HTML 元素</span>，按照 <span data-x="tree order">树序</span> 排列。
+  在 <code>Document</code> 对象上再次使用同样的参数调用该方法时，用户代理可以返回之前调用时返回的对象。
+  其他情况必须返回一个新的 <code>NodeList</code> 对象。</p>
+
+  </div>
+
+  <hr>
+
+  <dl class="domintro">
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-currentScript">currentScript</code></dt>
+   <dd>
+
+    <p>返回正在执行的 <code>script</code> 元素或 <span>SVG <code>script</code></span> 元素，
+    只要该元素表示一个 <span data-x="classic script">经典的脚本</span>。
+    对于再次进入的脚本，返回还没结束执行的脚本中最近开始执行的那个。</p>
+
+    <p>如果 <code>Document</code> 当前没有在执行 <code>script</code> 或 <span>SVG <code>script</code></span>
+    （例如，因为运行的脚本是一个事件处理器或定时器），如果当前执行的
+    <code>script</code> 或 <span>SVG <code>script</code></span> 元素表示一个 <span>module script</span> 则返回 null。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>读取 <dfn><code data-x="dom-document-currentScript">currentScript</code></dfn> 属性时，必须返回最近设置的值。
+  创建 <code>Document</code> 时，<code data-x="dom-document-currentScript">currentScript</code> 必须初始化为 null。</p>
+
+  </div>
+
+  <p class="note">实现和标准社区已经不再青睐这一 API 因为它会全局暴露
+  <code>script</code> 或 <span>SVG <code>script</code></span> 元素。
+  因此它在新的环境中不再可用，比如执行 <span data-x="module script">module scripts</span> 时，
+  或者在 <span>shadow tree</span> 执行中执行脚本时。我们正在寻求一种解决方案，
+  在这些环境中识别正在执行的脚本，同时又不让它全局可用。参见 Issue：<a href="https://github.com/whatwg/html/issues/1013">#1013</a>。</p>
+
+  <div w-nodev>
+
+  <hr>
+
+  <p id="dom-document-namedItem-which"><code>Document</code> 接口 <span data-x="support named properties">支持命名属性</span>。
+  任何时候 <code>Document</code> 对象 <var>document</var> <span data-x="supported property names">支持的属性名</span> 包括
+  （根据贡献的元素按照<span data-x="tree order">树序</span> 排列，忽略后续重复项，
+  对同一元素从 <code data-x="attr-id">id</code> 属性来的值排在从 <code data-x="">name</code> 属性来的值前面）：</p>
+
+  <ul>
+   <li><p><span data-x="in a document tree">在文档树中</span> <span>root</span> 为 <var>document</var>，
+   且 <code data-x="">name</code> 内容属性非空的所有 <code>applet</code>, <span>exposed</span> <code>embed</code>, <code>form</code>, <code>iframe</code>,
+   <code>img</code>, 和 <span data-x="exposed">暴露的</span> <code>object</code> 元素的 <code data-x="">name</code> 内容属性的值；<p></li>
+
+   <li><p><span data-x="in a document tree">在文档树中</span> <span>root</span> 为 <var>document</var>，
+   且 <code data-x="attr-id">id</code> 内容属性非空的所有 <code>applet</code> 和 <span data-x="exposed">暴露的</span> <code>object</code> 元素
+   的 <code data-x="attr-id">id</code> 内容属性的值；</p></li>
+
+   <li><p><span data-x="in a document tree">在文档树中</span> <span>root</span> 为 <var>document</var>，
+   且 <code data-x="attr-id">id</code> 和 <code data-x="">name</code> 内容属性均非空的所有 <code>img</code> 元素的
+   <code data-x="attr-id">id</code> 内容属性的值。
+   </p></li>
+  </ul>
+
+  <p id="dom-document-nameditem">为了 <span data-x="determine the value of a named property">确定 <code>Document</code>
+  的命名属性 <var>name</var> 的值</span>，用户代理返回必须执行以下算法得到的值：</p>
+
+  <ol>
+
+   <li>
+
+    <p>令 <var>elements</var> 为 <span data-x="in a document tree">在文档树中</span> <span>root</span> 为 <var>document</var>，
+    且名为 <var>name</var> 的 <span data-x="dom-document-namedItem-filter">命名元素</span> 列表。</p>
+
+    <p class="note">按照定义，至少会有一个这样的元素。<!-- (If there wasn't,
+    then this algorithm wouldn't have been invoked by Web IDL.) --></p>
+
+   </li>
+
+   <li>
+
+    <p>如果 <var>elements</var> 只有一个元素且该元素为 <code>iframe</code> 元素，
+    且该 <code>iframe</code> 元素的 <span data-x="nested browsing context">嵌套浏览环境</span> 不是 null，
+    则返回该元素的 <span data-x="nested browsing context">嵌套浏览环境</span> 的 <code>WindowProxy</code> 对象。</p>
+
+   </li>
+
+   <li>
+
+    <p>否则，如果 <var>elements</var> 只有一个元素，返回该元素。</p>
+
+   </li>
+
+   <li>
+
+    <p>否则返回一个根为 <code>Document</code> 节点的 <code>HTMLCollection</code>，
+    其过滤器只匹配名为 <var>name</var> 的 <span data-x="dom-document-namedItem-filter">命名元素</span>。</p> <!-- the same one each time is returned, because of the
+    rule under collections -->
+
+   </li>
+
+  <!--
+  Note that this named getter overrides built-in properties, as in:
+     https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E%0D%0A...%3Ciframe%20name%3Dbody%3E%3C%2Fiframe%3E%3Cscript%3Ew(document.body)%3C%2Fscript%3E
+  This is what the "OverrideBuiltins" bit means in the IDL.
+  -->
+
+  </ol>
+
+  <p>上述算法中名为 <var>name</var> 的 <dfn data-x="dom-document-nameditem-filter">命名元素</dfn> 包括：</p>
+
+  <ul>
+
+   <li><code data-x="">name</code> 内容属性的值是 <var>name</var> 的
+   <code>applet</code>, <span>exposed</span> <code>embed</code>, <code>form</code>,
+   <code>iframe</code>, <code>img</code>, 或 <span data-x="exposed">暴露的</span> <code>object</code> 元素；</li>
+
+   <li><code data-x="attr-id">id</code> 内容属性的值为 <var>name</var> 的
+   <code>applet</code> 或 <span data-x="exposed">暴露的</span> <code>object</code> 元素；</li>
+
+   <li><code data-x="attr-id">id</code> 内容属性的值为 <var>name</var> 且 <code data-x="">name</code> 内容属性的值非空的
+   <code>img</code> 元素。</li>
+
+  </ul>
+
+  <p>如果 <code>embed</code> 或 <code>object</code> 元素没有 <span data-x="exposed">暴露的</span> <code>object</code> 祖先，
+  而且对于 <code>object</code> 元素没有显示它的 <span data-x="fallback content">后备内容</span> 或没有 <code>object</code>
+  或 <code>embed</code> 后代，就说它是 <dfn data-x="exposed">暴露的</dfn>。</p>
+
+  </div>
+
+  <hr>
+
+  <p class="note"><code>Document</code> 接口上的 <code data-x="dom-document-dir">dir</code> 属性
+  与 <code data-x="attr-dir">dir</code> 内容属性定义在一起。</p>
+
+
+

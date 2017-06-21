@@ -26,7 +26,7 @@
   fileLink.href = originalFilingUrl;
   fileLink.accessKey = '1';
   fileLink.className = 'selected-text-file-an-issue';
-  fileLink.textContent = '对选择的文字提交问题';
+  fileLink.textContent = '对选择的翻译文字提出疑问';
 
   document.body.insertBefore(fileLink, document.body.firstChild);
 

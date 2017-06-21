@@ -1,0 +1,83 @@
+  <h3>文档</h3>
+
+  <p>HTML UA 中的每个 XML 和 HTML 文档表示为一个 <code>Document</code> 对象。 <ref spec=DOM></p>
+
+  <p><code>Document</code> 对象的 <dfn id="the-document的-address"
+  data-x="concept-document-url" data-x-href="https://dom.spec.whatwg.org/#concept-document-url"
+  data-x-for="Document">URL</dfn> 定义在 WHATWG DOM 标准中。 It is initially set when
+  当创建 <code>Document</code> 对象时设置，但可以在 <code>Document</code> 的生命期内改变；
+  例如当用户 <span data-x="navigate">导航</span> 到一个页面的一个 <span data-x="navigate-fragid">片段</span>
+  并用一个新的 <span>URL</span> 调用 <code data-x="dom-history-pushState">pushState()</code> 方法时就会改变。<ref spec=DOM></p>
+  <!--
+    https://www.hixie.ch/tests/adhoc/dom/level0/history/pushState/002/
+    https://www.hixie.ch/tests/adhoc/html/navigation/fragids/016.html
+  -->
+
+  <p class="warning">交互式用户代理通常在其用户界面中显示 <code>Document</code> 对象的 <span data-x="concept-document-url">URL</span>。
+  这是用户用来判断当前网站是否在冒充其他网站的主要机制。</p>
+
+  <p>在 <span data-x="concept-script">脚本</span> 中使用
+  <code data-x="dom-DOMImplementation-createDocument">createDocument()</code>
+  或 <code data-x="dom-DOMImplementation-createHTMLDocument">createHTMLDocument()</code>
+  创建 <code>Document</code> 时，该 <code>Document</code> 立即
+  <span data-x="ready for post-load tasks">准备好了执行加载后的任务</span> 并且
+  <span data-x="completely loaded">完全加载</span>。</p>
+
+  <p><dfn data-export="" data-x="The document's referrer">文档的引荐来源</dfn> 是一个（表示一个 <span>URL</span> 的）字符串，
+  在 <code>Document</code> 创建时设置。如果没有显式地设置它，那么它的值是空字符串。</p>
+
+  <p>每个 <code>Document</code> 对象有一个 <dfn data-x="reload override flag">重新载入覆盖标志</dfn>，初始未设置。
+  该标志由 <code data-x="dom-document-open">document.open()</code> 和 <code
+  data-x="dom-document-open">document.write()</code> 方法在特定情况下设置。当该标志被设置时，
+  <code>Document</code> 还有一个 <dfn data-x="reload override buffer">重新载入覆盖缓冲区</dfn>，
+  它是一个 Unicode 字符串，当文档重新载入时用作文档的源码。</p>
+
+  <p>给定一个 <span data-x="source browsing context">源浏览环境</span>，用户代理执行
+  <dfn data-x="an overridden reload">覆盖重新载入</dfn> 时必须执行以下操作：</p>
+
+  <ol>
+
+   <li><p>令<var>source</var> 为
+   <span data-x="browsing context">浏览环境</span> 的 <span data-x="active document">活动文档</span>
+   的 <span data-x="reload override buffer">重新载入覆盖缓冲区</span> 的值。</p></li>
+
+   <li><p>令<var>address</var> 为
+   <span data-x="browsing context">浏览环境</span> 的 <span data-x="active document">活动文档</span>
+   的 <span data-x="concept-document-url">URL</span>。</p></li>
+
+   <li><p>令<var>HTTPS state</var> 为
+   <span data-x="browsing context">浏览环境</span> 的 <span data-x="active document">活动文档</span>
+   的 <span data-x="concept-document-https-state">HTTPS 状态</span>。</p></li>
+
+   <li><p>令<var>referrer policy</var> 为
+   <span data-x="browsing context">浏览环境</span> 的 <span data-x="active document">活动文档</span>
+   的 <span data-x="concept-document-referrer-policy">引荐来源策略</span>。</p></li>
+
+   <li><p>令<var>CSP list</var> 为
+   <span data-x="browsing context">浏览环境</span> 的 <span data-x="active document">活动文档</span>
+   的 <span data-x="concept-document-csp-list">CSP 列表</span>。</p></li>
+
+   <li>
+
+    <p>将 <span data-x="browsing context">浏览环境</span> <span data-x="Navigate">导航</span><!--DONAV reload after d.open()--> 到
+    一个新的 <span data-x="concept-response">响应</span>，其
+    <span data-x="concept-response-body">body</span> 为 <var>source</var>，
+    <span data-x="concept-response-header-list">头部列表</span> 的 <code data-x="http-referrer-policy">Referrer-Policy</code> 为 <var>referrer policy</var>，
+    <span data-x="concept-response-csp-list">CSP 列表</span> 为 <var>CSP list</var> 且
+    <span data-x="concept-response-https-state">HTTPS 状态</span> 为 <var>HTTPS state</var>，
+    同时设置 <var><span data-x="exceptions enabled flag">启用异常标志</span></var> 与 <span data-x="replacement enabled">启用替换标志</span>，
+    <span data-x="source browsing context">源浏览环境</span> 为传给 <span data-x="an overridden reload">覆盖重新载入</span> 算法的那个。
+    当 <span data-x="navigate">导航</span> 算法为此创建了一个 <code>Document</code> 对象时，
+    设置这个 <code>Document</code> 的 <span data-x="reload override flag">重新载入覆盖标志</span>，
+    并把它的 <span data-x="reload override buffer">重新载入覆盖缓冲区</span> 设为 <var>source</var>。重新抛出任何异常。</p>
+
+    <p>在 <span data-x="navigate">导航算法</span> 中 <span data-x="set the document's address">设置文档的地址</span> 时，
+    使用 <var>address</var> 作为 <span data-x="override URL">覆盖 URL</span>。</p>
+
+   </li>
+
+
+  </ol>
+
+
+
