@@ -1,0 +1,163 @@
+  <h4>语义</h4>
+
+  <p>HTML 中的元素、属性和属性值（由本规范）定义有确定的含义（语义）。
+  例如，<code>ol</code> 元素表示一个有序列表，
+  <code data-x="attr-lang">lang</code> 属性表示内容的语言。</p>
+
+  <p>这些定义允许诸如 Web 浏览器或搜索引擎的 HTML 处理器可能在作者不曾考虑过的
+  各种上下文中呈现和使用文档或应用。</p>
+
+  <div class="example">
+
+   <p>作为一个简单的例子，考虑一个由只考虑了桌面电脑 Web 浏览器的作者编写的 Web 页面：</p>
+
+   <pre>&lt;!DOCTYPE HTML>
+&lt;html lang="en">
+ &lt;head>
+  &lt;title>My Page&lt;/title>
+ &lt;/head>
+ &lt;body>
+  &lt;h1>Welcome to my page&lt;/h1>
+  &lt;p>I like cars and lorries and have a big Jeep!&lt;/p>
+  &lt;h2>Where I live&lt;/h2>
+  &lt;p>I live in a small hut on a mountain!&lt;/p>
+ &lt;/body>
+&lt;/html></pre>
+
+   <p>因为 HTML 表达了 <em>含义</em>，而不是呈现，同样的页面也可以用于移动电话的小浏览器而不需要改动页面。
+   比如在桌面浏览器中标题使用大号字体，但在移动浏览器中可能整页使用同样大小的字体，但标题使用粗体。</p>
+
+   <p>这不仅仅是屏幕尺寸的差异：同一页面可以通过基于语音合成的浏览器同样地被盲人使用，
+   这时就不是在屏幕上显示页面，而是将页面朗读给用户，比如使用耳机。
+   标题可能不再是大号的文本，语音浏览器可能会对它使用不同的音量或较慢的声音。</p>
+
+   <p>带来的好处不止于此。由于浏览器知道页面的哪些部分是标题，它们可以创建文档大纲来使得用户可以快速浏览文档，
+   使用“跳转到下一个标题”或“跳转到上一个标题”的快捷键。
+   这些功能在语音浏览器中尤其常见，不然用户可能很难快速浏览页面。</p>
+
+   <p>甚至除浏览器之外的软件也可以利用这些信息。
+   搜索引擎可以使用标题更有效地对页面进行索引，或者从结果中提供到页面子部分的快速链接。
+   而工具可以使用标题来创建一个目录（实际上这个规范的目录就是这样生成的）。</p>
+
+   <p>这个例子集中在标题上，但是相同的原则也适用于 HTML 中的所有语义。</p>
+
+  </div>
+
+  <p>作者不得将元素，属性或属性值用于适当的语义目的之外的其他意图，因为这样做会使软件无法正确处理页面。</p>
+
+  <div class="example">
+
+   <p>例如，以下代表公司网站标题的代码片段是不合规范的，
+   因为第二行不是子部分的标题，而是副标题（同一部分的下级标题）。</p>
+
+   <pre class="bad">&lt;body&gt;
+ &lt;h1&gt;ACME Corporation&lt;/h1&gt;
+ &lt;h2&gt;The leaders in arbitrary fast delivery since 1920&lt;/h2&gt;
+ ...</pre>
+
+   <p><code>hgroup</code> 元素适用于这些情况：</p>
+
+   <pre>&lt;body&gt;
+ &lt;hgroup&gt;
+  &lt;h1&gt;ACME Corporation&lt;/h1&gt;
+  &lt;h2&gt;The leaders in arbitrary fast delivery since 1920&lt;/h2&gt;
+ &lt;/hgroup&gt;
+ ...</pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>下一个例子中的文档类似，也不合规范。尽管语法是正确的，
+   因为放在单元格中的数据显然不是表格数据，而且误用了 <code>cite</code> 元素：</p>
+
+   <pre class="bad" lang="en-GB">&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-GB"&gt;
+ &lt;head&gt; &lt;title&gt; Demonstration &lt;/title&gt; &lt;/head&gt;
+ &lt;body&gt;
+  &lt;table&gt;
+   &lt;tr&gt; &lt;td&gt; <!--en-GB-->My favourite animal is the cat. &lt;/td&gt; &lt;/tr&gt;
+   &lt;tr&gt;
+    &lt;td&gt;
+     &mdash;&lt;a href="https://example.org/~ernest/"&gt;&lt;cite&gt;Ernest&lt;/cite&gt;&lt;/a&gt;,
+     in an essay from 1992
+    &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;/table&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+   <p>这将使得依赖于这些语义的软件出错：
+   例如支持盲人浏览文档中的表格的语音浏览器将把上述引用误报为表格，这会使用户困惑；
+   同样地，从网页中提取作品标题的工具也会将“Ernest”提取为作品的标题，即使它实际上是一个人名而不是标题。</p>
+
+   <p>这个文档的更正版本可能是：</p>
+
+   <pre lang="en-GB">&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-GB"&gt;
+ &lt;head&gt; &lt;title&gt; Demonstration &lt;/title&gt; &lt;/head&gt;
+ &lt;body&gt;
+  &lt;blockquote&gt;
+   &lt;p&gt; <!--en-GB-->My favourite animal is the cat. &lt;/p&gt;
+  &lt;/blockquote&gt;
+  &lt;p&gt;
+   &mdash;&lt;a href="https://example.org/~ernest/"&gt;Ernest&lt;/a&gt;,
+   in an essay from 1992
+  &lt;/p&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+  </div>
+
+  <p>作者不得使用本规范或
+  <span data-x="other applicable specifications">其他适用规范</span>
+  不允许的元素，属性或属性值，因为这样做会使以后的语言扩展变得更加困难。</p>
+
+  <div class="example">
+
+   <p>下一个示例中有一个不符合规范的属性值（“carpet”）和不符合规范的属性（“texture”），这是本规范不允许的：</p>
+
+   <pre class="bad">&lt;label&gt;Carpet: &lt;input type="carpet" name="c" texture="deep pile"&gt;&lt;/label&gt;</pre>
+
+   <p>以下是标记这一内容的正确的替代方式：</p>
+：
+
+   <pre>&lt;label&gt;Carpet: &lt;input type="text" class="carpet" name="c" data-texture="deep pile"&gt;&lt;/label&gt;</pre>
+
+  </div>
+
+  <p id="no-browsing-context">其 <span data-x="node document">节点文档</span> 不具有
+  <span data-x="browsing context">浏览环境</span> 的 DOM 节点
+  不受 <a href="#writing" data-x="HTML syntax">HTML 语法</a> 要求和
+  <a href="#writing-xhtml-documents" data-x="XML syntax">XML 语法</a> 要求之外的所有文档一致性要求的限制。</p>
+
+  <div class="example">
+
+   <p>特别地，<code>template</code> 元素的 <span data-x="template contents">模板内容</span>
+   的 <span data-x="node document">节点文档</span> 没有浏览上下文。
+   例如，<span data-x="concept-element-content-model">内容模型</span> 要求
+   和属性值微语法要求不适用于
+   <code>template</code> 元素的 <span data-x="template contents">模板内容</span>。
+   在此示例中，<code>img</code> 元素的属性值是占位符，如果在 <code>template</code> 元素外就是无效的。</p>
+
+   <pre>&lt;template>
+ &lt;article>
+  &lt;img <mark>src="{{src}}" alt="{{alt}}"</mark>>
+  &lt;h1>&lt;/h1>
+ &lt;/article>
+&lt;/template></pre>
+
+   <p>但是，如果上述标记省略了 <code data-x="">&lt;/h1></code> 结束标记，将会违反
+   <a href="#writing" data-x="HTML syntax">HTML 语法</a>，会被符合性检查器标记为错误。</p>
+
+  </div>
+
+  <p>通过脚本和使用其他机制，在用户代理处理文档时，属性值，文本以及文档的整体结构都可能会动态变化。
+  某一时刻文档的语义由这一时刻的文档的状态来表示，因此文档的语义会随时间变化。
+  当这种情况发生时，用户代理 <span w-nodev>must</span> 更新文档的显示。</p>
+
+  <p class="example">HTML 有一个表示进度条的 <code>progress</code> 元素。
+  如果其 “value” 属性由脚本动态地更新，那么 UA 将更新呈现以显示进度变化。</p>
+
+
+
