@@ -37,12 +37,12 @@ interface <dfn>DOMStringList</dfn> {
   indices</span>.</p>
 
   <p>The <dfn data-x="dom-DOMStringList-length"><code>length</code></dfn> attribute's getter must
-  this <code>DOMStringList</code> object's associated list's <span data-x="list
+  return this <code>DOMStringList</code> object's associated list's <span data-x="list
   size">size</span>.</p>
 
   <p>The <dfn data-x="dom-DOMStringList-item"><code>item(<var>index</var>)</code></dfn> method, when
   invoked, must return the <var>index</var>th item in this <code>DOMStringList</code> object's
-  associated list, or null if <var>index</var> plus one is less than this <code>DOMStringList</code>
+  associated list, or null if <var>index</var> plus one is greater than this <code>DOMStringList</code>
   object's associated list's <span data-x="list size">size</span>.</p>
 
   <p>The <dfn data-x="dom-DOMStringList-contains"><code>contains(<var>string</var>)</code></dfn>

@@ -180,10 +180,10 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
   <hr>
 
   <p>The <dfn><code data-x="dom-form-elements">elements</code></dfn> IDL attribute must return an
-  <code>HTMLFormControlsCollection</code> rooted at the <code>form</code> element, whose filter
-  matches <span data-x="category-listed">listed elements</span> whose <span>form owner</span> is the
-  <code>form</code> element, with the exception of <code>input</code> elements whose <code
-  data-x="attr-input-type">type</code> attribute is in the <span
+  <code>HTMLFormControlsCollection</code> rooted at the <code>form</code> element's
+  <span>node document</span>, whose filter matches <span data-x="category-listed">listed elements</span>
+  whose <span>form owner</span> is the <code>form</code> element, with the exception of <code>input</code>
+  elements whose <code data-x="attr-input-type">type</code> attribute is in the <span
   data-x="attr-input-type-image">Image Button</span> state, which must, for historical reasons, be
   excluded from this particular collection.</p>
 

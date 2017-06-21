@@ -39,15 +39,17 @@
      <td><dfn data-x="parse-error-abrupt-doctype-public-identifier">abrupt-doctype-public-identifier</dfn>
      <td><p>This error occurs if the parser encounters a U+003E (>) <span>code point</span> in the
      <span data-x="syntax-doctype">DOCTYPE</span> public identifier (e.g., <code
-     data-x="">&lt;!DOCTYPE html PUBLIC "foo></code>). The parser sets the <code>Document</code> to
-     <span>quirks mode</span> in this case.</p>
+     data-x="">&lt;!DOCTYPE html PUBLIC "foo></code>). In such a case, if the DOCTYPE is correctly
+     placed as a document preamble, the parser sets the <code>Document</code> to <span>quirks
+     mode</span>.</p>
 
     <tr>
      <td><dfn data-x="parse-error-abrupt-doctype-system-identifier">abrupt-doctype-system-identifier</dfn>
      <td><p>This error occurs if the parser encounters a U+003E (>) <span>code point</span> in the
      <span data-x="syntax-doctype">DOCTYPE</span> system identifier (e.g., <code
-     data-x="">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "foo></code>). The parser sets
-     the <code>Document</code> to <span>quirks mode</span> in this case.</p>
+     data-x="">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "foo></code>). In such a case,
+     if the DOCTYPE is correctly placed as a document preamble, the parser sets the
+     <code>Document</code> to <span>quirks mode</span>.</p>
 
     <tr>
      <td><dfn data-x="parse-error-absence-of-digits-in-numeric-character-reference">absence-of-digits-in-numeric-character-reference</dfn>
@@ -67,24 +69,24 @@
      <td><dfn data-x="parse-error-character-reference-outside-unicode-range">character-reference-outside-unicode-range</dfn>
      <td><p>This error occurs if the parser encounters a numeric <span
      data-x="syntax-charref">character reference</span> that references a <span>code point</span>
-     that is greater than the valid Unicode range. The parser resolves such character references to
+     that is greater than the valid Unicode range. The parser resolves such a character reference to
      a U+FFFD REPLACEMENT CHARACTER.</p>
 
     <tr>
      <td><dfn data-x="parse-error-control-character-in-input-stream">control-character-in-input-stream</dfn>
      <td><p>This error occurs if the <span>input stream</span> contains a <span
      data-x="control">control</span> <span>code point</span> that is not <span>ASCII
-     whitespace</span> or a U+0000 NULL. Such code points are parsed as-is and usually, where
-     parsing rules don't apply any additional restrictions, make their way into the DOM.</p>
+     whitespace</span> or U+0000 NULL. Such code points are parsed as-is and usually, where parsing
+     rules don't apply any additional restrictions, make their way into the DOM.</p>
 
     <tr>
      <td><dfn data-x="parse-error-control-character-reference">control-character-reference</dfn>
      <td><p>This error occurs if the parser encounters a numeric <span
      data-x="syntax-charref">character reference</span> that references a <span
      data-x="control">control</span> <span>code point</span> that is not <span>ASCII
-     whitespace</span>, a U+000D CARRIAGE RETURN, or a U+0000 NULL. The parser resolves such
-     character references as-is except C1 control references that are replaced according to the
-     <span>numeric character reference end state</span>.</p>
+     whitespace</span>, a U+000D CARRIAGE RETURN, or U+0000 NULL. The parser resolves such character
+     references as-is except C1 control references that are replaced according to the <span>numeric
+     character reference end state</span>.</p>
 
     <tr>
      <td><dfn data-x="parse-error-end-tag-with-attributes">end-tag-with-attributes</dfn>
@@ -128,8 +130,8 @@
     <tr>
      <td><dfn data-x="parse-error-eof-in-doctype">eof-in-doctype</dfn>
      <td><p>This error occurs if the parser encounters the end of the input stream in a <span
-     data-x="syntax-doctype">DOCTYPE</span>. The parser sets the <code>Document</code> to
-     <span>quirks mode</span> in this case.</p>
+     data-x="syntax-doctype">DOCTYPE</span>. In such a case, if the DOCTYPE is correctly placed as a
+     document preamble, the parser sets the <code>Document</code> to <span>quirks mode</span>.</p>
 
     <tr>
      <td><dfn data-x="parse-error-eof-in-script-html-comment-like-text">eof-in-script-html-comment-like-text</dfn>
@@ -176,19 +178,20 @@
      <td><dfn data-x="parse-error-invalid-character-sequence-after-doctype-name">invalid-character-sequence-after-doctype-name</dfn>
      <td><p>This error occurs if the parser encounters any <span>code point</span> sequence other
      than "<code data-x="">PUBLIC</code>" and "<code data-x="">SYSTEM</code>" keywords after a <span
-     data-x="syntax-doctype">DOCTYPE</span> name. In this case the parser ignores any following
-     public or system identifiers and sets the <code>Document</code> to <span>quirks
-     mode</span>.</p>
+     data-x="syntax-doctype">DOCTYPE</span> name. In such a case, the parser ignores any following
+     public or system identifiers, and if the DOCTYPE is correctly placed as a document preamble,
+     sets the <code>Document</code> to <span>quirks mode</span>.</p>
 
     <tr>
      <td><dfn data-x="parse-error-invalid-first-character-of-tag-name">invalid-first-character-of-tag-name</dfn>
      <td>
       <p>This error occurs if the parser encounters a <span>code point</span> that is not an
       <span>ASCII alpha</span> where first code point of a <span data-x="syntax-start-tag">start
-      tag</span> name or an <span data-x="syntax-end-tag">end tag</span> name is expected. Such code
-      points and all content that follows up to a U+003E (>) code point (if present) or to the end
-      of the <span>input stream</span> is treated as text content (if the start tag name is
-      expected) or as a comment (if the end tag name is expected).</p>
+      tag</span> name or an <span data-x="syntax-end-tag">end tag</span> name is expected. If a
+      start tag was expected such code point and a preceding U+003C (&lt;) is treated as text
+      content, and all content that follows is treated as markup. Whereas, if an end tag was
+      expected, such code point and all content that follows up to a U+003E (>) code point (if
+      present) or to the end of the <span>input stream</span> is treated as a comment.</p>
 
       <div class="example">
        <p>For example, consider the following markup:</p>
@@ -214,22 +217,24 @@
      <td><dfn data-x="parse-error-missing-doctype-name">missing-doctype-name</dfn>
      <td><p>This error occurs if the parser encounters a <span
      data-x="syntax-doctype">DOCTYPE</span> that is missing a name (e.g., <code
-     data-x="">&lt;!DOCTYPE></code>). The parser sets the <code>Document</code> to <span>quirks
-     mode</span> in this case.</p>
+     data-x="">&lt;!DOCTYPE></code>). In such a case, if the DOCTYPE is correctly placed as a
+     document preamble, the parser sets the <code>Document</code> to <span>quirks mode</span>.</p>
 
     <tr>
      <td><dfn data-x="parse-error-missing-doctype-public-identifier">missing-doctype-public-identifier</dfn>
      <td><p>This error occurs if the parser encounters a U+003E (>) <span>code point</span> where
      start of the <span data-x="syntax-doctype">DOCTYPE</span> public identifier is expected (e.g.,
-     <code data-x="">&lt;!DOCTYPE html PUBLIC ></code>). The parser sets the <code>Document</code>
-     to <span>quirks mode</span> in this case.</p>
+     <code data-x="">&lt;!DOCTYPE html PUBLIC ></code>). In such a case, if the DOCTYPE is correctly
+     placed as a document preamble, the parser sets the <code>Document</code> to <span>quirks
+     mode</span>.</p>
 
     <tr>
      <td><dfn data-x="parse-error-missing-doctype-system-identifier">missing-doctype-system-identifier</dfn>
      <td><p>This error occurs if the parser encounters a U+003E (>) <span>code point</span> where
      start of the <span data-x="syntax-doctype">DOCTYPE</span> system identifier is expected (e.g.,
-     <code data-x="">&lt;!DOCTYPE html SYSTEM ></code>). The parser sets the <code>Document</code>
-     to <span>quirks mode</span> in this case.</p>
+     <code data-x="">&lt;!DOCTYPE html SYSTEM ></code>). In such a case, if the DOCTYPE is correctly
+     placed as a document preamble, the parser sets the <code>Document</code> to <span>quirks
+     mode</span>.</p>
 
     <tr>
      <td><dfn data-x="parse-error-missing-end-tag-name">missing-end-tag-name</dfn>
@@ -242,18 +247,18 @@
      <td><dfn data-x="parse-error-missing-quote-before-doctype-public-identifier">missing-quote-before-doctype-public-identifier</dfn>
      <td><p>This error occurs if the parser encounters the <span
      data-x="syntax-doctype">DOCTYPE</span> public identifier that is not preceded by a quote (e.g.,
-     <code data-x="">&lt;!DOCTYPE html PUBLIC -//W3C//DTD HTML 4.01//EN"></code>). In this case the
-     parser ignores public identifier and sets the <code>Document</code> to <span>quirks
-     mode</span>.</p>
+     <code data-x="">&lt;!DOCTYPE html PUBLIC -//W3C//DTD HTML 4.01//EN"></code>). In such a case,
+     the parser ignores the public identifier, and if the DOCTYPE is correctly placed as a document
+     preamble, sets the <code>Document</code> to <span>quirks mode</span>.</p>
 
     <tr>
      <td><dfn data-x="parse-error-missing-quote-before-doctype-system-identifier">missing-quote-before-doctype-system-identifier</dfn>
      <td><p>This error occurs if the parser encounters the <span
      data-x="syntax-doctype">DOCTYPE</span> system identifier that is not preceded by a quote (e.g.,
      <code data-x="">&lt;!DOCTYPE html SYSTEM
-     http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"></code>). In this case the parser
-     ignores the system identifier and sets the <code>Document</code> to <span>quirks
-     mode</span>.</p>
+     http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"></code>). In such a case, the parser
+     ignores the system identifier, and if the DOCTYPE is correctly placed as a document preamble,
+     sets the <code>Document</code> to <span>quirks mode</span>.</p>
 
     <tr>
      <td><dfn data-x="parse-error-missing-semicolon-after-character-reference">missing-semicolon-after-character-reference</dfn>
@@ -348,8 +353,9 @@
     <tr>
      <td><dfn data-x="parse-error-null-character-reference">null-character-reference</dfn>
      <td><p>This error occurs if the parser encounters a numeric <span
-     data-x="syntax-charref">character reference</span> that references a U+0000 NULL. The parser
-     resolves such character references to a U+FFFD REPLACEMENT CHARACTER.</p>
+     data-x="syntax-charref">character reference</span> that references a U+0000 NULL <span>code
+     point</span>. The parser resolves such character references to a U+FFFD REPLACEMENT
+     CHARACTER.</p>
 
     <tr>
      <td><dfn data-x="parse-error-surrogate-character-reference">surrogate-character-reference</dfn>
