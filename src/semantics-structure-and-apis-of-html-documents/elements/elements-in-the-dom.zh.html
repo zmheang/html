@@ -1,0 +1,88 @@
+  <h4>DOM 中的元素</h4>
+
+  <p>在 DOM 中表示 <span data-x="HTML elements">HTML 元素</span> 的节点 <span w-nodev>必须</span>
+  实现本规范相关章节中的对应接口，并暴露给脚本。这包括
+  <span data-x="XML documents">XML 文档</span> 中的 <span data-x="HTML elements">HTML 元素</span>，
+  即使那些文档在另外的上下文中（比如在一个 XSLT 转换中）。</p>
+
+  <p>DOM 中的元素 <dfn data-x="represents">表示着</dfn> 事物；
+  也就是说它们具有内在的 <em>意义</em>，也被称为语义。</p>
+
+  <p class="example">例如一个 <code>ol</code> 元素表示一个有序列表。</p>
+
+  <p>所有 <span data-x="HTML elements">HTML 元素</span> 的接口都继承自一个基本接口，<span
+  w-nodev>没有额外要求的元素必须使用这一接口</span>。这就是 <code>HTMLElement</code> 接口。</p>
+
+  <pre class="idl">[<span>HTMLConstructor</span>]
+interface <dfn>HTMLElement</dfn> : <span>Element</span> {
+  // 元数据属性
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-title">title</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-lang">lang</span>;
+  [<span>CEReactions</span>] attribute boolean <span data-x="dom-translate">translate</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-dir">dir</span>;
+  [SameObject] readonly attribute <span>DOMStringMap</span> <span data-x="dom-dataset">dataset</span>;
+
+  // <span data-x="user interaction">用户交互</span>
+  [<span>CEReactions</span>] attribute boolean <span data-x="dom-hidden">hidden</span>;
+  void <span data-x="dom-click">click</span>();
+  [<span>CEReactions</span>] attribute long <span data-x="dom-tabindex">tabIndex</span>;
+  void <span data-x="dom-focus">focus</span>();
+  void <span data-x="dom-blur">blur</span>();
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-accessKey">accessKey</span>;
+  readonly attribute DOMString <span data-x="dom-accessKeyLabel">accessKeyLabel</span>;
+  [<span>CEReactions</span>] attribute boolean <span data-x="dom-draggable">draggable</span>;
+  [<span>CEReactions</span>] attribute boolean <span data-x="dom-spellcheck">spellcheck</span>;
+  void <span data-x="dom-forceSpellCheck">forceSpellCheck</span>();
+
+  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-innerText">innerText</span>;
+};
+<span>HTMLElement</span> implements <span>GlobalEventHandlers</span>;
+<span>HTMLElement</span> implements <span>DocumentAndElementEventHandlers</span>;
+<span>HTMLElement</span> implements <span>ElementContentEditable</span>;
+
+// 注意：<a href="#customized-built-in-element-restrictions">有意</a> 不是 [<span>HTMLConstructor</span>]
+interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</pre>
+
+  <p><code>HTMLElement</code> 接口保存着很多不同功能的方法和属性，因此该接口的成员在本规范的不同部分中描述。</p>
+
+  <div w-nodev>
+
+  <hr>
+
+  <p><span data-x="HTML namespace">HTML 命名空间</span> 中名为 <var>name</var> 的元素的
+  <span data-x="element interface">元素接口</span> 这样决定：</p>
+
+  <ol>
+   <li><p>如果 <var>name</var> 是 <code>bgsound</code>，<code>blink</code>，<code>isindex</code>，
+   <code>keygen</code>， <code>multicol</code>， <code>nextid</code>， 或 <code>spacer</code>，
+   则返回 <code>HTMLUnknownElement</code>。</p></li>
+
+   <li><p>如果 <var>name</var> 是 <code>acronym</code>， <code>basefont</code>， <code>big</code>，
+   <code>center</code>， <code>nobr</code>， <code>noembed</code>， <code>noframes</code>，
+   <code>plaintext</code>， <code>rb</code>， <code>rtc</code>， <code>strike</code>，或
+   <code>tt</code>，则返回 <code>HTMLElement</code>。</p></li>
+
+   <li><p>如果 <var>name</var> 是 <code>listing</code> 或 <code>xmp</code>，则返回
+   <code>HTMLPreElement</code>。</p></li>
+
+   <li><p>否则，如果本规范定义了一个 local name <var>name</var> 对应的 <span data-x="element type">元素类型</span>
+   的接口，则返回那个接口。</p></li>
+
+   <li><p>如果 <span data-x="other applicable specifications">其他适用规范</span> 为 <var>name</var> 定义了一个合适的接口，
+   则返回他们定义的接口。</p></li>
+
+   <li><p>如果 <var>name</var> 是一个 <span data-x="valid custom element name">合法的 Custom Element 名字</span>，
+   则返回<code>HTMLElement</code>。</p>
+
+   <li><p>返回 <code>HTMLUnknownElement</code>。</p></li>
+  </ol>
+
+  <p class="note">在 <span data-x="valid custom element name">合法的 Custom Element 名</span> 时，
+  使用 <code>HTMLElement</code> 而不是 <code>HTMLUnknownElement</code> 是为了确保任何将来可能的
+  <span data-x="custom-element-upgrades">升级</span> 只造成元素原型链的线性转变，
+  从 <code>HTMLElement</code> 到一个子类，而不是后者从 <code>HTMLUnknownElement</code> 到一个不相关的子类。</p>
+
+  </div>
+
+  <div w-nodev>
+
