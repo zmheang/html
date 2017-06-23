@@ -23,6 +23,7 @@ function! TranslateTerm()
     execute '%s/i\.e\./即/g'
     execute '%s/If/如果/g'
     execute '%s/return an error/返回一个错误/g'
+    execute '%s/and abort these steps/并中止这些步骤/g'
     execute '%s/Return/返回/g'
 endfunction
 

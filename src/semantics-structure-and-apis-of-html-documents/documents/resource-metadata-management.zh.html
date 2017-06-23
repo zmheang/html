@@ -1,0 +1,179 @@
+  <h4><dfn data-x="Resource metadata management">资源元数据管理</dfn></h4>
+
+  <dl class="domintro">
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-referrer">referrer</code></dt>
+   <dd>
+
+    <p>返回用户导航到此文档的那个 <code>Document</code> 的 <span data-x="concept-document-url">URL</span>，
+    除非它被阻止或没有这样的文档，这时返回空字符串。</p>
+
+    <p><code data-x="rel-noreferrer">noreferrer</code> 链接类型可用于阻止引荐来源。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-document-referrer">referrer</code></dfn> 属性必须返回 <span data-x="the document's referrer">该文档的引荐来源</span>。</p>
+
+  </div>
+
+  <hr>
+
+  <dl class="domintro">
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-cookie">cookie</code> [ = <var>value</var> ]</dt>
+   <dd>
+
+    <p>返回适用于该 <code>Document</code> 的 HTTP cookie。如果没有 Cookie 或 Cookie 不适用于该资源，
+    则返回空字符串。</p>
+
+    <p>可以被设置，用来给该元素的 HTTP Cookie 集合添加一个新的 Cookie。</p>
+
+    <p>如果内容 <span data-x="sandboxed origin browsing context flag">被沙盒化到一个唯一的 origin</span> 中
+    （例如有 <code data-x="attr-iframe-sandbox">sandbox</code> 属性的 <code>iframe</code>），
+    当读取和设置时抛出 <span>"<code>SecurityError</code>"</span> <code>DOMException</code>。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-document-cookie">cookie</code></dfn> 属性表示由文档的
+  <span data-x="concept-document-url">URL</span> 标识的资源的 Cookie。</p>
+
+  <p>满足下列条件的 <code>Document</code> 对象为
+  <dfn data-x="cookie-averse document object">cookie-averse<code> 文档</code> 对象</dfn>：</p>
+
+  <ul>
+
+   <li>没有 <span data-x="concept-document-bc">浏览环境</span> 的 <code>Document</code>。</li>
+
+   <li><span data-x="concept-document-url">URL</span> 的 <span data-x="concept-url-scheme">scheme</span>
+   不是 <span>network scheme</span> 的 <code>Document</code>。</li>
+
+  </ul>
+
+  <!--Other specifications can also define <code>Document</code> objects as being <span
+  data-x="cookie-averse Document object">cookie-averse <code>Document</code> objects</span>.-->
+
+  <p id="sandboxCookies">当读取时，如果文档是一个 <span data-x="cookie-averse document object">cookie-averse <code>Document</code> 对象</span>，
+  那么用户代理必须返回空字符串。否则，如果 <code>Document</code> 的 <span>origin</span> 是一个
+  <span data-x="concept-origin-opaque">不透明 origin</span>，用户代理必须抛出 <span>"<code>SecurityError</code>"</span>
+  <code>DOMException</code>。否则，用户代理必须作为 "非HTTP" API 返回
+  使用 <span data-x="UTF-8 decode without BOM">无 BOM 的 UTF-8 解码算法</span> 解码后的，
+  文档 <span data-x="concept-document-url">URL</span> 的 <span data-x="cookie-string">Cookie 字符串</span>。<ref spec=COOKIES><!--INSERT FINGERPRINT--></p>
+
+  <p>当设置时，如果文档是一个 <span data-x="cookie-averse document object">cookie-averse <code>Document</code> 对象</span>，
+  则用户代理必须什么都不做。否则，如果 <code>Document</code> 的 <span>origin</span> 是一个
+  <span data-x="concept-origin-opaque">不透明 origin</span>，用户代理必须抛出一个
+  <span>"<code>SecurityError</code>"</span> <code>DOMException</code>。
+  否则用户代理的行为必须像是通过 "非HTTP" API 为文档的 <span data-x="concept-document-url">URL</span>
+  <span data-x="receives a set-cookie-string">接收 set-cookie-string</span> 时一样。
+  其中，set-cookie-string 由一个新的 <span data-x="utf-8 encode">UTF-8 编码的</span> 值组成。<ref spec=COOKIES> <ref spec=ENCODING></p>
+
+  <p class="note">因为在 frame 之间可以访问 <code data-x="dom-document-cookie">cookie</code> 属性，
+  Cookie 的路径限制只是用来帮助管理对站点的哪一部分发送哪些 Cookie 的工具，并不是任何形式的安全特性。</p>
+
+  <p class="warning"><code data-x="dom-document-cookie">cookie</code> 属性的读取方法和设定方法同步地访问共享状态。
+  由于没有加锁机制，在多进程用户代理中其他浏览环境可能会在脚本执行中修改 Cookie。
+  比如一个站点试着读取 Cookie，增加它的值然后写回去，用新的值作为会话的唯一标识；
+  如果该站点在不同的浏览器窗口中同时做这件事情，两个会话使用的唯一标识可能是相同的，这可能引发灾难性后果。</p>
+
+  <hr>
+
+  </div>
+
+  <dl class="domintro">
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-lastmodified">lastModified</code></dt>
+   <dd>
+    <p>根据服务器的报告返回文档的（用户的本地时区的）最后修改时间，按照这样的格式："<code data-x="">MM/DD/YYYY&nbsp;hh:mm:ss</code>"。</p>
+    <p>如果不知道最后修改时间，返回当前时间。</p>
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>当读取 <dfn><code data-x="dom-document-lastModified">lastModified</code></dfn> 属性时，
+  必须返回 <code>Document</code> 的源文件的最后修改（在用户本地时区的）日期和时间，按照下列格式：</p>
+
+  <ol>
+
+   <li> 日期的月。 </li>
+
+   <li> 一个 U+002F SOLIDUS 字符 (/)。 </li>
+
+   <li> 日期的日。 </li>
+
+   <li> 一个 U+002F SOLIDUS 字符 (/)。 </li>
+
+   <li> 日期的年。 </li>
+
+   <li> 一个 U+0020 SPACE 字符。 </li>
+
+   <li> 时间的小时部分。 </li>
+
+   <li> 一个 U+003A COLON 字符 (:)。 </li>
+
+   <li> 时间的分钟部分。 </li>
+
+   <li> 一个 U+003A COLON 字符 (:)。 </li>
+
+   <li> 时间的秒部分。 </li>
+
+  </ol>
+
+  <p>上述除了年之外的所有数字数字组件必须以两位 <span data-x="ASCII digits">ASCII 数字</span> 的形式给出，
+  表示十进制数，必要时需要补零。年必须按照最短可能的字符串给出，可能是 4 个或更多的
+  <span data-x="ASCII digits">ASCII 数字</span>，表示十进制数，必要时需要补零。</p>
+
+  <p><code>Document</code> 的源文件的最后修改日期和时间必须从使用的网络协议的相关特性中获取。
+  比如文档的 HTTP <code data-x="http-last-modified">Last-Modified</code> 头部，或者（对于本地文件）文件系统中的元数据。
+  如果不知道最后修改日期和时间，该属性必须按照上述格式返回当前日期和时间。</p>
+
+  <hr>
+
+  </div>
+
+  <dl class="domintro">
+
+   <dt><var>document</var> . <code subdfn data-x="dom-document-readyState">readyState</code></dt>
+   <dd>
+    <p>当 <code>Document</code> 正在加载时返回 "<code data-x="">loading</code>"，
+    一旦结束解析但仍在加载子资源时返回 "<code data-x="">interactive</code>"，
+    一旦加载完成返回 "<code data-x="">complete</code>"。</p>
+    <p>当这个值变化时触发 <code>Document</code> 对象上的
+    <code data-x="event-readystatechange">readystatechange</code> 事件。</p>
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>每个文档有一个 <dfn data-x="current document readiness">当前文档就绪状态</dfn>。
+  创建 <code>Document</code> 对象时，
+  如果文档有关联的 <span data-x="HTML parser">HTML 解析器</span>，<span data-x="XML parser">XML 解析器</span>，或 XSLT 处理器，
+  必须将 <span data-x="current document readiness">当前文档就绪状态</span>
+  设置为字符串 "<code data-x="">loading</code>"；
+  否则必须将 <span data-x="current document readiness">当前文档就绪状态</span>
+  设置为字符串 "<code data-x="">complete</code>"。
+  在页面加载过程中很多算法都会影响这个值。当这个值被设置时用户代理必须
+  在 <code>Document</code> 对象上
+  <span data-x="concept-event-fire">触发</span> 一个名为 <code data-x="event-readystatechange">readystatechange</code> 的事件。</p>
+
+  <p>如果文档有关联的 <span data-x="HTML parser">HTML 解析器</span> 或 <span data-x="XML parser">XML 解析器</span>，
+  且该解析器还没有 <span data-x="stop parsing">停止</span> 或 <span data-x="abort a parser">中止</span>，
+  那么就称该 <code>Document</code> 有一个 <dfn data-x="active parser">活动的解析器</dfn>。</p>
+
+  <p>当读取时，<dfn><code data-x="dom-document-readyState">readyState</code></dfn> IDL 属性必须返回
+  <span data-x="current document readiness">当前文档就绪状态</span>。</p>
+
+  </div>
+
+
+

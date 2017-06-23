@@ -1,0 +1,63 @@
+  <h4>元素定义</h4>
+
+  <p>在本规范中的每个元素都有一个定义，包含以下信息：</p>
+
+  <dl>
+
+   <dt><dfn data-x="concept-element-categories">类别</dfn></dt>
+
+   <dd><p>该元素所属的 <span data-x="content categories">类别</span> 列表。
+   在为每个元素定义 <span data-x="content models">内容模型</span> 时用到。</p></dd>
+
+
+   <dt><dfn data-x="concept-element-contexts">可以使用该元素的上下文</dfn></dt>
+
+   <dd>
+
+    <p>该元素可以在哪里使用的 <em>非规范化的</em> 描述。
+    该信息与允许该元素为子元素的元素内容模型之间存在冗余，只是为了方便而提供。</p>
+
+    <p class="note">为了简单起见，只列出最具体的期望值。
+    例如，既是 <span data-x="flow content">流内容</span> 又是 <span data-x="phrasing content">短语内容</span> 的元素
+    可以用于任何期望出现
+    <span data-x="flow content">流内容</span> 或 <span data-x="phrasing content">短语内容</span> 的地方，
+    但是因为任何期望出现
+    <span data-x="flow content">流内容</span> 的地方也期望出现
+    <span data-x="phrasing content">短语内容</span>（因为所有
+    <span data-x="phrasing content">短语内容</span> 都是
+    <span data-x="flow content">流内容</span>），
+    将只列出 "期望出现 <span data-x="phrasing content">短语内容</span> 的地方"。</p>
+
+   </dd>
+
+
+   <dt><dfn data-x="concept-element-content-model">内容模型</dfn></dt>
+
+   <dd><p>必须包含哪些内容作为子元素和后代元素的规范性描述。</p></dd>
+
+
+   <dt><dfn data-x="concept-element-tag-omission">text/html 中的标签省略</dfn></dt>
+
+   <dd><p><em>非规范性的</em> 描述：在 <code>text/html</code> 语法中，
+   是否可以忽略 <span data-x="syntax-start-tag">开始</span> 和 <span data-x="syntax-end-tag">结束</span> 标签。
+   该信息与 <span data-x="syntax-tag-omission">可选标签</span> 部分给出的规范性要求之间存在冗余，
+   在元素定义中提供只是为了方便。</p></dd>
+
+
+   <dt><dfn data-x="concept-element-attributes">内容属性</dfn></dt>
+
+   <dd><p>可以在该元素上指定的（除了不允许的情况）一个规范性的属性列表，
+   以及对这些属性的非规范性的描述。（破折号左侧是规范性的，右侧是非规范性的。）</p></dd>
+
+
+   <dt><dfn data-x="concept-element-dom">DOM 接口</dfn></dt>
+
+   <dd><p>一个关于这样的元素必须实现的 DOM 接口的规范性的定义。</p></dd>
+
+  </dl>
+
+  <p>之后是更多的描述：元素所 <span data-x="represents">代表</span> 的内容，
+  以及可能适用于作者 <span data-x="" w-nodev> 和实现</span>
+  的任何其他规范性的一致性标准，有时也包括实例。</p>
+
+
