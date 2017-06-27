@@ -1,0 +1,46 @@
+  <h4><dfn data-x="Content models">内容模型</dfn></h4>
+
+  <p>本标准中定义的每个元素都有内容模型：描述了元素期望的 <span data-x="concept-html-contents">内容</span>。
+  <span data-x="HTML elements">HTML 元素</span> 的内容必须匹配元素内容模型的要求。
+  元素的 <dfn data-x="concept-html-contents">内容</dfn> 是它在 DOM 中的子节点。</p>
+
+  <p>元素之间总是允许 <span data-x="ASCII whitespace">ASCII 空白</span>。用户代理将源码标记中元素之间的字符表示为
+  DOM 中的 <code>Text</code> 节点。<!-- not a
+  conf criteria since the parser now requires this --> 空的 <code>Text</code> 节点和
+  只包含那些字符序列的 <code>Text</code> 节点都被认为是 <dfn data-x="inter-element whitespace">元素间空白</dfn>。</p>
+
+  <p>当决定元素内容是否匹配元素内容模型的要求时必须忽略
+  <span data-x="Inter-element whitespace">元素间空白</span>， 注释节点，以及处理指令节点。
+  在执行定义文档和元素语义的算法时也必须忽略这些节点。</p>
+
+  <p class="note">因此，元素 <var>A</var> 与元素 <var>B</var> <i>相邻</i> 是指
+  <var>A</var> 和 <var>B</var> 有相同的父节点且它们之间没有元素节点或 <code>Text</code> 节点
+  （<span data-x="inter-element whitespace">元素间空白</span> 除外）。
+  类似地，元素的 <i>唯一子节点</i> 是指其父元素只包含 <span data-x="inter-element whitespace">元素箭空白</span>，
+  注释节点，以及处理指令节点。</p>
+
+  <p>作者不得随意使用 <span data-x="HTML elements">HTML 元素</span>，除非明确允许（每个元素都有定义），
+  或其他规范有明确要求。对于 XML 复合文档，如果这些元素定义为提供相关上下文，那么这些上下文可以位于其他命名空间的元素之内。</p>
+
+  <div class="example">
+   <p>例如 Atom 规范定义了一个 <code data-x="">content</code> 元素。当它的
+   <code data-x="">type</code> 属性值为 <code data-x="">xhtml</code> 时，Atom
+   规范要求它包含单个 HTML <code>div</code> 元素。因此该上下文中允许出现一个a
+   <code>div</code> 元素，虽然本规范没有明确地声明这一点。<ref spec=ATOM></p>
+  </div>
+
+  <p>此外，<span data-x="HTML elements">HTML 元素</span> 可能是孤立节点（即没有父节点）。</p>
+
+  <div class="example">
+
+   <p>例如创建一个 <code>td</code> 元素并把它存储为脚本中的全局变量是符合规范的，即使
+   <code>td</code> 元素只期望用于 <code>tr</code> 元素中。</p>
+
+   <pre>var data = {
+  name： "Banana"，
+  cell： document.createElement('td')，
+};</pre>
+
+  </div>
+
+
