@@ -1,0 +1,99 @@
+  <h6 id="palpable-content">可感知内容</h6>
+
+  <p>作为一般规则，其内容模型允许任何 <span data-x="flow content">流式内容</span> 或
+  <span data-x="phrasing content">短语内容</span> 的元素应在其
+  <span data-x="concept-html-contents">内容</span>
+  中至少包含一个 <dfn data-x="palpable content">可感知内容</dfn> 的节点，并且它没有指定
+  <code data-x="attr-hidden">hidden</code> 属性。</p>
+
+  <p class="note"><span data-x="Palpable content">可感知内容</span>
+  通过提供一些非空的后代 <span data-x="text content">文本</span>，
+  可以听到（<code>audio</code> 元素）或看到（<code>video</code>、<code>img</code> 或 <code>canvas</code> 元素），
+  或可以与之交互的内容（例如可交互的表单控件）来让一个元素变得非空。</p>
+
+  <p>但这个要求并不是一个硬性要求，因为有许多情况下空元素是合理的，比如当它被用作一个占位符之后用脚本填充，
+  或者对于模板元素，大多数页面都会填充，只有某些页面表现为空白，这也无关紧要。</p>
+
+  <p>推荐一致性检查工具为作者提供工具，来定位不遵守该要求的元素，帮助作者的代码编写。</p>
+
+  <p>下列元素是可感知内容：</p>
+
+  <!-- when updating this also update the category index -->
+  <ul class="brief category-list">
+   <li><code>a</code></li>
+   <li><code>abbr</code></li>
+   <li><code>address</code></li>
+   <li><code>article</code></li>
+   <li><code>aside</code></li>
+   <li><code>audio</code> （如果存在 <code data-x="attr-media-controls">controls</code> 属性）</li>
+   <li><code>b</code></li>
+   <li><code>bdi</code></li>
+   <li><code>bdo</code></li>
+   <li><code>blockquote</code></li>
+   <li><code>button</code></li>
+   <li><code>canvas</code></li>
+   <li><code>cite</code></li>
+   <li><code>code</code></li>
+   <li><code>data</code></li>
+   <li><code>details</code></li>
+   <li><code>dfn</code></li>
+   <li><code>div</code></li>
+   <li><code>dl</code> （如果元素的子节点至少包含一个键值对）</li>
+   <li><code>em</code></li>
+   <li><code>embed</code></li>
+   <li><code>fieldset</code></li>
+   <li><code>figure</code></li>
+   <li><code>footer</code></li>
+   <li><code>form</code></li>
+   <li><code>h1</code></li>
+   <li><code>h2</code></li>
+   <li><code>h3</code></li>
+   <li><code>h4</code></li>
+   <li><code>h5</code></li>
+   <li><code>h6</code></li>
+   <li><code>header</code></li>
+   <li><code>hgroup</code></li>
+   <li><code>i</code></li>
+   <li><code>iframe</code></li>
+   <li><code>img</code></li>
+   <li><code>input</code> （如果 <code data-x="attr-input-type">type</code> 属性 <em>不处于</em> <span data-x="attr-input-type-hidden">隐藏</span> 状态）</li>
+   <li><code>ins</code></li>
+   <li><code>kbd</code></li>
+   <li><code>label</code></li>
+   <li><code>main</code></li>
+   <li><code>map</code></li>
+   <li><code>mark</code></li>
+   <li><span>MathML <code>math</code></span></li>
+   <li><code>menu</code> （如果元素的子节点至少包含一个 <code>li</code> 元素）</li>
+   <li><code>meter</code></li>
+   <li><code>nav</code></li>
+   <li><code>object</code></li>
+   <li><code>ol</code> （如果元素的子节点至少包含一个 <code>li</code> 元素）</li>
+   <li><code>output</code></li>
+   <li><code>p</code></li>
+   <li><code>pre</code></li>
+   <li><code>progress</code></li>
+   <li><code>q</code></li>
+   <li><code>ruby</code></li>
+   <li><code>s</code></li>
+   <li><code>samp</code></li>
+   <li><code>section</code></li>
+   <li><code>select</code></li>
+   <li><code>small</code></li>
+   <li><code>span</code></li>
+   <li><code>strong</code></li>
+   <li><code>sub</code></li>
+   <li><code>sup</code></li>
+   <li><span>SVG <code>svg</code></span></li>
+   <li><code>table</code></li>
+   <li><code>textarea</code></li>
+   <li><code>time</code></li>
+   <li><code>u</code></li>
+   <li><code>ul</code> （如果元素的子节点至少包含一个 <code>li</code> 元素）</li>
+   <li><code>var</code></li>
+   <li><code>video</code></li>
+   <li><span data-x="autonomous custom element">自主的 Custom Element</span></li>
+   <li>非 <span data-x="inter-element whitespace">元素间空白</span> 的 <span data-x="text content">文本</span></li>
+  </ul>
+
+

@@ -1,0 +1,93 @@
+  <h6>短语内容</h6>
+
+  <p><dfn data-x="Phrasing content">短语内容</dfn> 是文档中的文本，
+  以及标记该文本的段内级别的元素。
+  多个 <span data-x="phrasing content">短语内容</span> 形成 <span
+  data-x="paragraph">段落</span>。</p>
+
+  <!-- when updating this also update the category index -->
+  <ul class="brief category-list">
+   <li><code>a</code></li>
+   <li><code>abbr</code></li>
+   <li><code>area</code> （如果是 <code>map</code> 元素的后代）</li>
+   <li><code>audio</code></li>
+   <li><code>b</code></li>
+   <li><code>bdi</code></li>
+   <li><code>bdo</code></li>
+   <li><code>br</code></li>
+   <li><code>button</code></li>
+   <li><code>canvas</code></li>
+   <li><code>cite</code></li>
+   <li><code>code</code></li>
+   <li><code>data</code></li>
+   <li><code>datalist</code></li>
+   <li><code>del</code></li>
+   <li><code>dfn</code></li>
+   <li><code>em</code></li>
+   <li><code>embed</code></li>
+   <li><code>i</code></li>
+   <li><code>iframe</code></li>
+   <li><code>img</code></li>
+   <li><code>input</code></li>
+   <li><code>ins</code></li>
+   <li><code>kbd</code></li>
+   <li><code>label</code></li>
+   <li><code>link</code> （如果 <span data-x="allowed in the body">在 body 中允许</span>）</li>
+   <li><code>map</code></li>
+   <li><code>mark</code></li>
+   <li><span>MathML <code>math</code></span></li>
+   <li><code>meta</code> （如果 <code data-x="attr-itemprop">itemprop</code> 属性存在）</li>
+   <li><code>meter</code></li>
+   <li><code>noscript</code></li>
+   <li><code>object</code></li>
+   <li><code>output</code></li>
+   <li><code>picture</code></li>
+   <li><code>progress</code></li>
+   <li><code>q</code></li>
+   <li><code>ruby</code></li>
+   <li><code>s</code></li>
+   <li><code>samp</code></li>
+   <li><code>script</code></li>
+   <li><code>select</code></li>
+   <li><code>slot</code></li>
+   <li><code>small</code></li>
+   <li><code>span</code></li>
+   <li><code>strong</code></li>
+   <li><code>sub</code></li>
+   <li><code>sup</code></li>
+   <li><span>SVG <code>svg</code></span></li>
+   <li><code>template</code></li>
+   <li><code>textarea</code></li>
+   <li><code>time</code></li>
+   <li><code>u</code></li>
+   <li><code>var</code></li>
+   <li><code>video</code></li>
+   <li><code>wbr</code></li>
+   <li><span data-x="autonomous custom element">自主的 custom element</span></li>
+   <li><span data-x="text content">文本内容</span></li>
+  </ul>
+
+  <p class="note">多数短语内容元素只能包含短语内容元素，而不是任何流式内容元素。</p>
+
+  <p>内容模型中的 <dfn data-x="text content">文本内容</dfn> 意味着什么都没有，
+  或者有 <code>Text</code> 节点。有时 <span data-x="text content">文本内容</span> 自身就是
+  一种内容模型，但它也是 <span data-x="phrasing content">短语内容</span>，
+  也可以是 <span data-x="inter-element whitespace">元素间空白</span>
+  （如果 <code>Text</code> 节点为空或者只包含 <span data-x="ASCII whitespace">ASCII 空白</span>）。</p>
+
+  <p><code>Text</code> 节点和属性值必须由
+  <span data-x="scalar value">标量值</span> 组成，不包含 <span data-x="noncharacter">非字符</span>，
+  以及除 <span data-x="ASCII whitespace">ASCII 空白</span> 之外的 <span data-x="control">控制字符</span>。
+
+  <!--<code>Text</code> nodes and attribute values may begin with an <i>isolated combining
+  character</i>.--> <!-- commented out since nothing disallows it currently, so it's implicit;
+  however, if we ever make charmod a normative reference, this will be needed to override it -->
+  <!-- see also https://www.w3.org/Bugs/Public/show_bug.cgi?id=13502#c22 -->
+
+  本规范对 <code>Text</code> 节点的值和属性的值，基于其确切的上下文会有额外的约束。
+  <!-- <ref spec=UNICODE>-->
+
+  </p>
+
+
+

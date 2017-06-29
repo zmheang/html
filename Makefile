@@ -32,6 +32,7 @@ build-zh:
 		$(HTMLS)
 	node ./bin/json-pretify.js ${OUTPUT}/multipage/fragment-links.json
 	rm -rf $(OUTPUT)/resources && cp -r resources $(OUTPUT)
+	cp -r images/* $(OUTPUT)/images/
 
 # Split subtree before deploy:
 # git subtree split --prefix output/html -b gh-pages
