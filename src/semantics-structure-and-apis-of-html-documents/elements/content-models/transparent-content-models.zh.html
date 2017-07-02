@@ -1,0 +1,64 @@
+  <h5>透明内容模型</h5>
+
+  <p>有些元素被描述为 <dfn data-x="transparent">透明的</dfn>；它们的内容模型描述中有 "透明" 一词。
+  <span data-x="transparent">透明</span> 元素的内容模型从其父元素的内容模型派生：
+  “透明”的内容模型中某一部分所要求的元素与父元素的内容模型中对应部分所要求的元素相同。</p>
+
+  <div class="example">
+
+   <p>例如，<code>ruby</code> 元素中的 <code>ins</code> 元素不可包含 <code>rt</code> 元素，
+   因为 <code>ruby</code> 元素的内容模型中允许 <code>ins</code> 元素的部分就是允许
+   <span data-x="phrasing content">短语内容</span> 的那一部分，
+   <code>rt</code> 元素不是 <span data-x="phrasing content">短语内容</span>。</p>
+
+  </div>
+
+<!--(as far as I can tell, there's no way to violate this requirement
+     without first violating the earlier requirement)
+  <p>Furthermore, when a content model includes a part that is "transparent", those parts must not
+  contain content that would not be conformant if all transparent elements in the tree were
+  replaced, in their parent element, by the <span data-x="concept-html-contents">contents</span> in
+  the "transparent" part of their content model, retaining order.</p>
+
+  <div class="example">
+
+   <p>Consider the following markup fragment:</p>
+
+   <pre>&lt;p>Hello &lt;a href="world.html">&lt;em>wonderful&lt;/em> world&lt;/a>!&lt;/p></pre>
+
+   <p>Its DOM looks like the following:</p>
+
+   <ul class="domTree"><li class="t1"><code>p</code><ul><li class="t3"><code>#text</code>: <span data-x="">Hello </span></li><li class="t1"><code>a</code> <span class="t2" data-x=""><code class="attribute name" data-x="attr-hyperlink-href">href</code>="<code class="attribute value" data-x="">world.html</code>"</span><ul><li class="t1"><code>em</code><ul><li class="t3"><code>#text</code>: <span data-x="">wonderful</span></li></ul></li><li class="t3"><code>#text</code>: <span data-x=""> world</span></li></ul></li><li class="t3"><code>#text</code>: <span data-x="">!</span></li></ul></li></ul>
+
+   <p>The content model of the <code>a</code> element is <span>transparent</span>. To see if its
+   contents are conforming, therefore, the element is replaced by its contents:</p>
+
+   <ul class="domTree"><li class="t1"><code>p</code><ul><li class="t3"><code>#text</code>: <span data-x="">Hello </span></li><li class="t1"><code>em</code><ul><li class="t3"><code>#text</code>: <span data-x="">wonderful</span></li></ul></li><li class="t3"><code>#text</code>: <span data-x=""> world</span></li><li class="t3"><code>#text</code>: <span data-x="">!</span></li></ul></li></ul>
+
+   <p>Since that is conforming, the contents of the <code>a</code> are conforming in the original
+   fragment (there is no complication regarding the various parts of the <code>p</code> element's
+   content model, since that element's content model has only one part).</p>
+
+  </div>
+-->
+
+  <p class="note">在有些情况下，透明元素互相嵌套时，必须迭代地应用这个过程。</p>
+
+  <div class="example">
+
+   <p>考虑下面的标记片段：</p>
+
+   <pre>&lt;p>&lt;object>&lt;param>&lt;ins>&lt;map>&lt;a href="/">Apples&lt;/a>&lt;/map>&lt;/ins>&lt;/object>&lt;/p></pre>
+
+   <p>为了检查 <code>a</code> 元素中是否允许 "Apples"，要检查内容模型。
+   <code>a</code> 元素的内容模型是透明的，<code>map</code> 元素也是，
+   <code>ins</code> 元素也是，<code>object</code> 元素中 <code>ins</code> 元素所在的部分也是。
+   <code>object</code> 元素位于 <code>p</code> 元素中，后者的内容模型是 <span data-x="phrasing content">短语内容</span>。
+   因此 "Apples" 是允许的，因为文本是短语内容。</p>
+
+  </div>
+
+  <p>当透明元素秘佑父元素时，它的内容模型中透明的那一部分必须被当做可以接受任何
+  <span data-x="flow content">流式内容</span>。</p>
+
+

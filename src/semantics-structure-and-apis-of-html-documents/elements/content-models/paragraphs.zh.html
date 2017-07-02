@@ -1,0 +1,159 @@
+  <h5>段落</h5>
+
+  <p class="note">本小节定义的术语 <span data-x="paragraph">段落</span> 的用途不止是
+  <code>p</code> 元素的定义。这里定义的 <span data-x="paragraph">段落</span> 概念用于描述如何解释文档。
+  <code>p</code> 元素仅仅是标记 <span data-x="paragraph">段落</span> 的一种方式。</p>
+
+  <!-- note: the actual definition is below -->
+  <p>一个 <dfn data-x="paragraph">段落</dfn> 通常是由一系列
+  <span data-x="phrasing content">短语内容</span> 形成的一个文本块，
+  在排版中可能包含一个或多个句子，讨论一个特定的主题（也可以用于更一般的专题分组）。
+  例如，一个地址也可以是一个段落，可以是表单的一部分，一行署名，或者一首诗中的一节。</p>
+
+  <div class="example">
+
+   <p>下面的例子中，一个章节中有两段话。还有一个标题，它包含的短语内容不构成段落。
+   注意注释和 <span data-x="inter-element whitespace">元素间空白</span> 也不构成段落。</p>
+
+   <pre>&lt;section>
+  &lt;h1>Example of paragraphs&lt;/h1>
+  This is the &lt;em>first&lt;/em> paragraph in this example.
+  &lt;p>This is the second.&lt;/p>
+  &lt;!-- This is not a paragraph. -->
+&lt;/section></pre>
+
+  </div>
+
+  <p><span data-x="flow content">流式内容</span> 中的段落相对于文档的样子来定义，与
+  <code>a</code>，<code>ins</code>，<code>del</code>，和 <code>map</code> 元素造成的复杂情况无关。
+  因为那些元素的混合内容模型使它们可以跨越段落边界，就像下面两个例子那样。</p>
+
+  <p class="note">通常来讲，最好避免让元素跨越段落边界。这样的标记很难维护。</p>
+
+  <div class="example">
+
+   <p>下面的例子取自前一个例子中的标记，在某些标记处加入了 <code>ins</code> 和 <code>del</code> 元素，
+   用来展示文本的变更（尽管这种情况下，这一变更确实没啥意义）。注意这个例子中的段落与上一个例子完全相同，
+   尽管插入了 <code>ins</code> 和 <code>del</code> 元素 &mdash; <code>ins</code> 元素跨越了标题和第一个段落，
+   <code>del</code> 元素跨越了两个段落的边界。</p>
+
+   <pre>&lt;section>
+  &lt;ins>&lt;h1>Example of paragraphs&lt;/h1>
+  This is the &lt;em>first&lt;/em> paragraph in&lt;/ins> this example&lt;del>.
+  &lt;p>This is the second.&lt;/p>&lt;/del>
+  &lt;!-- This is not a paragraph. -->
+&lt;/section></pre>
+
+  </div>
+
+  <div w-nodev>
+
+  <p>令 <var>view</var> 为 DOM 的一个视图，将文档中所有的 <code>a</code>,
+  <code>ins</code>, <code>del</code>, 和 <code>map</code> 元素替换为它们的
+  <span data-x="concept-html-contents">内容</span>。然后对 <var>view</var> 中每一个接受
+  <span data-x="phrasing content">短语内容</span> 的元素中的
+  没有被其他类型内容打断的 <span data-x="phrasing content">短语内容</span> 节点序列，
+  令 <var>first</var> 为序列中第一个节点，令 <var>last</var> 为序列中最后一个节点。
+  对每一个上述序列中，包含至少一个非
+  <span data-x="embedded content">嵌入内容</span> 或 <span data-x="inter-element whitespace">元素间空白</span>
+  节点的序列，在原始 DOM 中从 <var>first</var> 前面到 <var>last</var> 后面形成了一个段落。（因此段落可以横跨 <code>a</code>,
+  <code>ins</code>, <code>del</code>, 和 <code>map</code> 元素。）</p>
+
+  <p>一致性检查器可以在段落相互重叠时警告作者（
+  在 <code>object</code>, <code>video</code>, <code>audio</code>, 和 <code>canvas</code> 元素中有可能发生这种情况，
+  允许再次嵌入 HTML 的其他命名空间的元素也可能间接地发生这种情况，比如 <span>SVG <code>svg</code></span> 或 <span>MathML
+  <code>math</code></span>）。</p>
+  <!-- example below -->
+
+  </div>
+
+  <p><code>p</code> 元素也显式地生成了 <span data-x="paragraph">段落</span>。</p>
+
+  <p class="note"><code>p</code> 元素可以用于包裹普通的短语内容来形成相互独立的段落。</p>
+
+  <div class="example">
+
+   <p>在下面的例子中，链接横跨了半个第一个段落，分离两个段落的标题，以及半个第二个段落。它同时横跨了段落和标题。</p>
+
+   <pre>&lt;header>
+ Welcome!
+ &lt;a href="about.html">
+  This is home of...
+  &lt;h1>The Falcons!&lt;/h1>
+  The Lockheed Martin multirole jet fighter aircraft!
+ &lt;/a>
+ This page discusses the F-16 Fighting Falcon's innermost secrets.
+&lt;/header></pre>
+
+   <p>这是上述标记的另一种写法，这次显式地声明了段落，将一个链接分割成三部分：</p>
+
+   <pre>&lt;header>
+ &lt;p>Welcome! &lt;a href="about.html">This is home of...&lt;/a>&lt;/p>
+ &lt;h1>&lt;a href="about.html">The Falcons!&lt;/a>&lt;/h1>
+ &lt;p>&lt;a href="about.html">The Lockheed Martin multirole jet
+ fighter aircraft!&lt;/a> This page discusses the F-16 Fighting
+ Falcon's innermost secrets.&lt;/p>
+&lt;/header></pre>
+
+  </div>
+
+  <div class="example">
+
+   <!-- I don't know if there's a better way to deal with this, but if there is, let me know... -->
+
+   <p>当使用某些元素来定义 fallback 内容时，段落可以重叠。例如下面的章节：</p>
+
+   <pre>&lt;section>
+ &lt;h1>My Cats&lt;/h1>
+ You can play with my cat simulator.
+ &lt;object data="cats.sim">
+  To see the cat simulator, use one of the following links:
+  &lt;ul>
+   &lt;li>&lt;a href="cats.sim">Download simulator file&lt;/a>
+   &lt;li>&lt;a href="https://sims.example.com/watch?v=LYds5xY4INU">Use online simulator&lt;/a>
+  &lt;/ul>
+  Alternatively, upgrade to the Mellblom Browser.
+ &lt;/object>
+ I'm quite proud of it.
+&lt;/section></pre>
+
+   <p>共有5个段落：</p>
+
+   <ol class="brief">
+
+    <li>第一段说："You can play with my cat simulator. <i>object</i> I'm
+    quite proud of it."，其中 <i>object</i> 是 <code>object</code> 元素。</li>
+
+    <li>第二段说："To see the cat simulator, use one of the following links:"。</li>
+
+    <li>第三段说："Download simulator file"。</li>
+
+    <li>第四段说："Use online simulator"。</li>
+
+    <li>第五段说："Alternatively, upgrade to the Mellblom Browser."。</li>
+
+   </ol>
+
+   <p>第一个段落与后面4个重叠。支持 "cats.sim" 资源的用户代理只会显示第一个段落，但显示 fallback 的用户代理就会
+   将第一个段落的第一句话与第二段显示为一个段落，最后一个段落会显示为上一个段落的第二个句子。</p>
+
+   <p>为避免困惑，可以显式地使用 <code>p</code> 元素。例如：</p>
+
+   <!-- My Fish -->
+   <pre>&lt;section>
+ &lt;h1>My Cats&lt;/h1>
+ &lt;p>You can play with my cat simulator.&lt;/p>
+ &lt;object data="cats.sim">
+  &lt;p>To see the cat simulator, use one of the following links:&lt;/p>
+  &lt;ul>
+   &lt;li>&lt;a href="cats.sim">Download simulator file&lt;/a>
+   &lt;li>&lt;a href="https://sims.example.com/watch?v=LYds5xY4INU">Use online simulator&lt;/a>
+  &lt;/ul>
+  &lt;p>Alternatively, upgrade to the Mellblom Browser.&lt;/p>
+ &lt;/object>
+ &lt;p>I'm quite proud of it.&lt;/p>
+&lt;/section></pre>
+
+  </div>
+
+
