@@ -1,0 +1,96 @@
+  <h5><code data-x="attr-translate">translate</code> 属性</h5>
+
+  <!-- v2: a way to translate the declensions of the word(s)，but keep the actual roots the same
+           for examples，see https://www.w3.org/Bugs/Public/show_bug.cgi?id=17954 -->
+
+  <p><dfn><code data-x="attr-translate">translate</code></dfn> 属性是一个
+  <span data-x="enumerated attribute">枚举属性</span>，用于指定元素在本地化时应该翻译其属性值和
+  <code>Text</code> 子节点的值，还是让它们保持不变。</p>
+
+  <p>该属性的关键字是空字符串，<code data-x="">yes</code>，和 <code data-x="">no</code>。
+  空字符串和 <code data-x="">yes</code> 关键字映射为 <i>yes</i> 状态。
+  <code data-x="">no</code> 关键字映射为 <i>no</i> 状态。
+  此外还有第三种状态，<i>inherit</i> 状态，这是 <i data-x="missing value default">缺失值默认</i>
+  （以及 <i data-x="invalid value default">非法值默认</i>）。</p>
+
+  <p>每个元素（甚至非 HTML 元素）都有 <dfn data-x="translation mode">翻译模式</dfn>，处于
+  <span data-x="translate-enabled">启用翻译</span> 状态或者 <span data-x="no-translate">不翻译</span> 状态。
+  如果 <span data-x="HTML elements">HTML 元素</span> 的 <code data-x="attr-translate">translate</code>
+  属性处于 <i>yes</i> 状态，那么该元素的 <span data-x="translation mode">翻译模式</span> 处于
+  <span data-x="translate-enabled">启用翻译</span> 状态；否则该元素的 <code data-x="attr-translate">translate</code>
+  属性处于 <i>no</i> 状态，那么该元素的 <span data-x="translation mode">翻译模式</span> 处于
+  <span data-x="no-translate">不翻译</span> 状态。 否则，元素的 <code data-x="attr-translate">translate</code>
+  属性处于 <i>inherit</i> 状态，或者该元素不是 <span data-x="HTML elements">HTML 元素</span>
+  因此没有 <code data-x="attr-translate">translate</code> 属性；任何一种情况下该元素的
+  <span data-x="translation mode">翻译模式</span> 都将与其父元素处于同样的状态（如果有父元素的话），
+  否则该元素是一个 <span data-x="document element">文档元素</span>，则处于 <span data-x="translate-enabled">启用翻译</span> 状态。</p>
+
+  <p>当元素处于 <dfn data-x="translate-enabled">启用翻译</dfn> 状态时，该元素的
+  <span data-x="translatable attributes">可翻译的属性</span> 及其 <code>Text</code> 子节点的值将会在页面本地化时进行翻译。</p>
+
+  <p>当元素处于 <dfn data-x="no-translate">不翻译</dfn> 状态时，该元素的属性值及其 <code>Text</code>
+  子节点的值将会在页面本地化时保留原样。例如因为该元素包含人名或者计算机程序名。</p>
+
+  <p>下面的属性是 <dfn data-x="translatable attributes">可翻译属性</dfn>：</p>
+
+  <ul class="brief">
+   <li><code>th</code> 元素上的 <code data-x="attr-th-abbr">abbr</code></li>
+   <li><code data-x="attr-area-alt">area</code>，<code data-x="attr-img-alt">img</code>，
+     和 <code data-x="attr-input-alt">input</code> 元素上的 <code data-x="">alt</code>
+   </li>
+   <li><code>meta</code> 元素上的 <code data-x="attr-meta-content">content</code>，
+     如果 <code data-x="attr-meta-name">name</code> 属性指定的元数据名对应的值已知可翻译的话</li>
+   <li><code>a</code> 和 <code>area</code> 元素上的 <code data-x="attr-hyperlink-download">download</code> </li>
+   <li> <code data-x="attr-optgroup-label">optgroup</code>，<code data-x="attr-option-label">option</code>，
+     和 <code data-x="attr-track-label">track</code> 元素上的 <code data-x="">label</code>
+   </li>
+   <li><span data-x="HTML elements">HTML 元素</span> 上的 <code data-x="attr-lang">lang</code>；
+     必须经过 "翻译" 来匹配翻译中使用的语言</li>
+   <li><code data-x="attr-input-placeholder">input</code> 和 <code data-x="attr-textarea-placeholder">textarea</code> 元素上的
+     <code data-x="">placeholder</code>
+   </li>
+   <li><code>iframe</code> 元素上的 <code data-x="attr-iframe-srcdoc">srcdoc</code>；必须进行解析和递归处理</li>
+   <li><span data-x="HTML elements">HTML 元素</span> 上的 <code data-x="attr-style">style</code>；必须进行解析和递归处理
+     （例如 <span>'content'</span> 属性的值）</li>
+   <li>所有 <span data-x="HTML elements">HTML 元素</span> 上的 <code data-x="attr-title">title</code></li>
+   <li><code data-x="attr-input-type">type</code> 属性处于 <span data-x="attr-input-type-button">按钮</span> 状态
+     或 <span data-x="attr-input-type-reset">重置按钮</span> 状态的 <code>input</code> 元素
+     上的 <code data-x="attr-input-value">value</code></li>
+       <!-- <input value> on other types is excluded since we can't predict if it interferes with server-side processing -->
+  </ul>
+
+  <p>其他规范可能会定义其他 <span data-x="translatable attributes">可翻译的属性</span>。例如 ARIA 可能会把 <code
+  data-x="attr-aria-label">aria-label</code> 属性定义为可翻译的。</p>
+
+  <div w-nodev>
+
+  <hr>
+
+  <p>在读取时，<dfn><code data-x="dom-translate">translate</code></dfn> IDL 属性必须返回 true
+  如果元素的 <span data-x="translation mode">翻译模式</span> 是 <span data-x="translate-enabled">启用翻译</span>；
+  否则返回 false。当设置时，它必须设置该内容属性的值为 "<code data-x="">yes</code>" 如果新值为 true；
+  否则设置该内容属性的值为 "<code data-x="">no</code>"。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>在这个例子中，在本地化时文档中的所有东西都会被翻译，除了示例键盘输入和示例程序输出：</p>
+
+   <pre>&lt;!DOCTYPE HTML>
+&lt;html lang=en> &lt;!-- default on the document element is translate=yes -->
+ &lt;head>
+  &lt;title>The Bee Game&lt;/title> &lt;!-- implied translate=yes inherited from ancestors -->
+ &lt;/head>
+ &lt;body>
+  &lt;p>The Bee Game is a text adventure game in English.&lt;/p>
+  &lt;p>When the game launches，the first thing you should do is type
+  &lt;kbd <strong>translate=no</strong>>eat honey&lt;/kbd>。 The game will respond with：&lt;/p>
+  &lt;pre>&lt;samp <strong>translate=no</strong>>Yum yum! That was some good honey!&lt;/samp>&lt;/pre>
+ &lt;/body>
+&lt;/html></pre>
+
+  </div>
+
+
+

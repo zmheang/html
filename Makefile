@@ -27,7 +27,7 @@ build-zh:
 	sed -i -r \
 		-e 's/standard.css>/standard.css><link rel=stylesheet href=\/html\/resources\/zh-cn.css>/' \
 		-e 's/issue-url=[^ ]+\s+src=[^ ]+/issue-url=https:\/\/github.com\/whatwg-cn\/html\/issues\/new src=\/html\/resources\/file-issue.js/' \
-		-e 's/https:\/\/resources\.whatwg\.org\/dfn\.js/\/html\/resources\/dfn.js/' \
+		-e 's/\/html-dfn\.js/\/html\/resources\/html-dfn.js/' \
 		-e '$$a\<script src=\/html\/resources\/zh-cn.js></script>' \
 		$(HTMLS)
 	node ./bin/json-pretify.js ${OUTPUT}/multipage/fragment-links.json

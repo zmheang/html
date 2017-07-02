@@ -1,0 +1,223 @@
+  <h4><dfn data-x="global attributes">全局属性</dfn></h4>
+
+  <p>下列属性是通用的，所有 <span data-x="HTML elements">HTML 元素</span> 都可以指定。
+  <span w-nodev> （即使是本规范中没有定义的那些元素）</span>：</p>
+
+  <ul class="brief">
+   <li><code data-x="attr-accesskey">accesskey</code></li>
+   <li><code data-x="attr-contenteditable">contenteditable</code></li>
+   <li><code data-x="attr-dir">dir</code></li>
+   <li><code data-x="attr-draggable">draggable</code></li>
+   <li><code data-x="attr-hidden">hidden</code></li>
+   <li><code data-x="attr-is">is</code></li>
+   <li><code data-x="attr-itemid">itemid</code></li>
+   <li><code data-x="attr-itemprop">itemprop</code></li>
+   <li><code data-x="attr-itemref">itemref</code></li>
+   <li><code data-x="attr-itemscope">itemscope</code></li>
+   <li><code data-x="attr-itemtype">itemtype</code></li>
+   <li><code data-x="attr-lang">lang</code></li>
+   <li><code data-x="attr-spellcheck">spellcheck</code></li>
+   <li><code data-x="attr-style">style</code></li>
+   <li><code data-x="attr-tabindex">tabindex</code></li>
+   <li><code data-x="attr-title">title</code></li>
+   <li><code data-x="attr-translate">translate</code></li>
+  </ul>
+
+  <div w-nodev>
+
+  <p>本规范定义的这些属性只用于 <span data-x="HTML elements">HTML 元素</span> 的属性。
+  当本规范引用具有这些属性的元素时，
+  没有定义这些属性的命名空间下的元素不得当作具有这些属性的元素处理。</p>
+
+  <div class="example">
+
+   <p>例如，在下面的 XML 片段中，根据本标准的定义 "<code data-x="">bogus</code>" 元素没有
+   <code data-x="attr-dir">dir</code> 属性，尽管它字面上有一个名为
+   "<code data-x="">dir</code>" 的属性。因此，最里面的 <code>span</code> 元素的
+   <span data-x="the directionality">方向</span> 是 '<span data-x="concept-rtl">rtl</span>'，
+   通过 "<code data-x="">bogus</code>" 元素间接地继承自 <code>div</code> 元素。</p>
+
+   <pre class="bad">&lt;div xmlns="http://www.w3.org/1999/xhtml" dir="rtl">
+ &lt;bogus xmlns="https://example.net/ns" dir="ltr">
+  &lt;span xmlns="http://www.w3.org/1999/xhtml">
+  &lt;/span>
+ &lt;/bogus>
+&lt;/div></pre>
+
+  </div>
+
+  </div>
+
+  <hr>
+
+  <p>WHATWG DOM 标准为任何命名空间下的任何元素的
+  <dfn data-x="attr-class" id="classes"><code>class</code></dfn>，
+  <dfn data-x="attr-id" id="the-id-attribute"><code>id</code></dfn>，和
+  <dfn data-x="attr-slot"><code>slot</code></dfn> 属性定义了用户代理的要求。<ref spec=DOM></p>
+
+  <p><code data-x="attr-class">class</code>，<code data-x="attr-id">id</code>，和 <code
+  data-x="attr-slot">slot</code> 属性可以在任何 <span data-x="HTML elements">HTML 元素</span> 上指定。</p>
+
+  <p>当 <span data-x="HTML elements">HTML 元素</span> 上指定了 <code data-x="attr-class">class</code>
+  属性时，该属性的值必须是 <span data-x="set of space-separated tokens">一组空格分隔的令牌</span>，
+  表示该元素所属的各种类。</p>
+
+  <div class="note">
+
+  <p>设置元素的类会影响 CSS 选择符的匹配，DOM 的
+  <code data-x="dom-document-getElementsByClassName">getElementsByClassName()</code> 方法，
+  以及其他这类特性。</p>
+
+  <p>作者在 <code data-x="attr-class">class</code> 属性中可以使用的令牌没有额外的限制，
+  但鼓励作者使用描述内容本质的取值，而不是描述内容表示的取值。</p>
+
+  </div>
+
+  <p>当 <span data-x="HTML elements">HTML 元素</span> 上指定了 <code data-x="attr-id">id</code> 属性时，
+  该属性的值必须在该元素所在的 <span data-x="tree">树</span> 的所有 <span data-x="concept-id">IDs</span> 中是唯一的，
+  必须至少包含一个字符，且不得包含任何 <span data-x="ASCII whitespace">ASCII 空白</span>。</p>
+
+  <!-- ASCII whitespace is disallowed because space-separated lists of IDs otherwise would not be
+  able to reach all valid IDs -->
+
+  <div class="note">
+
+  <p><code data-x="attr-id">id</code> 属性指定了该元素的 <span data-x="concept-id">唯一标识符（ID）</span>。</p>
+
+  <p>对 ID 的形式没有其他限制；ID 甚至可以只包含数字，以数字起始，以下划线起始，或者只包含标点等等。</p>
+
+  <p>元素的 <span data-x="concept-id">唯一标识符</span> 有很多用途，
+  最值得一提的是通过 <span data-x="concept-url-fragment">URL 片段</span> 链接到文档的特定部分，
+  在脚本中指向元素的一种方式，以及从 CSS 中指定特定元素的样式。</p>
+
+  </div>
+
+  <div w-nodev>
+
+  <p>标识符是不透明的字符串。不得通过 <code data-x="attr-id">id</code> 属性的值来推断特定的含义。</p>
+
+  </div>
+
+  <p>对 <span data-x="HTML elements">HTML 元素</span> 的 <code data-x="attr-slot">slot</code> 属性没有符合性要求。</p>
+
+  <p class="note"><code data-x="attr-slot">slot</code> 属性用于为元素
+  <span data-x="assign a slot">设置一个槽</span>：具有 <code data-x="attr-slot">slot</code> 属性的元素会被
+  <span data-x="assign a slot">指定到</span>
+  <span data-x="attr-slot-name">name</span> 属性值匹配该 <code data-x="attr-slot">slot</code> 属性值的
+  <code>slot</code> 元素创建的 <span data-x="concept-slot">slot</span> 中。
+  — 但条件是 <code>slot</code> 元素所在的 <span>shadow tree</span> 的
+  <span>root</span> 的 <span data-x="concept-DocumentFragment-host">host</span> 有相应的 <code data-x="attr-slot">slot</code> 属性值。</p>
+
+  <hr>
+
+  <p>为了使辅助技术产品提供相比于 HTML 元素和属性更加细粒度的界面，有一组
+  <a href="#wai-aria">用于辅助技术产品的注解</a> 可以指定
+  （ARIA <code data-x="attr-aria-role">role</code> 和 <code data-x="attr-aria-*">aria-*</code> 属性)。<ref spec=ARIA></p>
+
+  <hr>
+
+  <p>下面的 <span data-x="event handler content attributes">事件处理器内容属性</span> 可以在任何 <span data-x="HTML elements">HTML 元素</span> 上指定：</p>
+
+  <ul class="brief">
+   <li><code data-x="handler-onabort">onabort</code></li>
+   <li><code data-x="handler-onauxclick">onauxclick</code></li>
+   <li><code data-x="handler-onblur">onblur</code>*</li>
+   <li><code data-x="handler-oncancel">oncancel</code></li>
+   <li><code data-x="handler-oncanplay">oncanplay</code></li>
+   <li><code data-x="handler-oncanplaythrough">oncanplaythrough</code></li>
+   <li><code data-x="handler-onchange">onchange</code></li>
+   <li><code data-x="handler-onclick">onclick</code></li>
+   <li><code data-x="handler-onclose">onclose</code></li>
+   <li><code data-x="handler-oncontextmenu">oncontextmenu</code></li>
+   <li><code data-x="handler-oncuechange">oncuechange</code></li>
+   <li><code data-x="handler-ondblclick">ondblclick</code></li>
+   <li><code data-x="handler-ondrag">ondrag</code></li>
+   <li><code data-x="handler-ondragend">ondragend</code></li>
+   <li><code data-x="handler-ondragenter">ondragenter</code></li>
+   <li><code data-x="handler-ondragexit">ondragexit</code></li>
+   <li><code data-x="handler-ondragleave">ondragleave</code></li>
+   <li><code data-x="handler-ondragover">ondragover</code></li>
+   <li><code data-x="handler-ondragstart">ondragstart</code></li>
+   <li><code data-x="handler-ondrop">ondrop</code></li>
+   <li><code data-x="handler-ondurationchange">ondurationchange</code></li>
+   <li><code data-x="handler-onemptied">onemptied</code></li>
+   <li><code data-x="handler-onended">onended</code></li>
+   <li><code data-x="handler-onerror">onerror</code>*</li>
+   <li><code data-x="handler-onfocus">onfocus</code>*</li>
+   <li><code data-x="handler-oninput">oninput</code></li>
+   <li><code data-x="handler-oninvalid">oninvalid</code></li>
+   <li><code data-x="handler-onkeydown">onkeydown</code></li>
+   <li><code data-x="handler-onkeypress">onkeypress</code></li>
+   <li><code data-x="handler-onkeyup">onkeyup</code></li>
+   <li><code data-x="handler-onload">onload</code>*</li>
+   <li><code data-x="handler-onloadeddata">onloadeddata</code></li>
+   <li><code data-x="handler-onloadedmetadata">onloadedmetadata</code></li>
+   <li><code data-x="handler-onloadend">onloadend</code></li>
+   <li><code data-x="handler-onloadstart">onloadstart</code></li>
+   <li><code data-x="handler-onmousedown">onmousedown</code></li>
+   <li><code data-x="handler-onmouseenter">onmouseenter</code></li>
+   <li><code data-x="handler-onmouseleave">onmouseleave</code></li>
+   <li><code data-x="handler-onmousemove">onmousemove</code></li>
+   <li><code data-x="handler-onmouseout">onmouseout</code></li>
+   <li><code data-x="handler-onmouseover">onmouseover</code></li>
+   <li><code data-x="handler-onmouseup">onmouseup</code></li>
+   <li><code data-x="handler-onwheel">onwheel</code></li>
+   <li><code data-x="handler-onpause">onpause</code></li>
+   <li><code data-x="handler-onplay">onplay</code></li>
+   <li><code data-x="handler-onplaying">onplaying</code></li>
+   <li><code data-x="handler-onprogress">onprogress</code></li>
+   <li><code data-x="handler-onratechange">onratechange</code></li>
+   <li><code data-x="handler-onreset">onreset</code></li>
+   <li><code data-x="handler-onresize">onresize</code>*</li>
+   <li><code data-x="handler-onscroll">onscroll</code>*</li>
+   <li><code data-x="handler-onseeked">onseeked</code></li>
+   <li><code data-x="handler-onseeking">onseeking</code></li>
+   <li><code data-x="handler-onselect">onselect</code></li>
+   <li><code data-x="handler-onstalled">onstalled</code></li>
+   <li><code data-x="handler-onsubmit">onsubmit</code></li>
+   <li><code data-x="handler-onsuspend">onsuspend</code></li>
+   <li><code data-x="handler-ontimeupdate">ontimeupdate</code></li>
+   <li><code data-x="handler-ontoggle">ontoggle</code></li>
+   <li><code data-x="handler-onvolumechange">onvolumechange</code></li>
+   <li><code data-x="handler-onwaiting">onwaiting</code></li>
+  </ul>
+
+  <p class="note">用星号标记的属性在用于 <code>body</code> 元素时有不同的含义，
+  因为该元素暴露了 <code>Window</code> 对象上同名的 <span data-x="event handlers">事件处理器</span>。</p>
+
+  <p class="note">虽然这些属性适用于所有元素，但并不是对所有元素都有用。
+  例如，只有 <span data-x="media element">媒体元素</span> 才会接收到用户代理触发的
+  <code data-x="event-media-volumechange">音量变化</code> 事件。</p>
+
+  <hr>
+
+  <p>任何 <span data-x="HTML elements">HTML 元素</span> 都可以指定
+  <span data-x="custom data attribute">自定义数据属性</span> （例如 <code
+  data-x="">data-foldername</code> 或 <code data-x="">data-msgid</code>），
+  用于存储页面相关的自定义数据，状态，注解这样的东西。</p>
+
+  <hr>
+
+  <p>在 <span data-x="HTML documents">HTML 文档</span> 中，<span data-x="HTML namespace">HTML 命名空间</span>
+  中的元素可以指定一个 <code data-x="">xmlns</code> 属性，但它的值只能是
+  "<code data-x="">http://www.w3.org/1999/xhtml</code>" 。这不适用于 <span data-x="XML documents">XML 文档</span>。</p>
+
+  <p class="note">在 HTML 中，<code data-x="">xmlns</code> 属性完全没有效果，它只是一个标志。
+  它的存在只是为了方便 XML 与 HTML 之间的迁移。
+  被 <span data-x="HTML parser">HTML 解析器</span> 解析时，该属性的结果是没有命名空间，
+  而不是像 XML 中的命名空间声明那样，解析为 "<code data-x="">http://www.w3.org/2000/xmlns/</code>" 命名空间。</p>
+
+  <p class="note">在 XML 中，<code data-x="">xmlns</code> 属性是命名空间机制的一部分，
+  没有指定命名空间时，元素不能有 <code data-x="">xmlns</code> 属性。</p>
+
+  <hr>
+
+  <p>在 <span data-x="XML documents">XML 文档</span> 中的任何元素上，XML 规范也遵循
+  <span data-x="XML namespace">XML 命名空间</span> 中的 <code data-x="attr-xml-space">xml:space</code> 属性的使用。
+  该属性在 <span data-x="HTML elements">HTML 元素</span> 上没有作用，因为 HTML 的默认行为就是保留空白。 <ref spec=XML></p>
+
+  <p class="note">在 <code>text/html</code> 语法中，无法序列化
+  <span data-x="HTML elements">HTML 元素</span> 的 <code data-x="attr-xml-space">xml:space</code> 属性。</p>
+
+
+

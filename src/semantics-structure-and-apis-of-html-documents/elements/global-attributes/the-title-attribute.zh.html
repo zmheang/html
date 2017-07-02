@@ -1,0 +1,67 @@
+  <h5><code data-x="attr-title">title</code> 属性</h5>
+
+  <p><dfn><code data-x="attr-title">title</code></dfn> 属性 <span data-x="represents">表示</span>
+  元素的建议信息，比如适用于工具提示。
+  在链接上，这可能是目标资源的标题或描述；在图片上，它可以是图片来源或图片的描述；
+  在段落上，它可能是文本的脚注或评论；在引用上，可以是来源的进一步信息；
+  在 <span data-x="interactive content">交互式内容</span> 上，它可能是元素的标签或使用说明；
+  等等。值为文本。</p>
+
+  <!-- search for title-warning if modifying this paragraph -->
+  <p class="note">目前不鼓励依赖于 <code data-x="attr-title">title</code> 属性，
+  因为许多用户代理不按照本规范中要求的可访问的方式来暴露该属性
+  （例如，要求像鼠标这样的定点设备来触发工具提示，这排除了纯键盘用户和触摸设备用户，比如手机或平板电脑的用户）。</p>
+
+  <p>如果从元素中省略此属性，则默认关联到离该元素最近的设置了 <code data-x="attr-title">title</code> 属性的
+  祖先 <span data-x="HTML elements">HTML 元素</span>。
+  设置该属性可以覆盖这一行为，显式地声明了任何祖先的建议信息与此元素无关。
+  将属性设置为空字符串表示该元素没有建议信息。</p>
+
+  <p>如果 <code data-x="attr-title">title</code> 属性值包含 U+000A LINE FEED （LF）字符，
+  其内容将被分割为多行。每个 U+000A LINE FEED （LF） 字符表示一个换行。</p>
+
+  <div class="example">
+
+   <p>在 <code data-x="attr-title">title</code> 属性中使用换行要多加小心。</p>
+
+   <p>比如下面的代码片段其实定义了一个缩写的解释，<em>其中包含一个换行</em>：</p>
+
+   <pre class="bad">&lt;p>My logs show that there was some interest in &lt;abbr title="Hypertext
+Transport Protocol">HTTP&lt;/abbr> today.&lt;/p></pre> <!-- DO NOT REWRAP THIS LINE -->
+
+  </div>
+
+  <p>有些元素比如 <code>link</code>， <code>abbr</code>，和 <code>input</code>
+  为 <code data-x="attr-title">title</code> 属性定义了额外的语义。</p> <!-- the other two are <code>style</code> and <code>dfn</code> -->
+
+  <div w-nodev>
+
+  <p>元素的 <dfn data-x="advisory information">建议信息</dfn> 是下面算法的返回值，
+  只要有值返回算法就中止。当该算法返回空字符串时，没有任何建议信息。</p>
+
+  <ol>
+
+   <li><p>如果该元素是一个 <code>link</code>， <code>style</code>， <code>dfn</code>，或
+   <code>abbr</code> 元素，那么：如果该元素有 <code data-x="">title</code> 属性，
+   <!-- not attr-title --> 返回该属性的值，否则返回空字符串。</p></li> <!-- note: <code>input</code> doesn't do this -->
+
+   <li><p>否则，如果该元素有一个 <code data-x="attr-title">title</code> 属性则返回它的值。</p></li>
+
+   <li><p>否则，如果该属性有父元素，则返回父元素的 <span data-x="advisory information">建议信息</span>。</p></li>
+
+   <li><p>否则，返回空字符串。</p></li>
+
+  </ol>
+
+  <p>当元素有 <span data-x="advisory information">建议信息</span> 时，
+  用户代理应该通知用户，不然就无法发现该信息。</p>
+
+  <hr>
+
+  <p><dfn><code data-x="dom-title">title</code></dfn> IDL 属性必须 <span data-x="reflect">反映</span>
+  <code data-x="attr-title">title</code> 内容属性。</p>
+
+  </div>
+
+
+

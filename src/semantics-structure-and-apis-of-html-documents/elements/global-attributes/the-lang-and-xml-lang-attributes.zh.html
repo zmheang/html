@@ -1,0 +1,96 @@
+  <h5><code data-x="attr-lang">lang</code> 和 <code data-x="attr-xml-lang">xml：lang</code> 属性</h5>
+
+  <p><dfn><code data-x="attr-lang">lang</code></dfn> 属性（没有命名空间）指定了该元素内容，
+  以及该元素包含文本的属性的主要语言。它的值必须是一个合法的 BCP 47 语言标签，
+  或者空字符串。将该属性设置为控制付出表示主要语言是未知的。<!-- UA conformance requirements
+  for this are below -->。 <ref spec=BCP47></p>
+
+  <p>在 <span data-x="XML namespace">XML 命名空间</span> 中的
+  <dfn data-x="attr-xml-lang"><code data-x="">lang</code></dfn> 属性
+  定义在 XML 中。 <ref spec=XML></p>
+
+  <p>如果元素省略了这些属性，该元素的语言就是其父元素的语言（如果有的话）。</p>
+
+  <p>没有命名空间的 <code data-x="attr-lang">lang</code> 属性可以用于任何 <span
+  data-x="HTML elements">HTML 元素</span>。</p>
+
+  <p><span data-x="attr-xml-lang">在 <span data-x="XML namespace">XML 命名空间</span> 中的
+  <code data-x="">lang</code> 属性</span> 可以用于 <span data-x="XML documents">XML 文档</span> 中的
+  <span data-x="HTML elements">HTML 元素</span>，
+  也可以用户其他命名空间中的元素，只要相关规范允许（特别低，
+  MathML 和 SVG 允许其元素上指定 <span data-x="attr-xml-lang"><span data-x="XML namespace">XML 命名空间</span>
+  中的<code data-x="">lang</code> 属性 </span>）。如果同时在同一个元素上指定了
+  无命名空间的 <code data-x="attr-lang">lang</code> 属性，和
+  <span data-x="attr-xml-lang"><span data-x="XML namespace">XML 命名空间</span> 中的 <code data-x="">lang</code> 属性</span>，
+  它们必须有 <span data-x="ASCII case-insensitive">ASCII 大小写不敏感的</span> 同样的值。</p>
+
+  <p>作者不得在 <span data-x="HTML documents">HTML 文档</span> 中的
+  <span data-x="HTML elements">HTML 元素</span> 上使用
+  <span data-x="attr-xml-lang"><span data-x="XML namespace">XML 命名空间</span> 中的 <code data-x="">lang</code> 属性</span>。
+  为了便于与 XML 之间迁移，作者可以在
+  <span data-x="HTML documents">HTML 文档</span> 中的 <span data-x="HTML elements">HTML 元素</span> 上
+  指定一个没有命名空间的，没有前缀的属性，其 localname 为 "<code data-x="">xml:lang</code>"，
+  但指定该属性时必须同时指定一个无命名空间的 <code data-x="attr-lang">lang</code> 属性，
+  它们必须有 <span data-x="ASCII case-insensitive">ASCII 大小写不敏感的</span> 同样的值。</p>
+
+  <p class="note">没有命名空间没有前缀的 localname 是 "<code data-x="">xml:lang</code>" 的属性对语言处理没有任何影响。</p>
+
+  <div w-nodev>
+
+  <hr>
+
+  <p>确定节点的 <dfn>language</dfn>，用户代理必须寻找设置了
+  <span data-x="attr-xml-lang"><span data-x="XML namespace">XML 命名空间</span> 中的 <code data-x="">lang</code> 属性</span>
+  或无命名空间的 <code data-x="attr-lang">lang</code> 属性的，
+  最近的祖先元素（包括该元素自身，如果该节点是元素的话）。
+  该属性指定了节点的语言（不管它的值是什么）。</p>
+
+  <p>如果同时在同一个元素上指定了
+  无命名空间的 <code data-x="attr-lang">lang</code> 属性，和
+  <span data-x="attr-xml-lang"><span data-x="XML namespace">XML 命名空间</span> 中的 <code data-x="">lang</code> 属性</span>，
+  在确定元素的语言时，用户代理必须使用
+  <span data-x="attr-xml-lang"><span data-x="XML namespace">XML 命名空间</span> 中的 <code data-x="">lang</code> 属性</span>，
+  必须 <span data-x="ignore">忽略</span> 无命名空间的 <code data-x="attr-lang">lang</code> 属性。</p>
+
+  <p>如果节点的 <span data-x="inclusive ancestor">包括自身在内的祖先</span> 两个属性都没设置，
+  但是设置了一个 <span data-x="pragma-set default language">编译指示的默认语言</span>，那么这就是该节点的语言。
+  如果没有设置 <span data-x="pragma-set default language">编译指示的默认语言</span>，
+  那么必须使用上级协议（比如 HTTP）的语言信息（如果有的话）作为最终的 fallback 语言。
+  如果没有该语言信息，或者上级协议报告了多种语言，该节点的语言就是未知的，对应的语言标签是空字符串。</p>
+
+  <p>如果结果值不是可识别的的语言标签，那么它必须被视为具有给定语言标签的未知语言，区别于所有其他语言。
+  为了与预期该语言标签的其他服务进行往返或通信，用户代理应通过未修改的方式传递未知语言标签，
+  并将其标记为 BCP 47 语言标签，以防后续服务将数据解释为另一种语言描述。 <ref spec=BCP47></p>
+
+  <p class="example">因此，例如具有 <code data-x="">lang="xyzzy"</code>
+  的元素将被选择器 <code data-x="">:lang(xyzzy)</code> 匹配（例如在 CSS 中），
+  但是它不会被 <code data-x="">:lang(abcde)</code> 匹配，虽然两者都是无效的。
+  类似地，如果要 Web 浏览器和屏幕阅读器一致地传达关于元素的语言，
+  则浏览器将告诉屏幕阅读器该语言是 “xyzzy”，即使它知道这个语言是无效的，
+  以防屏幕阅读器实际上支持该标签的语言。即使屏幕阅读器支持 BCP 47 和用于编码语言名称的另一语法，
+  比如在这一语法中字符串 “xyzzy” 表示白俄罗斯语言，那么屏幕阅读器将会 <em>错误地</em> 把文本当做白俄罗斯语言处理，
+  因为 “xyzzy” 不是 BCP 47 规范中描述的白俄罗斯语言（BCP 47 使用 “be” 表示白俄罗斯语言）。</p>
+
+  <p>如果结果值是空字符串，那么必须把它解释为该节点的语言显式地声明为未知。</p>
+
+  <hr>
+
+  <p>用户代理可以使用元素的语言来决定适当的处理和渲染（例如选择合适的字体和标点，
+  选择合适的字典，或者用于表单控件的 UI 比如日期选择器）。 <!--User agents must not use the element的
+  language to determine text directionality。 (commented out because text directionality is a
+  rendering-level concern.)--></p>
+
+  <!-- Date pickers would use the language information for determining the language of months，for
+  example。 They should use the page的 _locale_ to figure out the format itself，not the language。
+  There的 currently no way to determine the page的 locale except by guessing from the charset and
+  language..。 -->
+
+  <hr>
+
+  <p><dfn><code data-x="dom-lang">lang</code></dfn> IDL 属性必须 <span data-x="reflect">反映</span>
+  无命名空间的 <code data-x="attr-lang">lang</code> 内容属性。</p>
+
+  </div>
+
+
+
