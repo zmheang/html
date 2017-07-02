@@ -1,13 +1,15 @@
-  <h5>Shared workers and the <code>SharedWorkerGlobalScope</code> interface</h5>
+  <h5>Shared workers and the <code subdfn>SharedWorkerGlobalScope</code> interface</h5>
 
   <pre class="idl">[Global=(Worker,SharedWorker),Exposed=SharedWorker]
 interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
-  readonly attribute DOMString <span data-x="dom-SharedWorkerGlobalScope-name">name</span>;
+  [Replaceable] readonly attribute DOMString <span data-x="dom-SharedWorkerGlobalScope-name">name</span>;
 
   void <span data-x="dom-SharedWorkerGlobalScope-close">close</span>();
 
   attribute <span>EventHandler</span> <span data-x="handler-SharedWorkerGlobalScope-onconnect">onconnect</span>;
 };</pre>
+
+  <div w-nodev>
 
   <p>A <code>SharedWorkerGlobalScope</code> object has an associated <dfn
   data-dfn-for="SharedWorkerGlobalScope"
@@ -15,7 +17,9 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   data-dfn-for="SharedWorkerGlobalScope"
   data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor url</dfn>. They are
   initialized when the <code>SharedWorkerGlobalScope</code> object is created, in the <span>run a
-  worker</span> algorithm.
+  worker</span> algorithm.</p>
+
+  </div>
 
   <p>Shared workers receive message ports through <code
   data-x="event-WorkerGlobalScope-connect">connect</code> events on their <code>SharedWorkerGlobalScope</code> object for each
@@ -24,7 +28,10 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   <dl class="domintro">
    <dt><var>sharedWorkerGlobal</var> . <code subdfn data-x="dom-SharedWorkerGlobalScope-name">name</code></dt>
    <dd>Returns <var>sharedWorkerGlobal</var>'s <span
-   data-x="concept-WorkerGlobalScope-name">name</span>.</dd>
+   data-x="concept-WorkerGlobalScope-name">name</span>, i.e. the value given to the
+   <code>SharedWorker</code> constructor. Multiple <code>SharedWorker</code> objects can correspond
+   to the same shared worker (and <code>SharedWorkerGlobalScope</code>), by reusing the same
+   name.</dd>
 
    <dt><var>sharedWorkerGlobal</var> . <code subdfn
    data-x="dom-SharedWorkerGlobalScope-close">close</code>()</dt>
@@ -42,9 +49,9 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   invoked, must <span>close a worker</span> with this <code>SharedWorkerGlobalScope</code>
   object.</p>
 
-  </div>
-
   <hr>
+
+  </div>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
   handler event type">event handler event types</span>) that must be supported, as <span>event

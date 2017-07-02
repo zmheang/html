@@ -25,7 +25,7 @@
    <dd><code data-x="attr-dim-height">height</code></dd>
    <dd><code data-x="attr-img-referrerpolicy">referrerpolicy</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
-   <dd>
+   <dd w-nodev>
 <pre class="idl">[<span>HTMLConstructor</span>, NamedConstructor=<span data-x="dom-image">Image</span>(optional unsigned long width, optional unsigned long height)]
 interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-img-alt">alt</span>;
@@ -42,8 +42,11 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
   readonly attribute boolean <span data-x="dom-img-complete">complete</span>;
   readonly attribute USVString <span data-x="dom-img-currentSrc">currentSrc</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-img-referrerPolicy">referrerPolicy</span>;
+
+  Promise&lt;void&gt; <span data-x="dom-img-decode">decode</span>();
 };</pre>
    </dd>
+   <dd w-nohtml>Uses <code>HTMLImageElement</code>.</dd>
   </dl>
 
   <p>An <code>img</code> element represents an image.</p>
@@ -338,6 +341,23 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
 
    </dd>
 
+   <dt><var>image</var> . <code data-x="dom-img-decode">decode</code>()</dt>
+
+   <dd>
+
+    <p>Images usually exist in some encoded form; user agents need to decode them into raw pixels
+    before displaying them. This process can be relatively expensive.</p>
+
+    <p>This method causes the user agent to decode the image <span>in parallel</span>, returning a
+    promise that fulfills when decoding is complete. The decoded image data will then be readily
+    available for at least one frame after the fulfillment, ensuring that attempting to display the
+    image will complete without decoding delay.</p>
+
+    <p>The promise will be rejected with an <span>"<code>EncodingError</code>"</span>
+    <code>DOMException</code> if the image cannot be decoded.</p>
+
+   </dd>
+
    <dt><var>image</var> = new <code data-x="dom-image">Image</code>( [ <var>width</var> [, <var>height</var> ] ] )</dt>
 
    <dd>
@@ -405,6 +425,148 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <dfn data-x="dom-img-currentSrc"><code>currentSrc</code></dfn> IDL attribute
   must return the <code>img</code> element's <span>current request</span>'s <span data-x="img-req-url">current URL</span>.</p>
+
+  <p>The <dfn data-x="dom-img-decode"><code>decode</code></dfn>() method, when invoked, must perform
+  the following steps:</p>
+
+  <ol>
+   <!-- TODO: much of this could be phrased entirely in terms of the current request if
+        https://github.com/whatwg/html/issues/1055 gets fixed. See
+        https://github.com/whatwg/html/pull/2332#issuecomment-278613713 -->
+   <li>
+    <p>If any of the following conditions are true about this <code>img</code> element:</p>
+
+    <ul class="brief">
+     <li><p>its <span>node document</span> is not an <span>active document</span>;</p></li>
+
+     <li><p>it has neither a <code data-x="attr-img-src">src</code> nor a <code
+     data-x="attr-img-srcset">srcset</code> attribute;</p></li>
+
+     <li><p>it has a <code data-x="attr-img-src">src</code> attribute but its value is the empty
+     string; or</p></li>
+
+     <li><p>its <span>current request</span>'s <span data-x="img-req-state">state</span> is <span
+     data-x="img-error">broken</span>,</p></li>
+    </ul>
+
+    <p>then return a promise rejected with an <span>"<code>EncodingError</code>"</span>
+    <code>DOMException</code>.</p>
+   </li>
+
+   <li><p>Let <var>promise</var> be a new promise.</p></li>
+
+   <li>
+    <p><span>In parallel</span>, wait for one of the following cases to occur, and perform the
+    corresponding actions:</p>
+
+    <dl class="switch">
+     <dt>This <code>img</code> element's <span>node document</span> stops being an <span>active
+     document</span></dt>
+     <dt>This <code>img</code> element's <span>current request</span> changes or is mutated</dt>
+     <dt>This <code>img</code> element's <span>current request</span>'s <span
+     data-x="img-req-state">state</span> becomes <span data-x="img-error">broken</span></dt>
+
+     <dd>
+      <p>Reject <var>promise</var> with an <span>"<code>EncodingError</code>"</span>
+      <code>DOMException</code>.</p>
+     </dd>
+
+     <dt>This <code>img</code> element becomes <span data-x="img-all">completely
+     available</span></dt>
+
+     <dd>
+      <p>Decode the image's media data entirely into its bitmap form, suitable for rapid painting to
+      the screen.</p>
+
+      <p>If decoding does not need to be performed for this image (for example because it is a
+      vector graphic), resolve <var>promise</var> with undefined.</p>
+
+      <p>If decoding fails (for example due to invalid image data), reject <var>promise</var> with
+      an <span>"<code>EncodingError</code>"</span> <code>DOMException</code>.</p>
+
+      <p>If the decoding process completes successfully, resolve <var>promise</var> with
+      undefined.</p>
+
+      <p>User agents should ensure that the decoded media data stays readily available until at
+      least the end of the next <span>update the rendering</span> step in the <span>event
+      loop</span>. This is an important part of the API contract, and should not be broken if at all
+      possible. (Typically, this would only be violated in low-memory situations that require
+      evicting decoded image data, or when the image is too large to keep in decoded form for this
+      period of time.)</p>
+     </dd>
+    </dl>
+
+    <p class="note">Animated images will become <span data-x="img-all">completely available</span>
+    only after all their frames are loaded. Thus, even though an implementation could decode the
+    first frame before that point, the above steps will not do so, instead waiting until all frames
+    are available.</p>
+   </li>
+
+   <li><p>Return <var>promise</var>.</p></li>
+  </ol>
+
+  </div>
+
+  <div class="example">
+   <p>Without the <code data-x="dom-img-decode">decode()</code> method, the process of loading an
+   <code>img</code> element and then displaying it might look like the following:</p>
+
+   <pre>const img = new Image();
+img.src = "nebula.jpg";
+img.onload = () => {
+    document.body.appendChild(img);
+};
+img.onerror = () => {
+    document.body.appendChild(new Text("Could not load the nebula :("));
+};
+</pre>
+
+   <p>However, this can cause notable dropped frames, as the paint that occurs after inserting the
+   image into the DOM causes a synchronous decode on the main thread.</p>
+
+   <p>This can instead be rewritten using the <code data-x="dom-img-decode">decode()</code>
+   method:</p>
+
+   <pre>const img = new Image();
+img.src = "nebula.jpg";
+img.decode().then(() => {
+    document.body.appendChild(img);
+}).catch(() => {
+    document.body.appendChild(new Text("Could not load the nebula :("));
+});</pre>
+
+   <p>This latter form avoids the dropped frames of the original, by allowing the user agent to
+   decode the image <span>in parallel</span>, and only inserting it into the DOM (and thus causing
+   it to be painted) once the decoding process is complete.</p>
+  </div>
+
+  <div class="example">
+   <p>Because the <code data-x="dom-img-decode">decode()</code> method attempts to ensure that the
+   decoded image data is available for at least one frame, it can be combined with the <code
+   data-x="dom-window-requestAnimationFrame">requestAnimationFrame()</code> API. This means it can
+   be used with coding styles or frameworks that ensure that all DOM modifications are batched
+   together as <span data-x="list of animation frame callbacks">animation frame
+   callbacks</span>:</p>
+
+   <pre>
+const container = document.querySelector("#container");
+
+const { containerWidth, containerHeight } = computeDesiredSize();
+requestAnimationFrame(() => {
+ container.style.width = containerWidth;
+ container.style.height = containerHeight;
+});
+
+// ...
+
+const img = new Image();
+img.src = "supernova.jpg";
+img.decode().then(() => {
+    requestAnimationFrame(() => container.appendChild(img));
+});</pre>
+  </div>
+
+  <div w-nodev>
 
   <p>A constructor is provided for creating <code>HTMLImageElement</code> objects (in addition to
   the factory methods from DOM such as <code

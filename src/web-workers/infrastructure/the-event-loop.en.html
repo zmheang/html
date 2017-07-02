@@ -4,13 +4,15 @@
   from those used by <span data-x="unit of related similar-origin browsing contexts">units of related
   similar-origin browsing contexts</span>. This <span>event loop</span> has no associated
   <span>browsing context</span>, and its <span data-x="task queue">task queues</span> only have
-  events, callbacks, and networking activity as <span data-x="concept-task">tasks</span>. These <span
-  data-x="event loop">event loops</span> are created by the <span>run a worker</span> algorithm.</p>
+  events, callbacks, and networking activity as <span data-x="concept-task">tasks</span>.<span
+  w-nodev> These <span data-x="event loop">event loops</span> are created by the <span>run a
+  worker</span> algorithm.</span></p>
 
   <p>Each <code>WorkerGlobalScope</code> object also has a <dfn
   data-x="dom-WorkerGlobalScope-closing" data-export="" data-dfn-type="dfn"
   data-dfn-for="WorkerGlobalScope">closing</dfn> flag, which must initially be false, but which can
-  get set to true by the algorithms in the processing model section below.</p>
+  get set to true <span w-nodev>by the algorithms in the processing model section below</span><span
+  w-nohtml>when the worker is requested to close</span>.</p>
 
   <p>Once the <code>WorkerGlobalScope</code>'s <span
   data-x="dom-WorkerGlobalScope-closing">closing</span> flag is set to true, the <span>event
@@ -21,4 +23,6 @@
   notifications for all pending background operations are dropped, etc.</p>
 
 
+
+  <div w-nodev>
 

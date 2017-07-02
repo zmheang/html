@@ -1,4 +1,4 @@
-  <h4>Worker locations</h4>
+  <h4 id="worker-locations">The <code subdfn>WorkerLocation</code> interface</h4>
 
   <pre class="idl">[Exposed=Worker]
 interface <dfn>WorkerLocation</dfn> {
@@ -12,6 +12,13 @@ interface <dfn>WorkerLocation</dfn> {
   readonly attribute USVString <span data-x="dom-WorkerLocation-search">search</span>;
   readonly attribute USVString <span data-x="dom-WorkerLocation-hash">hash</span>;
 };</pre>
+
+  <p w-nohtml>The <code>WorkerLocation</code> interface is like the <code>Location</code> interface,
+  but lacks the <code data-x="dom-Location-assign">assign()</code>, <code
+  data-x="dom-Location-replace">replace()</code>, <code data-x="dom-Location-reload">reload()</code>,
+  and <code data-x="dom-Location-ancestorOrigins">ancestorOrigins</code> members.</p>
+
+  <div w-nodev>
 
   <p>A <code>WorkerLocation</code> object has an associated <dfn
   data-x="concept-WorkerLocation-WorkerGlobalScope"><code>WorkerGlobalScope</code> object</dfn> (a
@@ -127,6 +134,8 @@ interface <dfn>WorkerLocation</dfn> {
 
    <li><p>Return "<code data-x="">#</code>", followed by <var>fragment</var>.</p></li>
   </ol>
+
+  </div>
 
 
 <!--REMOVE-TOPIC:Workers-->

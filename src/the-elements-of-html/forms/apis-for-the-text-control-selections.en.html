@@ -424,7 +424,10 @@
   </ol>
 
   <p>The <code data-x="dom-textarea/input-setRangeText">setRangeText()</code> method uses the
-  following enumeration:</p>
+  following enumeration:<span w-nohtml> "<span data-x="dom-SelectionMode-select">select</span>",
+  "<span data-x="dom-SelectionMode-start">start</span>",
+  "<span data-x="dom-SelectionMode-end">end</span>",
+  "<span data-x="dom-SelectionMode-preserve">preserve</span>" (default).</span></p>
 
   <pre class="idl">enum <dfn>SelectionMode</dfn> {
   "<span data-x="dom-SelectionMode-select">select</span>",
@@ -435,8 +438,10 @@
 
   <p>All elements to which this API <span data-x="concept-input-apply">applies</span> have either a
   selection or a text entry cursor position at all times (even for elements that are not <span>being
-  rendered</span>). User agents should follow platform conventions to determine their initial
-  state.</p>
+  rendered</span>). The initial state must consist of a text entry cursor at the beginning of the
+  control.</p>
+  <!-- Previously the spec said to let platform conventions decide, but the web depends on it being
+  at the beginning; see https://bugzilla.mozilla.org/show_bug.cgi?id=1337392 -->
 
   </div>
 

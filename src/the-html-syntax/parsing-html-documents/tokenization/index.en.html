@@ -59,6 +59,19 @@
   of the last start tag to have been emitted from this tokenizer, if any. If no start tag has been
   emitted from this tokenizer, then no end tag token is appropriate.</p>
 
+  <p>A <span data-x="syntax-charref">character reference</span> is said to be <dfn
+  data-x="charref-in-attribute">consumed as part of an attribute</dfn> if the <var data-x="return
+  state">return state</var> is either <span>attribute value (double-quoted) state</span>,
+  <span>attribute value (single-quoted) state</span> or <span>attribute value (unquoted)
+  state</span>.</p>
+
+  <p>When a state says to <dfn>flush code points consumed as a character reference</dfn>, it means
+  that for each <span>code point</span> in the <var data-x="temporary buffer">temporary
+  buffer</var> (in the order they were added to the buffer) user agent must append the code point
+  from the buffer to the current attribute's value if the character reference was <span
+  data-x="charref-in-attribute">consumed as part of an attribute</span>, or emit the code point as a
+  character token otherwise.</p>
+
   <p id="check-parser-pause-flag">Before each step of the tokenizer, the user agent must first check
   the <span>parser pause flag</span>. If it is true, then the tokenizer must abort the processing of
   any nested invocations of the tokenizer, yielding control back to the caller.</p>

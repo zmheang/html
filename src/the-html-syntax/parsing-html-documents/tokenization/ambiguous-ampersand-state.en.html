@@ -1,0 +1,23 @@
+  <h5><dfn>Ambiguous ampersand state</dfn></h5>
+
+  <p>Consume the <span>next input character</span>:</p>
+
+  <dl class="switch">
+
+    <dt><span data-x="ASCII alphanumeric">ASCII alphanumeric</span></dt>
+    <dd>If the character reference was <span data-x="charref-in-attribute">consumed as part of an
+    attribute</span>, then append the <span>current input character</span> to the current
+    attribute's value. Otherwise, emit the <span>current input character</span> as a character
+    token.</dd>
+
+    <dt>U+003B SEMICOLON (;)</dt>
+    <dd>This is an <span
+    data-x="parse-error-unknown-named-character-reference">unknown-named-character-reference</span>
+    <span>parse error</span>. <span>Reconsume</span> in the <var data-x="return state">return
+    state</var>.
+
+    <dt>Anything else</dt>
+    <dd><span>Reconsume</span> in the <var data-x="return state">return state</var>.</dd>
+
+  </dl>
+

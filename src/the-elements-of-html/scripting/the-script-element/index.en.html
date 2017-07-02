@@ -31,7 +31,7 @@
    <dd><code data-x="attr-script-nonce">nonce</code></dd>
    <dd><code data-x="attr-script-integrity">integrity</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
-   <dd>
+   <dd w-nodev>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-script-src">src</span>;
@@ -47,6 +47,7 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
 
 };</pre>
    </dd>
+   <dd w-nohtml>Uses <code>HTMLScriptElement</code>.</dd>
   </dl>
 
   <p>The <code>script</code> element allows authors to include dynamic script and data blocks in

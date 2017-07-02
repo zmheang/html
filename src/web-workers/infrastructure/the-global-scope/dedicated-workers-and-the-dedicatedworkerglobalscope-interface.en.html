@@ -1,8 +1,8 @@
-  <h5>Dedicated workers and the <code>DedicatedWorkerGlobalScope</code> interface</h5>
+  <h5>Dedicated workers and the <code subdfn>DedicatedWorkerGlobalScope</code> interface</h5>
 
   <pre class="idl">[Global=(Worker,DedicatedWorker),Exposed=DedicatedWorker]
 interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
-  readonly attribute DOMString <span data-x="dom-DedicatedWorkerGlobalScope-name">name</span>;
+  [Replaceable] readonly attribute DOMString <span data-x="dom-DedicatedWorkerGlobalScope-name">name</span>;
 
   void <span data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
 
@@ -23,7 +23,8 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
   <dl class="domintro">
    <dt><var>dedicatedWorkerGlobal</var> . <code subdfn data-x="dom-DedicatedWorkerGlobalScope-name">name</code></dt>
    <dd>Returns <var>dedicatedWorkerGlobal</var>'s <span
-   data-x="concept-WorkerGlobalScope-name">name</span>.</dd>
+   data-x="concept-WorkerGlobalScope-name">name</span>, i.e. the value given to the
+   <code>Worker</code> constructor. Primarily useful for debugging.</dd>
 
    <dt><var>dedicatedWorkerGlobal</var> . <code subdfn
    data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</code>(<var>message</var> [,
@@ -37,6 +38,8 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
    <dd>Aborts <var>dedicatedWorkerGlobal</var>.</dd>
   </dl>
 
+  <div w-nodev>
+
   <p>The <dfn><code data-x="dom-DedicatedWorkerGlobalScope-name">name</code></dfn> attribute must
   return the <code>DedicatedWorkerGlobalScope</code> object's <span
   data-x="concept-WorkerGlobalScope-name">name</span>. Its value represents the name given to the
@@ -46,8 +49,6 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
   method on <code>DedicatedWorkerGlobalScope</code> objects must act as if, when invoked, it
   immediately invoked <span data-x="dom-MessagePort-postMessage">the method of the same name</span>
   on the port, with the same arguments, and returned the same return value.</p>
-
-  <div w-nodev>
 
   <p>To <dfn data-export="">close a worker</dfn>, given a <var>workerGlobal</var>, run these
   steps:</p>
@@ -65,9 +66,9 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
   invoked, must <span>close a worker</span> with this <code>DedicatedWorkerGlobalScope</code>
   object.</p>
 
-  </div>
-
   <hr>
+
+  </div>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
   handler event type">event handler event types</span>) that must be supported, as <span>event

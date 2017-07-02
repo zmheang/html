@@ -262,7 +262,7 @@
   <hr>
 
   <p>The <code>EventHandler</code> callback function type represents a callback used for event
-  handlers. It is represented in Web IDL as follows:</p>
+  handlers.<span w-nodev> It is represented in Web IDL as follows:</span></p>
 
   <pre class="idl">[TreatNonObjectAsNull]
 callback <dfn>EventHandlerNonNull</dfn> = any (<span>Event</span> event);
@@ -305,8 +305,12 @@ typedef <span>EventHandlerNonNull</span>? <dfn>EventHandler</dfn>;</pre>
 callback <dfn>OnErrorEventHandlerNonNull</dfn> = any ((<span>Event</span> or DOMString) event, optional DOMString source, optional unsigned long lineno, optional unsigned long colno, optional any error);
 typedef <span>OnErrorEventHandlerNonNull</span>? <dfn>OnErrorEventHandler</dfn>;</pre>
 
+  <div class="example">
+   <pre>window.onerror = (message, source, lineno, colno, error) => { &hellip; };</pre>
+  </div>
+
   <p>Similarly, the <code data-x="handler-window-onbeforeunload">onbeforeunload</code> handler has a
-  different return value:</p>
+  different return value:<span w-nohtml> it will be cast to a string.</span></p>
 
   <pre class="idl">[TreatNonObjectAsNull]
 callback <dfn>OnBeforeUnloadEventHandlerNonNull</dfn> = DOMString? (<span>Event</span> event);

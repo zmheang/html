@@ -25,10 +25,8 @@
     <li><p>If the number is 0x0D<!-- CR is not allowed --> or a
     <span data-x="control">control</span>, but not <span>ASCII whitespace</span>, then this is a
     <span data-x="parse-error-control-character-reference">control-character-reference</span>
-    <span>parse error</span>.</p>
-
-    <p>If the number is one of the numbers in the first column of the following table, then find the
-    row with that number in the first column, and set the <var
+    <span>parse error</span>. If the number is one of the numbers in the first column of the
+    following table, then find the row with that number in the first column, and set the <var
     data-x="character reference code">character reference code</var> to the number in the second
     column of that row.</p>
     <!-- these are Unicode C1 control characters -->
@@ -75,7 +73,17 @@
 
   <p>Set the <var data-x="temporary buffer">temporary buffer</var> to the empty string. Append a
   code point equal to the <var data-x="character reference code">character reference code</var> to
-  the <var data-x="temporary buffer">temporary buffer</var>. Switch to the <span>character reference
-  end state</span>.</p>
+  the <var data-x="temporary buffer">temporary buffer</var>. <span>Flush code points consumed as a
+  character reference</span>. Switch to the <var data-x="return state">return state</var>.</p>
 
+  </div>
+
+
+  <div w-nodev>
+
+  <!-- v2: One thing that this doesn't define is handling deeply nested documents. There are
+  compatibility requirements around that: you can't throw away the elements altogether, consider Tux
+  made only with opening <font> elements, one per character. Seems that the best thing to do is to
+  close some formatting elements from the middle of the stack when you hit a limit, or something.
+  -->
 

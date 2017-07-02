@@ -20,7 +20,7 @@
    <dd><code data-x="attr-hyperlink-rel">rel</code></dd>
    <dd><code data-x="attr-hyperlink-referrerpolicy">referrerpolicy</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
-   <dd>
+   <dd w-nodev>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-alt">alt</span>;
@@ -35,6 +35,7 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
 };
 <span>HTMLAreaElement</span> implements <span>HTMLHyperlinkElementUtils</span>;</pre>
    </dd>
+   <dd w-nohtml>Uses <code>HTMLAreaElement</code>.</dd>
   </dl>
 
   <p>The <code>area</code> element <span>represents</span> either a hyperlink with some text and a
@@ -75,29 +76,32 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
      <th w-nodev>Notes
    <tbody>
     <tr>
-     <td rowspan=2><span data-x="attr-area-shape-circle">Circle state</span>
+     <td w-nodev rowspan=2><span data-x="attr-area-shape-circle">Circle state</span>
+     <td w-nohtml><span data-x="attr-area-shape-circle">Circle state</span>
      <td><dfn><code data-x="attr-area-shape-keyword-circle">circle</code></dfn>
      <td w-nodev>
-    <tr>
-     <td w-nodev><dfn><code data-x="attr-area-shape-keyword-circ">circ</code></dfn>
-     <td w-nodev>Non-conforming
+    <tr w-nodev>
+     <td><dfn><code data-x="attr-area-shape-keyword-circ">circ</code></dfn>
+     <td>Non-conforming
     <tr>
      <td><span data-x="attr-area-shape-default">Default state</span>
      <td><dfn><code data-x="attr-area-shape-keyword-default">default</code></dfn>
      <td w-nodev>
     <tr>
-     <td rowspan=2><span data-x="attr-area-shape-poly">Polygon state</span>
+     <td w-nodev rowspan=2><span data-x="attr-area-shape-poly">Polygon state</span>
+     <td w-nohtml><span data-x="attr-area-shape-poly">Polygon state</span>
      <td><dfn><code data-x="attr-area-shape-keyword-poly">poly</code></dfn>
      <td w-nodev>
+    <tr w-nodev>
+     <td><dfn><code data-x="attr-area-shape-keyword-polygon">polygon</code></dfn>
+     <td>Non-conforming
     <tr>
-     <td w-nodev><dfn><code data-x="attr-area-shape-keyword-polygon">polygon</code></dfn>
-     <td w-nodev>Non-conforming
-    <tr>
-     <td rowspan=2><span data-x="attr-area-shape-rect">Rectangle state</span>
+     <td w-nodev rowspan=2><span data-x="attr-area-shape-rect">Rectangle state</span>
+     <td w-nohtml><span data-x="attr-area-shape-rect">Rectangle state</span>
      <td><dfn><code data-x="attr-area-shape-keyword-rect">rect</code></dfn>
      <td w-nodev>
-    <tr>
-     <td w-nodev><dfn><code data-x="attr-area-shape-keyword-rectangle">rectangle</code></dfn>
+    <tr w-nodev>
+     <td><dfn><code data-x="attr-area-shape-keyword-rectangle">rectangle</code></dfn>
      <td w-nodev>Non-conforming
   </table>
 

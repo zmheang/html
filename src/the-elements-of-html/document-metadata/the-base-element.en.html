@@ -12,13 +12,14 @@
    <dd><code data-x="attr-base-href">href</code></dd>
    <dd><code data-x="attr-base-target">target</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
-   <dd>
+   <dd w-nodev>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-base-href">href</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-base-target">target</span>;
 };</pre>
    </dd>
+   <dd w-nohtml>Uses <code>HTMLBaseElement</code>.</dd>
   </dl>
 
   <p>The <code>base</code> element allows authors to specify the <span>document base URL</span> for

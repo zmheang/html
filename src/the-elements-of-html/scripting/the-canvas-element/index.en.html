@@ -25,7 +25,7 @@
    <dd><code data-x="attr-canvas-width">width</code></dd>
    <dd><code data-x="attr-canvas-height">height</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt><!--ADD-TOPIC:DOM APIs-->
-   <dd>
+   <dd w-nodev>
     <pre class="idl">typedef (<span>CanvasRenderingContext2D</span> or <span>WebGLRenderingContext</span>) <dfn>RenderingContext</dfn>;
 
 [<span>HTMLConstructor</span>]
@@ -42,6 +42,7 @@ interface <dfn>HTMLCanvasElement</dfn> : <span>HTMLElement</span> {
 
 callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
    </dd>
+   <dd w-nohtml>Uses <code>HTMLCanvasElement</code>.</dd>
   </dl><!--REMOVE-TOPIC:DOM APIs-->
 
   <p>The <code>canvas</code> element provides scripts with a resolution-dependent bitmap canvas,

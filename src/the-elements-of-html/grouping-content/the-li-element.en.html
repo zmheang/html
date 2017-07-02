@@ -3,6 +3,7 @@
   <dl class="element">
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
    <dd>None.</dd>
+   <dd w-nohtml>Uses <code>HTMLMenuElement</code>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>Inside <code>ol</code> elements.</dd>
    <dd>Inside <code>ul</code> elements.</dd>
@@ -13,12 +14,13 @@
    <dd><span>Global attributes</span></dd>
    <dd>If the element is not a child of an <code>ul</code> or <code>menu</code> element: <code data-x="attr-li-value">value</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
-   <dd>
+   <dd w-nodev>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute long <span data-x="dom-li-value">value</span>;
 };</pre>
    </dd>
+   <dd w-nohtml>Uses <code>HTMLLIElement</code>.</dd>
   </dl>
 
   <p>The <code>li</code> element <span>represents</span> a list item. If its parent element is an

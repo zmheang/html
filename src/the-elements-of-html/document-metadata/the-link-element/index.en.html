@@ -30,7 +30,7 @@
    <dd><code data-x="attr-link-color">color</code></dd>
    <dd>Also, the <code data-x="attr-link-title">title</code> attribute <span data-x="attr-link-title">has special semantics</span> on this element.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
-   <dd>
+   <dd w-nodev>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-href">href</span>;
@@ -51,6 +51,7 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 };
 <span>HTMLLinkElement</span> implements <span>LinkStyle</span>;</pre>
    </dd>
+   <dd w-nohtml>Uses <code>HTMLLinkElement</code>.</dd>
   </dl>
 
   <p>The <code>link</code> element allows authors to link their document to other resources.</p>

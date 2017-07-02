@@ -10,7 +10,11 @@
   afterwards, the error may be reported to a developer console.</p>
 
   <p>For dedicated workers, if the error is still <i data-x="concept-error-nothandled">not
-  handled</i> afterwards, the user agent must <span>queue a task</span> to run these steps:</p>
+  handled</i> afterwards, the user agent <span w-nodev>must <span>queue a task</span> to run these
+  steps:</span><span w-nohtml>will fire an <code data-x="event-error">error</code> event at the
+  <code>Worker</code> object.</span></p>
+
+  <div w-nodev>
 
   <ol>
    <li><p>Let <var>notHandled</var> be the result of <span data-x="concept-event-fire">firing an
@@ -40,5 +44,7 @@
 
   <p>The <span>task source</span> for the task mentioned above is the <span>DOM manipulation task
   source</span>.</p>
+
+  </div>
 
 

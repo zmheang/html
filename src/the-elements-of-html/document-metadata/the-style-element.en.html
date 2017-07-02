@@ -15,7 +15,7 @@
    <dd><code data-x="attr-style-type">type</code></dd>
    <dd>Also, the <code data-x="attr-style-title">title</code> attribute <span data-x="attr-style-title">has special semantics</span> on this element.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
-   <dd>
+   <dd w-nodev>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-style-media">media</span>;
@@ -24,6 +24,7 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
 };
 <span>HTMLStyleElement</span> implements <span>LinkStyle</span>;</pre>
    </dd>
+   <dd w-nohtml>Uses <code>HTMLStyleElement</code>.</dd>
   </dl>
 
   <p>The <code>style</code> element allows authors to embed style information in their documents.

@@ -63,7 +63,7 @@ function loadReferences(id, path, specURL) {
   dfnPanel.appendChild(p);
   if (!dfnMapDone) {
     p.textContent = '正在加载交叉引用…';
-    fetch('/xrefs.json')
+    fetch('/html/xrefs.json')
       .then(response => response.json())
       .then(data => {
         dfnMap = data;

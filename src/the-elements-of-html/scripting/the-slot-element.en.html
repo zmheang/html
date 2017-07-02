@@ -12,7 +12,7 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-slot-name">name</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
-   <dd>
+   <dd w-nodev>
 <pre class="idl">[<span>HTMLConstructor</span>]
 interface <dfn>HTMLSlotElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-slot-name">name</span>;
@@ -23,6 +23,7 @@ dictionary <dfn>AssignedNodesOptions</dfn> {
   boolean flatten = false;
 };</pre>
    </dd>
+   <dd w-nohtml>Uses <code>HTMLSlotElement</code>.</dd>
   </dl>
 
   <p>The <code>slot</code> element defines a <span data-x="concept-slot">slot</span>. It is

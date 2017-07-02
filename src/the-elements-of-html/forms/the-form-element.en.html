@@ -19,7 +19,7 @@
    <dd><code data-x="attr-fs-novalidate">novalidate</code></dd>
    <dd><code data-x="attr-fs-target">target</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
-   <dd>
+   <dd w-nodev>
 <pre class="idl">[OverrideBuiltins, LegacyUnenumerableNamedProperties, <span>HTMLConstructor</span>]
 interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-form-acceptCharset">acceptCharset</span>;
@@ -43,6 +43,7 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
   boolean <span data-x="dom-form-reportValidity">reportValidity</span>();
 };</pre>
    </dd>
+   <dd w-nohtml>Uses <code>HTMLFormElement</code>.</dd>
   </dl>
 
   <p>The <code>form</code> element <span>represents</span> a collection of <span

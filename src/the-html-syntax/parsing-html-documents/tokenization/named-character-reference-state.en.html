@@ -10,13 +10,12 @@
    <dt>If there is a match</dt>
 
    <dd>
-    <p>If the character reference was consumed as part of an attribute (<var data-x="return
-    state">return state</var> is either <span>attribute value (double-quoted) state</span>,
-    <span>attribute value (single-quoted) state</span> or <span>attribute value (unquoted)
-    state</span>), and the last character matched is not a U+003B SEMICOLON character (;), and the
-    <span>next input character</span> is either a U+003D EQUALS SIGN character (=) or an
-    <span>ASCII alphanumeric</span>, then, for historical reasons, switch to the <span>character
-    reference end state</span>.</p>
+    <p>If the character reference was <span data-x="charref-in-attribute">consumed as part of an
+    attribute</span>, and the last character matched is not a U+003B SEMICOLON character (;), and
+    the <span>next input character</span> is either a U+003D EQUALS SIGN character (=) or an
+    <span>ASCII alphanumeric</span>, then, for historical reasons, <span>flush code points consumed
+    as a character reference</span> and switch to the <var data-x="return state">return state</var>.
+    </p>
     <!-- "=" added because of https://www.w3.org/Bugs/Public/show_bug.cgi?id=9207#c5 -->
 
     <p>Otherwise:</p>
@@ -31,20 +30,18 @@
      Append one or two characters corresponding to the character reference name (as given by the
      second column of the <span>named character references</span> table) to the <var
      data-x="temporary buffer">temporary buffer</var>.</p></li>
+
+     <li><span>Flush code points consumed as a character reference</span>. Switch to the <var
+     data-x="return state">return state</var>.</li>
     </ol>
    </dd>
 
    <dt>Otherwise</dt>
 
-   <dd>If the <var data-x="temporary buffer">temporary buffer</var> consists of a U+0026 AMPERSAND
-   character (&amp;) followed by a sequence of one or more <span data-x="ASCII alphanumeric">ASCII
-   alphanumerics</span> and a U+003B SEMICOLON character (;), then this is an <span
-   data-x="parse-error-unknown-named-character-reference">unknown-named-character-reference</span>
-   <span>parse error</span>.</dd>
+   <dd><span>Flush code points consumed as a character reference</span>. Switch to the
+   <span>ambiguous ampersand state</span>.</dd>
 
   </dl>
-
-  <p>Switch to the <span>character reference end state</span>.</p>
 
   <div class="example">
 

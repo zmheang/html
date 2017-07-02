@@ -1,4 +1,4 @@
-  <h5>The <code>WorkerGlobalScope</code> common interface</h5>
+  <h5>The <code subdfn>WorkerGlobalScope</code> common interface</h5>
 
   <pre class="idl">[Exposed=Worker] <!-- not sure we really need that, but... -->
 interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
@@ -15,6 +15,12 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onunhandledrejection">onunhandledrejection</span>;
 };</pre>
 
+  <p><code>WorkerGlobalScope</code> serves as the base class for specific types of worker global
+  scope objects, including <code>DedicatedWorkerGlobalScope</code>,
+  <code>SharedWorkerGlobalScope</code>, and <code>ServiceWorkerGlobalScope</code>.</p>
+
+  <div w-nodev>
+
   <p id="the-worker's-documents">A <code>WorkerGlobalScope</code> object has an associated <dfn
   id="concept-WorkerGlobalScope-owner-set" data-export="" data-for="WorkerGlobalScope">owner
   set</dfn> (a <span>set</span> of <code>Document</code> and <code>WorkerGlobalScope</code>
@@ -30,15 +36,15 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-type">type</dfn> ("<code
-  data-x="">classic</code>" or "<code data-x="">module</code>"). It is set during creation.
+  data-x="">classic</code>" or "<code data-x="">module</code>"). It is set during creation.</p>
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-url">url</dfn> (null or a
-  <span>URL</span>). It is initially null.
+  <span>URL</span>). It is initially null.</p>
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-name">name</dfn> (a string). It
-  is set during creation.
+  is set during creation.</p>
 
   <p class="note">The <span data-x="concept-WorkerGlobalScope-name">name</span> can have different
   semantics for each subclass of of <code>WorkerGlobalScope</code>. For
@@ -51,19 +57,21 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-https-state">HTTPS state</dfn>
-  (an <span>HTTPS state value</span>). It is initially "<code data-x="">none</code>".
+  (an <span>HTTPS state value</span>). It is initially "<code data-x="">none</code>".</p>
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-referrer-policy">referrer
-  policy</dfn> (a <span>referrer policy</span>). It is initially the empty string.
+  policy</dfn> (a <span>referrer policy</span>). It is initially the empty string.</p>
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-csp-list">CSP list</dfn>. It is
-  initially an empty list.
+  initially an empty list.</p>
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-module-map">module map</dfn>.
   It is a <span>module map</span>, initially empty.</p>
+
+  </div>
 
   <dl class="domintro">
    <dt><var>workerGlobal</var> . <code subdfn data-x="dom-WorkerGlobalScope-self">self</code></dt>
@@ -94,9 +102,9 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   <code>WorkerGlobalScope</code> object, this is not problematic as it cannot be observed from
   script.</p>
 
-  </div>
-
   <hr>
+
+  </div>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
   handler event type">event handler event types</span>) that must be supported, as <span>event handler IDL attributes</span>,
