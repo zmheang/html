@@ -1,0 +1,273 @@
+  <h5><dfn><code data-x="attr-dir">dir</code></dfn> 属性</h5>
+
+  <p><code data-x="attr-dir">dir</code> 属性指定了元素的文本方向。
+  该属性是一个 <span data-x="enumerated attribute">枚举属性</span> 关键字和状态如下：</p>
+
+  <dl>
+
+   <dt><dfn><code data-x="attr-dir-ltr">ltr</code></dfn> 关键字，映射到 <dfn data-x="attr-dir-ltr-state">ltr</dfn> 状态</dt>
+
+   <dd>
+
+    <p>表示该元素的内容是明确的独立方向隔离的从左到右的文本。</p>
+
+   </dd>
+
+   <dt><dfn><code data-x="attr-dir-rtl">rtl</code></dfn> 关键字，映射到 <dfn data-x="attr-dir-rtl-state">rtl</dfn> 状态</dt>
+
+   <dd>
+
+    <p>表示该元素的内容是明确的独立方向隔离的从右到左的文本。</p>
+
+   </dd>
+
+   <dt><dfn><code data-x="attr-dir-auto">auto</code></dfn> 关键字，映射到 <dfn data-x="attr-dir-auto-state">auto</dfn> 状态</dt>
+
+   <dd>
+
+    <p>表示该元素的内容是明确的方向隔离的文本，但其方向需要通过元素的内容以编程方式确定（描述如下）。</p>
+
+    <p class="note">这种状态使用的启发式是非常粗糙的（类似于双向算法中的段落级别确定，查看第一个具有较强方向性的字符）。
+    强烈建议作者只有在文本的方向是未知，并且服务器端没有更好的启发式算法的情况下才使用该值作为最后的手段。 <ref spec=BIDI></p>
+
+    <p class="note">对于 <code>textarea</code> 和 <code>pre</code> 元素，该启发式算法按段落级别生效。</p>
+
+   </dd>
+
+  </dl>
+
+  <p>该属性没有 <i data-x="invalid value default">非法值默认</i> 和 <i data-x="missing value default">缺失值默认</i>。</p>
+
+  <hr>
+
+  <p>元素（任意元素，不仅是 <span data-x="HTML elements">HTML 元素</span>）的 <dfn data-x="The directionality">方向</dfn>
+  或者是 '<dfn data-x="concept-ltr">ltr</dfn>'，或者是'<dfn data-x="concept-rtl">rtl</dfn>'，
+  由下列列表中第一个适用的步骤确定：</p>
+
+  <dl class="switch">
+
+
+   <dt>如果该元素的 <code data-x="attr-dir">dir</code> 属性处于 <span data-x="attr-dir-ltr-state">ltr</span> 状态</dt>
+
+   <dt>如果该元素是一个 <span data-x="document element">文档元素</span> 且 <code data-x="attr-dir">dir</code>
+   属性不处于已定义状态（即未出现或具有非法值）</dt>
+
+   <dt>如果该元素是一个 <code>input</code> 元素
+   <code data-x="attr-input-type">type</code> 属性处于 <span data-x="attr-input-type-tel">电话</span> 状态，
+   且 <code data-x="attr-dir">dir</code>
+   属性不处于已定义状态（即未出现或具有非法值）</dt>
+
+   <dd><p>元素的 <span data-x="The directionality">方向</span> 为 '<span data-x="concept-ltr">ltr</span>'。</p></dd>
+
+   <dt>如果该元素的 <code data-x="attr-dir">dir</code> 属性处于 <span data-x="attr-dir-rtl-state">rtl</span> 状态</dt>
+
+   <dd><p>元素的 <span data-x="The directionality">方向</span> 为 '<span data-x="concept-rtl">rtl</span>'。</p></dd>
+
+   <dt>如果该元素是 <code>input</code> 元素，且它的 <code
+   data-x="attr-input-type">type</code> 属性处于 <span data-x="attr-input-type-text">文本</span>，
+   <span data-x="attr-input-type-search">搜索</span>，
+   <span data-x="attr-input-type-tel">电话</span>，
+   <span data-x="attr-input-type-url">URL</span>，或
+   <span data-x="attr-input-type-email">E-mail</span> 状态，
+   且 <code data-x="attr-dir">dir</code> 属性处于 <span data-x="attr-dir-auto-state">auto</span> 状态</dt>
+
+   <dt>如果该元素是 <code>textarea</code> 元素，且它的 <code data-x="attr-dir">dir</code>
+   属性处于 <span data-x="attr-dir-auto-state">auto</span> 状态</dt>
+
+   <dd>
+
+    <p>如果该元素的 <span data-x="concept-fe-value">value</span> 包含一个双向字符类型 AL 或 R 的字符，
+    且它之前不包含双向字符类型 L 的字符，则该元素的
+    <span data-x="the directionality">方向</span> 为 '<span data-x="concept-rtl">rtl</span>'。 <ref spec=BIDI></p>
+
+    <p>否则，如果该元素的 <span data-x="concept-fe-value">value</span> 不是空字符串，
+    或者该元素是一个 <span data-x="document element">文档元素</span>，该元素的 <span data-x="the directionality">方向</span>
+    为 '<span data-x="concept-ltr">ltr</span>'。</p>
+
+    <p>否则，该元素的 <span data-x="the directionality">方向</span> 与该元素的父元素的
+    <span data-x="the directionality">方向</span> 相同。</p>
+
+   </dd>
+
+
+
+   <dt>如果该元素的 <code data-x="attr-dir">dir</code> 属性处于 <span data-x="attr-dir-auto-state">auto</span> 状态</dt>
+
+   <dt>如果该元素是一个 <code>bdi</code> 元素且 <code data-x="attr-dir">dir</code>
+   属性不处于已定义状态（即未出现或具有非法值）</dt>
+
+   <dd>
+
+    <p>找到按照 <span data-x="tree order">树序</span> 的第一个匹配下列条件的字符：</p>
+
+    <ul>
+
+     <li><p>该字符来自 <code>Text</code> 节点，其某个祖先节点的
+     <span data-x="the directionality">方向</span> 正在被确定。</p></li>
+
+     <li><p>该字符属于双向字符类型 L，AL，或 R。 <ref spec=BIDI></li>
+
+     <li>
+
+      <p>该字符所在的 <code>Text</code> 节点的祖先元素不得是正在确定
+      <span data-x="the directionality">方向</span> 的节点的后代且属于下列的节点类型：</p>
+
+      <ul class="brief">
+       <li><code>bdi</code> 元素。
+       <li><code>script</code> 元素。
+       <li><code>style</code> 元素。
+       <li><code>textarea</code> 元素。
+       <li><code data-x="attr-dir">dir</code> 属性处于已定义状态。
+      </ul>
+
+     </li>
+
+    </ul>
+
+    <p>如果找到了这样的字符且它属于双向字符类型 AL 或 R，该元素的 <span data-x="the directionality">方向</span> 是 <span data-x="concept-rtl">rtl</span>'。</p>
+
+    <p>如果找到了这样的字符且它属于双向字符类型 L，该元素的 <span data-x="the directionality">方向</span> 是 <span data-x="concept-ltr">ltr</span>'。</p>
+
+    <p>否则，如果该元素是 <span data-x="document element">文档元素</span>，
+    该元素的 <span data-x="the directionality">方向</span> 是 <span data-x="concept-ltr">ltr</span>'。</p>
+
+    <p>否则，该元素的 <span data-x="the directionality">方向</span> 与该元素的父元素的
+    <span data-x="the directionality">方向</span> 相同。</p>
+
+   </dd>
+
+
+   <dt>如果有父元素且 <code data-x="attr-dir">dir</code> 属性处于未定义状态
+   （即未出现或具有非法值）</dt>
+
+   <dd><p>该元素的 <span data-x="the directionality">方向</span> 与该元素的父元素的
+    <span data-x="the directionality">方向</span> 相同。</p></dd>
+
+
+  </dl>
+
+  <p class="note">因为只有 <span data-x="HTML elements">HTML 元素</span> 定义有 <code data-x="attr-dir">dir</code> 属性，
+  它不得出现在其他命名空间的元素上。所以其他命名空间的元素只从它们的父元素继承
+  <span data-x="the directionality">方向</span>，如果没有父元素则默认为 '<span data-x="concept-ltr">ltr</span>'。</p>
+
+  <div w-nodev>
+
+  <p class="note">该属性 <a href="#bidireq">有涉及双向算法的渲染要求</a>。</p>
+
+  </div>
+
+  <hr>
+
+  <p>当该属性的文本用于渲染过程时，<span data-x="HTML elements">HTML 元素</span>
+  <dfn data-x="directionality of the attribute">属性的方向</dfn> 由第一个合适的步骤决定：</p>
+
+  <dl class="switch">
+
+   <dt>如果该属性是一个 <span data-x="directionality-capable attribute">有方向的属性</span> 且该元素的 <code
+   data-x="attr-dir">dir</code> 属性处于 <span data-x="attr-dir-auto-state">auto</span> 状态</dt>
+
+   <dd>
+
+    <p>找到该属性值中第一个属于双向字符类型 L，AL，或 R （按照逻辑顺序）的字符。 <ref spec=BIDI></p>
+
+    <p>如果找到了这样一个字符，且它的双向字符类型是 AL 或 R，
+    <span data-x="directionality of the attribute">该属性的方向</span> 为 '<span data-x="concept-rtl">rtl</span>'。</p>
+
+    <p>否则，<span data-x="directionality of the attribute">该属性的方向</span> 为 '<span data-x="concept-ltr">ltr</span>'。</p>
+
+   </dd>
+
+   <dt>否则</dt>
+
+   <dd><span data-x="directionality of the attribute">该属性的方向</span> 与该元素的
+   <span data-x="the directionality">方向</span> 相同。</dd>
+
+  </dl>
+
+  <p>下列属性属于 <dfn data-x="directionality-capable attribute">有方向的属性</dfn>：</p>
+
+  <ul class="brief">
+   <li><code>th</code> 元素上的 <code data-x="attr-th-abbr">abbr</code></li>
+   <li><code data-x="attr-area-alt">area</code>，
+     <code data-x="attr-img-alt">img</code>，和
+     <code data-x="attr-input-alt">input</code> 元素上的 <code data-x="">alt</code></li>
+   <li><code>meta</code> 元素上的 <code data-x="attr-meta-content">content</code>，
+     如果 <code data-x="attr-meta-name">name</code> 属性的元数据名对应的值应该是人类可读的</li>
+   <li><code data-x="attr-optgroup-label">optgroup</code>， <code data-x="attr-option-label">option</code>，和
+     <code data-x="attr-track-label">track</code> 元素上的 <code data-x="">label</code> </li>
+   <li><code data-x="attr-input-placeholder">input</code> 和 <code data-x="attr-textarea-placeholder">textarea</code>
+     元素上的 <code data-x="">placeholder</code></li>
+   <li>所有 <span data-x="HTML elements">HTML 元素</span> 上的 <code data-x="attr-title">title</code></li>
+  </ul>
+
+  <hr>
+
+  <dl class="domintro">
+
+   <dt><var>document</var> . <code subdfn data-x="dom-dir">dir</code> [ = <var>value</var> ]</dt>
+   <dd>
+    <p>返回 <span data-x="the html element"><code>html</code> 元素</span> 的 <code data-x="attr-dir">dir</code> 属性值，如果有的话。</p>
+    <p>可以设置为 "<code data-x="">ltr</code>"，"<code data-x="">rtl</code>"，或 "<code data-x="">auto</code>"
+    来替换掉 <span data-x="the html element"><code>html</code> 元素</span> 的 <code data-x="attr-dir">dir</code> 属性值。</p>
+    <p>如果不存在 <span data-x="the html element"><code>html</code> 元素</span>，则返回空字符串，忽略新的值。</p>
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>元素的 <dfn><code data-x="dom-dir">dir</code></dfn> IDL 属性必须
+  <span data-x="reflect">反映</span> 其 <code data-x="attr-dir">dir</code> 内容属性，
+  <span data-x="limited to only known values">仅限于已知值</span>。</p>
+
+  <p><code>Document</code> 对象上的 <dfn><code data-x="dom-document-dir">dir</code></dfn> IDL 属性必须
+  <span data-x="reflect">反映</span> <span data-x="the html element"><code>html</code> 元素</span> 的
+  <code data-x="attr-dir">dir</code> 内容属性，如果有的话，
+  <span data-x="limited to only known values">仅限于已知值</span>。如果没有这样的元素，
+  该属性必须返回空字符串，且在设置时什么都不做。</p>
+
+  </div>
+
+  <p class="note">强烈建议作者使用 <code data-x="attr-dir">dir</code>
+  属性而不是 CSS 来指明文本方向。因为这样的话即使没有 CSS 文档也会正确地渲染。
+  （例如被搜索引擎解释时）。</p>
+
+  <div class="example">
+
+   <p>这个标记片段是关于 IM 对话的。</p>
+
+   <pre>&lt;p dir=auto class="u1">&lt;b>&lt;bdi>Student&lt;/bdi>：&lt;/b> How do you write "What的 your name?" in Arabic?&lt;/p>
+&lt;p dir=auto class="u2">&lt;b>&lt;bdi>Teacher&lt;/bdi>：&lt;/b> &#x645;&#x627; &#x627;&#x633;&#x645;&#x643;&#x61f;&lt;/p>
+&lt;p dir=auto class="u1">&lt;b>&lt;bdi>Student&lt;/bdi>：&lt;/b> Thanks.&lt;/p>
+&lt;p dir=auto class="u2">&lt;b>&lt;bdi>Teacher&lt;/bdi>：&lt;/b> That的 written "&#x634;&#x643;&#x631;&#x64b;&#x627;".&lt;/p>
+&lt;p dir=auto class="u2">&lt;b>&lt;bdi>Teacher&lt;/bdi>：&lt;/b> Do you know how to write "Please"?&lt;/p>
+&lt;p dir=auto class="u1">&lt;b>&lt;bdi>Student&lt;/bdi>：&lt;/b> "&#x645;&#x646; &#x641;&#x636;&#x644;&#x643;"，right?&lt;/p></pre>
+
+<!--
+<!DOCTYPE html>
+<style>
+ div { border： groove #FFFF99; padding： 0.25em; width： 22em; background： #FFFFEE; color： black; }
+ p { margin： 0.25em 0; font： 1em/1 InaiMathi; color： purple; }
+ .u1 { color： teal; }
+</style>
+<div>
+<p dir=ltr class="u1"><b><bdi>Student</bdi>：</b> How do you write "What的 your name?" in Arabic?</p>
+<p dir=rtl class="u2"><b><bdi>Teacher</bdi>：</b> &#x645;&#x627; &#x627;&#x633;&#x645;&#x643;&#x61f;</p>
+<p dir=ltr class="u1"><b><bdi>Student</bdi>：</b> Thanks。</p>
+<p dir=ltr class="u2"><b><bdi>Teacher</bdi>：</b> That的 written "&#x634;&#x643;&#x631;&#x64b;&#x627;"。</p>
+<p dir=ltr class="u2"><b><bdi>Teacher</bdi>：</b> Do you know how to write "Please"?</p>
+<p dir=rtl class="u1"><b><bdi>Student</bdi>：</b> "&#x645;&#x646; &#x641;&#x636;&#x644;&#x643;"，right?</p>
+-->
+
+   <p>给定 <code>p</code> 元素合适的样式表和默认对齐样式，也就是说把文本对齐到段落 <i>起始端</i>，渲染结果可能是这样的：</p>
+
+   <p><img src="/images/im.png" alt="Each paragraph rendered as a separate block，with the paragraphs left-aligned except the second paragraph and the last one，which would  be right aligned，with the usernames (的tudent' and 'Teacher' in this example) flush right，with a colon to their left，and the text first to the left of that." width=366 height=157></p>
+
+   <p>就像之前提到的，<code data-x="attr-dir-auto">auto</code> 值不是万能药。
+   这个例子中最后一个段落被错误地解释为从右向左的文本，
+   因为它以一个阿拉伯字符开始，这会导致 "right?" 出现在阿拉伯文字的左边。</p>
+
+  </div>
+
+
+
