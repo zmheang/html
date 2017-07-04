@@ -50,9 +50,9 @@
 
   <p>令 <var>view</var> 为 DOM 的一个视图，将文档中所有的 <code>a</code>,
   <code>ins</code>, <code>del</code>, 和 <code>map</code> 元素替换为它们的
-  <span data-x="concept-html-contents">内容</span>。然后对 <var>view</var> 中每一个接受
-  <span data-x="phrasing content">短语内容</span> 的元素中的
-  没有被其他类型内容打断的 <span data-x="phrasing content">短语内容</span> 节点序列，
+  <span data-x="concept-html-contents">内容</span>。然后对 <var>view</var> 中除了接受
+  <span data-x="phrasing content">短语内容</span> 还接受非 <span data-x="phrasing content">短语内容</span>
+  的元素中的每一个没有被其他类型内容打断的 <span data-x="phrasing content">短语内容</span> 节点序列，
   令 <var>first</var> 为序列中第一个节点，令 <var>last</var> 为序列中最后一个节点。
   对每一个上述序列中，包含至少一个非
   <span data-x="embedded content">嵌入内容</span> 或 <span data-x="inter-element whitespace">元素间空白</span>

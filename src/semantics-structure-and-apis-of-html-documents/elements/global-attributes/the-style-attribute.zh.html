@@ -1,0 +1,57 @@
+  <h5><dfn><code data-x="attr-style">style</code></dfn> 属性</h5>
+
+  <p>所有 <span data-x="HTML elements">HTML 元素</span> 都可以设置 <code data-x="attr-style">style</code> 内容属性。
+  这个 <span data-x="css-styling-attribute">style 属性</span> 定义在
+  <cite>CSS Style Attributes</cite> 规范中。 <ref spec=CSSATTR></p>
+
+  <div w-nodev>
+
+  <p>在支持 CSS 的用户代理中，当添加或改变这个属性时必须
+  <!-- so dynamic changes to the base URL don't affect the CSS -->，
+  根据 <span data-x="css-styling-attribute">style 属性</span> 的规则解析该属性的值。
+  <ref spec=CSSATTR></p>
+
+  <p>但是如果 <span data-x="Should element's inline behavior be blocked by Content Security Policy?">是否应该根据内容安全策略禁止元素的内联行为</span> 算法对
+  属性的 <span data-x="element">元素</span>，"<code data-x="">style attribute</code>"，和属性值返回了 "<code data-x="">Blocked</code>" ，
+  那么该属性值中定义的样式规则不得应用于该 <span data-x="element">元素</span>。 <ref spec="CSP"></p>
+
+  </div>
+
+  <p>在任何元素上使用了 <code data-x="attr-style">style</code> 属性的文档必须
+  在那些属性移除之后仍然可以理解和使用。</p>
+
+  <p class="note">特别是使用 <code data-x="attr-style">style</code> 属性来隐藏和显示内容，
+  或者传达文档中本没有的含义，这些都是不合规范的。
+  （隐藏和显示内容，可以使用 <code data-x="attr-hidden">hidden</code> 属性）</p>
+
+  <hr>
+
+  <dl class="domintro">
+
+   <dt><var>element</var> . <code subdfn data-x="dom-style">style</code></dt>
+   <dd>
+    <p>返回该元素的 <code data-x="attr-style">style</code> 属性的 <code>CSSStyleDeclaration</code> 对象。</p>
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-style">style</code></dfn> IDL 属性定义在 CSS Object Model (CSSOM) 规范中。 <ref spec=CSSOM></p>
+
+  </div>
+
+  <div class="example">
+
+   <p>下面的例子中，使用
+   <code>span</code> 元素和 <code data-x="attr-style">style</code> 属性
+   来标记指代颜色的词，来让它们在视觉媒体中显示相关的颜色。</p>
+
+   <pre>&lt;p>My sweat suit is &lt;span style="color： green; background：
+transparent">green&lt;/span> and my eyes are &lt;span style="color： blue;
+background： transparent">blue&lt;/span>.&lt;/p></pre>
+
+  </div>
+
+
+

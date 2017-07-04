@@ -1,0 +1,250 @@
+  <h5>使用 <code data-x="attr-data-*">data-*</code> 属性 <dfn data-x="Embedding custom non-visible data">嵌入自定义不可见数据</dfn></h5>
+
+  <p><dfn data-x="custom data attribute">自定义数据属性</dfn> 是一个无命名空间的属性，其名字以
+  字符串 "<dfn><code data-x="attr-data-*">data-</code></dfn>" 起始，连字符后有至少一个字符，
+  <span data-x="XML-compatible">兼容于 XML</span>，且不得包含非
+  <span data-x="ASCII upper alpha">ASCII 大写字母</span>。</p>
+
+  <p class="note"><span data-x="HTML documents">HTML 文档</span> 中 <span data-x="HTML elements">HTML 元素</span> 上所有属性名都会被自动 ASCII 小写化，所以 ASCII 大写字母的限制不会影响这种文档。</p>
+
+  <p><span data-x="custom data attribute">自定义数据属性</span> 用于存储页面或应用私有的，自定义的数据、状态、注解和类似东西，只有在找不到更合适的属性或元素时才能使用。</p>
+
+  <p>这些属性不适用于所属站点管理员不知道的软件。对于很多独立工具使用的通用扩展，
+  或者需要扩展本规范来显式地提供该特性，或者应该使用类似
+  <span>microdata</span> 的技术（使用标准化的词汇）。</p>
+
+  <div class="example">
+
+   <p>例如一个音乐相关的站点可能会在表示专辑音轨的列表项中，
+   使用自定义数据属性来表示每个音轨的长度。
+   用户可能会用该信息对列表进行排序，或者按照某个长度来过滤列表。</p>
+
+   <pre>&lt;ol>
+ &lt;li data-length="2m11s">Beyond The Sea&lt;/li>
+ ..。
+&lt;/ol></pre>
+
+   <p>但是用户使用与这个音乐站点不相关的通用软件来根据这个数据搜索某个长度的音轨是不合适的。</p>
+
+   <p>这是因为这些属性只适用于该站点自己的脚本，并不是一种公众可用的元数据的通用扩展机制。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>类似地，页面作者可能会编写一些标记来为他们打算使用的翻译工具提供一些信息：</p>
+
+   <pre>&lt;p>The third &lt;span data-mytrans-de="Anspruch">claim&lt;/span> covers the case of &lt;span
+translate="no">HTML&lt;/span> markup.&lt;/p></pre>
+
+   <p>这个例子中，"<code data-x="">data-mytrans-de</code>" 属性给出的文字
+   提供给 MyTrans 产品使用，把 "claim" 翻译到德语。但是标准的
+   <code data-x="attr-translate">translate</code> 属性用于指示，
+   在所有语言环境中 "HTML" 要保持不变。当有标准属性可用时，就没必要使用
+   <span data-x="custom data attribute">自定义数据属性</span> 了。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>在这个例子中，自定义数据属性用于存储
+   <code>PaymentRequest</code> 特性探测的结果，可能会用于 CSS 中，对付款页面做特殊的样式。</p>
+
+   <pre>&lt;script>
+ if ('PaymentRequest' in window) {
+   document.documentElement.dataset.hasPaymentRequest = '';
+ }
+&lt;/script></pre>
+
+   <p>这里 <code data-x="">data-has-payment-request</code> 属性被当做
+   <span data-x="boolean attribute">布尔属性</span> 来使用；检查该属性是否出现就足够了。
+   但是如果作者希望，它后续也可以填充一些值，比如用来标识该特性的功能限制。</p>
+
+  </div>
+
+  <p>每个 <span data-x="HTML elements">HTML 元素</span> 都可以指定任意个 <span
+  data-x="custom data attribute">自定义数据属性</span>，指定为任意值。</p>
+
+  <p>作者应该仔细地设计这样的扩展，当属性被忽略或者任何相关 CSS 被丢弃时，页面仍然可用。</p>
+
+  <div w-nodev>
+
+  <p>用户代理不得从这些属性和值腿短任何实现行为。用户代理的相关规范不得为这些属性定义任何有意义的值。</p>
+
+  </div>
+
+  <p>JavaScript 库可以使用 <span data-x="custom data attribute">自定义数据属性</span>，因为它们也是页面的一部分。
+  鼓励有很多人用的库的作者在属性名中包含名字，来减小冲突的风险。
+  如果可行的话，鼓励库的作者支持自定义实际在用的名字，这样不小心选了重复名字的库也可以用于同一个页面，
+  同一个库的多个版本也可以用于同一个页面，即使它们互相不兼容。</p>
+
+  <div class="example">
+
+   <p>例如一个叫做 "DoQuery" 的库可能会使用叫做 <code data-x="">data-doquery-range</code> 的属性名，
+   另一个叫做 "jJo" 的库可能会使用叫做 <code data-x="">data-jjo-range</code> 的属性名。
+   jJo 库也可以提供一个 API 来设置使用哪个前缀（例如 <code data-x="">J.setDataPrefix('j2')</code>，
+   使属性的名字变成 <code data-x="">data-j2-range</code>）。</p>
+
+  </div>
+
+  <hr>
+
+  <dl class="domintro">
+
+   <dt><var>element</var> . <code subdfn data-x="dom-dataset">dataset</code></dt>
+   <dd>
+
+    <p>返回该元素的 <code data-x="attr-data-*">data-*</code> 属性的 <code>DOMStringMap</code> 对象。</p>
+
+    <p>连字符连接的名字会变成驼峰的。例如 <code data-x="">data-foo-bar=""</code>
+    变成了 <code data-x="">element.dataset.fooBar</code>。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-dataset">dataset</code></dfn> IDL 属性
+  为元素上的所有 <code data-x="attr-data-*">data-*</code> 属性提供了便利访问器。
+  当读取时，<code data-x="dom-dataset">dataset</code> IDL 属性必须返回一个与该元素关联的
+  <code>DOMStringMap</code>。</p>
+
+  </div>
+
+  <p><code>DOMStringMap</code> 接口用于 <code data-x="dom-dataset">dataset</code> 属性。每个 <code>DOMStringMap</code> 有一个 <dfn
+  data-x="concept-DOMStringMap-element">关联的元素</dfn>。</p>
+
+  <pre class="idl">[OverrideBuiltins]
+interface <dfn>DOMStringMap</dfn> {
+  <a href="#dom-domstringmap-namedItem">getter</a> DOMString (DOMString name);
+  [<span>CEReactions</span>] <a href="#dom-domstringmap-setitem">setter</a> void (DOMString name,DOMString value);
+  [<span>CEReactions</span>] <a href="#dom-domstringmap-removeitem">deleter</a> void (DOMString name);
+};</pre>
+
+  <div w-nodev>
+
+  <p><dfn data-x="concept-DOMStringMap-pairs">获取 <code>DOMStringMap</code> 的键值对</dfn>，需呀执行以下算法：</p>
+
+  <ol>
+
+   <li><p>令 <var>list</var> 为一个键值对的空列表。</p></li>
+
+   <li><p>对于 <code>DOMStringMap</code> 的 <span data-x="concept-DOMStringMap-element">关联元素</span>
+   上的每个前五个字符是 "<code data-x="">data-</code>" 且剩余字符（如果有的话）不包含任何
+   <span data-x="ASCII upper alpha">ASCII 大写字母</span> 的内容属性，
+   按照这些属性在 <span data-x="attribute list">属性列表</span> 中出现的顺序，
+   在 <var>list</var> 中新增一个键值对，属性名移除前五个字符后作为键，属性值作为值。</p></li>
+
+   <li><p>对 <var>list</var> 中的每个键中的每个后面跟随着一个 <span data-x="ASCII lower alpha">ASCII 小写字母</span>
+   的 U+002D HYPHEN-MINUS 字符 （-） ，移除这个 U+002D HYPHEN-MINUS 字符 （-）并且将后面的这个字符替换为
+   同一个字母 <span data-x="converted to ASCII uppercase">转换为 ASCII 大写</span> 的结果。</p></li>
+
+   <li><p>返回 <var>list</var>。</p></li>
+  </ol>
+
+  <p>任一时刻，<code>DOMStringMap</code> 对象上 <span data-x="supported property names">支持的属性名</span> 都是那一时刻
+  <span data-x="concept-DOMStringMap-pairs">获取 <code>DOMStringMap</code> 的键值对</span>
+  返回的每个键值对的键构成的列表，并按照返回的顺序排序。</p>
+
+  <p id="dom-domstringmap-nameditem">对一个 <code>DOMStringMap</code>
+  <span data-x="determine the value of a named property">确定命名属性 <var>name</var> 的值</span>，
+  <span data-x="concept-DOMStringMap-pairs">获取 <code>DOMStringMap</code> 的键值对</span>
+  返回的列表中键是 <var>name</var> 的键值对的值。</p>
+
+  <p id="dom-domstringmap-setitem">给定属性名 <var>name</var> 和一个新值 <var>value</var>，
+  为一个 <code>DOMStringMap</code>
+  <span data-x="set the value of a new named property">设置一个新命名属性的值</span> 或
+  <span data-x="set the value of an existing named property">设置已有属性的值</span> ，需要执行以下步骤：</p>
+
+  <ol>
+   <li><p>如果 <var>name</var> 包含一个 U+002D HYPHEN-MINUS 字符（-） 紧跟着 <span data-x="ASCII lower alpha">ASCII 小写字母</span>，
+   则抛出一个 <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> 并中止这些步骤。</p></li>
+
+   <li><p>对每一个 <var>name</var> 中的 <span data-x="ASCII upper alpha">ASCII 大写字母</span> ，
+   在该字符前插入一个 U+002D HYPHEN-MINUS 字符（-），并把这个字母替换为同一字母
+   <span data-x="converted to ASCII lowercase">转换为 ASCII 小写</span> 的结果。</p></li>
+
+   <li><p>在 <var>name</var> 之前插入字符串 <code data-x="">data-</code>。</p></li>
+
+   <li><p>如果 <var>name</var> 不匹配 XML <code data-x="xml-Name">Name</code> 生成式，
+   抛出一个 <span>"<code>InvalidCharacterError</code>"</span> <code>DOMException</code> 并中止这些步骤。</p></li>
+
+   <li><p>使用 <var>name</var> 和 <var>value</var> 为 <code>DOMStringMap</code> 的 <span data-x="concept-DOMStringMap-element">关联元素</span>
+   <span data-x="concept-element-attributes-set-value">设置属性值</span>。</p></li>
+  </ol>
+
+  <p id="dom-domstringmap-removeitem">为一个 <code>DOMStringMap</code>
+  <span data-x="delete an existing named property">删除一个既有命名属性</span>
+  <var>name</var> ，需要执行以下步骤：</p>
+
+  <ol>
+<!--(can't happen while the DOMStringMap deleter has no name)
+   <li><p>如果 <var>name</var> contains a U+002D HYPHEN-MINUS character (-) followed by an <span>ASCII
+   lower alpha</span>，则抛出一个 <span>"<code>SyntaxError</code>"</span>
+   <code>DOMException</code> 并中止这些步骤。</p></li>
+-->
+
+   <li><p>对每一个 <var>name</var> 中的 <span data-x="ASCII upper alpha">ASCII 大写字母</span> ，
+   在该字符前插入一个 U+002D HYPHEN-MINUS 字符（-），并把这个字母替换为同一字母
+   <span data-x="converted to ASCII lowercase">转换为 ASCII 小写</span> 的结果。</p></li>
+
+   <li><p>在 <var>name</var> 之前插入字符串 <code data-x="">data-</code>。</p></li>
+
+   <li><p>给定 <var>name</var> 和 <code>DOMStringMap</code> 的 <span data-x="concept-DOMStringMap-element">关联元素</span>
+   <span data-x="concept-element-attributes-remove">通过属性名移除属性</span>。</p></li>
+  </ol>
+
+  <p class="note">Web IDL 规范只会使用前述
+  <span data-x="concept-DOMStringMap-pairs">获取 <code>DOMStringMap</code> 的键值对</span>
+  算法给出的名字调用该算法。 <ref
+  spec=WEBIDL></p>
+
+  </div>
+
+  <div class="example">
+
+   <p>如果一个 Web 页面想要一个元素来表示宇宙飞船，比如作为游戏的一部分，他可能必须同时使用
+   <code data-x="attr-class">class</code> 属性与 <code data-x="attr-data-*">data-*</code> 属性：</p>
+
+   <pre>&lt;div class="spaceship" data-ship-id="92432"
+     data-weapons="laser 2" data-shields="50%"
+     data-<!---->x="30" data-y="10" data-z="90">
+ &lt;button class="fire"
+         onclick="spaceships[this.parentNode.dataset.shipId].fire()">
+  Fire
+ &lt;/button>
+&lt;/div></pre>
+
+   <p>注意连字符连接的属性名在 API 中变成了驼峰命名的。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>给定下面的相似构造的片段和元素：</p>
+
+   <pre>&lt;img class="tower" id="tower5" data-<!---->x="12" data-y="5"
+     data-ai="robotarget" data-hp="46" data-ability="flames"
+     src="towers/rocket.png" alt="Rocket Tower"></pre>
+
+   <p>...可能会想到用一个 <code data-x="">splashDamage()</code> 函数，它接受的第一个参数是被处理的元素：</p>
+
+   <pre>function splashDamage(node，x，y，damage) {
+  if (node.classList.contains('tower') && // checking the 'class' attribute
+      node.dataset.x == x && // reading the 'data-x' attribute
+      node.dataset.y == y) { // reading the 'data-y' attribute
+    var hp = parseInt(node.dataset.hp); // reading the 'data-hp' attribute
+    hp = hp - damage;
+    if (hp &lt; 0) {
+      hp = 0;
+      node.dataset.ai = 'dead'; // setting the 'data-ai' attribute
+      delete node.dataset.ability; // removing the 'data-ability' attribute
+    }
+    node.dataset.hp = hp; // setting the 'data-hp' attribute
+  }
+}</pre>
+
+  </div>
+
+
