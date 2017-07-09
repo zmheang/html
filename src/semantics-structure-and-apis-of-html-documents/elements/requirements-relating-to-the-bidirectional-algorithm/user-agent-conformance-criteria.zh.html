@@ -1,0 +1,27 @@
+  <h5>用户代理一致性标准</h5>
+
+  <p>用户代理必须实现 Unicode 双向算法，以便在渲染文档或文档部分时确定合适的字符顺序。<ref spec=BIDI></p>
+
+  <p>HTML 到 Unicode 双向算法的映射必须以这三种方式中的任何一种来完成。
+  一，用户代理必须实现 CSS，特别是 CSS <span>'unicode-bidi'</span>， <span>'direction'</span>，和 <span>'content'</span> 属性，
+  并且在其用户代理样式表中必须包含在本规范的 <a href="#rendering">渲染</a> 章节中给出的用到了这些属性的规则。
+  二，用户代理必须表现得就像实现了前述属性一样，并且用户代理样式表中包含所有前述规则，但没有让文档中指定的样式表覆盖它们。
+  三，用户代理必须实现另一种具有等价语义的样式语言。 <ref spec=CSSGC></p>
+
+  <p id="bidireq">以下元素和属性具有由 <a href="#rendering">渲染</a> 部分定义的要求，
+  由于本节中的要求，那些要求对所有用户代理都有效（不仅仅是那些 <a href="#renderingUA">支持建议默认渲染的</a>）：</p>
+
+  <ul class="brief">
+   <li><code data-x="attr-dir">dir</code> 属性</li>
+   <li><code>bdi</code> 元素</li>
+   <li><code>bdo</code> 元素</li>
+   <li><code>br</code> 元素</li>
+   <li><code>pre</code> 元素</li>
+   <li><code>textarea</code> 元素</li>
+   <li><code>wbr</code> 元素</li>
+  </ul>
+
+  </div>
+
+  <div w-nodev>
+
