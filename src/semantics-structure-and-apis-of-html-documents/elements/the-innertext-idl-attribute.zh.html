@@ -1,0 +1,160 @@
+  <h4><code data-x="dom-innerText">innerText</code> IDL 属性</h4>
+
+  <dl class="domintro">
+
+   <dt><var>element</var> . <code subdfn data-x="dom-innerText">innerText</code> [ = <var>value</var> ]</dt>
+
+   <dd>
+
+    <p>返回该元素 "渲染后的" 文本内容。</p>
+
+    <p>设置时，用给定的值替换掉该元素的子元素，其中换行替换为 <code>br</code> 元素。</p>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>读取时，<dfn><code data-x="dom-innerText">innerText</code></dfn> 属性必须遵循这些步骤：</p>
+
+  <ol>
+   <li><p>如果该元素未 <span data-x="being rendered">被渲染</span>，或者用户代理是非 CSS 用户代理，
+   则返回该元素上 <code>textContent</code> IDL 属性同样的值。</p></li>
+
+   <li>
+    <p> 对该元素的每个子节点 <var>node</var> 按照 <span data-x="tree order">树序</span> 应用下列的递归过程，
+    计算得到一个字符串和正整数（一个 <i>需要的换行数</i>）的列表，然后把结果连接成一个列表。</p>
+
+    <p class="note">直觉上，<i>需要的换行数</i> 是指在那个点需要插入的换行个数，但相邻的
+    <i>需要的换行数</i> 会合并，想想 CSS 外边距合并。</p>
+
+    <ol>
+     <li><p>令<var>items</var> 为递归地，按照 <span data-x="tree order">树序</span> 应用这一过程到 <var>node</var> 的每个子元素，
+     并把结果连接成一个列表的结果。</p></li>
+
+     <li><p>如果 <var>node</var> 的 <span>'visibility'</span> 的 <span data-x="computed value">计算后的值</span> 不是
+     'visible'，则令这些子步骤的结果为 <var>items</var> 并终止这些步骤。</p></li>
+
+     <li>
+      <p>如果 <var>node</var> 没有相关联的 CSS 盒子，则令这些子步骤的结果为 <var>items</var> 并中止这些子步骤。
+      在这一步中，下列元素必须表现为 <span>'display'</span> 属性的 <span data-x="computed value">计算后的值</span> 不是 'none'：</p>
+
+      <ul class="brief">
+       <li><code>select</code> 原始有一个相关联的未被替换的内联 CSS 盒子，
+       其子盒子只包括 <code>optgroup</code> 和 <code>option</code> 元素的子节点的盒子；</li>
+
+       <li><code>optgroup</code> 元素有一个关联的未被替换的块级别的 CSS 盒子，
+       其子盒子只包含 <code>option</code> 元素的子节点的盒子；另外</li>
+
+       <li><code>option</code> 元素有一个相关联的未被替换的块级别的 CSS 盒子，
+       其子盒子是正常的未被替换的块级别的 CSS 盒子。</li>
+      </ul>
+
+      <p class="note"><var>items</var> 可能会因为 'display:contents' 变得非空的。</p>
+     </li>
+
+     <li><p>如果 <var>node</var> 是一个 <code>Text</code> 节点，那么对每一个 <var>node</var> 产生的 CSS 文字盒子，
+     按照内容顺序，应用 CSS <span>'white-space'</span> 的处理规则和 <span>'text-transform'</span> 规则后，
+     计算盒子的文字，令这些子步骤的结果为一个结果字符串列表，并中止这些子步骤。CSS
+     <span>'white-space'</span> 处理规则要稍加修改：总是合并行尾可合并的空格，
+     但只有这是块中最后一行或以 <code>br</code> 元素结尾时才移除它。应该保留软的连字符。 <ref
+     spec=CSSTEXT></p></li>
+
+     <li><p>如果 <var>node</var> 是一个 <code>br</code> 元素，那么在 <var>items</var>
+     后追加一个只包含一个 U+000A LINE FEED (LF）字符的字符串。</p></li>
+
+     <li><p>如果 <var>node</var> 的 <span>'display'</span> 的
+     <span data-x="computed value">计算后的值</span> 是 <span>'table-cell'</span>，
+     且 <var>node</var> 的 CSS 盒子不是它所在的 <span>'table-row'</span> 盒子中
+     最后一个 <span>'table-cell'</span> 盒子，则在 <var>items</var> 后追加一个
+     只包含一个 U+0009 CHARACTER TABULATION （tab）字符的字符串。</p></li>
+
+     <li><p>如果 <var>node</var> 的 <span>'display'</span> 的
+     <span data-x="computed value">计算后的值</span> 是 <span>'table-row'</span>，
+     且 <var>node</var> 的 CSS 盒子不是它最近的祖先 <span>'table'</span> 盒子的最后一个
+     <span>'table-row'</span> 盒子，则在 <var>items</var> 后追加一个
+     只包含一个 U+000A LINE FEED （LF）字符的字符串。</p></li>
+
+     <li><p>如果 <var>node</var> 是一个 <code>p</code> 元素，则在
+     <var>items</var> 前后添加 2（这是 <i>需要的换行数</i>）。</p></li>
+
+     <li>
+      <p>如果 <var>node</var> 的 <span>'display'</span> <span data-x="used value">在使用的值</span>
+      是 <span data-x="block-level">块级别</span> 或 <span>'table-caption'</span>，则在
+      <var>items</var> 的前后添加 1 （这是 <i>需要的换行数</i>）。 <ref spec=CSSDISPLAY></p>
+
+      <p class="note">浮点数和绝对定位元素属于这一类。</p>
+     </li>
+
+     <li><p>令这些子步骤的结果为 <var>items</var>。</p></li>
+    </ol>
+   </li>
+
+   <li><p>删除所有空字符串的列表项。</p></li>
+
+   <li><p>删除列表前后的所有连续的 <i>需要的换行数</i>。</p></li>
+
+   <li><p>把剩余的每个连续的 <i>需要的换行数</i> 替换为这些 <i>需要的换行数</i> 中最大的那个对应个数的
+   U+000A LINE FEED （LF）字符组成的字符串。</p></li>
+
+   <li><p>返回字符串列表项的连接后的值。</p></li>
+  </ol>
+
+  <p class="note">严格地说，多数被替换元素的子元素（比如 <code>textarea</code>，
+  <code>input</code>，和 <code>video</code> &mdash; 但不包括 <code>button</code>）不由 CSS 渲染，
+  因此没有该算法中的 CSS 盒子。</p>
+
+  <p class="big-issue">该算法适用于广义的 <span data-x="concept-range">范围</span>。
+  我们可以使用它作为 <code>Selection</code> 的字符串化程序的基础，
+  或者让它直接操作 <span data-x="concept-range">范围</span>。
+  参见 <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=10583">Bugzilla bug 10583</a>。</p>
+
+  <p>当设置时，<code data-x="dom-innerText">innerText</code> 属性必须遵循这些步骤：</p>
+
+  <ol>
+   <li><p>令 <var>document</var> 为该元素的的 <span data-x="node document">节点文档</span>。</p></li>
+
+   <li><p>令 <var>fragment</var> 为一个新的 <code>DocumentFragment</code> 对象，
+   其 <span data-x="node document">节点文档</span> 为 <var>document</var>。</p></li>
+
+   <li><p>令 <var>input</var> 为给定的值。</p></li>
+
+   <li><p>令 <var>position</var> 为 <var>input</var> 中的指针初始指向字符串开始。</p></li>
+
+   <li><p>令 <var>text</var> 为空字符串。</p></li>
+
+   <li>
+    <p>While <var>position</var> 没有越过 <var>input</var> 的结尾：</p>
+
+    <ol>
+     <li><p>从 <var>input</var> 的给定 <var>position</var>
+     <span data-x="Collect a sequence of code points">收集</span>
+     不是 U+000A LINE FEED（LF) 或 U+000D CARRIAGE RETURN （CR）字符的代码点序列，将 <var>text</var> 设为得到的字符。</p></li>
+
+     <li><p>如果 <var>text</var> 不是空字符串，则在 <var>fragment</var>
+     上 <span data-x="concept-node-append">追加</span> 一个新的
+     <code>Text</code> 节点，其 <span data-x="concept-cd-data">data</span> 为 <var>text</var>，
+     <span data-x="node document">节点文档</span> 是 <var>document</var>。</p></li>
+
+     <li>
+      <p>While <var>position</var> 没有越过 <var>input</var> 的结尾，且
+      <var>position</var> 处的字符是 U+000A LINE FEED（LF) 或 U+000D CARRIAGE RETURN （CR) 字符：</p>
+
+      <ol>
+       <li><p>如果 <var>position</var> 处的字符是 U+000D CARRIAGE RETURN （CR）字符且下一个字符是
+       U+000A LINE FEED （LF）字符，则前进 <var>position</var> 到 <var>input</var> 中的下一个字符。</p></li>
+
+       <li><p>前进 <var>position</var> 到 <var>input</var> 中的下一个字符。</p></li>
+
+       <li><p>把给定 <var>document</var>，<code>br</code>，和 <span data-x="HTML namespace">HTML 命名空间</span>
+       <span data-x="create an element">创建一个元素</span> 的结果 <span data-x="concept-node-append">追加</span>
+       到 <var>fragment</var>。</p></li>
+      </ol>
+     </li>
+    </ol>
+   </li>
+
+   <li><p>用 <var>fragment</var> <span data-x="concept-node-replace-all">替换该元素的所有内容</span>。</p></li>
+  </ol>
+
+  </div>
+
