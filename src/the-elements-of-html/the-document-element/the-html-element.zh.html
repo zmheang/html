@@ -1,0 +1,72 @@
+  <h4 id="the-html-element"><dfn><code>html</code></dfn> 元素</h4>
+
+  <dl class="element">
+   <dt><span data-x="concept-element-categories">类别</span>：</dt>
+   <dd>无。</dd>
+   <dt><span data-x="concept-element-contexts">该元素可用的上下文</span>：</dt>
+   <dd>作为文档的 <span data-x="document element">文档元素</span>。</dd>
+   <dd>复合文档中允许子文档片段的地方。</dd>
+   <dt><span data-x="concept-element-content-model">内容模型</span>：</dt>
+   <dd><code>head</code> 元素紧接着 <code>body</code> 元素。</dd>
+   <dt><span data-x="concept-element-attributes">内容属性</span>：</dt>
+   <dd><span data-x="Global attributes">全局内容属性</span></dd>
+   <dd><code data-x="attr-html-manifest">manifest</code></dd>
+   <dt><span data-x="concept-element-dom">DOM 接口</span>：</dt>
+   <dd w-nodev>
+    <pre class="idl">[<span>HTMLConstructor</span>]
+interface <dfn>HTMLHtmlElement</dfn> : <span>HTMLElement</span> {};</pre>
+   </dd>
+   <dd w-nohtml>使用 <code>HTMLHtmlElement</code>。</dd>
+  </dl>
+
+  <p><code>html</code> 元素 <span data-x="represents">表示</span> HTML 文档的根。</p>
+
+  <p>鼓励作者在根 <code>html</code> 元素上指定 <code data-x="attr-lang">lang</code> 属性，
+  给出文档的语言。这可以帮助语音合成工具确定要使用的发音，帮助翻译工具确定要使用的规则，
+  等等。</p>
+
+  <p><dfn data-x="attr-html-manifest"><code>manifest</code></dfn> 属性给出文档的
+  <span data-x="application cache">应用缓存</span>
+  <span data-x="concept-appcache-manifest">manifest</span> 的地址，如果有的话。
+  如果出现了该属性，其值必须是一个
+  <span data-x="valid non-empty URL potentially surrounded by spaces">可能被空格包裹的合法的非空URL</span>。</p>
+
+  <p class="critical"><code data-x="attr-html-manifest">manifest</code> 属性是是遗留的
+  "<a href="#offline" data-x="offline Web applications">离线 Web 应用</a>" 特性的一部分，
+  该特性正在从 Web 平台移除。（这是一个很长的过程，可能持续很多年。）
+  现在强烈不推荐使用 <code data-x="attr-html-manifest">manifest</code> 属性。
+  使用 service workers 来替代。 <ref spec=SW></p>
+
+  <p><code data-x="attr-html-manifest">manifest</code> 属性只在文档加载的早期阶段
+  <span data-x="concept-appcache-init">起作用</span>。
+  因此动态改变该属性没有效果（因此没有为该属性提供任何 DOM API）。</p>
+
+  <p class="note"><span data-x="concept-appcache-init">应用缓存选择</span> 中，后续的 <code>base</code>
+  元素影响不了 <code data-x="attr-html-manifest">manifest</code> 属性的
+  <span data-x="parse a url">URL 解析</span>，因为在还没看到这些元素时就进行了这些属性的处理。</p>
+
+  <p class="note"><code data-x="dom-applicationCache">window.applicationCache</code> IDL
+  属性提供了对离线 <span data-x="application cache">应用缓存</span> 机制的脚本访问。</p>
+
+
+  <div class="example">
+
+   <p>下面例子中的 <code>html</code> 元素声明了该文档的语言是英语。</p>
+
+   <pre>&lt;!DOCTYPE html>
+<strong>&lt;html lang="en"></strong>
+&lt;head>
+&lt;title>Swapping Songs&lt;/title>
+&lt;/head>
+&lt;body>
+&lt;h1>Swapping Songs&lt;/h1>
+&lt;p>Tonight I swapped some of the songs I wrote with some friends,who
+gave me some of the songs they wrote. I love sharing my music.&lt;/p>
+&lt;/body>
+<strong>&lt;/html></strong></pre>
+
+  </div>
+
+
+
+
