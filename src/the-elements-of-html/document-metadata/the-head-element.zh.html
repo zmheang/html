@@ -1,0 +1,59 @@
+  <h4 data-dfn-type="element" data-lt="head" id="the-head-element"><dfn><code>head</code></dfn> 元素</h4>
+
+  <dl class="element">
+   <dt><span data-x="concept-element-categories">类别</span>：</dt>
+   <dd>无。</dd>
+   <dt><span data-x="concept-element-contexts">该元素可用的上下文</span>：</dt>
+   <dd>作为 <code>html</code> 元素的第一个元素。</dd>
+   <dt><span data-x="concept-element-content-model">内容模型</span>：</dt>
+   <dd>如果该文档是 <span data-x="an iframe srcdoc document"><code>iframe</code> <code data-x="attr-iframe-srcdoc">srcdoc</code> 文档</span>，
+   或者如果在更高级协议上有标题信息可用：大于等于0个 <span data-x="metadata content">元数据内容</span> 元素，其中不多于一个 <code>title</code> 元素，
+   不多于一个 <code>base</code> 元素。</dd>
+   <dd>否则：一个或更多 <span data-x="metadata content">元数据内容</span> 元素，其中恰好一个是 <code>title</code> 元素，
+   且不多于一个 <code>base</code> 元素。</dd>
+   <dt><span data-x="concept-element-attributes">内容属性</span>：</dt>
+   <dd><span data-x="Global attributes">全局属性</span></dd>
+   <dt><span data-x="concept-element-dom">DOM 接口</span>：</dt>
+   <dd w-nodev>
+    <pre class="idl">[<span>HTMLConstructor</span>]
+interface <dfn>HTMLHeadElement</dfn> : <span>HTMLElement</span> {};</pre>
+   </dd>
+   <dd w-nohtml>使用 <code>HTMLHeadElement</code>。</dd>
+  </dl>
+
+  <p><code>head</code> 元素 <span data-x="represents">表示</span> <code>Document</code> 的元数据集合。</p>
+  <div class="example">
+
+   <p><code>head</code> 元素中的元数据集合可大可小。这里有一个非常小的例子：</p>
+
+   <pre>&lt;!doctype html>
+&lt;html lang=en>
+ &lt;head>
+  &lt;title>A document with a short head&lt;/title>
+ &lt;/head>
+ &lt;body>
+ ...</pre>
+
+   <p>这是一个更长的例子：</p>
+
+   <pre>&lt;!DOCTYPE HTML>
+&lt;HTML LANG="EN">
+ &lt;HEAD>
+  &lt;META CHARSET="UTF-8">
+  &lt;BASE HREF="https://www.example.com/">
+  &lt;TITLE>An application with a long head&lt;/TITLE>
+  &lt;LINK REL="STYLESHEET" HREF="default.css">
+  &lt;LINK REL="STYLESHEET ALTERNATE" HREF="big.css" TITLE="Big Text">
+  &lt;SCRIPT SRC="support.js">&lt;/SCRIPT>
+  &lt;META NAME="APPLICATION-NAME" CONTENT="Long headed application">
+ &lt;/HEAD>
+ &lt;BODY>
+ ...</pre>
+
+  </div>
+
+  <p class="note"><code>title</code> 元素在多数场景下都是必须的子元素，但是当更高级协议提供了标题信息时，
+  例如在 e-mail 中使用 HTML 作为编写格式，有标题行时就可以忽略 <code>title</code> 元素。</p>
+
+
+
