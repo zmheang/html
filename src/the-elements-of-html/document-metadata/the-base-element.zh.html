@@ -1,0 +1,156 @@
+  <h4 data-dfn-type="element" data-lt="base"><dfn><code>base</code></dfn> 元素</h4>
+
+  <dl class="element">
+   <dt><span data-x="concept-element-categories">类别</span>：</dt>
+   <dd><span data-x="Metadata content">元数据内容</span>。</dd>
+   <dt><span data-x="concept-element-contexts">该元素可用的上下文</span>：</dt>
+   <dd>不包含其他 <code>base</code> 元素的 <code>head</code> 元素中。</dd>
+   <dt><span data-x="concept-element-content-model">内容模型</span>：</dt>
+   <dd><span data-x="concept-content-nothing">无</span>。</dd>
+   <dt><span data-x="concept-element-attributes">内容属性</span>：</dt>
+   <dd><span data-x="Global attributes">全局属性</span></dd>
+   <dd><code data-x="attr-base-href">href</code></dd>
+   <dd><code data-x="attr-base-target">target</code></dd>
+   <dt><span data-x="concept-element-dom">DOM 接口</span>：</dt>
+   <dd w-nodev>
+<pre class="idl">[<span>HTMLConstructor</span>]
+interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
+  [<span>CEReactions</span>] attribute USVString <span data-x="dom-base-href">href</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-base-target">target</span>;
+};</pre>
+   </dd>
+   <dd w-nohtml>使用 <code>HTMLBaseElement</code>。</dd>
+  </dl>
+
+  <p><code>base</code> 元素允许作者指定用于 <span data-x="parse a url">解析 URL</span> 的
+  <span data-x="document base URL">文档基 URL</span>，
+  以及用于 <span data-x="following hyperlinks">跟随超链接</span> 的默认
+  <span data-x="browsing context">浏览上下文</span> 的名称。
+  该元素不 <span data-x="represents">表示</span> 超出该信息的任何内容。</p>
+
+  <p>每个文档中不得包含多个 <code>base</code> 元素。</p>
+
+  <p><code>base</code> 元素有一个 <code data-x="attr-base-href">href</code> 属性，
+  或者 <code data-x="attr-base-target">target</code> 属性，或者两者都有。</p>
+
+  <p>如果指定了 <dfn><code data-x="attr-base-href">href</code></dfn> 内容属性，
+  必须包含一个 <span data-x="valid URL potentially surrounded by spaces">可能被空白包裹的合法的 URL</span>。</p>
+
+  <p>如果 <code>base</code> 元素有 <code data-x="attr-base-href">href</code> 属性，
+  则必须出现在树中的任何使用 <span data-x="URL">URL</span> 的其他元素之前，
+  <code>html</code> 元素除外（其 <code data-x="attr-html-manifest">manifest</code> 属性不受
+  <code>base</code> 元素的影响)。</p>
+
+  <div w-nodev>
+
+  <p class="note">如果有多个有 <code data-x="attr-base-href">href</code> 属性的 <code>base</code> 元素，
+  则忽略除第一个之外的。</p>
+
+  </div>
+
+  <p>如果指定了 <dfn><code data-x="attr-base-target">target</code></dfn> 属性，则必须包含一个
+  <span data-x="valid browsing context name or keyword">合法的浏览上下文名称或关键字</span>，
+  它指定了当 <code>Document</code> 中的 <span data-x="hyperlink">超链接</span> 和
+  <span data-x="form">表单</span> 产生 <span data-x="navigate">导航</span> 时默认使用哪个
+  <span data-x="browsing context">浏览上下文</span>。</p>
+
+  <p><code>base</code> 元素如果有 <code data-x="attr-base-target">target</code> 属性，
+  必须出现在树中表示 <span data-x="hyperlink">超链接</span> 的其他元素之前。</p>
+
+  <div w-nodev>
+
+  <p class="note">如果有多个有 <code data-x="attr-base-target">target</code> 属性的
+  <code>base</code> 元素，则忽略除第一个之外的。</p>
+
+  <p><span data-x="in a document tree">在文档树中</span> 第一个有
+  <code data-x="attr-base-href">href</code> 内容属性的 <code>base</code> 元素元素有一个
+  <dfn data-x="frozen base URL">冻结的 base URL</dfn>。当下列情况发生时，
+  必须 <span data-x="immediately">立即</span> <span data-x="set the frozen base URL">设置</span>
+  元素的 <span data-x="frozen base URL">冻结的 base URL</span>：</p>
+
+  <ul class="brief">
+
+   <li><code>base</code> 元素成为其 <code>Document</code> 中按照
+   <span data-x="tree order">树序</span> 的第一个有
+   <code data-x="attr-base-href">href</code> 内容属性的 <code>base</code> 元素。</li>
+
+   <li><code>base</code> 元素是 <code>Document</code> 中按照
+   <span data-x="tree order">树序</span> 的第一个有
+   <code data-x="attr-base-href">href</code> 内容属性的 <code>base</code> 元素，
+   它的 <code data-x="attr-base-href">href</code> 内容属性发生了变化。</li>
+
+  </ul>
+
+  <p>为元素 <var>element</var> <dfn data-export="" data-x="set the frozen base URL">设置冻结的 base URL</dfn> 步骤如下：</p>
+
+  <ol>
+   <li><p>令<var>document</var> 为 <var>element</var>的 <span data-x="node document">节点文档</span>。
+
+   <li><p>令<var>urlRecord</var> 为用 <var>document</var> 的 <span>fallback base URL</span>，
+   以及 <var>document</var>的 <span data-x="document's character encoding">字符编码</span>
+   <span data-x="URL parser">解析</span>
+   <var>element</var>的 <code data-x="attr-base-href">href</code> 内容属性的值的结果。
+   （因此 <code>base</code> 元素不影响它自己。）</p></li>
+   <!-- This uses the URL parser rather than parse a URL since otherwise we'd have to unnecessarily
+        complicate the latter for two callsites。 -->
+
+   <li><p>如果 <var>urlRecord</var> 是失败或者
+   在 <span data-x="resulting URL record">结果 URL 记录</span> 和 <var>document</var> 上执行
+   <span data-x="Is base allowed for Document?">Document 是否允许 base？</span> 返回了 "<code data-x="">Blocked</code>"，
+   则设置 <var>element</var> 的 <span data-x="frozen base URL">冻结的 base URL</span> 为
+   <var>document</var> 的 <span>fallback base URL</span>；否则设置为 <var>urlRecord</var>。</p></li>
+  </ol>
+
+  <p>在读取时，<dfn><code data-x="dom-base-href">href</code></dfn> IDL 属性必须返回运行以下算法的结果：
+  <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1715
+       https://github.com/whatwg/html/issues/1060#issuecomment-211221664 -->
+
+  <ol>
+   <li><p>令<var>document</var> 为 <var>element</var>的 <span data-x="node document">节点文档</span>。
+
+   <li><p>令<var>url</var> 该元素的 <code data-x="attr-base-href">href</code> 属性的值，
+   如果没有则为空字符串。</p></li>
+
+   <li><p>令<var>urlRecord</var> 为用 <var>document</var> 的 <span>fallback base URL</span>，
+   以及 <var>document</var>的 <span data-x="document's character encoding">字符编码</span>
+   <span data-x="URL parser">解析</span>
+   <var>element</var>的 <code data-x="attr-base-href">href</code> 内容属性的值的结果。
+   （因此 <code>base</code> 元素不影响它自己。）</p></li>
+   <!-- This uses the URL parser rather than parse a URL since otherwise we'd have to unnecessarily
+        complicate the latter for two callsites。 -->
+
+   <li><p>如果 <var>urlRecord</var> 是失败，则返回 <var>url</var>。</p></li>
+
+   <li><p>返回 <var>urlRecord</var> 的 <span data-x="concept-url-serializer">序列化</span>。</p></li>
+  </ol>
+
+  <p>在设置 <code data-x="dom-base-href">href</code> IDL 属性时，必须设置 <code
+  data-x="attr-base-href">href</code> 内容属性为给定的新值。</p>
+
+  <p><dfn><code data-x="dom-base-target">target</code></dfn> IDL 属性必须
+  <span data-x="reflect">反映</span> 同名的内容属性。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>在这个例子中，用一个 <code>base</code> 元素来设置 <span data-x="document base URL">文档的 base URL</span>：</p>
+
+   <pre>&lt;!DOCTYPE html>
+&lt;html lang="en">
+    &lt;head>
+        &lt;title>This is an example for the &amp;lt;base&amp;gt; element&lt;/title>
+        &lt;base href="https://www.example.com/news/index.html">
+    &lt;/head>
+    &lt;body>
+        &lt;p>Visit the &lt;a href="archives.html">archives&lt;/a>.&lt;/p>
+    &lt;/body>
+&lt;/html></pre>
+
+   <p>上面例子中的链接地址是 "<code data-x="">https://www.example.com/news/archives.html</code>"。</p>
+
+  </div>
+
+
+
+
