@@ -1,0 +1,84 @@
+  <h4 id="the-title-element"><dfn><code>title</code></dfn> 元素</h4>
+
+  <dl class="element">
+   <dt><span data-x="concept-element-categories">类别</span>：</dt>
+   <dd><span data-x="Metadata content">元数据内容</span>。</dd>
+   <dt><span data-x="concept-element-contexts">该元素可用的上下文</span>：</dt>
+   <dd>在不包含 <code>title</code> 的 <code>head</code> 元素中。</dd>
+   <dt><span data-x="concept-element-content-model">内容模型</span>：</dt>
+   <dd>非 <span data-x="inter-element whitespace">元素间空白</span> 的 <span data-x="text content">文本内容</span>。</dd>
+   <dt><span data-x="concept-element-attributes">内容属性</span>：</dt>
+   <dd><span data-x="Global attributes">全局属性</span></dd>
+   <dt><span data-x="concept-element-dom">DOM 接口</span>：</dt>
+   <dd w-nodev>
+    <pre class="idl">[<span>HTMLConstructor</span>]
+interface <dfn>HTMLTitleElement</dfn> : <span>HTMLElement</span> {
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-title-text">text</span>;
+};</pre>
+   </dd>
+   <dd w-nohtml>使用 <code>HTMLTitleElement</code>。</dd>
+  </dl>
+
+  <p><code>title</code> 元素 <span data-x="represents">表示</span> 文档的标题或名称。
+  作者应该使用标识其文档的标题，这个标题在其他上下文中也会被使用，例如在用户的历史、书签，或搜索结果中。
+  文档的标题常常与第一个标题元素不同，因为第一个标题不需要在上下文之外有意义。</p>
+
+  <p>每个文档不得有多个 <code>title</code> 元素。</p>
+
+  <p class="note">如果 <code>Document</code> 没有标题是合理的，则可能不要求有
+  <code>title</code> 元素。在 <code>head</code> 元素的内容模型中描述了何时该元素是必须的。</p>
+
+  <dl class="domintro">
+
+   <dt><var>title</var> . <code subdfn data-x="dom-title-text">text</code> [ = <var>value</var> ]</dt>
+
+   <dd>
+
+    <p>返回该元素的 <span data-x="child text content">子文本内容</span>。</p>
+
+    <p>设置时用给定的值替换该元素的子内容。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-title-text">text</code></dfn> IDL 属性必须返回
+  <code>title</code> 元素的 <span data-x="child text content">子文本内容</span>。
+  当设置时，必须与 <code>textContent</code> IDL 属性的表现一致。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>这是一些合适的标题的例子，以及同一页面中可能有的顶层标题。</p>
+
+   <pre>  &lt;title>Introduction to The Mating Rituals of Bees&lt;/title>
+    ...
+  &lt;h1>Introduction&lt;/h1>
+  &lt;p>This companion guide to the highly successful
+  &lt;cite>Introduction to Medieval Bee-Keeping&lt;/cite> book is...</pre>
+
+   <p>The next page might be a part of the same site。 Note how the title describes the subject
+   matter unambiguously，while the first heading assumes the reader knows what the context is and
+   therefore won't wonder if the dances are Salsa or Waltz:</p>
+
+   <pre>  &lt;title>Dances used during bee mating rituals&lt;/title>
+    ...
+  &lt;h1>The Dances&lt;/h1></pre>
+
+  </div>
+
+  <p><code data-x="dom-document-title">document.title</code> IDL 属性用作文档的标题。</p>
+
+  <div w-nodev>
+
+  <p>当用户代理在其用户接口中引用文档时，应该使用该文档的标题。
+  当这样使用 <code>title</code> 元素的内容时，
+  应该使用该 <code>title</code> 元素的 <span data-x="the directionality">方向</span>
+  设置用户界面中该文档标题的方向。</p>
+
+  </div>
+
+
