@@ -10,6 +10,41 @@
 
   <p class="example">例如一个 <code>ol</code> 元素表示一个有序列表。</p>
 
+  <p>元素可以被显式地或者隐式地 <dfn data-x="referenced">引用</dfn>。
+  一种显式地引用 DOM 中元素的方式是给该元素一个 <code data-x="attr-id">id</code> 属性，
+  然后创建一个 <span data-x="hyperlink">超链接</span>，
+  用那个 <code data-x="attr-id">id</code> 属性值作为该
+  <span data-x="hyperlink">超链接</span> 的 <code data-x="attr-hyperlink-href">href</code> 属性值的
+  <span data-x="navigate-fragid">片段</span>。其实引用不需要超链接的存在，任何其他引用元素的方式都是足够的。</p>
+
+  <div class="example">
+   <p>考虑下面的 <code>figure</code> 元素，给了它一个 <code data-x="attr-id">id</code> 属性：</p>
+
+   <pre>&lt;figure id="module-script-graph">
+  &lt;img src="module-script-graph.svg"
+       alt="Module A depends on module B, which depends
+            on modules C and D.">
+  &lt;figcaption>Figure 27: a simple module graph&lt;/figcaption>
+&lt;/figure></pre>
+
+   <p>可以用 <code>a</code> 元素创建基于 <span data-x="hyperlink">超链接</span> 的 <span data-x="referenced">引用</span>，像这样：</p>
+
+   <pre>As we can see in &lt;a href="#module-script-graph">figure 27&lt;/a>, ...</pre>
+
+   <p>但是也有很多其他 <span data-x="referenced">引用</span> <code>figure</code> 元素的方式，比如：</p>
+
+   <ul>
+    <li><p>"As depicted in the figure of modules A, B, C, and D..."</p></li>
+
+    <li><p>"In Figure 27..." (without a hyperlink)</p></li>
+
+    <li><p>"From the contents of the 'simple module graph' figure..."</p></li>
+
+    <li><p>"In the figure below..." (but <a href="#figure-note-about-references">this is
+    discouraged</a>)</p></li>
+   </ul>
+  </div>
+
   <p>所有 <span data-x="HTML elements">HTML 元素</span> 的接口都继承自一个基本接口，<span
   w-nodev>没有额外要求的元素必须使用这一接口</span>。这就是 <code>HTMLElement</code> 接口。</p>
 

@@ -103,12 +103,12 @@
       <span>StructuredDeserializeWithTransfer</span>(<var>serializeWithTransferResult</var>,
       <var>targetRealm</var>).</p>
 
-      <p>If this throws an exception, <span data-x="concept-event-fire">fire an event</span> named
-      <code data-x="event-messageerror">messageerror</code> at <var>targetWindow</var>, using
-      <code>MessageEvent</code>, with the <code data-x="dom-MessageEvent-origin">origin</code>
-      attribute initialized to <var>origin</var> and the <code
-      data-x="dom-MessageEvent-source">source</code> attribute initialized to <var>source</var>, and
-      then abort these steps.</p>
+      <p>If this throws an exception, catch it, <span data-x="concept-event-fire">fire an
+      event</span> named <code data-x="event-messageerror">messageerror</code> at
+      <var>targetWindow</var>, using <code>MessageEvent</code>, with the <code
+      data-x="dom-MessageEvent-origin">origin</code> attribute initialized to <var>origin</var> and
+      the <code data-x="dom-MessageEvent-source">source</code> attribute initialized to
+      <var>source</var>, and then abort these steps.</p>
      </li>
 
      <li><p>Let <var>messageClone</var> be <var>deserializeRecord</var>.[[Deserialized]].</p></li>

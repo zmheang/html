@@ -166,7 +166,7 @@
 
    <li><p>If <var>entry</var> has <span>serialized state</span>, then let <var>state</var> be
    <span>StructuredDeserialize</span>(<var>entry</var>'s <span>serialized state</span>,
-   <var>targetRealm</var>). If this throws an exception, ignore the exception and let
+   <var>targetRealm</var>). If this throws an exception, catch it, ignore the exception, and let
    <var>state</var>be null.</p></li>
 
    <li><p>Otherwise, let <var>state</var> be null.</p></li>

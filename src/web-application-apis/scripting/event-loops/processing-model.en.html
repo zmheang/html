@@ -1,4 +1,5 @@
-  <h5 id="event-loop-processing-model"><span id="processing-model-8"></span>Processing model</h5>
+  <h5 id="event-loop-processing-model" data-lt="event loop processing model" data-dfn-type="dfn"
+  data-export=""><span id="processing-model-8"></span>Processing model</h5>
   <!-- EVENT LOOP -->
 
   <p>An <span>event loop</span> must continually run through the following steps for as long as it
@@ -26,9 +27,9 @@
    <li><p><i>Microtasks</i>: <span>Perform a microtask checkpoint</span>.</p></li>
 
    <li>
-    <p><dfn>Update the rendering</dfn>: If this <span>event loop</span> is a <span>browsing
-    context</span> <span>event loop</span> (as opposed to a <a href="#workers">worker</a>
-    <span>event loop</span>), then run the following substeps.</p>
+    <p><dfn data-export="">Update the rendering</dfn>: If this <span>event loop</span> is a
+    <span>browsing context</span> <span>event loop</span> (as opposed to a <a
+    href="#workers">worker</a> <span>event loop</span>), then run the following substeps.</p>
 
     <ol>
      <li><p>Let <var>now</var> be the value that would be returned by the <code>Performance</code>

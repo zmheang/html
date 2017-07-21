@@ -392,7 +392,7 @@ interface <dfn>History</dfn> {
    </li>
 
    <li><p>Let <var>state</var> be <span>StructuredDeserialize</span>(<var>serializedData</var>,
-   <var>targetRealm</var>). If this throws an exception, ignore the exception and set
+   <var>targetRealm</var>). If this throws an exception, catch it, ignore the exception, and set
    <var>state</var> to null.</p></li>
 
    <li><p>Set <code data-x="dom-history-state">history.state</code> to <var>state</var>.</p></li>

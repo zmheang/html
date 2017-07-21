@@ -14,8 +14,10 @@
     "<code data-x="">&lt;plaintext&gt;</code>" or "<code data-x="">&lt;!--</code>"). In other cases,
     the call can clear the current page first, as if <code
     data-x="dom-document-open">document.open()</code> had been called. In yet more cases, the method
-    is simply ignored, or throws an exception. To make matters worse, the exact behavior of this
-    method can in some cases be dependent on network latency<!--
+    is simply ignored, or throws an exception. Users agents are <a
+    href="#document-written-scripts-intervention">explicitly allowed to avoid executing
+    <code>script</code> elements inserted via this method</a>. And to make matters even worse, the
+    exact behavior of this method can in some cases be dependent on network latency<!--
 
      Namely, in the following case:
 

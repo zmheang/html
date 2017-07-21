@@ -266,7 +266,8 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   </div>
 
   <p class="note">When inserted using the <code data-x="dom-document-write">document.write()</code>
-  method, <code>script</code> elements execute (typically blocking further script execution or HTML parsing), but when inserted using
+  method, <code>script</code> elements <a href="#document-written-scripts-intervention">usually</a>
+  execute (typically blocking further script execution or HTML parsing). When inserted using the
   <code data-x="dom-innerHTML">innerHTML</code> and <code data-x="dom-outerHTML">outerHTML</code>
   attributes, they do not execute at all.</p>
 

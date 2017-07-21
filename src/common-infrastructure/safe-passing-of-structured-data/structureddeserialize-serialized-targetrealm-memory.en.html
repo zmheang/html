@@ -116,8 +116,8 @@
     is <var>serialized</var>.[[ArrayBufferData]], and whose [[ArrayBufferByteLength]] internal slot
     value is <var>serialized</var>.[[ArrayBufferByteLength]].</p>
 
-    <p>If this throws an exception, then throw a <span>"<code>DataCloneError</code>"</span>
-    <code>DOMException</code>.</p>
+    <p>If this throws an exception, catch it, and then throw a
+    <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p>
 
     <p class="note">This step might throw an exception if there is not enough memory available to
     create such an ArrayBuffer object.</p>

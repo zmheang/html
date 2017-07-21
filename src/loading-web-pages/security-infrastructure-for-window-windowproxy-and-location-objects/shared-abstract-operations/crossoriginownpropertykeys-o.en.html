@@ -8,7 +8,8 @@
     <span>CrossOriginProperties</span>(<var>O</var>):</p>
 
     <ol>
-     <li><p>Add <var>e</var>.[[Property]] as the last element of <var>keys</var>.</p></li>
+     <li><p>If <var>e</var>.[[HideFromKeys]] is not true, <span data-x="list append">append</span>
+     <var>e</var>.[[Property]] to <var>keys</var>.</p></li>
     </ol>
    </li>
 

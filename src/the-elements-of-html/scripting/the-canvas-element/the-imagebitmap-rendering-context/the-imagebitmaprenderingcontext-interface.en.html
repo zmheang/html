@@ -218,12 +218,12 @@ dictionary <dfn>ImageBitmapRenderingContextSettings</dfn> {
    <li><p>Let <var>input</var> be the argument to coerce.</p></li>
 
    <li><p>Let <var>jsval</var> be the result of <span
-   data-x="concept-idl-convert">converting</span> <var>input</var> to a JavaScript value. If this
-   throws an exception, then propagate the exception and abort these steps.</p></li>
+   data-x="concept-idl-convert">converting</span> <var>input</var> to a JavaScript value. (This can
+   throw an exception.)</p></li>
 
    <li><p>Let <var>dict</var> be the result of <span data-x="concept-idl-convert">converting</span>
-   <var>jsval</var> to the dictionary type <code>ImageBitmapRenderingContextSettings</code>. If
-   this throws an exception, then propagate the exception and abort these steps.</p></li>
+   <var>jsval</var> to the dictionary type <code>ImageBitmapRenderingContextSettings</code>. (This
+   can throw an exception.)</p></li>
 
    <li><p>Return <var>dict</var>.</p></li>
 

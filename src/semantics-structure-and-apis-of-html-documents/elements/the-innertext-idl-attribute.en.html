@@ -19,98 +19,111 @@
   these steps:</p>
 
   <ol>
-   <li><p>If this element is not <span>being rendered</span>, or if the user agent is a non-CSS user
-   agent, then return the same value as the <code>textContent</code> IDL attribute on this
-   element.</p></li>
+   <li>
+    <p>If this element is not <span>being rendered</span>, or if the user agent is a non-CSS user
+    agent, then return the same value as the <code>textContent</code> IDL attribute on this
+    element.</p>
+
+    <p class="note">This step can produce surprising results, as when the <code
+    data-x="dom-innerText">innerText</code> attribute is accessed on an element not <span>being
+    rendered</span>, its text contents are returned, but when accessed on an element that is
+    <span>being rendered</span>, all of its children that are not <span>being rendered</span> have
+    their text contents ignored.</p>
+   </li>
 
    <li>
-    <p>Compute a list of items each of which is a string or a positive integer (a <i>required line
-    break count</i>), by applying the following recursive procedure to each child node
-    <var>node</var> of this element in <span>tree order</span>, and then concatenating the results
-    to a single list of items.</p>
+    <p>Let <var>results</var> be the <span>list</span> resulting in running the <span>inner text
+    collection steps</span> with this element. Each item in <var>results</var> will either be a
+    <span>JavaScript string</span> or a positive integer (a <i>required line break count</i>).</p>
 
     <p class="note">Intuitively, a <i>required line break count</i> item means that a certain number
     of line breaks appear at that point, but they can be collapsed with the line breaks induced by
     adjacent <i>required line break count</i> items, reminiscent to CSS margin-collapsing.</p>
-
-    <ol>
-     <li><p>Let <var>items</var> be the result of recursively applying this procedure to each child
-     of <var>node</var> in <span>tree order</span>, and then concatenating the results to a single
-     list of items.</p></li>
-
-     <li><p>If <var>node</var>'s <span>computed value</span> of <span>'visibility'</span> is not
-     'visible', then let the result of these substeps be <var>items</var> and abort these
-     substeps.</p></li>
-
-     <li>
-      <p>If <var>node</var> has no associated CSS box, then let the result of these substeps be
-      <var>items</var> and abort these substeps. For the purpose of this step, the following
-      elements must act as described if the <span>computed value</span> of the
-      <span>'display'</span> property is not 'none':</p>
-
-      <ul class="brief">
-       <li><code>select</code> elements have an associated non-replaced inline CSS box whose child
-       boxes include only those of <code>optgroup</code> and <code>option</code> element child
-       nodes;</li>
-
-       <li><code>optgroup</code> elements have an associated non-replaced block-level CSS box whose
-       child boxes include only those of <code>option</code> element child nodes; and</li>
-
-       <li><code>option</code> element have an associated non-replaced block-level CSS box whose
-       child boxes are as normal for non-replaced block-level CSS boxes.</li>
-      </ul>
-
-      <p class="note"><var>items</var> can be non-empty due to 'display:contents'.</p>
-     </li>
-
-     <li><p>If <var>node</var> is a <code>Text</code> node, then for each CSS text box produced by
-     <var>node</var>, in content order, compute the text of the box after application of the CSS
-     <span>'white-space'</span> processing rules and <span>'text-transform'</span> rules, let the
-     result of these substeps be a list of the resulting strings, and abort these substeps. The CSS
-     <span>'white-space'</span> processing rules are slightly modified: collapsible spaces at the
-     end of lines are always collapsed, but they are only removed if the line is the last line of
-     the block, or it ends with a <code>br</code> element. Soft hyphens should be preserved. <ref
-     spec=CSSTEXT></p></li>
-
-     <li><p>If <var>node</var> is a <code>br</code> element, then append a string containing a
-     single U+000A LINE FEED (LF) character to <var>items</var>.</p></li>
-
-     <li><p>If <var>node</var>'s <span>computed value</span> of <span>'display'</span> is
-     <span>'table-cell'</span>, and <var>node</var>'s CSS box is not the last
-     <span>'table-cell'</span> box of its enclosing <span>'table-row'</span> box, then append a
-     string containing a single U+0009 CHARACTER TABULATION (tab) character to
-     <var>items</var>.</p></li>
-
-     <li><p>If <var>node</var>'s <span>computed value</span> of <span>'display'</span> is
-     <span>'table-row'</span>, and <var>node</var>'s CSS box is not the last
-     <span>'table-row'</span> box of the nearest ancestor <span>'table'</span> box, then append a
-     string containing a single U+000A LINE FEED (LF) character to <var>items</var>.</p></li>
-
-     <li><p>If <var>node</var> is a <code>p</code> element, then add 2 (a <i>required line break
-     count</i>) at the beginning and end of <var>items</var>.</p></li>
-
-     <li>
-      <p>If <var>node</var>'s <span>used value</span> of <span>'display'</span> is
-      <span>block-level</span> or <span>'table-caption'</span>, then add 1 (a <i>required line break
-      count</i>) at the beginning and end of <var>items</var>. <ref spec=CSSDISPLAY></p>
-
-      <p class="note">Floats and absolutely-positioned elements fall into this category.</p>
-     </li>
-
-     <li><p>Let the result of these substeps be <var>items</var>.</p></li>
-    </ol>
    </li>
 
-   <li><p>Delete any string items whose strings are empty.</p></li>
+   <li><p><span data-x="list remove">Remove</span> any items from <var>results</var> that are the
+   empty string.</p></li>
 
-   <li><p>Delete any runs of consecutive <i>required line break count</i> items at the start or end
-   of the list.</p></li>
+   <li><p><span data-x="list remove">Remove</span> any runs of consecutive <i>required line break
+   count</i> items at the start or end of <var>results</var>.</p></li>
 
-   <li><p>Replace each remaining run of consecutive <i>required line break count</i> items with a
-   string consisting of as many U+000A LINE FEED (LF) characters as the maximum of the values in the
-   <i>required line break count</i> items.</p></li>
+   <li><p><span data-x="list replace">Replace</span> each remaining run of consecutive <i>required
+   line break count</i> items with a string consisting of as many U+000A LINE FEED (LF) characters
+   as the maximum of the values in the <i>required line break count</i> items.</p></li>
 
-   <li><p>Return the concatenation of the string items.</p></li>
+   <li><p>Return the concatenation of the string items in <var>results</var>.</p></li>
+  </ol>
+
+  <p>The <dfn>inner text collection steps</dfn>, given a <span>node</span> <var>node</var>, are
+  as follows:</p>
+
+  <ol>
+   <li><p>Let <var>items</var> be the result of running the <span>inner text collection steps</span>
+   with each child node of <var>node</var> in <span>tree order</span>, and then concatenating
+   the results to a single <span>list</span>.</p></li>
+
+   <li><p>If <var>node</var>'s <span>computed value</span> of <span>'visibility'</span> is not
+   'visible', then return <var>items</var>.</p></li>
+
+   <li>
+    <p>If <var>node</var> is not <span>being rendered</span>, then return <var>items</var>. For the
+    purpose of this step, the following elements must act as described if the
+    <span>computed value</span> of the <span>'display'</span> property is not 'none':</p>
+
+    <ul class="brief">
+     <li><code>select</code> elements have an associated non-replaced inline CSS box whose child
+     boxes include only those of <code>optgroup</code> and <code>option</code> element child
+     nodes;</li>
+
+     <li><code>optgroup</code> elements have an associated non-replaced block-level CSS box whose
+     child boxes include only those of <code>option</code> element child nodes; and</li>
+
+     <li><code>option</code> element have an associated non-replaced block-level CSS box whose
+     child boxes are as normal for non-replaced block-level CSS boxes.</li>
+    </ul>
+
+    <p class="note"><var>items</var> can be non-empty due to 'display:contents'.</p>
+   </li>
+
+   <li><p>If <var>node</var> is a <code>Text</code> node, then for each CSS text box produced by
+   <var>node</var>, in content order, compute the text of the box after application of the CSS
+   <span>'white-space'</span> processing rules and <span>'text-transform'</span> rules, set
+   <var>items</var> to the <span>list</span> of the resulting strings, and return <var>items</var>.
+   The CSS <span>'white-space'</span> processing rules are slightly modified: collapsible spaces at
+   the end of lines are always collapsed, but they are only removed if the line is the last line of
+   the block, or it ends with a <code>br</code> element. Soft hyphens should be preserved. <ref
+   spec=CSSTEXT></p></li>
+
+   <li><p>If <var>node</var> is a <code>br</code> element, then <span data-x="list
+   append">append</span> a string containing a single U+000A LINE FEED (LF) character to
+   <var>items</var>.</p></li>
+
+   <li><p>If <var>node</var>'s <span>computed value</span> of <span>'display'</span> is
+   <span>'table-cell'</span>, and <var>node</var>'s CSS box is not the last
+   <span>'table-cell'</span> box of its enclosing <span>'table-row'</span> box, then <span
+   data-x="list append">append</span> a string containing a single U+0009 CHARACTER TABULATION (tab)
+   character to <var>items</var>.</p></li>
+
+   <li><p>If <var>node</var>'s <span>computed value</span> of <span>'display'</span> is
+   <span>'table-row'</span>, and <var>node</var>'s CSS box is not the last <span>'table-row'</span>
+   box of the nearest ancestor <span>'table'</span> box, then <span data-x="list
+   append">append</span> a string containing a single U+000A LINE FEED (LF) character to
+   <var>items</var>.</p></li>
+
+   <li><p>If <var>node</var> is a <code>p</code> element, then <span data-x="list
+   append">append</span> 2 (a <i>required line break count</i>) at the beginning and end of
+   <var>items</var>.</p></li>
+
+   <li>
+    <p>If <var>node</var>'s <span>used value</span> of <span>'display'</span> is
+    <span>block-level</span> or <span>'table-caption'</span>, then <span data-x="list
+    append">append</span> 1 (a <i>required line break count</i>) at the beginning and end of
+    <var>items</var>. <ref spec=CSSDISPLAY></p>
+
+    <p class="note">Floats and absolutely-positioned elements fall into this category.</p>
+   </li>
+
+   <li><p>Return <var>items</var>.</p></li>
   </ol>
 
   <p class="note">Note that descendant nodes of most replaced elements (e.g., <code>textarea</code>,

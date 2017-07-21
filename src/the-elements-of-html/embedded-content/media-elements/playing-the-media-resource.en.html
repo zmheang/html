@@ -276,8 +276,15 @@
   data-x="dom-media-defaultPlaybackRate">defaultPlaybackRate</code>, then the implication is that
   the user is using a feature such as fast forward or slow motion playback. The attribute is
   mutable: on getting it must return the last value it was set to, or 1.0 if it hasn't yet been set;
-  on setting the attribute must be set to the new value, and the playback will change speed (if the
-  element is <span>potentially playing</span>).</p>
+  on setting, the user agent must follow these steps:</p>
+
+  <ol>
+   <li><p>If the given value is not supported by the user agent, then throw a
+   <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>Set <code data-x="dom-media-playbackRate">playbackRate</code> to the new value, and if the
+   element is <span>potentially playing</span>, change the playback speed.</p></li>
+  </ol>
 
   <p id="rateUpdate">When the <code data-x="dom-media-defaultPlaybackRate">defaultPlaybackRate</code>
   or <code data-x="dom-media-playbackRate">playbackRate</code> attributes change value (either by

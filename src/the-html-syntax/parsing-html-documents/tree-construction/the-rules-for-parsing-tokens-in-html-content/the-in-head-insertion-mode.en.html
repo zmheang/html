@@ -118,6 +118,14 @@
      algorithm</span>, then mark the <code>script</code> element as <span>"already started"</span>.
      (<span>fragment case</span>)</p></li>
 
+     <li id="document-written-scripts-intervention"><p>If the parser was invoked via the <code
+     data-x="dom-document-write">document.write()</code> or <code
+     data-x="dom-document-writeln">document.writeln()</code> methods, then optionally mark the
+     <code>script</code> element as <span>"already started"</span>. (For example, the user agent
+     might use this clause to prevent execution of <span data-x="origin">cross-origin</span> scripts
+     inserted via <code data-x="dom-document-write">document.write()</code> under slow network
+     conditions, or when the page has already taken a long time to load.)</p></li>
+
      <li><p>Insert the newly created element at the <var>adjusted insertion
      location</var>.</p></li>
 

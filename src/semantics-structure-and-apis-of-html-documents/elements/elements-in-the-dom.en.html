@@ -10,6 +10,45 @@
 
   <p class="example">For example, an <code>ol</code> element represents an ordered list.</p>
 
+  <p>Elements can be <dfn data-x="referenced">referenced</dfn> (referred to) in some way, either
+  explicitly or implicitly. One way that an element in the DOM can be explicitly referenced is by
+  giving an <code data-x="attr-id">id</code> attribute to the element, and then creating a
+  <span>hyperlink</span> with that <code data-x="attr-id">id</code> attribute's value as the <span
+  data-x="navigate-fragid">fragment</span> for the <span>hyperlink</span>'s <code
+  data-x="attr-hyperlink-href">href</code> attribute value. Hyperlinks are not necessary for a
+  reference, however; any manner of referring to the element in question will suffice.</p>
+
+  <div class="example">
+   <p>Consider the following <code>figure</code> element, which is given an <code
+   data-x="attr-id">id</code> attribute:</p>
+
+   <pre>&lt;figure id="module-script-graph">
+  &lt;img src="module-script-graph.svg"
+       alt="Module A depends on module B, which depends
+            on modules C and D.">
+  &lt;figcaption>Figure 27: a simple module graph&lt;/figcaption>
+&lt;/figure></pre>
+
+   <p>A <span>hyperlink</span>-based <span data-x="referenced">reference</span> could be created
+   using the <code>a</code> element, like so:</p>
+
+   <pre>As we can see in &lt;a href="#module-script-graph">figure 27&lt;/a>, ...</pre>
+
+   <p>However, there are many other ways of <span data-x="referenced">referencing</span> the
+   <code>figure</code> element, such as:</p>
+
+   <ul>
+    <li><p>"As depicted in the figure of modules A, B, C, and D..."</p></li>
+
+    <li><p>"In Figure 27..." (without a hyperlink)</p></li>
+
+    <li><p>"From the contents of the 'simple module graph' figure..."</p></li>
+
+    <li><p>"In the figure below..." (but <a href="#figure-note-about-references">this is
+    discouraged</a>)</p></li>
+   </ul>
+  </div>
+
   <p>The basic interface, from which all the <span>HTML elements</span>' interfaces inherit, <span
   w-nodev>and which must be used by elements that have no additional requirements,</span> is
   the <code>HTMLElement</code> interface.</p>
