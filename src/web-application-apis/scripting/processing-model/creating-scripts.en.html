@@ -33,7 +33,8 @@
   <ol>
 
    <li><p>Let <var>script</var> be a new <span>module script</span> that this algorithm will
-   subsequently initialize.</p></li>
+   subsequently initialize, with its <span data-x="concept-module-script-module-record">module
+   record</span> initially set to null.</p></li>
 
    <li><p>Set <var>script</var>'s <span>settings object</span> to the <span>environment
    settings object</span> provided.</p></li>
@@ -59,15 +60,40 @@
     <p>If <var>result</var> is a <span>List</span> of errors, then:</p>
 
     <ol>
-     <li><p><span data-x="error a module script">Error</span> <var>script</var> with
-     <var>errors</var>[0].</p></li>
+     <li><p><span data-x="concept-module-script-set-pre-instantiation-error">Set the
+     pre-instantiation error</span> of <var>script</var> to <var>errors</var>[0].</p></li>
 
      <li><p>Return <var>script</var>.</p></li>
     </ol>
    </li>
 
-   <li><p>Set <var>script</var>'s <span data-x="concept-module-script-state">state</span> to "<code
-   data-x="">uninstantiated</code>".</p></li>
+   <li id="validate-requested-module-specifiers">
+    <p><span data-x="list iterate">For each</span> string <var>requested</var> of
+    <var>record</var>.[[RequestedModules]]:</p>
+
+    <ol>
+     <li><p>Let <var>url</var> be the result of <span data-x="resolve a module specifier">resolving
+     a module specifier</span> given <var>module script</var> and <var>requested</var>.</p></li>
+
+     <li>
+      <p>If <var>url</var> is failure:</p>
+
+      <ol>
+       <li><p>Let <var>error</var> be a new <code>TypeError</code> exception.</p></li>
+
+       <li><p><span data-x="concept-module-script-set-pre-instantiation-error">Set the
+       pre-instantiation error</span> of <var>script</var> to <var>error</var>.</p></li>
+
+       <li><p>Return <var>script</var>.</p></li>
+      </ol>
+     </li>
+    </ol>
+
+    <p class="note">This step is essentially validating all of the requested module specifiers. We
+    treat a module with unresolvable module specifiers the same as one that cannot be parsed; in
+    both cases, a syntactic issue makes it impossible to ever contemplate instantiating the module
+    later.</p>
+   </li>
 
    <li><p>Set <var>script</var>'s <span data-x="concept-module-script-module-record">module
    record</span> to <var>result</var>.</p></li>

@@ -1220,6 +1220,9 @@
   data-x="dom-media-buffered">buffered</code> attribute at one time can end up being not included in
   the range(s) of objects returned by the same attribute at later times.</p>
 
+  <p class="warning">Returning a new object each time is a bad pattern for attribute getters and is
+  only enshrined here as it would be costly to change it. It is not to be copied to new APIs.</p>
+
   </div>
 
 

@@ -372,8 +372,8 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
    <li><p>If the given <var>cue</var> is in a <span>text track list of cues</span>, then
    remove <var>cue</var> from that <span>text track list of cues</span>.</p></li>
 
-   <li><p>Add <var>cue</var> to the method's <code>TextTrack</code> object's <span>text
-   track</span>'s <span>text track list of cues</span>.</p></li>
+   <li><p>Add <var>cue</var> to the <code>TextTrack</code> object's <span>text track</span>'s
+   <span>text track list of cues</span>.</p></li>
 
   </ol>
 
@@ -382,13 +382,13 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
 
   <ol>
 
-   <li><p>If the given <var>cue</var> is not currently listed in the method's
-   <code>TextTrack</code> object's <span>text track</span>'s <span>text track list of cues</span>,
-   then throw a <span>"<code>NotFoundError</code>"</span> <code>DOMException</code> and abort these
+   <li><p>If the given <var>cue</var> is not in the <code>TextTrack</code> object's <span>text
+   track</span>'s <span>text track list of cues</span>, then throw a
+   <span>"<code>NotFoundError</code>"</span> <code>DOMException</code> and abort these
    steps.</p></li>
 
-   <li><p>Remove <var>cue</var> from the method's <code>TextTrack</code> object's
-   <span>text track</span>'s <span>text track list of cues</span>.</p></li>
+   <li><p>Remove <var>cue</var> from the <code>TextTrack</code> object's <span>text track</span>'s
+   <span>text track list of cues</span>.</p></li>
 
   </ol>
 

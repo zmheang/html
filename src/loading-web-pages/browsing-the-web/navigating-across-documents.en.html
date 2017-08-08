@@ -294,7 +294,7 @@
      data-x="concept-request-url">url</span>'s <span data-x="concept-url-scheme">scheme</span>
      is a <span>fetch scheme</span></dt>
      <dd><p>Run <span>process a navigate fetch</span> given <var>resource</var>, the <span>source
-     browsing context</span>, and <var>browsing context</var>, and <var>type</var>.</p></dd>
+     browsing context</span>, and <var>browsing context</var>, and <var>navigationType</var>.</p></dd>
 
      <dt>Otherwise, <var>resource</var> is a <span data-x="concept-request">request</span> whose
      <span data-x="concept-request-url">url</span>'s <span data-x="concept-url-scheme">scheme</span>
@@ -309,7 +309,7 @@
   <p>To <dfn data-export="">process a navigate fetch</dfn>, given a <span
   data-x="concept-request">request</span> <var>request</var>, <span>browsing context</span>
   <var>sourceBrowsingContext</var>, <span>browsing context</span> <var>browsingContext</var>, and
-  string <var>type</var>, run these steps:</p>
+  string <var>navigationType</var>, run these steps:</p>
 
   <ol>
    <li><p>Let <var>response</var> be null.</p></li>
@@ -391,7 +391,7 @@
    <span>process a navigate fetch</span> with a new <span data-x="concept-request">request</span>
    whose <span data-x="concept-request-url">url</span> is <var>response</var>'s <span
    data-x="concept-response-location-url">location URL</span>, <var>sourceBrowsingContext</var>,
-   <var>browsingContext</var>, and <var>type</var>.
+   <var>browsingContext</var>, and <var>navigationType</var>.
 
    <li><p>Otherwise, if <var>response</var> has a <span
    data-x="concept-response-location-url">location URL</span> that is a <span>URL</span>, run the
@@ -464,7 +464,7 @@
    <var>browsingContext</var>, and <var>reservedEnvironment</var>.</p></li>
   </ol>
 
-  <p>To <dfn data-export="">process a navigate response</dfn>, given a <span
+  <p>To <dfn data-export="">process a navigate response</dfn>, given null or a <span
   data-x="concept-request">request</span> <var>request</var>, a <span
   data-x="concept-response">response</span> <var>response</var>, a string <var>navigationType</var>,
   two <span data-x="browsing context">browsing contexts</span> <var>source</var> and
@@ -626,13 +626,12 @@
      </li>
 
      <li><p>Set the <code>Document</code>'s <span data-x="concept-document-https-state">HTTPS
-     state</span> to the <span data-x="concept-response-https-state">HTTPS state</span> of the <span
-     data-x="concept-response">response</span> used to generate the document.</p></li>
+     state</span> to the <span data-x="concept-response-https-state">HTTPS state</span> of
+     <var>response</var>.</p></li>
 
      <li><p>Set the <code>Document</code>'s <span data-x="concept-document-referrer-policy">referrer
      policy</span> to the result of <span data-x="parse-referrer-policy-header">parsing the
-     `<code>Referrer-Policy</code>` header</span> of the <span
-     data-x="concept-response">response</span> used to generate the document. <ref
+     `<code>Referrer-Policy</code>` header</span> of <var>response</var>. <ref
      spec="REFERRERPOLICY"></p></li>
 
      <li><p>Execute the <span>Initialize a <code data-x="">Document</code>'s CSP list</span>
@@ -640,10 +639,9 @@
      data-x="concept-response">response</span> used to generate the document. <ref spec="CSP"></p>
 
      <li>
-      <p>If <var>resource</var> is a <span data-x="concept-request">request</span>, then set
-      <span>the document's referrer</span> to the <span
-      data-x="concept-url-serializer">serialization</span> of <var>resource</var>'s <span
-      data-x="concept-request-referrer">referrer</span>, if <var>resource</var>'s <span
+      <p>If <var>request</var> is non-null, then set <span>the document's referrer</span> to the
+      <span data-x="concept-url-serializer">serialization</span> of <var>request</var>'s <span
+      data-x="concept-request-referrer">referrer</span>, if <var>request</var>'s <span
       data-x="concept-request-referrer">referrer</span> is a <span>URL record</span>, and the empty
       string otherwise.</p>
 

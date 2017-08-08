@@ -26,7 +26,7 @@
 
    </dd>
 
-   <dt><var>input</var> . <code subdfn data-x="dom-input-files">files</code> <!-- [ = <var>files</var> ] --></dt>
+   <dt><var>input</var> . <code subdfn data-x="dom-input-files">files</code> [ = <var>files</var> ]</dt>
 
    <dd>
 
@@ -35,9 +35,9 @@
 
     <p>Returns null if the control isn't a file control.</p>
 
-<!--
-    <p>Can be set to an array of <code>File</code> or <code>Blob</code> instances.</p>-
--->
+    <p>Can be set to a <code>FileList</code> object to change the <span
+    data-x="concept-input-type-file-selected">selected files</span> of the form control. For
+    instance, as the result of a drag-and-drop operation.</p>
 
    </dd>
 
@@ -191,13 +191,26 @@
   <hr>
 
   <p>The <dfn><code data-x="dom-input-files">files</code></dfn> IDL attribute allows scripts to
-  access the element's <span data-x="concept-input-type-file-selected">selected files</span>. On
-  getting, if the IDL attribute <span data-x="concept-input-apply">applies</span>, it must return a
-  <code>FileList</code> object that represents the current <span
+  access the element's <span data-x="concept-input-type-file-selected">selected files</span>.
+
+  <p>On getting, if the IDL attribute <span data-x="concept-input-apply">applies</span>, it must
+  return a <code>FileList</code> object that represents the current <span
   data-x="concept-input-type-file-selected">selected files</span>. The same object must be returned
-  until the list of <span data-x="concept-input-type-file-selected">selected files</span> changes. If
-  the IDL attribute <span data-x="do not apply">does not apply</span>, then it must instead return
-  null. <ref spec=FILEAPI></p>
+  until the list of <span data-x="concept-input-type-file-selected">selected files</span> changes.
+  If the IDL attribute <span data-x="do not apply">does not apply</span>, then it must instead
+  return null. <ref spec=FILEAPI></p>
+
+  <p>On setting, it must run these steps:
+
+  <ol>
+   <li><p>If the IDL attribute <span data-x="do not apply">does not apply</span> or the given value
+   is null, then return.</p></li>
+   <!-- This is inconsistent with other attributes, but Chrome and Safari already shipped so doesn't
+        seem worth the churn. -->
+
+   <li><p>Replace the element's <span data-x="concept-input-type-file-selected">selected
+   files</span> with the given value.</p></li>
+  </ol>
 
   <hr>
 

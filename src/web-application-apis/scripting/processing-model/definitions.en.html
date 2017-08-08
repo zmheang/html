@@ -1,7 +1,7 @@
   <h5>Definitions</h5>
 
-  <p>A <dfn data-x="concept-script" data-export="">script</dfn> is one of two possible structures.
-  All scripts have:</p>
+  <p>A <dfn data-x="concept-script" data-export="">script</dfn> is one of two possible <span
+  data-x="struct">structs</span>. All scripts have:</p>
 
   <dl>
 
@@ -18,7 +18,7 @@
 
 
   <p>A <dfn data-export="">classic script</dfn> is a <span data-x="concept-script">script</span>
-  that has the following additional fields:</p>
+  that has the following additional <span data-x="struct item">items</span>:</p>
 
   <dl>
 
@@ -44,7 +44,7 @@
   </dl>
 
   <p>A <dfn data-export="">module script</dfn> is a <span data-x="concept-script">script</span>
-  that has the following additional fields:</p>
+  that has the following additional <span data-x="struct item">items</span>:</p>
 
   <dl>
 
@@ -54,7 +54,7 @@
    <dd>
 
     <p>A <span>Source Text Module Record</span> representing the parsed module, ready to be
-    evaluated.</p>
+    evaluated, or null if the module could not be parsed or instantiated.</p>
 
    </dd>
 
@@ -69,24 +69,19 @@
 
    </dd>
 
-   <dt>A <dfn data-x="concept-module-script-state">state</dfn></dt>
-
-   <dd>
-
-    <p>One of "<code data-x="">uninstantiated</code>", "<code data-x="">errored</code>", or "<code
-    data-x="">instantiated</code>", used to prevent reinvocation of <span
-    data-x="js-ModuleDeclarationInstantiation">ModuleDeclarationInstantiation</span> on modules that
-    failed to instantiate previously, and to ensure errors during parsing, instantiation, or
-    evaluation are remembered and propagated correctly.</p>
-
-   </dd>
-
-   <dt>An <dfn data-x="concept-module-script-error">error</dfn></dt>
+   <dt>A <dfn data-x="concept-module-script-pre-instantiation-error">pre-instantiation
+   error</dfn></dt>
 
    <dd>
 
     <p>A JavaScript value, which has meaning only if the <span
-    data-x="concept-module-script-state">state</span> is "<code data-x="">errored</code>".</p>
+    data-x="concept-module-script-module-record">module record</span> is null.</p>
+
+    <p class="note">This stores errors that will prevent the module from successfully instantiating,
+    such as parse errors or errors in its dependencies. A <span>module script</span> can also <span
+    data-x="concept-module-script-is-errored">be errored</span> due to errors recorded by the
+    JavaScript specification as part of its <span
+    data-x="concept-module-script-module-record">module record</span>.</p>
 
    </dd>
 
@@ -119,32 +114,41 @@
 
   </dl>
 
-  <p>To <dfn>error a module script</dfn> <var>script</var> with a given value <var>error</var>,
-  perform the following steps:</p>
+  <p>We say that a <span>module script</span> <dfn data-x="concept-module-script-is-errored">is
+  errored</dfn> if either its <span data-x="concept-module-script-module-record">module
+  record</span> is null, or its <span data-x="concept-module-script-module-record">module
+  record</span>'s [[Status]] field has the value "<code data-x="">errored</code>".</p>
+
+  <p>When a <span>module script</span> <span data-x="concept-module-script-is-errored">is
+  errored</span>, we say that its <dfn data-x="concept-module-script-error">error</dfn> is either
+  its <span data-x="concept-module-script-pre-instantiation-error">pre-instantiation error</span>,
+  when its <span data-x="concept-module-script-module-record">module record</span> is null, or its
+  <span data-x="concept-module-script-module-record">module record</span>'s [[ErrorCompletion]]
+  field's [[Value]] field, otherwise.</p>
+
+  <p>To <dfn data-x="concept-module-script-set-pre-instantiation-error">set the pre-instantiation
+  error</dfn> of a <span>module script</span> <var>script</var>:</p>
 
   <ol>
-   <li><p>Assert: <var>script</var>'s <span data-x="concept-module-script-state">state</span> is not
-   "<code data-x="">errored</code>".</p></li>
+   <li><p>Let <var>moduleRecord</var> be <var>script</var>'s <span
+   data-x="concept-module-script-module-record">module record</span>.</p></li>
 
-   <li>
-    <p>If <var>script</var>'s <span data-x="concept-module-script-module-record">module
-    record</span> is set, then:</p>
+   <li><p>If <var>moduleRecord</var> is not null, set <var>moduleRecord</var>.[[HostDefined]] to
+   undefined.</p></li>
 
-    <ol>
-     <li><p>Set <var>script</var> <span data-x="concept-module-script-module-record">module
-     record</span>'s [[HostDefined]] field to undefined.</p></li>
+   <li><p>Set <var>script</var>'s <span data-x="concept-module-script-module-record">module
+   record</span> to null.</p></li>
 
-     <li><p>Set <var>script</var>'s <span data-x="concept-module-script-module-record">module
-     record</span> to null.</p></li>
-    </ol>
-   </li>
-
-   <li><p>Set <var>script</var>'s <span data-x="concept-module-script-state">state</span> to
-   "<code data-x="">errored</code>".</p></li>
-
-   <li><p>Set <var>script</var>'s <span data-x="concept-module-script-error">error</span> to
+   <li><p>Set <var>script</var>'s <span
+   data-x="concept-module-script-pre-instantiation-error">pre-instantiation error</span> to
    <var>error</var>.</p></li>
   </ol>
+
+  <p>We say that a <span>module script</span> <dfn
+  data-x="concept-module-script-has-instantiated">has instantiated</dfn> if its <span
+  data-x="concept-module-script-module-record">module record</span> is not null, and its <span
+  data-x="concept-module-script-module-record">module record</span>'s [[Status]] field is either
+  "<code data-x="">instantiated</code>" or "<code data-x="">evaluated</code>".</p>
 
   <hr>
 
@@ -200,8 +204,9 @@
     <span>JavaScript realm</span>. When we <span>run a classic script</span> or <span>run a module
     script</span>, this execution context becomes the top of the <span>JavaScript execution context
     stack</span>, on top of which another execution context specific to the script in question is
-    pushed. (This setup ensures <span data-x="js-ParseScript">ParseScript</span> and <span
-    data-x="js-ModuleEvaluation">ModuleEvaluation</span> know which Realm to use.)</p>
+    pushed. (This setup ensures <span data-x="js-ParseScript">ParseScript</span> and <span>Source
+    Text Module Record</span>'s <span data-x="js-Evaluate">Evaluate</span> know which Realm to
+    use.)</p>
 
    </dd>
 

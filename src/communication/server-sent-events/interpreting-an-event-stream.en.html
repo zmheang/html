@@ -78,7 +78,8 @@
 
    <dt>If the field name is "id"</dt>
 
-   <dd><p>Set the <var>last event ID</var> buffer to the field value.</p></dd>
+   <dd><p>If the field value does not contain U+0000 NULL, then set the <var>last event ID</var>
+   buffer to the field value. Otherwise, ignore the field.</p></dd>
 
 
    <dt>If the field name is "retry"</dt>

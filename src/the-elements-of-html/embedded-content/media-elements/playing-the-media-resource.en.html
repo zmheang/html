@@ -301,6 +301,9 @@
   increase of the <span>current playback position</span> during normal playback, if any, at the time
   the attribute is evaluated.</p>
 
+  <p class="warning">Returning a new object each time is a bad pattern for attribute getters and is
+  only enshrined here as it would be costly to change it. It is not to be copied to new APIs.</p>
+
   <hr>
 
   <p>Each <span>media element</span> has a <dfn>list of pending play promises</dfn>, which must

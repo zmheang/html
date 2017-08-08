@@ -165,6 +165,9 @@
   sliding window on an infinite stream. This is the behavior seen with DVRs viewing live TV, for
   instance.</p>
 
+  <p class="warning">Returning a new object each time is a bad pattern for attribute getters and is
+  only enshrined here as it would be costly to change it. It is not to be copied to new APIs.</p>
+
   <p>User agents should adopt a very liberal and optimistic view of what is seekable. User
   agents should also buffer recent content where possible to enable seeking to be fast.</p>
 

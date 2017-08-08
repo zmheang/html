@@ -2,8 +2,8 @@
 
   <p>Although the JavaScript specification does not account for this possibility, it's sometimes
   necessary to <dfn>abort a running script</dfn>. This causes any <span
-  data-x="js-ScriptEvaluation">ScriptEvaluation</span> or <span
-  data-x="js-ModuleEvaluation">ModuleEvaluation</span> to cease immediately, emptying the
+  data-x="js-ScriptEvaluation">ScriptEvaluation</span> or <span>Source Text Module Record</span>
+  <span data-x="js-Evaluate">Evaluate</span> invocations to cease immediately, emptying the
   <span>JavaScript execution context stack</span> without triggering any of the normal mechanisms
   like <code data-x="">finally</code> blocks. <ref spec=JAVASCRIPT></p>
 
