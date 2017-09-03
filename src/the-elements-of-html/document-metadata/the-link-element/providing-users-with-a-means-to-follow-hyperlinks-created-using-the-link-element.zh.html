@@ -1,0 +1,40 @@
+  <h5>为用户提供一种跟随使用 <code>link</code> 元素创建的超链接的方式</h5>
+
+  <p id="linkui">交互式的用户代理可能会在用户界面里为用户提供一种 <span data-x="following
+  hyperlinks">跟随</span> 使用 <code>link</code> 元素创建的超链接的方式。
+  本规范没有定义具体的界面，但是它可以对文档中每个由
+  <code>link</code> 元素创建的 <span>hyperlink</span>，
+  包含某种形式的（可能会被简化）以下信息（从元素的属性获取，下文有相应定义）：</p>
+
+  <ul> <!-- the order here is the order that makes most sense for a UI -->
+
+   <li>本文档和该资源（由 <code data-x="attr-link-rel">rel</code> 属性给出）之间的关系。</li>
+
+   <li>该资源的标题（由 <code data-x="attr-link-title">title</code> 属性给出）。</li>
+
+   <li>该资源的地址（由 <code data-x="attr-link-href">href</code> 属性给出）。</li>
+
+   <li>该资源的语言（由 <code data-x="attr-link-hreflang">hreflang</code> 属性给出）。</li>
+
+   <li>该资源的最佳媒体（由 <code data-x="attr-link-media">media</code> 属性给出）。</li>
+
+  </ul>
+
+  <p>用户代理也可以包含其他信息，比如资源类型（由 <code data-x="attr-link-type">type</code> 属性给出）。</p>
+
+  <p>创建 <span data-x="hyperlink">超链接</span> 的 <code>link</code> 元素的
+  <span data-x="activation behavior">激活行为</span> 就是如下步骤：</p>
+
+  <ol><!-- c.f. <a> and <area>的 similar sections -->
+
+   <li><p>如果 <code>link</code> 元素的 <span data-x="node document">节点文档</span>
+   没有 <span data-x="fully active">完全激活</span>，则中止这些步骤。</p></li>
+
+   <li><p><span data-x="following hyperlinks">跟随</span> 由 <code>link</code> 元素创建的超链接。</p></li>
+
+  </ol>
+
+
+
+
+

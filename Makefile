@@ -11,7 +11,7 @@ update-en:
 	find src/ -type d -empty -delete
 	node ./bin/split.js
 
-build-zh:
+build:
 	node ./bin/merge.js > html/source
 	[ -d html-build ] || git clone https://github.com/whatwg/html-build.git --depth=1
 	HTML_OUTPUT=$(OUTPUT) bash html-build/build.sh -n

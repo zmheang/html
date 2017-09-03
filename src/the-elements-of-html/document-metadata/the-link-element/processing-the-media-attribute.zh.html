@@ -1,0 +1,20 @@
+  <h5>处理 <code data-x="attr-link-media">media</code> 属性</h5>
+
+  <p>如果该链接是 <span data-x="hyperlink">超链接</span> 那么
+  <code data-x="attr-link-media">media</code> 属性就是纯建议性的，
+  描述了该文档是为哪种媒体设计的。</p>
+
+  <p>但如果该链接是 <span data-x="external resource link">外部资源链接</span>，则 <code
+  data-x="attr-link-media">media</code> 属性则是指定的。
+  当 <code data-x="attr-link-media">media</code> 属性值
+  <span data-x="matches the environment">匹配当前环境</span> 以及其他相关条件时，
+  用户代理必须应用这一外部资源。其他情况不得应用该资源。</p><!-- note similar text in <style> element section -->
+
+  <p id="default-media">如果忽略 <code data-x="attr-link-media">media</code> 属性，
+  默认值是 "<code data-x="">all</code>"，表示默认情况下链接适用于所有媒体。</p>
+
+  <p class="note">外部资源可能会在此限制范围内限定其适用性。
+  例如，CSS样式表可能有一些 <code data-x="">@media</code> 块。
+  本规范不会覆盖这些进一步的限制或要求。</p><!--
+  note similar text in <style> element section -->
+

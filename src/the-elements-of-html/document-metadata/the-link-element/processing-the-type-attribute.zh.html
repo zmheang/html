@@ -1,0 +1,58 @@
+  <h5>处理 <code data-x="attr-link-type">type</code> 属性</h5>
+
+  <p>如果存在 <code data-x="attr-link-type">type</code> 属性，那么用户代理必须假定
+  该资源属于给定的类型（即使它不是 <span data-x="valid MIME type">合法的 MIME 类型</span>，
+  例如空字符串）。 如果忽略了该属性，但 <span data-x="external resource link">
+  外部资源链接</span> 类型定义有默认值，则用户代理必须假定该资源属于那种类型。
+  如果 UA 对指定的链接关系不支持给定的 <span data-x="MIME type">MIME 类型</span>，
+  那么 UA 不应 <span data-x="concept-link-obtain">获取</span> 该资源；如果 UA
+  对指定的链接关系支持给定的 <span data-x="MIME type">MIME 类型</span>，
+  那么 UA 应该按照 <span data-x="external resource link">外部资源链接</span> 的特定类型所指定的
+  适当时机 <span data-x="concept-link-obtain">获取</span> 该资源。
+  如果忽略了该属性，且 <span data-x="external resource link">外部资源链接</span>
+  类型没有定义默认值，但如果已知类型且支持的话用户代理会
+  <span data-x="concept-link-obtain">获取</span> 该资源，
+  那么用户代理就应该假设支持该资源并且 <span data-x="concept-link-obtain">获取</span> 它。</p>
+
+  <p>用户代理不得将 <code data-x="attr-link-type">type</code> 属性当做权威的
+  &mdash; 也就是说获取该资源时用户代理不得使用 <code data-x="attr-link-type">type</code>
+  属性来决定实际的类型。只能用实际的类型（定义在下一段）而不是前述的假设的类型
+  来决定是否<em>应用</em>该资源。</p>
+
+  <p id="concept-link-type-sniffing">如果 <span data-x="external resource link">外部资源链接</span> 类型定义了处理该资源的
+  <span data-x="Content-Type">Content-Type 元数据</span> 的规则，那么应用那些规则。
+  否则，如果该资源期望是一张图片，用户代理可以应用 <span data-x="Content-Type sniffing: image">图片嗅探规则</span>，
+  其中 <var>official type</var> 为从该资源的 <span data-x="Content-Type">Content-Type 元数据</span> 确定的类型，
+  然后把 <span data-x="Content-Type sniffing">计算得到的资源类型</span> 当做实际的类型使用。
+  否则，如果上述条件都不符合或者用户代理选择不应用图片嗅探规则，那么用户代理必须使用该资源的
+  <span data-x="Content-Type">Content-Type 元数据</span> 来确定资源类型。
+  如果没有类型元数据，但 <span data-x="external resource link">外部资源链接</span> 类型定义有默认值，
+  那么该用户代理必须假设该资源是那种类型。</p>
+
+  <p class="note"><code data-x="rel-stylesheet">stylesheet</code> 链接类型定义了处理资源的
+  <span data-x="Content-Type">Content-Type 元数据</span> 的规则。</p>
+
+  <p>一旦用户代理建立了该资源的类型，而且这是一个支持的类型并满足其他相关条件，就必须应用该资源。
+  否则就必须忽略该资源。</p>
+
+  <div class="example">
+
+   <p>如果一个文档包含如下标记的样式表链接：</p>
+
+   <pre>&lt;link rel="stylesheet" href="A" type="text/plain"&gt;
+&lt;link rel="stylesheet" href="B" type="text/css"&gt;
+&lt;link rel="stylesheet" href="C"&gt;</pre>
+
+   <p>那么一个只支持 CSS 样式表的满足规范的 UA 会获取 B 和 C 文件，
+   并跳过 A （因为 <code>text/plain</code> 不是 CSS 样式表的 <span>MIME type</span>）。</p>
+
+   <p>对于文件 B 和 C，它会检查服务器返回的实际类型。对于作为 <code>text/css</code> 发送的，
+   它将会应用样式，但对于标记为 <code>text/plain</code> 或其他类型则不会。</p>
+
+   <p>如果这两个文件中的一个返回时没有 <span>Content-Type</span> 元数据，
+   或者有一个语法错误的类型比如 <code data-x="">Content-Type：&nbsp;"null"</code>，
+   那么就使用 <code data-x="rel-stylesheet">stylesheet</code> 链接的默认类型。
+   因为这个默认类型是 <code data-x="">text/css</code>，所以这个样式表 <em>将会</em> 被应用。</p>
+
+  </div>
+

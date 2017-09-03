@@ -1,0 +1,85 @@
+  <h5>从 <code>link</code> 元素获取资源</h5>
+
+  <p>对 DOM 中表示的外部资源（例如样式表），必须提供 DOM 表示（除去跨域限制）
+  即使并没有应用应用这一资源。
+  <dfn data-x="concept-link-obtain">获取资源</dfn> 时用户代理必须执行以下步骤：</p>
+
+  <ol>
+
+   <li><p>如果 <code data-x="attr-link-href">href</code> 属性的值是空字符串，则中止这些步骤。</p></li>
+
+   <li><p>给定 <code data-x="attr-link-href">href</code> 属性，相对于该元素的 <span data-x="node document">节点文档</span>
+   <span data-x="parse a url">解析</span> <span>URL</span>。如果失败则中止这些步骤。否则，令 <var>url</var> 为
+   <span data-x="resulting URL record">结果 URL 记录</span>。</p></li>
+
+   <li><p>令 <var>corsAttributeState</var> 为该元素的 <code data-x="attr-link-crossorigin">crossorigin</code> 内容属性的当前状态。</p></li>
+
+   <li><p>令<var>request</var> 为给定 <var>url</var>，空字符串，以及 <var>corsAttributeState</var>
+   <span data-x="create a potential-CORS request">创建一个可能跨域的请求</span> 的结果。
+
+   <li><p>设置<var>request</var>的 <span data-x="concept-request-client">client</span> 为
+   <code>link</code> 元素的 <span data-x="node document">节点文档</span>的 <code>Window</code> 对象的
+   <span data-x="environment settings object">环境设置对象</span>。
+
+   <li><p>设置<var>request</var>的
+   <span data-x="concept-request-nonce-metadata">随机数元数据</span> 为
+   <code>link</code> 元素的 <code data-x="attr-link-nonce">nonce</code>
+   内容属性的当前值。</p></li>
+
+   <li><p>设置<var>request</var>的
+   <span data-x="concept-request-integrity-metadata">完整性元数据</span>
+   为 <code>link</code> 元素的 <code data-x="attr-link-integrity">integrity</code>
+   内容属性的当前值。</p></li>
+
+   <li><p>设置<var>request</var>的
+   <span data-x="concept-request-referrer-policy">referrer policy</span> 为
+   <code>link</code> 元素的 <code data-x="attr-link-referrerpolicy">referrerpolicy</code>
+   属性的为当前状态。</p></li>
+
+   <li>
+    <p>如果 <code data-x="attr-link-rel">rel</code> 属性包含 <code
+    data-x="rel-preload">preload</code> 关键字，则：</p>
+
+    <ol>
+     <li><p>令<var>as</var> 为 <code data-x="attr-link-as">as</code> 属性的当前状态。</p></li>
+
+     <li><p>如果 <var>as</var> 没有状态则返回。</p></li>
+
+     <li><p>设置<var>request</var>的 <span data-x="concept-request-destination">destination</span>
+     为 <span data-x="concept-potential-destination-translate">翻译</span>
+     <var>as</var> 的结果。</p></li>
+    </ol>
+   </li>
+
+   <!--FETCH--><li><p><span data-x="concept-fetch">获取</span> <var>request</var>。</p></li>
+
+  </ol>
+
+  <p>用户代理在需要这些资源时才会去下载，而不是预先获取所有未应用的外部资源。</p>
+
+  <p>当获取外部资源时必须遵循所用协议（例如 HTTP）的语义。
+  （例如跟随重定向以及 404 响应导致不应用外部资源）</p>
+
+  <!-- the next few paragraph are similar to text in the <style> element section -->
+  <p>一旦获取资源及其 <span data-x="critical subresources">关键子资源</span> 的尝试完成，
+  （如果加载成功）用户代理必须
+  <span data-x="queue a task">入队一个任务</span> 来在 <code>link</code> 元素上
+  <span data-x="concept-event-fire">触发</span> 一个名为 <code data-x="event-load">load</code>
+  的事件，或者如果资源或它的一个
+  <span data-x="critical subresources">关键子资源</span> 由于任何原因加载失败
+  （例如 DNS 错误，HTTP 404 响应，连接过早关闭，不支持的 Content-Type），
+  <span data-x="queue a task">入队一个任务</span> 来在 <code>link</code> 元素上
+  <span data-x="concept-event-fire">触发</span> 一个名为 <code data-x="event-error">error</code>
+  在处理资源或它的子资源时的非网络错误（例如 CSS 解析错误，PNG 解码错误）
+  不是本段所讨论的失败。</p>
+
+  <p>这些 <span data-x="concept-task">任务</span> 的 <span data-x="task source">任务源</span>
+  是 <span data-x="DOM manipulation task source">DOM 操作任务源</span>。</p>
+
+  <p>除非给定的 <code data-x="attr-link-rel">rel</code> 关键字另有说明，
+  在获取该资源及其 <span data-x="critical subresources">关键子资源</span> 的所有尝试完成之前，
+  必须 <span data-x="delay the load event">推迟</span> 该元素的
+  <span data-x="node document">节点文档</span> 的 load 事件。
+  （用户代理还没尝试获取的资源，比如因为该资源尚不需要加载，
+  就不要 <span data-x="delay the load event">推迟 load 事件</span>。）</p>
+
