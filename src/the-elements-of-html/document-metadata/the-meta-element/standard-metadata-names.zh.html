@@ -1,0 +1,296 @@
+  <h5 data-x="Standard metadata names">标准元数据名</h5>
+
+  <p>本规范为 <code>meta</code> 元素的 <code data-x="attr-meta-name">name</code> 属性定义了一些名字。</p>
+
+  <p>名字是大小写不敏感的<span class=impl>，必须以 <span data-x="ASCII case-insensitive">ASCII 大小写不敏感</span> 的方式进行比较</span>。</p>
+
+  <dl>
+
+   <dt><dfn><code data-x="meta-application-name">application-name</code></dfn></dt>
+
+   <dd>
+
+    <p>值必须是一个简短的格式自由的字符串，给出本页面表示的 Web 应用的名字。
+    如果该页面不是一个 Web 应用，不得使用 <code data-x="meta-application-name">application-name</code> 元数据名。
+    必须使用 <code data-x="attr-lang">lang</code> 属性来指定该 Web 应用的每个名字的语言。</p>
+
+    <p>给定一个 <span>language</span>，一个文档中不得有多个
+    <code data-x="attr-meta-name">name</code> 属性设为 <code data-x="meta-application-name">application-name</code>
+    的 <code>meta</code> 元素。</p>
+
+    <div w-nodev>
+
+    <p>用户代理可能会在 UI 中使用应用名来取代 <code>title</code>，因为标题可能包含某一特定时刻页面的状态信息。</p>
+
+    <p>为了从给定语言的应用名有序列表（比如 British English, American English, 和 English）中选取要用的应用名，
+    用户代理必须执行以下步骤：</p>
+
+    <ol>
+
+     <li><p>令 <var>languages</var> 为语言列表。</p></li>
+
+     <li><p>令 <var>default language</var> 为 <code>Document</code> 的 <span data-x="document element">文档元素</span>
+     的 <span data-x="language">语言</span>，如果有并且那个语言不是未知的话。</p>
+
+     <li><p>如果有一个 <var>default language</var>, 并且如果它与 <var>languages</var> 中的语言都不同, 把它追加到 <var>languages</var> 上。</p></li>
+
+     <li>
+
+      <p>令 <var>winning language</var> 为 <var>languages</var> 中的第一个满足这个条件的语言：
+      在 <code>Document</code> 中存在一个
+      <code data-x="attr-meta-name">name</code> 属性设为 <code data-x="meta-application-name">application-name</code>
+      且 <span>language</span> 是那个语言的 <code>meta</code> 元素。</p>
+
+      <p>如果所有语言都没有对应的 <code>meta</code> 元素，那么中止这些步骤；没有给定的应用名。</p>
+
+     </li>
+
+     <li>
+
+      <p>返回 <code data-x="attr-meta-content">content</code> 属性的值。
+      <code>Document</code> 中 <span data-x="tree order">按照树序</span>  的第一个
+      <code data-x="attr-meta-name">name</code> 属性为 <code data-x="meta-application-name">application-name</code>
+      且 <span>language</span> 是 <var>winning language</var> 的 <code>meta</code> 元素。</p>
+
+     </li>
+
+    </ol>
+
+    <p class="note">浏览器需要页面名字时可能会使用本算法，比如设置书签的标签时。
+    提供给本算法的语言列表可能来自用户的偏好设置。</p>
+
+    </div>
+
+   </dd>
+
+   <dt><dfn><code data-x="meta-author">author</code></dfn></dt>
+
+   <dd><p>值必须是格式自由的字符串，给出了本页面的作者的名字。</p></dd>
+
+   <dt><dfn><code data-x="meta-description">description</code></dfn></dt>
+
+   <dd><p>值必须是描述本页面的格式自由的字符串，必须适合用于页面字典，例如搜索引擎。
+   每个文档中不得有多个 <code>meta</code> 元素的 <code data-x="attr-meta-name">name</code>
+   属性设为 <code data-x="meta-description">description</code>。</p></dd>
+
+   <dt><dfn><code data-x="meta-generator">generator</code></dfn></dt>
+
+   <dd>
+
+    <p>值必须是一个表示用于产生该文档的软件包的格式自由的字符串。
+    这个值不得用于不是由软件产生的页面上，例如用户在文本编辑器上编写的页面。</p>
+
+    <div class="example">
+
+     <p>这是一个名为 "Frontweaver" 的工具在页面 <code>head</code> 元素中的输出，来标识该页面是由它这个工具生成的：</p>
+
+     <pre>&lt;meta name=generator content="Frontweaver 8.2"></pre>
+
+    </div>
+
+   </dd>
+
+   <dt><dfn><code data-x="meta-keywords">keywords</code></dfn></dt>
+
+   <dd>
+
+    <p>值必须是一个 <span data-x="set of comma-separated tokens">逗号分隔的令牌集合</span>, 其中每一项都是页面的关键字。</p>
+
+    <div class="example">
+
+     <p>关于英国高速公路的字体的页面使用 <code>meta</code> 元素来指定一些关键字（用户可能用这些关键字来查找该页面）：</p>
+
+     <pre>&lt;!DOCTYPE HTML>
+&lt;html lang="en-GB">
+ &lt;head>
+  &lt;title>Typefaces on UK motorways&lt;/title>
+  &lt;meta name="keywords" content="british,type face,font,fonts,highway,highways">
+ &lt;/head>
+ &lt;body>
+  ...</pre>
+
+    </div>
+
+    <p class="note">很多搜索引擎不会考虑这些关键字，因为该特性是不可靠的甚至会导致垃圾结果，对用户并没有帮助。</p>
+
+    <div w-nodev>
+
+    <p>为了获得作者指定的关键字列表，用户代理必须执行以下步骤：</p>
+
+    <ol>
+
+     <li><p>令 <var>keywords</var> 为一个空列表。</p></li>
+
+     <li>
+
+      <p>对每一个 <code data-x="attr-meta-name">name</code> 属性的值是 <code data-x="meta-keywords">keywords</code>，
+      且有一个 <code data-x="attr-meta-content">content</code> 属性的 <code>meta</code> 元素：</p>
+
+      <ol>
+
+       <li><p>用逗号 <span data-x="split a string on commas">分割该元素的 <code
+       data-x="attr-meta-content">content</code> 属性的值</span>。</p></li>
+
+       <li><p>把得到的结果添加到 <var>keywords</var>，如果有的话。</p></li>
+
+      </ol>
+
+     </li>
+
+     <li><p>从 <var>keywords</var> 移除所有重复。</p></li>
+
+     <li><p>返回 <var>keywords</var>。这就是作者指定的页面关键字列表。</p></li>
+
+    </ol>
+
+    <p>对值的可靠性没有足够的信心时，用户代理不应使用这一信息。</p>
+
+    <p class="example">例如，内容管理系统可能会使用页面关键字来填充站内搜索引擎的索引，
+    但使用这一信息进行大规模的内容聚合时可能会发现某些用户会尝试利用不合适的关键字来对排序机制作弊。</p>
+
+    </div>
+
+   </dd>
+
+   <dt><dfn><code data-x="meta-referrer">referrer</code></dfn></dt>
+
+   <dd>
+    <p>值必须是 <span data-x="referrer policy">引荐策略</span>, 它为 <code>Document</code> 定义了默认的
+    <span data-x="referrer policy">引荐策略</span>。 <ref spec="REFERRERPOLICY"></p>
+
+    <div w-nodev>
+
+    <p>如果有 <code>meta</code> 元素 <span data-x="node is inserted into a
+    document">插入文档</span> 或 <span data-x="node is removed from a
+    document">从文档中移除</span>，或者现有的 <code>meta</code> 元素的
+    <code data-x="attr-meta-name">name</code> 或 <code data-x="attr-meta-content">content</code> 属性变化，
+    用户代理必须执行以下算法：</p>
+
+    <ol>
+     <li>
+      <p>令 <var>candidate elements</var> 为所有符合以下条件的 <code>meta</code> 元素的列表，按照
+      <span data-x="tree order">树序</span> 排列：</p>
+
+      <ul class="brief">
+       <li>该元素 <span data-x="in a document tree">在文档树中</span></li>
+       <li>该元素有 <code data-x="attr-meta-name">name</code> 属性，其值为 <code data-x="meta-referrer">referrer</code></li>
+       <li>该元素有 <code data-x="attr-meta-content">content</code> 属性，其值不是空字符串</li>
+       <li>该元素是该文档的 <span data-x="the head element"><code>head</code> 元素</span> 的子元素</li>
+      </ul>
+     </li>
+
+     <li>
+      <p>对 <var>candidate elements</var> 中的每一个 <var>element</var>：</p>
+
+      <ol>
+       <li><p>令 <var>value</var> 为 <var>element</var> 的 <code data-x="attr-meta-content">content</code> 属性
+       <span data-x="converted to ASCII lowercase">转化为 ASCII 小写</span> 后的值。</p></li>
+
+       <li>
+        <p>如果 <var>value</var> 的值属于下表中第一列，则设置 <var>value</var> 为第二列的值：</p>
+
+        <table>
+         <thead>
+          <tr>
+           <th>遗留的值
+           <th>引荐策略
+         <tbody>
+          <tr>
+           <td><code data-x="">never</code>
+           <td><code data-x="referrer-policy-no-referrer">no-referrer</code>
+          <tr>
+           <td><code data-x="">default</code>
+           <td><code data-x="referrer-policy-no-referrer-when-downgrade">no-referrer-when-downgrade</code>
+          <tr>
+           <td><code data-x="">always</code>
+           <td><code data-x="referrer-policy-unsafe-url">unsafe-url</code>
+          <tr>
+           <td><code data-x="">origin-when-crossorigin</code>
+           <td><code data-x="referrer-policy-origin-when-cross-origin">origin-when-cross-origin</code>
+        </table>
+       </li>
+
+       <li><p>如果 <var>value</var> 是一个 <span data-x="referrer policy">引荐策略</span>, 则设置 <var>element</var> 的
+       <span data-x="node document">节点文档</span> 的 <span data-x="concept-document-referrer-policy">引荐策略</span>
+       为 <var>policy</var>。</p></li>
+      </ol>
+
+      <p class="note">对每个元素应用这些步骤使得 <a href="https://w3c.github.io/webappsec-referrer-policy/#unknown-policy-values">
+      旧的用户代理仍然可以使用这些值</a>。 <ref spec="REFERRERPOLICY"></p>
+     </li>
+    </ol>
+
+    </div>
+   </dd>
+
+   <dt><dfn><code data-x="meta-theme-color">theme-color</code></dfn></dt>
+
+   <dd>
+
+    <p>值必须是匹配 CSS <span>&lt;color></span> 生成式的字符串, 为用户代理定义了一个建议的颜色，
+    用来自定义该页面或周边 UI 的显示。例如，浏览器可能会用指定的颜色渲染页面的标题栏，
+    或者把它作为任标签栏或务栏的高亮颜色。</p>
+
+    <p>每个文档至少要有一个 <code>meta</code> 元素的 <code data-x="attr-meta-name">name</code> 属性设为
+    <code data-x="meta-theme-color">theme-color</code>。</p>
+
+    <div class="example">
+
+     <p>This standard itself uses "WHATWG green" as its theme color:</p>
+
+     <pre>&lt;!DOCTYPE HTML>
+&lt;title>HTML Standard&lt;/title>
+&lt;meta name="theme-color" content="#3c790a">
+...</pre>
+
+    </div>
+
+    <div w-nodev>
+
+     <p>用户代理必须执行以下步骤来获取页面的主题颜色：</p>
+
+     <ol>
+      <li>
+       <p>令 <var>candidate elements</var> 为所有符合以下条件的 <code>meta</code> 元素，
+       按照 <span data-x="tree order">树序</span> 排列：</p>
+
+       <ul class="brief">
+        <li>该元素 <span data-x="in a document tree">在文档树中</span></li>
+        <li>该元素有一个 <code data-x="attr-meta-name">name</code> 属性，其值为 <code data-x="meta-theme-color">theme-color</code></li>
+        <li>该元素有一个  <code data-x="attr-meta-content">content</code> 属性</li>
+       </ul>
+      </li>
+
+      <li>
+       <p>对 <var>candidate elements</var> 中每一个 <var>element</var>：</p>
+
+       <ol>
+        <li><p>令 <var>value</var> 为把
+        <var>element</var> 的 <code data-x="attr-meta-content">content</code> 属性的值
+        <span data-x="strip leading and trailing ASCII whitespace">移除前后 ASCII 空白</span>
+        后的结果。</p></li>
+
+        <li><p>如果 <var>value</var> 可以解析为 <span data-x="parsed as a CSS &lt;color&gt; value">CSS 颜色值</span>, 返回解析后的值。</p></li>
+       </ol>
+      </li>
+
+      <li><p>如果到达了这一步，该页面没有主题颜色。</p></li>
+     </ol>
+
+     <p>如果有任何 <code>meta</code> 元素 <span data-x="node is inserted into a
+     document">插入到文档中</span> 或者 <span data-x="node is removed from a
+     document">从文档中移除</span>, 或者现有 <code>meta</code> 元素的
+     <code data-x="attr-meta-name">name</code> 或 <code data-x="attr-meta-content">content</code>
+     属性发生了改变，用户代理必须重新执行以上算法，并应用所有影响 UI 的结果。</p>
+
+    </div>
+
+    <p>在 UI 中使用主题颜色时，用户代理可能会调整具体的实现细节。例如，如果用户代理要用主题色作背景在上面显示白色的文字，
+    则可能会在 UI 的这一部分使用主题颜色的较暗变体，以确保充分的对比度。</p>
+
+   </dd>
+
+  </dl>
+
+
+

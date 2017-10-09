@@ -1,0 +1,81 @@
+  <h4 data-dfn-type="element" data-lt="meta" id="the-meta-element"><dfn id="meta"><code>meta</code></dfn> 元素</h4>
+
+  <dl class="element">
+   <dt><span data-x="concept-element-categories">类别</span>：</dt>
+   <dd><span data-x="Metadata content">元数据内容</span>。</dd>
+   <dd>如果有 <code data-x="attr-itemprop">itemprop</code> 属性： <span data-x="flow content">流式内容</span>。</dd>
+   <dd>如果有 <code data-x="attr-itemprop">itemprop</code> 属性： <span data-x="phrasing content">短语内容</span>。</dd>
+   <dt><span data-x="concept-element-contexts">该元素可用的上下文</span>：</dt>
+   <dd>如果有 <code data-x="attr-meta-charset">charset</code> 属性，或者元素的 <code data-x="attr-meta-http-equiv">http-equiv</code> 属性处于 <span data-x="attr-meta-http-equiv-content-type">编码声明状态</span>：在 <code>head</code> 元素中。</dd>
+   <dd>如果有 <code data-x="attr-meta-http-equiv">http-equiv</code> 属性但不在 <span data-x="attr-meta-http-equiv-content-type">编码声明状态</span>：在 <code>head</code> 元素中。</dd>
+   <dd>如果有 <code data-x="attr-meta-http-equiv">http-equiv</code> 属性但不在 <span data-x="attr-meta-http-equiv-content-type">编码声明状态</span>：在 <code>head</code> 元素的 <code>noscript</code> 子元素中。</dd>
+   <dd>如果有 <code data-x="attr-meta-name">name</code> 属性：期望 <span data-x="metadata content">元数据内容</span> 的地方。</dd>
+   <dd>如果有 <code data-x="attr-itemprop">itemprop</code> 属性： 期望<span data-x="metadata content">元数据内容</span> 的地方。</dd>
+   <dd>如果有 <code data-x="attr-itemprop">itemprop</code> 属性： 期望<span data-x="phrasing content">短语内容</span> 的地方。</dd>
+   <dt><span data-x="concept-element-content-model">内容模型</span>：</dt>
+   <dd><span data-x="concept-content-nothing">无</span>。</dd>
+   <dt><span data-x="concept-element-attributes">内容属性</span>：</dt>
+   <dd><span data-x="Global attributes">全局属性</span></dd>
+   <dd><code data-x="attr-meta-name">name</code></dd>
+   <dd><code data-x="attr-meta-http-equiv">http-equiv</code></dd>
+   <dd><code data-x="attr-meta-content">content</code></dd>
+   <dd><code data-x="attr-meta-charset">charset</code></dd>
+   <dt><span data-x="concept-element-dom">DOM 接口</span>：</dt>
+   <dd w-nodev>
+<pre class="idl">[<span>HTMLConstructor</span>]
+interface <dfn>HTMLMetaElement</dfn> : <span>HTMLElement</span> {
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-meta-name">name</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-meta-httpEquiv">httpEquiv</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-meta-content">content</span>;
+};</pre>
+   </dd>
+   <dd w-nohtml>使用 <code>HTMLMetaElement</code>。</dd>
+  </dl>
+
+  <p><code>meta</code> 元素 <span data-x="represents">表示</span> 很多不能用
+  <code>title</code>，<code>base</code>，<code>link</code>，<code>style</code>，
+  和 <code>script</code> 元素表达的元数据。</p>
+
+  <p><code>meta</code> 元素可以通过 <code data-x="attr-meta-name">name</code> 属性表示文档级别的元数据，
+  通过 <code data-x="attr-meta-http-equiv">http-equiv</code> 属性表示编译指示，
+  通过 <code data-x="attr-meta-charset">charset</code> 属性表示 HTML 文档序列化为字符串时（例如用于网络传输或者磁盘存储时）
+  文件的 <span data-x="character encoding declaration">字符编码声明</span>。</p>
+
+  <p>必须指定这些属性中的一个：<code data-x="attr-meta-name">name</code>，<code
+  data-x="attr-meta-http-equiv">http-equiv</code>，<code data-x="attr-meta-charset">charset</code>，
+  和 <code data-x="attr-itemprop">itemprop</code>。</p>
+
+  <p>如果指定了 <code data-x="attr-meta-name">name</code>，<code data-x="attr-meta-http-equiv">http-equiv</code>，
+  或 <code data-x="attr-itemprop">itemprop</code>，那么必须也指定 <code data-x="attr-meta-content">content</code> 属性。
+  否则必须忽略它。</p>
+
+  <p><dfn><code data-x="attr-meta-charset">charset</code></dfn> 属性指定了文档使用的字符编码。
+  这是一个 <span data-x="character encoding declaration">字符编码声明</span>。如果在
+  <span data-x="XML documents">XML 文档</span> 上指定了该属性，其值必须
+  <span data-x="ASCII case-insensitive">ASCII 大小写不敏感地</span> 匹配 "<code data-x="">utf-8</code>"
+  （且该文档必须使用 <span>UTF-8</span> 作为它的编码）。</p>
+
+  <p class="note"><code>meta</code> 元素上 <code data-x="attr-meta-charset">charset</code> 属性
+  对 XML 文档不起作用，允许它只是为了方便与 XML 之间进行迁移。</p>
+
+  <p>每个文档必须存在不少于一个有 <code data-x="attr-meta-charset">charset</code> 属性的 <code>meta</code> 元素。</p>
+
+  <p><dfn data-export="" data-dfn-for="meta" data-dfn-type="element-attr"><code
+  data-x="attr-meta-content">content</code></dfn> 属性给出了文档元数据或编译指令的值。
+  允许的值取决于确切的上下文，见本规范的后续章节的描述。</p>
+
+  <p>如果 <code>meta</code> 元素有一个 <dfn><code data-x="attr-meta-name">name</code></dfn> 属性，
+  它设置了文档元数据。文档元数据以 name-value 对表达，<code>meta</code> 元素的
+  <code data-x="attr-meta-name">name</code> 属性给出了名字，同一元素的 <code data-x="attr-meta-content">content</code> 属性
+  给出了值。名字指定了要设置哪方面的元数据；合法的名字连同它的值的含义在后续章节描述。
+  如果 <code>meta</code> 元素没有 <code data-x="attr-meta-content">content</code> 属性，那么 name-value 对的值的部分是空字符串。</p>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-meta-name">name</code></dfn> 和 <dfn><code data-x="dom-meta-content">content</code></dfn> IDL 属性必须 <span data-x="reflect">反映</span>
+  相应的同名内容属性。IDL 属性 <dfn><code data-x="dom-meta-httpEquiv">httpEquiv</code></dfn> 必须 <span data-x="reflect">反映</span>
+  <code data-x="attr-meta-http-equiv">http-equiv</code> 内容属性。</p>
+
+  </div>
+
+
