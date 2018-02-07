@@ -7,6 +7,11 @@
    <dt>U+003E GREATER-THAN SIGN (&gt;)</dt>
    <dd>Switch to the <span>data state</span>. Emit the DOCTYPE token.</dd>
 
+   <dt>U+0000 NULL</dt>
+   <dd>This is an <span
+   data-x="parse-error-unexpected-null-character">unexpected-null-character</span> <span>parse
+   error</span>. Ignore the character.</dd>
+
    <dt>EOF</dt>
    <dd>Emit the DOCTYPE token. Emit an end-of-file token.</dd>
 

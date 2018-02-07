@@ -5,6 +5,8 @@
 
   <pre class="idl">enum <dfn>CanPlayTypeResult</dfn> { "" /* <span data-x="dom-CanPlayTypeResult-nil">empty string</span> */, "<span data-x="dom-CanPlayTypeResult-maybe">maybe</span>", "<span data-x="dom-CanPlayTypeResult-probably">probably</span>" };
 typedef (<span>MediaStream</span> or <span>MediaSource</span> or <span>Blob</span>) <dfn>MediaProvider</dfn>;
+
+[Exposed=Window]
 interface <dfn>HTMLMediaElement</dfn> : <span>HTMLElement</span> {
 
   // error state

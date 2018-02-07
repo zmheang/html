@@ -1,8 +1,9 @@
   <h4>Elements</h4>
 
-  <p>There are five different kinds of <dfn data-x="syntax-elements">elements</dfn>: <span>void
-  elements</span>, <span>raw text elements</span>, <span>escapable raw text elements</span>,
-  <span>foreign elements</span>, and <span>normal elements</span>.</p>
+  <p>There are six different kinds of <dfn data-x="syntax-elements">elements</dfn>: <span>void
+  elements</span>, <span>the <code data-x="">template</code> element</span>, <span>raw text
+  elements</span>, <span>escapable raw text elements</span>, <span>foreign elements</span>, and
+  <span>normal elements</span>.</p>
 
   <dl>
 
@@ -14,6 +15,9 @@
    <!-- see also other places that say VOIDLIST -->
    <!-- non-conforming elements treated as void by the parser are not listed here: basefont,
    bgsound, frame, keygen -->
+
+   <dt><dfn>The <code data-x="">template</code> element</dfn></dt>
+   <dd><code>template</code></dd>
 
    <dt><dfn>Raw text elements</dfn></dt>
 
@@ -57,6 +61,19 @@
 
   <p><span>Void elements</span> can't have any contents (since there's no end tag, no content can be
   put between the start tag and the end tag).</p>
+
+  <p id="template-syntax"><span>The <code data-x="">template</code> element</span> can have
+  <span>template contents</span>, but such <span>template contents</span> are not children of the
+  <code>template</code> element itself. Instead, they are stored in a <code>DocumentFragment</code>
+  associated with a different <code>Document</code> — without a <span>browsing context</span> — so
+  as to avoid the <code>template</code> contents interfering with the main <code>Document</code>.
+  The markup for the <span>template contents</span> of a <code>template</code> element is placed
+  just after the <code>template</code> element's start tag and just before <code>template</code>
+  element's end tag (as with other elements), and may consist of any <span
+  data-x="syntax-text">text</span>, <span data-x="syntax-charref">character references</span>, <span
+  data-x="syntax-elements">elements</span>, and <span data-x="syntax-comments">comments</span>, but
+  but the text must not contain the character U+003C LESS-THAN SIGN (&lt;) or an <span
+  data-x="syntax-ambiguous-ampersand">ambiguous ampersand</span>.</p>
 
   <p><span>Raw text elements</span> can have <span data-x="syntax-text">text</span>, though it has <a
   href="#cdata-rcdata-restrictions">restrictions</a> described below.</p>

@@ -41,12 +41,12 @@
   agent must run these steps:</p>
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
-   <li><p><span>Check the usability of the <var>image</var> argument</span>. If this
-   returns <i>aborted</i>, then an exception has been thrown and the method doesn't return anything;
-   abort these steps. If it returns <i>bad</i>, then abort these steps without drawing anything.
-   Otherwise it returns <i>good</i>; continue with these steps.</p></li>
+   <li><p>Let <var>usability</var> be the result of <span data-x="check the usability of the image
+   argument">checking the usability of <var>image</var></span>.</p></li>
+
+   <li><p>If <var>usability</var> is <i>bad</i>, then return (without drawing anything).</p></li>
 
    <li>
 
@@ -81,8 +81,8 @@
 
    </li>
 
-   <li><p>If one of the <var>sw</var> or <var>sh</var> arguments is zero, then abort
-   these steps. Nothing is painted.</p></li>
+   <li><p>If one of the <var>sw</var> or <var>sh</var> arguments is zero, then return. Nothing is
+   painted.</p></li>
 
    <li>
 
@@ -129,8 +129,8 @@
     <p class="note">Thus, scaling an image in parts or in whole will have the same effect. This does
     mean that when sprites coming from a single sprite sheet are to be scaled, adjacent images in
     the sprite sheet can interfere. This can be avoided by ensuring each sprite in the sheet is
-    surrounded by a border of transparent black, or by copying sprites to be scaled into temporary
-    <code>canvas</code> elements and drawing the scaled sprites from there.</p>
+    surrounded by a border of <span>transparent black</span>, or by copying sprites to be scaled
+    into temporary <code>canvas</code> elements and drawing the scaled sprites from there.</p>
 
     <p>Images are painted without affecting the current path, and are subject to <span
     data-x="shadows">shadow effects</span>, <span data-x="dom-context-2d-globalAlpha">global
@@ -139,12 +139,9 @@
 
    </li>
 
-<!--ADD-TOPIC:Security-->
-   <li><p>If <span>the <var>image argument</var> is not origin-clean</span>, then set the
+   <li><p>If <var>image</var> <span>is not origin-clean</span>, then set the
    <code>CanvasRenderingContext2D</code>'s <span
    data-x="concept-canvas-origin-clean">origin-clean</span> flag to false.</p></li>
-<!--REMOVE-TOPIC:Security-->
-
   </ol>
 
   </div>

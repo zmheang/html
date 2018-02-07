@@ -50,7 +50,7 @@
       the value <code data-x="meta-application-name">application-name</code> and whose
       <span>language</span> is the language in question.</p>
 
-      <p>If none of the languages have such a <code>meta</code> element, then abort these steps;
+      <p>If none of the languages have such a <code>meta</code> element, then return;
       there's no given application name.</p>
 
      </li>
@@ -305,12 +305,14 @@
         whitespace">stripping leading and trailing ASCII whitespace</span> from the value of
         <var>element</var>'s <code data-x="attr-meta-content">content</code> attribute.</p></li>
 
-        <li><p>If <var>value</var> can be <span>parsed as a CSS &lt;color&gt; value</span>, return
-        the parsed color.</p></li>
+        <li><p>Let <var>color</var> be the result of <span data-x="parse a CSS &lt;color>
+        value">parsing</span> <var>value</var>.</p></li>
+
+        <li><p>If <var>color</var> is not failure, then return <var>color</var>.</p></li>
        </ol>
       </li>
 
-      <li><p>If this step is reached, the page has no theme color.</p></li>
+      <li><p>Return nothing (the page has no theme color).</p></li>
      </ol>
 
      <p>If any <code>meta</code> elements are <span data-x="node is inserted into a

@@ -15,7 +15,8 @@
    <dd><code data-x="attr-time-datetime">datetime</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+<pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-time-dateTime">dateTime</span>;
 };</pre>
@@ -221,45 +222,45 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
 
    <li><p>If <span data-x="parse a month string">parsing a month string</span> from the element's
    <span>datetime value</span> returns a <span data-x="concept-month">month</span>, that is the
-   machine-readable equivalent; abort these steps.</p></li>
+   machine-readable equivalent; return.</p></li>
 
    <li><p>If <span data-x="parse a date string">parsing a date string</span> from the element's
    <span>datetime value</span> returns a <span data-x="concept-date">date</span>, that is the
-   machine-readable equivalent; abort these steps.</p></li>
+   machine-readable equivalent; return.</p></li>
 
    <li><p>If <span data-x="parse a yearless date string">parsing a yearless date string</span> from
    the element's <span>datetime value</span> returns a <span data-x="concept-yearless-date">yearless
-   date</span>, that is the machine-readable equivalent; abort these steps.</p></li>
+   date</span>, that is the machine-readable equivalent; return.</p></li>
 
    <li><p>If <span data-x="parse a time string">parsing a time string</span> from the element's
    <span>datetime value</span> returns a <span data-x="concept-time">time</span>, that is the
-   machine-readable equivalent; abort these steps.</p></li>
+   machine-readable equivalent; return.</p></li>
 
    <li><p>If <span data-x="parse a local date and time string">parsing a local date and time
    string</span> from the element's <span>datetime value</span> returns a <span
    data-x="concept-datetime-local">local date and time</span>, that is the machine-readable
-   equivalent; abort these steps.</p></li>
+   equivalent; return.</p></li>
 
    <li><p>If <span data-x="parse a time-zone offset string">parsing a time-zone offset string</span>
    from the element's <span>datetime value</span> returns a <span data-x="concept-timezone">time-zone
-   offset</span>, that is the machine-readable equivalent; abort these steps.</p></li>
+   offset</span>, that is the machine-readable equivalent; return.</p></li>
 
    <li><p>If <span data-x="parse a global date and time string">parsing a global date and time
    string</span> from the element's <span>datetime value</span> returns a <span
    data-x="concept-datetime">global date and time</span>, that is the machine-readable equivalent;
-   abort these steps.</p></li>
+   return.</p></li>
 
    <li><p>If <span data-x="parse a week string">parsing a week string</span> from the element's
    <span>datetime value</span> returns a <span data-x="concept-week">week</span>, that is the
-   machine-readable equivalent; abort these steps.</p></li>
+   machine-readable equivalent; return.</p></li>
 
    <li><p>If the element's <span>datetime value</span> consists of only <span>ASCII digits</span>,
    at least one of which is not U+0030 DIGIT ZERO (0), then the machine-readable equivalent is the
-   base-ten interpretation of those digits, representing a year; abort these steps.</p></li>
+   base-ten interpretation of those digits, representing a year; return.</p></li>
 
    <li><p>If <span data-x="parse a duration string">parsing a duration string</span> from the
    element's <span>datetime value</span> returns a <span data-x="concept-duration">duration</span>,
-   that is the machine-readable equivalent; abort these steps.</p></li>
+   that is the machine-readable equivalent; return.</p></li>
 
    <li><p>There is no machine-readable equivalent.</p></li>
 

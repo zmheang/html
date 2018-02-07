@@ -16,7 +16,8 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute <span>HTMLTableCaptionElement</span>? <span data-x="dom-table-caption">caption</span>;
   <span>HTMLTableCaptionElement</span> <span data-x="dom-table-createCaption">createCaption</span>();
@@ -78,7 +79,7 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p class="note">Authors <span w-nodev>and implementors</span> are encouraged to consider
+  <p class="note">Authors <span w-nodev>and implementers</span> are encouraged to consider
   using some of the <a href="#table-layout-techniques">table design techniques</a> described below
   to make tables easier to navigate for users.</p>
 

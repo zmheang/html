@@ -53,7 +53,7 @@
    <li><p>Set the <span>media element</span>'s <span>show poster flag</span> to false.</p></li>
 
    <li><p>If the <span>media element</span>'s <code data-x="dom-media-readyState">readyState</code>
-   is <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>, abort these steps.</p></li>
+   is <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>, return.</p></li>
 
    <li><p>If the element's <code data-x="dom-media-seeking">seeking</code> IDL attribute is true,
    then another instance of this algorithm is already running. Abort that other instance of the
@@ -80,7 +80,7 @@
    data-x="dom-media-seekable">seekable</code> attribute) then use the position that is closest to
    the <span>current playback position</span>. If there are no ranges given in the <code
    data-x="dom-media-seekable">seekable</code> attribute then set the <code
-   data-x="dom-media-seeking">seeking</code> IDL attribute to false and abort these steps.</p></li>
+   data-x="dom-media-seeking">seeking</code> IDL attribute to false and return.</p></li>
 
    <li>
 

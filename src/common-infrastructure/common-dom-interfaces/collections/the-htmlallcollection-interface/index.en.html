@@ -11,12 +11,47 @@
   collection</span> of an <code>HTMLAllCollection</code> object consist of all the descendant
   elements of the root <code>Document</code>.</p>
 
-  <pre class="idl">[LegacyUnenumerableNamedProperties]
+  <p w-nodev>Objects that implement the <code>HTMLAllCollection</code> interface are <span
+  data-x="legacy platform object">legacy platform objects</span> with an additonal [[Call]] internal
+  method described in the <a href="#HTMLAllCollection-call">section below</a>. They also have an
+  <span>[[IsHTMLDDA]]</span> internal slot.</p>
+
+  <div class="note">
+   <p>Objects that implement the <code>HTMLAllCollection</code> interface have several unusual
+   behaviors, due of the fact that they have an <span>[[IsHTMLDDA]]</span> internal slot:</p>
+
+   <ul>
+    <li><p>The <span data-x="js-ToBoolean">ToBoolean</span> abstract operation in JavaScript returns
+    false when given objects implementing the <code>HTMLAllCollection</code> interface.</p></li>
+
+    <li><p>The <span data-x="js-abstract-equality">Abstract Equality Comparison</span> algorithm,
+    when given objects implementing the <code>HTMLAllCollection</code> interface, returns true when
+    compared to the <code data-x="">undefined</code> and <code data-x="">null</code> values.
+    (Comparisons using the <span data-x="js-strict-equality">Strict Equality Comparison</span>
+    algorithm, and Abstract Equality comparisons to other values such as strings or objects, are
+    unaffected.)</p></li>
+
+    <li><p>The <code data-x="js-typeof">typeof</code> operator in JavaScript returns the string
+    <code data-x="">"undefined"</code> when applied to objects implementing the
+    <code>HTMLAllCollection</code> interface.</p></li>
+   </ul>
+
+   <p>These special behaviors are motivated by a desire for compatibility with two classes of legacy
+   content: one that uses the presence of <code data-x="dom-document-all">document.all</code> as a
+   way to detect legacy user agents, and one that only supports those legacy user agents and uses
+   the <code data-x="dom-document-all">document.all</code> object without testing for its presence
+   first. <ref spec=JAVASCRIPT></p>
+  </div>
+
+  <pre class="idl">[Exposed=Window,
+ LegacyUnenumerableNamedProperties]
 interface <dfn>HTMLAllCollection</dfn> {
   readonly attribute unsigned long <span data-x="dom-HTMLAllCollection-length">length</span>;
   getter <span>Element</span>? (unsigned long index);
   getter (<span>HTMLCollection</span> or <span>Element</span>)? <span data-x="dom-HTMLAllCollection-namedItem">namedItem</span>(DOMString name);
-  legacycaller (<span>HTMLCollection</span> or <span>Element</span>)? <span data-x="dom-HTMLAllCollection-item">item</span>(optional DOMString nameOrIndex);
+  (<span>HTMLCollection</span> or <span>Element</span>)? <span data-x="dom-HTMLAllCollection-item">item</span>(optional DOMString nameOrIndex);
+
+  // Note: HTMLAllCollection objects have a <a href="#HTMLAllCollection-call">custom [[Call]] internal method</a> and an <span>[[IsHTMLDDA]]</span> internal slot.
 };</pre>
 
   <dl class="domintro">
@@ -78,18 +113,13 @@ interface <dfn>HTMLAllCollection</dfn> {
   element(s)</span> from this <code>HTMLAllCollection</code> given <var>name</var>.</p>
 
   <p>The <dfn><code data-x="dom-HTMLAllCollection-item">item(<var>nameOrIndex</var>)</code></dfn>
-  method (and the <code data-x="">legacycaller</code> behavior) must run the following steps:</p>
+  method must perform the following steps:</p>
 
   <ol>
    <li><p>If <var>nameOrIndex</var> was not provided, return null.</p></li>
 
-   <li><p>If <var>nameOrIndex</var>, <span data-x="concept-idl-convert">converted</span> to a
-   JavaScript string value, is an <span>array index property name</span>, return the result of <span
-   data-x="concept-get-all-indexed">getting the "all"-indexed element</span> from this
-   <code>HTMLAllCollection</code> given the number represented by <var>nameOrIndex</var>.</p></li>
-
-   <li><p>Return the result of <span data-x="concept-get-all-named">getting the "all"-named
-   element(s)</span> from this <code>HTMLAllCollection</code> given
+   <li><p>Return the result of <span data-x="concept-get-all-indexed-or-named">getting the
+   "all"-indexed or named element(s)</span> from this <code>HTMLAllCollection</code>, given
    <var>nameOrIndex</var>.</p></li>
   </ol>
 
@@ -98,7 +128,6 @@ interface <dfn>HTMLAllCollection</dfn> {
   <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2837 -->
   <p>The following elements are <dfn>"all"-named elements</dfn>:
    <code>a</code>, <!-- in some browsers -->
-   <code>applet</code>,
    <code>button</code>, <!-- in some browsers -->
    <code>embed</code>,
    <code>form</code>,
@@ -148,6 +177,18 @@ interface <dfn>HTMLAllCollection</dfn> {
    <li><p>Otherwise, return <var>subCollection</var>.</p></li>
   </ol>
 
-  </div>
+  <p>To <dfn data-x="concept-get-all-indexed-or-named">get the "all"-indexed or named
+  element(s)</dfn> from an <code>HTMLAllCollection</code> <var>collection</var> given
+  <var>nameOrIndex</var>:
 
+  <ol>
+   <li><p>If <var>nameOrIndex</var>, <span data-x="concept-idl-convert">converted</span> to a
+   JavaScript String value, is an <span>array index property name</span>, return the result of <span
+   data-x="concept-get-all-indexed">getting the "all"-indexed element</span> from this
+   <code>HTMLAllCollection</code> given the number represented by <var>nameOrIndex</var>.</p></li>
+
+   <li><p>Return the result of <span data-x="concept-get-all-named">getting the "all"-named
+   element(s)</span> from this <code>HTMLAllCollection</code> given
+   <var>nameOrIndex</var>.</p></li>
+  </ol>
 

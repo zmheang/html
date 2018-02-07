@@ -58,7 +58,7 @@
 
    <li><p>If there is a preexisting attempt to navigate <var>browsingContext</var>, and the
    <span>source browsing context</span> is the same as <var>browsingContext</var>, and that attempt
-   is currently running the <span>unload a document</span> algorithm, then abort these steps without
+   is currently running the <span>unload a document</span> algorithm, then return without
    affecting the preexisting attempt to navigate <var>browsingContext</var>.</p></li>
    <!--
      this stops pages from hijacking the back/forward button, among other things
@@ -67,7 +67,7 @@
    -->
 
    <li><p>If the <span>prompt to unload</span> algorithm is being run for the <span>active
-   document</span> of <var>browsingContext</var>, then abort these steps without affecting the
+   document</span> of <var>browsingContext</var>, then return without affecting the
    <span>prompt to unload</span> algorithm.</p></li>
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1946 to 1955 -->
 
@@ -78,7 +78,8 @@
    data-x="concept-document-url">URL</span> with <var>exclude fragments flag</var> set, and
    <var>resource</var>'s <span data-x="concept-request-url">url</span>'s <span
    data-x="concept-url-fragment">fragment</span> is non-null, then <span
-   data-x="navigate-fragid">navigate to that fragment</span> and abort these steps.</p></li>
+   data-x="navigate-fragid">navigate to that fragment</span>, with <span>replacement enabled</span>
+   if this was invoked with <span>replacement enabled</span>, and return.</p></li>
 
    <li><p>Cancel any preexisting but not yet <span data-x="concept-navigate-mature">mature</span>
    attempt to navigate <var>browsingContext</var>, including canceling any instances of the <span
@@ -92,8 +93,7 @@
 
    <li>
     <p><span>Prompt to unload</span> the <span>active document</span> of <var>browsingContext</var>.
-    If the user <span>refused to allow the document to be unloaded</span>, then abort these
-    steps.</p>
+    If the user <span>refused to allow the document to be unloaded</span>, then return.</p>
 
     <p>If this instance of the <span data-x="navigate">navigation</span> algorithm gets canceled
     while this step is running, the <span>prompt to unload</span> algorithm must nonetheless be run
@@ -138,7 +138,7 @@
      <dt>If <var>resource</var> is a <span data-x="concept-response">response</span></dt>
      <dd><p>Run <span>process a navigate response</span> with null, <var>resource</var>,
      <var>navigationType</var>, the <span>source browsing context</span>, and
-     <var>browsingContext</var>, and then abort these steps.</p></dd>
+     <var>browsingContext</var>, and then return.</p></dd>
 
      <dt>If <var>resource</var> is a <span data-x="concept-request">request</span> whose <span
      data-x="concept-request-url">url</span>'s <span data-x="concept-url-scheme">scheme</span>
@@ -203,8 +203,12 @@
        <li><p>Let <var>settings</var> be the <span>relevant settings object</span> for the
        <span>active document</span> of <var>browsingContext</var>.</p></li>
 
+       <li><p>Let <var>base URL</var> be <var>settings object</var>'s <span>API base
+       URL</span>.</p></li>
+
        <li><p>Let <var>script</var> be the result of <span>creating a classic script</span> given
-       <var>script source</var> and <var>settings</var>.</p></li>
+       <var>script source</var>, <var>settings</var>, <var>base URL</var>, and the <span>default
+       classic script fetch options</span>.</p></li>
 
        <li><p>Let <var>result</var> be the result of <span data-x="run a classic script">running the
        classic script</span> <var>script</var>. If evaluation was unsuccessful, let
@@ -239,7 +243,7 @@
 
        <li><p>Run <span>process a navigate response</span> with <var>resource</var>,
        <var>response</var>, <var>navigationType</var>, the <span>source browsing context</span>, and
-       <var>browsingContext</var>, and then abort these steps.</p></li>
+       <var>browsingContext</var>, and then return.</p></li>
       </ol>
 
       <p>The <span>task source</span> for this <span data-x="concept-task">task</span> is the
@@ -476,14 +480,14 @@
     <p>If any of the following are true, then <span data-x="navigate-ua-inline">display the inline
     content with an appropriate error shown to the user</span>, with the newly created
     <code>Document</code> object's <span>origin</span> set to a new <span
-    data-x="concept-origin-opaque">opaque origin</span>, and abort these steps.</p>
+    data-x="concept-origin-opaque">opaque origin</span>, and return.</p>
 
     <ul>
      <li><p><var>response</var> is a network error.</p></li>
 
      <li><p class="&#x0058;&#x0058;&#x0058;">TODO: Define <code data-x="">X-Frame-Options</code>
      processing here [<a
-     href="https://github.com/whatwg/html/issue/1230">whatwg/html#1230</a>].</p></li>
+     href="https://github.com/whatwg/html/issues/1230">whatwg/html#1230</a>].</p></li>
 
      <li><p>The <span>Should navigation response to navigation request of type from source in target
      be blocked by Content Security Policy?</span> algorithm returns "<code
@@ -497,15 +501,15 @@
    </li>
 
    <li><p>If <var>response</var>'s <span data-x="concept-response-status">status</span> is
-   <code data-x="">204</code> or <code data-x="">205</code>, then abort these steps.</p></li>
+   <code data-x="">204</code> or <code data-x="">205</code>, then return.</p></li>
    <!-- Theoretically, HTTP 205 processing would occur here, resetting all forms with no other
         effect. However, it seems nobody actually wants to use this ability, so requiring it here
         seems like unnecessary work. -->
 
    <li><p>If <var>response</var> has an `<code
    data-x="http-content-disposition">Content-Disposition</code>` header specifying the <code
-   data-x="">attachment</code> disposition type, then handle it <span>as a download</span> and abort
-   these steps.</p></li>
+   data-x="">attachment</code> disposition type, then handle it <span>as a download</span> and
+   return.</p></li>
 
    <li><p>Let <var>type</var> be the <span data-x="Content-Type sniffing">computed type of
    <var>response</var></span>.</p></li>
@@ -519,8 +523,8 @@
     <dl class="switch">
 
      <dt>an <span>HTML MIME type</span></dt>
-     <dd>Follow the steps given in the <span data-x="navigate-html">HTML document</span> section,
-     and then, once they have completed, abort this <span>navigate</span> algorithm.</dd>
+     <dd>Follow the steps given in the <span data-x="navigate-html">HTML document</span>
+     section, and then, once they have completed, return.</dd>
 
      <dt>an <span>XML MIME type</span> that is not an <span>explicitly supported XML
      type</span></dt>
@@ -528,8 +532,8 @@
      <dd>Follow the steps given in the <span data-x="navigate-xml">XML document</span> section. If
      that section determines that the content is <em>not</em> to be displayed as a generic XML
      document, then proceed to the next step in this overall set of steps. Otherwise, once the steps
-     given in the <span data-x="navigate-xml">XML document</span> section have completed, abort this
-     <span>navigate</span> algorithm.</dd>
+     given in the <span data-x="navigate-xml">XML document</span> section have completed,
+     return.</dd>
 
      <dt>a <span>JavaScript MIME type</span></dt>
      <dt>a <span>JSON MIME type</span> that is not an <span>explicitly supported JSON
@@ -538,22 +542,22 @@
      <dt>"<code>text/css</code>"</dt>
      <dt>"<code>text/plain</code>"</dt>
      <dt>"<code>text/vtt</code>"</dt>
-     <dd>Follow the steps given in the <span data-x="navigate-text">plain text file</span> section,
-     and then, once they have completed, abort this <span>navigate</span> algorithm.</dd>
+     <dd>Follow the steps given in the <span data-x="navigate-text">plain text file</span>
+     section, and then, once they have completed, return..</dd>
 
      <dt>"<code>multipart/x-mixed-replace</code>"</dt>
      <dd>Follow the steps given in the <span
      data-x="navigate-multipart-x-mixed-replace">multipart/x-mixed-replace</span> section, and then,
-     once they have completed, abort this <span>navigate</span> algorithm.</dd>
+     once they have completed, return.</dd>
 
      <dt>A supported image, video, or audio type</dt>
      <dd>Follow the steps given in the <span data-x="navigate-media">media</span> section, and then,
-     once they have completed, abort this <span>navigate</span> algorithm.</dd>
+     once they have completed, return.</dd>
 
      <dt>A type that will use an external application to render the content in
      <var>browsingContext</var></dt>
-     <dd>Follow the steps given in the <span data-x="navigate-plugin">plugin</span> section, and then,
-     once they have completed, abort this <span>navigate</span> algorithm.</dd>
+     <dd>Follow the steps given in the <span data-x="navigate-plugin">plugin</span> section, and then, once they have
+     completed, return.</dd>
 
     </dl>
 
@@ -562,8 +566,7 @@
     directly in <var>browsingContext</var>, or a separate application), or one for which the user
     agent has dedicated processing rules (e.g. a Web browser with a built-in Atom feed viewer would
     be said to explicitly support the <code>application/atom+xml</code> MIME type), or one for which
-    the user agent has a dedicated handler (e.g. one registered using <code
-    data-x="dom-navigator-registerContentHandler">registerContentHandler()</code>).</p>
+    the user agent has a dedicated handler.</p>
 
     <p>The term <dfn>JSON MIME type</dfn> is used to refer to the <span data-x="MIME type">MIME
     types</span> <code>application/json</code>, <code>text/json</code>, and any <span>MIME
@@ -572,9 +575,8 @@
     <p>An <dfn>explicitly supported JSON type</dfn> is one for which the user agent is configured to
     use an external application to render the content (either a <span>plugin</span> rendering
     directly in <var>browsingContext</var>, or a separate application), or one for which the user
-    agent has dedicated processing rules, or one for which the user agent has a dedicated handler
-    (e.g. one registered using <code
-    data-x="dom-navigator-registerContentHandler">registerContentHandler()</code>).</p>
+    agent has dedicated processing rules, or one for which the user agent has a dedicated
+    handler.</p>
 
     <p><dfn data-x="set the document's address">Setting the document's address</dfn>: If there is no
     <dfn>override URL</dfn>, then any <code>Document</code> created by these steps must have its
@@ -614,10 +616,15 @@
 
          <li><p>For the global <b>this</b> value, use <var>browsingContext</var>'s
          <code>WindowProxy</code> object.</p></li>
-
-         <li><p>Let <var>realm execution context</var> be the created <span>JavaScript execution
-         context</span>.</p></li>
         </ul>
+       </li>
+
+       <li>
+        <p>Let <var>realm execution context</var> be the <span>running JavaScript execution
+        context</span>.</p>
+
+        <p class="note">This is the <span>JavaScript execution context</span> created in the previous
+        step.</p>
        </li>
 
        <li><p><span>Set up a window environment settings object</span> with <var>realm execution
@@ -654,22 +661,29 @@
      <li><p><span>Implement the sandboxing</span> for the <code>Document</code>.</p></li>
 
      <li><p><span>Set the allow* flags</span> for the <code>Document</code>.</p></li>
+
+     <li>
+      <p>If <var>response</var> has a `<code data-x="http-refresh">Refresh</code>` header, then:</p>
+
+      <ol>
+       <li><p class="&#x0058;&#x0058;&#x0058;"><a
+       href="https://github.com/whatwg/html/issues/2900">Multiple `<code
+       data-x="http-refresh">Refresh</code>` headers</a>.</p></li>
+
+       <li><p>Let <var>value</var> be the value of the header with each byte mapped to a code point
+       of equal value.</p></li>
+
+       <li><p>Run the <span>shared declarative refresh steps</span> with the <code>Document</code>
+       and <var>value</var>.</p></li>
+      </ol>
+     </li>
     </ol>
    </li>
 
-   <li id="navigate-non-Document">
-
-    <p><i>Non-document content</i>: If, given <var>type</var>, the new resource is to be
-    handled by displaying some sort of inline content, e.g. a native rendering of the content, an
-    error message because the specified type is not supported, or an inline prompt to allow the user
-    to select <span data-x="dom-navigator-registerContentHandler">a registered handler</span> for
-    the given type, then <span data-x="navigate-ua-inline">display the inline content</span>, and
-    then abort these steps.</p>
-
-    <p class="note">In the case of a registered handler being used, the algorithm will be reinvoked
-    with a new URL to handle the request.</p>
-
-   </li>
+   <li id="navigate-non-Document"><p><i>Non-document content</i>: If, given <var>type</var>, the new
+   resource is to be handled by displaying some sort of inline content, e.g., a native rendering of
+   the content or an error message because the specified type is not supported, then <span
+   data-x="navigate-ua-inline">display the inline content</span>, and then return.</p></li>
 
    <li><p>Otherwise, the document's <var>type</var> is such that the resource will not affect
    <var>browsingContext</var>, e.g., because the resource is to be handed to an external application
@@ -809,13 +823,13 @@
    data-x="concept-navigate-mature">matured</dfn>.</p></li>
 
    <li><p><i>Fragment loop</i>: <span>Spin the event loop</span> for a user-agent-defined amount of
-   time, as desired by the user agent implementor. (This is intended to allow the user agent to
+   time, as desired by the user agent implementer. (This is intended to allow the user agent to
    optimize the user experience in the face of performance concerns.)</p></li>
 
    <li><p>If the <code>Document</code> object has no parser, or its parser has <span data-x="stop
    parsing">stopped parsing</span>, or the user agent has reason to believe the user is no longer
-   interested in scrolling to the <span data-x="concept-url-fragment">fragment</span>, then abort
-   these steps.</p></li>
+   interested in scrolling to the <span data-x="concept-url-fragment">fragment</span>, then
+   return.</p></li>
 
    <li><p><span>Scroll to the fragment</span> given in the document's <span
    data-x="concept-document-url">URL</span>. If this fails to find <span data-x="the indicated part

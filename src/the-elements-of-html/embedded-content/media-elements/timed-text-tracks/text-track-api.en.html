@@ -1,6 +1,7 @@
   <h6>Text track API</h6>
 
-  <pre class="idl">interface <dfn>TextTrackList</dfn> : <span>EventTarget</span> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>TextTrackList</dfn> : <span>EventTarget</span> {
   readonly attribute unsigned long <span data-x="dom-TextTrackList-length">length</span>;
   <a href="#dom-texttracklist-item">getter</a> <span>TextTrack</span> (unsigned long index);
   <span>TextTrack</span>? <span data-x="dom-TextTrackList-getTrackById">getTrackById</span>(DOMString id);
@@ -77,6 +78,8 @@ enum <dfn>TextTrackKind</dfn> {<!--
    --> "<span data-x="dom-TextTrack-kind-descriptions">descriptions</span>", <!--
    --> "<span data-x="dom-TextTrack-kind-chapters">chapters</span>", <!--
    --> "<span data-x="dom-TextTrack-kind-metadata">metadata</span>" };
+
+[Exposed=Window]
 interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
   readonly attribute <span>TextTrackKind</span> <span data-x="dom-TextTrack-kind">kind</span>;
   readonly attribute DOMString <span data-x="dom-TextTrack-label">label</span>;
@@ -367,7 +370,7 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
    <li><p>If <span>text track list of cues</span>' associated <span>rules for updating the text
    track rendering</span> are not the same <span>rules for updating the text track rendering</span>
    as appropriate for <var>cue</var>, then throw an <span>"<code>InvalidStateError</code>"</span>
-   <code>DOMException</code> and abort these steps.</p>
+   <code>DOMException</code>.</p>
 
    <li><p>If the given <var>cue</var> is in a <span>text track list of cues</span>, then
    remove <var>cue</var> from that <span>text track list of cues</span>.</p></li>
@@ -384,8 +387,7 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
 
    <li><p>If the given <var>cue</var> is not in the <code>TextTrack</code> object's <span>text
    track</span>'s <span>text track list of cues</span>, then throw a
-   <span>"<code>NotFoundError</code>"</span> <code>DOMException</code> and abort these
-   steps.</p></li>
+   <span>"<code>NotFoundError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Remove <var>cue</var> from the <code>TextTrack</code> object's <span>text track</span>'s
    <span>text track list of cues</span>.</p></li>
@@ -435,7 +437,8 @@ window.onbeforeunload = function (e) {
 
   <hr>
 
-  <pre class="idl">interface <dfn>TextTrackCueList</dfn> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>TextTrackCueList</dfn> {
   readonly attribute unsigned long <span data-x="dom-TextTrackCueList-length">length</span>;
   <a href="#dom-texttrackcuelist-item">getter</a> <span>TextTrackCue</span> (unsigned long index);
   <span>TextTrackCue</span>? <span data-x="dom-TextTrackCueList-getCueById">getCueById</span>(DOMString id);
@@ -489,7 +492,8 @@ window.onbeforeunload = function (e) {
 
   <hr>
 
-  <pre class="idl">interface <dfn>TextTrackCue</dfn> : <span>EventTarget</span> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>TextTrackCue</dfn> : <span>EventTarget</span> {
   readonly attribute <span>TextTrack</span>? <span data-x="dom-TextTrackCue-track">track</span>;
 
   attribute DOMString <span data-x="dom-TextTrackCue-id">id</span>;
@@ -503,32 +507,32 @@ window.onbeforeunload = function (e) {
 
   <dl class="domintro">
 
-   <dt><var>cue</var> . <span data-x="dom-TextTrackCue-track">track</span></dt>
+   <dt><var>cue</var> . <span subdfn data-x="dom-TextTrackCue-track">track</span></dt>
    <dd>
     <p>Returns the <code>TextTrack</code> object to which this
     <span>text track cue</span> belongs, if any, or null
     otherwise.</p>
    </dd>
 
-   <dt><var>cue</var> . <span data-x="dom-TextTrackCue-id">id</span> [ = <var>value</var> ]</dt>
+   <dt><var>cue</var> . <span subdfn data-x="dom-TextTrackCue-id">id</span> [ = <var>value</var> ]</dt>
    <dd>
     <p>Returns the <span>text track cue identifier</span>.</p>
     <p>Can be set.</p>
    </dd>
 
-   <dt><var>cue</var> . <span data-x="dom-TextTrackCue-startTime">startTime</span> [ = <var>value</var> ]</dt>
+   <dt><var>cue</var> . <span subdfn data-x="dom-TextTrackCue-startTime">startTime</span> [ = <var>value</var> ]</dt>
    <dd>
     <p>Returns the <span>text track cue start time</span>, in seconds.</p>
     <p>Can be set.</p>
    </dd>
 
-   <dt><var>cue</var> . <span data-x="dom-TextTrackCue-endTime">endTime</span> [ = <var>value</var> ]</dt>
+   <dt><var>cue</var> . <span subdfn data-x="dom-TextTrackCue-endTime">endTime</span> [ = <var>value</var> ]</dt>
    <dd>
     <p>Returns the <span>text track cue end time</span>, in seconds.</p>
     <p>Can be set.</p>
    </dd>
 
-   <dt><var>cue</var> . <span data-x="dom-TextTrackCue-pauseOnExit">pauseOnExit</span> [ = <var>value</var> ]</dt>
+   <dt><var>cue</var> . <span subdfn data-x="dom-TextTrackCue-pauseOnExit">pauseOnExit</span> [ = <var>value</var> ]</dt>
    <dd>
     <p>Returns true if the <span>text track cue pause-on-exit flag</span> is set, false otherwise.</p>
     <p>Can be set.</p>
@@ -573,7 +577,5 @@ window.onbeforeunload = function (e) {
   track cue</span> that the <code>TextTrackCue</code> object represents is set; or false otherwise.
   On setting, the <span>text track cue pause-on-exit flag</span> must be set if the new value is
   true, and must be unset otherwise.</p>
-
-  </div>
 
 

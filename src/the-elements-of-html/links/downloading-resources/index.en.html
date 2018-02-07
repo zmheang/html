@@ -27,6 +27,7 @@
   run the following steps:</p>
 
   <ol>
+   <li><p>If <var>subject</var> <span>cannot navigate</span>, then return.</p></li>
 
    <li><p><span data-x="parse a url">Parse</span> the <span>URL</span> given by
    <var>subject</var>'s <code data-x="attr-hyperlink-href">href</code> attribute, relative to
@@ -35,25 +36,27 @@
    <li><p>If <span data-x="parse a url">parsing</span> the <span>URL</span> fails, the user agent
    may report the error to the user in a user-agent-specific manner, may
    <span>navigate</span><!--DONAV download error--> to an error page to report the error, or may
-   ignore the error and do nothing. In either case, the user agent must abort these steps.</p>
+   ignore the error and do nothing. In either case, the user agent must return.</p>
 
    <li><p>Otherwise, let <var>URL</var> be the <span>resulting URL string</span>.</p></li>
 
    <li><p>If there is a <var>hyperlink suffix</var>, append it to <var>URL</var>.</p></li>
 
-   <li><p>Return to whatever algorithm invoked these steps and continue
-   these steps <span>in parallel</span>.</p></li>
+   <li>
+    <p>Run these steps <span>in parallel</span>:</p>
 
-   <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
-   <span data-x="concept-request-url">url</span> is <var>URL</var>,
-   <span data-x="concept-request-client">client</span> is <span>entry settings object</span>,
-   <span data-x="concept-request-initiator">initiator</span> is "<code data-x="">download</code>",
-   <span data-x="concept-request-destination">destination</span> is the empty string, and whose
-   <span>synchronous flag</span> and <span>use-URL-credentials flag</span> are set.
+    <ol>
+     <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
+     <span data-x="concept-request-url">url</span> is <var>URL</var>,
+     <span data-x="concept-request-client">client</span> is <span>entry settings object</span>,
+     <span data-x="concept-request-initiator">initiator</span> is "<code data-x="">download</code>",
+     <span data-x="concept-request-destination">destination</span> is the empty string, and whose
+     <span>synchronous flag</span> and <span>use-URL-credentials flag</span> are set.</p></li>
 
-   <!--FETCH--><li><p>Handle the result of <span data-x="concept-fetch">fetching</span>
-   <var>request</var> <span>as a download</span>.</p></li>
-
+     <!--FETCH--><li><p>Handle the result of <span data-x="concept-fetch">fetching</span>
+     <var>request</var> <span>as a download</span>.</p></li>
+    </ol>
+   </li>
   </ol>
 
   <p>When a user agent is to handle a resource obtained from a fetch <dfn>as a download</dfn>, it
@@ -168,7 +171,7 @@
 
    <li><p>If the platform conventions do not in any way use <span
    data-x="concept-extension">extensions</span> to determine the types of file on the file system,
-   then return <var>filename</var> as the file name and abort these steps.</p></li>
+   then return <var>filename</var> as the file name.</p></li>
 
    <li><p>Let <var>claimed type</var> be the type given by the resource's <span
    data-x="Content-Type">Content-Type metadata</span>, if any is known. Let <var>named
@@ -178,13 +181,13 @@
    data-x="concept-extension">extension</span>.</p></li>
 
    <li><p>If <var>named type</var> is consistent with the user's preferences (e.g. because
-   the value of <var>filename</var> was determined by prompting the user), then return <var>filename</var> as the file name and abort these steps.</p></li>
+   the value of <var>filename</var> was determined by prompting the user), then return <var>filename</var> as the file name.</p></li>
 
    <li><p>If <var>claimed type</var> and <var>named type</var> are the same type
    (i.e. the type given by the resource's <span data-x="Content-Type">Content-Type metadata</span> is
    consistent with the type given by <var>filename</var>'s <span
    data-x="concept-extension">extension</span>), then return <var>filename</var> as the file
-   name and abort these steps.</p></li>
+   name.</p></li>
 
    <li>
 
@@ -198,7 +201,7 @@
     (e.g. "<code data-x="">.txt</code>").</p>
 
     <p class="note">This last step would make it impossible to download executables, which might not
-    be desirable. As always, implementors are forced to balance security and usability in this
+    be desirable. As always, implementers are forced to balance security and usability in this
     matter.</p>
 
    </li>

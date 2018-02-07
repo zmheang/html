@@ -37,12 +37,25 @@
     <ul>
      <li><p>For the global object, if <var>is shared</var> is true, create a new
      <code>SharedWorkerGlobalScope</code> object. Otherwise, create a new
-     <code>DedicatedWorkerGlobalScope</code> object. Let <var>worker global scope</var> be the
-     created object.</p></li>
-
-     <li><p>Let <var>realm execution context</var> be the created <span>JavaScript execution
-     context</span>.</p></li>
+     <code>DedicatedWorkerGlobalScope</code> object.</p></li>
     </ul>
+   </li>
+
+   <li>
+    <p>Let <var>realm execution context</var> be the <span>running JavaScript execution
+    context</span>.</p>
+
+    <p class="note">This is the <span>JavaScript execution context</span> created in the previous
+    step.</p>
+   </li>
+
+   <li>
+    <p>Let <var>worker global scope</var> be the <span data-x="concept-realm-global">global
+    object</span> of <var>realm execution context</var>'s Realm component.
+
+    <p class="note">This is the <code>DedicatedWorkerGlobalScope</code> or
+    <code>SharedWorkerGlobalScope</code> object created when calling <span
+    data-x="js-InitializeHostDefinedRealm">InitializeHostDefinedRealm</span>.</p>
    </li>
 
    <li><p><span>Set up a worker environment settings object</span> with <var>realm execution
@@ -120,7 +133,7 @@
 
     <p>If the algorithm asynchronously completes with null, <span>queue a task</span> to <span
     data-x="concept-event-fire">fire an event</span> named <code data-x="event-error">error</code>
-    at <var>worker</var>, and abort these steps. Otherwise, continue the rest of these steps after
+    at <var>worker</var>, and return. Otherwise, continue the rest of these steps after
     the algorithm's asynchronous completion, with <var>script</var> being the asynchronous
     completion value.</p>
    </li>

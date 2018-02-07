@@ -60,16 +60,16 @@
   <var>window</var> at any moment consist of the following, in <span>tree order</span> according to
   the element that contributed them, ignoring later duplicates:</p>
 
+  <!-- KEEP THIS LIST IN SYNC WITH "NAMED OBJECTS" BELOW -->
   <ul>
    <li><p><var>window</var>'s <span>document-tree child browsing context name property
    set</span>;</p></li>
 
-   <li><p>the value of the <code data-x="">name</code> content attribute for all
-   <code>applet</code>, <code>embed</code>, <code>form</code>, <code>frameset</code>,
-   <code>img</code>, and <code>object</code> elements that have a non-empty <code
-   data-x="">name</code> content attribute and are <span>in a document tree</span> with
-   <var>window</var>'s <span>browsing context</span>'s <span>active document</span> as their
-   <span>root</span>; and</p></li>
+   <li><p>the value of the <code data-x="">name</code> content attribute for all <code>embed</code>,
+   <code>form</code>, <code>frameset</code>, <code>img</code>, and <code>object</code> elements that
+   have a non-empty <code data-x="">name</code> content attribute and are <span>in a document
+   tree</span> with <var>window</var>'s <span>browsing context</span>'s <span>active document</span>
+   as their <span>root</span>; and</p></li>
 
    <li><p>the value of the <code data-x="attr-id">id</code> content attribute for all <span>HTML
    elements</span> that have a non-empty <code data-x="attr-id">id</code> content attribute and are
@@ -100,14 +100,13 @@
     <p>If <var>objects</var> contains a <span>nested browsing context</span>, then return
     the <code>WindowProxy</code> object of the <span>nested browsing context</span> corresponding to
     the first <span>browsing context container</span> in <span>tree order</span> whose
-    <span>nested browsing context</span> is in <var>objects</var>, and abort these steps.</p>
+    <span>nested browsing context</span> is in <var>objects</var>.</p>
 
    </li>
 
    <li>
 
-    <p>Otherwise, if <var>objects</var> has only one element, return that element and
-    abort these steps.</p>
+    <p>Otherwise, if <var>objects</var> has only one element, return that element.</p>
 
    </li>
 
@@ -125,21 +124,19 @@
   <p><dfn data-x="dom-window-nameditem-filter">Named objects</dfn> with the name <var>name</var>,
   for the purposes of the above algorithm, consist of the following:</p>
 
+  <!-- KEEP THIS LIST IN SYNC WITH SUPPORTED PROPERTY NAMES ABOVE -->
   <ul>
-
    <li><p><span data-x="document-tree child browsing context">document-tree child browsing
    contexts</span> of the <span>active document</span> whose name is <var>name</var>;</p></li>
 
-   <li><p><code>a</code>, <code>applet</code>, <code>area</code>, <code>embed</code>,
-   <code>form</code>, <code>frameset</code>, <code>img</code>, or <code>object</code> elements that
-   have a <code data-x="">name</code> content attribute whose value is <var>name</var> and are
-   <span>in a document tree</span> with the <span>active document</span> as their
-   <span>root</span>; and</p></li>
+   <li><p><code>embed</code>, <code>form</code>, <code>frameset</code>, <code>img</code>, or
+   <code>object</code> elements that have a <code data-x="">name</code> content attribute whose
+   value is <var>name</var> and are <span>in a document tree</span> with the <span>active
+   document</span> as their <span>root</span>; and</p></li>
 
    <li><p><span>HTML elements</span> that have an <code data-x="attr-id">id</code> content attribute
    whose value is <var>name</var> and are <span>in a document tree</span> with the <span>active
    document</span> as their <span>root</span>.</p></li>
-
   </ul>
 
   </div>

@@ -11,7 +11,9 @@
    <dd>Emit the comment. Emit an end-of-file token.</dd>
 
    <dt>U+0000 NULL</dt>
-   <dd>Append a U+FFFD REPLACEMENT CHARACTER character to the comment token's data.</dd>
+   <dd>This is an <span
+   data-x="parse-error-unexpected-null-character">unexpected-null-character</span> <span>parse
+   error</span>. Append a U+FFFD REPLACEMENT CHARACTER character to the comment token's data.</dd>
 
    <dt>Anything else</dt>
    <dd>Append the <span>current input character</span> to the comment token's data.</dd>

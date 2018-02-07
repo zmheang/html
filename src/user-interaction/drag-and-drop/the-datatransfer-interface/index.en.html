@@ -3,7 +3,8 @@
   <p><code>DataTransfer</code> objects are used to expose the <span>drag data store</span> that
   underlies a drag-and-drop operation.</p>
 
-  <pre class="idl">[<span data-x="dom-DataTransfer">Constructor</span>, Exposed=(Window)]
+  <pre class="idl">[Exposed=Window,
+ <span data-x="dom-DataTransfer">Constructor</span>]
   interface <dfn>DataTransfer</dfn> {
   attribute DOMString <span data-x="dom-DataTransfer-dropEffect">dropEffect</span>;
   attribute DOMString <span data-x="dom-DataTransfer-effectAllowed">effectAllowed</span>;
@@ -22,7 +23,7 @@
 
   <dl class="domintro">
 
-   <dt><var>dataTransfer</var> = new <code data-x="dom-DataTransfer">DataTransfer</code>()</dt>
+   <dt><var>dataTransfer</var> = new <code subdfn data-x="dom-DataTransfer">DataTransfer</code>()</dt>
 
    <dd>
 
@@ -234,10 +235,10 @@
   <ol>
 
    <li><p>If the <code>DataTransfer</code> object is no longer associated with a <span>drag data
-   store</span>, abort these steps. Nothing happens.</p></li>
+   store</span>, return. Nothing happens.</p></li>
 
    <li><p>If the <span>drag data store</span>'s <span data-x="drag data store mode">mode</span> is
-   not the <span data-x="concept-dnd-rw">read/write mode</span>, abort these steps. Nothing
+   not the <span data-x="concept-dnd-rw">read/write mode</span>, return. Nothing
    happens.</p></li>
 
    <li><p>If <var>element</var> is an <code>img</code> element, then set the <span>drag data store
@@ -260,11 +261,10 @@
   <ol>
 
    <li><p>If the <code>DataTransfer</code> object is no longer associated with a <span>drag data
-   store</span>, return the empty string and abort these steps.</p></li>
+   store</span>, then return the empty string.</p></li>
 
    <li><p>If the <span>drag data store</span>'s <span data-x="drag data store mode">mode</span> is
-   the <span data-x="concept-dnd-p">protected mode</span>, return the empty string and abort these
-   steps.</p></li>
+   the <span data-x="concept-dnd-p">protected mode</span>, then return the empty string.</p></li>
 
    <li><p>Let <var>format</var> be the first argument, <span>converted to ASCII
    lowercase</span>.</p></li>
@@ -279,8 +279,7 @@
 
    <li><p>If there is no item in the <span>drag data store item list</span> whose <span data-x="the
    drag data item kind">kind</span> is <i>Plain Unicode string</i> and whose <span data-x="the drag
-   data item type string">type string</span> is equal to <var>format</var>, return the empty string
-   and abort these steps.</p></li>
+   data item type string">type string</span> is equal to <var>format</var>, return the empty string.</p></li>
 
    <li><p>Let <var>result</var> be the data of the item in the <span>drag data store item
    list</span> whose <span data-x="the drag data item kind">kind</span> is <i>Plain Unicode
@@ -301,10 +300,10 @@
   <ol>
 
    <li><p>If the <code>DataTransfer</code> object is no longer associated with a <span>drag data
-   store</span>, abort these steps. Nothing happens.</p></li>
+   store</span>, return. Nothing happens.</p></li>
 
    <li><p>If the <span>drag data store</span>'s <span data-x="drag data store mode">mode</span> is
-   not the <span data-x="concept-dnd-rw">read/write mode</span>, abort these steps. Nothing
+   not the <span data-x="concept-dnd-rw">read/write mode</span>, return. Nothing
    happens.</p></li>
 
    <li><p>Let <var>format</var> be the first argument, <span>converted to ASCII
@@ -338,15 +337,15 @@
   <ol>
 
    <li><p>If the <code>DataTransfer</code> object is no longer associated with a <span>drag data
-   store</span>, abort these steps. Nothing happens.</p></li>
+   store</span>, return. Nothing happens.</p></li>
 
    <li><p>If the <span>drag data store</span>'s <span data-x="drag data store mode">mode</span> is
-   not the <span data-x="concept-dnd-rw">read/write mode</span>, abort these steps. Nothing
+   not the <span data-x="concept-dnd-rw">read/write mode</span>, return. Nothing
    happens.</p></li>
 
    <li><p>If the method was called with no arguments, remove each item in the <span>drag data store
    item list</span> whose <span data-x="the drag data item kind">kind</span> is <i>Plain Unicode
-   string</i>, and abort these steps.</p></li>
+   string</i>, and return.</p></li>
 
    <li><p>Let <var>format</var> be the first argument, <span>converted to ASCII
    lowercase</span>.</p></li>
@@ -385,10 +384,10 @@
    <li><p>Start with an empty list <var>L</var>.</p></li>
 
    <li><p>If the <code>DataTransfer</code> object is no longer associated with a <span>drag data
-   store</span>, the <code>FileList</code> is empty. Abort these steps; return the empty list <var>L</var>.</p></li>
+   store</span>, the <code>FileList</code> is empty. Return the empty list <var>L</var>.</p></li>
 
    <li><p>If the <span>drag data store</span>'s <span data-x="drag data store mode">mode</span> is
-   the <span data-x="concept-dnd-p">protected mode</span>, abort these steps; return the empty list
+   the <span data-x="concept-dnd-p">protected mode</span>, Return the empty list
    <var>L</var>.</p></li>
 
    <li><p>For each item in the <span>drag data store item list</span> <!-- in some order...? -->

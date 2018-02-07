@@ -3,7 +3,8 @@
   <p>The <code>AudioTrackList</code> and <code>VideoTrackList</code> interfaces are used by
   attributes defined in the previous section.</p>
 
-  <pre class="idl">interface <dfn>AudioTrackList</dfn> : <span>EventTarget</span> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>AudioTrackList</dfn> : <span>EventTarget</span> {
   readonly attribute unsigned long <span data-x="dom-AudioTrackList-length">length</span>;
   <a href="#dom-tracklist-item">getter</a> <span>AudioTrack</span> (unsigned long index);
   <span>AudioTrack</span>? <span data-x="dom-AudioTrackList-getTrackById">getTrackById</span>(DOMString id);
@@ -13,6 +14,7 @@
   attribute <span>EventHandler</span> <span data-x="handler-TrackList-onremovetrack">onremovetrack</span>;
 };
 
+[Exposed=Window]
 interface <dfn>AudioTrack</dfn> {
   readonly attribute DOMString <span data-x="dom-AudioTrack-id">id</span>;
   readonly attribute DOMString <span data-x="dom-AudioTrack-kind">kind</span>;
@@ -21,6 +23,7 @@ interface <dfn>AudioTrack</dfn> {
   attribute boolean <span data-x="dom-AudioTrack-enabled">enabled</span>;
 };
 
+[Exposed=Window]
 interface <dfn>VideoTrackList</dfn> : <span>EventTarget</span> {
   readonly attribute unsigned long <span data-x="dom-VideoTrackList-length">length</span>;
   <a href="#dom-tracklist-item">getter</a> <span>VideoTrack</span> (unsigned long index);
@@ -32,6 +35,7 @@ interface <dfn>VideoTrackList</dfn> : <span>EventTarget</span> {
   attribute <span>EventHandler</span> <span data-x="handler-TrackList-onremovetrack">onremovetrack</span>;
 };
 
+[Exposed=Window]
 interface <dfn>VideoTrack</dfn> {
   readonly attribute DOMString <span data-x="dom-VideoTrack-id">id</span>;
   readonly attribute DOMString <span data-x="dom-VideoTrack-kind">kind</span>;
@@ -349,10 +353,10 @@ interface <dfn>VideoTrack</dfn> {
   data-x="event-media-resize">resize</code> event, if any.</p>
 
   <p>A video track that has no data for a particular position on the <span>media timeline</span>
-  must be interpreted as being fully transparent black at that point on the timeline, with the same
-  dimensions as the last frame before that position, or, if the position is before all the data for
-  that track, the same dimensions as the first frame for that track. A track that does not exist at
-  all at the current position must be treated as if it existed but had no data.</p>
+  must be interpreted as being <span>transparent black</span> at that point on the timeline, with
+  the same dimensions as the last frame before that position, or, if the position is before all the
+  data for that track, the same dimensions as the first frame for that track. A track that does not
+  exist at all at the current position must be treated as if it existed but had no data.</p>
 
   <p class="example">For instance, if a video has a track that is only introduced after one hour of
   playback, and the user selects that track then goes back to the start, then the user agent will

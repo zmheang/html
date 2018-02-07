@@ -10,8 +10,8 @@
 
   <ol>
 
-   <li><p>If <var>target</var> is <span>in error reporting mode</span>, then abort these
-   steps; the error is <i data-x="concept-error-nothandled">not handled</i>.</p></li>
+   <li><p>If <var>target</var> is <span>in error reporting mode</span>, then return; the error is <i
+   data-x="concept-error-nothandled">not handled</i>.</p></li>
 
    <li><p>Let <var>target</var> be <dfn>in error reporting mode</dfn>.</p></li>
 
@@ -50,9 +50,9 @@
 
    </li>
 
-   <li><p>If <var>script</var> has <span>muted errors</span>, then set <var>message</var> to "<code
-   data-x="">Script error.</code>", <var>urlString</var> to the empty string, <var>line</var> and
-   <var>col</var> to 0, and <var>errorValue</var> to null.</p></li>
+   <li><p>If <var>script</var>'s <span>muted errors</span> is true, then set <var>message</var> to
+   "<code data-x="">Script error.</code>", <var>urlString</var> to the empty string, <var>line</var>
+   and <var>col</var> to 0, and <var>errorValue</var> to null.</p></li>
 
    <li><p>Let <var>notHandled</var> be the result of <span data-x="concept-event-fire">firing an
    event</span> named <code data-x="event-error">error</code> at <var>target</var>, using

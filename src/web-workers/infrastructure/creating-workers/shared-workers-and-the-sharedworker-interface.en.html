@@ -5,7 +5,7 @@
 interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
   readonly attribute <span>MessagePort</span> <span data-x="dom-SharedWorker-port">port</span>;
 };
-<span>SharedWorker</span> implements <span>AbstractWorker</span>;</pre>
+<span>SharedWorker</span> includes <span>AbstractWorker</span>;</pre>
 
   <dl class="domintro">
    <dt><var>sharedWorker</var> = new <code subdfn data-x="dom-SharedWorker">SharedWorker</code>(<var>scriptURL</var> [, <var>name</var> ])</dt>
@@ -35,13 +35,20 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
   it was assigned by the object's constructor. It represents the <code>MessagePort</code> for
   communicating with the shared worker.</p>
 
+  <p>A user agent has an associated <dfn>shared worker manager</dfn> which is the result of
+  <span>starting a new parallel queue</span>.</p>
+
+  <p class="note">Each user agent has a single <span>shared worker manager</span> for simplicity.
+  Implementations could use one per <span>origin</span>; that would not be observably different and
+  enables more concurrency.</p>
+
   <p>When the <dfn><code data-x="dom-SharedWorker">SharedWorker(<var>scriptURL</var>,
-  <var>optons</var>)</code></dfn> constructor is invoked:</p>
+  <var>options</var>)</code></dfn> constructor is invoked:</p>
 
   <ol>
    <li><p>Optionally, throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>
-   and abort these steps if the request violates a policy decision (e.g. if the user agent is
-   configured to not allow the page to start shared workers).</p></li>
+   if the request violates a policy decision (e.g. if the user agent is configured to not allow the
+   page to start shared workers).</p></li>
 
    <li><p>If <var>options</var> is a <code data-x="idl-DOMString">DOMString</code>, set
    <var>options</var> to a new <code>WorkerOptions</code> dictionary whose <code
@@ -53,8 +60,7 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
    <li><p><span data-x="parse a url">Parse</span> <var>scriptURL</var> relative to <var>outside
    settings</var>.</p></li>
 
-   <li><p>If this fails, throw a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>
-   and abort these steps.</p></li>
+   <li><p>If this fails, throw a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li>
     <p>Otherwise, let <var>urlRecord</var> be the <span>resulting URL record</span>.</p>
@@ -74,11 +80,11 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
    <li><p>Assign <var>outside port</var> to the <code data-x="dom-SharedWorker-port">port</code>
    attribute of <var>worker</var>.</p></li>
 
-   <li><p>Let <var>isSecureContext</var> be the result of executing <span>Is environment settings
-   object a secure context?</span> on <var>outside settings</var>.</p></li>
+   <li><p>Let <var>callerIsSecureContext</var> be the result of executing <span>Is environment
+   settings object a secure context?</span> on <var>outside settings</var>.</p></li>
 
    <li>
-    <p>Run these substeps <span>in parallel</span>:</p>
+    <p><span>Enqueue the following steps</span> to the <span>shared worker manager</span>:</p>
 
     <ol>
      <li><p>Let <var>worker global scope</var> be null.</p></li>
@@ -124,8 +130,10 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
        <li><p>Let <var>settings object</var> be the <span>relevant settings object</span> for
        <var>worker global scope</var>.</p></li>
 
-       <li><p>If the result of executing <span>Is environment settings object a secure
-       context?</span> on <var>settings object</var> is not <var>isSecureContext</var>, then
+       <li><p>Let <var>workerIsSecureContext</var> be the result of executing <span>Is environment
+       settings object a secure context?</span> on <var>settings object</var>.</p></li>
+
+       <li><p>If <var>workerIsSecureContext</var> is not <var>callerIsSecureContext</var>, then
        <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
        <code data-x="event-error">error</code> at <var>worker</var> and abort these subsubsteps.
        <ref spec="SECURE-CONTEXTS"></p></li>
@@ -160,8 +168,9 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
       </ol>
      </li>
 
-     <li><p>Otherwise, <span>run a worker</span> given <var>worker</var>, <var>urlRecord</var>,
-     <var>outside settings</var>, <var>outside port</var>, and <var>options</var>.</p></li>
+     <li><p>Otherwise, <span>in parallel</span>, <span>run a worker</span> given <var>worker</var>,
+     <var>urlRecord</var>, <var>outside settings</var>, <var>outside port</var>, and
+     <var>options</var>.</p></li>
     </ol>
    </li>
 

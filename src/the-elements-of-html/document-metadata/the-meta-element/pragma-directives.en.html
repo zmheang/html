@@ -10,7 +10,6 @@
   <span w-nodev>Some of the keywords are non-conforming, as noted in the last
   column.</span></p>
 
-<!-- things that are neither conforming nor do anything are commented out -->
   <table id="table-http-equiv">
    <thead>
     <tr>
@@ -20,45 +19,37 @@
    <tbody>
     <tr w-nodev>
      <td><span data-x="attr-meta-http-equiv-content-language">Content Language</span>
-     <td><code data-x="">content-language</code>
+     <td><dfn><code data-x="attr-meta-http-equiv-keyword-content-language">content-language</code></dfn>
      <td>Non-conforming
     <tr>
      <td><span data-x="attr-meta-http-equiv-content-type">Encoding declaration</span>
-     <td><code data-x="">content-type</code>
+     <td><dfn><code data-x="attr-meta-http-equiv-keyword-content-type">content-type</code></dfn>
      <td>
-<!--
-    <tr w-nodev>
-     <td><span data-x="attr-meta-http-equiv-content-script-type">Content-Script-Type</span>
-     <td><code data-x="">Content-Script-Type</code>
-     <td>Non-conforming
-    <tr w-nodev>
-     <td><span data-x="attr-meta-http-equiv-content-style-type">Content-Style-Type</span>
-     <td><code data-x="">Content-Style-Type</code>
-     <td>Non-conforming
--->
     <tr>
      <td><span data-x="attr-meta-http-equiv-default-style">Default style</span>
-     <td><code data-x="">default-style</code>
+     <td><dfn><code data-x="attr-meta-http-equiv-keyword-default-style">default-style</code></dfn>
      <td>
     <tr>
      <td><span data-x="attr-meta-http-equiv-refresh">Refresh</span>
-     <td><code data-x="">refresh</code>
+     <td><dfn><code data-x="attr-meta-http-equiv-keyword-refresh">refresh</code></dfn>
      <td>
     <tr w-nodev>
      <td><span data-x="attr-meta-http-equiv-set-cookie">Cookie setter</span>
-     <td><code data-x="">set-cookie</code>
+     <td><dfn><code data-x="attr-meta-http-equiv-keyword-set-cookie">set-cookie</code></dfn>
      <td>Non-conforming
     <tr>
      <td><span data-x="attr-meta-http-equiv-x-ua-compatible">X-UA-Compatible</span>
-     <td><code data-x="">x-ua-compatible</code>
+     <td><dfn><code data-x="attr-meta-http-equiv-keyword-x-ua-compatible">x-ua-compatible</code></dfn>
      <td>
     <tr>
      <td><span data-x="attr-meta-http-equiv-content-security-policy">Content security policy</span>
-     <td><code data-x="">Content-Security-Policy</code>
+     <td><dfn><code data-x="attr-meta-http-equiv-keyword-Content-Security-Policy">Content-Security-Policy</code></dfn>
      <td>
   </table>
 
 <!--
+Content-Script-Type and Content-Style-Type don't do anything (and are non-conforming).
+
 DATA: According to Henri's validator stats, here are common
 non-conforming values used by people who validate (sample of 400
 pages):
@@ -110,7 +101,7 @@ people expect to have work and what is necessary.
   <dl>
 
    <dt w-nodev><dfn data-x="attr-meta-http-equiv-content-language">Content language state</dfn>
-   (<code data-x="">http-equiv="content-language"</code>)
+   (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-content-language">content-language</code>"</code>)
 
    <dd w-nodev>
 
@@ -125,10 +116,10 @@ people expect to have work and what is necessary.
     <ol>
 
      <li><p>If the <code>meta</code> element has no <code data-x="attr-meta-content">content</code>
-     attribute, then abort these steps.</p></li>
+     attribute, then return.</p></li>
 
      <li><p>If the element's <code data-x="attr-meta-content">content</code> attribute contains a
-     U+002C COMMA character (,) then abort these steps.</p></li><!-- if you remove this,
+     U+002C COMMA character (,) then return.</p></li><!-- if you remove this,
      un-comment-out the corresponding bits in the step below. -->
 
      <li><p>Let <var>input</var> be the value of the element's <code
@@ -145,7 +136,7 @@ people expect to have work and what is necessary.
      <li><p>Let <var>candidate</var> be the string that resulted from the previous
      step.</p></li>
 
-     <li><p>If <var>candidate</var> is the empty string, abort these steps.</p></li>
+     <li><p>If <var>candidate</var> is the empty string, return.</p></li>
 
      <li>
 
@@ -164,7 +155,7 @@ people expect to have work and what is necessary.
 
    </dd>
 
-   <dt><dfn data-x="attr-meta-http-equiv-content-type">Encoding declaration state</dfn> (<code data-x="">http-equiv="content-type"</code>)
+   <dt><dfn data-x="attr-meta-http-equiv-content-type">Encoding declaration state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-content-type">content-type</code>"</code>)
 
    <dd>
 
@@ -178,9 +169,7 @@ people expect to have work and what is necessary.
     state</span>, the <code data-x="attr-meta-content">content</code> attribute must have a value
     that is an <span>ASCII case-insensitive</span> match for a string that consists of: the literal
     string "<code data-x="">text/html;</code>", optionally followed by any number of <span>ASCII
-    whitespace</span>, followed by the literal string "<code data-x="">charset=</code>", followed by
-    one of the <span data-x="encoding label">labels</span> of the <span data-x="encoding">character
-    encoding</span> of the <span>character encoding declaration</span>.</p>
+    whitespace</span>, followed by the literal string "<code data-x="">charset=utf-8</code>".</p>
 
     <p>A document must not contain both a <code>meta</code> element with an <code
     data-x="attr-meta-http-equiv">http-equiv</code> attribute in the <span
@@ -195,7 +184,7 @@ people expect to have work and what is necessary.
 
    </dd>
 
-   <dt><dfn data-x="attr-meta-http-equiv-default-style">Default style state</dfn> (<code data-x="">http-equiv="default-style"</code>)
+   <dt><dfn data-x="attr-meta-http-equiv-default-style">Default style state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-default-style">default-style</code>"</code>)
 
    <dd>
 
@@ -207,7 +196,7 @@ people expect to have work and what is necessary.
     <ol>
 
      <li><p>If the <code>meta</code> element has no <code data-x="attr-meta-content">content</code>
-     attribute, or if that attribute's value is the empty string, then abort these steps.</p></li>
+     attribute, or if that attribute's value is the empty string, then return.</p></li>
 
      <li><p><span>Change the preferred CSS style sheet set name</span> with the name being the value
      of the element's <code data-x="attr-meta-content">content</code> attribute. <ref
@@ -219,7 +208,7 @@ people expect to have work and what is necessary.
 
    </dd>
 
-   <dt><dfn data-x="attr-meta-http-equiv-refresh">Refresh state</dfn> (<code data-x="">http-equiv="refresh"</code>)
+   <dt><dfn data-x="attr-meta-http-equiv-refresh">Refresh state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-refresh">refresh</code>"</code>)
 
    <dd>
 
@@ -231,19 +220,24 @@ people expect to have work and what is necessary.
     <div w-nodev>
 
     <ol>
-     <!-- TESTS: https://www.hixie.ch/tests/adhoc/html/meta/refresh/ -->
-     <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=734 -->
-     <li><p>Let <var>document</var> be the <code>meta</code> element's <span>node
-     document</span>.</p></li>
-
-     <li><p>If <var>document</var>'s <span>will declaratively refresh</span> is true, then
-     return.</p></li>
-
      <li><p>If the <code>meta</code> element has no <code data-x="attr-meta-content">content</code>
      attribute, or if that attribute's value is the empty string, then return.</p></li>
 
      <li><p>Let <var>input</var> be the value of the element's <code
      data-x="attr-meta-content">content</code> attribute.</p></li>
+
+     <li><p>Run the <span>shared declarative refresh steps</span> with the <code>meta</code>
+     element's <span>node document</span>, <var>input</var>, and the <code>meta</code>
+     element.</p></li>
+    </ol>
+
+    <p>The <dfn>shared declarative refresh steps</dfn>, given a <code>Document</code> object
+    <var>document</var>, string <var>input</var>, and optionally a <code>meta</code> element
+    <var>meta</var>, are as follows:</p>
+
+    <ol>
+     <li><p>If <var>document</var>'s <span>will declaratively refresh</span> is true, then
+     return.</p></li>
 
      <li><p>Let <var>position</var> point at the first <span>code point</span> of
      <var>input</var>.</p></li>
@@ -351,12 +345,12 @@ people expect to have work and what is necessary.
       <ul>
        <li>
         <p>After the refresh has come due (as defined below), if the user has not canceled the
-        redirect and <var>document</var>'s <span>active sandboxing flag set</span> does not have the
-        <span>sandboxed automatic features browsing context flag</span> set, <span
-        data-x="navigate">navigate</span><!--DONAV meta refresh--> <var>document</var>'s <span
-        data-x="concept-document-bc">browsing context</span> to <var>urlRecord</var>, with
-        <span>replacement enabled</span>, and with <var>document</var>'s <span
-        data-x="concept-document-bc">browsing context</span> as the <span>source browsing
+        redirect and, if <var>meta</var> is given, <var>document</var>'s <span>active sandboxing
+        flag set</span> does not have the <span>sandboxed automatic features browsing context
+        flag</span> set, then <span data-x="navigate">navigate</span><!--DONAV meta refresh-->
+        <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> to
+        <var>urlRecord</var>, with <span>replacement enabled</span>, and with <var>document</var>'s
+        <span data-x="concept-document-bc">browsing context</span> as the <span>source browsing
         context</span>.</p>
 
         <p>For the purposes of the previous paragraph, a refresh is said to have come due as soon as
@@ -368,20 +362,22 @@ people expect to have work and what is necessary.
          preferences.</li>
          <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=774 -->
 
-         <li>At least <var>time</var> seconds have elapsed since the <code>meta</code> element was
-         <span data-x="node is inserted into a document">inserted into the document</span>
-         <var>document</var>, adjusted to take into account user or user agent preferences.</li>
+         <li>If <var>meta</var> is given, at least <var>time</var> seconds have elapsed since
+         <var>meta</var> was <span data-x="node is inserted into a document">inserted into the
+         document</span> <var>document</var>, adjusted to take into account user or user agent
+         preferences.</li>
          <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=772 -->
         </ul>
 
-        <p class="note">It is important to use <var>document</var> here, and not the
-        <code>meta</code> element's <span>node document</span>, as that might have changed between
-        the initial set of steps and the refresh coming due.</p>
+        <p class="note">It is important to use <var>document</var> here, and not <var>meta</var>'s
+        <span>node document</span>, as that might have changed between the initial set of steps and
+        the refresh coming due and <var>meta</var> is not always given (in case of the HTTP
+        `<code data-x="http-refresh">Refresh</code>` header).</p>
        </li>
 
        <li><p>Provide the user with an interface that, when selected, <span
        data-x="navigate">navigates</span><!--DONAV meta refresh--> a <span>browsing context</span>
-       to <var>urlRecord</var>, with the <code>Document</code>'s <span
+       to <var>urlRecord</var>, with <var>document</var>'s <span
        data-x="concept-document-bc">browsing context</span> as the <span>source browsing
        context</span>.</p></li>
 
@@ -439,7 +435,7 @@ people expect to have work and what is necessary.
 
    </dd>
 
-   <dt w-nodev><dfn data-x="attr-meta-http-equiv-set-cookie">Cookie setter</dfn> (<code data-x="">http-equiv="set-cookie"</code>)
+   <dt w-nodev><dfn data-x="attr-meta-http-equiv-set-cookie">Cookie setter</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-set-cookie">set-cookie</code>"</code>)
 
    <dd w-nodev>
 
@@ -450,7 +446,7 @@ people expect to have work and what is necessary.
     <ol>
 
      <li><p>If the <code>meta</code> element has no <code data-x="attr-meta-content">content</code>
-     attribute, or if that attribute's value is the empty string, then abort these steps.</p></li>
+     attribute, or if that attribute's value is the empty string, then return.</p></li>
 
      <li><p>Act as if <span data-x="receives a set-cookie-string">receiving a
      set-cookie-string</span> for the document's <span data-x="concept-document-url">URL</span> via
@@ -463,7 +459,7 @@ people expect to have work and what is necessary.
    </dd>
 
 
-   <dt><dfn data-x="attr-meta-http-equiv-x-ua-compatible">X-UA-Compatible state</dfn> (<code data-x="">http-equiv="x-ua-compatible"</code>)
+   <dt><dfn data-x="attr-meta-http-equiv-x-ua-compatible">X-UA-Compatible state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-x-ua-compatible">x-ua-compatible</code>"</code>)
 
    <dd>
 
@@ -480,7 +476,7 @@ people expect to have work and what is necessary.
    </dd>
 
 
-   <dt><dfn data-x="attr-meta-http-equiv-content-security-policy" data-export="" data-dfn-type="dfn">Content security policy state</dfn> (<code data-x="">http-equiv="content-security-policy"</code>)
+   <dt><dfn data-x="attr-meta-http-equiv-content-security-policy" data-export="" data-dfn-type="dfn">Content security policy state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-Content-Security-Policy">Content-Security-Policy</code>"</code>)
 
    <dd>
 
@@ -491,14 +487,15 @@ people expect to have work and what is necessary.
 
     <ol>
      <li><p>If the <code>meta</code> element is not a child of a <code>head</code> element,
-     abort these steps.</p></li>
+     return.</p></li>
 
      <li><p>If the <code>meta</code> element has no <code data-x="attr-meta-content">content</code>
-     attribute, or if that attribute's value is the empty string, then abort these steps.</p></li>
+     attribute, or if that attribute's value is the empty string, then return.</p></li>
 
      <li><p>Let <var>policy</var> be the result of executing Content Security Policy's <span>parse
      a serialized Content Security Policy</span> algorithm on the <code>meta</code> element's
-     <code data-x="attr-meta-content">content</code> attribute's value.</p></li>
+     <code data-x="attr-meta-content">content</code> attribute's value, with a source of "meta",
+     and a disposition of "enforce".</p></li>
 
      <li><p>Remove all occurrences of the <code
      data-x="report-uri directive">report-uri</code>, <code

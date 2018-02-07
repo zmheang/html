@@ -677,6 +677,7 @@
          <code data-x="attr-img-ismap">ismap</code>;
          <code data-x="attr-dim-width">width</code>;
          <code data-x="attr-dim-height">height</code>;
+         <code data-x="attr-img-decoding">decoding</code>;
          <code data-x="attr-img-referrerpolicy">referrerpolicy</code></td>
      <td><code>HTMLImageElement</code></td>
     </tr>
@@ -710,7 +711,6 @@
          <code data-x="attr-fs-formnovalidate">formnovalidate</code>;
          <code data-x="attr-fs-formtarget">formtarget</code>;
          <code data-x="attr-dim-height">height</code>;
-         <code data-x="attr-fe-inputmode">inputmode</code>;
          <code data-x="attr-input-list">list</code>;
          <code data-x="attr-input-max">max</code>;
          <code data-x="attr-input-maxlength">maxlength</code>;
@@ -814,17 +814,16 @@
          <code data-x="attr-link-type">type</code>;
          <code data-x="attr-link-sizes">sizes</code>;
          <code data-x="attr-link-referrerpolicy">referrerpolicy</code>;
-         <code data-x="attr-link-nonce">nonce</code>;
          <code data-x="attr-link-integrity">integrity</code></td>
      <td><code>HTMLLinkElement</code></td>
     </tr>
 
     <tr>
      <th><code>main</code></th>
-     <td>Container for the dominant contents of another element</td>
+     <td>Container for the dominant contents of the document</td>
      <td><span data-x="Flow content">flow</span>;
          <span data-x="Palpable content">palpable</span></td>
-     <td><span data-x="Flow content">flow</span></td>
+     <td><span data-x="Flow content">flow</span>*</td>
      <td><span data-x="Flow content">flow</span></td>
      <td><span data-x="global attributes">globals</span></td>
      <td><code>HTMLElement</code></td>
@@ -1180,11 +1179,9 @@
      <td><span data-x="global attributes">globals</span>;
          <code data-x="attr-script-src">src</code>;
          <code data-x="attr-script-type">type</code>;
-         <code data-x="attr-script-charset">charset</code>;
          <code data-x="attr-script-async">async</code>;
          <code data-x="attr-script-defer">defer</code>;
          <code data-x="attr-script-crossorigin">crossorigin</code>;
-         <code data-x="attr-script-nonce">nonce</code>;
          <code data-x="attr-script-integrity">integrity</code></td>
      <td><code>HTMLScriptElement</code></td>
     </tr>
@@ -1300,11 +1297,9 @@
      <td><span data-x="Metadata content">metadata</span></td>
      <td><code>head</code>;
          <code>noscript</code>*</td>
-     <td>varies*</td>
+     <td>text*</td>
      <td><span data-x="global attributes">globals</span>;
          <code data-x="attr-style-media">media</code>;
-         <code data-x="attr-style-nonce">nonce</code>;
-         <code data-x="attr-style-type">type</code></td>
      <td><code>HTMLStyleElement</code></td>
     </tr>
 
@@ -1432,7 +1427,6 @@
          <code data-x="attr-fe-dirname">dirname</code>;
          <code data-x="attr-fe-disabled">disabled</code>;
          <code data-x="attr-fae-form">form</code>;
-         <code data-x="attr-fe-inputmode">inputmode</code>;
          <code data-x="attr-textarea-maxlength">maxlength</code>;
          <code data-x="attr-textarea-minlength">minlength</code>;
          <code data-x="attr-fe-name">name</code>;

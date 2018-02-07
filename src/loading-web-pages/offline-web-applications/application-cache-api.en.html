@@ -1,6 +1,7 @@
   <h4>Application cache API</h4>
 
-  <pre class="idl">interface <dfn>ApplicationCache</dfn> : <span>EventTarget</span> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>ApplicationCache</dfn> : <span>EventTarget</span> {
 
   // <span data-x="concept-appcache-status">update status</span>
   const unsigned short <span data-x="dom-appcache-UNCACHED">UNCACHED</span> = 0;
@@ -188,8 +189,7 @@
 
    <li><p>Check that <code>ApplicationCache</code> object's <span>cache host</span> is associated
    with an <span>application cache</span>. If it is not, then throw an
-   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> and abort these
-   steps.</p></li>
+   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>cache</var> be the <span>application cache</span> with which the
    <code>ApplicationCache</code> object's <span>cache host</span> is associated. (By definition,
@@ -198,13 +198,13 @@
    <li><p>If <var>cache</var>'s <span>application cache group</span> is marked as <span
    data-x="concept-appcache-obsolete">obsolete</span>, then unassociate the
    <code>ApplicationCache</code> object's <span>cache host</span> from <var>cache</var> and
-   abort these steps. (Resources will now load from the network instead of the cache.)</p></li>
+   return. (Resources will now load from the network instead of the cache.)</p></li>
 
    <li><p>Check that there is an application cache in the same <span>application cache group</span>
    as <var>cache</var> whose <span data-x="concept-appcache-completeness">completeness
    flag</span> is <i>complete</i> and that is <span data-x="concept-appcache-newer">newer</span> than
    <var>cache</var>. If there is not, then throw an <span>"<code>InvalidStateError</code>"</span>
-   <code>DOMException</code> exception and abort these steps.</p></li>
+   <code>DOMException</code> exception.</p></li>
 
    <li><p>Let <var>new cache</var> be the <span
    data-x="concept-appcache-newer">newest</span> <span>application cache</span> in the same

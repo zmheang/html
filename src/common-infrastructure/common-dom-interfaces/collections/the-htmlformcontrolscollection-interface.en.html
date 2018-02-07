@@ -4,23 +4,25 @@
   <span data-x="concept-collection">collections</span> of <span data-x="category-listed">listed
   elements</span> in <code>form</code> elements.</p>
 
-  <pre class="idl">interface <dfn>HTMLFormControlsCollection</dfn> : <span>HTMLCollection</span> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>HTMLFormControlsCollection</dfn> : <span>HTMLCollection</span> {
   // inherits <span data-x="dom-HTMLCollection-length">length</span> and <span data-x="dom-HTMLCollection-item">item</span>()
   getter (<span>RadioNodeList</span> or <span>Element</span>)? <span data-x="dom-HTMLFormControlsCollection-namedItem">namedItem</span>(DOMString name); // shadows inherited <span data-x="dom-HTMLCollection-namedItem">namedItem()</span>
 };
 
+[Exposed=Window]
 interface <dfn>RadioNodeList</dfn> : <span>NodeList</span> {
   attribute DOMString <span data-x="dom-RadioNodeList-value">value</span>;
 };</pre>
 
   <dl class="domintro">
 
-   <dt><var>collection</var> . <code data-x="dom-HTMLCollection-length">length</code></dt>
+   <dt><var>collection</var> . <code subdfn data-x="dom-HTMLCollection-length">length</code></dt>
    <dd>
     <p>Returns the number of elements in the collection.</p>
    </dd>
 
-   <dt><var>element</var> = <var>collection</var> . <code data-x="dom-HTMLCollection-item">item</code>(<var>index</var>)</dt>
+   <dt><var>element</var> = <var>collection</var> . <code subdfn data-x="dom-HTMLCollection-item">item</code>(<var>index</var>)</dt>
    <dt><var>element</var> = <var>collection</var>[<var>index</var>]</dt>
    <dd>
     <p>Returns the item with index <var>index</var> from the collection. The items are sorted in <span>tree order</span>.</p>

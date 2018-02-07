@@ -15,7 +15,8 @@
    <dd><code data-x="attr-ol-type">type</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+<pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLOListElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-ol-reversed">reversed</span>;
   [<span>CEReactions</span>] attribute long <span data-x="dom-ol-start">start</span>;

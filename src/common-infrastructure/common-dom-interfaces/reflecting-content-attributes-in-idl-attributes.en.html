@@ -152,34 +152,6 @@
   return a <code>DOMTokenList</code> object whose associated element is the element in question and
   whose associated attribute's local name is the name of the attribute in question.</p>
 
-  <p>If a reflecting IDL attribute has the type <code>HTMLElement</code>, or an interface that
-  descends from <code>HTMLElement</code>, then, on getting, it must run the following algorithm
-  (stopping at the first point where a value is returned):</p>
-
-  <ol>
-
-   <li>If the corresponding content attribute is absent, then the IDL attribute must return
-   null.</li>
-
-   <li>Let <var>candidate</var> be the element that the <code
-   data-x="dom-Document-getElementById">document.getElementById()</code> method would find when
-   called on the content attribute's element's <span>node document</span> if it were passed as its argument the current value of
-   the corresponding content attribute.</li>
-
-   <li>If <var>candidate</var> is null, or if it is not type-compatible with the IDL
-   attribute, then the IDL attribute must return null.</li>
-
-   <li>Otherwise, it must return <var>candidate</var>.</li>
-
-  </ol>
-
-  <p>On setting, if the given element has an <code data-x="attr-id">id</code> attribute, and has the
-  same <span>tree</span> as the element of the attribute being set, and the given element is the
-  first element in that <span>tree</span> whose <span data-x="concept-ID">ID</span> is the value of
-  that <code data-x="attr-id">id</code> attribute, then the content attribute must be set to the
-  value of that <code data-x="attr-id">id</code> attribute. Otherwise, the content attribute must be
-  set to the empty string.</p>
-
   </div>
 
 

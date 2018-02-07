@@ -9,13 +9,12 @@
 
   <pre class="idl">typedef (DOMString or <span data-x="idl-Function">Function</span>) <dfn>TimerHandler</dfn>;
 
-[NoInterfaceObject, Exposed=(Window,Worker)]
-interface <dfn>WindowOrWorkerGlobalScope</dfn> {
+interface mixin <dfn>WindowOrWorkerGlobalScope</dfn> {
   [Replaceable] readonly attribute USVString <span data-x="dom-origin">origin</span>;
 
   // base64 utility methods
   DOMString <span data-x="dom-btoa">btoa</span>(DOMString data);
-  DOMString <span data-x="dom-atob">atob</span>(DOMString data);
+  ByteString <span data-x="dom-atob">atob</span>(DOMString data);
 
   // timers
   long <span data-x="dom-setTimeout">setTimeout</span>(<span>TimerHandler</span> handler, optional long timeout = 0, any... arguments);
@@ -27,8 +26,8 @@ interface <dfn>WindowOrWorkerGlobalScope</dfn> {
   Promise&lt;<span>ImageBitmap</span>&gt; <span data-x="dom-createImageBitmap">createImageBitmap</span>(<span>ImageBitmapSource</span> image, optional <span>ImageBitmapOptions</span> options);
   Promise&lt;<span>ImageBitmap</span>&gt; <span data-x="dom-createImageBitmap">createImageBitmap</span>(<span>ImageBitmapSource</span> image, long sx, long sy, long sw, long sh, optional <span>ImageBitmapOptions</span> options);
 };
-<span>Window</span> implements <span>WindowOrWorkerGlobalScope</span>;
-<span>WorkerGlobalScope</span> implements <span>WindowOrWorkerGlobalScope</span>;</pre>
+<span>Window</span> includes <span>WindowOrWorkerGlobalScope</span>;
+<span>WorkerGlobalScope</span> includes <span>WindowOrWorkerGlobalScope</span>;</pre>
 
   <dl class="domintro">
    <dt><var>origin</var> = self . <code subdfn data-x="dom-origin">origin</code></dt>

@@ -12,9 +12,9 @@
 
   <ol>
    <li><p>If <var>ping URL</var>'s <span data-x="concept-url-scheme">scheme</span> is not an
-   <span>HTTP(S) scheme</span>, then abort these steps.</p></li>
+   <span>HTTP(S) scheme</span>, then return.</p></li>
 
-   <li><p>Optionally, abort these steps. (For example, the user agent might wish to ignore any or
+   <li><p>Optionally, return. (For example, the user agent might wish to ignore any or
    all ping URLs in accordance with the user's expressed preferences.)</p></li>
 
    <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose

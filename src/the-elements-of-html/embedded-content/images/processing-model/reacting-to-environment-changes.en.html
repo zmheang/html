@@ -23,7 +23,7 @@
    <li><p>&#x231B; If the <code>img</code> element does not <span>use <code>srcset</code> or
    <code>picture</code></span>, its <span>node document</span> is not the <span>active
    document</span>, has image data whose resource type is <code>multipart/x-mixed-replace</code>, or
-   the <span>pending request</span> is not null, then abort this algorithm.</p></li>
+   the <span>pending request</span> is not null, then return.</p></li>
 
    <!-- we don't support replacing push-JPEG images because defining what happens with
    the tasks and events and so on in that case would become implausibly complicated. -->
@@ -31,18 +31,18 @@
    <li><p>&#x231B; Let <var>selected source</var> and <var>selected pixel
    density</var> be the URL and pixel density that results from <span data-x="select an image source">selecting an image source</span>, respectively.</p></li>
 
-   <li><p>&#x231B; If <var>selected source</var> is null, then abort these steps.</p></li>
+   <li><p>&#x231B; If <var>selected source</var> is null, then return.</p></li>
    <!-- not sure this can ever actually happen -->
 
    <li><p>&#x231B; If <var>selected source</var> and <var>selected pixel
    density</var> are the same as the element's <span>last selected source</span> and <span>current
-   pixel density</span>, then abort these steps.</p></li> <!-- note that this check happens before
+   pixel density</span>, then return.</p></li> <!-- note that this check happens before
    base URL resolution, so changing the base URL doesn't trigger an update if nothing else changed
    -->
 
    <li><p>&#x231B; <span data-x="parse a url">Parse</span> <var>selected source</var>, relative to
    the element's <span>node document</span>, and let <var>urlString</var> be the <span>resulting URL
-   string</span>. If that is not successful, abort these steps.</p></li>
+   string</span>. If that is not successful, then return.</p></li>
 
    <li><p>&#x231B; Let <var>corsAttributeState</var> be the state of the element's <code
    data-x="attr-img-crossorigin">crossorigin</code> content attribute.</p></li>
@@ -79,8 +79,7 @@
      <var>corsAttributeState</var>.</p></li>
 
      <li><p>Set <var>request</var>'s <span data-x="concept-request-client">client</span> to
-     <var>client</var>, <span data-x="concept-request-type">type</span> to "<code
-     data-x="">image</code>", <span data-x="concept-request-initiator">initiator</span> to "<code
+     <var>client</var>, <span data-x="concept-request-initiator">initiator</span> to "<code
      data-x="">imageset</code>", and set <var>request</var>'s <span>synchronous
      flag</span>.</p></li>
 
@@ -114,12 +113,14 @@
     <ol>
 
      <li><p>If the <code>img</code> element has experienced <span>relevant mutations</span>
-     since this algorithm started, then let <span>pending request</span> be null and abort these steps.</p>
+     since this algorithm started, then let <span>pending request</span> be null and abort these
+     steps.</p>
 
      <li><p>Let the <code>img</code> element's <span>last selected source</span> be <var>selected source</var>
      and the <code>img</code> element's <span>current pixel density</span> be <var>selected pixel density</var>.</p></li>
 
-     <li><p>Set <var>image request</var> to the <span data-x="img-all">completely available</span> state.</p></li>
+     <li><p>Set the <var>image request</var>'s <span data-x="img-req-state">state</span> to <span
+     data-x="img-all">completely available</span>.</p></li>
 
      <li><p>Add the image to the <span>list of available images</span> using the key <var>key</var>,
      with the <span>ignore higher-layer caching</span> flag set.</p></li>

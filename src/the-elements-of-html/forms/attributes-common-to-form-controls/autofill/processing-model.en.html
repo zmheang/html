@@ -284,12 +284,12 @@
    <li><p>If <var>category</var> is Off, let the element's <span>autofill field name</span>
    be the string "<code data-x="">off</code>", let its <span>autofill hint set</span> be empty, and
    let its <span>IDL-exposed autofill value</span> be the string "<code data-x="">off</code>". Then,
-   abort these steps.</p>
+   return.</p>
 
    <li><p>If <var>category</var> is Automatic, let the element's <span>autofill field
    name</span> be the string "<code data-x="">on</code>", let its <span>autofill hint set</span> be
    empty, and let its <span>IDL-exposed autofill value</span> be the string "<code
-   data-x="">on</code>". Then, abort these steps.</p>
+   data-x="">on</code>". Then, return.</p>
 
    <li><p>Let <var>scope tokens</var> be an empty list.</p></li>
 
@@ -399,14 +399,14 @@
 
    <li><p>Let the element's <span>IDL-exposed autofill value</span> be <var>IDL value</var>.</p>
 
-   <li><p>Abort these steps.</p></li>
+   <li><p>Return.</p></li>
 
    <li><p><i>Default</i>: Let the element's <span>IDL-exposed autofill value</span> be the empty
    string, and its <span>autofill hint set</span> and <span>autofill scope</span> be empty.</p></li>
 
    <li><p>If the element's <code data-x="attr-fe-autocomplete">autocomplete</code> attribute is
    wearing the <span>autofill anchor mantle</span>, then let the element's <span>autofill field
-   name</span> be the empty string and abort these steps.</p></li>
+   name</span> be the empty string and return.</p></li>
 
    <li><p>Let <var>form</var> be the element's <span>form owner</span>, if any, or null
    otherwise.</p></li>

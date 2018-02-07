@@ -108,7 +108,7 @@
     <ol>
 
      <li><p>If <span>the <code>title</code> element</span> is null and <span>the <code>head</code>
-     element</span> is null, then abort these steps.</p></li>
+     element</span> is null, then return.</p></li>
 
      <li><p>If <span>the <code>title</code> element</span> is non-null, let <var>element</var> be
      <span>the <code>title</code> element</span>.</p></li>
@@ -185,19 +185,16 @@
    -->
 
    <li>If the new value is not a <code>body</code> or <code>frameset</code> element, then throw a
-   <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code> and abort these
-   steps.</li>
+   <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code>.</li>
 
-   <li>Otherwise, if the new value is the same as <span>the body element</span>, do nothing. Abort
-   these steps.</li>
+   <li>Otherwise, if the new value is the same as <span>the body element</span>, return.</li>
 
    <li>Otherwise, if <span>the body element</span> is not null, then <span
    data-x="concept-node-replace">replace</span> <span>the body element</span> with the new value
-   within <span>the body element</span>'s parent and abort these steps.</li>
+   within <span>the body element</span>'s parent and return.</li>
 
    <li>Otherwise, if there is no <span>document element</span>, throw a
-   <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code> and abort these
-   steps.</li>
+   <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code>.</li>
 
    <li>Otherwise, <span>the body element</span> is null, but there's a
    <span>document element</span>. <span data-x="concept-node-append">Append</span> the new value to
@@ -327,7 +324,7 @@
 
   </div>
 
-  <p class="note">This API has fallen out of favor in the implementor and standards community, as
+  <p class="note">This API has fallen out of favor in the implementer and standards community, as
   it globally exposes <code>script</code> or <span>SVG <code>script</code></span> elements. As such,
   it is not available in newer contexts, such as when running <span data-x="module script">module
   scripts</span> or when running scripts in a <span>shadow tree</span>. We are looking into creating
@@ -345,15 +342,16 @@
   and with values from <code data-x="attr-id">id</code> attributes coming before values from <code
   data-x="">name</code> attributes when the same element contributes both:</p>
 
+  <!-- KEEP THIS LIST IN SYNC WITH "NAMED ELEMENTS" DEFINITION BELOW -->
   <ul>
-   <li><p>the value of the <code data-x="">name</code> content attribute for all <code>applet</code>,
+   <li><p>the value of the <code data-x="">name</code> content attribute for all
    <span>exposed</span> <code>embed</code>, <code>form</code>, <code>iframe</code>,
    <code>img</code>, and <span>exposed</span> <code>object</code> elements that have a non-empty
    <code data-x="">name</code> content attribute and are <span>in a document tree</span> with
    <var>document</var> as their <span>root</span>;<p></li>
 
    <li><p>the value of the <code data-x="attr-id">id</code> content attribute for all
-   <code>applet</code> and <span>exposed</span> <code>object</code> elements that have a non-empty
+   <span>exposed</span> <code>object</code> elements that have a non-empty
    <code data-x="attr-id">id</code> content attribute and are <span>in a document tree</span> with
    <var>document</var> as their <span>root</span>; and</p></li>
 
@@ -414,19 +412,18 @@
 
   <p><dfn data-x="dom-document-nameditem-filter">Named elements</dfn> with the name <var>name</var>, for the purposes of the above algorithm, are those that are either:</p>
 
+  <!-- KEEP THIS LIST IN SYNC WITH SUPPORTED PROPERTY VALUES ABOVE -->
   <ul>
+   <li><span>Exposed</span> <code>embed</code>, <code>form</code>, <code>iframe</code>,
+   <code>img</code>, or <span>exposed</span> <code>object</code> elements that have a <code
+   data-x="">name</code> content attribute whose value is <var>name</var>, or</li>
 
-   <li><code>applet</code>, <span>exposed</span> <code>embed</code>, <code>form</code>,
-   <code>iframe</code>, <code>img</code>, or <span>exposed</span> <code>object</code> elements that
-   have a <code data-x="">name</code> content attribute whose value is <var>name</var>, or</li>
-
-   <li><code>applet</code> or <span>exposed</span> <code>object</code> elements that have an <code
+   <li><span>Exposed</span> <code>object</code> elements that have an <code
    data-x="attr-id">id</code> content attribute whose value is <var>name</var>, or</li>
 
    <li><code>img</code> elements that have an <code data-x="attr-id">id</code> content attribute
    whose value is <var>name</var>, and that have a non-empty <code data-x="">name</code>
    content attribute present also.</li>
-
   </ul>
 
   <p>An <code>embed</code> or <code>object</code> element is said to be <dfn>exposed</dfn> if it has

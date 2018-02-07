@@ -58,7 +58,7 @@
   are invoked, the user agent must run these steps:</p>
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>Run the <span>text preparation algorithm</span>, passing it <var>text</var>, the object
    implementing the <code>CanvasText</code> interface, and, if the <var>maxWidth</var> argument was
@@ -115,7 +115,7 @@ HAVE REJIGGED HOW TEXT WORKS IN v5 (e.g. remember security)
   <ol>
 
    <li><p>If <var>maxHeight</var> is present but less than or equal to zero, then return without
-   doing anything; abort these steps.</p></li>
+   doing anything.</p></li>
 
    <li><p>Let <var>font</var> be the current font of the context, as given by the <code
    data-x="dom-context-2d-font">font</code> attribute.</p></li>

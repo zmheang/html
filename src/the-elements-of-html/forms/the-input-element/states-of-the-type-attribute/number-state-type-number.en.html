@@ -116,7 +116,6 @@
    <code class="no-backref" data-x="attr-fs-formnovalidate">formnovalidate</code>,
    <code class="no-backref" data-x="attr-fs-formtarget">formtarget</code>,
    <code class="no-backref" data-x="attr-dim-height">height</code>,
-   <code class="no-backref" data-x="attr-fe-inputmode">inputmode</code>,
    <code class="no-backref" data-x="attr-input-maxlength">maxlength</code>,
    <code class="no-backref" data-x="attr-input-minlength">minlength</code>,
    <code class="no-backref" data-x="attr-input-multiple">multiple</code>,
@@ -151,16 +150,16 @@
 
   </div>
 
-  <p class="note">The <code data-x="">type=number</code> state is not appropriate for input that
-  happens to only consist of numbers but isn't strictly speaking a number. For example, it would be
-  inappropriate for credit card numbers or US postal codes. A simple way of determining whether to
-  use <code data-x="">type=number</code> is to consider whether it would make sense for the input
-  control to have a spinbox interface (e.g. with "up" and "down" arrows). Getting a credit card
-  number wrong by 1 in the last digit isn't a minor mistake, it's as wrong as getting every digit
-  incorrect. So it would not make sense for the user to select a credit card number using "up" and
-  "down" buttons. When a spinbox interface is not appropriate, <code data-x="">type=text</code> is
-  probably the right choice (possibly with a <code data-x="attr-input-pattern">pattern</code>
-  attribute).</p>
+  <p class="note" id="when-number-is-not-appropriate">The <code data-x="">type=number</code> state
+  is not appropriate for input that happens to only consist of numbers but isn't strictly speaking a
+  number. For example, it would be inappropriate for credit card numbers or US postal codes. A
+  simple way of determining whether to use <code data-x="">type=number</code> is to consider whether
+  it would make sense for the input control to have a spinbox interface (e.g. with "up" and "down"
+  arrows). Getting a credit card number wrong by 1 in the last digit isn't a minor mistake, it's as
+  wrong as getting every digit incorrect. So it would not make sense for the user to select a credit
+  card number using "up" and "down" buttons. When a spinbox interface is not appropriate, <code
+  data-x="">type=text</code> is probably the right choice (possibly with a <code
+  data-x="attr-input-pattern">pattern</code> attribute).</p>
 
 
 

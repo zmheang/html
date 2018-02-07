@@ -1,33 +1,22 @@
   <h6><dfn>Pixel manipulation</dfn></h6>
 
   <dl class="domintro">
-
-   <dt><var>imagedata</var> = new <code data-x="dom-imagedata">ImageData</code>(<var>sw</var>, <var>sh</var>)</dt>
+   <dt><var>imagedata</var> = new <code subdfn data-x="dom-imagedata">ImageData</code>(<var>sw</var>, <var>sh</var>)</dt>
    <dt><var>imagedata</var> = <var>context</var> . <code subdfn data-x="dom-context-2d-createImageData">createImageData</code>(<var>sw</var>, <var>sh</var>)</dt>
-
    <dd>
-
     <p>Returns an <code>ImageData</code> object with the given dimensions. All the pixels in the
-    returned object are transparent black.</p>
+    returned object are <span>transparent black</span>.</p>
 
     <p>Throws an <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> if either of
     the width or height arguments are zero.</p>
-
    </dd>
 
    <dt><var>imagedata</var> = <var>context</var> . <code data-x="dom-context-2d-createImageData">createImageData</code>(<var>imagedata</var>)</dt>
-
-   <dd>
-
-    <p>Returns an <code>ImageData</code> object with the same dimensions as the argument. All the
-    pixels in the returned object are transparent black.</p>
-
-   </dd>
+   <dd><p>Returns an <code>ImageData</code> object with the same dimensions as the argument. All the
+   pixels in the returned object are <span>transparent black</span>.</p></dd>
 
    <dt><var>imagedata</var> = new <code data-x="dom-imagedata">ImageData</code>(<var>data</var>, <var>sw</var> [, <var>sh</var> ] )</dt>
-
    <dd>
-
     <p>Returns an <code>ImageData</code> object using the data provided in the <code
     data-x="idl-Uint8ClampedArray">Uint8ClampedArray</code> argument, interpreted using the given
     dimensions.</p>
@@ -38,44 +27,28 @@
 
     <p>Throws an <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> if the given
     data and dimensions can't be interpreted consistently, or if either dimension is zero.</p>
-
    </dd>
 
    <dt><var>imagedata</var> = <var>context</var> . <code subdfn data-x="dom-context-2d-getImageData">getImageData</code>(<var>sx</var>, <var>sy</var>, <var>sw</var>, <var>sh</var>)</dt>
-
    <dd>
-
     <p>Returns an <code>ImageData</code> object containing the image data for the given rectangle of
     the bitmap.</p>
 
     <p>Throws an <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> if the either
     of the width or height arguments are zero.</p>
-
    </dd>
 
    <dt><var>imagedata</var> . <code subdfn data-x="dom-imagedata-width">width</code></dt>
    <dt><var>imagedata</var> . <code subdfn data-x="dom-imagedata-height">height</code></dt>
-
-   <dd>
-
-    <p>Returns the actual dimensions of the data in the <code>ImageData</code> object, in
-    pixels.</p>
-
-   </dd>
+   <dd><p>Returns the actual dimensions of the data in the <code>ImageData</code> object, in
+   pixels.</p></dd>
 
    <dt><var>imagedata</var> . <code subdfn data-x="dom-imagedata-data">data</code></dt>
-
-   <dd>
-
-    <p>Returns the one-dimensional array containing the data in RGBA order, as integers in the range
-    0 to 255.</p>
-
-   </dd>
+   <dd><p>Returns the one-dimensional array containing the data in RGBA order, as integers in the
+   range 0 to 255.</p></dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-putImageData">putImageData</code>(<var>imagedata</var>, <var>dx</var>, <var>dy</var> [, <var>dirtyX</var>, <var>dirtyY</var>, <var>dirtyWidth</var>, <var>dirtyHeight</var> ] )</dt>
-
    <dd>
-
     <p>Paints the data from the given <code>ImageData</code> object onto the bitmap. If a dirty
     rectangle is provided, only the pixels from that rectangle are painted.</p>
 
@@ -85,10 +58,9 @@
     canvas are replaced wholesale, with no composition, alpha blending, no shadows, etc.</p>
 
     <p>Throws an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> if the
-    <var>imagedata</var> object's data's <span>[[Detached]]</span> internal slot value is true.</p>
-
+    <var>imagedata</var> object's <code data-x="dom-imagedata-data">data</code> attribute value's
+    [[ViewedArrayBuffer]] internal slot is detached.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -104,10 +76,10 @@
   numeric arguments <var>sw</var> and <var>sh</var>, it must <span>create an <code>ImageData</code>
   object</span> with parameter <var>pixelsPerRow</var> set to <var>sw</var>, and <var>rows</var> set
   to <var>sh</var>. The image data of the newly created <code>ImageData</code> object must be
-  initialized to transparent black. If both <var>sw</var> and <var>sh</var> are non-zero, then
-  return the new <code>ImageData</code> object. If one or both of <var>sw</var> and <var>sh</var>
-  are zero, then the constructor must throw an <span>"<code>IndexSizeError</code>"</span>
-  <code>DOMException</code> instead.</p>
+  initialized to <span>transparent black</span>. If both <var>sw</var> and <var>sh</var> are
+  nonzero, then return the new <code>ImageData</code> object. If one or both of <var>sw</var> and
+  <var>sh</var> are zero, then the constructor must throw an
+  <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> instead.</p>
 
   <p>When the <code data-x="dom-imagedata">ImageData()</code> constructor is invoked with its first
   argument being an <code data-x="idl-Uint8ClampedArray">Uint8ClampedArray</code> <var>source</var>
@@ -118,20 +90,19 @@
 
    <li><p>Let <var>length</var> be the number of bytes in <var>source</var>.</p></li>
 
-   <li><p>If <var>length</var> is not a non-zero integral multiple of four, then throw an
-   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> and abort these
-   steps.</p></li>
+   <li><p>If <var>length</var> is not a nonzero integral multiple of four, then throw an
+   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>length</var> be <var>length</var> divided by four.</p>
 
    <li>
 
     <p>If <var>length</var> is not an integral multiple of <var>sw</var>, then throw an
-    <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> and abort these steps.</p>
+    <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code>.</p>
 
     <p class="note">At this step, the length is guaranteed to be greater than zero (otherwise the
     second step above would have aborted the steps), so if <var>sw</var> is zero, this
-    step will throw the exception and abort these steps.</p>
+    step will throw the exception and return.</p>
 
    </li>
 
@@ -139,7 +110,7 @@
 
    <li><p>If the <var>sh</var> argument was not omitted, and its value is not equal to
    <var>height</var>, then throw an <span>"<code>IndexSizeError</code>"</span>
-   <code>DOMException</code> and abort these steps.</p></li>
+   <code>DOMException</code>.</p></li>
 
    <li>
 
@@ -160,7 +131,7 @@
   <code>ImageData</code> object</span>, with parameter <var>pixelsPerRow</var> set to the
   absolute magnitude of <var>sw</var>, and parameter <var>rows</var> set to the absolute magnitude
   of <var>sh</var>. Initialize the image data of the new <code>ImageData</code> object to
-  transparent black. If both <var>sw</var> and <var>sh</var> are non-zero, then return
+  <span>transparent black</span>. If both <var>sw</var> and <var>sh</var> are nonzero, then return
   the new <code>ImageData</code> object. If one or both of <var>sw</var> and <var>sh</var> are
   zero, then throw an <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code>
   instead.</p>
@@ -171,8 +142,8 @@
   the <code data-x="dom-imagedata-width">width</code> attribute of the <code>ImageData</code>
   object passed as the argument, and the <var>rows</var> parameter set to the value of the
   <code data-x="dom-imagedata-height">height</code> attribute.
-  Initialize the image data of the new <code>ImageData</code> object to transparent black. Return
-  the newly created <code>ImageData</code> object.</p>
+  Initialize the image data of the new <code>ImageData</code> object to <span>transparent
+  black</span>. Return the newly created <code>ImageData</code> object.</p>
 
   <p>The <dfn><code data-x="dom-context-2d-getImageData">getImageData(<var>sx</var>,
   <var>sy</var>, <var>sw</var>, <var>sh</var>)</code></dfn> method, when invoked, must,
@@ -192,8 +163,8 @@
   data-x=""><var>sx</var>+<var>sw</var></span>, <span
   data-x=""><var>sy</var>+<var>sh</var></span>), (<var>sx</var>,
   <var>sy</var>+<var>sh</var>), in the bitmap's coordinate space units.
-  Pixels outside the <span>output bitmap</span> must be set to transparent black. Pixel values
-  must not be premultiplied by alpha.</p>
+  Pixels outside the <span>output bitmap</span> must be set to <span>transparent black</span>. Pixel
+  values must not be premultiplied by alpha.</p>
 
   <p>When the user agent is required to <dfn>create an <code>ImageData</code> object</dfn>, given a
   positive integer number of rows <var>rows</var>, a positive integer number of pixels per row
@@ -220,7 +191,7 @@
 
     <p>If the <span>Canvas Pixel <code data-x="idl-ArrayBuffer">ArrayBuffer</code></span> cannot be
     allocated, then rethrow the <code data-x="js-RangeError">RangeError</code> thrown by JavaScript,
-    and abort these steps.</p>
+    and return.</p>
    </li>
 
    <li><p>Initialize the <dfn><code data-x="dom-imagedata-width">width</code></dfn> attribute of
@@ -280,13 +251,12 @@
   <p>The method, when invoked, must act as follows:</p>
 
   <ol>
+   <li><p>Let <var>buffer</var> be <var>imagedata</var>'s <code
+   data-x="dom-imagedata-data">data</code> attribute value's [[ViewedArrayBuffer]] internal
+   slot.</p></li>
 
-   <li>
-
-    <p>If <var>imagedata</var>'s <code data-x="dom-imagedata-data">data</code> attribute value's
-    <span>[[Detached]]</span> internal slot value is true, then throw an
-    <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> and abort these
-    steps.</p>
+   <li><p>If <span>IsDetachedBuffer</span>(<var>buffer</var>) is true, then throw an
+   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li>
 
@@ -327,7 +297,7 @@
    <li>
 
     <p>If, after those changes, either <var>dirtyWidth</var> or <var>dirtyHeight</var> are negative
-    or zero, then abort these steps without affecting any bitmaps.</p>
+    or zero, then return without affecting any bitmaps.</p>
 
    </li>
 

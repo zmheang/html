@@ -5,7 +5,7 @@
    <dd><span>Flow content</span>.</dd>
    <dd><span>Phrasing content</span>.</dd>
    <dd><span>Interactive content</span>.</dd>
-   <dd><span data-x="category-listed">Listed</span>, <span data-x="category-label">labelable</span>, and <span data-x="category-submit">submittable</span> <span>form-associated element</span>.</dd>
+   <dd><span data-x="category-listed">Listed</span>, <span data-x="category-label">labelable</span>, <span data-x="category-submit">submittable</span>, and <span data-x="category-autocapitalize">autocapitalize-inheriting</span> <span>form-associated element</span>.</dd>
    <dd><span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>Where <span>phrasing content</span> is expected.</dd>
@@ -26,7 +26,8 @@
    <dd><code data-x="attr-button-value">value</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-fe-autofocus">autofocus</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-fe-disabled">disabled</span>;

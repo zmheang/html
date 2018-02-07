@@ -8,7 +8,7 @@
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>Where <span>flow content</span> is expected.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
-   <dd><span>Flow content</span>, but with no <code>main</code> element descendants.</dd>
+   <dd><span>Flow content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
@@ -104,10 +104,10 @@
    &lt;header>
     &lt;h1 itemprop="headline">My Day at the Beach&lt;/h1>
    &lt;/header>
-   &lt;main itemprop="articleBody">
+   &lt;div itemprop="articleBody">
     &lt;p>Today I went to the beach and had a lot of fun.&lt;/p>
     <em>...more content...</em>
-   &lt;/main>
+   &lt;/div>
    &lt;footer>
     &lt;p>Posted &lt;time itemprop="datePublished" datetime="2009-10-10">Thursday&lt;/time>.&lt;/p>
    &lt;/footer>
@@ -124,10 +124,6 @@
      &lt;a href="contact.html">Contact Us&lt;/a>&lt;/p>
  &lt;/footer>
 &lt;/body></pre>
-
-   <p>Notice the <code>main</code> elements being used to wrap all the contents of the page other
-   than the header and footer, and all the contents of the blog entry other than its header and
-   footer.</p>
 
    <p>You can also see microdata annotations in the above example that use the schema.org vocabulary
    to provide the publication date and other metadata about the blog post.</p>

@@ -24,14 +24,14 @@
   steps:</p>
 
   <ol>
-   <li><p>If this <code>summary</code> element has no parent node, then abort these steps.</p></li>
+   <li><p>If this <code>summary</code> element has no parent node, then return.</p></li>
 
    <li><p>Let <var>parent</var> be this <code>summary</code> element's parent node.</p>
 
-   <li><p>If <var>parent</var> is not a <code>details</code> element, then abort these steps.</p>
+   <li><p>If <var>parent</var> is not a <code>details</code> element, then return.</p>
 
    <li><p>If <var>parent</var>'s first <code>summary</code> element child is not this
-   <code>summary</code> element, then abort these steps.</p></li>
+   <code>summary</code> element, then return.</p></li>
 
    <li>
     <p>If the <code data-x="attr-details-open">open</code> attribute is present on

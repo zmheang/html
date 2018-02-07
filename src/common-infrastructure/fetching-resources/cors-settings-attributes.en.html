@@ -34,4 +34,26 @@
   data-x="attr-crossorigin-anonymous-keyword">anonymous</code> keyword. The <i data-x="missing value default">missing value default</i>, used when the attribute is omitted, is the <dfn data-x="attr-crossorigin-none">No
   CORS</dfn> state.</p>
 
+  <p>The majority of fetches governed by <span data-x="CORS settings attribute">CORS settings
+  attributes</span> will be done via the <span>create a potential-CORS request</span> algorithm.</p>
+
+  <p>For <span data-x="module script">module scripts</span>, certain <span data-x="CORS settings
+  attribute">CORS settings attributes</span> have been repurposed to have a slightly different
+  meaning, wherein they only impact the <span data-x="concept-request">request</span>'s <span
+  data-x="concept-request-credentials-mode">credentials mode</span> (since the <span
+  data-x="concept-request-mode">mode</span> is always "<code data-x="">cors</code>"). To perform
+  this translation, we define the <dfn>module script credentials mode</dfn> for a given <span>CORS
+  settings attribute</span> to be determined by switching on the attribute's state:</p>
+
+  <dl class="switch">
+   <dt><span data-x="attr-crossorigin-none">No CORS</span></dt>
+   <dd>"<code data-x="">omit</code>"</dd>
+
+   <dt><span data-x="attr-crossorigin-anonymous">Anonymous</span></dt>
+   <dd>"<code data-x="">same-origin</code>"</dd>
+
+   <dt><span data-x="attr-crossorigin-none">Use Credentials</span></dt>
+   <dd>"<code data-x="">include</code>"</dd>
+  </dl>
+
 

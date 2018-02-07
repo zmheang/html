@@ -57,12 +57,12 @@
 
    <li><p>If the characters starting from <var>position</var> are "CACHE", followed by a
    U+0020 SPACE character, followed by "MANIFEST", then advance <var>position</var> to the
-   next character after those. Otherwise, this isn't a cache manifest; abort this algorithm with a
+   next character after those. Otherwise, this isn't a cache manifest; return with a
    failure while checking for the magic signature.</p></li>
 
    <li><p>If the character at <var>position</var> is neither a U+0020 SPACE character, a
    U+0009 CHARACTER TABULATION (tab) character, U+000A LINE FEED (LF) character, nor a U+000D
-   CARRIAGE RETURN (CR) character, then this isn't a cache manifest; abort this algorithm with a
+   CARRIAGE RETURN (CR) character, then this isn't a cache manifest; return with a
    failure while checking for the magic signature.</p></li>
 
    <li><p>This is a cache manifest. The algorithm cannot fail beyond

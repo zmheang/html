@@ -114,10 +114,10 @@
    </li>
 
    <li><p>If <var>new focus target</var> is a <span>focusable area</span> and its <span>DOM
-   anchor</span> is <span>inert</span>, then abort these steps.</p></li>
+   anchor</span> is <span>inert</span>, then return.</p></li>
 
    <li><p>If <var>new focus target</var> is the <span>currently focused area of a
-   top-level browsing context</span>, then abort these steps.</p></li>
+   top-level browsing context</span>, then return.</p></li>
 
    <li><p>Let <var>old chain</var> be the <span>focus chain</span> of the <span
    data-x="currently focused area of a top-level browsing context">currently focused area of the
@@ -144,8 +144,7 @@
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2819 -->
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2822 -->
 
-   <li><p>If <var>old focus target</var> is <span>inert</span>, then abort these
-   steps.</p></li>
+   <li><p>If <var>old focus target</var> is <span>inert</span>, then return.</p></li>
 
    <li>
 
@@ -161,7 +160,7 @@
    focused area of a top-level browsing context</span>.</p></li>
 
    <li><p>If <var>old focus target</var> is not one of the entries in <var>old
-   chain</var>, then abort these steps.</p></li>
+   chain</var>, then return.</p></li>
 
    <li>
 
@@ -275,7 +274,7 @@
    top-level browsing context</span>.</p></li>
 
    <li><p>If <var>old focus target</var> and <var>new focus target</var> are the
-   same, abort these steps.</p></li>
+   same, return.</p></li>
 
    <li><p>Let <var>new chain</var> be the <span>focus chain</span> of <var>new
    focus target</var>.</p></li>
@@ -481,7 +480,7 @@
    <li><p>Let <var>candidate</var> be the <code>Document</code> of the <span>top-level browsing
    context</span>.</p></li>
 
-   <li><p>If <var>candidate</var> is <var>target</var>, return true and abort these steps.</p></li>
+   <li><p>If <var>candidate</var> is <var>target</var>, return true.</p></li>
 
    <li>
 
@@ -493,7 +492,7 @@
     designated <span>focused area of the control group</span> is a <span>browsing context
     container</span> with a non-null <span>nested browsing context</span>, and the <span>active
     document</span> of that <span>browsing context container</span>'s <span>nested browsing
-    context</span> is <var>target</var>, then return true and abort these steps.</p>
+    context</span> is <var>target</var>, then return true.</p>
 
     <p>Otherwise, if <var>candidate</var> has a non-empty <span>control group</span>, and the
     designated <span>focused area of the control group</span> is a <span>browsing context
@@ -501,7 +500,7 @@
     <var>candidate</var> be the <span>active document</span> of that <span>browsing context
     container</span>'s <span>nested browsing context</span>, and redo this step.</p>
 
-    <p>Otherwise, return false and abort these steps.</p>
+    <p>Otherwise, return false.</p>
 
    </li>
 

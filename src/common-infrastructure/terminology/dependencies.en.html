@@ -62,10 +62,15 @@
      <li>The <dfn data-x-href="https://infra.spec.whatwg.org/#stack">stack</dfn> data structure and the associated definitions for
              <dfn data-x="stack push" data-x-href="https://infra.spec.whatwg.org/#stack-push">push</dfn> and
              <dfn data-x="stack pop" data-x-href="https://infra.spec.whatwg.org/#stack-pop">pop</dfn></li>
+     <li>The <dfn data-x-href="https://infra.spec.whatwg.org/#queue">queue</dfn> data structure and the associated definitions for
+             <dfn data-x-href="https://infra.spec.whatwg.org/#queue-enqueue">enqueue</dfn> and
+             <dfn data-x-href="https://infra.spec.whatwg.org/#queue-dequeue">dequeue</dfn></li>
      <li>The <dfn data-x="set" data-x-href="https://infra.spec.whatwg.org/#ordered-set">ordered set</dfn> data structure and the associated definition for
              <dfn data-x="set append" data-x-href="https://infra.spec.whatwg.org/#set-append">append</dfn></li>
      <li>The <dfn data-x-href="https://infra.spec.whatwg.org/#struct">struct</dfn> specification type and the associated definition for
              <dfn data-x="struct item" data-x-href="https://infra.spec.whatwg.org/#struct-item">item</dfn></li>
+     <li>The <dfn data-x-href="https://infra.spec.whatwg.org/#forgiving-base64-encode">forgiving-base64 encode</dfn> and
+             <dfn data-x-href="https://infra.spec.whatwg.org/#forgiving-base64-decode">forgiving-base64 decode</dfn> algorithms</li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#html-namespace">HTML namespace</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#mathml-namespace">MathML namespace</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#svg-namespace">SVG namespace</dfn></li>
@@ -341,10 +346,10 @@
        <li><dfn data-x="concept-request-reserved-client" data-x-href="https://fetch.spec.whatwg.org/#concept-request-reserved-client">reserved client</dfn></li>
        <li><dfn data-x="concept-request-target-client-id" data-x-href="https://fetch.spec.whatwg.org/#concept-request-target-client-id">target client id</dfn></li>
        <li><dfn data-x="concept-request-initiator" data-x-href="https://fetch.spec.whatwg.org/#concept-request-initiator">initiator</dfn></li>
-       <li><dfn data-x="concept-request-type" data-x-href="https://fetch.spec.whatwg.org/#concept-request-type">type</dfn></li>
        <li><dfn data-x="concept-request-destination" data-x-href="https://fetch.spec.whatwg.org/#concept-request-destination">destination</dfn></li>
        <li><dfn data-x="concept-potential-destination" data-x-href="https://fetch.spec.whatwg.org/#concept-potential-destination">potential destination</dfn></li>
        <li><dfn data-x="concept-potential-destination-translate" data-x-href="https://fetch.spec.whatwg.org/#concept-potential-destination-translate">translating</dfn> a <span data-x="concept-potential-destination">potential destination</span></li>
+       <li><dfn data-x="concept-script-like-destination" data-x-href="https://fetch.spec.whatwg.org/#request-destination-script-like">script-like</dfn> <span data-x="concept-request-destination">destinations</span></li>
        <li><dfn data-x="concept-request-priority" data-x-href="https://fetch.spec.whatwg.org/#concept-request-priority">priority</dfn></li>
        <li><dfn data-dfn-for="request" data-x="concept-request-origin" data-x-href="https://fetch.spec.whatwg.org/#concept-request-origin">origin</dfn></li>
        <li><dfn data-x="concept-request-referrer" data-x-href="https://fetch.spec.whatwg.org/#concept-request-referrer">referrer</dfn></li>
@@ -411,6 +416,7 @@
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-delete-an-existing-named-property">delete an existing named property</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-perform-a-security-check">perform a security check</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-platform-object">platform object</dfn></li>
+     <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-legacy-platform-object">legacy platform object</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-primary-interface">primary interface</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-interface-object">interface object</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-interface-prototype-object">interface prototype object</dfn></li>
@@ -440,7 +446,6 @@
      <li><dfn data-x="idl-Function" data-x-href="https://heycam.github.io/webidl/#common-Function"><code>Function</code></dfn></li>
      <li><dfn data-x="idl-long" data-x-href="https://heycam.github.io/webidl/#idl-long"><code>long</code></dfn></li>
      <li><dfn data-x="idl-object" data-x-href="https://heycam.github.io/webidl/#idl-object"><code>object</code></dfn></li>
-     <li><dfn data-x="idl-RegExp" data-x-href="https://heycam.github.io/webidl/#idl-RegExp"><code>RegExp</code></dfn></li>
      <li><dfn data-x="idl-Uint8ClampedArray" data-x-href="https://heycam.github.io/webidl/#idl-Uint8ClampedArray"><code>Uint8ClampedArray</code></dfn></li>
      <li><dfn data-x="idl-unrestricted-double" data-x-href="https://heycam.github.io/webidl/#idl-unrestricted-double"><code>unrestricted double</code></dfn></li>
      <li><dfn data-x="idl-unsigned-long" data-x-href="https://heycam.github.io/webidl/#idl-unsigned-long"><code>unsigned long</code></dfn></li>
@@ -539,6 +544,7 @@
      <li>The <dfn data-x="js-List" data-x-href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">List</dfn> and
              <dfn data-x-href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">Record</dfn> specification types</li>
      <li>The <dfn data-x="PropertyDescriptor" data-x-href="https://tc39.github.io/ecma262/#sec-property-descriptor-specification-type">Property Descriptor</dfn> specification type</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-script-records">Script Record</dfn> specification type</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-source-text-module-records">Source Text Module Record</dfn> specification type and its
              <dfn data-x="js-Evaluate" data-x-href="https://tc39.github.io/ecma262/#sec-moduleevaluation">Evaluate</dfn> and
              <dfn data-x="js-Instantiate" data-x-href="https://tc39.github.io/ecma262/#sec-moduledeclarationinstantiation">Instantiate</dfn> methods</li>
@@ -554,6 +560,7 @@
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-enumerableownproperties">EnumerableOwnProperties</dfn> abstract operation</li>
      <li>The <dfn data-x="js-FunctionCreate" data-x-href="https://tc39.github.io/ecma262/#sec-functioncreate">FunctionCreate</dfn> abstract operation</li>
      <li>The <dfn data-x="js-Get" data-x-href="https://tc39.github.io/ecma262/#sec-get-o-p">Get</dfn> abstract operation</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-getactivescriptormodule">GetActiveScriptOrModule</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-getfunctionrealm">GetFunctionRealm</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-hasownproperty">HasOwnProperty</dfn> abstract operation</li>
      <li>The <dfn data-x="js-HostEnsureCanCompileStrings" data-x-href="https://tc39.github.io/ecma262/#sec-hostensurecancompilestrings">HostEnsureCanCompileStrings</dfn> abstract operation</li>
@@ -567,6 +574,7 @@
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-isdetachedbuffer">IsDetachedBuffer</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-issharedarraybuffer">IsSharedArrayBuffer</dfn> abstract operation</li>
      <li>The <dfn data-x="js-NewObjectEnvironment" data-x-href="https://tc39.github.io/ecma262/#sec-newobjectenvironment">NewObjectEnvironment</dfn> abstract operation</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-normalcompletion">NormalCompletion</dfn> abstract operation</li>
      <!-- the next set of Ordinary* abstract operations are in order of appearance -->
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-ordinarygetprototypeof">OrdinaryGetPrototypeOf</dfn> abstract operation</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-ordinarysetprototypeof">OrdinarySetPrototypeOf</dfn> abstract operation</li>
@@ -595,8 +603,28 @@
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-sharedarraybuffer-objects"><code>SharedArrayBuffer</code></dfn> class</li>
      <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror"><code>TypeError</code></dfn> class</li>
      <li>The <dfn data-x="js-RangeError" data-x-href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-rangeerror"><code>RangeError</code></dfn> class</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-eval-x"><code>eval()</code></dfn> function</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-IsHTMLDDA-internal-slot">[[IsHTMLDDA]]</dfn> internal slot</li>
      <li>The <dfn data-x="js-typeof" data-x-href="https://tc39.github.io/ecma262/#sec-typeof-operator"><code>typeof</code></dfn> operator</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/ecma262/#sec-delete-operator"><code>delete</code></dfn> operator</li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#table-49">The <var>TypedArray</var> Constructors</dfn> table</li>
+    </ul>
+
+    <p>Users agents that support JavaScript must also implement the <cite>import()</cite> proposal.
+    The following terms are defined there, and used in this specification: <ref spec=JSIMPORT></p>
+
+    <ul class="brief">
+     <li><dfn data-x-href="https://tc39.github.io/proposal-dynamic-import/#sec-import-calls"><code>import()</code></dfn></li>
+     <li>The <dfn data-x="js-HostImportModuleDynamically" data-x-href="https://tc39.github.io/proposal-dynamic-import/#sec-hostimportmoduledynamically">HostImportModuleDynamically</dfn> abstract operation</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/proposal-dynamic-import/#sec-finishdynamicimport">FinishDynamicImport</dfn> abstract operation</li>
+    </ul>
+
+    <p>Users agents that support JavaScript must also implement the <cite>import.meta</cite>
+    proposal. The following term is defined there, and used in this specification: <ref
+    spec=JSIMPORTMETA></p>
+
+    <ul class="brief">
+     <li>The <dfn data-x="js-HostGetImportMetaProperties" data-x-href="https://tc39.github.io/proposal-import-meta/#sec-hostgetimportmetaproperties">HostGetImportMetaProperties</dfn> abstract operation</li>
     </ul>
 
    </dd>
@@ -674,7 +702,7 @@
      <li>The <dfn data-x="concept-node-insert-ext" data-x-href="https://dom.spec.whatwg.org/#concept-node-insert-ext">insertion steps</dfn>,
              <dfn data-x="concept-node-remove-ext" data-x-href="https://dom.spec.whatwg.org/#concept-node-remove-ext">removing steps</dfn>,
              <dfn data-x="concept-node-adopt-ext" data-x-href="https://dom.spec.whatwg.org/#concept-node-adopt-ext">adopting steps</dfn>, and
-             <dfn data-x-href="https://dom.spec.whatwg.org/#concept-node-adopt-ext">child text content change steps</dfn> hooks</li>
+             <dfn data-x-href="https://dom.spec.whatwg.org/#concept-node-text-change-ext">child text content change steps</dfn> hooks</li>
      <li>The <dfn data-x-href="https://dom.spec.whatwg.org/#concept-element-attribute">attribute list</dfn> concept</li>
      <li>The <dfn data-x="concept-cd-data" data-x-href="https://dom.spec.whatwg.org/#concept-cd-data">data</dfn> of a text node</li>
      <li>The <dfn data-x-href="https://dom.spec.whatwg.org/#concept-child-text-content">child text content</dfn> of a node</li>
@@ -693,6 +721,7 @@
      <li><dfn data-x="dom-Event-currentTarget" data-x-href="https://dom.spec.whatwg.org/#dom-event-currenttarget"><code>currentTarget</code></dfn> attribute</li>
      <li><dfn data-x="dom-Event-bubbles" data-x-href="https://dom.spec.whatwg.org/#dom-event-bubbles"><code>bubbles</code></dfn> attribute</li>
      <li><dfn data-x="dom-Event-cancelable" data-x-href="https://dom.spec.whatwg.org/#dom-event-cancelable"><code>cancelable</code></dfn> attribute</li>
+     <li><dfn data-x-href="https://dom.spec.whatwg.org/#composed-flag">composed flag</dfn></li>
      <li><dfn data-x="dom-Event-isTrusted" data-x-href="https://dom.spec.whatwg.org/#dom-event-istrusted"><code>isTrusted</code></dfn> attribute</li>
      <li><dfn data-x="dom-Event-initEvent" data-x-href="https://dom.spec.whatwg.org/#dom-event-initevent"><code>initEvent()</code></dfn> method</li>
      <li><dfn data-x="dom-EventTarget-addEventListener" data-x-href="https://dom.spec.whatwg.org/#dom-eventtarget-addeventlistener"><code>addEventListener()</code></dfn> method</li>
@@ -733,16 +762,17 @@
     <p>The following features are defined in the UI Events specification: <ref spec=UIEVENTS></p>
 
     <ul class="brief">
-     <li>The <dfn data-x-href="https://w3c.github.io/uievents/#interface-MouseEvent"><code>MouseEvent</code></dfn> interface</li>
-     <li>The <code>MouseEvent</code> interface's <dfn data-x="dom-MouseEvent-relatedTarget" data-x-href="https://w3c.github.io/uievents/#widl-MouseEvent-relatedTarget"><code>relatedTarget</code></dfn> attribute</li>
-     <li><dfn data-x-href="https://w3c.github.io/uievents/#idl-def-MouseEventInit"><code>MouseEventInit</code></dfn> dictionary type</li>
+     <li>The <dfn data-x-href="https://w3c.github.io/uievents/#mouseevent"><code>MouseEvent</code></dfn> interface</li>
+     <li>The <code>MouseEvent</code> interface's <dfn data-x="dom-MouseEvent-relatedTarget" data-x-href="https://w3c.github.io/uievents/#dom-mouseevent-relatedtarget"><code>relatedTarget</code></dfn> attribute</li>
+     <li><dfn data-x-href="https://w3c.github.io/uievents/#dictdef-mouseeventinit"><code>MouseEventInit</code></dfn> dictionary type</li>
 
-     <li>The <dfn data-x-href="https://w3c.github.io/uievents/#interface-FocusEvent"><code>FocusEvent</code></dfn> interface</li>
-     <li>The <code>FocusEvent</code> interface's <dfn data-x="dom-FocusEvent-relatedTarget" data-x-href="https://w3c.github.io/uievents/#widl-FocusEvent-relatedTarget"><code>relatedTarget</code></dfn> attribute</li>
+     <li>The <dfn data-x-href="https://w3c.github.io/uievents/#focusevent"><code>FocusEvent</code></dfn> interface</li>
+     <li>The <code>FocusEvent</code> interface's <dfn data-x="dom-FocusEvent-relatedTarget" data-x-href="https://w3c.github.io/uievents/#dom-focusevent-relatedtarget"><code>relatedTarget</code></dfn> attribute</li>
 
-     <li>The <dfn data-x-href="https://w3c.github.io/uievents/#interface-UIEvent"><code>UIEvent</code></dfn> interface</li>
-     <li>The <code>UIEvent</code> interface's <dfn data-x="dom-UIEvent-view" data-x-href="https://w3c.github.io/uievents/#widl-UIEvent-view"><code>view</code></dfn> attribute</li>
+     <li>The <dfn data-x-href="https://w3c.github.io/uievents/#uievent"><code>UIEvent</code></dfn> interface</li>
+     <li>The <code>UIEvent</code> interface's <dfn data-x="dom-UIEvent-view" data-x-href="https://w3c.github.io/uievents/#dom-uievent-view"><code>view</code></dfn> attribute</li>
 
+     <li><dfn data-x="event-auxclick" data-x-href="https://w3c.github.io/uievents/#event-type-auxclick"><code>auxclick</code></dfn> event</li>
      <li><dfn data-x="event-click" data-x-href="https://w3c.github.io/uievents/#event-type-click"><code>click</code></dfn> event</li>
      <li><dfn data-x="event-dblclick" data-x-href="https://w3c.github.io/uievents/#event-type-dblclick"><code>dblclick</code></dfn> event</li>
      <li><dfn data-x="event-mousedown" data-x-href="https://w3c.github.io/uievents/#event-type-mousedown"><code>mousedown</code></dfn> event</li>
@@ -755,8 +785,8 @@
      <li><dfn data-x="event-wheel" data-x-href="https://w3c.github.io/uievents/#event-type-wheel"><code>wheel</code></dfn> event</li>
 
      <li><dfn data-x="event-keydown" data-x-href="https://w3c.github.io/uievents/#event-type-keydown"><code>keydown</code></dfn> event</li>
-     <li><dfn data-x="event-keyup" data-x-href="https://w3c.github.io/uievents/#event-type-keyup"><code>keyup</code></dfn> event</li>
      <li><dfn data-x="event-keypress" data-x-href="https://w3c.github.io/uievents/#event-type-keypress"><code>keypress</code></dfn> event</li>
+     <li><dfn data-x="event-keyup" data-x-href="https://w3c.github.io/uievents/#event-type-keyup"><code>keyup</code></dfn> event</li>
     </ul>
 
     <p>The following features are defined in the Touch Events specification: <ref spec=TOUCH></p>
@@ -773,12 +803,6 @@
      <li><dfn data-x="event-pointerup" data-x-href="https://w3c.github.io/pointerevents/#the-pointerup-event"><code>pointerup</code></dfn> event</li>
     </ul>
 
-    <p>The following features are defined in the auxclick specification: <ref spec=AUXCLICK></p>
-
-    <ul class="brief">
-     <li><dfn data-x="event-auxclick" data-x-href="https://wicg.github.io/auxclick/#the-auxclick-event"><code>auxclick</code></dfn> event</li>
-    </ul>
-
     <p>This specification sometimes uses the term <dfn data-x="">name</dfn> to refer to the event's
     <span data-x="concept-event-type">type</span>; as in, "an event named <code
     data-x="">click</code>" or "if the event name is <code data-x="">keypress</code>". The terms
@@ -789,8 +813,8 @@
 
     <ul class="brief">
      <li><dfn data-x-href="https://w3c.github.io/DOM-Parsing/#the-domparser-interface"><code>DOMParser</code></dfn></li>
-     <li><dfn data-x="dom-innerHTML" data-x-href="https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML"><code>innerHTML</code></dfn></li>
-     <li><dfn data-x="dom-outerHTML" data-x-href="https://w3c.github.io/DOM-Parsing/#widl-Element-outerHTML"><code>outerHTML</code></dfn></li>
+     <li><dfn data-x="dom-innerHTML" data-x-href="https://w3c.github.io/DOM-Parsing/#dom-element-innerhtml"><code>innerHTML</code></dfn></li>
+     <li><dfn data-x="dom-outerHTML" data-x-href="https://w3c.github.io/DOM-Parsing/#dom-element-outerhtml"><code>outerHTML</code></dfn></li>
     </ul>
 
     <p>The <dfn
@@ -818,7 +842,7 @@
     typedef and the <dfn
     data-x-href="https://w3c.github.io/hr-time/#the-performance-interface"><code>Performance</code></dfn>
     interface's <dfn data-x="dom-Performance-now"
-    data-x-href="https://w3c.github.io/hr-time/#dom-performance-now"><code>now()</code></dfn>
+    data-x-href="https://w3c.github.io/hr-time/#dom-performance-now()"><code>now()</code></dfn>
     method. <ref spec=HRT></p>
 
    </dd>
@@ -833,9 +857,9 @@
     spec=FILEAPI></p>
 
     <ul class="brief">
-     <li>The <dfn data-x-href="https://w3c.github.io/FileAPI/#blob"><code>Blob</code></dfn> interface and its
+     <li>The <dfn data-x-href="https://w3c.github.io/FileAPI/#dfn-Blob"><code>Blob</code></dfn> interface and its
              <dfn data-x="dom-Blob-type" data-x-href="https://w3c.github.io/FileAPI/#dfn-type"><code>type</code></dfn> attribute</li>
-     <li>The <dfn data-x-href="https://w3c.github.io/FileAPI/#file"><code>File</code></dfn> interface and its
+     <li>The <dfn data-x-href="https://w3c.github.io/FileAPI/#dfn-file"><code>File</code></dfn> interface and its
              <dfn data-x="dom-File-name" data-x-href="https://w3c.github.io/FileAPI/#dfn-name"><code>name</code></dfn> and
              <dfn data-x="dom-File-lastModified" data-x-href="https://w3c.github.io/FileAPI/#dfn-lastModified"><code>lastModified</code></dfn> attributes</li>
      <li>The <dfn data-x-href="https://w3c.github.io/FileAPI/#filelist-section"><code>FileList</code></dfn> interface</li>
@@ -865,7 +889,7 @@
     spec=MEDIASOURCE></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/media-source/#idl-def-MediaSource"><code>MediaSource</code></dfn> interface</li>
+     <li><dfn data-x-href="https://w3c.github.io/media-source/#idl-def-mediasource"><code>MediaSource</code></dfn> interface</li>
      <li><dfn data-x-href="https://w3c.github.io/media-source/#mediasource-detach">detaching from a media element</dfn></li>
     </ul>
 
@@ -879,7 +903,7 @@
     spec=MEDIASTREAM></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStream"><code>MediaStream</code></dfn> interface</li>
+     <li><dfn data-x-href="https://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-mediastream"><code>MediaStream</code></dfn> interface</li>
      <li><dfn data-x="dom-MediaDevices-getUserMedia" data-x-href="https://w3c.github.io/mediacapture-main/#dom-mediadevices-getusermedia"><code>getUserMedia()</code></dfn> method</li>
     </ul>
 
@@ -942,12 +966,7 @@
     a CSS grammar"
     data-x-href="https://drafts.csswg.org/css-syntax/#parse-grammar">parsed
     according to a particular CSS grammar</dfn>, the relevant algorithm in the CSS Syntax
-    specification must be followed. <ref spec=CSSSYNTAX></p>
-
-    <p>In particular, some features require that a string be <dfn>parsed as a CSS &lt;color&gt;
-    value</dfn>. When parsing a CSS value, user agents are required by the CSS specifications to
-    apply some error handling rules. These apply to this specification also. <ref spec=CSSCOLOR>
-    <ref spec=CSS></p>
+    specification must be followed, including error handling rules. <ref spec=CSSSYNTAX></p>
 
     <p class="example">For example, user agents are required to close all open constructs upon
     finding the end of a style sheet unexpectedly. Thus, when parsing the string "<code
@@ -956,6 +975,31 @@
     However, the similar construct "<code data-x="">rgb(0,0,</code>" (with both a missing
     parenthesis and a missing "blue" value) cannot be parsed, as closing the open construct does not
     result in a viable value.</p>
+
+    <p>To <dfn id="parsed-as-a-css-color-value">parse a CSS &lt;color> value</dfn>, given a string
+    <var>input</var> with an optional element <var>element</var>, run these steps:</p>
+
+    <ol>
+     <li><p>Let <var>color</var> be the result of <span data-x="parse something according to a CSS
+     grammar">parsing</span> <var>input</var> as a CSS <span>&lt;color></span>. <ref
+     spec=CSSCOLOR></p></li>
+
+     <li><p>If <var>color</var> is failure, then return failure.</p></li>
+
+     <li>
+      <p>If <var>color</var> is <code>currentColor</code>, then:</p>
+
+      <ol>
+       <li><p>If <var>element</var> is not given, then set <var>color</var> to <span>opaque
+       black</span>.</p></li>
+
+       <li><p>Otherwise, set <var>color</var> to the computed value of the <span>'color'</span>
+       property of <var>element</var>.</p></li>
+      </ol>
+     </li>
+
+     <li><p>Return <var>color</var>.</p></li>
+    </ol>
 
     <p>The following terms and features are defined in the CSS specification: <ref spec=CSS></p>
 
@@ -1058,7 +1102,10 @@
     <ul class="brief">
      <li><dfn data-x-href="https://drafts.csswg.org/css-color/#named-color">named color</dfn></li>
      <li><dfn data-x-href="https://drafts.csswg.org/css-color/#typedef-color">&lt;color></dfn></li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-color/#valdef-color-currentcolor">currentColor</dfn></li>
      <li>The <dfn data-x-href="https://drafts.csswg.org/css-color/#the-color-property">'color'</dfn> property</li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-color/#opaque-black">opaque black</dfn></li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-color/#transparent-black">transparent black</dfn></li>
     </ul>
 
     <p>The term <dfn data-x-href="https://drafts.csswg.org/css-images-4/#paint-source">paint
@@ -1078,7 +1125,6 @@
     <ul class="brief">
       <li>The <dfn data-x-href="https://drafts.csswg.org/css-backgrounds/#the-background-color">'background-color'</dfn> property</li>
       <li>The <dfn data-x-href="https://drafts.csswg.org/css-backgrounds/#the-background-image">'background-image'</dfn> property</li>
-      <li>The <dfn data-x-href="https://drafts.csswg.org/css-backgrounds/#position">&lt;position></dfn> CSS data type</li>
     </ul>
 
     <p>The term <dfn
@@ -1101,9 +1147,9 @@
     spec=CSSLISTS></p>
 
     <p>The <dfn
-    data-x-href="https://drafts.csswg.org/css-overflow/#propdef-overflow">'overflow'</dfn> property
+    data-x-href="https://drafts.csswg.org/css-overflow-3/#propdef-overflow">'overflow'</dfn> property
     and its <dfn
-    data-x-href="https://drafts.csswg.org/css-overflow/#valdef-overflow-hidden">'hidden'</dfn> value
+    data-x-href="https://drafts.csswg.org/css-overflow-3/#valdef-overflow-hidden">'hidden'</dfn> value
     are defined in the <cite>CSS Overflow</cite> specification. <ref spec=CSSOVERFLOW></p>
 
     <p>The following features are defined in the <cite>CSS Positioned Layout</cite> specification:
@@ -1167,6 +1213,11 @@
       <li>The <dfn data-x-href="https://drafts.csswg.org/css-ui-4/#appearance-switching">'appearance'</dfn> property</li>
     </ul>
 
+    <p>The algorithm to <dfn
+    data-x-href="https://drafts.csswg.org/web-animations/#update-animations-and-send-events">update
+    animations and send events</dfn> is defined in the <cite>Web Animations</cite> specification. <ref
+    spec=WEBANIMATIONS>.</p>
+
     <p>Implementations that support scripting must support the CSS Object Model. The following
     features and terms are defined in the CSSOM specifications: <ref spec=CSSOM> <ref spec=CSSOMVIEW>
 
@@ -1216,7 +1267,8 @@
     <ref spec=CSSSYNTAX></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#parse-a-comma-separated-list-of-component-values">Parse a comma-separated list of component values</dfn></li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#conform-classes">conformant style sheet</dfn></li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#parse-a-comma-separated-list-of-component-values">parse a comma-separated list of component values</dfn></li>
      <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#component-value">component value</dfn></li>
      <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#environment-encoding">environment encoding</dfn></li>
      <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#typedef-whitespace-token">&lt;whitespace-token></dfn></li>
@@ -1268,9 +1320,18 @@
     spec=GEOMETRY></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://drafts.fxtf.org/geometry/#dommatrix"><code>DOMMatrix</code></dfn> interface</li>
-     <li><dfn data-x-href="https://drafts.fxtf.org/geometry/#dictdef-dommatrixinit"><code>DOMMatrixInit</code></dfn> interface</li>
-     <li>The <dfn data-x-href="https://drafts.fxtf.org/geometry/#create-a-dommatrix-from-the-dictionary">create a <code>DOMMatrix</code> from a dictionary</dfn> algorithm for <code>DOMMatrixInit</code></li>
+     <li><dfn data-x-href="https://drafts.fxtf.org/geometry/#dommatrix"><code>DOMMatrix</code></dfn> interface, and associated
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m11-element">m11 element</dfn>,
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m12-element">m12 element</dfn>,
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m21-element">m21 element</dfn>,
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m22-element">m22 element</dfn>,
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m41-element">m41 element</dfn>, and
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m42-element">m42 element</dfn></li>
+     <li><dfn data-x-href="https://drafts.fxtf.org/geometry/#dictdef-dommatrix2dinit"><code>DOMMatrix2DInit</code></dfn> and
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#dictdef-dommatrixinit"><code>DOMMatrixInit</code></dfn> dictionaries</li>
+     <li>The <dfn data-x-href="https://drafts.fxtf.org/geometry/#create-a-dommatrix-from-the-dictionary">create a <code>DOMMatrix</code> from a dictionary</dfn>
+         and <dfn data-x-href="https://drafts.fxtf.org/geometry/#create-a-dommatrix-from-the-2d-dictionary">create a <code>DOMMatrix</code> from a 2D dictionary</dfn>
+         algorithms for <code>DOMMatrix2DInit</code> or <code>DOMMatrixInit</code></li>
     </ul>
 
    </dd>
@@ -1283,7 +1344,7 @@
     spec=INTERSECTIONOBSERVER></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://wicg.github.io/IntersectionObserver/#run-the-update-intersection-observations-steps">run the update intersection observations steps</dfn></li>
+     <li><dfn data-x-href="https://w3c.github.io/IntersectionObserver/#run-the-update-intersection-observations-steps">run the update intersection observations steps</dfn></li>
     </ul>
 
    </dd>
@@ -1308,15 +1369,14 @@
 
    <dd>
 
-    <p>Implementations may support WebVTT as a text track format for subtitles, captions, chapter
-    titles, metadata, etc, for media resources. <ref spec=WEBVTT></p>
+    <p>Implementations may support WebVTT as a text track format for subtitles, captions, metadata,
+    etc., for media resources. <ref spec=WEBVTT></p>
 
     <p>The following terms, used in this specification, are defined in the WebVTT specification:</p>
 
     <ul class="brief">
      <li><dfn data-x-href="https://w3c.github.io/webvtt/#webvtt-file">WebVTT file</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webvtt/#webvtt-file-using-cue-text">WebVTT file using cue text</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/webvtt/#webvtt-file-using-chapter-title-text">WebVTT file using chapter title text</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webvtt/#webvtt-file-using-only-nested-cues">WebVTT file using only nested cues</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webvtt/#webvtt-parser">WebVTT parser</dfn></li>
      <li>The <dfn data-x-href="https://w3c.github.io/webvtt/#rules-for-updating-the-display-of-webvtt-text-tracks">rules for updating the display of WebVTT text tracks</dfn></li>
@@ -1398,6 +1458,7 @@
     <ul class="brief">
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#content-security-policy-object">Content Security Policy</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#directives">Content Security Policy directive</dfn></li>
+     <li><dfn data-x="concept-csp-list" data-x-href="https://w3c.github.io/webappsec-csp/#csp-list">CSP list</dfn></li>
      <li>The <dfn data-x-href="https://w3c.github.io/webappsec-csp/#grammardef-serialized-policy">Content Security Policy syntax</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#enforced">enforce the policy</dfn></li>
      <li>The <dfn data-x-href="https://w3c.github.io/webappsec-csp/#parse-serialized-policy">parse a serialized Content Security Policy</dfn> algorithm</li>
@@ -1412,6 +1473,7 @@
      <li>The <dfn data-x-href="https://w3c.github.io/webappsec-csp/#frame-ancestors"><code data-x="">frame-ancestors</code> directive</dfn></li>
      <li>The <dfn data-x-href="https://w3c.github.io/webappsec-csp/#sandbox"><code data-x="">sandbox</code> directive</dfn></li>
      <li>The <dfn data-x-href="https://w3c.github.io/webappsec-csp/#should-plugin-element-be-blocked-a-priori-by-content-security-policy">Should element be blocked <i lang="la">a priori</i> by Content Security Policy?</dfn> algorithm</li>
+     <li>The <dfn data-x-href="https://w3c.github.io/webappsec-csp/#contains-a-header-delivered-content-security-policy">contains a header-delivered Content Security Policy</dfn> property.</li>
     </ul>
 
    </dd>
@@ -1428,18 +1490,11 @@
      <li><dfn data-x="dfn-control" data-x-href="https://w3c.github.io/ServiceWorker/#dfn-control">control</dfn></li>
      <li><dfn data-x="on-fetch-request-algorithm" data-x-href="https://w3c.github.io/ServiceWorker/#on-fetch-request-algorithm">handle fetch</dfn></li>
      <li><dfn data-x="scope-match-algorithm" data-x-href="https://w3c.github.io/ServiceWorker/#scope-match-algorithm">match service worker registration</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-scope-url">scope url</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-script-url">script url</dfn></li>
      <li><dfn data-x="dfn-service-worker" data-x-href="https://w3c.github.io/ServiceWorker/#dfn-service-worker">service worker</dfn></li>
      <li><dfn data-x="serviceworkercontainer-service-worker-client" data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkercontainer-service-worker-client">service worker client</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-service-worker-registration">service worker registration</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-type">service worker type</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-serviceworker-link">serviceworker link</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworker"><code>ServiceWorker</code></dfn> interface</li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkercontainer"><code>ServiceWorkerContainer</code></dfn> interface</li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkerglobalscope"><code>ServiceWorkerGlobalScope</code></dfn> interface</li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-use-cache">use cache</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-update-via-cache">update via cache mode</dfn></li>
     </ul>
 
    </dd>
@@ -1467,7 +1522,7 @@
     <ref spec=PAYMENTREQUEST></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/browser-payment-api/#paymentrequest-interface"><code>PaymentRequest</code></dfn> interface</li>
+     <li><dfn data-x-href="https://w3c.github.io/payment-request/#dom-paymentrequest"><code>PaymentRequest</code></dfn> interface</li>
     </ul>
    </dd>
 
@@ -1560,7 +1615,7 @@
     <ref spec=FILTERS></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://drafts.fxtf.org/filters/#typedef-filter-function-list">&lt;filter-function-list&gt;</dfn></li>
+     <li><dfn data-x-href="https://drafts.fxtf.org/filter-effects/#typedef-filter-function-list">&lt;filter-function-list&gt;</dfn></li>
     </ul>
    </dd>
 

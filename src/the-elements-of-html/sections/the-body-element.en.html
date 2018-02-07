@@ -27,15 +27,16 @@
    <dd><code data-x="handler-window-onunload">onunload</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLBodyElement</dfn> : <span>HTMLElement</span> {};
 
-<span>HTMLBodyElement</span> implements <span>WindowEventHandlers</span>;</pre>
+<span>HTMLBodyElement</span> includes <span>WindowEventHandlers</span>;</pre>
 </dd>
    <dd w-nohtml>Uses <code>HTMLBodyElement</code>.</dd>
   </dl>
 
-  <p>The <code>body</code> element <span>represents</span> the main content of the document.</p>
+  <p>The <code>body</code> element <span>represents</span> the contents of the document.</p>
 
   <p>In conforming documents, there is only one <code>body</code> element. The <code
   data-x="dom-document-body">document.body</code> IDL attribute provides scripts with easy access to

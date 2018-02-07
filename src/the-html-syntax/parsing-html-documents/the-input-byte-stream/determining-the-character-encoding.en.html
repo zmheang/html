@@ -23,7 +23,7 @@
 
     <p>If the user has explicitly instructed the user agent to override the document's character
     encoding with a specific encoding, optionally return that encoding with the <span
-    data-x="concept-encoding-confidence">confidence</span> <i>certain</i> and abort these steps.</p>
+    data-x="concept-encoding-confidence">confidence</span> <i>certain</i>.</p>
 
     <p class="note">Typically, user agents remember such user requests across sessions, and in some
     cases apply them to documents in <code>iframe</code>s as well.</p>
@@ -48,8 +48,7 @@
    </li>
 
    <li><p>If the transport layer specifies a character encoding, and it is supported, return that
-   encoding with the <span data-x="concept-encoding-confidence">confidence</span> <i>certain</i>, and
-   abort these steps.</p></li>
+   encoding with the <span data-x="concept-encoding-confidence">confidence</span> <i>certain</i>.</p></li>
 
    <li>
 
@@ -60,8 +59,8 @@
     not efficient, in which case these substeps are entirely skipped.</p>
 
     <p>The aforementioned algorithm either aborts unsuccessfully or returns a character encoding. If
-    it returns a character encoding, then this algorithm must be aborted, returning the same
-    encoding, with <span data-x="concept-encoding-confidence">confidence</span> <i>tentative</i>.</p>
+    it returns a character encoding, then return the same encoding, with <span
+    data-x="concept-encoding-confidence">confidence</span> <i>tentative</i>.</p>
 
    </li>
 
@@ -81,18 +80,12 @@
      nested</span> (the <span>active document</span> of the <span>parent browsing context</span> of
      <var>new document</var>).</p></li>
 
-     <li><p>If <var>parent document</var>'s <span>origin</span> is not the <span>same
-     origin</span> as <var>new document</var>'s <span>origin</span>, then abort these
-     substeps.</p></li>
-
-     <li><p>If <var>parent document</var>'s <span data-x="document's character
-     encoding">character encoding</span> is not an <span>ASCII-compatible encoding</span>, then
-     abort these substeps.</p></li>
-
-     <li><p>Return <var>parent document</var>'s <span data-x="document's character
+     <li><p>If <var>parent document</var>'s <span>origin</span> is <span>same origin</span> with
+     <var>new document</var>'s <span>origin</span>, and <var>parent document</var>'s <span
+     data-x="document's character encoding">character encoding</span> is an <span>ASCII-compatible
+     encoding</span>, then return <var>parent document</var>'s <span data-x="document's character
      encoding">character encoding</span>, with the <span
-     data-x="concept-encoding-confidence">confidence</span> <i>tentative</i>, and abort the
-     <span>encoding sniffing algorithm</span>'s steps.</p></li>
+     data-x="concept-encoding-confidence">confidence</span> <i>tentative</i>.</p></li>
 
     </ol>
 
@@ -100,8 +93,7 @@
 
    <li><p>Otherwise, if the user agent has information on the likely encoding for this page, e.g.
    based on the encoding of the page when it was last visited, then return that encoding, with the
-   <span data-x="concept-encoding-confidence">confidence</span> <i>tentative</i>, and abort these
-   steps.</p></li>
+   <span data-x="concept-encoding-confidence">confidence</span> <i>tentative</i>.</p></li>
 
    <li>
 
@@ -110,7 +102,7 @@
     resource other than the resource's contents, including the address of the resource. If
     autodetection succeeds in determining a character encoding, and that encoding is a supported
     encoding, then return that encoding, with the <span
-    data-x="concept-encoding-confidence">confidence</span> <i>tentative</i>, and abort these steps.
+    data-x="concept-encoding-confidence">confidence</span> <i>tentative</i>.
     <ref spec=UNIVCHARDET></p>
 
     <p class="note">User agents are generally discouraged from attempting to autodetect encodings

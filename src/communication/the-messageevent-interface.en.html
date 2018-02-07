@@ -1,11 +1,11 @@
-  <h3>The <code>MessageEvent</code> interfaces</h3>
+  <h3>The <code>MessageEvent</code> interface</h3>
 
   <p>Messages in <span>server-sent events</span>, <span>Web sockets</span>, <span>cross-document
   messaging</span>, <span>channel messaging</span>, and <span>broadcast channels</span> use the
   <code>MessageEvent</code> interface for their <code data-x="event-message">message</code>
   events:</p>
 
-  <pre class="idl">[Constructor(DOMString type, optional <span>MessageEventInit</span> eventInitDict), Exposed=(Window,Worker)]
+  <pre class="idl">[Constructor(DOMString type, optional <span>MessageEventInit</span> eventInitDict), Exposed=(Window,Worker,AudioWorklet)]
 interface <dfn>MessageEvent</dfn> : <span>Event</span> {
   readonly attribute any <span data-x="dom-MessageEvent-data">data</span>;
   readonly attribute USVString <span data-x="dom-MessageEvent-origin">origin</span>;

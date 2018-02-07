@@ -163,10 +163,17 @@
    <dt><var>document</var> . <code subdfn data-x="dom-document-readyState">readyState</code></dt>
    <dd>
     <p>Returns "<code data-x="">loading</code>" while the <code>Document</code> is loading, "<code
-    data-x="">interactive</code>" once it is finished parsing but still loading sub-resources, and
+    data-x="">interactive</code>" once it is finished parsing but still loading subresources, and
     "<code data-x="">complete</code>" once it has loaded.</p>
+
     <p>The <code data-x="event-readystatechange">readystatechange</code> event fires on the
     <code>Document</code> object when this value changes.</p>
+
+    <p><span w-nohtml subdfn data-x="stop parsing"></span>The <code
+    data-x="event-DOMContentLoaded">DOMContentLoaded</code> event fires after the transition to
+    "<code data-x="">interactive</code>" but before the transition to "<code
+    data-x="">complete</code>", at the point where all subresources apart from <code
+    data-x="attr-script-async">async</code> <code>script</code> elements have loaded.</p>
    </dd>
 
   </dl>

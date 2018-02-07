@@ -119,7 +119,7 @@ br[clear=all i], br[clear=both i] { clear: both; }</pre>
    <var>position</var>.</p></li>
 
    <li><p>If <var>position</var> is past the end of <var>input</var>, there is no <span
-   data-x="presentational hints">presentational hint</span>. Abort these steps.</p></li>
+   data-x="presentational hints">presentational hint</span>. Return.</p></li>
 
    <li><p>If the character at <var>position</var> is a U+002B PLUS SIGN character (+), then let
    <var>mode</var> be <i>relative-plus</i>, and advance <var>position</var> to the next character.
@@ -132,7 +132,7 @@ br[clear=all i], br[clear=both i] { clear: both; }</pre>
    <var>digits</var>.</p></li>
 
    <li><p>If <var>digits</var> is the empty string, there is no <span data-x="presentational
-   hints">presentational hint</span>. Abort these steps.</p></li>
+   hints">presentational hint</span>. Return.</p></li>
 
    <li><p>Interpret <var>digits</var> as a base-ten integer. Let <var>value</var> be the resulting
    number.</p></li>

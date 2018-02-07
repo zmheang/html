@@ -53,8 +53,8 @@ partial interface <dfn id="document" data-lt="">Document</dfn> {
   // special <span>event handler IDL attributes</span> that only apply to Document objects
   [LenientThis] attribute <span>EventHandler</span> <span data-x="handler-onreadystatechange">onreadystatechange</span>;
 };
-<span>Document</span> implements <span>GlobalEventHandlers</span>;
-<span>Document</span> implements <span>DocumentAndElementEventHandlers</span>;</pre>
+<span>Document</span> includes <span>GlobalEventHandlers</span>;
+<span>Document</span> includes <span>DocumentAndElementEventHandlers</span>;</pre>
 
   <p>The <code>Document</code> has an <dfn data-x="concept-document-https-state" data-export=""
   data-dfn-for="Document">HTTPS state</dfn> (an <span>HTTPS state value</span>), initially "<code
@@ -67,8 +67,9 @@ partial interface <dfn id="document" data-lt="">Document</dfn> {
   data-x="concept-fetch">fetches</span> initiated by the <code>Document</code>.</p>
 
   <p>The <code>Document</code> has a <dfn data-x="concept-document-csp-list" data-export=""
-  data-dfn-for="Document">CSP list</dfn>, which is a list of <span>Content Security Policy</span>
-  objects active in this context. The list is empty unless otherwise specified.</p>
+  data-dfn-for="Document">CSP list</dfn>, which is a <span data-x="concept-csp-list">CSP list</span>
+  containing all of the <span>Content Security Policy</span> objects active for the document. The
+  list is empty unless otherwise specified.</p>
 
   <p>The <code>Document</code> has a <dfn data-dfn-for="Document"
   data-x="concept-document-module-map">module map</dfn>, which is a <span>module map</span>,

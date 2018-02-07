@@ -5,20 +5,21 @@
   <p>The <dfn><code data-x="dom-navigator">navigator</code></dfn> attribute of the
   <code>Window</code> interface must return an instance of the <code>Navigator</code> interface,
   which represents the identity and state of the user agent (the client), and allows Web pages to
-  register themselves as potential protocol and content handlers:</p>
+  register themselves as potential protocol handlers:</p>
 
   </div>
 
-  <pre class="idl">interface <dfn>Navigator</dfn> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>Navigator</dfn> {
   // objects implementing this interface also implement the interfaces given below
 };
-<span>Navigator</span> implements <span>NavigatorID</span>;
-<span>Navigator</span> implements <span>NavigatorLanguage</span>;
-<span>Navigator</span> implements <span>NavigatorOnLine</span>;
-<span>Navigator</span> implements <span>NavigatorContentUtils</span>;
-<span>Navigator</span> implements <span>NavigatorCookies</span>;
-<span>Navigator</span> implements <span>NavigatorPlugins</span>;
-<span>Navigator</span> implements <span>NavigatorConcurrentHardware</span>;</pre>
+<span>Navigator</span> includes <span>NavigatorID</span>;
+<span>Navigator</span> includes <span>NavigatorLanguage</span>;
+<span>Navigator</span> includes <span>NavigatorOnLine</span>;
+<span>Navigator</span> includes <span>NavigatorContentUtils</span>;
+<span>Navigator</span> includes <span>NavigatorCookies</span>;
+<span>Navigator</span> includes <span>NavigatorPlugins</span>;
+<span>Navigator</span> includes <span>NavigatorConcurrentHardware</span>;</pre>
 
 <!-- v2:
   geolocator mozIsLocallyAvailable preference
@@ -26,8 +27,8 @@
 
   <div w-nodev>
 
-  <p>These interfaces are defined separately so that <code>WorkerNavigator</code> can re-use parts
-  of the <code>Navigator</code> interface.</p>
+  <p>These interface mixins are defined separately so that <code>WorkerNavigator</code> can re-use
+  parts of the <code>Navigator</code> interface.</p>
 
   </div>
 

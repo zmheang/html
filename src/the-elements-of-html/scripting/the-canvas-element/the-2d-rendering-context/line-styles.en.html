@@ -160,7 +160,7 @@
    <li><p>Let <var>a</var> be the argument.</p></li>
 
    <li><p>If any value in <var>a</var> is not finite (e.g. an Infinity or a NaN value), or
-   if any value is negative (less than zero), then abort these steps (without throwing an exception;
+   if any value is negative (less than zero), then return (without throwing an exception;
    user agents could show a message on a developer console, though, as that would be helpful for
    debugging).</p></li>
 
@@ -215,12 +215,13 @@
    previously last line to the newly added closing line), and change the first point to a join (from
    the newly added closing line to the first line).</p>
 
-   <li><p>If the <var>styles</var> <span>dash list</span> is empty, then jump to the step
+   <li><p>If <var>style</var>'s <span>dash list</span> is empty, then jump to the step
    labeled <i>convert</i>.</p></li>
 
    <!-- DASHING -->
 
-   <li><p>Let <var>pattern width</var> be the concatenation of all the entries of the <var>styles</var> <span>dash list</span>, in coordinate space units.</p>
+   <li><p>Let <var>pattern width</var> be the concatenation of all the entries of
+   <var>style</var>'s <span>dash list</span>, in coordinate space units.</p>
 
    <li><p>For each subpath <var>subpath</var> in <var>path</var>, run the
    following substeps. These substeps mutate the subpaths in <var>path</var> <i>in
@@ -230,7 +231,7 @@
 
      <li><p>Let <var>subpath width</var> be the length of all the lines of <var>subpath</var>, in coordinate space units.</p>
 
-     <li><p>Let <var>offset</var> be the value of the <var>styles</var> <code
+     <li><p>Let <var>offset</var> be the value of <var>style</var>'s <code
      data-x="dom-context-2d-lineDashOffset">lineDashOffset</code>, in coordinate space
      units.</p></li>
 
@@ -256,7 +257,7 @@
      and <i>zero-on</i>).</p></li>
 
      <li><p><i>Dash on</i>: Let <var>segment length</var> be
-     the value of the <var>styles</var> <span>dash
+     the value of <var>style</var>'s <span>dash
      list</span>'s <var>index</var>th entry.</p></li>
 
      <li><p>Increment <var>position</var> by <var>segment length</var>.</p></li>
@@ -265,13 +266,13 @@
      then end these substeps for this subpath and start them again for the next subpath; if there
      are no more subpaths, then jump to the step labeled <i>convert</i> instead.</p></li>
 
-     <li><p>If <var>segment length</var> is non-zero, then let <var>current state</var> be
+     <li><p>If <var>segment length</var> is nonzero, then let <var>current state</var> be
      <i>on</i>.</p></li>
 
      <li><p>Increment <var>index</var> by one.</p></li>
 
      <li><p><i>Dash off<!-- labeled for consistency only --></i>: Let <var>segment
-     length</var> be the value of the <var>styles</var> <span>dash list</span>'s <var>index</var>th entry.</p></li>
+     length</var> be the value of <var>style</var>'s <span>dash list</span>'s <var>index</var>th entry.</p></li>
 
      <li><p>Let <var>start</var> be the offset <var>position</var> on <var>L</var>.</p></li>
 
@@ -306,7 +307,7 @@
 
        <dd>
 
-        <p>Cut the line on which <var>end</var> finds itself short at <var>end</var> and place a point there, cutting the subpath that it was in in two;
+        <p>Cut the line on which <var>end</var> finds itself short at <var>end</var> and place a point there, cutting in two the subpath that it was in;
         remove all line segments, joins, points, and subpaths that are between <var>start</var> and <var>end</var>; and finally place a single point at <var>start</var> with no lines connecting to it.</p>
 
         <p>The point has a <i>directionality</i> for the purposes of drawing line caps (see below).
@@ -319,9 +320,9 @@
 
        <dd>
 
-        <p>Cut the line on which <var>start</var> finds itself into two at <var>start</var> and place a point there, cutting the subpath that it was in in two, and
-        similarly cut the line on which <var>end</var> finds itself short at <var>end</var> and place a point there, cutting the subpath that <em>it</em> was in in
-        two, and then remove all line segments, joins, points, and subpaths that are between <var>start</var> and <var>end</var>.</p>
+        <p>Cut the line on which <var>start</var> finds itself into two at <var>start</var> and place a point there, cutting in two the subpath that it was in, and
+        similarly cut the line on which <var>end</var> finds itself short at <var>end</var> and place a point there, cutting in two the subpath that <em>it</em> was in,
+        and then remove all line segments, joins, points, and subpaths that are between <var>start</var> and <var>end</var>.</p>
 
         <p>If <var>start</var> and <var>end</var> are the same point, then this
         results in just the line being cut in two and two points being inserted there, with nothing
@@ -340,7 +341,7 @@
      <var>positioned-at-on-dash</var> be false.</p></li>
 
      <li><p>Increment <var>index</var> by one. If it is equal to the number of entries in
-     the <var>styles</var> <span>dash list</span>, then let <var>index</var> be
+     <var>style</var>'s <span>dash list</span>, then let <var>index</var> be
      0.</p></li>
 
      <li><p>Return to the step labeled <i>dash on</i>.</p></li>
@@ -357,20 +358,21 @@
     stroke.</p>
 
     <p>Create a new <span data-x="concept-path">path</span> that describes the edge of the areas
-    that would be covered if a straight line of length equal to the <var>styles</var>
+    that would be covered if a straight line of length equal to <var>style</var>'s
     <code data-x="dom-context-2d-lineWidth">lineWidth</code> was swept along each subpath in <var>path</var> while being kept at an angle such that the line is orthogonal to the path
-    being swept, replacing each point with the end cap necessary to satisfy the <var>styles</var> <code data-x="dom-context-2d-lineCap">lineCap</code> attribute as
+    being swept, replacing each point with the end cap necessary to satisfy <var>style</var>'s <code data-x="dom-context-2d-lineCap">lineCap</code> attribute as
     described previously and elaborated below, and replacing each join with the join necessary to
-    satisfy the <var>styles</var> <code data-x="dom-context-2d-lineJoin">lineJoin</code>
+    satisfy <var>style</var>'s <code data-x="dom-context-2d-lineJoin">lineJoin</code>
     type, as defined below.</p>
 
     <p><strong>Caps</strong>: Each point has a flat edge perpendicular to the direction of the line
-    coming out of it. This is then augmented according to the value of the <var>styles</var> <code data-x="dom-context-2d-lineCap">lineCap</code>. The "<code
+    coming out of it. This is then augmented according to the value of <var>style</var>'s <code data-x="dom-context-2d-lineCap">lineCap</code>. The "<code
     data-x="">butt</code>" value means that no additional line cap is added. The "<code
-    data-x="">round</code>" value means that a semi-circle with the diameter equal to the <var>styles</var> <code data-x="dom-context-2d-lineWidth">lineWidth</code> width must
+    data-x="">round</code>" value means that a semi-circle with the diameter equal to
+    <var>style</var>'s <code data-x="dom-context-2d-lineWidth">lineWidth</code> width must
     additionally be placed on to the line coming out of each point. The "<code
-    data-x="">square</code>" value means that a rectangle with the length of the <var>styles</var> <code data-x="dom-context-2d-lineWidth">lineWidth</code> width and the
-    width of half the <var>styles</var> <code
+    data-x="">square</code>" value means that a rectangle with the length of <var>style</var>'s <code data-x="dom-context-2d-lineWidth">lineWidth</code> width and the
+    width of half <var>style</var>'s <code
     data-x="dom-context-2d-lineWidth">lineWidth</code> width, placed flat against the edge
     perpendicular to the direction of the line coming out of the point, must be added at each
     point.</p>
@@ -406,7 +408,7 @@
     <p>The miter length is the distance from the point where the join occurs to the intersection of
     the line edges on the outside of the join. The miter limit ratio is the maximum allowed ratio of
     the miter length to half the line width. If the miter length would cause the miter limit ratio
-    (as set by the <var>style</var> <code
+    (as set by <var>style</var>'s <code
     data-x="dom-context-2d-miterLimit">miterLimit</code> attribute) to be exceeded, then this second
     triangle must not be added.</p> <!-- the actual ratio can't possibly be less than 1.0 -->
 

@@ -5,8 +5,7 @@
   link</span> that contributes to the styling processing model. This keyword is
   <span>body-ok</span>.</p>
 
-  <p>The specified resource is a resource that describes how to present the document. Exactly how
-  the resource is to be processed depends on the actual type of the resource.</p>
+  <p>The specified resource is a CSS style sheet that describes how to present the document.</p>
 
   <p>If the <code data-x="rel-alternate">alternate</code> keyword is also specified on the
   <code>link</code> element, then <dfn>the link is an alternative stylesheet</dfn>; in this case,
@@ -14,7 +13,7 @@
   element, with a non-empty value.</p>
 
   <p>The default type for resources given by the <code data-x="rel-stylesheet">stylesheet</code>
-  keyword is <code data-x="">text/css</code>.</p>
+  keyword is <code>text/css</code>.</p>
 
   <div w-nodev>
 
@@ -61,12 +60,11 @@
   <p><strong>Quirk</strong>: If the document has been set to <span>quirks mode</span>, has the
   <span>same origin</span> as the <span>URL</span> of the external resource<!-- CVE-2010-0654 -->,
   and the <span data-x="Content-Type">Content-Type metadata</span> of the external resource is not a
-  supported style sheet type, the user agent must instead assume it to be <code
-  data-x="">text/css</code>.</p>
+  supported style sheet type, the user agent must instead assume it to be <code>text/css</code>.</p>
 
   <p>Once a resource has been <span data-x="concept-link-obtain">obtained</span>, if its <span
-  data-x="Content-Type">Content-Type metadata</span> is <code data-x="">text/css</code>, the user
-  agent must run these steps:</p>
+  data-x="Content-Type">Content-Type metadata</span> is <code>text/css</code>, then run these
+  steps:</p>
 
   <!-- note that we can only get this far if we have a browsing context, since if you don't have a
   browsing context (and are active) you can't ever get a result back from "fetch", and thus you
@@ -85,7 +83,7 @@
    that contributes to the styling processing model, or if, since the resource in question was <span
    data-x="concept-link-obtain">obtained</span>, it has become appropriate to <span
    data-x="concept-link-obtain">obtain</span> it again (meaning this algorithm is about to be
-   invoked again for a newly obtained resource), then abort these steps.</p></li>
+   invoked again for a newly obtained resource), then return.</p></li>
 
    <li>
 
@@ -94,7 +92,7 @@
     <dl>
 
      <dt><span data-x="concept-css-style-sheet-type">type</span></dt>
-     <dd><p><code data-x="">text/css</code></p></dd>
+     <dd><p><code>text/css</code></p></dd>
 
      <dt><span data-x="concept-css-style-sheet-location">location</span></dt>
      <dd>
@@ -147,7 +145,13 @@
      <dd><p>Left at its default value.</p></dd>
 
      <dt><span data-x="concept-css-style-sheet-CSS-rules">CSS rules</span></dt>
-     <dd><p>Left uninitialized.</p></dd>
+     <dd>
+      <p>Left uninitialized.</p>
+
+      <p class="&#x0058;&#x0058;&#x0058;">This doesn't seem right. Presumably we should be using the
+      response body? Tracked as <a
+      href="https://github.com/whatwg/html/issues/2997">issue #2997</a>.</p>
+     </dd>
 
     </dl>
 
@@ -157,7 +161,7 @@
 
      <li><p>If the element has a <code data-x="attr-link-charset">charset</code> attribute, <span
      data-x="getting an encoding">get an encoding</span> from that attribute's value. If that
-     succeeds, return the resulting encoding and abort these steps. <ref spec=ENCODING></p></li>
+     succeeds, return the resulting encoding. <ref spec=ENCODING></p></li>
 
      <li><p>Otherwise, return the <span>document's character encoding</span>. <ref spec=DOM></p></li>
 

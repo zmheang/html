@@ -27,41 +27,35 @@
   <p class="note">The <code>ImageBitmap</code> interface can be created from a number of other
   image-representing types, including <code>ImageData</code>.</p>
 
-  <p>When a user agent is required to <dfn>check the usability of the <var>image</var>
-  argument</dfn>, where <var>image</var> is a <code>CanvasImageSource</code> object, the
-  user agent must run these steps, which return either <i>good</i>, <i>bad</i>, or
-  <i>aborted</i>:</p>
+  <p>To <dfn>check the usability of the <var>image</var> argument</dfn>, where <var>image</var> is a
+  <code>CanvasImageSource</code> object, run these steps:</p>
 
   <ol>
-
-   <li><p>If <var>image</var> is an <code>HTMLOrSVGImageElement</code> object that is in the <span
-   data-x="img-error">broken</span> state, then throw an
-   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>, return <i>aborted</i>,
-   and abort these steps.</p></li>
+   <li><p>If <var>image</var> is an <code>HTMLOrSVGImageElement</code> object whose <span>current
+   request</span>'s <span data-x="img-req-state">state</span> is <span
+   data-x="img-error">broken</span>, then throw an <span>"<code>InvalidStateError</code>"</span>
+   <code>DOMException</code>.</p></li>
 
    <li><p>If <var>image</var> is an <code>HTMLOrSVGImageElement</code> object that is not <span
    data-x="img-good">fully decodable</span>, or if <var>image</var> is an
    <code>HTMLVideoElement</code> object whose <code data-x="dom-media-readyState">readyState</code>
    attribute is either <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code> or <code
-   data-x="dom-media-HAVE_METADATA">HAVE_METADATA</code>, then return <i>bad</i> and abort these
-   steps.</p></li>
+   data-x="dom-media-HAVE_METADATA">HAVE_METADATA</code>, then return <i>bad</i>.</p></li>
 
    <li><p>If <var>image</var> is an <code>HTMLOrSVGImageElement</code> object with an
    <span>intrinsic width</span> or <span>intrinsic height</span> (or both) equal to zero, then
-   return <i>bad</i> and abort these steps.</p></li> <!--
+   return <i>bad</i>.</p></li> <!--
    https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2567 -->
 
    <li><p>If <var>image</var> is an <code>HTMLCanvasElement</code> object with either a horizontal
-   dimension or a vertical dimension equal to zero, then return <i>bad</i> and abort these
-   steps.</p></li>
+   dimension or a vertical dimension equal to zero, then throw an
+   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If <var>image</var> is an <code>ImageBitmap</code> object with its
    <span>[[Detached]]</span> internal slot value set to true, then throw an
-   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>, return <i>aborted</i>,
-   and abort these steps.</p></li>
+   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Return <i>good</i>.</p></li>
-
   </ol>
 
   <p>When a <code>CanvasImageSource</code> object represents an <code>HTMLOrSVGImageElement</code>,
@@ -94,12 +88,20 @@
   <p>When a <code>CanvasImageSource</code> object represents an <code>ImageBitmap</code>, the
   object's bitmap image data must be used as the source image.</p>
 
-  <p><dfn>The <var>image argument</var> is not origin-clean</dfn> if it is an
-  <code>HTMLOrSVGImageElement</code> or <code>HTMLVideoElement</code> whose <span>origin</span> is
-  not the <span data-x="same origin">same</span> as the <span
-  data-x="concept-settings-object-origin">origin</span> specified by the <span>entry settings
-  object</span>, or if it is an <code>HTMLCanvasElement</code> whose bitmap's <span
-  data-x="concept-canvas-origin-clean">origin-clean</span> flag is false.</p>
+  <p>An object <var>image</var> <dfn id=the-image-argument-is-not-origin-clean>is not
+  origin-clean</dfn> if, switching on <var>image</var>:</p>
+
+  <dl class=switch>
+   <dt><code>HTMLOrSVGImageElement</code>
+   <dt><code>HTMLVideoElement</code>
+   <dd><p><var>image</var>'s <span>origin</span> is not <span>same origin</span> with <span>entry
+   settings object</span>'s <span data-x="concept-settings-object-origin">origin</span>.</p></dd>
+
+   <dt><code>HTMLCanvasElement</code>
+   <dt><code>ImageBitMap</code>
+   <dd><p><var>image</var>'s bitmap's <span data-x="concept-canvas-origin-clean">origin-clean</span>
+   flag is false.</p></dd>
+  </dl>
 
 
 

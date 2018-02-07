@@ -42,7 +42,8 @@
   <p>The <code>ins</code> and <code>del</code> elements must implement the
   <code>HTMLModElement</code> interface:</p>
 
-  <pre class="idl">[<span>HTMLConstructor</span>]
+  <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLModElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-mod-cite">cite</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-mod-dateTime">dateTime</span>;

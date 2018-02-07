@@ -62,10 +62,15 @@
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#stack">stack</dfn> 数据结构和与之关联的
              <dfn data-x="stack push" data-x-href="https://infra.spec.whatwg.org/#stack-push">push</dfn>，和
              <dfn data-x="stack pop" data-x-href="https://infra.spec.whatwg.org/#stack-pop">pop</dfn> 的定义</li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#queue">queue</dfn> 数据结构以及相关联的
+             <dfn data-x-href="https://infra.spec.whatwg.org/#queue-enqueue">enqueue</dfn> 和
+             <dfn data-x-href="https://infra.spec.whatwg.org/#queue-dequeue">dequeue</dfn>定义</li>
      <li><dfn data-x="set" data-x-href="https://infra.spec.whatwg.org/#ordered-set">ordered set</dfn> 数据结构和与之关联的
              <dfn data-x="set append" data-x-href="https://infra.spec.whatwg.org/#set-append">append</dfn> 的定义</li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#struct">struct</dfn> 规范类型和相应的
              <dfn data-x="struct item" data-x-href="https://infra.spec.whatwg.org/#struct-item">item</dfn> 定义</li>
+     <li><dfn data-x-href="https://infra.spec.whatwg.org/#forgiving-base64-encode">forgiving-base64 encode</dfn> 和
+             <dfn data-x-href="https://infra.spec.whatwg.org/#forgiving-base64-decode">forgiving-base64 decode</dfn> 算法</li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#html-namespace">HTML namespace</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#mathml-namespace">MathML namespace</dfn></li>
      <li><dfn data-x-href="https://infra.spec.whatwg.org/#svg-namespace">SVG namespace</dfn></li>
@@ -356,9 +361,6 @@
        <li><dfn data-x="concept-request-initiator"
          data-x-href="https://fetch.spec.whatwg.org/#concept-request-initiator">initiator</dfn></li>
        <li><dfn
-         data-x="concept-request-type"
-         data-x-href="https://fetch.spec.whatwg.org/#concept-request-type">类型</dfn></li>
-       <li><dfn
          data-x="concept-request-destination"
          data-x-href="https://fetch.spec.whatwg.org/#concept-request-destination">目标地址</dfn></li>
        <li><dfn
@@ -369,6 +371,7 @@
          data-x="concept-potential-destination-translate"
          data-x-href="https://fetch.spec.whatwg.org/#concept-potential-destination-translate">翻译</dfn>
          <span data-x="concept-potential-destination">潜在目标地址</span></li>
+       <li><dfn data-x="concept-script-like-destination" data-x-href="https://fetch.spec.whatwg.org/#request-destination-script-like">类脚本</dfn> <span data-x="concept-request-destination">目标地址</span></li>
        <li><dfn data-x="concept-request-priority"
          data-x-href="https://fetch.spec.whatwg.org/#concept-request-priority">优先级</dfn></li>
        <li><dfn data-dfn-for="request"
@@ -406,9 +409,9 @@
     <ul class="brief">
      <li><dfn data-x-href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy"
        data-x="referrer policy">referrer 策略</dfn></li>
-     <li>The `<dfn data-x="http-referrer-policy" data-x-href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy-header-dfn"><code>Referrer-Policy</code></dfn>` HTTP 头部</li>
+     <li>`<dfn data-x="http-referrer-policy" data-x-href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy-header-dfn"><code>Referrer-Policy</code></dfn>` HTTP 头部</li>
      <li><dfn data-x="parse-referrer-policy-header" data-x-href="https://w3c.github.io/webappsec-referrer-policy/#parse-referrer-policy-from-header">从 `<code>Referrer-Policy</code>` 头部解析 referrer 策略</dfn> 算法</li>
-     <li>The "<dfn data-x="referrer-policy-no-referrer" data-x-href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy-no-referrer"><code>no-referrer</code></dfn>",
+     <li>"<dfn data-x="referrer-policy-no-referrer" data-x-href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy-no-referrer"><code>no-referrer</code></dfn>",
              "<dfn data-x="referrer-policy-no-referrer-when-downgrade" data-x-href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy-no-referrer-when-downgrade"><code>no-referrer-when-downgrade</code></dfn>",
              "<dfn data-x="referrer-policy-origin-when-cross-origin" data-x-href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy-origin-when-cross-origin"><code>no-referrer-when-downgrade</code></dfn>"，和
              "<dfn data-x="referrer-policy-unsafe-url" data-x-href="https://w3c.github.io/webappsec-referrer-policy/#referrer-policy-unsafe-url"><code>unsafe-url</code></dfn>" referrer 策略</li>
@@ -461,6 +464,7 @@
          data-x="perform a security check">执行安全检查</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-platform-object"
               data-x="platform object">平台对象</dfn></li>
+     <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-legacy-platform-object" data-x="legacy platform object">遗留平台对象</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-primary-interface"
               data-x="primary interface">主接口</dfn></li>
      <li><dfn data-x-href="https://heycam.github.io/webidl/#dfn-interface-object"
@@ -497,7 +501,6 @@
      <li><dfn data-x="idl-Function" data-x-href="https://heycam.github.io/webidl/#common-Function"><code>Function</code></dfn></li>
      <li><dfn data-x="idl-long" data-x-href="https://heycam.github.io/webidl/#idl-long"><code>long</code></dfn></li>
      <li><dfn data-x="idl-object" data-x-href="https://heycam.github.io/webidl/#idl-object"><code>object</code></dfn></li>
-     <li><dfn data-x="idl-RegExp" data-x-href="https://heycam.github.io/webidl/#idl-RegExp"><code>RegExp</code></dfn></li>
      <li><dfn data-x="idl-Uint8ClampedArray" data-x-href="https://heycam.github.io/webidl/#idl-Uint8ClampedArray"><code>Uint8ClampedArray</code></dfn></li>
      <li><dfn data-x="idl-unrestricted-double" data-x-href="https://heycam.github.io/webidl/#idl-unrestricted-double"><code>unrestricted double</code></dfn></li>
      <li><dfn data-x="idl-unsigned-long" data-x-href="https://heycam.github.io/webidl/#idl-unsigned-long"><code>unsigned long</code></dfn></li>
@@ -586,6 +589,7 @@
      <li><dfn data-x="js-List" data-x-href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">List</dfn> 和
              <dfn data-x-href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">Record</dfn> 说明类型</li>
      <li><dfn data-x="PropertyDescriptor" data-x-href="https://tc39.github.io/ecma262/#sec-property-descriptor-specification-type">Property Descriptor</dfn> 说明类型</li>
+     <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-script-records">Script Record</dfn> 说明类型</li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-source-text-module-records">Source Text Module Record</dfn> 说明类型及其
              <dfn data-x="js-Evaluate" data-x-href="https://tc39.github.io/ecma262/#sec-moduleevaluation">Evaluate</dfn> 和
              <dfn data-x="js-Instantiate" data-x-href="https://tc39.github.io/ecma262/#sec-moduledeclarationinstantiation">Instantiate</dfn> 方法</li>
@@ -601,6 +605,7 @@
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-enumerableownproperties">EnumerableOwnProperties</dfn> 抽象操作</li>
      <li><dfn data-x="js-FunctionCreate" data-x-href="https://tc39.github.io/ecma262/#sec-functioncreate">FunctionCreate</dfn> 抽象操作</li>
      <li><dfn data-x="js-Get" data-x-href="https://tc39.github.io/ecma262/#sec-get-o-p">Get</dfn> 抽象操作</li>
+     <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-getactivescriptormodule">GetActiveScriptOrModule</dfn> 抽象操作</li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-getfunctionrealm">GetFunctionRealm</dfn> 抽象操作</li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-hasownproperty">HasOwnProperty</dfn> 抽象操作</li>
      <li><dfn data-x="js-HostEnsureCanCompileStrings" data-x-href="https://tc39.github.io/ecma262/#sec-hostensurecancompilestrings">HostEnsureCanCompileStrings</dfn> 抽象操作</li>
@@ -614,6 +619,7 @@
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-isdetachedbuffer">IsDetachedBuffer</dfn> 抽象操作</li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-issharedarraybuffer">IsSharedArrayBuffer</dfn> 抽象操作</li>
      <li><dfn data-x="js-NewObjectEnvironment" data-x-href="https://tc39.github.io/ecma262/#sec-newobjectenvironment">NewObjectEnvironment</dfn> 抽象操作</li>
+     <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-normalcompletion">NormalCompletion</dfn> 抽象操作</li>
      <!-- the next set of Ordinary* 抽象操作s are in order of appearance -->
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-ordinarygetprototypeof">OrdinaryGetPrototypeOf</dfn> 抽象操作</li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-ordinarysetprototypeof">OrdinarySetPrototypeOf</dfn> 抽象操作</li>
@@ -642,8 +648,28 @@
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-sharedarraybuffer-objects"><code>SharedArrayBuffer</code></dfn> 类</li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror"><code>TypeError</code></dfn> 类</li>
      <li><dfn data-x="js-RangeError" data-x-href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-rangeerror"><code>RangeError</code></dfn> 类</li>
+     <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-eval-x"><code>eval()</code></dfn> 函数</li>
+     <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-IsHTMLDDA-internal-slot">[[IsHTMLDDA]]</dfn> 内部槽</li>
      <li><dfn data-x="js-typeof" data-x-href="https://tc39.github.io/ecma262/#sec-typeof-operator"><code>typeof</code></dfn> 操作</li>
+     <li><dfn data-x-href="https://tc39.github.io/ecma262/#sec-delete-operator"><code>delete</code></dfn> 操作</li>
      <li><dfn data-x-href="https://tc39.github.io/ecma262/#table-49"><var>TypedArray</var> Constructors</dfn> 表格</li>
+    </ul>
+
+    <p>Users agents that support JavaScript must also implement the <cite>import()</cite> proposal.
+    The following terms are defined there, and used in this specification: <ref spec=JSIMPORT></p>
+
+    <ul class="brief">
+     <li><dfn data-x-href="https://tc39.github.io/proposal-dynamic-import/#sec-import-calls"><code>import()</code></dfn></li>
+     <li>The <dfn data-x="js-HostImportModuleDynamically" data-x-href="https://tc39.github.io/proposal-dynamic-import/#sec-hostimportmoduledynamically">HostImportModuleDynamically</dfn> abstract operation</li>
+     <li>The <dfn data-x-href="https://tc39.github.io/proposal-dynamic-import/#sec-finishdynamicimport">FinishDynamicImport</dfn> abstract operation</li>
+    </ul>
+
+    <p>Users agents that support JavaScript must also implement the <cite>import.meta</cite>
+    proposal. The following term is defined there, and used in this specification: <ref
+    spec=JSIMPORTMETA></p>
+
+    <ul class="brief">
+     <li>The <dfn data-x="js-HostGetImportMetaProperties" data-x-href="https://tc39.github.io/proposal-import-meta/#sec-hostgetimportmetaproperties">HostGetImportMetaProperties</dfn> abstract operation</li>
     </ul>
 
    </dd>
@@ -740,7 +766,7 @@
      <li><dfn data-x="concept-node-insert-ext" data-x-href="https://dom.spec.whatwg.org/#concept-node-insert-ext">插入步骤</dfn>,
              <dfn data-x="concept-node-remove-ext" data-x-href="https://dom.spec.whatwg.org/#concept-node-remove-ext">移除步骤</dfn>,
              <dfn data-x="concept-node-adopt-ext" data-x-href="https://dom.spec.whatwg.org/#concept-node-adopt-ext">采用步骤</dfn>, 和
-             <dfn data-x-href="https://dom.spec.whatwg.org/#concept-node-adopt-ext" data-x="child text content change steps">子文本内容变更步骤</dfn> 钩子</li>
+             <dfn data-x-href="https://dom.spec.whatwg.org/#concept-node-text-change-ext" data-x="child text content change steps">子文本内容更改步骤</dfn> 钩子</li>
      <li><dfn data-x-href="https://dom.spec.whatwg.org/#concept-element-attribute" data-x="attribute list">属性列表</dfn> 概念</li>
      <li>文本节点的 <dfn data-x="concept-cd-data" data-x-href="https://dom.spec.whatwg.org/#concept-cd-data">数据</dfn></li>
      <li>节点的 <dfn data-x-href="https://dom.spec.whatwg.org/#concept-child-text-content" data-x="child text content">子文本内容</dfn></li>
@@ -762,6 +788,7 @@
      <li><dfn data-x="dom-Event-currentTarget" data-x-href="https://dom.spec.whatwg.org/#dom-event-currenttarget"><code>currentTarget</code></dfn> 属性</li>
      <li><dfn data-x="dom-Event-bubbles" data-x-href="https://dom.spec.whatwg.org/#dom-event-bubbles"><code>bubbles</code></dfn> 属性</li>
      <li><dfn data-x="dom-Event-cancelable" data-x-href="https://dom.spec.whatwg.org/#dom-event-cancelable"><code>cancelable</code></dfn> 属性</li>
+     <li><dfn data-x-href="https://dom.spec.whatwg.org/#composed-flag">composed flag</dfn></li>
      <li><dfn data-x="dom-Event-isTrusted" data-x-href="https://dom.spec.whatwg.org/#dom-event-istrusted"><code>isTrusted</code></dfn> 属性</li>
      <li><dfn data-x="dom-Event-initEvent" data-x-href="https://dom.spec.whatwg.org/#dom-event-initevent"><code>initEvent()</code></dfn> 方法</li>
      <li><dfn data-x="dom-EventTarget-addEventListener" data-x-href="https://dom.spec.whatwg.org/#dom-eventtarget-addeventlistener"><code>addEventListener()</code></dfn> 方法</li>
@@ -806,17 +833,17 @@
     <p>下列特性 定义在UI Events 标准中：<ref spec=UIEVENTS></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/uievents/#interface-MouseEvent" data-x="mouseevent"><code>MouseEvent</code></dfn> 接口</li>
-     <li><code>MouseEvent</code> interface's <dfn data-x="dom-MouseEvent-relatedTarget" data-x-href="https://w3c.github.io/uievents/#widl-MouseEvent-relatedTarget"><code>relatedTarget</code></dfn> 属性</li>
-     <li><dfn data-x-href="https://w3c.github.io/uievents/#idl-def-MouseEventInit"><code>MouseEventInit</code></dfn> dictionary type</li>
+     <li><dfn data-x-href="https://w3c.github.io/uievents/#mouseevent"><code>MouseEvent</code></dfn> 接口</li>
+     <li><code>MouseEvent</code> 接口的 <dfn data-x="dom-MouseEvent-relatedTarget" data-x-href="https://w3c.github.io/uievents/#dom-mouseevent-relatedtarget"><code>relatedTarget</code></dfn> 属性</li>
+     <li><dfn data-x-href="https://w3c.github.io/uievents/#dictdef-mouseeventinit"><code>MouseEventInit</code></dfn> 字典类型</li>
 
-     <li><dfn data-x-href="https://w3c.github.io/uievents/#interface-FocusEvent"
-       data-x="focusevent"><code>FocusEvent</code></dfn> 接口</li>
-     <li><code>FocusEvent</code> interface's <dfn data-x="dom-FocusEvent-relatedTarget" data-x-href="https://w3c.github.io/uievents/#widl-FocusEvent-relatedTarget"><code>relatedTarget</code></dfn> 属性</li>
+     <li><dfn data-x-href="https://w3c.github.io/uievents/#focusevent"><code>FocusEvent</code></dfn> 接口</li>
+     <li><code>FocusEvent</code> 接口的 <dfn data-x="dom-FocusEvent-relatedTarget" data-x-href="https://w3c.github.io/uievents/#dom-focusevent-relatedtarget"><code>relatedTarget</code></dfn> 属性</li>
 
-     <li><dfn data-x-href="https://w3c.github.io/uievents/#interface-UIEvent"><code>UI事件</code></dfn> 接口</li>
-     <li><code>UI事件</code> interface's <dfn data-x="dom-UIEvent-view" data-x-href="https://w3c.github.io/uievents/#widl-UIEvent-view"><code>view</code></dfn> 属性</li>
+     <li><dfn data-x-href="https://w3c.github.io/uievents/#uievent"><code>UIEvent</code></dfn> 接口</li>
+     <li><code>UIEvent</code> 接口的 <dfn data-x="dom-UIEvent-view" data-x-href="https://w3c.github.io/uievents/#dom-uievent-view"><code>view</code></dfn> 属性</li>
 
+     <li><dfn data-x="event-auxclick" data-x-href="https://w3c.github.io/uievents/#event-type-auxclick"><code>auxclick</code></dfn> 事件</li>
      <li><dfn data-x="event-click" data-x-href="https://w3c.github.io/uievents/#event-type-click"><code>click</code></dfn> 事件</li>
      <li><dfn data-x="event-dblclick" data-x-href="https://w3c.github.io/uievents/#event-type-dblclick"><code>dblclick</code></dfn> 事件</li>
      <li><dfn data-x="event-mousedown" data-x-href="https://w3c.github.io/uievents/#event-type-mousedown"><code>mousedown</code></dfn> 事件</li>
@@ -829,8 +856,8 @@
      <li><dfn data-x="event-wheel" data-x-href="https://w3c.github.io/uievents/#event-type-wheel"><code>wheel</code></dfn> 事件</li>
 
      <li><dfn data-x="event-keydown" data-x-href="https://w3c.github.io/uievents/#event-type-keydown"><code>keydown</code></dfn> 事件</li>
-     <li><dfn data-x="event-keyup" data-x-href="https://w3c.github.io/uievents/#event-type-keyup"><code>keyup</code></dfn> 事件</li>
      <li><dfn data-x="event-keypress" data-x-href="https://w3c.github.io/uievents/#event-type-keypress"><code>keypress</code></dfn> 事件</li>
+     <li><dfn data-x="event-keyup" data-x-href="https://w3c.github.io/uievents/#event-type-keyup"><code>keyup</code></dfn> 事件</li>
     </ul>
 
     <p>下列特性定义在 Touch Events 标准中：<ref spec=TOUCH></p>
@@ -847,12 +874,6 @@
      <li><dfn data-x="event-pointerup" data-x-href="https://w3c.github.io/pointerevents/#the-pointerup-event"><code>pointerup</code></dfn> event</li>
     </ul>
 
-    <p>下列特性定义在 auxclick 标准中：<ref spec=AUXCLICK></p>
-
-    <ul class="brief">
-     <li><dfn data-x="event-auxclick" data-x-href="https://wicg.github.io/auxclick/#the-auxclick-event"><code>auxclick</code></dfn> event</li>
-    </ul>
-
     <p>本标准有时使用术语 <dfn data-x="">名称</dfn> 来指代事件的 <span data-x="concept-event-type">类型</span>；比如，"名为 <code
     data-x="">click</code> 的事件" 或 "如果事件名是 <code data-x="">keypress</code>"。事件的 "名称" 和 "类型" 是同义词。</p>
 
@@ -860,8 +881,8 @@
 
     <ul class="brief">
      <li><dfn data-x-href="https://w3c.github.io/DOM-Parsing/#the-domparser-interface"><code>DOMParser</code></dfn></li>
-     <li><dfn data-x="dom-innerHTML" data-x-href="https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML"><code>innerHTML</code></dfn></li>
-     <li><dfn data-x="dom-outerHTML" data-x-href="https://w3c.github.io/DOM-Parsing/#widl-Element-outerHTML"><code>outerHTML</code></dfn></li>
+     <li><dfn data-x="dom-innerHTML" data-x-href="https://w3c.github.io/DOM-Parsing/#dom-element-innerhtml"><code>innerHTML</code></dfn></li>
+     <li><dfn data-x="dom-outerHTML" data-x-href="https://w3c.github.io/DOM-Parsing/#dom-element-outerhtml"><code>outerHTML</code></dfn></li>
     </ul>
 
     <p><dfn
@@ -885,7 +906,7 @@
     data-x-href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp"><code>DOMHighResTimeStamp</code></dfn>
     类型定义和 <dfn data-x-href="https://w3c.github.io/hr-time/#the-performance-interface"><code>Performance</code></dfn>
     接口的 <dfn data-x="dom-Performance-now"
-    data-x-href="https://w3c.github.io/hr-time/#dom-performance-now"><code>now()</code></dfn>
+    data-x-href="https://w3c.github.io/hr-time/#dom-performance-now()"><code>now()</code></dfn>
     方法。 <ref spec=HRT></p>
 
    </dd>
@@ -900,9 +921,9 @@
     spec=FILEAPI></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/FileAPI/#blob"><code>Blob</code></dfn> 接口及其
+     <li><dfn data-x-href="https://w3c.github.io/FileAPI/#dfn-Blob"><code>Blob</code></dfn> 接口及其
              <dfn data-x="dom-Blob-type" data-x-href="https://w3c.github.io/FileAPI/#dfn-type"><code>type</code></dfn> 属性</li>
-     <li><dfn data-x-href="https://w3c.github.io/FileAPI/#file"><code>File</code></dfn> 接口及其
+     <li><dfn data-x-href="https://w3c.github.io/FileAPI/#dfn-file"><code>File</code></dfn> 接口及其
              <dfn data-x="dom-File-name" data-x-href="https://w3c.github.io/FileAPI/#dfn-name"><code>name</code></dfn> 和
              <dfn data-x="dom-File-lastModified" data-x-href="https://w3c.github.io/FileAPI/#dfn-lastModified"><code>lastModified</code></dfn> 属性</li>
      <li><dfn data-x-href="https://w3c.github.io/FileAPI/#filelist-section"><code>FileList</code></dfn> 接口</li>
@@ -932,7 +953,7 @@
     spec=MEDIASOURCE></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/media-source/#idl-def-MediaSource"><code>MediaSource</code></dfn> 接口</li>
+     <li><dfn data-x-href="https://w3c.github.io/media-source/#idl-def-mediasource"><code>MediaSource</code></dfn> 接口</li>
      <li><dfn data-x-href="https://w3c.github.io/media-source/#mediasource-detach"
        data-x="detaching from a media element">从媒体元素卸载</dfn></li>
     </ul>
@@ -947,7 +968,7 @@
     spec=MEDIASTREAM></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStream"><code>MediaStream</code></dfn> 接口</li>
+     <li><dfn data-x-href="https://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-mediastream"><code>MediaStream</code></dfn> 接口</li>
      <li><dfn data-x="dom-MediaDevices-getUserMedia" data-x-href="https://w3c.github.io/mediacapture-main/#dom-mediadevices-getusermedia"><code>getUserMedia()</code></dfn> 方法</li>
     </ul>
 
@@ -1005,17 +1026,38 @@
 
     <p>当本标准要求某种东西 <dfn data-x="parse something according to a CSS grammar"
     data-x-href="https://drafts.csswg.org/css-syntax/#parse-grammar">按照特定的 CSS 语法解析</dfn> 时，
-    必须遵循 CSS Syntax 标准中的相关算法。<ref spec=CSSSYNTAX></p>
-
-    <p>特别的，有些特性要求 <dfn data-x="parsed as a CSS &lt;color&gt; value">作为 CSS &lt;color&gt; 值来解析</dfn> 字符串。
-    解析 CSS 值时，要求用户代理按照 CSS 标准来应用一些错误处理规则。 这些也适用于本标准。 <ref spec=CSSCOLOR>
-    <ref spec=CSS></p>
+    必须遵循 CSS Syntax 标准中的相关算法，包括错误处理规则。<ref spec=CSSSYNTAX></p>
 
     <p class="example">例如，要求用户代理在找到意外的样式表结尾时关闭所有已打开的构造。
     因此当解析字符串 "<code data-x="">rgb（0,0,0</code>" （缺失了结束括号）到色值时，根据本错误处理规则暗示着添加结束括号，
     这样就得到了色值 'black'。
     但相似的构造 "<code data-x="">rgb（0,0,</code>" （同时缺失了括号和 "blue" 值）就不能成功解析，
     因为结束打开的构造不能得到一个合理的值。</p>
+
+    <p>To <dfn data-x="parse a css <color> value" id="parsed-as-a-css-color-value">parse a CSS &lt;color> value</dfn>, given a string
+    <var>input</var> with an optional element <var>element</var>, run these steps:</p>
+
+    <ol>
+     <li><p>Let <var>color</var> be the result of <span data-x="parse something according to a CSS
+     grammar">parsing</span> <var>input</var> as a CSS <span>&lt;color></span>. <ref
+     spec=CSSCOLOR></p></li>
+
+     <li><p>If <var>color</var> is failure, then return failure.</p></li>
+
+     <li>
+      <p>If <var>color</var> is <code>currentColor</code>, then:</p>
+
+      <ol>
+       <li><p>If <var>element</var> is not given, then set <var>color</var> to <span>opaque
+       black</span>.</p></li>
+
+       <li><p>Otherwise, set <var>color</var> to the computed value of the <span>'color'</span>
+       property of <var>element</var>.</p></li>
+      </ol>
+     </li>
+
+     <li><p>Return <var>color</var>.</p></li>
+    </ol>
 
     <p>下列术语和特性定义在 CSS 标准中：<ref spec=CSS></p>
 
@@ -1113,7 +1155,10 @@
     <ul class="brief">
      <li><dfn data-x-href="https://drafts.csswg.org/css-color/#named-color">named color</dfn></li>
      <li><dfn data-x-href="https://drafts.csswg.org/css-color/#typedef-color">&lt;color></dfn></li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-color/#valdef-color-currentcolor">currentColor</dfn></li>
      <li><dfn data-x-href="https://drafts.csswg.org/css-color/#the-color-property">'color'</dfn> 属性</li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-color/#opaque-black">opaque black</dfn></li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-color/#transparent-black">transparent black</dfn></li>
     </ul>
 
     <p>术语 <dfn data-x-href="https://drafts.csswg.org/css-images-4/#paint-source">paint source</dfn> 定义在
@@ -1129,7 +1174,6 @@
     <ul class="brief">
       <li><dfn data-x-href="https://drafts.csswg.org/css-backgrounds/#the-background-color">'background-color'</dfn> 属性</li>
       <li><dfn data-x-href="https://drafts.csswg.org/css-backgrounds/#the-background-image">'background-image'</dfn> 属性</li>
-      <li><dfn data-x-href="https://drafts.csswg.org/css-backgrounds/#position">&lt;position></dfn> CSS 数据类型</li>
     </ul>
 
     <p>术语 <dfn
@@ -1151,9 +1195,9 @@
     spec=CSSLISTS></p>
 
     <p><dfn
-    data-x-href="https://drafts.csswg.org/css-overflow/#propdef-overflow">'overflow'</dfn> property
+    data-x-href="https://drafts.csswg.org/css-overflow-3/#propdef-overflow">'overflow'</dfn> property
     及其 <dfn
-    data-x-href="https://drafts.csswg.org/css-overflow/#valdef-overflow-hidden">'hidden'</dfn> value
+    data-x-href="https://drafts.csswg.org/css-overflow-3/#valdef-overflow-hidden">'hidden'</dfn> value
     定义在<cite>CSS Overflow</cite> 标准中。 <ref spec=CSSOVERFLOW></p>
 
     <p>下列特性 定义在<cite>CSS Positioned Layout</cite> 标准中：
@@ -1215,6 +1259,9 @@
       <li><dfn data-x-href="https://drafts.csswg.org/css-ui/#cursor">'cursor'</dfn> 属性</li>
       <li><dfn data-x-href="https://drafts.csswg.org/css-ui-4/#appearance-switching">'appearance'</dfn> 属性</li>
     </ul>
+
+    <p><dfn data-x-href="https://drafts.csswg.org/web-animations/#update-animations-and-send-events" data-x="update animations and send events">更新动画和发送事件</dfn> 的算法定义在 <cite>Web Animations</cite> 标准中。 <ref
+    spec=WEBANIMATIONS>.</p>
 
     <p>支持脚本的实现必须支持 CSS Object Model。下列特性和术语定义在CSSOM 标准中： <ref spec=CSSOM> <ref spec=CSSOMVIEW>
 
@@ -1281,9 +1328,10 @@
     <ref spec=CSSSYNTAX></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#parse-a-comma-separated-list-of-component-values">Parse a comma-separated list of component values</dfn></li>
-     <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#component-value">component value</dfn></li>
-     <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#environment-encoding">environment encoding</dfn></li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#conform-classes" data-x="conformant style sheet">符合规范的样式表</dfn></li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#parse-a-comma-separated-list-of-component-values" data-x="parse a comma-separated list of component values">解析一个逗号分隔的组件值列表</dfn></li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#component-value" data-x="component value">组件值</dfn></li>
+     <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#environment-encoding" data-x="environment encoding">环境编码</dfn></li>
      <li><dfn data-x-href="https://drafts.csswg.org/css-syntax/#typedef-whitespace-token">&lt;whitespace-token></dfn></li>
     </ul>
 
@@ -1330,11 +1378,17 @@
     <p>下列接口和术语定义在 Geometry Interfaces Module 标准中：<ref spec=GEOMETRY></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://drafts.fxtf.org/geometry/#dommatrix"><code>DOMMatrix</code></dfn> 接口</li>
-     <li><dfn data-x-href="https://drafts.fxtf.org/geometry/#dictdef-dommatrixinit"><code>DOMMatrixInit</code></dfn> 接口</li>
-     <li><code>DOMMatrixInit</code> 的 <dfn data-x="create a DOMMatrix from a dictionary"
-       data-x-href="https://drafts.fxtf.org/geometry/#create-a-dommatrix-from-the-dictionary">
-       从字典创建一个 <code>DOMMatrix</code></dfn> 算法</li>
+     <li><dfn data-x-href="https://drafts.fxtf.org/geometry/#dommatrix"><code>DOMMatrix</code></dfn> 接口以及相应的
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m11-element" data-x="m11 element">m11 元素</dfn>,
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m12-element" data-x="m12 element">m12 元素</dfn>,
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m21-element" data-x="m21 element">m21 元素</dfn>,
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m22-element" data-x="m22 element">m22 元素</dfn>,
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m41-element" data-x="m41 element">m41 元素</dfn>, and
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#matrix-m42-element" data-x="m42 element">m42 元素</dfn></li>
+     <li><dfn data-x-href="https://drafts.fxtf.org/geometry/#dictdef-dommatrix2dinit"><code>DOMMatrix2DInit</code></dfn> 和
+         <dfn data-x-href="https://drafts.fxtf.org/geometry/#dictdef-dommatrixinit"><code>DOMMatrixInit</code></dfn> 字典</li>
+     <li><dfn data-x-href="https://drafts.fxtf.org/geometry/#create-a-dommatrix-from-the-dictionary">从字典创建 <code>DOMMatrix</code></dfn>
+         和 <dfn data-x-href="https://drafts.fxtf.org/geometry/#create-a-dommatrix-from-the-2d-dictionary" data-x="create a dommatrix from a 2d dictionary">从 2D 字典 <code>DOMMatrix2DInit</code> 或 <code>DOMMatrixInit</code> 创建 <code>DOMMatrix</code></dfn></li>
     </ul>
 
    </dd>
@@ -1347,7 +1401,7 @@
     spec=INTERSECTIONOBSERVER></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://wicg.github.io/IntersectionObserver/#run-the-update-intersection-observations-steps"
+     <li><dfn data-x-href="https://w3c.github.io/IntersectionObserver/#run-the-update-intersection-observations-steps"
        data-x="run the update intersection observations steps">
        执行更新插入操作的观察者步骤</dfn></li>
     </ul>
@@ -1374,15 +1428,13 @@
 
    <dd>
 
-    <p>实现可以支持 WebVTT 作为媒体资源的子标题、图表标题、章节标题、元数据等的字幕格式。 <ref spec=WEBVTT></p>
+    <p>实现可以支持 WebVTT 作为媒体资源的子标题、图表标题、元数据等的字幕格式。 <ref spec=WEBVTT></p>
 
     <p>本标准中使用的下列术语定义在 WebVTT 标准中：</p>
 
     <ul class="brief">
      <li><dfn data-x-href="https://w3c.github.io/webvtt/#webvtt-file" data-x="WebVTT file">WebVTT 文件</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webvtt/#webvtt-file-using-cue-text" data-x="WebVTT file using cue text">使用字幕的 WebVTT 文件</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/webvtt/#webvtt-file-using-chapter-title-text"
-       data-x="WebVTT file using chapter title text">使用章节标题的 WebVTT 文件</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webvtt/#webvtt-file-using-only-nested-cues"
        data-x="WebVTT file using only nested cues">只使用嵌套字幕的 WebVTT 文件</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webvtt/#webvtt-parser" data-x="WebVTT parser">WebVTT 解析器</dfn></li>
@@ -1468,6 +1520,7 @@
        data-x="Content Security Policy">内容安全策略</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#directives"
        data-x="Content Security Policy directive">内容安全策略指令</dfn></li>
+     <li><dfn data-x="concept-csp-list" data-x-href="https://w3c.github.io/webappsec-csp/#csp-list">CSP 列表</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#grammardef-serialized-policy"
        data-x="Content Security Policy syntax">内容安全策略语法</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#enforced"
@@ -1498,7 +1551,8 @@
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#sandbox" data-x="sandbox directive"><code data-x="">sandbox</code> 指令</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/webappsec-csp/#should-plugin-element-be-blocked-a-priori-by-content-security-policy"
        data-x="Should element be blocked a priori by content security policy?">
-       内容安全策略是否 <i>先验地</i> 阻止元素？</dfn> algorithm</li>
+       内容安全策略是否 <i>先验地</i> 阻止元素？</dfn> 算法</li>
+     <li><dfn data-x="contains a header-delivered content security policy" data-x-href="https://w3c.github.io/webappsec-csp/#contains-a-header-delivered-content-security-policy">包含一个 header-delivered Content Security Policy</dfn> 属性</li>
     </ul>
 
    </dd>
@@ -1515,18 +1569,11 @@
      <li><dfn data-x="dfn-control" data-x-href="https://w3c.github.io/ServiceWorker/#dfn-control">控制</dfn></li>
      <li><dfn data-x="on-fetch-request-algorithm" data-x-href="https://w3c.github.io/ServiceWorker/#on-fetch-request-algorithm">处理 fetch</dfn></li>
      <li><dfn data-x="scope-match-algorithm" data-x-href="https://w3c.github.io/ServiceWorker/#scope-match-algorithm">匹配 service worker 注册</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-scope-url">scope url</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-script-url" data-x="script url">脚本 url</dfn></li>
      <li><dfn data-x="dfn-service-worker" data-x-href="https://w3c.github.io/ServiceWorker/#dfn-service-worker">service worker</dfn></li>
      <li><dfn data-x="serviceworkercontainer-service-worker-client" data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkercontainer-service-worker-client">service worker 客户</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-service-worker-registration" data-x="service worker registration">service worker 注册</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-type" data-x="service worker type">service worker 类型</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-serviceworker-link">serviceworker link</dfn></li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworker"><code>ServiceWorker</code></dfn> 接口</li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkercontainer"><code>ServiceWorkerContainer</code></dfn> 接口</li>
      <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#serviceworkerglobalscope"><code>ServiceWorkerGlobalScope</code></dfn> 接口</li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-use-cache" data-x="use cache">使用缓存</dfn></li>
-     <li><dfn data-x-href="https://w3c.github.io/ServiceWorker/#dfn-update-via-cache" data-x="update via cache mode">通过缓存模式更新</dfn></li>
     </ul>
 
    </dd>
@@ -1553,7 +1600,7 @@
     <p>下列特性定义在 <cite>Payment Request API</cite> 标准中：<ref spec=PAYMENTREQUEST></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://w3c.github.io/browser-payment-api/#paymentrequest-interface"><code>PaymentRequest</code></dfn> 接口</li>
+     <li><dfn data-x-href="https://w3c.github.io/payment-request/#dom-paymentrequest"><code>PaymentRequest</code></dfn> 接口</li>
     </ul>
    </dd>
 
@@ -1637,7 +1684,7 @@
     <p>下列特性定义在 <cite>Filter Effects</cite> 标准中：<ref spec=FILTERS></p>
 
     <ul class="brief">
-     <li><dfn data-x-href="https://drafts.fxtf.org/filters/#typedef-filter-function-list">&lt;filter-function-list&gt;</dfn></li>
+     <li><dfn data-x-href="https://drafts.fxtf.org/filter-effects/#typedef-filter-function-list">&lt;filter-function-list&gt;</dfn></li>
     </ul>
    </dd>
 

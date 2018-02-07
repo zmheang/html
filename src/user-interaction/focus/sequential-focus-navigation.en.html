@@ -57,7 +57,7 @@
    mechanism</var> as the arguments.</p></li>
 
    <li><p>If <var>candidate</var> is not null, then run the <span>focusing steps</span> for
-   <var>candidate</var> and abort these steps.</p></li>
+   <var>candidate</var> and return.</p></li>
 
    <li><p>Otherwise, unset the <span>sequential focus navigation starting point</span>.</p></li>
 
@@ -66,7 +66,7 @@
     <p>If <var>starting point</var> is the <span>top-level browsing context</span>, or a
     <span>focusable area</span> in the <span>top-level browsing context</span>, the user agent
     should transfer focus to its own controls appropriately (if any), honouring
-    <var>direction</var>, and then abort these steps.</p>
+    <var>direction</var>, and then return.</p>
 
     <p class="example">For example, if <var>direction</var> is <i>backward</i>, then the last
     focusable control before the browser's rendering area would be the control to focus.</p>

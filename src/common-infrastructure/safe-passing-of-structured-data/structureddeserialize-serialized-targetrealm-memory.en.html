@@ -26,51 +26,7 @@
 
    <li><p>Let <var>value</var> be an uninitialized value.</p></li>
 
-   <li>
-    <p>If <var>serialized</var> contains a [[TransferConsumed]] field, then:</p>
-
-    <ol>
-     <li><p>Assert: <var>serialized</var>.[[TransferConsumed]] is false. (It must be impossible to
-     get in a situation where <span>StructuredDeserialize</span> is being called multiple times on
-     the same serialization, if that serialization contains transfer data holders.)</p></li>
-
-     <li><p>Set <var>serialized</var>.[[TransferConsumed]] to true.</p></li>
-
-     <li>
-      <p>If <var>serialized</var>.[[Type]] is "ArrayBuffer", then set <var>value</var> to a new
-      ArrayBuffer object in <var>targetRealm</var> whose [[ArrayBufferData]] internal slot value is
-      <var>serialized</var>.[[ArrayBufferData]], and whose [[ArrayBufferByteLength]] internal slot
-      value is <var>serialized</var>.[[ArrayBufferByteLength]].</p>
-
-      <p class="note">In cases where the original memory occupied by [[ArrayBufferData]] is
-      accessible during the deserialization, this step is unlikely to throw an exception, as no new
-      memory needs to be allocated: the memory occupied by [[ArrayBufferData]] is instead just
-      getting transferred into the new ArrayBuffer. This could be true, for example, when both the
-      source and target Realms are in the same process.</p>
-     </li>
-
-     <li>
-      <p>Otherwise:</p>
-
-      <ol>
-       <li><p>Let <var>interfaceName</var> be <var>serialized</var>.[[Type]].</p></li>
-
-       <li><p>If the interface identified by <var>interfaceName</var> is not exposed in
-       <var>targetRealm</var>, then throw a <span>"<code>DataCloneError</code>"</span>
-       <code>DOMException</code>.</p></li>
-
-       <li><p>Set <var>value</var> to a new instance of the interface identified by
-       <var>interfaceName</var>, created in <var>targetRealm</var>.</p></li>
-
-       <li><p>Perform the appropriate <span>transfer-receiving steps</span> for the interface
-       identified by <var>interfaceName</var> given <var>serialized</var> and
-       <var>value</var>.</p></li>
-      </ol>
-     </li>
-    </ol>
-   </li>
-
-   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "primitive", then set <var>value</var> to
+   <li><p>If <var>serialized</var>.[[Type]] is "primitive", then set <var>value</var> to
    <var>serialized</var>.[[Value]].</p>
 
    <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "Boolean", then set <var>value</var> to a new Boolean object in

@@ -8,16 +8,14 @@
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>Where <span>flow content</span> is expected.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
-   <dd>Either: One <code>figcaption</code> element followed by <span>flow content</span>.</dd>
-   <dd>Or: <span>Flow content</span> followed by one <code>figcaption</code> element.</dd>
-   <dd>Or: <span>Flow content</span>.</dd>
+   <dd>Either: one <code>figcaption</code> element followed by <span>flow content</span>.</dd>
+   <dd>Or: <span>flow content</span> followed by one <code>figcaption</code> element.</dd>
+   <dd>Or: <span>flow content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
-
-  <!-- v2: Add a <credit> element for photo credits -->
 
   <p>The <code>figure</code> element <span>represents</span> some <span>flow content</span>,
   optionally with a caption, that is self-contained (like a complete sentence) and is typically
@@ -28,25 +26,24 @@
   be inappropriate for <code>figure</code>, but an entire sentence made of images would be
   fitting.</p>
 
-  <p>The element can thus be used to annotate illustrations, diagrams, photos, code listings, etc.</p>
+  <p>The element can thus be used to annotate illustrations, diagrams, photos, code listings,
+  etc.</p>
 
   <div class="note" id="figure-note-about-references">
-
    <p>When a <code>figure</code> is referred to from the main content of the document by identifying
-   it by its caption (e.g. by figure number), it enables such content to be easily moved away from
-   that primary content, e.g. to the side of the page, to dedicated pages, or to an appendix, without
-   affecting the flow of the document.</p>
+   it by its caption (e.g., by figure number), it enables such content to be easily moved away from
+   that primary content, e.g., to the side of the page, to dedicated pages, or to an appendix,
+   without affecting the flow of the document.</p>
 
-   <p>If a <code>figure</code> element is <span>referenced</span> by its relative position, e.g. "in
-   the photograph above" or "as the next figure shows", then moving the figure would disrupt the
+   <p>If a <code>figure</code> element is <span>referenced</span> by its relative position, e.g.,
+   "in the photograph above" or "as the next figure shows", then moving the figure would disrupt the
    page's meaning. Authors are encouraged to consider using labels to refer to figures, rather than
    using such relative references, so that the page can easily be restyled without affecting the
    page's meaning.</p>
-
   </div>
 
-  <p>The <span w-nodev>first</span> <code>figcaption</code> element child of the element, if
-  any, represents the caption of the <code>figure</code> element's contents. If there is no child
+  <p>The <span w-nodev>first</span> <code>figcaption</code> element child of the element, if any,
+  represents the caption of the <code>figure</code> element's contents. If there is no child
   <code>figcaption</code> element, then there is no caption.</p>
 
   <p>A <code>figure</code> element's contents are part of the surrounding flow. If the purpose of
@@ -60,7 +57,6 @@
   the purposes of enticing readers or highlighting key topics.</p>
 
   <div class="example">
-
    <p>This example shows the <code>figure</code> element to mark up a code listing.</p>
 
    <pre>&lt;p>In &lt;a href="#l4">listing 4&lt;/a> we see the primary core interface
@@ -74,11 +70,9 @@ API declaration.&lt;/p>
 }&lt;/code>&lt;/pre>
 &lt;/figure>
 &lt;p>The API is designed to use UTF-8.&lt;/p></pre>
-
   </div>
 
   <div class="example">
-
    <p>Here we see a <code>figure</code> element to mark up a photo that is the main content of the
    page (as in a gallery).</p>
 
@@ -92,11 +86,9 @@ API declaration.&lt;/p>
  &lt;figcaption>Bubbles at work&lt;/figcaption>
 &lt;/figure>
 &lt;nav>&lt;a href="19414.html">Prev&lt;/a> &mdash; &lt;a href="19416.html">Next&lt;/a>&lt;/nav></pre>
-
   </div>
 
   <div class="example">
-
    <p>In this example, we see an image that is <em>not</em> a figure, as well as an image and a
    video that are. The first image is literally part of the example's second sentence, so it's not a
    self-contained unit, and thus <code>figure</code> would be inappropriate.</p>
@@ -126,11 +118,9 @@ included with Exhibit B.
 &lt;/figure>
 
 &lt;p>The case was resolved out of court.</pre>
-
   </div>
 
   <div class="example">
-
    <p>Here, a part of a poem is marked up using <code>figure</code>.</p>
 
    <pre>&lt;figure>
@@ -140,11 +130,9 @@ included with Exhibit B.
  And the mome raths outgrabe.&lt;/p>
  &lt;figcaption>&lt;cite>Jabberwocky&lt;/cite> (first verse). Lewis Carroll, 1832-98&lt;/figcaption>
 &lt;/figure></pre>
-
   </div>
 
   <div class="example">
-
    <p>In this example, which could be part of a much larger work discussing a castle, nested
    <code>figure</code> elements are used to provide both a group caption and individual captions for
    each figure in the group:</p>
@@ -164,11 +152,9 @@ included with Exhibit B.
   &lt;img src="castle1999.jpeg" alt="The castle lies in ruins, the original tower all that remains in one piece.">
  &lt;/figure>
 &lt;/figure></pre>
-
   </div>
 
   <div class="example">
-
    <p>The previous example could also be more succinctly written as follows (using <code
    data-x="attr-title">title</code> attributes in place of the nested
    <code>figure</code>/<code>figcaption</code> pairs):</p>
@@ -182,11 +168,9 @@ included with Exhibit B.
       alt="The castle lies in ruins, the original tower all that remains in one piece.">
  &lt;figcaption>The castle through the ages: 1423, 1858, and 1999 respectively.&lt;/figcaption>
 &lt;/figure></pre>
-
   </div>
 
   <div class="example">
-
    <p>The figure is sometimes <span>referenced</span> only implicitly from the content:</p>
 
    <!-- from http://www.reuters.com/article/us-usa-fiscal-idUSBRE98N11220131017 -->
@@ -202,7 +186,6 @@ included with Exhibit B.
  Thursday deadline drawing near.&lt;/p>
  ...
 &lt;/article></pre>
-
   </div>
 
 

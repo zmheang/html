@@ -6,6 +6,12 @@
   <code>img</code> element. If the attribute is present, its value must be the string "<code
   data-x="">0</code>". CSS should be used instead.</p>
 
+  <p>Authors should not specify a <code data-x="attr-script-charset">charset</code> attribute on a
+  <code>script</code> element. If the attribute is present, its value must be an <span>ASCII
+  case-insensitive</span> match for "<code data-x="">utf-8</code>". (This has no effect in a
+  document that conforms to the requirements elsewhere in this standard of being encoded as
+  <span>UTF-8</span>.)</p>
+
   <p>Authors should not specify a <code data-x="attr-script-language">language</code> attribute on a
   <code>script</code> element. If the attribute is present, its value must be an <span>ASCII
   case-insensitive</span> match for the string "<code data-x="">JavaScript</code>" and either the
@@ -14,6 +20,15 @@
   The attribute should be entirely omitted instead (with the value "<code
   data-x="">JavaScript</code>", it has no effect), or replaced with use of the <code
   data-x="attr-script-type">type</code> attribute.</p>
+
+  <p>Authors should not specify a value for the <code data-x="attr-script-type">type</code>
+  attribute on <code>script</code> elements that is the empty string or an <span>ASCII
+  case-insensitive</span> match for a <span>JavaScript MIME type</span>. Instead, they should omit
+  the attribute, which has the same effect.</p>
+
+  <p>Authors should not specify a <code data-x="attr-style-type">type</code> attribute on a
+  <code>style</code> element. If the attribute is present, its value must be an <span>ASCII
+  case-insensitive</span> match for "<code>text/css</code>".</p>
 
   <p>Authors should not specify the <code data-x="attr-a-name">name</code> attribute on
   <code>a</code> elements. If the attribute is present, its value must not be the empty string and

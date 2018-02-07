@@ -9,12 +9,12 @@
    <code data-x="dom-WebSocket-OPEN">OPEN</code> (1).</p></li>
 
    <li><p>Change the <code data-x="dom-WebSocket-extensions">extensions</code> attribute's value to
-   the <i data-x="concept-websockets-active-extensions">extensions in use</i>, if is not the null
+   the <i data-x="concept-websockets-active-extensions">extensions in use</i>, if it is not the null
    value. <ref spec=WSP></p></li>
 
    <li><p>Change the <code data-x="dom-WebSocket-protocol">protocol</code> attribute's value to the
-   <i data-x="concept-websocket-subprotocol">subprotocol in use</i>, if is not the null value. <ref
-   spec=WSP></p></li>
+   <i data-x="concept-websocket-subprotocol">subprotocol in use</i>, if it is not the null value.
+   <ref spec=WSP></p></li>
 
    <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
    data-x="event-open">open</code> at the <code>WebSocket</code> object.</p>
@@ -37,7 +37,7 @@
    <li>
 
     <p>If the <code data-x="dom-WebSocket-readyState">readyState</code> attribute's value is not
-    <code data-x="dom-WebSocket-OPEN">OPEN</code> (1), then abort these steps.</p>
+    <code data-x="dom-WebSocket-OPEN">OPEN</code> (1), then return.</p>
 
    </li>
 
@@ -50,15 +50,15 @@
      <dd>a new <code data-x="idl-DOMSTring">DOMString</code> containing <var>data</var></dd>
 
      <dt><var>type</var> indicates that the data is Binary and <code
-     data-x="dom-WebSocket-binaryType">binaryType</code> is "<code
-     data-x="dom-BinaryType-blob">blob</code>"</dt>
+     data-x="dom-WebSocket-binaryType">binaryType</code> is "<dfn><code
+     data-x="dom-BinaryType-blob">blob</code></dfn>"</dt>
      <dd>a new <code>Blob</code> object, created in the <span
      data-x="concept-relevant-realm">relevant Realm</span> of the <code>WebSocket</code> object,
      that represents <var>data</var> as its raw data <ref spec=FILEAPI></dd>
 
      <dt><var>type</var> indicates that the data is Binary and <code
-     data-x="dom-WebSocket-binaryType">binaryType</code> is "<code
-     data-x="dom-BinaryType-arraybuffer">arraybuffer</code>"</dt>
+     data-x="dom-WebSocket-binaryType">binaryType</code> is "<dfn><code
+     data-x="dom-BinaryType-arraybuffer">arraybuffer</code></dfn>"</dt>
      <dd>a new <code data-x="idl-ArrayBuffer">ArrayBuffer</code> object, created in the <span
      data-x="concept-relevant-realm">relevant Realm</span> of the <code>WebSocket</code> object,
      whose contents are <var>data</var></dd>
@@ -89,6 +89,8 @@
   stalling the main thread while it created the <code data-x="idl-ArrayBuffer">ArrayBuffer</code>
   object.</p>
 
+  </div>
+
   <div class="example">
 
    <p>Here is an example of how to define a handler for the <code
@@ -107,6 +109,8 @@
   </div>
 
   <hr>
+
+  <div w-nodev>
 
   <p>When <i data-x="concept-websocket-closing-handshake">the WebSocket closing handshake is
   started</i>, the user agent must <span>queue a task</span> to change the <code
@@ -188,5 +192,7 @@
 
   <p>The <span>task source</span> for all <span data-x="concept-task">tasks</span> <span data-x="queue
   a task">queued</span> in this section is the <dfn>WebSocket task source</dfn>.</p>
+
+  </div>
 
 

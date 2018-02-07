@@ -1,6 +1,7 @@
   <h5>The <code>PopStateEvent</code> interface</h5>
 
-  <pre class="idl">[Constructor(DOMString type, optional <span>PopStateEventInit</span> eventInitDict)]
+  <pre class="idl">[Exposed=Window,
+ Constructor(DOMString type, optional <span>PopStateEventInit</span> eventInitDict)]
 interface <dfn>PopStateEvent</dfn> : <span>Event</span> {
   readonly attribute any <span data-x="dom-PopStateEvent-state">state</span>;
 };

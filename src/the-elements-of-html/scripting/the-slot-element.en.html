@@ -13,10 +13,12 @@
    <dd><code data-x="attr-slot-name">name</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLSlotElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-slot-name">name</span>;
   sequence&lt;Node> <span data-x="dom-slot-assignedNodes">assignedNodes</span>(optional <span>AssignedNodesOptions</span> options);
+  sequence&lt;Element> <span data-x="dom-slot-assignedElements">assignedElements</span>(optional <span>AssignedNodesOptions</span> options);
 };
 
 dictionary <dfn>AssignedNodesOptions</dfn> {
@@ -55,6 +57,13 @@ dictionary <dfn>AssignedNodesOptions</dfn> {
    <dd>Returns <var>slot</var>'s <span>assigned nodes</span>, if any, and <var>slot</var>'s children
    otherwise, and does the same for any <code>slot</code> elements encountered therein, recursively,
    until there are no <code>slot</code> elements left.</dd>
+
+   <dt><var>slot</var> . <code subdfn data-x="dom-slot-assignedElements">assignedElements</code>()</dt>
+   <dd>Returns <var>slot</var>'s <span>assigned nodes</span>, limited to elements.</dd>
+
+   <dt><var>slot</var> . <code data-x="dom-slot-assignedElements">assignedElements</code>({ flatten: true })</dt>
+   <dd>Returns the same as <code data-x="dom-slot-assignedNodes">assignedNodes({ flatten: true
+   })</code>, limited to elements.</dd>
   </dl>
 
   <p>The <dfn data-x="dom-slot-name"><code>name</code></dfn> IDL attribute must <span>reflect</span>
@@ -68,6 +77,18 @@ dictionary <dfn>AssignedNodesOptions</dfn> {
    return this element's <span>assigned nodes</span>.</p></li>
 
    <li><p>Return the result of <span>finding flattened slotables</span> with this element.</p></li>
+  </ol>
+
+  <p>The <dfn data-x="dom-slot-assignedElements"><code>assignedElements(<var>options</var>)</code></dfn>
+  method, when invoked, must run these steps:</p>
+
+  <ol>
+   <li><p>If the value of <var>options</var>'s <code data-x="">flatten</code> member is false, then
+   return this element's <span>assigned nodes</span>, filtered to contain only <code>Element</code>
+   nodes.</p></li>
+
+   <li><p>Return the result of <span>finding flattened slotables</span> with this element, filtered
+   to contain only <code>Element</code> nodes.</p></li>
   </ol>
 
 

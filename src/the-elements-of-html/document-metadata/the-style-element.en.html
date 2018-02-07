@@ -7,46 +7,27 @@
    <dd>Where <span>metadata content</span> is expected.</dd>
    <dd>In a <code>noscript</code> element that is a child of a <code>head</code> element.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
-   <dd>Depends on the value of the <code data-x="attr-style-type">type</code> attribute, but must match requirements described in prose below.</dd>
+   <dd><span data-x="text content">Text</span> that gives a <span>conformant style sheet</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-style-media">media</code></dd>
-   <dd><code data-x="attr-style-nonce">nonce</code></dd>
-   <dd><code data-x="attr-style-type">type</code></dd>
    <dd>Also, the <code data-x="attr-style-title">title</code> attribute <span data-x="attr-style-title">has special semantics</span> on this element.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-style-media">media</span>;
-  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-style-nonce">nonce</span>;
-  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-style-type">type</span>;
 };
-<span>HTMLStyleElement</span> implements <span>LinkStyle</span>;</pre>
+<span>HTMLStyleElement</span> includes <span>LinkStyle</span>;</pre>
    </dd>
    <dd w-nohtml>Uses <code>HTMLStyleElement</code>.</dd>
   </dl>
 
-  <p>The <code>style</code> element allows authors to embed style information in their documents.
+  <p>The <code>style</code> element allows authors to embed CSS style sheets in their documents.
   The <code>style</code> element is one of several inputs to the styling processing
   model. The element does not <span data-x="represents">represent</span> content for the
   user.</p>
-
-  <p>The <dfn><code data-x="attr-style-type">type</code></dfn> attribute gives the styling language.
-  If the attribute is present, its value must be a <span>valid MIME type</span> that designates a
-  styling language. The <code data-x="">charset</code> parameter must not be specified. The default
-  value for the <code data-x="attr-style-type">type</code> attribute, which is used if the attribute
-  is absent, is "<code data-x="">text/css</code>". <ref spec=RFC2318></p>
-
-  <div w-nodev>
-
-  <!-- similar paragraph is also present in the <script> element section --> <p>When examining types
-  to determine if they support the language, user agents must not ignore unknown MIME parameters
-  &mdash; types with unknown parameters must be assumed to be unsupported. The <code
-  data-x="">charset</code> parameter must be treated as an unknown parameter for the purpose of
-  comparing <span data-x="MIME type">MIME types</span> here.</p>
-
-  </div>
 
   <p>The <dfn><code data-x="attr-style-media">media</code></dfn> attribute says which media the
   styles apply to. The value must be a <span>valid media query list</span>. <span w-nodev>The user
@@ -66,11 +47,6 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
   attribute is omitted, is "<code data-x="">all</code>", meaning that by default styles apply to all
   media.</p>
 
-  <p>The <dfn><code data-x="attr-style-nonce">nonce</code></dfn> attribute represents a
-  cryptographic nonce ("number used once") which can be used by <cite>Content Security Policy</cite>
-  to determine whether or not the style specified by an element will be applied to the document. The
-  value is text. <ref spec="CSP"></p>
-
   <p id="title-on-style">The <dfn><code data-x="attr-style-title">title</code></dfn> attribute on
   <code>style</code> elements defines <span data-x="CSS style sheet set">CSS style sheet
   sets</span>. If the <code>style</code> element has no <code data-x="attr-style-title">title</code>
@@ -85,54 +61,30 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
   <code>style</code> block without a title does not inherit the title of the parent element: it
   merely has no title.</p>
 
-  <p>The <code>textContent</code> of a <code>style</code> element must match the <code
-  data-x="">style</code> production in the following ABNF, the character set for which is Unicode. <ref spec=ABNF></p>
-
-  <pre>style         = no-c-start *( c-start no-c-end c-end no-c-start )
-no-c-start    = &lt; any string that doesn't contain a substring that matches c-start >
-c-start       = "&lt;!--"
-no-c-end      = &lt; any string that doesn't contain a substring that matches c-end >
-c-end         = "-->"</pre>
-
-  <!-- Unmatched comment-like syntax is invalid on a temporary basis,
-       waiting for IE, WebKit, and Opera to fix their parsing bug
-       whereby such comments trigger a weird escape in which </style>
-       is ignored. Otherwise, parsing behavior in those browsers
-       could differ substantially from the parsing behavior of HTML5.
-       Once everyone follows the HTML5 spec, we can drop this
-       requirement.
-  -->
+  <p>The <span>child text content</span> of a <code>style</code> element must be that of a
+  <span>conformant style sheet</span>.</p>
 
   <hr>
 
   <div w-nodev>
 
-  <p>The user agent must run the <dfn data-export="">update a <code>style</code> block</dfn>
-  algorithm that applies for the style sheet language specified by the <code>style</code>
-  element's <code data-x="attr-style-type">type</code> attribute, passing it the element's
-  <dfn>style data</dfn>, whenever one of the following conditions occur:</p>
+  <p>The user agent must run the <span>update a <code>style</code> block</span> algorithm whenever
+  one of the following conditions occur:</p>
   <!-- note that a browsing context isn't needed:
        https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2739 -->
 
   <ul>
-   <li>The element is popped off the <span>stack of open elements</span> of an <span>HTML
-   parser</span> or <span>XML parser</span>.
+   <li><p>The element is popped off the <span>stack of open elements</span> of an <span>HTML
+   parser</span> or <span>XML parser</span>.</p></li>
 
-   <li>The element is not on the <span>stack of open elements</span> of an <span>HTML parser</span>
-   or <span>XML parser</span>, and it <span>becomes connected</span> or <span data-x="becomes
-   disconnected">disconnected</span>.
+   <li><p>The element is not on the <span>stack of open elements</span> of an <span>HTML
+   parser</span> or <span>XML parser</span>, and it <span>becomes connected</span> or <span
+   data-x="becomes disconnected">disconnected</span>.</p></li>
 
-   <li>The element is not on the <span>stack of open elements</span> of an <span>HTML parser</span>
-   or <span>XML parser</span>, and one of its child nodes is modified by a script.
+   <li><p>The element's <span>child text content change steps</span> run.</p></li>
   </ul>
 
-  <p>For styling languages that consist of pure text (as opposed to XML), a <code>style</code>
-  element's <span>style data</span> is the <span>child text content</span> of the <code>style</code>
-  element. For XML-based styling languages, the <span>style data</span> consists of all the child
-  nodes of the <code>style</code> element.</p>
-
-  <p>The <span>update a <code>style</code> block</span> algorithm for CSS (<code>text/css</code>) is
-  as follows:</p>
+  <p>The <dfn data-export="">update a <code>style</code> block</dfn> algorithm is as follows:</p>
 
   <ol>
 
@@ -142,15 +94,25 @@ c-end         = "-->"</pre>
    data-x="remove a CSS style sheet">remove the CSS style sheet</span> in question.</p></li>
 
    <li><p>If <var>element</var>'s <span>root</span> is neither a <span>shadow root</span> nor a
-   <span>document</span>, then abort these steps.</p></li>
+   <span>document</span>, then return.</p></li>
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2740
         Also, per https://github.com/w3c/webcomponents/issues/56 stylesheets should work in
         disconnected shadow trees. -->
 
+   <li>
+    <p>If <var>element</var>'s <code data-x="attr-style-type">type</code> attribute is present and
+    its value is neither the empty string nor an <span>ASCII case-insensitive</span> match for
+    "<code>text/css</code>", then return.</p>
+
+    <p class="note">In particular, a <code data-x="attr-style-type">type</code> value with
+    parameters, such as "<code data-x="">text/css; charset=utf-8</code>", will cause this algorithm
+    to return early.</p>
+   </li>
+
    <li><p>If the <span>Should element's inline behavior be blocked by Content Security
    Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when executed upon the
    <code>style</code> element, "<code data-x="">style</code>", and the <code>style</code>
-   element's <code>style data</code>, then abort these steps. <ref spec="CSP"></p></li>
+   element's <span>child text content</span>, then return. <ref spec="CSP"></p></li>
 
    <li>
 
@@ -159,7 +121,7 @@ c-end         = "-->"</pre>
     <dl>
 
      <dt><span data-x="concept-css-style-sheet-type">type</span></dt>
-     <dd><p><code data-x="">text/css</code></p></dd>
+     <dd><p><code>text/css</code></p></dd>
 
      <dt><span data-x="concept-css-style-sheet-owner-node">owner node</span></dt>
      <dd><p><var>element</var></p></dd>
@@ -202,7 +164,13 @@ c-end         = "-->"</pre>
      <dd><p>Left at its default value.</p></dd>
 
      <dt><span data-x="concept-css-style-sheet-CSS-rules">CSS rules</span></dt>
-     <dd><p>Left uninitialized.</p></dd>
+     <dd>
+      <p>Left uninitialized.</p>
+
+      <p class="&#x0058;&#x0058;&#x0058;">This doesn't seem right. Presumably we should be using the
+      element's <span>child text content</span>? Tracked as <a
+      href="https://github.com/whatwg/html/issues/2997">issue #2997</a>.</p>
+     </dd>
 
     </dl>
 
@@ -214,9 +182,6 @@ c-end         = "-->"</pre>
    </li>
 
   </ol>
-
-  <p>This specification does not define any other styling language's <i data-x="update a style
-  block">update a <code>style</code> block</i> algorithm.</p>
 
   <!-- the next few paragraph are similar to text in the <link> section -->
   <p>Once the attempts to obtain the style sheet's <span>critical subresources</span>, if any, are
@@ -244,10 +209,8 @@ c-end         = "-->"</pre>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-style-media">media</code></dfn>, <dfn><code
-  data-x="dom-style-nonce">nonce</code></dfn>, and <dfn><code
-  data-x="dom-style-type">type</code></dfn> IDL attributes must <span>reflect</span> the respective
-  content attributes of the same name.</p>
+  <p>The <dfn><code data-x="dom-style-media">media</code></dfn> IDL attribute must
+  <span>reflect</span> the content attribute of the same name.</p>
 
   </div>
 

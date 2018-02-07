@@ -24,7 +24,8 @@
    <dd><code data-x="attr-dim-height">height</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-object-data">data</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-type">type</span>;
@@ -638,7 +639,7 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
 
      <li>
 
-      <p>Abort these steps. Once the resource is completely loaded, <span>queue a task</span> to
+      <p>Return. Once the resource is completely loaded, <span>queue a task</span> to
       <span data-x="concept-event-fire">fire an event</span> named <code
       data-x="event-load">load</code> at the element.</p>
 
@@ -656,7 +657,7 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
    <span data-x="concept-plugin-secure">secured</span>, then that <span>plugin</span> <a
    href="#object-plugin">should be used</a>. If these conditions cannot be met, or if the
    <span>plugin</span> reports an error, jump to the step below labeled <i>fallback</i>. Otherwise
-   abort these steps; once the plugin is completely loaded, <span>queue a task</span> to <span
+   return; once the plugin is completely loaded, <span>queue a task</span> to <span
    data-x="concept-event-fire">fire an event</span> named <code data-x="event-load">load</code> at
    the element.</p></li>
 
@@ -746,24 +747,6 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
   data-x="dom-cva-setCustomValidity">setCustomValidity()</code> methods, are part of the
   <span>constraint validation API</span>. The <code data-x="dom-fae-form">form</code> IDL attribute
   is part of the element's forms API.</p>
-
-  </div>
-
-  <div class="example">
-
-   <p>In the following example, a Java applet is embedded in a page using the <code>object</code>
-   element. (Generally speaking, it is better to avoid using applets like these and instead use
-   native JavaScript and HTML to provide the functionality, since that way the application will work
-   on all Web browsers without requiring a third-party plugin. Many devices, especially embedded
-   devices, do not support third-party technologies like Java.)</p>
-
-   <pre>&lt;figure>
- &lt;object type="application/x-java-applet">
-  &lt;param name="code" value="MyJavaClass">
-  &lt;p>You do not have Java available, or it is disabled.&lt;/p>
- &lt;/object>
- &lt;figcaption>My Java Clock&lt;/figcaption>
-&lt;/figure></pre>
 
   </div>
 

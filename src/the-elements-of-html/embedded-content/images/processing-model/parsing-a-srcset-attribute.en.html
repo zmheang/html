@@ -18,7 +18,7 @@
    data-x="concept-microsyntax-parse-error">parse error</span>.</p></li>
 
    <li><p>If <var>position</var> is past the end of <var>input</var>,
-   return <var>candidates</var> and abort these steps.</p></li>
+   return <var>candidates</var>.</p></li>
 
    <li><p><span>Collect a sequence of code points</span> that are not <span>ASCII whitespace</span>
    from <var>input</var> given <var>position</var>, and let that be <var>url</var>.</p></li>
@@ -37,7 +37,7 @@
 
     </ol>
 
-    <p>Otherwise, while true:</p>
+    <p>Otherwise:</p>
 
     <ol>
 
@@ -151,7 +151,8 @@
 
       </dl>
 
-      <p>Advance <var>position</var> to the next character in <var>input</var>.</p>
+      <p>Advance <var>position</var> to the next character in <var>input</var>. Repeat this
+      step.</p>
 
       <p class="note">In order to be compatible with future additions,
       this algorithm supports multiple descriptors and descriptors with parens.</p>

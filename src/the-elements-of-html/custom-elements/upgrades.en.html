@@ -6,8 +6,8 @@
 
   <ol>
    <li>
-    <p>If <var>element</var> is <span data-x="concept-element-custom">custom</span>, abort these
-    steps.</p>
+    <p>If <var>element</var> is <span data-x="concept-element-custom">custom</span>, then
+    return.</p>
 
     <div class="example">
      <p>This can occur due to reentrant invocation of this algorithm, as in the following
@@ -42,7 +42,10 @@ customElements.define("x-foo", class extends HTMLElement {
    </li>
 
    <li><p>If <var>element</var>'s <span>custom element state</span> is "<code
-   data-x="">failed</code>", then abort these steps.</p></li>
+   data-x="">failed</code>", then return.</p></li>
+
+   <li><p>Set <var>element</var>'s <span data-x="concept-element-custom-element-definition">custom
+   element definition</span> to <var>definition</var>.</p></li>
 
    <li><p>For each <var>attribute</var> in <var>element</var>'s <span>attribute list</span>, in
    order, <span>enqueue a custom element callback reaction</span> with <var>element</var>, callback
@@ -117,17 +120,17 @@ customElements.define("x-foo", class extends HTMLElement {
      <li><p>Set <var>element</var>'s <span>custom element state</span> to "<code
      data-x="">failed</code>".</p></li>
 
+     <li><p>Set <var>element</var>'s <span data-x="concept-element-custom-element-definition">custom
+     element definition</span> to null.</p></li>
+
      <li><p>Empty <var>element</var>'s <span>custom element reaction queue</span>.</p>
 
-     <li><p>Rethrow the exception, and terminate this algorithm.</p></li>
+     <li><p>Rethrow the exception (thus terminating this algorithm).</p></li>
     </ol>
    </li>
 
    <li><p>Set <var>element</var>'s <span>custom element state</span> to "<code
    data-x="">custom</code>".</p></li>
-
-   <li><p>Set <var>element</var>'s <span data-x="concept-element-custom-element-definition">custom
-   element definition</span> to <var>definition</var>.</p></li>
   </ol>
 
   <p>To <dfn data-x="concept-try-upgrade" data-export="">try to upgrade an element</dfn>, given as

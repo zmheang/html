@@ -14,10 +14,10 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
 
   <p><code>DedicatedWorkerGlobalScope</code> objects act as if they had an implicit
   <code>MessagePort</code> associated with them. This port is part of a channel that is set up when
-  the worker is created, but it is not exposed. This object must never be garbage collected before
-  the <code>DedicatedWorkerGlobalScope</code> object.</p>
+  the worker is created, but it is not exposed.<span w-nodev> This object must never be garbage
+  collected before the <code>DedicatedWorkerGlobalScope</code> object.</span></p>
 
-  <p>All messages received by that port must immediately be retargeted at the
+  <p w-nodev>All messages received by that port must immediately be retargeted at the
   <code>DedicatedWorkerGlobalScope</code> object.</p>
 
   <dl class="domintro">
@@ -71,9 +71,9 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
   </div>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
-  handler event type">event handler event types</span>) that must be supported, as <span>event
-  handler IDL attributes</span>, by objects implementing the <code>DedicatedWorkerGlobalScope</code>
-  interface:</p>
+  handler event type">event handler event types</span>) <span w-nodev>that must be</span> supported,
+  as <span>event handler IDL attributes</span>, by objects implementing the
+  <code>DedicatedWorkerGlobalScope</code> interface:</p>
 
   <table>
    <thead>

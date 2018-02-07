@@ -64,28 +64,28 @@
 
     <p>Replaces a range of text with the new text. If the <var>start</var> and <var>end</var> arguments are not provided, the range is assumed to be the selection.</p>
 
-    <p>The final argument determines how the selection should be set after the text has been
+    <p>The final argument determines how the selection will be set after the text has been
     replaced. The possible values are:</p>
 
     <dl>
 
 
-     <dt>"<code data-x="dom-SelectionMode-select">select</code>"</dt>
+     <dt>"<code subdfn data-x="dom-SelectionMode-select">select</code>"</dt>
 
      <dd>Selects the newly inserted text.</dd>
 
 
-     <dt>"<code data-x="dom-SelectionMode-start">start</code>"</dt>
+     <dt>"<code subdfn data-x="dom-SelectionMode-start">start</code>"</dt>
 
      <dd>Moves the selection to just before the inserted text.</dd>
 
 
-     <dt>"<code data-x="dom-SelectionMode-end">end</code>"</dt>
+     <dt>"<code subdfn data-x="dom-SelectionMode-end">end</code>"</dt>
 
      <dd>Moves the selection to just after the selected text.</dd>
 
 
-     <dt>"<code data-x="dom-SelectionMode-preserve">preserve</code>"</dt>
+     <dt>"<code subdfn data-x="dom-SelectionMode-preserve">preserve</code>"</dt>
 
      <dd>Attempts to preserve the selection. This is the default.</dd>
 
@@ -317,8 +317,7 @@
    </li>
 
    <li><p>If <var>start</var> is greater than <var>end</var>, then throw an
-   <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> and abort these
-   steps.</p></li>
+   <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If <var>start</var> is greater than the length of the value of the text control, then set
    it to the length of the value of the text control.</p></li>

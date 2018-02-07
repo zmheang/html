@@ -216,7 +216,7 @@
     data-x="attr-media-src">src</code> attribute nor a <code>source</code> element child: set the
     <code data-x="dom-media-networkState">networkState</code> to <code
     data-x="dom-media-NETWORK_EMPTY">NETWORK_EMPTY</code><!-- no need to set the <span>show poster
-    flag</span> to true since we set it up there already -->, and abort these steps; the
+    flag</span> to true since we set it up there already -->, and return; the
     <span>synchronous section</span> ends.</p>
 
    </li>
@@ -259,7 +259,7 @@
        <li><p>Wait for the <span data-x="concept-task">task</span> queued by the previous step to have
        executed.</p></li>
 
-       <li><p>Abort these steps. The element won't attempt to load another resource until this
+       <li><p>Return. The element won't attempt to load another resource until this
        algorithm is triggered again.</p></li>
 
       </ol>
@@ -302,7 +302,7 @@
        <li><p>Wait for the <span data-x="concept-task">task</span> queued by the previous step to have
        executed.</p></li>
 
-       <li><p>Abort these steps. The element won't attempt to load another resource until this
+       <li><p>Return. The element won't attempt to load another resource until this
        algorithm is triggered again.</p></li>
        <!-- it took its ball and went home, sulking. -->
 
@@ -548,18 +548,19 @@
        </li>
 
        <li>
+        <p>Let <var>destination</var> be "<code data-x="">audio</code>" if the <span>media
+        element</span> is an <code>audio</code> element and to "<code data-x="">video</code>"
+        otherwise.</p>
 
         <p>Let <var>request</var> be the result of <span
         data-x="create a potential-CORS request">creating a potential-CORS request</span> given
-        <var>current media resource</var>'s <span>URL record</span>, "<code data-x="">media</code>",
-        and the <span>media element</span>'s <code
-        data-x="attr-media-crossorigin">crossorigin</code> content attribute value.
+        <var>current media resource</var>'s <span>URL record</span>, <var>destination</var>, and the
+        <span>media element</span>'s <code data-x="attr-media-crossorigin">crossorigin</code>
+        content attribute value.
 
         <p>Set <var>request</var>'s <span data-x="concept-request-client">client</span> to the
         <span>media element</span>'s <span>node document</span>'s <code>Window</code> object's
-        <span>environment settings object</span> and <span data-x="concept-request-type">type</span>
-        to "<code data-x="">audio</code>" if the <span>media element</span> is an <code>audio</code>
-        element and to "<code data-x="">video</code>" otherwise.
+        <span>environment settings object</span>.</p>
 
         <!--FETCH--><p><span data-x="concept-fetch">Fetch</span> <var>request</var>.
 

@@ -25,20 +25,19 @@
   <span>nested browsing context</span>'s <span>active document</span>, and all nodes in that
   <code>Document</code>, must be marked as <span>inert</span>.</p>
 
-  <p>An entire <code>Document</code> can be marked as <dfn>blocked by a modal dialog</dfn>
-  <var>subject</var>. While a <code>Document</code> is so marked, every node that is <span
-  data-x="in a document">in the <code>Document</code></span>, with the exception of the
-  <var>subject</var> element and its descendants, must be marked <span>inert</span>. (The elements
-  excepted by this paragraph can additionally be marked <span>inert</span> through other means;
-  being part of a modal dialog does not "protect" a node from being marked <span>inert</span>.)</p>
-
-  <p>Only one element at a time can mark a <code>Document</code> as being <span>blocked by a modal
-  dialog</span>. When a new <code>dialog</code> is made to <span data-x="blocked by a modal
-  dialog">block</span> a <code>Document</code>, the previous element, if any, stops blocking the
-  <code>Document</code>.</p>
+  <p>A <code>Document</code> <var>document</var> is <dfn>blocked by a modal dialog</dfn>
+  <var>subject</var> if <var>subject</var> is the topmost <code>dialog</code> element in
+  <var>document</var>'s <span>top layer</span>. While <var>document</var> is so blocked, every node
+  that is <span>connected</span> to <var>document</var>, with the exception of the
+  <var>subject</var> element and its <span data-x="shadow-including descendant">shadow-including
+  descendants</span>, must be marked <span>inert</span>. (The elements excepted by this paragraph
+  can additionally be marked <span>inert</span> through other means; being part of a modal dialog
+  does not "protect" a node from being marked <span>inert</span>.)</p>
 
   <p class="note">The <code>dialog</code> element's <code
-  data-x="dom-dialog-showModal">showModal()</code> method makes use of this mechanism.</p>
+  data-x="dom-dialog-showModal">showModal()</code> method causes this mechanism to trigger, by <span
+  data-x="top-layer-add">adding</span> the <code>dialog</code> element to its <span>node
+  document</span>'s <span>top layer</span>.</p>
 
 
 

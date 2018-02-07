@@ -15,18 +15,18 @@
    parser</span> algorithm to both its <span>URL</span> and the <span>application cache</span>'s
    <span data-x="concept-appcache-manifest">manifest</span>'s URL results in two <span data-x="URL
    record">URL records</span> with different <span data-x="concept-url-scheme">scheme</span>
-   components, then fetch the resource normally and abort these steps.</p></li>
+   components, then fetch the resource normally and return.</p></li>
 
    <li><p>If the resource's URL is <span data-x="concept-appcache-master">a master entry</span>,
    <span data-x="concept-appcache-manifest">the manifest</span>, <span
    data-x="concept-appcache-explicit">an explicit entry</span>, or <span
    data-x="concept-appcache-fallback">a fallback entry</span> in the <span>application cache</span>,
-   then get the resource from the cache (instead of fetching it), and abort these steps.</p></li>
+   then get the resource from the cache (instead of fetching it), and return.</p></li>
 
    <li><p>If there is an entry in the <span>application cache</span>'s <span
    data-x="concept-appcache-onlinesafelist">online safelist</span> that has the <span>same
    origin</span> as the resource's URL and that is a <span>prefix match</span> for the resource's
-   URL, then fetch the resource normally and abort these steps.</p></li>
+   URL, then fetch the resource normally and return.</p></li>
 
    <li>
 
@@ -40,13 +40,13 @@
     were network errors (but not if the user canceled the download), then instead get, from the
     cache, the resource of the <span data-x="concept-appcache-fallback">fallback entry</span>
     corresponding to the <span data-x="concept-appcache-fallback-ns">fallback namespace</span>
-    <var>f</var>. Abort these steps.</p>
+    <var>f</var>. Return.</p>
 
    </li>
 
    <li><p>If the <span>application cache</span>'s <span
    data-x="concept-appcache-onlinesafelist-wildcard">online safelist wildcard flag</span> is
-   <i>open</i>, then fetch the resource normally and abort these steps.</p></li>
+   <i>open</i>, then fetch the resource normally and return.</p></li>
 
    <li><p>Fail the resource load as if there had been a generic network error.</p></li>
 

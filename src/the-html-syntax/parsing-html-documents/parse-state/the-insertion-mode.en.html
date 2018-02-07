@@ -85,51 +85,51 @@
      labeled <i>done</i>.</p></li>
 
      <li><p>If <var>ancestor</var> is a <code>table</code> node, switch the <span>insertion
-     mode</span> to "<span data-x="insertion mode: in select in table">in select in table</span>" and
-     abort these steps.</p></li> <!-- consider
+     mode</span> to "<span data-x="insertion mode: in select in table">in select in table</span>"
+     and return.</p></li> <!-- consider
      <table><tr><td><select><template></template><caption></table>
      https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2374 -->
 
      <li><p>Jump back to the step labeled <i>loop</i>.</p></li>
 
      <li><p><i>Done</i>: Switch the <span>insertion mode</span> to "<span data-x="insertion mode: in
-     select">in select</span>" and abort these steps.</p></li>
+     select">in select</span>" and return.</p></li>
 
     </ol>
 
    </li>
 
-   <li><p>If <var>node</var> is a <code>td</code> or <code>th</code> element and <var>last</var> is false, then switch the <span>insertion mode</span> to "<span
-   data-x="insertion mode: in cell">in cell</span>" and abort these steps.</p></li>
+   <li><p>If <var>node</var> is a <code>td</code> or <code>th</code> element and <var>last</var> is
+   false, then switch the <span>insertion mode</span> to "<span data-x="insertion mode: in cell">in
+   cell</span>" and return.</p></li>
 
    <li><p>If <var>node</var> is a <code>tr</code> element, then switch the <span>insertion
-   mode</span> to "<span data-x="insertion mode: in row">in row</span>" and abort these
-   steps.</p></li>
+   mode</span> to "<span data-x="insertion mode: in row">in row</span>" and return.</p></li>
 
    <li><p>If <var>node</var> is a <code>tbody</code>, <code>thead</code>, or
    <code>tfoot</code> element, then switch the <span>insertion mode</span> to "<span
-   data-x="insertion mode: in table body">in table body</span>" and abort these steps.</p></li>
+   data-x="insertion mode: in table body">in table body</span>" and return.</p></li>
 
    <li><p>If <var>node</var> is a <code>caption</code> element, then switch the
    <span>insertion mode</span> to "<span data-x="insertion mode: in caption">in caption</span>" and
-   abort these steps.</p></li>
+   return.</p></li>
 
    <li><p>If <var>node</var> is a <code>colgroup</code> element, then switch the
    <span>insertion mode</span> to "<span data-x="insertion mode: in column group">in column
-   group</span>" and abort these steps.</p></li>
+   group</span>" and return.</p></li>
 
    <li><p>If <var>node</var> is a <code>table</code> element, then switch the
-   <span>insertion mode</span> to "<span data-x="insertion mode: in table">in table</span>" and abort
-   these steps.</p></li>
+   <span>insertion mode</span> to "<span data-x="insertion mode: in table">in table</span>" and
+   return.</p></li>
 
    <li><p>If <var>node</var> is a <code>template</code> element, then switch the
-   <span>insertion mode</span> to the <span>current template insertion mode</span> and abort these
-   steps.</p></li>
+   <span>insertion mode</span> to the <span>current template insertion mode</span> and
+   return.</p></li>
 
    <!-- <li><p>If <var>node</var> is a <code>head</code> element and <var>last</var> is true, then switch the <span>insertion mode</span> to "<span
    data-x="insertion mode: in body">in body</span>" ("<span data-x="insertion mode: in body">in
-   body</span>"! <em> not "<span data-x="insertion mode: in head">in head</span>"</em>!) and abort
-   these steps. (<span>fragment case</span>)</p></li> --><!-- The above is only here in case people
+   body</span>"! <em> not "<span data-x="insertion mode: in head">in head</span>"</em>!) and return.
+   (<span>fragment case</span>)</p></li> --><!-- The above is only here in case people
    think that the spec accidentally omitted it and try to "fix" it. Note that noscript-in-head is
    also handled this way. This is all intentional. The only thing it doesn't handle is the
    scripting-disabled fragment parsing case for a <head> element containing a <noscript> which
@@ -140,16 +140,16 @@
 
    <li><p>If <var>node</var> is a <code>head</code> element and <var>last</var> is
    false, then switch the <span>insertion mode</span> to "<span data-x="insertion mode: in head">in
-   head</span>" and abort these steps.</p></li> <!-- for the case of <head><template></template>...
+   head</span>" and return.</p></li> <!-- for the case of <head><template></template>...
    -->
 
    <li><p>If <var>node</var> is a <code>body</code> element, then switch the
-   <span>insertion mode</span> to "<span data-x="insertion mode: in body">in body</span>" and abort
-   these steps.</p></li>
+   <span>insertion mode</span> to "<span data-x="insertion mode: in body">in body</span>" and
+   return.</p></li>
 
    <li><p>If <var>node</var> is a <code>frameset</code> element, then switch the
    <span>insertion mode</span> to "<span data-x="insertion mode: in frameset">in frameset</span>" and
-   abort these steps. (<span>fragment case</span>)</p></li>
+   return. (<span>fragment case</span>)</p></li>
 
    <li>
 
@@ -159,18 +159,18 @@
 
      <li><p>If the <span><code>head</code> element pointer</span> is null, switch the
      <span>insertion mode</span> to "<span data-x="insertion mode: before head">before head</span>"
-     and abort these steps. (<span>fragment case</span>)</p></li>
+     and return. (<span>fragment case</span>)</p></li>
 
      <li><p>Otherwise, the <span><code>head</code> element pointer</span> is not null, switch the
      <span>insertion mode</span> to "<span data-x="insertion mode: after head">after head</span>" and
-     abort these steps.</p></li> <!-- consider <html><head></head><template></template> -->
+     return.</p></li> <!-- consider <html><head></head><template></template> -->
 
     </ol>
 
    </li>
 
    <li><p>If <var>last</var> is true, then switch the <span>insertion mode</span> to "<span
-   data-x="insertion mode: in body">in body</span>" and abort these steps. (<span>fragment
+   data-x="insertion mode: in body">in body</span>" and return. (<span>fragment
    case</span>)</p></li>
 
    <li><p>Let <var>node</var> now be the node before <var>node</var> in the

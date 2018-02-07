@@ -1,7 +1,6 @@
   <h6>IDL definitions</h6>
 
-  <pre class="idl">[NoInterfaceObject]
-interface <dfn>GlobalEventHandlers</dfn> {
+  <pre class="idl">interface mixin <dfn>GlobalEventHandlers</dfn> {
   attribute <span>EventHandler</span> <span data-x="handler-onabort">onabort</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onauxclick">onauxclick</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onblur">onblur</span>;
@@ -66,8 +65,7 @@ interface <dfn>GlobalEventHandlers</dfn> {
   attribute <span>EventHandler</span> <span data-x="handler-onwaiting">onwaiting</span>;
 };
 
-[NoInterfaceObject]
-interface <dfn>WindowEventHandlers</dfn> {
+interface mixin <dfn>WindowEventHandlers</dfn> {
   attribute <span>EventHandler</span> <span data-x="handler-window-onafterprint">onafterprint</span>;
   attribute <span>EventHandler</span> <span data-x="handler-window-onbeforeprint">onbeforeprint</span>;
   attribute <span>OnBeforeUnloadEventHandler</span> <span data-x="handler-window-onbeforeunload">onbeforeunload</span>;
@@ -86,12 +84,9 @@ interface <dfn>WindowEventHandlers</dfn> {
   attribute <span>EventHandler</span> <span data-x="handler-window-onunload">onunload</span>;
 };
 
-[NoInterfaceObject]
-interface <dfn>DocumentAndElementEventHandlers</dfn> {
+interface mixin <dfn>DocumentAndElementEventHandlers</dfn> {
   attribute <span>EventHandler</span> <span data-x="handler-oncopy">oncopy</span>;
   attribute <span>EventHandler</span> <span data-x="handler-oncut">oncut</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onpaste">onpaste</span>;
 };</pre>
-
-  <div w-nodev>
 

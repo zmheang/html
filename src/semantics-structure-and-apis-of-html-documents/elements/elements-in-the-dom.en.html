@@ -53,7 +53,8 @@
   w-nodev>and which must be used by elements that have no additional requirements,</span> is
   the <code>HTMLElement</code> interface.</p>
 
-  <pre class="idl">[<span>HTMLConstructor</span>]
+  <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLElement</dfn> : <span>Element</span> {
   // metadata attributes
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-title">title</span>;
@@ -66,21 +67,24 @@ interface <dfn>HTMLElement</dfn> : <span>Element</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-hidden">hidden</span>;
   void <span data-x="dom-click">click</span>();
   [<span>CEReactions</span>] attribute long <span data-x="dom-tabindex">tabIndex</span>;
-  void <span data-x="dom-focus">focus</span>();
+  void <span data-x="dom-focus">focus</span>(optional <span>FocusOptions</span> options);
   void <span data-x="dom-blur">blur</span>();
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-accessKey">accessKey</span>;
   readonly attribute DOMString <span data-x="dom-accessKeyLabel">accessKeyLabel</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-draggable">draggable</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-spellcheck">spellcheck</span>;
-  void <span data-x="dom-forceSpellCheck">forceSpellCheck</span>();
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-autocapitalize">autocapitalize</span>;
 
   [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-innerText">innerText</span>;
 };
-<span>HTMLElement</span> implements <span>GlobalEventHandlers</span>;
-<span>HTMLElement</span> implements <span>DocumentAndElementEventHandlers</span>;
-<span>HTMLElement</span> implements <span>ElementContentEditable</span>;
+
+<span>HTMLElement</span> includes <span>GlobalEventHandlers</span>;
+<span>HTMLElement</span> includes <span>DocumentAndElementEventHandlers</span>;
+<span>HTMLElement</span> includes <span>ElementContentEditable</span>;
+<span>HTMLElement</span> includes <span>NoncedElement</span>;
 
 // Note: <a href="#customized-built-in-element-restrictions">intentionally</a> not [<span>HTMLConstructor</span>]
+[Exposed=Window]
 interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</pre>
 
   <p>The <code>HTMLElement</code> interface holds methods and attributes related to a number of
@@ -95,9 +99,9 @@ interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</pre>
   <span>HTML namespace</span> is determined as follows:</p>
 
   <ol>
-   <li><p>If <var>name</var> is <code>bgsound</code>, <code>blink</code>, <code>isindex</code>,
-   <code>keygen</code>, <code>multicol</code>, <code>nextid</code>, or <code>spacer</code>, then
-   return <code>HTMLUnknownElement</code>.</p></li>
+   <li><p>If <var>name</var> is <code>applet</code>, <code>bgsound</code>, <code>blink</code>,
+   <code>isindex</code>, <code>keygen</code>, <code>multicol</code>, <code>nextid</code>, or
+   <code>spacer</code>, then return <code>HTMLUnknownElement</code>.</p></li>
 
    <li><p>If <var>name</var> is <code>acronym</code>, <code>basefont</code>, <code>big</code>,
    <code>center</code>, <code>nobr</code>, <code>noembed</code>, <code>noframes</code>,

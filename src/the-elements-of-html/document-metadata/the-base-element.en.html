@@ -13,7 +13,8 @@
    <dd><code data-x="attr-base-target">target</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-base-href">href</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-base-target">target</span>;
@@ -62,6 +63,23 @@ interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
 
   <p class="note">If there are multiple <code>base</code> elements with <code
   data-x="attr-base-target">target</code> attributes, all but the first are ignored.</p>
+
+  <p>To <dfn>get an element's target</dfn>, given an <code>a</code>, <code>area</code>, or
+  <code>form</code> element <var>element</var>, run these steps:
+
+  <ol>
+   <li><p>If <var>element</var> has a <code data-x="">target</code> attribute, then return that
+   attribute's value.</p></li>
+
+   <li><p>If <var>element</var>'s <span>node document</span> contains a <code>base</code> element
+   with a <code data-x="attr-base-target">target</code> attribute, then return the value of the
+   <code data-x="attr-base-target">target</code> attribute of the first such <code>base</code>
+   element.</p></li>
+
+   <li><p>Return the empty string.</p></li>
+  </ol>
+
+  <hr>
 
   <p>A <code>base</code> element that is the first <code>base</code> element with an <code
   data-x="attr-base-href">href</code> content attribute <span>in a document tree</span> has a

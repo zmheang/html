@@ -4,7 +4,7 @@
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
    <dd><span>Flow content</span>.</dd>
    <dd><span>Sectioning root</span>.</dd>
-   <dd><span data-x="category-listed">Listed</span> <span>form-associated element</span>.</dd>
+   <dd><span data-x="category-listed">Listed</span> and <span data-x="category-autocapitalize">autocapitalize-inheriting</span> <span>form-associated element</span>.</dd>
    <dd><span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>Where <span>flow content</span> is expected.</dd>
@@ -17,7 +17,8 @@
    <dd><code data-x="attr-fe-name">name</code> <!-- variant --> </dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLFieldSetElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-fieldset-disabled">disabled</span>;
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-fae-form">form</span>;

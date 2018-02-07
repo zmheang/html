@@ -74,7 +74,6 @@
       <code>ins</code>;
       <code>kbd</code>;
       <code>label</code>;
-      <code>main</code>;
       <code>map</code>;
       <code>mark</code>;
       <span>MathML <code>math</code></span>;
@@ -117,6 +116,7 @@
      <td>
       <code>area</code> (if it is a descendant of a <code>map</code> element);
       <code>link</code> (if it is <span>allowed in the body</span>);
+      <code>main</code> (if it is a <span>hierarchically correct <code>main</code> element</span>);
       <code>meta</code> (if the <code data-x="attr-itemprop">itemprop</code> attribute is present)
 
     <tr>
@@ -294,6 +294,18 @@
     <tr>
      <td> <span data-x="category-reset">Resettable elements</span>
      <td>
+      <code>input</code>;
+      <code>output</code>;
+      <code>select</code>;
+      <code>textarea</code>
+     <td>
+      &mdash;
+
+    <tr>
+     <td> <span data-x="category-autocapitalize">Autocapitalize-inheriting elements</span>
+     <td>
+      <code>button</code>;
+      <code>fieldset</code>;
       <code>input</code>;
       <code>output</code>;
       <code>select</code>;

@@ -5,7 +5,8 @@
   rooted on a <code>select</code> element and has attributes and methods that manipulate that
   element's descendants.</p>
 
-  <pre class="idl">interface <dfn>HTMLOptionsCollection</dfn> : <span>HTMLCollection</span> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>HTMLOptionsCollection</dfn> : <span>HTMLCollection</span> {
   // inherits <span data-x="dom-HTMLCollection-item">item</span>(), <span data-x="dom-HTMLCollection-namedItem">namedItem</span>()
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-HTMLOptionsCollection-length">length</span>; // shadows inherited <span data-x="dom-HTMLCollection-length">length</span>
   [<span>CEReactions</span>] <a href="#dom-htmloptionscollection-setter">setter</a> void (unsigned long index, <span>HTMLOptionElement</span>? option);
@@ -109,7 +110,7 @@
 
    <li><p>If <var>value</var> is null, invoke the steps for the <code
    data-x="dom-HTMLOptionsCollection-remove">remove</code> method with <var>index</var> as
-   the argument, and abort these steps.</p></li>
+   the argument, and return.</p></li>
 
    <li><p>Let <var>length</var> be the number of nodes <span>represented by the
    collection</span>.</p></li>
@@ -134,16 +135,14 @@
 
    <li><p>If <var>element</var> is an ancestor of the <code>select</code> element on which
    the <code>HTMLOptionsCollection</code> is rooted, then throw a
-   <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code> and abort these
-   steps.</li>
+   <span>"<code>HierarchyRequestError</code>"</span> <code>DOMException</code>.</li>
 
    <li><p>If <var>before</var> is an element, but that element isn't a descendant of the
    <code>select</code> element on which the <code>HTMLOptionsCollection</code> is rooted, then throw
-   a <span>"<code>NotFoundError</code>"</span> <code>DOMException</code> and abort these
-   steps.</p></li>
+   a <span>"<code>NotFoundError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If <var>element</var> and <var>before</var> are the same element, then
-   return and abort these steps.</li>
+   return.</li>
 
    <li><p>If <var>before</var> is a node, then let <var>reference</var> be that
    node. Otherwise, if <var>before</var> is an integer, and there is a <var>before</var>th node in the collection, let <var>reference</var> be that node.
@@ -162,11 +161,10 @@
 
   <ol>
 
-   <li><p>If the number of nodes <span>represented by the collection</span> is zero, abort these
-   steps.</li>
+   <li><p>If the number of nodes <span>represented by the collection</span> is zero, return.</li>
 
    <li><p>If <var>index</var> is not a number greater than or equal to 0 and less than the
-   number of nodes <span>represented by the collection</span>, abort these steps.</p></li>
+   number of nodes <span>represented by the collection</span>, return.</p></li>
    <!-- note that Web IDL converts 'a', NaN, -0.5, 0.5, most objects, and null to 0, and numbers in
    general truncate. so what we're checking against here in a way has very little to do with what's
    going on in the JS -->

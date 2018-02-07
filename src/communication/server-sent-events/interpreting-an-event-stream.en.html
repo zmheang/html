@@ -138,7 +138,7 @@
    server.</p></li>
 
    <li><p>If the <var>data</var> buffer is an empty string, set the <var>data</var> buffer and the <var>event type</var> buffer to the empty string and
-   abort these steps.</p></li>
+   return.</p></li>
 
    <li><p>If the <var>data</var> buffer's last character is a U+000A LINE FEED (LF)
    character, then remove the last character from the <var>data</var> buffer.</p></li>
@@ -180,6 +180,8 @@
 
   <p>For other user agents, the appropriate steps to <span>dispatch the event</span> are
   implementation dependent, but at a minimum they must set the <var>data</var> and <var>event type</var> buffers to the empty string before returning.</p>
+
+  </div>
 
   <div class="example">
 

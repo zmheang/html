@@ -16,7 +16,8 @@
    <dd><code data-x="attr-track-default">default</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-track-kind">kind</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-track-src">src</span>;
@@ -71,16 +72,13 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
       Synthesized as audio.
     <tr>
      <td><dfn><code data-x="attr-track-kind-keyword-chapters">chapters</code></dfn>
-     <td><dfn data-x="attr-track-kind-chapters">Chapters</dfn>
-     <td>
-      Chapter titles, intended to be used for navigating the <span>media resource</span>.
-      Displayed as an interactive (potentially nested) list in the user agent's interface.
+     <td><dfn data-x="attr-track-kind-chapters">Chapters metadata</dfn>
+     <td rowspan="2">
+      Tracks intended for use from script.
+      Not displayed by the user agent.
     <tr>
      <td><dfn><code data-x="attr-track-kind-keyword-metadata">metadata</code></dfn>
      <td><dfn data-x="attr-track-kind-metadata">Metadata</dfn>
-     <td>
-      Tracks intended for use from script.
-      Not displayed by the user agent.
   </table>
 
   <p>The attribute may be omitted. The <i data-x="missing value default">missing value default</i>
@@ -104,14 +102,9 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
 
   <p>If the element's <span>track URL</span> identifies a WebVTT resource, and the element's <code
   data-x="attr-track-kind">kind</code> attribute is not in the <span
+  data-x="attr-track-kind-chapters">chapters metadata</span> or <span
   data-x="attr-track-kind-metadata">metadata</span> state, then the WebVTT file must be a
   <span>WebVTT file using cue text</span>. <ref spec=WEBVTT></p>
-
-  <p>Furthermore, if the element's <span>track URL</span> identifies a WebVTT resource, and the
-  element's <code data-x="attr-track-kind">kind</code> attribute is in the <span
-  data-x="attr-track-kind-chapters">chapters</span> state, then the WebVTT file must be both a
-  <span>WebVTT file using chapter title text</span> and a <span>WebVTT file using only nested
-  cues</span>. <ref spec=WEBVTT></p>
 
   <p>The <dfn><code data-x="attr-track-srclang">srclang</code></dfn> attribute gives the language of
   the text track data. The value must be a valid BCP 47 language tag. This attribute must be present
@@ -165,7 +158,7 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
 
   <p>Each <span>media element</span> must have no more than one <code>track</code> element child
   whose <code data-x="attr-track-kind">kind</code> attribute is in the <span
-  data-x="attr-track-kind-chapters">chapters</span> state and whose <code
+  data-x="attr-track-kind-chapters">chapters metadata</span> state and whose <code
   data-x="attr-track-default">default</code> attribute is specified.</p>
 
   <p class="note">There is no limit on the number of <code>track</code> elements whose <code

@@ -41,7 +41,7 @@
   <p>Finally, a <code>script</code> element has <dfn data-x="concept-script-script"
   data-export="">the script's script</dfn>, which is a <span data-x="concept-script">script</span>
   resulting from <span data-x="prepare a script">preparing</span> the element. This is set
-  asynchronously after the classic script or module tree is fetched. Once it is set, either to a
+  asynchronously after the classic script or module graph is fetched. Once it is set, either to a
   <span data-x="concept-script">script</span> in the case of success or to null in the case of
   failure, the fetching algorithms will note that <dfn>the script is ready</dfn>, which can trigger
   other actions. <!-- similar text in various places --> The user agent must <span>delay the load
@@ -77,7 +77,7 @@
    <li>
 
     <p>If the <code>script</code> element is marked as having <span>"already started"</span>, then
-    abort these steps at this point. The script is not executed.</p>
+    return. The script is not executed.</p>
 
    </li>
 
@@ -111,12 +111,12 @@
    <li id="script-processing-empty">
 
     <p>If the element has no <code data-x="attr-script-src">src</code> attribute, and its child
-    nodes, if any, consist only of comment nodes and empty <code>Text</code> nodes, then abort
-    these steps at this point. The script is not executed.</p>
+    nodes, if any, consist only of comment nodes and empty <code>Text</code> nodes, then return. The
+    script is not executed.</p>
 
    </li>
 
-   <li><p>If the element is not <span>connected</span>, then abort these steps. The script is not
+   <li><p>If the element is not <span>connected</span>, then return. The script is not
    executed.</p></li>
 
    <li id="script-processing-prepare">
@@ -169,8 +169,7 @@
      match for the string "<code data-x="">module</code>", <span data-x="concept-script-type">the
      script's type</span> is "<code data-x="">module</code>".</li>
 
-     <li>If neither of the above conditions are true, then abort these steps at this point. No
-     script is executed.</li>
+     <li>If neither of the above conditions are true, then return. No script is executed.</li>
 
     </ul>
 
@@ -194,14 +193,14 @@
 
     <p>If the element is flagged as <span>"parser-inserted"</span>, but the element's
     <span>node document</span> is not the <code>Document</code> of the parser that created the
-    element, then abort these steps.</p>
+    element, then return.</p>
 
    </li>
 
    <li id="script-processing-noscript">
 
     <p>If <span data-x="concept-n-noscript">scripting is disabled</span> for the <code>script</code>
-    element, then abort these steps at this point. The script is not executed.</p>
+    element, then return. The script is not executed.</p>
 
     <p class="note">The definition of <span data-x="concept-n-noscript">scripting is disabled</span>
     means that, amongst others, the following scripts will not execute: scripts in
@@ -220,7 +219,7 @@
 
    <p>If the <code>script</code> element has a <code data-x="attr-script-nomodule">nomodule</code>
    content attribute and <span data-x="concept-script-type">the script's type</span> is "<code
-   data-x="">classic</code>", then abort these steps. The script is not executed.</p>
+   data-x="">classic</code>", then return. The script is not executed.</p>
 
    <p class="note">This means specifying <code data-x="attr-script-nomodule">nomodule</code> on a
    <span>module script</span> has no effect; the algorithm continues onward.</p>
@@ -232,7 +231,7 @@
    behavior be blocked by Content Security Policy?</span> algorithm returns "<code
    data-x="">Blocked</code>" when executed upon the <code>script</code> element, "<code
    data-x="">script</code>", and the <code>script</code> element's <span>child text content</span>,
-   then abort these steps. The script is not executed. <ref spec="CSP"></p></li>
+   then return. The script is not executed. <ref spec="CSP"></p></li>
 
    <li id="script-processing-for">
 
@@ -253,13 +252,11 @@
      <var>for</var>.</p></li>
 
      <li><p>If <var>for</var> is not an <span>ASCII case-insensitive</span> match for the
-     string "<code data-x="">window</code>", then abort these steps at this point. The script is
-     not executed.</p></li>
+     string "<code data-x="">window</code>", then return. The script is not executed.</p></li>
 
      <li><p>If <var>event</var> is not an <span>ASCII case-insensitive</span> match for
      either the string "<code data-x="">onload</code>" or the string "<code
-     data-x="">onload()</code>", then abort these steps at this point. The script is not
-     executed.</p></li>
+     data-x="">onload()</code>", then return. The script is not executed.</p></li>
 
     </ol>
 
@@ -281,33 +278,15 @@
 
    </li>
 
-   <li><p>Let <var>CORS setting</var> be the current state of the element's <code
+   <li><p>Let <var>classic script CORS setting</var> be the current state of the element's <code
    data-x="attr-script-crossorigin">crossorigin</code> content attribute.</p></li>
 
-   <li>
-    <p>Let <var>module script credentials mode</var> be determined by switching on <var>CORS
-    setting</var>:</p>
+   <li><p>Let <var>module script credentials mode</var> be the <span>module script credentials
+   mode</span> for the element's <code data-x="attr-script-crossorigin">crossorigin</code> content
+   attribute.</p>
 
-    <dl class="switch">
-     <dt><span data-x="attr-crossorigin-none">No CORS</span></dt>
-     <dd>"<code data-x="">omit</code>"</dd>
-
-     <dt><span data-x="attr-crossorigin-anonymous">Anonymous</span></dt>
-     <dd>"<code data-x="">same-origin</code>"</dd>
-
-     <dt><span data-x="attr-crossorigin-none">Use Credentials</span></dt>
-     <dd>"<code data-x="">include</code>"</dd>
-    </dl>
-   </li>
-
-   <li>
-
-    <p>If the <code>script</code> element has a <code data-x="attr-script-nonce">nonce</code>
-    attribute, then let <var>cryptographic nonce</var> be that attribute's value.</p>
-
-    <p>Otherwise, let <var>cryptographic nonce</var> be the empty string.</p>
-
-   </li>
+   <li><p>Let <var>cryptographic nonce</var> be the element's <span>[[CryptographicNonce]]</span>
+   internal slot's value.</p></li>
 
    <li>
 
@@ -319,11 +298,27 @@
 
    </li>
 
-   <li><p>Let <var>parser state</var> be "<code data-x="">parser-inserted</code>" if the
+   <li><p>Let <var>parser metadata</var> be "<code data-x="">parser-inserted</code>" if the
    <code>script</code> element has been flagged as <span>"parser-inserted"</span>, and
-   "<code data-x="">not parser-inserted</code>" otherwise.</p></li>
+   "<code data-x="">not-parser-inserted</code>" otherwise.</p></li>
 
-   <li><p>Let <var>settings</var> be the element's <span>node document</span>'s
+   <li>
+    <p>Let <var>options</var> be a <span>script fetch options</span> whose <span
+    data-x="concept-script-fetch-options-nonce">cryptographic nonce</span> is <var>cryptographic
+    nonce</var>, <span data-x="concept-script-fetch-options-integrity">integrity metadata</span> is
+    <var>integrity metadata</var>, <span data-x="concept-script-fetch-options-parser">parser
+    metadata</span> is <var>parser metadata</var>, <span
+    data-x="concept-script-fetch-options-credentials">credentials mode</span> is <var>module script
+    credentials mode</var>, and <span data-x="concept-script-fetch-options-referrer-policy">referrer
+    policy</span> is the empty string.</p>
+
+    <p class="note">See <a
+    href="https://github.com/w3c/webappsec-referrer-policy/issues/96">w3c/webappsec-referrer-policy#96</a>
+    for future plans to add a <code data-x="">referrerpolicy</code> attribute to <code>script</code>
+    elements.
+   </p>
+
+   <li><p>Let <var>settings object</var> be the element's <span>node document</span>'s
    <code>Window</code> object's <span>environment settings object</span>.</p></li>
 
    <li id="script-processing-src-prepare">
@@ -337,7 +332,7 @@
 
      <li><p>If <var>src</var> is the empty string, <span>queue a task</span> to <span
      data-x="concept-event-fire">fire an event</span> named <code data-x="event-error">error</code>
-     at the element, and abort these steps.</p></li>
+     at the element, and return.</p></li>
 
      <li><p>Set the element's <span data-x="concept-script-external">from an external file</span>
      flag.</p></li>
@@ -347,7 +342,7 @@
 
      <li><p>If the previous step failed, <span>queue a task</span> to <span
      data-x="concept-event-fire">fire an event</span> named <code data-x="event-error">error</code>
-     at the element, and abort these steps. Otherwise, let <var>url</var> be the <span>resulting URL
+     at the element, and return. Otherwise, let <var>url</var> be the <span>resulting URL
      record</span>.</p></li>
 
      <li>
@@ -356,16 +351,14 @@
       <dl class="switch">
        <dt>"<code data-x="">classic</code>"</dt>
        <dd>
-        <p><span>Fetch a classic script</span> given <var>url</var>, <var>settings</var>,
-        <var>cryptographic nonce</var>, <var>integrity metadata</var>, <var>parser state</var>,
-        <var>CORS setting</var>, and <var>encoding</var>.</p>
+        <p><span>Fetch a classic script</span> given <var>url</var>, <var>settings object</var>,
+        <var>options</var>, <var>classic script CORS setting</var>, and <var>encoding</var>.</p>
        </dd>
 
        <dt>"<code data-x="">module</code>"</dt>
        <dd>
-        <p><span>Fetch a module script graph</span> given <var>url</var>, <var>settings</var>,
-        "<code data-x="">script</code>", <var>cryptographic nonce</var>, <var>parser state</var>,
-        and <var>module script credentials mode</var>.</p>
+        <p><span>Fetch a module script graph</span> given <var>url</var>, <var>settings
+        object</var>, "<code data-x="">script</code>", and <var>options</var>.</p>
        </dd>
       </dl>
 
@@ -373,7 +366,7 @@
       data-x="concept-script-script">the script's script</span> to the result. At that time,
       <span>the script is ready</span>.</p>
 
-      <p>For performance reasons, user agents may start fetching the classic script or module tree
+      <p>For performance reasons, user agents may start fetching the classic script or module graph
       (as defined above) as soon as the <code data-x="attr-script-src">src</code> attribute is set,
       instead, in the hope that the element will be inserted into the document (and that the <code
       data-x="attr-script-crossorigin">crossorigin</code> attribute won't change value in the
@@ -398,8 +391,11 @@
     run these substeps:</p>
 
     <ol>
-     <li><p>Let <var>source text</var> be the value of the <code
-     data-x="dom-script-text">text</code> IDL attribute.</p></li>
+     <li><p>Let <var>source text</var> be the <code>script</code> element's <span>child text
+     content</span>.</p></li>
+
+     <li><p>Let <var>base URL</var> be the <code>script</code> element's <span>node
+     document</span>'s <span>document base URL</span>.</p></li>
 
      <li>
       <p>Switch on <span data-x="concept-script-type">the script's type</span>:</p>
@@ -409,7 +405,8 @@
        <dd>
         <ol>
          <li><p>Let <var>script</var> be the result of <span>creating a classic script</span> using
-         <var>source text</var> and <var>settings</var>.</p></li>
+         <var>source text</var>, <var>settings object</var>, <var>base URL</var>, and
+         <var>options</var>.</p></li>
 
          <li><p>Set <span data-x="concept-script-script">the script's script</span> to
          <var>script</var>.</p></li>
@@ -421,16 +418,12 @@
        <dt>"<code data-x="">module</code>"</dt>
        <dd>
         <ol>
-         <li><p>Let <var>base URL</var> be the <code>script</code> element's <span>node
-         document</span>'s <span>document base URL</span>.</p></li>
-
          <li><p>Let <var>script</var> be the result of <span>creating a module script</span> using
-         <var>source text</var>, <var>settings</var>, <var>base URL</var>, <var>cryptographic
-         nonce</var>, <var>parser state</var>, and <var>module script credentials
-         mode</var>.</p></li>
+         <var>source text</var>, <var>settings object</var>, <var>base URL</var>, and
+         <var>options</var>.</p></li>
 
          <li><p>If this returns null, set <span data-x="concept-script-script">the script's
-         script</span> to null and abort these substeps; <span>the script is ready</span>.</p></li>
+         script</span> to null and return; <span>the script is ready</span>.</p></li>
 
          <li><p><span data-x="fetch the descendants of and instantiate a module script">Fetch the
          descendants of and instantiate</span> <var>script</var>, given the destination "<code
@@ -515,7 +508,7 @@
 
        <li><p>If the element is not now the first element in the <span>list of scripts that will
        execute in order as soon as possible</span> to which it was added above, then mark the
-       element as ready but abort these steps without executing the script yet.</p></li>
+       element as ready but return without executing the script yet.</p></li>
 
        <li><p><i>Execution</i>: <span>Execute the script block</span> corresponding to the first
        script element in this <span>list of scripts that will execute in order as soon as
@@ -612,7 +605,7 @@
 
     <p>If the element is flagged as <span>"parser-inserted"</span>, but the element's
     <span>node document</span> is not the <code>Document</code> of the parser that created the element,
-    then abort these steps.</p>
+    then return.</p>
 
    </li>
 
@@ -620,7 +613,7 @@
 
     <p>If <span data-x="concept-script-script">the script's script</span> is null, <span
     data-x="concept-event-fire">fire an event</span> named <code data-x="event-error">error</code>
-    at the element, and abort these steps.</p>
+    at the element, and return.</p>
 
    </li>
 

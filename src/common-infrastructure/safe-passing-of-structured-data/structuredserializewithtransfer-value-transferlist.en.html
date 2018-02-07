@@ -30,10 +30,13 @@
      <var>transferable</var>.<span>[[Detached]]</span> is true, then throw a
      <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
 
-     <li><p>Let <var>placeholder</var> be a user-agent-defined placeholder object.</p></li>
+     <li>
+      <p><span data-x="map set">Set</span> <var>memory</var>[<var>transferable</var>] to {
+      [[Type]]: an uninitialized value }.</p>
 
-     <li><p><span data-x="map set">Set</span> <var>memory</var>[<var>transferable</var>] to
-     <var>placeholder</var>.</p></li>
+      <p class="note"><var>transferable</var> is not transferred yet as that operation has side
+      effects and <span>StructuredSerializeInternal</span> can throw.</p>
+     </li>
     </ol>
    </li>
 
@@ -48,17 +51,19 @@
     <var>transferList</var>:</p>
 
     <ol>
-     <li><p>Let <var>placeholder</var> be <var>memory</var>[<var>transferable</var>].</p></li>
-
-     <li><p>Let <var>dataHolder</var> be an uninitialized value.</p></li>
+     <li><p>Let <var>dataHolder</var> be <var>memory</var>[<var>transferable</var>].</p></li>
 
      <li>
       <p>If <var>transferable</var> has an [[ArrayBufferData]] internal slot, then:</p>
 
       <ol>
-       <li><p>Set <var>dataHolder</var> to { [[TransferConsumed]]: false, [[Type]]: "ArrayBuffer",
-       [[ArrayBufferData]]: <var>transferable</var>.[[ArrayBufferData]], [[ArrayBufferByteLength]]:
-       <var>transferable</var>.[[ArrayBufferByteLength]] }.</p></li>
+       <li><p>Set <var>dataHolder</var>.[[Type]] to "ArrayBuffer".</p></li>
+
+       <li><p>Set <var>dataHolder</var>.[[ArrayBufferData]] to
+       <var>transferable</var>.[[ArrayBufferData]].</p></li>
+
+       <li><p>Set <var>dataHolder</var>.[[ArrayBufferByteLength]] to
+       <var>transferable</var>.[[ArrayBufferByteLength]].</p></li>
 
        <li><p>Perform ! <span>DetachArrayBuffer</span>(<var>transferable</var>).</p></li>
       </ol>
@@ -74,8 +79,7 @@
        <li><p>Let <var>interfaceName</var> be the identifier of the <span>primary interface</span>
        of <var>transferable</var>.</p></li>
 
-       <li><p>Set <var>dataHolder</var> to { [[TransferConsumed]]: false, [[Type]]:
-       <var>interfaceName</var> }.</p></li>
+       <li><p>Set <var>dataHolder</var>.[[Type]] to <var>interfaceName</var>.</p></li>
 
        <li><p>Perform the appropriate <span>transfer steps</span> for the interface identified by
        <var>interfaceName</var>, given <var>transferable</var> and <var>dataHolder</var>.</p></li>
@@ -83,9 +87,6 @@
        <li><p>Set <var>transferable</var>.<span>[[Detached]]</span> to true.</p></li>
       </ol>
      </li>
-
-     <li><p>Within <var>serialized</var>, replace all instances of <var>placeholder</var> with
-     <var>dataHolder</var>.</p></li>
 
      <li><p><span data-x="list append">Append</span> <var>dataHolder</var> to
      <var>transferDataHolders</var>.</p></li>

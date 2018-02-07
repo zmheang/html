@@ -1,8 +1,8 @@
   <h4>Conformance classes</h4>
 
   <p>This specification describes the conformance criteria for <span w-nodev>user agents
-  (relevant to implementors) and</span> documents<span w-nodev> (relevant to authors and
-  authoring tool implementors)</span>.</p>
+  (relevant to implementers) and</span> documents<span w-nodev> (relevant to authors and
+  authoring tool implementers)</span>.</p>
 
   <p><dfn>Conforming documents</dfn> are those that comply with all the conformance criteria for
   documents. For readability, some of these conformance requirements are phrased as conformance
@@ -188,12 +188,13 @@
 
     <p class="example">For example, it is not conforming to use an <code>address</code> element for
     arbitrary contact information; that element can only be used for marking up contact information
-    for the author of the document or section. However, since an authoring tool is likely unable to
-    determine the difference, an authoring tool is exempt from that requirement. This does not mean,
-    though, that authoring tools can use <code>address</code> elements for any block of italics text
-    (for instance); it just means that the authoring tool doesn't have to verify that when the user
-    uses a tool for inserting contact information for a section, that the user really is doing that
-    and not inserting something else instead.</p>
+    for its nearest <code>article</code> or <code>body</code> element ancestor. However, since an
+    authoring tool is likely unable to determine the difference, an authoring tool is exempt from
+    that requirement. This does not mean, though, that authoring tools can use <code>address</code>
+    elements for any block of italics text (for instance); it just means that the authoring tool
+    doesn't have to verify that when the user uses a tool for inserting contact information for an
+    <code>article</code> element, that the user really is doing that and not inserting something
+    else instead.</p>
 
     <p class="note">In terms of conformance checking, an editor has to output documents that conform
     to the same extent that a conformance checker will verify.</p>

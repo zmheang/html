@@ -3,7 +3,8 @@
   <p>The drag-and-drop processing model involves several events. They all use the
   <code>DragEvent</code> interface.</p>
 
-  <pre class="idl">[Constructor(DOMString type, optional <span>DragEventInit</span> eventInitDict)]
+  <pre class="idl">[Exposed=Window,
+ Constructor(DOMString type, optional <span>DragEventInit</span> eventInitDict)]
 interface <dfn>DragEvent</dfn> : <span>MouseEvent</span> {
   readonly attribute <span>DataTransfer</span>? <span data-x="dom-DragEvent-dataTransfer">dataTransfer</span>;
 };
@@ -45,6 +46,8 @@ dictionary <dfn>DragEventInit</dfn> : <span>MouseEventInit</span> {
 
   <ol>
 
+   <li>Let <var>dataDragStoreWasChanged</var> be false.</li>
+
    <li><p>If no specific <var>related target</var> was provided, set <var>related target</var> to
    null.</p></li>
 
@@ -53,8 +56,9 @@ dictionary <dfn>DragEventInit</dfn> : <span>MouseEventInit</span> {
 
    <li>
 
-    <p>If <var>e</var> is <code data-x="event-dnd-dragstart">dragstart</code>, set the <span>drag
-    data store mode</span> to the <span data-x="concept-dnd-rw">read/write mode</span>.</p>
+    <p>If <var>e</var> is <code data-x="event-dnd-dragstart">dragstart</code>, then set the
+    <span>drag data store mode</span> to the <span data-x="concept-dnd-rw">read/write mode</span>
+    and set <var>dataDragStoreWasChanged</var> to true.</p>
 
     <p>If <var>e</var> is <code data-x="event-dnd-drop">drop</code>, set the <span>drag data store
     mode</span> to the <span data-x="concept-dnd-ro">read-only mode</span>.</p>
@@ -186,8 +190,8 @@ dictionary <dfn>DragEventInit</dfn> : <span>MouseEventInit</span> {
    attribute. (It can only have changed value if <var>e</var> is <code
    data-x="event-dnd-dragstart">dragstart</code>.)</p></li>
 
-   <li><p>Set the <span>drag data store mode</span> back to the <span
-   data-x="concept-dnd-p">protected mode</span> if it was changed in the first step.</p></li>
+   <li><p>If <var>dataDragStoreWasChanged</var> is true, then set the <span>drag data store
+   mode</span> back to the <span data-x="concept-dnd-p">protected mode</span>.</p></li>
 
    <li><p>Break the association between <var>dataTransfer</var> and the <span>drag data
    store</span>.</p></li>

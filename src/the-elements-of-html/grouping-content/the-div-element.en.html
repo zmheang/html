@@ -9,12 +9,13 @@
    <dd>As a child of a <code>dl</code> element.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
    <dd>If the element is a child of a <code>dl</code> element: one or more <code>dt</code> elements followed by one or more <code>dd</code> elements, optionally intermixed with <span>script-supporting elements</span>.</dd>
-   <dd>If the element is not a child of a <code>dl</code> element: <span>Flow content</span>.</dd>
+   <dd>If the element is not a child of a <code>dl</code> element: <span>flow content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLDivElement</dfn> : <span>HTMLElement</span> {};</pre>
    </dd>
    <dd w-nohtml>Uses <code>HTMLDivElement</code>.</dd>

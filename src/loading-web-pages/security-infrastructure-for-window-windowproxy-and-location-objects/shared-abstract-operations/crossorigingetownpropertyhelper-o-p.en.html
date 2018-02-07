@@ -44,7 +44,7 @@
 
          <li><p>Set <var>crossOriginDesc</var> to <span>PropertyDescriptor</span>{
          [[Value]]: <var>value</var>,
-         [[Enumerable]]: true,
+         [[Enumerable]]: false,
          [[Writable]]: false,
          [[Configurable]]: true }.</p></li>
         </ol>
@@ -71,7 +71,7 @@
          <li><p>Set <var>crossOriginDesc</var> to <span>PropertyDescriptor</span>{
          [[Get]]: <var>crossOriginGet</var>,
          [[Set]]: <var>crossOriginSet</var>,
-         [[Enumerable]]: true,
+         [[Enumerable]]: false,
          [[Configurable]]: true }.</p></li>
         </ol>
        </li>
@@ -96,4 +96,8 @@
   href="https://github.com/tc39/ecma262/issues/672">tc39/ecma262 issue #672</a> and references to it
   elsewhere in this specification for cases where we are not able to preserve these invariants, for
   compatibility with existing Web content.) <ref spec=JAVASCRIPT></p>
+
+  <p class="note">The reason the property descriptors are non-enumerable, despite this mismatching
+  the same-origin behavior, is for compatibility with existing Web content. See <a
+  href="https://github.com/whatwg/html/issues/3183">issue #3183</a> for details.</p>
 

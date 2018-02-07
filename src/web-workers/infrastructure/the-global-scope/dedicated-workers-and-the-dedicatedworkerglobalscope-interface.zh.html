@@ -1,4 +1,4 @@
-  <h5>专用 Worker 与 <code>DedicatedWorkerGlobalScope</code> 接口</h5>
+  <h5>专用 Worker 与 <code subdfn>DedicatedWorkerGlobalScope</code> 接口</h5>
 
   <pre class="idl">[Global=(Worker,DedicatedWorker),Exposed=DedicatedWorker]
 interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
@@ -27,13 +27,13 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
    <dd>终止 <var>dedicatedWorkerGlobal</var>。</dd>
   </dl>
 
+  <div w-nodev>
+
   <p>在 <code>DedicatedWorkerGlobalScope</code> 对象上的
   <dfn><code data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage()</code></dfn>
   方法被调用时必须表现得就像立即使用同样的参数列表调用了该端口上的
   <span data-x="dom-MessagePort-postMessage">同名方法</span> 一样，
   并且返回同样的返回值。</p>
-
-  <div w-nodev>
 
   <p>给定 <var>workerGlobal</var>，<dfn data-export="" data-x="close a worker">关闭 worker</dfn>
   的步骤如下：</p>
@@ -49,9 +49,9 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
   <p><dfn><code data-x="dom-DedicatedWorkerGlobalScope-close">close()</code></dfn> 方法被调用时，
   必须 <span data-x="close a worker">关闭</span> <code>DedicatedWorkerGlobalScope</code> 上的 Worker。</p>
 
-  </div>
-
   <hr>
+
+  </div>
 
   <p>下面是实现 <code>DedicatedWorkerGlobalScope</code> 接口的对象必须
   （以 <span data-x="event handler IDL attributes">事件处理器 IDL 属性</span> 的方式）
@@ -63,6 +63,7 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
     <tr><th><span data-x="event handlers">事件处理器</span> <th><span data-x="event handler event type">事件处理器事件类型</span>
    <tbody>
     <tr><td><dfn><code data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</code></dfn> <td> <code data-x="event-message">message</code>
+    <tr><td><dfn><code data-x="handler-DedicatedWorkerGlobalScope-onmessageerror">onmessageerror</code></dfn> <td> <code data-x="event-messageerror">messageerror</code>
   </table>
 
   <p>出于 <span>application cache</span> 网络模型的目的，专用 worker 是

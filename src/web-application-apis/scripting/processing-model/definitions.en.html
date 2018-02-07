@@ -4,151 +4,77 @@
   data-x="struct">structs</span>. All scripts have:</p>
 
   <dl>
-
    <dt>A <dfn data-dfn-for="script" data-export="">settings object</dfn></dt>
 
-   <dd>
+   <dd><p>An <span>environment settings object</span>, containing various settings that are shared
+   with other <span data-x="concept-script">scripts</span> in the same context.</p></dd>
 
-    <p>An <span>environment settings object</span>, containing various settings that are shared
-    with other <span data-x="concept-script">scripts</span> in the same context.</p>
+   <dt>A <dfn data-dfn-for="script" data-export="" data-x="concept-script-record">record</dfn></dt>
 
-   </dd>
+   <dd><p>Either a <span>Script Record</span>, for <span data-x="classic script">classic
+   scripts</span>; a <span>Source Text Module Record</span>, for <span data-x="module
+   script">module scripts</span>; or null. In the former two cases, it represents a parsed script;
+   null represents a failure parsing.</p></dd>
 
-  </dl>
-
-
-  <p>A <dfn data-export="">classic script</dfn> is a <span data-x="concept-script">script</span>
-  that has the following additional <span data-x="struct item">items</span>:</p>
-
-  <dl>
-
-   <dt><dfn data-x="concept-classic-script-source-text" data-export="">Source text</dfn></dt>
-
-   <dd>
-
-    <p>A string containing a block of executable code to be evaluated as a JavaScript <i
-    data-x="js-prod-Script">Script</i>.</p>
-
-   </dd>
-
-   <dt>Optionally, a <dfn>muted errors</dfn> flag</dt>
-
-   <dd>
-
-    <p>A flag which, if set, means that error information will not be provided for errors in this
-    script (used to mute errors for cross-origin scripts, since that can leak private
-    information).</p>
-
-   </dd>
-
-  </dl>
-
-  <p>A <dfn data-export="">module script</dfn> is a <span data-x="concept-script">script</span>
-  that has the following additional <span data-x="struct item">items</span>:</p>
-
-  <dl>
-
-   <dt>A <dfn data-x="concept-module-script-module-record" data-export="" data-dfn-for="module
-   script">module record</dfn></dt>
-
-   <dd>
-
-    <p>A <span>Source Text Module Record</span> representing the parsed module, ready to be
-    evaluated, or null if the module could not be parsed or instantiated.</p>
-
-   </dd>
-
-   <dt>A <dfn data-x="concept-module-script-base-url">base URL</dfn></dt>
-
-   <dd>
-
-    <p>A base URL used for resolving module specifiers when <span data-x="resolve a module
-    specifier">resolving a module specifier</span>. This will either be the URL from which the
-    script was obtained, for external module scripts, or the <span>document base URL</span> of the
-    containing document, for inline module scripts.</p>
-
-   </dd>
-
-   <dt>A <dfn data-x="concept-module-script-pre-instantiation-error">pre-instantiation
+   <dt>A <dfn data-dfn-for="script" data-export="" data-x="concept-script-parse-error">parse
    error</dfn></dt>
 
-   <dd>
+   <dd><p>A JavaScript value, which has meaning only if the <span
+   data-x="concept-script-record">record</span> is null, indicating that the corresponding script
+   source text could not be parsed.</p></dd>
 
-    <p>A JavaScript value, which has meaning only if the <span
-    data-x="concept-module-script-module-record">module record</span> is null.</p>
-
-    <p class="note">This stores errors that will prevent the module from successfully instantiating,
-    such as parse errors or errors in its dependencies. A <span>module script</span> can also <span
-    data-x="concept-module-script-is-errored">be errored</span> due to errors recorded by the
-    JavaScript specification as part of its <span
-    data-x="concept-module-script-module-record">module record</span>.</p>
-
-   </dd>
-
-   <dt>A <dfn data-x="concept-module-script-credentials-mode">credentials mode</dfn></dt>
+   <dt>An <dfn data-dfn-for="script" data-export="" data-x="concept-script-error-to-rethrow">error
+   to rethrow</dfn></dt>
 
    <dd>
+    <p>A JavaScript value representing an error that will prevent evaluation from succeeding. It
+    will be re-thrown by any attempts to <a href="#calling-scripts">run</a> the script.</p>
 
-    <p>A <span data-x="concept-request-credentials-mode">credentials mode</span> used to fetch
-    imported modules.</p>
-
+    <p class="note">Since this exception value is provided by the JavaScript specification, we know
+    that it is never null, so we use null to signal that no error has occurred.</p>
    </dd>
 
-   <dt>A <dfn data-x="concept-module-script-nonce">cryptographic nonce</dfn></dt>
+   <dt><dfn data-dfn-for="script" data-export=""
+   data-x="concept-script-script-fetch-options">Fetch options</dfn></dt>
 
-   <dd>
+   <dd>A <span>script fetch options</span>, containing various options related to fetching this
+   script or <span data-x="module script">module scripts</span> that it imports.</dd>
 
-    <p>A <span data-x="concept-request-nonce-metadata">cryptographic nonce</span> used to fetch
-    imported modules.</p>
+   <dt>A <dfn data-dfn-for="script" data-export="" data-x="concept-script-base-url">base
+   URL</dfn></dt>
 
-   </dd>
-
-   <dt>A <dfn data-x="concept-module-script-parser">parser state</dfn></dt>
-
-   <dd>
-
-    <p>The <span data-x="concept-request-parser-metadata">parser metadata</span> used to fetch
-    imported modules.</p>
-
-   </dd>
-
+   <dd><p>A base <span>URL</span> used for <span data-x="resolve a module specifier">resolving
+   module specifiers</span>. This will either be the URL from which the script was obtained, for
+   external scripts, or the <span>document base URL</span> of the containing document, for inline
+   scripts.</p></dd>
   </dl>
 
-  <p>We say that a <span>module script</span> <dfn data-x="concept-module-script-is-errored">is
-  errored</dfn> if either its <span data-x="concept-module-script-module-record">module
-  record</span> is null, or its <span data-x="concept-module-script-module-record">module
-  record</span>'s [[Status]] field has the value "<code data-x="">errored</code>".</p>
 
-  <p>When a <span>module script</span> <span data-x="concept-module-script-is-errored">is
-  errored</span>, we say that its <dfn data-x="concept-module-script-error">error</dfn> is either
-  its <span data-x="concept-module-script-pre-instantiation-error">pre-instantiation error</span>,
-  when its <span data-x="concept-module-script-module-record">module record</span> is null, or its
-  <span data-x="concept-module-script-module-record">module record</span>'s [[ErrorCompletion]]
-  field's [[Value]] field, otherwise.</p>
+  <p>A <dfn data-export="">classic script</dfn> is a type of <span
+  data-x="concept-script">script</span> that has the following additional <span data-x="struct
+  item">item</span>:</p>
 
-  <p>To <dfn data-x="concept-module-script-set-pre-instantiation-error">set the pre-instantiation
-  error</dfn> of a <span>module script</span> <var>script</var>:</p>
+  <dl>
+   <dt>A <dfn>muted errors</dfn> boolean</dt>
+
+   <dd><p>A boolean which, if true, means that error information will not be provided for errors in
+   this script. This is used to mute errors for cross-origin scripts, since that can leak private
+   information.</p></dd>
+  </dl>
+
+  <p>A <dfn data-export="">module script</dfn> is another type of <span
+  data-x="concept-script">script</span>. It has no additional <span data-x="struct
+  item">items</span>.</p>
+
+  <p>The <dfn>active script</dfn> is determined by the following algorithm:</p>
 
   <ol>
-   <li><p>Let <var>moduleRecord</var> be <var>script</var>'s <span
-   data-x="concept-module-script-module-record">module record</span>.</p></li>
+   <li><p>Let <var>record</var> be <span>GetActiveScriptOrModule</span>().</p></li>
 
-   <li><p>If <var>moduleRecord</var> is not null, set <var>moduleRecord</var>.[[HostDefined]] to
-   undefined.</p></li>
+   <li><p>If <var>record</var> is null, return null.</p></li>
 
-   <li><p>Set <var>script</var>'s <span data-x="concept-module-script-module-record">module
-   record</span> to null.</p></li>
-
-   <li><p>Set <var>script</var>'s <span
-   data-x="concept-module-script-pre-instantiation-error">pre-instantiation error</span> to
-   <var>error</var>.</p></li>
+   <li><p>Return <var>record</var>.[[HostDefined]].</p></li>
   </ol>
-
-  <p>We say that a <span>module script</span> <dfn
-  data-x="concept-module-script-has-instantiated">has instantiated</dfn> if its <span
-  data-x="concept-module-script-module-record">module record</span> is not null, and its <span
-  data-x="concept-module-script-module-record">module record</span>'s [[Status]] field is either
-  "<code data-x="">instantiated</code>" or "<code data-x="">evaluated</code>".</p>
 
   <hr>
 

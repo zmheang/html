@@ -28,17 +28,3 @@
   <p class="comment">某个元素是visible的并不仅仅指该元素在视觉上可见，比如屏幕阅读器也应将该元素阅读给用户。</p>
 
   <div w-nodev>
-
-  <p>B 算法返回给 A 算法，指的是 A 调用了 B。当返回给 A时，
-  该实现必须从离开的时候（即调用 B 时）继续执行。
-  有些算法是<dfn data-export="" data-x="in parallel">并行的</dfn>，
-  这是指该算法后续的步骤会有序执行，但该过程是与本标准中的其他逻辑（例如<span data-x="event loop">事件循环</span>）同时执行的。
-  本标准并未精确地定义该行为的具体机制，例如分时合作式多任务、纤程、线程、进程，可以运行在不同的超线程、核心、CPU、甚至不同的机器上。
-  相反地，<dfn data-x="immediately">立即</dfn>执行的操作必须中断当前正在执行的任务，执行它自己，然后恢复先前正在执行的任务。
-
-  </div>
-
-  <!-- should find somewhere more appropriate to put this -->
-  <p>术语 "transparent black" 是指 red, green, blue, alpha 通道都设为0的颜色。</p>
-
-

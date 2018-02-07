@@ -1,13 +1,20 @@
   <h4>The <code data-x="dom-sessionStorage">sessionStorage</code> attribute</h4>
 
-  <pre class="idl">[NoInterfaceObject]
-interface <dfn>WindowSessionStorage</dfn> {
+  <pre class="idl">interface mixin <dfn>WindowSessionStorage</dfn> {
   readonly attribute <span>Storage</span> <span data-x="dom-sessionStorage">sessionStorage</span>;
 };
-<span>Window</span> implements <span>WindowSessionStorage</span>;</pre>
+<span>Window</span> includes <span>WindowSessionStorage</span>;</pre>
 
   <p>The <dfn><code data-x="dom-sessionStorage">sessionStorage</code></dfn> attribute represents the
   set of storage areas specific to the current <span>top-level browsing context</span>.</p>
+
+  <dl class="domintro">
+   <dt><var>window</var> . <code subdfn data-x="dom-sessionStorage">sessionStorage</code></dt>
+   <dd>
+     <p>Returns the <code>Storage</code> object associated with that origin's session storage
+     area.</p>
+   </dd>
+  </dl>
 
   <p>Each <span>top-level browsing context</span> has a unique set of session storage areas, one for
   each <span>origin</span>.</p>
@@ -19,6 +26,8 @@ interface <dfn>WindowSessionStorage</dfn> {
   therefore permanently inaccessible to the user) the data stored in its session storage areas can
   be discarded with it, as the API described in this specification provides no way for that data to
   ever be subsequently retrieved.</p>
+
+  <div w-nodev>
 
   <p class="note">The lifetime of a browsing context can be unrelated to the lifetime of the actual
   user agent process itself, as the user agent can support resuming sessions after a restart.</p>
@@ -36,28 +45,20 @@ interface <dfn>WindowSessionStorage</dfn> {
 
   <p>The <code data-x="dom-sessionStorage">sessionStorage</code> attribute must return a
   <code>Storage</code> object associated with the <code>Document</code>'s assigned session storage
-  area, if any, or null if there isn't one. Each <code>Document</code> object must have a separate
-  object for its <code>Window</code>'s <code data-x="dom-sessionStorage">sessionStorage</code>
-  attribute.</p>
+  area. Each <code>Document</code> object must have a separate object for its <code>Window</code>'s
+  <code data-x="dom-sessionStorage">sessionStorage</code> attribute.</p>
 
-  <p>When a new <span>top-level browsing context</span> is created by cloning an existing
-  <span>browsing context</span>, the new browsing context must start with the same session storage
-  areas as the original, but the two sets must from that point on be considered separate, not
-  affecting each other in any way.</p>
+  <p>While <span>creating a new browsing context</span>, the session storage area <a
+  href="#copy-session-storage">is sometimes copied</a> over.</p>
 
-  <p>When a new <span>top-level browsing context</span> is created by a <span
-  data-x="concept-script">script</span> in an existing <span>browsing context</span>, or by the user
-  following a link in an existing browsing context, or in some other way related to a specific
-  <code>Document</code>, and the creation is not a new start for session storage, then the session
-  storage area of the <span>origin</span> of that <code>Document</code> must be copied into the new
-  browsing context when it is created. From that point on, however, the two session storage areas
-  must be considered separate, not affecting each other in any way.</p>
+  </div>
 
   <p id="sessionStorageEvent">When the <code data-x="dom-Storage-setItem">setItem()</code>, <code
   data-x="dom-Storage-removeItem">removeItem()</code>, and <code
   data-x="dom-Storage-clear">clear()</code> methods are called on a <code>Storage</code> object <var>x</var> that is associated with a session storage area, if the methods did not throw an
   exception or "do nothing" as defined above, then for every <code>Document</code> object whose
   <code>Window</code> object's <code data-x="dom-sessionStorage">sessionStorage</code> attribute's
-  <code>Storage</code> object is associated with the same storage area, other than <var>x</var>, <span>send a storage notification</span>.</p>
+  <code>Storage</code> object is associated with the same storage area, other than <var>x</var>,
+  <span w-nohtml>user agents</span> <span>send a storage notification</span>.</p>
 
 

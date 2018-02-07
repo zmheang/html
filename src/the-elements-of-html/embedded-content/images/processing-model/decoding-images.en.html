@@ -1,0 +1,65 @@
+  <h6>Decoding images</h6>
+
+  <p>Image data is usually encoded in order to reduce file size. This means that in order for the
+  user agent to present the image to the screen, the data needs to be decoded.
+  <dfn data-x="img-decoding-process">Decoding</dfn> is the process which converts an image's media
+  data into a bitmap form, suitable for presentation to the screen. Note that this process can be
+  slow relative to other processes involved in presenting content. Thus, the user agent can choose
+  when to perform decoding, in order to create the best user experience.</p>
+
+  <p>Image decoding is said to be synchronous if it prevents presentation of other content until it
+  is finished. Typically, this has an effect of atomically presenting the image and any other
+  content at the same time. However, this presentation is delayed by the amount of time it takes to
+  perform the decode.</p>
+
+  <p>Image decoding is said to be asynchronous if it does not prevent presentation of other content.
+  This has an effect of presenting non-image content faster. However, the image content is missing
+  on screen until the decode finishes. Once the decode is finished, the screen is updated with the
+  image.</p>
+
+  <p>In both synchronous and asynchronous decoding modes, the final content is presented to screen
+  after the same amount of time has elapsed. The main difference is whether the user agent presents
+  non-image content ahead of presenting the final content.</p>
+
+  <p>In order to aid the user agent in deciding whether to perform synchronous or asynchronous
+  decode, the <code data-x="attr-img-decoding">decoding</code> attribute can be set on
+  <code>img</code> elements. The possible values of of the <code
+  data-x="attr-img-decoding">decoding</code> attribute are the following <dfn>image decoding
+  hint</dfn> keywords:</p>
+
+  <table>
+   <thead>
+    <tr>
+     <th>Keyword
+     <th>State
+     <th>Description
+   <tbody>
+    <tr>
+     <td><dfn><code data-x="attr-img-decoding-sync">sync</code></dfn>
+     <td><dfn data-x="attr-img-decoding-sync-state">Sync</dfn>
+     <td>Indicates a preference to <span data-x="img-decoding-process">decode</span> this image
+     synchronously for atomic presentation with other content.
+    <tr>
+     <td><dfn><code data-x="attr-img-decoding-async">async</code></dfn>
+     <td><dfn data-x="attr-img-decoding-async-state">Async</dfn>
+     <td>Indicates a preference to <span data-x="img-decoding-process">decode</span> this image
+     asynchronously to avoid delaying presentation of other content.
+    <tr>
+     <td><dfn><code data-x="attr-img-decoding-auto">auto</code></dfn>
+     <td><dfn data-x="attr-img-decoding-auto-state">Auto</dfn>
+     <td>Indicates no preference in decoding mode (the default).
+  </table>
+
+  <p>When <span data-x="img-decoding-process">decoding</span> an image, the user agent should
+  respect the preference indicated by the <code data-x="attr-img-decoding">decoding</code>
+  attribute's state. If the state indicated is <span
+  data-x="attr-img-decoding-auto-state">auto</span>, then the user agent is free to choose any
+  decoding behavior.</p>
+
+  <p class="note">It is also possible to control the decoding behavior using the <code
+  data-x="dom-img-decode">decode()</code> method. Since the <code
+  data-x="dom-img-decode">decode()</code> method performs <span
+  data-x="img-decoding-process">decoding</span> independently from the process responsible for
+  presenting content to screen, it is unaffected by the <code
+  data-x="attr-img-decoding">decoding</code> attribute.</p>
+

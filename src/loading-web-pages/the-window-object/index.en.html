@@ -1,6 +1,8 @@
   <h3 split-filename="window-object">The <code>Window</code> object</h3>
 
-  <pre class="idl">[PrimaryGlobal, LegacyUnenumerableNamedProperties] <!-- Exposed=Window is implied because it's the primary global -->
+  <pre class="idl">[Global=Window,
+ Exposed=Window,
+ LegacyUnenumerableNamedProperties]
 interface <dfn data-export="" data-dfn-type="interface">Window</dfn> : <span>EventTarget</span> {
   // the current browsing context
   [Unforgeable] readonly attribute <span>WindowProxy</span> <span data-x="dom-window">window</span>;
@@ -53,8 +55,8 @@ interface <dfn data-export="" data-dfn-type="interface">Window</dfn> : <span>Eve
 
   void <span data-x="dom-window-postMessage">postMessage</span>(any message, USVString targetOrigin, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
 };
-<span>Window</span> implements <span>GlobalEventHandlers</span>;
-<span>Window</span> implements <span>WindowEventHandlers</span>;
+<span>Window</span> includes <span>GlobalEventHandlers</span>;
+<span>Window</span> includes <span>WindowEventHandlers</span>;
 
 callback <dfn>FrameRequestCallback</dfn> = void (<span>DOMHighResTimeStamp</span> time);</pre>
 

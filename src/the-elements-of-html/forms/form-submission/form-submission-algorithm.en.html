@@ -7,19 +7,11 @@
   following steps:</p>
 
   <ol>
-   <li>
-    <p>If <var>form</var> is not <span>connected</span>, then return.</p>
+   <li><p>If <var>form</var> <span>cannot navigate</span>, then return.</p></li>
 
-    <p class="&#x0058;&#x0058;&#x0058;">This check is currently under discussion, and may be
-    either removed or expanded. See <a href="https://github.com/whatwg/html/issues/2615">issue
-    #2615</a> and <a href="https://github.com/whatwg/html/issues/2708">issue #2708</a>.</p>
-   </li>
+   <li><p>Let <var>form document</var> be <var>form</var>'s <span>node document</span>.</p></li>
 
-   <li><p>Let <var>form document</var> be the <var>form</var>'s
-   <span>node document</span>.</p></li>
-
-   <li id="sandboxSubmitBlocked"><p>If <var>form document</var> has no associated <span
-   data-x="concept-document-bc">browsing context</span>, or its <span>active sandboxing flag
+   <li id="sandboxSubmitBlocked"><p>If <var>form document</var>'s <span>active sandboxing flag
    set</span> has its <span>sandboxed forms browsing context flag</span> set, then return.</p></li>
 
    <li><p>Let <var>form browsing context</var> be the <span data-x="concept-document-bc">browsing
@@ -33,8 +25,7 @@
    validate the constraints</span> of <var>form</var> and examine the result: if the result
    is negative (the constraint validation concluded that there were invalid fields and probably
    informed the user of this) then <span data-x="concept-event-fire">fire an event</span> named
-   <code data-x="event-invalid">invalid</code> at the <var>form</var> element and then abort these
-   steps.</p></li>
+   <code data-x="event-invalid">invalid</code> at the <var>form</var> element and then return.</p></li>
 
    <li>
     <p>If the <var>submitted from <code data-x="dom-form-submit">submit()</code> method</var> flag
@@ -46,7 +37,14 @@
      <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true and the <code
      data-x="dom-Event-cancelable">cancelable</code> attribute initialized to true.</p></li>
 
-     <li><p>If <var>continue</var> is false, then abort these steps.
+     <li><p>If <var>continue</var> is false, then return.</p></li>
+
+     <li>
+      <p>If <var>form</var> <span>cannot navigate</span>, then return.</p>
+
+      <p class="note"><span>Cannot navigate</span> is run again as dispatching the <code
+      data-x="event-submit">submit</code> event could have changed the outcome.</p>
+     </li>
     </ol>
 
    <!-- if you add any steps between the "lock" and "unlock" lines, make sure to update the step
@@ -78,8 +76,7 @@
    </li>
 
    <li><p><span data-x="parse a url">Parse</span> the <span>URL</span> <var>action</var>, relative
-   to the <var>submitter</var> element's <span>node document</span>. If this fails, abort these
-   steps.</p></li>
+   to the <var>submitter</var> element's <span>node document</span>. If this fails, return.</p></li>
 
    <li><p>Let <var>parsed action</var> be the <span>resulting URL record</span>.</p></li>
 
@@ -92,8 +89,11 @@
    <li><p>Let <var>method</var> be the <var>submitter</var> element's <span
    data-x="concept-fs-method">method</span>.</p></li>
 
-   <li><p>Let <var>target</var> be the <var>submitter</var> element's <span
-   data-x="concept-fs-target">target</span>.</p></li>
+   <li><p>Let <var>target</var> be the <var>submitter</var> element's <code
+   data-x="attr-fs-formtarget">formtarget</code> attribute value, if the element is a <span
+   data-x="concept-submit-button">submit button</span> and has such an attribute. Otherwise, let it
+   be the result of <span data-x="get an element's target">getting an element's target</span> given
+   <var>submitter</var>'s <span>form owner</span>.</p></li>
 
    <li><p>Let <var>target browsing context</var> and <var>replace</var> be the result of applying
    <span>the rules for choosing a browsing context</span> using <var>target</var> and <var>form

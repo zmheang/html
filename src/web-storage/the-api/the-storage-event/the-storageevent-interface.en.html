@@ -1,6 +1,7 @@
   <h5>The <code>StorageEvent</code> interface</h5>
 
-  <pre class="idl">[Constructor(DOMString type, optional <span>StorageEventInit</span> eventInitDict)]
+  <pre class="idl">[Exposed=Window,
+ Constructor(DOMString type, optional <span>StorageEventInit</span> eventInitDict)]
 interface <dfn>StorageEvent</dfn> : <span>Event</span> {
   readonly attribute DOMString? <span data-x="dom-StorageEvent-key">key</span>;
   readonly attribute DOMString? <span data-x="dom-StorageEvent-oldValue">oldValue</span>;
@@ -17,20 +18,49 @@ dictionary <dfn>StorageEventInit</dfn> : <span>EventInit</span> {
   <span>Storage</span>? storageArea = null;
 };</pre>
 
-  <p>The <dfn><code data-x="dom-StorageEvent-key">key</code></dfn> attribute must return the value
-  it was initialized to. It represents the key being changed.</p>
+  <dl class="domintro">
 
-  <p>The <dfn><code data-x="dom-StorageEvent-oldValue">oldValue</code></dfn> attribute must return
-  the value it was initialized to. It represents the old value of the key being changed.</p>
+   <dt><var>event</var> . <code subdfn data-x="dom-StorageEvent-key">key</code></dt>
 
-  <p>The <dfn><code data-x="dom-StorageEvent-newValue">newValue</code></dfn> attribute must return
-  the value it was initialized to. It represents the new value of the key being changed.</p>
+   <dd>
+     <p>Returns the key of the storage item being changed.</p>
+   </dd>
 
-  <p>The <dfn><code data-x="dom-StorageEvent-url">url</code></dfn> attribute must return the value
-  it was initialized to. It represents the <span>URL</span> of the document whose key changed.</p>
+   <dt><var>event</var> . <code subdfn data-x="dom-StorageEvent-oldValue">oldValue</code></dt>
 
-  <p>The <dfn><code data-x="dom-StorageEvent-storageArea">storageArea</code></dfn> attribute must
-  return the value it was initialized to. It represents the <code>Storage</code> object that was
-  affected.</p>
+   <dd>
+     <p>Returns the old value of the key of the storage item whose value is being changed.</p>
+   </dd>
+
+   <dt><var>event</var> . <code subdfn data-x="dom-StorageEvent-newValue">newValue</code></dt>
+
+   <dd>
+     <p>Returns the new value of the key of the storage item whose value is being changed.</p>
+   </dd>
+
+   <dt><var>event</var> . <code subdfn data-x="dom-StorageEvent-url">url</code></dt>
+
+   <dd>
+     <p>Returns the <span>URL</span> of the document whose storage item changed.</p>
+   </dd>
+
+   <dt><var>event</var> . <code subdfn data-x="dom-StorageEvent-storageArea">storageArea</code></dt>
+
+   <dd>
+     <p>Returns the <code>Storage</code> object that was affected.</p>
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>The <dfn><code data-x="dom-StorageEvent-key">key</code></dfn>, <dfn><code
+  data-x="dom-StorageEvent-oldValue">oldValue</code></dfn>, <dfn><code
+  data-x="dom-StorageEvent-newValue">newValue</code></dfn>, <dfn><code
+  data-x="dom-StorageEvent-url">url</code></dfn>, and <dfn><code
+  data-x="dom-StorageEvent-storageArea">storageArea</code></dfn> attributes must return the values
+  they were initialized to.</p>
+
+  </div>
 
 

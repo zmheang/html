@@ -61,13 +61,23 @@
     <tr>
      <th> <code data-x="">as</code>
      <td> <code data-x="attr-link-as">link</code>
-     <td> <span data-x="concept-potential-destination">Potential destination</span> for a preload request (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-preload">preload</code>")
-     <td> <span data-x="concept-potential-destination">Potential destination</span>
+     <td> <span data-x="concept-potential-destination">Potential destination</span> for a preload request (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-preload">preload</code>" and <code data-x="attr-link-rel">rel</code>="<code data-x="rel-modulepreload">modulepreload</code>")
+     <td> <span data-x="concept-potential-destination">Potential destination</span>, for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-preload">preload</code>"; <span data-x="concept-script-like-destination">script-like destination</span>, for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-modulepreload">modulepreload</code>"
     <tr>
      <th> <code data-x="">async</code>
      <td> <code data-x="attr-script-async">script</code>
      <td> Execute script when available, without blocking
      <td> <span>Boolean attribute</span>
+    <tr>
+     <th> <code data-x="">autocapitalize</code>
+     <td> <span data-x="attr-autocapitalize">HTML elements</span>
+     <td> Recommended autocapitalization behavior (for supported input methods)
+     <td> "<code data-x="attr-autocapitalize-on">on</code>";
+          "<code data-x="attr-autocapitalize-off">off</code>";
+          "<code data-x="attr-autocapitalize-none">none</code>";
+          "<code data-x="attr-autocapitalize-sentences">sentences</code>";
+          "<code data-x="attr-autocapitalize-words">words</code>";
+          "<code data-x="attr-autocapitalize-characters">characters</code>"
     <tr>
      <th> <code data-x="">autocomplete</code>
      <td> <code data-x="attr-form-autocomplete">form</code>
@@ -98,12 +108,7 @@
      <th> <code data-x="">charset</code>
      <td> <code data-x="attr-meta-charset">meta</code>
      <td> <span>Character encoding declaration</span>
-     <td> <span>Encoding label</span>*
-    <tr>
-     <th> <code data-x="">charset</code>
-     <td> <code data-x="attr-script-charset">script</code>
-     <td> Character encoding of the external script resource
-     <td> <span>Encoding label</span>*
+     <td> "<code data-x="">utf-8</code>"
     <tr>
      <th> <code data-x="">checked</code>
      <td> <code data-x="attr-input-checked">input</code>
@@ -193,6 +198,13 @@
           <span>valid week string</span>,
           <span>valid non-negative integer</span>, or
           <span>valid duration string</span>
+    <tr>
+     <th> <code data-x="">decoding</code>
+     <td> <code data-x="attr-img-decoding">img</code>
+     <td> Decoding hint to use when processing this image for presentation
+     <td> "<code data-x="attr-img-decoding-sync">sync</code>";
+          "<code data-x="attr-img-decoding-async">async</code>";
+          "<code data-x="attr-img-decoding-auto">auto</code>"
     <tr>
      <th> <code data-x="">default</code>
      <td> <code data-x="attr-track-default">track</code>
@@ -350,7 +362,11 @@
      <th> <code data-x="">http-equiv</code>
      <td> <code data-x="attr-meta-http-equiv">meta</code>
      <td> Pragma directive
-     <td> <a href="#attribute-text">Text</a>*
+     <td> "<code data-x="attr-meta-http-equiv-keyword-content-type">content-type</code>";
+          "<code data-x="attr-meta-http-equiv-keyword-default-style">default-style</code>";
+          "<code data-x="attr-meta-http-equiv-keyword-refresh">refresh</code>";
+          "<code data-x="attr-meta-http-equiv-keyword-x-ua-compatible">x-ua-compatible</code>";
+          "<code data-x="attr-meta-http-equiv-keyword-Content-Security-Policy">Content-Security-Policy</code>"
     <tr>
      <th> <code data-x="">id</code>
      <td> <span data-x="attr-id">HTML elements</span>
@@ -358,22 +374,16 @@
      <td> <a href="#attribute-text">Text</a>*
     <tr>
      <th> <code data-x="">inputmode</code>
-     <td> <code data-x="attr-fe-inputmode">input</code>;
-          <code data-x="attr-fe-inputmode">textarea</code>
+     <td> <span data-x="attr-inputmode">HTML elements</span>
      <td> Hint for selecting an input modality
-     <td> "<code data-x="attr-fe-inputmode-keyword-verbatim">verbatim</code>";
-          "<code data-x="attr-fe-inputmode-keyword-latin">latin</code>";
-          "<code data-x="attr-fe-inputmode-keyword-latin-name">latin-name</code>";
-          "<code data-x="attr-fe-inputmode-keyword-latin-prose">latin-prose</code>";
-          "<code data-x="attr-fe-inputmode-keyword-full-width-latin">full-width-latin</code>";
-          "<code data-x="attr-fe-inputmode-keyword-kana">kana</code>";
-          "<code data-x="attr-fe-inputmode-keyword-kana-name">kana-name</code>";
-          "<code data-x="attr-fe-inputmode-keyword-katakana">katakana</code>";
-          <!-- "<code data-x="attr-fe-inputmode-keyword-half-width-katakana">half-width-katakana</code>"; -->
-          "<code data-x="attr-fe-inputmode-keyword-numeric">numeric</code>";
-          "<code data-x="attr-fe-inputmode-keyword-tel">tel</code>";
-          "<code data-x="attr-fe-inputmode-keyword-email">email</code>";
-          "<code data-x="attr-fe-inputmode-keyword-url">url</code>"
+     <td> "<code data-x="attr-inputmode-keyword-none">none</code>";
+          "<code data-x="attr-inputmode-keyword-text">text</code>";
+          "<code data-x="attr-inputmode-keyword-tel">tel</code>";
+          "<code data-x="attr-inputmode-keyword-email">email</code>";
+          "<code data-x="attr-inputmode-keyword-url">url</code>"
+          "<code data-x="attr-inputmode-keyword-numeric">numeric</code>";
+          "<code data-x="attr-inputmode-keyword-decimal">decimal</code>";
+          "<code data-x="attr-inputmode-keyword-search">search</code>";
     <tr>
      <th> <code data-x="">integrity</code>
      <td> <code data-x="attr-link-integrity">link</code>;
@@ -419,11 +429,11 @@
      <th> <code data-x="">kind</code>
      <td> <code data-x="attr-track-kind">track</code>
      <td> The type of text track
-     <td> "<code data-x="attr-track-kind-subtitles">subtitles</code>";
-          "<code data-x="attr-track-kind-captions">captions</code>";
-          "<code data-x="attr-track-kind-descriptions">descriptions</code>";
-          "<code data-x="attr-track-kind-chapters">chapters</code>";
-          "<code data-x="attr-track-kind-metadata">metadata</code>"
+     <td> "<code data-x="attr-track-kind-keyword-subtitles">subtitles</code>";
+          "<code data-x="attr-track-kind-keyword-captions">captions</code>";
+          "<code data-x="attr-track-kind-keyword-descriptions">descriptions</code>";
+          "<code data-x="attr-track-kind-keyword-chapters">chapters</code>";
+          "<code data-x="attr-track-kind-keyword-metadata">metadata</code>"
     <tr>
      <th> <code data-x="">label</code>
      <td> <code data-x="attr-optgroup-label">optgroup</code>;
@@ -564,9 +574,7 @@
      <td> <span>Boolean attribute</span>
     <tr>
      <th> <code data-x="">nonce</code>
-     <td> <code data-x="attr-link-nonce">link</code>;
-          <code data-x="attr-script-nonce">script</code>;
-          <code data-x="attr-style-nonce">style</code>
+     <td> <span data-x="attr-nonce">HTML elements</span>
      <td> Cryptographic nonce used in <cite>Content Security Policy</cite> checks <ref spec="CSP">
      <td> <a href="#attribute-text">Text</a>
     <tr>
@@ -696,11 +704,6 @@
           "<code data-x="attr-th-scope-col">col</code>";
           "<code data-x="attr-th-scope-rowgroup">rowgroup</code>";
           "<code data-x="attr-th-scope-colgroup">colgroup</code>"
-    <tr>
-     <th> <code data-x="">scope</code>
-     <td> <code data-x="attr-link-scope">link</code>
-     <td> <span>Scope url</span> for a <span>service worker registration</span> (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>")
-     <td><span>Valid URL potentially surrounded by spaces</span>
     <tr>
      <th> <code data-x="">selected</code>
      <td> <code data-x="attr-option-selected">option</code>
@@ -861,9 +864,7 @@
      <th> <code data-x="">type</code>
      <td> <code data-x="attr-embed-type">embed</code>;
           <code data-x="attr-object-type">object</code>;
-          <code data-x="attr-script-type">script</code>;
-          <code data-x="attr-source-type">source</code>;
-          <code data-x="attr-style-type">style</code>
+          <code data-x="attr-source-type">source</code>
      <td> Type of embedded resource
      <td> <span>Valid MIME type</span>
     <tr>
@@ -881,15 +882,15 @@
           "<code data-x="attr-ol-type-keyword-lower-roman">i</code>";
           "<code data-x="attr-ol-type-keyword-upper-roman">I</code>"
     <tr>
+     <th> <code data-x="">type</code>
+     <td> <code data-x="attr-script-type">script</code>
+     <td> Type of script
+     <td> "<code data-x="">module</code>"; a <span>valid MIME type</span> that is not a <span>JavaScript MIME type</span>
+    <tr>
      <th> <code data-x="">typemustmatch</code>
      <td> <code data-x="attr-object-typemustmatch">object</code>
      <td> Whether the <code data-x="attr-object-type">type</code> attribute and the <span>Content-Type</span> value need to match for the resource to be used
      <td> <span>Boolean attribute</span>
-    <tr>
-     <th> <code data-x="">updateviacache</code>
-     <td> <code data-x="attr-link-updateviacache">link</code>
-     <td> <span>Update via cache mode</span> for a <span>service worker registration</span> (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>")
-     <td> <span>Update via cache mode</span>
     <tr>
      <th> <code data-x="">usemap</code>
      <td> <code data-x="attr-hyperlink-usemap">img</code>;
@@ -939,11 +940,6 @@
           <code data-x="attr-dim-width">video</code>
      <td> Horizontal dimension
      <td> <span>Valid non-negative integer</span>
-    <tr>
-     <th> <code data-x="">workertype</code>
-     <td> <code data-x="attr-link-workertype">link</code>
-     <td> <span>Service worker type</span> for a <span>service worker registration</span> (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>")
-     <td> "<code data-x="">classic</code>"; "<code data-x="">module</code>"
     <tr>
      <th> <code data-x="">wrap</code>
      <td> <code data-x="attr-textarea-wrap">textarea</code>

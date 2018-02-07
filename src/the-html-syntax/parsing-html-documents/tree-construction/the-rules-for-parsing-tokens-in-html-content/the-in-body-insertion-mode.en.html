@@ -526,7 +526,7 @@
 
      <li><p>If <var>node</var> is null or if the <span>stack of open elements</span> does
      not <span data-x="has an element in scope">have <var>node</var> in scope</span>, then
-     this is a <span>parse error</span>; abort these steps and ignore the token.</p></li>
+     this is a <span>parse error</span>; return and ignore the token.</p></li>
 
      <li><p><span>Generate implied end tags</span>.</p></li>
 
@@ -544,7 +544,7 @@
 
      <li><p>If the <span>stack of open elements</span> does not <span data-x="has an element in
      scope">have a <code>form</code> element in scope</span>, then this is a <span>parse
-     error</span>; abort these steps and ignore the token.</p></li>
+     error</span>; return and ignore the token.</p></li>
 
      <li><p><span>Generate implied end tags</span>.</p></li>
 
@@ -1092,7 +1092,7 @@
      </li>
 
      <li><p>Otherwise, if <var>node</var> is in the <span>special</span> category, then
-     this is a <span>parse error</span>; ignore the token, and abort these steps.</p></li>
+     this is a <span>parse error</span>; ignore the token, and return.</p></li>
 
      <li><p>Set <var>node</var> to the previous entry in the <span>stack of open
      elements</span>.</p></li>
@@ -1134,12 +1134,12 @@
    <li><p>If the <span>current node</span> is an <span data-x="HTML elements">HTML element</span>
    whose tag name is <var>subject</var>, and the <span>current node</span> is not in the
    <span>list of active formatting elements</span>, then pop the <span>current node</span> off the
-   <span>stack of open elements</span>, and abort these steps.</p></li>
+   <span>stack of open elements</span>, and return.</p></li>
 
    <li><p>Let <var>outer loop counter</var> be zero.</p></li>
 
    <li><p><i>Outer loop</i>: If <var>outer loop counter</var> is greater than or equal to
-   eight, then abort these steps.</p></li>
+   eight, then return.</p></li>
 
    <li><p>Increment <var>outer loop counter</var> by one.</p></li>
 
@@ -1158,25 +1158,25 @@
 
     </ul>
 
-    <p>If there is no such element, then abort these steps and instead act as described in the "any
+    <p>If there is no such element, then return and instead act as described in the "any
     other end tag" entry above.</p>
 
    </li>
 
    <li><p>If <var>formatting element</var> is not in the <span>stack of open
    elements</span>, then this is a <span>parse error</span>; remove the element from the list, and
-   abort these steps.</p></li>
+   return.</p></li>
 
    <li><p>If <var>formatting element</var> is in the <span>stack of open elements</span>,
    but the element is not <span data-x="has an element in scope">in scope</span>, then this is a
-   <span>parse error</span>; abort these steps.</p></li>
+   <span>parse error</span>; return.</p></li>
 
    <!-- at this point, <var>formatting element</var> is in <span data-x="stack of open
         elements">the stack</span> and <span data-x="list of active formatting elements">the
         list</span>, and is <span data-x="has an element in scope">in scope</span>. -->
 
    <li><p>If <var>formatting element</var> is not the <span>current node</span>, this is a
-   <span>parse error</span>. (But do not abort these steps.)</p></li>
+   <span>parse error</span>. (But do not return.)</p></li>
 
    <li><p>Let <var>furthest block</var> be the topmost node in the <span>stack of open
    elements</span> that is lower in the stack than <var>formatting element</var>, and is an
@@ -1187,7 +1187,7 @@
    <li><p>If there is no <var>furthest block</var>, then the UA must first pop all the
    nodes from the bottom of the <span>stack of open elements</span>, from the <span>current
    node</span> up to and including <var>formatting element</var>, then remove <var>formatting element</var> from the <span>list of active formatting elements</span>, and
-   finally abort these steps.</p></li> <!-- the "reconstruct the active formatting elements"
+   finally return.</p></li> <!-- the "reconstruct the active formatting elements"
    algorithm will rebuild them later -->
 
    <li><p>Let <var>common ancestor</var> be the element immediately above <var>formatting element</var> in the <span>stack of open elements</span>.</p></li>
@@ -1271,9 +1271,9 @@
   </ol>
 
   <p class="note">This algorithm's name, the "adoption agency algorithm", comes from the way it
-  causes elements to change parents, and is in contrast with other possible algorithms for dealing
-  with misnested content, which included the "incest algorithm", the "secret affair algorithm", and
-  the "Heisenberg algorithm".</p>
+  causes elements to change parents, and is in contrast with <a
+  href="https://ln.hixie.ch/?start=1037910467&amp;count=1">other possible algorithms</a> for dealing
+  with misnested content.</p>
 
 
 

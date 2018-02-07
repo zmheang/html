@@ -1,103 +1,143 @@
   <h5 id="calling-scripts">Calling scripts</h5>
 
   <p>To <dfn data-export="">run a classic script</dfn> given a <span>classic script</span>
-  <var>s</var> and an optional <var>rethrow errors</var> flag:</p>
+  <var>script</var> and an optional <var>rethrow errors</var> boolean:</p>
 
   <ol>
+   <li><p>If <var>rethrow errors</var> is not given, let it be false.</p></li>
 
-   <li><p>Let <var>settings</var> be the <span>settings object</span> of <var>s</var>.</p></li>
-
-   <li><p><span>Check if we can run script</span> with <var>settings</var>. If this returns "do not
-   run", then return undefined and abort these steps.</p></li>
-
-   <li><p>Let <var>realm</var> be <var>settings</var>'s <span
-   data-x="environment settings object's Realm">Realm</span>.</p></li>
-
-   <li><p><span>Prepare to run script</span> with <var>settings</var>.</p></li>
-
-   <li>
-    <p>Let <var>result</var> be <span
-    data-x="js-ParseScript">ParseScript</span>(<var>s</var>'s <span
-    data-x="concept-classic-script-source-text">source text</span>, <var>realm</var>,
-    <var>s</var>).</p>
-
-    <p class="note">Passing <var>s</var> as the last parameter here ensures
-    <var>result</var>.[[HostDefined]] will be <var>s</var>.</p>
-   </li>
-
-   <li><p>If <var>result</var> is a <span>List</span> of errors, set <var>result</var> to the first
-   element of <var>result</var> and go to the step labeled <i>error</i>.</p></li>
-
-   <li><p>Let <var>evaluationStatus</var> be <span
-   data-x="js-ScriptEvaluation">ScriptEvaluation</span>(<var>result</var>).</p></li>
-
-   <li><p>If <var>evaluationStatus</var> is an abrupt completion, set <var>result</var> to
-   <var>evaluationStatus</var>.[[Value]] and go to the next step (labeled <i>error</i>). If
-   <var>evaluationStatus</var> is a normal completion, or if <span
-   data-x="js-ScriptEvaluation">ScriptEvaluation</span> does not complete because the user agent
-   has <span data-x="abort a running script">aborted the running script</span>, skip to the step
-   labeled <i>cleanup</i>.</p></li>
-
-   <li>
-    <p><i>Error</i>: At this point <var>result</var> must be an exception. Perform the following
-    steps:</p>
-
-    <ol>
-     <li><p>If the <var>rethrow errors</var> flag is set and <var>s</var>'s <span>muted
-     errors</span> flag is not set, rethrow <var>result</var>.</p></li>
-
-     <li><p>If the <var>rethrow errors</var> flag is set and <var>s</var>'s <span>muted
-     errors</span> flag is set, throw a <span>"<code>NetworkError</code>"</span>
-     <code>DOMException</code>.</p></li>
-
-     <li><p>If the <var>rethrow errors</var> flag is not set, <span>report the exception</span>
-     given by <var>result</var> for the script <var>s</var>.</p></li>
-    </ol>
-   </li>
-
-   <li><p><i>Cleanup</i>: <span>Clean up after running script</span> with
-   <var>settings</var>.</p></li>
-
-   <li><p>If <var>evaluationStatus</var> exists and is a normal completion, return
-   <var>evaluationStatus</var>.[[Value]]. Otherwise, script execution was unsuccessful, either
-   because an error occurred during parsing, or an exception occurred during evaluation, or because
-   it was <span data-x="abort a running script">aborted prematurely</span>.</p></li>
-
-  </ol>
-
-  <p>To <dfn data-export="">run a module script</dfn> given a <span>module script</span>
-  <var>s</var>:</p>
-
-  <ol>
-
-   <li><p>Let <var>settings</var> be the <span>settings object</span> of <var>s</var>.</p></li>
+   <li><p>Let <var>settings</var> be the <span>settings object</span> of <var>script</var>.</p></li>
 
    <li><p><span>Check if we can run script</span> with <var>settings</var>. If this returns "do
-   not run" then abort these steps.</p></li>
-
-   <li><p>If <var>s</var> <span data-x="concept-module-script-is-errored">is errored</span>, then
-   <span>report the exception</span> given by <var>s</var>'s <span
-   data-x="concept-module-script-error">error</span> and abort these steps.</p></li>
+   not run" then return.</p></li>
 
    <li><p><span>Prepare to run script</span> given <var>settings</var>.</p></li>
 
-   <li><p>Let <var>record</var> be <var>s</var>'s <span
-   data-x="concept-module-script-module-record">module record</span>.</p>
+   <li><p>Let <var>evaluationStatus</var> be null.</p></li>
+
+   <li><p>If <var>script</var>'s <span data-x="concept-script-error-to-rethrow">error to
+   rethrow</span> is not null, then set <var>evaluationStatus</var> to Completion { [[Type]]: throw,
+   [[Value]]: <var>script</var>'s <span data-x="concept-script-error-to-rethrow">error to
+   rethrow</span>, [[Target]]: empty }.</p></li>
 
    <li>
-    <p>Let <var>evaluationStatus</var> be <var>record</var>.<span
-    data-x="js-Evaluate">Evaluate</span>().</p>
+    <p>Otherwise, set <var>evaluationStatus</var> to <span
+    data-x="js-ScriptEvaluation">ScriptEvaluation</span>(<var>script</var>'s <span
+    data-x="concept-script-record">record</span>).</p>
 
-    <p class="note">This step will recursively evaluate all of the module's dependencies.</p>
-
-    <p>If <span data-x="js-Evaluate">Evaluate</span> fails to complete as a result of the user agent
-    <span data-x="abort a running script">aborting the running script</span>, then set
-    <var>evaluationStatus</var> to Completion { [[Type]]: throw, [[Value]]: a new
-    <span>"<code>QuotaExceededError</code>"</span> <code>DOMException</code>, [[Target]]: empty }.
+    <p>If <span data-x="js-ScriptEvaluation">ScriptEvaluation</span> does not complete because the
+    user agent has <span data-x="abort a running script">aborted the running script</span>, leave
+    <var>evaluationStatus</var> as null.</p>
    </li>
 
-   <li><p>If <var>evaluationStatus</var> is an abrupt completion, then <span>report the
-   exception</span> given by <var>evaluationStatus</var>.[[Value]] for <var>s</var>.</p></li>
+   <li>
+    <p>If <var>evaluationStatus</var> is an abrupt completion, then:</p>
+
+    <ol>
+     <li>
+      <p>If <var>rethrow errors</var> is true and <var>script</var>'s <span>muted
+      errors</span> is false, then:</p>
+
+      <ol>
+       <li><p><span>Clean up after running script</span> with <var>settings</var>.</p></li>
+
+       <li><p>Rethrow <var>evaluationStatus</var>.[[Value]].</p></li>
+      </ol>
+
+     <li>
+      <p>If <var>rethrow errors</var> is true and <var>script</var>'s <span>muted
+      errors</span> is true, then:</p>
+
+      <ol>
+       <li><p><span>Clean up after running script</span> with <var>settings</var>.</p></li>
+
+       <li><p>Throw a <span>"<code>NetworkError</code>"</span> <code>DOMException</code>.</p></li>
+      </ol>
+     </li>
+
+     <li>
+      <p>Otherwise, <var>rethrow errors</var> is false. Perform the following steps:</p>
+
+      <ol>
+       <li><p><span>Report the exception</span> given by <var>evaluationStatus</var>.[[Value]] for
+       <var>script</var>.</p></li>
+
+       <li><p><span>Clean up after running script</span> with <var>settings</var>.</p></li>
+
+       <li><p>Return undefined.</p></li>
+      </ol>
+     </li>
+    </ol>
+   </li>
+
+   <li><p><span>Clean up after running script</span> with <var>settings</var>.</p></li>
+
+   <li>
+    <p>If <var>evaluationStatus</var> is a normal completion, return
+    <var>evaluationStatus</var>.[[Value]].</p>
+
+    <p class="note">This value is only ever used by the <span data-x="javascript
+    protocol"><code>javascript:</code> URL steps</span>.</p>
+   </li>
+
+   <li><p>If we've reached this point, <var>evaluationStatus</var> was left as null because the
+   script was <span data-x="abort a running script">aborted prematurely</span> during evaluation.
+   Return undefined.</p></li>
+  </ol>
+
+  <p>To <dfn data-export="">run a module script</dfn> given a <span>module script</span>
+  <var>script</var>, with an optional <var>rethrow errors</var> boolean:</p>
+
+  <ol>
+   <li><p>If <var>rethrow errors</var> is not given, let it be false.</p></li>
+
+   <li><p>Let <var>settings</var> be the <span>settings object</span> of <var>script</var>.</p></li>
+
+   <li><p><span>Check if we can run script</span> with <var>settings</var>. If this returns "do
+   not run" then return.</p></li>
+
+   <li><p><span>Prepare to run script</span> given <var>settings</var>.</p></li>
+
+   <li><p>Let <var>evaluationStatus</var> be null.</p></li>
+
+   <li><p>If <var>script</var>'s <span data-x="concept-script-error-to-rethrow">error to
+   rethrow</span> is not null, then set <var>evaluationStatus</var> to Completion { [[Type]]: throw,
+   [[Value]]: <var>script</var>'s <span data-x="concept-script-error-to-rethrow">error to
+   rethrow</span>, [[Target]]: empty }.</p></li>
+
+   <li>
+    <p>Otherwise:</p>
+
+    <ol>
+     <li><p>Let <var>record</var> be <var>script</var>'s <span
+     data-x="concept-script-record">record</span>.</p>
+
+     <li>
+      <p>Set <var>evaluationStatus</var> to <var>record</var>.<span
+      data-x="js-Evaluate">Evaluate</span>().</p>
+
+      <p class="note">This step will recursively evaluate all of the module's dependencies.</p>
+
+      <p>If <span data-x="js-Evaluate">Evaluate</span> fails to complete as a result of the user agent
+      <span data-x="abort a running script">aborting the running script</span>, then set
+      <var>evaluationStatus</var> to Completion { [[Type]]: throw, [[Value]]: a new
+      <span>"<code>QuotaExceededError</code>"</span> <code>DOMException</code>, [[Target]]: empty
+      }.</p>
+     </li>
+    </ol>
+   </li>
+
+   <li>
+    <p>If <var>evaluationStatus</var> is an abrupt completion, then:</p>
+
+    <ol>
+     <li><p>If <var>rethrow errors</var> is true, rethrow the exception given by
+     <var>evaluationStatus</var>.[[Value]].</p></li>
+
+     <li><p>Otherwise, <span>report the exception</span> given by
+     <var>evaluationStatus</var>.[[Value]] for <var>script</var>.</p></li>
+    </ol>
+   </li>
 
    <li><p><span>Clean up after running script</span> with <var>settings</var>.</p></li>
   </ol>
@@ -109,11 +149,11 @@
 
    <li><p>If the <span data-x="concept-settings-object-global">global object</span> specified by
    <var>settings</var> is a <code>Window</code> object whose <code>Document</code> object is not
-   <span>fully active</span>, then return "do not run" and abort these steps.</p>
+   <span>fully active</span>, then return "do not run".</p>
 
    <li><p>If <span data-x="concept-bc-noscript">scripting is disabled</span> for the
    <span>responsible browsing context</span> specified by <var>settings</var>, then return "do
-   not run" and abort these steps.</p>
+   not run".</p>
 
    <li><p>Return "run".</p></li>
 

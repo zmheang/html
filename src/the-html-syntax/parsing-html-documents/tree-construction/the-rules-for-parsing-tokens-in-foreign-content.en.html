@@ -219,12 +219,11 @@
      not the same as the tag name of the token, then this is a <span>parse error</span>.</p></li>
 
      <li><p><i>Loop</i>: If <var>node</var> is the topmost element in the <span>stack of
-     open elements</span>, abort these steps. (<span>fragment case</span>)</p></li>
+     open elements</span>, then return. (<span>fragment case</span>)</p></li>
 
      <li><p>If <var>node</var>'s tag name, <span>converted to ASCII lowercase</span>, is
      the same as the tag name of the token, pop elements from the <span>stack of open
-     elements</span> until <var>node</var> has been popped from the stack, and then abort
-     these steps.</p></li>
+     elements</span> until <var>node</var> has been popped from the stack, and then return.</p></li>
 
      <li><p>Set <var>node</var> to the previous entry in the <span>stack of open
      elements</span>.</p></li>

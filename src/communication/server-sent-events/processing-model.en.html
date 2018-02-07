@@ -99,7 +99,7 @@
 
      <li><p>If the <code>EventSource</code> object's <code
      data-x="dom-EventSource-readyState">readyState</code> attribute is not set to <code
-     data-x="dom-EventSource-CONNECTING">CONNECTING</code>, abort these steps.</p></li>
+     data-x="dom-EventSource-CONNECTING">CONNECTING</code>, return.</p></li>
 
      <li><p>Let <var>request</var> be the <code>EventSource</code> object's <span
      data-x="concept-event-stream-request">request</span>.
@@ -135,5 +135,7 @@
   <p>The <span>task source</span> for any <span data-x="concept-task">tasks</span> that are <span
   data-x="queue a task">queued</span> by <code>EventSource</code> objects is the <dfn>remote event
   task source</dfn>.</p>
+
+  </div>
 
 

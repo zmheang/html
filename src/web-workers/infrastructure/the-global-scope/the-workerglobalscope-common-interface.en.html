@@ -1,6 +1,6 @@
   <h5>The <code subdfn>WorkerGlobalScope</code> common interface</h5>
 
-  <pre class="idl">[Exposed=Worker] <!-- not sure we really need that, but... -->
+  <pre class="idl">[Exposed=Worker]
 interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   readonly attribute <span>WorkerGlobalScope</span> <span data-x="dom-WorkerGlobalScope-self">self</span>;
   readonly attribute <span>WorkerLocation</span> <span data-x="dom-WorkerGlobalScope-location">location</span>;
@@ -22,7 +22,7 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   <div w-nodev>
 
   <p id="the-worker's-documents">A <code>WorkerGlobalScope</code> object has an associated <dfn
-  id="concept-WorkerGlobalScope-owner-set" data-export="" data-for="WorkerGlobalScope">owner
+  id="concept-WorkerGlobalScope-owner-set" data-export="" data-dfn-for="WorkerGlobalScope">owner
   set</dfn> (a <span>set</span> of <code>Document</code> and <code>WorkerGlobalScope</code>
   objects). It is initially empty and populated when the worker is created or obtained.</p>
 
@@ -30,7 +30,7 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   <code>SharedWorkerGlobalScope</code> objects.</p>
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn id="the-worker's-workers"
-  data-export="" data-for="WorkerGlobalScope">worker set</dfn> (a <span>set</span> of
+  data-export="" data-dfn-for="WorkerGlobalScope">worker set</dfn> (a <span>set</span> of
   <code>WorkerGlobalScope</code> objects). It is initially empty and populated when the worker
   creates or obtains further workers.</p>
 
@@ -47,7 +47,7 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   is set during creation.</p>
 
   <p class="note">The <span data-x="concept-WorkerGlobalScope-name">name</span> can have different
-  semantics for each subclass of of <code>WorkerGlobalScope</code>. For
+  semantics for each subclass of <code>WorkerGlobalScope</code>. For
   <code>DedicatedWorkerGlobalScope</code> instances, it is simply a developer-supplied name, useful
   mostly for debugging purposes. For <code>SharedWorkerGlobalScope</code> instances, it allows
   obtaining a reference to a common shared worker via the <code
@@ -64,8 +64,9 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   policy</dfn> (a <span>referrer policy</span>). It is initially the empty string.</p>
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-csp-list">CSP list</dfn>. It is
-  initially an empty list.</p>
+  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-csp-list">CSP list</dfn>, which
+  is a <span data-x="concept-csp-list">CSP list</span> containing all of the <span>Content Security
+  Policy</span> objects active for the worker. It is initially an empty list.</p>
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
   data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-module-map">module map</dfn>.
@@ -107,8 +108,9 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   </div>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
-  handler event type">event handler event types</span>) that must be supported, as <span>event handler IDL attributes</span>,
-  by objects implementing the <code>WorkerGlobalScope</code> interface:</p>
+  handler event type">event handler event types</span>) <span w-nodev>that must be</span> supported,
+  as <span>event handler IDL attributes</span>, by objects implementing the
+  <code>WorkerGlobalScope</code> interface:</p>
 
   <table>
    <thead>

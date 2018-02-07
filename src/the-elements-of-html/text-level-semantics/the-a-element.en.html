@@ -22,7 +22,8 @@
    <dd><code data-x="attr-hyperlink-referrerpolicy">referrerpolicy</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-target">target</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-download">download</span>;
@@ -36,7 +37,7 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
 
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-referrerPolicy">referrerPolicy</span>;
 };
-<span>HTMLAnchorElement</span> implements <span>HTMLHyperlinkElementUtils</span>;</pre>
+<span>HTMLAnchorElement</span> includes <span>HTMLHyperlinkElementUtils</span>;</pre>
    </dd>
    <dd w-nohtml>Uses <code>HTMLAnchorElement</code>.</dd>
   </dl>
@@ -96,10 +97,6 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
   data-x="hyperlink">hyperlinks</span> is to run the following steps:</p>
 
   <ol><!-- c.f. <link> and <area>'s similar section -->
-   <li><p>If the <code>a</code> element's <span>node document</span> is not <span>fully active</span>, then abort these steps.</p></li>
-   <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2033 -->
-   <!-- https://www.hixie.ch/tests/adhoc/html/navigation/iframe/002.html -->
-
    <li><p>If the target of the <code data-x="event-click">click</code> event is an <code>img</code>
    element with an <code data-x="attr-img-ismap">ismap</code> attribute specified, then server-side
    image map processing must be performed, as follows:</p>

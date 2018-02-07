@@ -1,6 +1,6 @@
   <h5>Processing the <code data-x="attr-link-type">type</code> attribute</h5>
 
-  <p>If <code data-x="attr-link-type">type</code> attribute is present, then the user agent must
+  <p>If the <code data-x="attr-link-type">type</code> attribute is present, then the user agent must
   assume that the resource is of the given type (even if that is not a <span>valid MIME type</span>,
   e.g. the empty string). If the attribute is omitted, but the <span>external resource link</span>
   type has a default type defined, then the user agent must assume that the resource is of that
@@ -58,8 +58,7 @@
    <p>If one of the two files was returned without a <span>Content-Type</span> metadata, or with a
    syntactically incorrect type like <code data-x="">Content-Type:&nbsp;"null"</code>, then the
    default type for <code data-x="rel-stylesheet">stylesheet</code> links would kick in. Since that
-   default type is <code data-x="">text/css</code>, the style sheet <em>would</em> nonetheless be
-   applied.</p>
+   default type is <code>text/css</code>, the style sheet <em>would</em> nonetheless be applied.</p>
 
   </div>
 

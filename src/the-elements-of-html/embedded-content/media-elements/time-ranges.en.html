@@ -3,7 +3,8 @@
   <p>Objects implementing the <code>TimeRanges</code> interface
   represent a list of ranges (periods) of time.</p>
 
-  <pre class="idl">interface <dfn>TimeRanges</dfn> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>TimeRanges</dfn> {
   readonly attribute unsigned long <span data-x="dom-TimeRanges-length">length</span>;
   double <span data-x="dom-TimeRanges-start">start</span>(unsigned long index);
   double <span data-x="dom-TimeRanges-end">end</span>(unsigned long index);

@@ -30,31 +30,32 @@
    <li><p>Let <var>target</var> be the element's <span>node document</span>.</p></li>
 
    <li><p>If <var>target</var> has no <span data-x="concept-document-bc">browsing context</span>,
-   abort these steps.</p></li>
+   then return.</p></li>
 
    <li><p>If <var>target</var>'s <span data-x="concept-document-bc">browsing context</span> has no
    <span>top-level browsing context</span> (e.g. it is a <span>nested browsing context</span> with
-   no <span>parent browsing context</span>), abort these steps.</p></li>
+   no <span>parent browsing context</span>), then return.</p></li>
 
    <li><p>If <var>target</var>'s <span>active sandboxing flag set</span> has the
-   <span>sandboxed automatic features browsing context flag</span>, abort these steps.</p></li>
+   <span>sandboxed automatic features browsing context flag</span>, then return.</p></li>
 
    <li><p>If <var>target</var>'s <span>origin</span> is not the <span data-x="same
    origin">same</span> as the <span>origin</span> of the <span>node document</span> of the currently
-   focused element in <var>target</var>'s <span>top-level browsing context</span>, abort
-   these steps.</p></li>
+   focused element in <var>target</var>'s <span>top-level browsing context</span>, then
+   return.</p></li>
 
    <li><p>If <var>target</var>'s <span>origin</span> is not the <span data-x="same
-   origin">same</span> as the <span>origin</span> of the <span>active document</span> of <var>target</var>'s <span>top-level browsing context</span>, abort these steps.</p></li>
+   origin">same</span> as the <span>origin</span> of the <span>active document</span> of
+   <var>target</var>'s <span>top-level browsing context</span>, then return.</p></li>
 
    <li><p>If the user agent has already reached the last step of this list of steps in response to
    an element being <span data-x="node is inserted into a document">inserted</span> into a
    <code>Document</code> whose <span>top-level browsing context</span>'s <span>active
    document</span> is the same as <var>target</var>'s <span>top-level browsing
-   context</span>'s <span>active document</span>, abort these steps.</p></li>
+   context</span>'s <span>active document</span>, then return.</p></li>
 
    <li><p>If the user has indicated (for example, by starting to type in a form control) that they
-   do not wish focus to be changed, then optionally abort these steps.</p></li>
+   do not wish focus to be changed, then optionally return.</p></li>
 
    <li><p><span>Queue a task</span> that runs the <span>focusing steps</span> for the element. User
    agents may also change the scrolling position of the document, or perform some other action that
@@ -82,5 +83,4 @@
    <pre>&lt;input maxlength="256" name="q" value="" autofocus&gt;
 &lt;input type="submit" value="Search"&gt;</pre>
   </div>
-
 

@@ -27,7 +27,7 @@
 
    <li>
     <p>If NewTarget is equal to the <span>active function object</span>, then throw a
-    <code>TypeError</code> and abort these steps.</p>
+    <code>TypeError</code>.</p>
 
     <div class="example no-backref">
      <p>This can occur when a custom element is defined using an <span>element interface</span> as
@@ -48,7 +48,7 @@ document.createElement("bad-1");  // (2)</pre>
    <li>
     <p>Let <var>definition</var> be the entry in <var>registry</var> with <span
     data-x="concept-custom-element-definition-constructor">constructor</span> equal to NewTarget. If
-    there is no such definition, then throw a <code>TypeError</code> and abort these steps.</p>
+    there is no such definition, then throw a <code>TypeError</code>.</p>
 
     <p class="note">Since there can be no entry in <var>registry</var> with a <span
     data-x="concept-custom-element-definition-constructor">constructor</span> of undefined, this
@@ -65,7 +65,7 @@ document.createElement("bad-1");  // (2)</pre>
     <ol>
      <li>
       <p>If the <span>active function object</span> is not <code>HTMLElement</code>, then throw a
-      <code>TypeError</code> and abort these steps.</p>
+      <code>TypeError</code>.</p>
 
       <div class="example no-backref">
        <p>This can occur when a custom element is defined to not extend any local names, but
@@ -93,7 +93,7 @@ document.createElement("bad-1");  // (2)</pre>
      <li>
       <p>If <var>valid local names</var> does not contain <var>definition</var>'s <span
       data-x="concept-custom-element-definition-local-name">local name</span>, then throw a
-      <code>TypeError</code> and abort these steps.</p>
+      <code>TypeError</code>.</p>
 
       <div class="example no-backref">
        <p>This can occur when a custom element is defined to extend a given local name but inherits
@@ -168,7 +168,7 @@ document.createElement("bad-1");  // (2)</pre>
    <li>
     <p>If <var>element</var> is an <span data-x="concept-already-constructed-marker"><i>already
     constructed</i> marker</span>, then throw an <span>"<code>InvalidStateError</code>"</span>
-    <code>DOMException</code> and abort these steps.</p>
+    <code>DOMException</code>.</p>
 
     <div class="example">
      <p>This can occur when the author code inside the <span>custom element

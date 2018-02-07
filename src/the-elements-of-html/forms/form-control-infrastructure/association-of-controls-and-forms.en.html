@@ -5,6 +5,8 @@
   element</span> is not associated with a <code>form</code> element, its <span>form owner</span> is
   said to be null.</p>
 
+  <p>A <span>form-associated element</span> has an associated <dfn>parser inserted flag</dfn>.</p>
+
   <p>A <span>form-associated element</span> is, by default, associated with its <span
   w-nodev>nearest</span> ancestor <code>form</code> element<span w-nodev> (as described
   below)</span>, but, if it is <span data-x="category-listed">listed</span>, may have a <dfn><code
@@ -34,14 +36,25 @@
   data-x="concept-form-association">associated</dfn> with a form, its <span>form owner</span> must
   be set to that form.</p>
 
-  <p>When a <span>form-associated element</span> or one of its ancestors <span>becomes
-  connected</span>, then the user agent must <span>reset the form owner</span> of that
-  <span>form-associated element</span>. <span class="note">The <span>HTML parser</span> overrides
-  this requirement when inserting form controls.</span></p>
+  <p>When a <span>form-associated element</span> or one of its ancestors <span data-x="nodes are
+  inserted">is inserted</span>, then:
 
-  <p>When an element changes its parent node resulting in a <span>form-associated element</span> and
-  its <span>form owner</span> (if any) no longer being in the same <span>tree</span>, then the user
-  agent must <span>reset the form owner</span> of that <span>form-associated element</span>.</p>
+  <ol>
+   <li><p>If the <span>form-associated element</span>'s <span>parser inserted flag</span> is set,
+   then return.
+
+   <li><p><span>Reset the form owner</span> of the <span>form-associated element</span>.</p></li>
+  </ol>
+
+  <p>When a <span>form-associated element</span> or one of its ancestors <span data-x="nodes are
+  removed">is removed</span>, then:
+
+  <ol>
+   <li><p>If the <span>form-associated element</span> has a <span>form owner</span> and the
+   <span>form-associated element</span> and its <span>form owner</span> are no longer in the same
+   <span>tree</span>, then <span>reset the form owner</span> of the <span>form-associated
+   element</span>.</p></li>
+  </ol>
 
   <p>When a <span data-x="category-listed">listed</span> <span>form-associated element</span>'s
   <code data-x="attr-fae-form">form</code> attribute is set, changed, or removed, then the user
@@ -63,6 +76,7 @@
   element</span> <var>element</var>, it must run the following steps:</p>
 
   <ol>
+   <li><p>Unset <var>element</var>'s <span>parser inserted flag</span>.</p></li>
 
    <li>
     <p>If all of the following conditions are true
@@ -75,7 +89,7 @@
      ancestor after the change to the ancestor chain
     </ul>
 
-    <p>then do nothing, and abort these steps.</p>
+    <p>then do nothing, and return.</p>
    </li>
 
    <li><p>Set <var>element</var>'s <span>form owner</span> to null.</p></li>

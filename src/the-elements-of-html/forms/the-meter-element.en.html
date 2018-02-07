@@ -21,7 +21,8 @@
    <dd><code data-x="attr-meter-optimum">optimum</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLMeterElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute double <span data-x="dom-meter-value">value</span>;
   [<span>CEReactions</span>] attribute double <span data-x="dom-meter-min">min</span>;

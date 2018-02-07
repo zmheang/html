@@ -1,31 +1,30 @@
-  <h3 class="no-num">属性</h3>
+  <h3 class="no-num">Attributes</h3>
 
   <!-- NON-NORMATIVE SECTION -->
 
   <table id="attributes-1">
-   <caption>属性列表（不包括事件处理器内容属性）</caption>
+   <caption>List of attributes (excluding event handler content attributes)</caption>
    <thead>
     <tr>
-     <th> 属性
-     <th> 元素
-     <th> 描述
-     <th> 值
+     <th> Attribute
+     <th> Element(s)
+     <th> Description
+     <th> Value
    <tbody>
     <tr>
      <th> <code data-x="">abbr</code>
      <td> <code data-x="attr-th-abbr">th</code>
-     <td> 在其他上下文中引用单元格时，用于标题单元格的替代标签
+     <td> Alternative label to use for the header cell when referencing the cell in other contexts
      <td> <a href="#attribute-text">Text</a>*
     <tr>
      <th> <code data-x="">accept</code>
      <td> <code data-x="attr-input-accept">input</code>
-     <td> 在 <span data-x="attr-input-type-file">文件上传控件</span> 中指示期望的文件类型
-     <td> <span data-x="Set of comma-separated tokens">逗号分隔的令牌集合</span>*，
-     由 <span data-x="valid MIME type">合法的无参数的 MIME 类型</span> 或 <code data-x="">audio/*</code>, <code data-x="">video/*</code>, 或 <code data-x="">image/*</code> 组成
+     <td> Hint for expected file type in <span data-x="attr-input-type-file">file upload controls</span>
+     <td> <span>Set of comma-separated tokens</span>* consisting of <span data-x="valid MIME type">valid MIME types with no parameters</span> or <code data-x="">audio/*</code>, <code data-x="">video/*</code>, or <code data-x="">image/*</code>
     <tr>
      <th> <code data-x="">accept-charset</code>
      <td> <code data-x="attr-form-accept-charset">form</code>
-     <td> <span data-x="form submission">表单提交</span> 用的字符编码
+     <td> Character encodings to use for <span>form submission</span>
      <td> <span>Ordered set of unique space-separated tokens</span>, <span>ASCII case-insensitive</span>, consisting of <span data-x="encoding label">labels</span> of <span data-x="ASCII-compatible encoding">ASCII-compatible encodings</span>*
     <tr>
      <th> <code data-x="">accesskey</code>
@@ -62,13 +61,23 @@
     <tr>
      <th> <code data-x="">as</code>
      <td> <code data-x="attr-link-as">link</code>
-     <td> 预加载请求的 <span data-x="concept-potential-destination">Potential destination</span>（用于 <code data-x="attr-link-rel">rel</code>="<code data-x="rel-preload">preload</code>"）
-     <td> <span data-x="concept-potential-destination">Potential destination</span>
+     <td> <span data-x="concept-potential-destination">Potential destination</span> for a preload request (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-preload">preload</code>" and <code data-x="attr-link-rel">rel</code>="<code data-x="rel-modulepreload">modulepreload</code>")
+     <td> <span data-x="concept-potential-destination">Potential destination</span>, for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-preload">preload</code>"; <span data-x="concept-script-like-destination">script-like destination</span>, for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-modulepreload">modulepreload</code>"
     <tr>
      <th> <code data-x="">async</code>
      <td> <code data-x="attr-script-async">script</code>
      <td> Execute script when available, without blocking
      <td> <span>Boolean attribute</span>
+    <tr>
+     <th> <code data-x="">autocapitalize</code>
+     <td> <span data-x="attr-autocapitalize">HTML elements</span>
+     <td> Recommended autocapitalization behavior (for supported input methods)
+     <td> "<code data-x="attr-autocapitalize-on">on</code>";
+          "<code data-x="attr-autocapitalize-off">off</code>";
+          "<code data-x="attr-autocapitalize-none">none</code>";
+          "<code data-x="attr-autocapitalize-sentences">sentences</code>";
+          "<code data-x="attr-autocapitalize-words">words</code>";
+          "<code data-x="attr-autocapitalize-characters">characters</code>"
     <tr>
      <th> <code data-x="">autocomplete</code>
      <td> <code data-x="attr-form-autocomplete">form</code>
@@ -99,12 +108,7 @@
      <th> <code data-x="">charset</code>
      <td> <code data-x="attr-meta-charset">meta</code>
      <td> <span>Character encoding declaration</span>
-     <td> <span>Encoding label</span>*
-    <tr>
-     <th> <code data-x="">charset</code>
-     <td> <code data-x="attr-script-charset">script</code>
-     <td> Character encoding of the external script resource
-     <td> <span>Encoding label</span>*
+     <td> "<code data-x="">utf-8</code>"
     <tr>
      <th> <code data-x="">checked</code>
      <td> <code data-x="attr-input-checked">input</code>
@@ -126,13 +130,13 @@
     <tr>
      <th> <code data-x="">color</code>
      <td> <code data-x="attr-link-color">link</code>
-     <td> 当自定义站点图标时用的颜色（<code data-x="attr-link-rel">rel</code>="<code data-x="">mask-icon</code>"）
+     <td> Color to use when customizing a site's icon (for <code data-x="attr-link-rel">rel</code>="<code data-x="">mask-icon</code>")
      <td> CSS <span>&lt;color></span>
     <tr>
      <th> <code data-x="">cols</code>
      <td> <code data-x="attr-textarea-cols">textarea</code>
-     <td> 每行的最大字符数
-     <td> 大于0的 <span data-x="Valid non-negative integer">合法的非负整数</span>
+     <td> Maximum number of characters per line
+     <td> <span>Valid non-negative integer</span> greater than zero
     <tr>
      <th> <code data-x="">colspan</code>
      <td> <code data-x="attr-tdth-colspan">td</code>;
@@ -167,12 +171,12 @@
           <code data-x="attr-link-crossorigin">link</code>;
           <code data-x="attr-script-crossorigin">script</code>;
           <code data-x="attr-media-crossorigin">video</code>
-     <td> 该元素如何处理跨域请求
+     <td> How the element handles crossorigin requests
      <td> "<code data-x="attr-crossorigin-anonymous-keyword">anonymous</code>"; "<code data-x="attr-crossorigin-use-credentials-keyword">use-credentials</code>"
     <tr>
      <th> <code data-x="">data</code>
      <td> <code data-x="attr-object-data">object</code>
-     <td> 该资源的地址
+     <td> Address of the resource
      <td> <span>Valid non-empty URL potentially surrounded by spaces</span>
     <tr>
      <th> <code data-x="">datetime</code>
@@ -194,6 +198,13 @@
           <span>valid week string</span>,
           <span>valid non-negative integer</span>, or
           <span>valid duration string</span>
+    <tr>
+     <th> <code data-x="">decoding</code>
+     <td> <code data-x="attr-img-decoding">img</code>
+     <td> Decoding hint to use when processing this image for presentation
+     <td> "<code data-x="attr-img-decoding-sync">sync</code>";
+          "<code data-x="attr-img-decoding-async">async</code>";
+          "<code data-x="attr-img-decoding-auto">auto</code>"
     <tr>
      <th> <code data-x="">default</code>
      <td> <code data-x="attr-track-default">track</code>
@@ -329,12 +340,12 @@
      <th> <code data-x="">href</code>
      <td> <code data-x="attr-hyperlink-href">a</code>;
           <code data-x="attr-hyperlink-href">area</code>
-     <td> <span data-x="hyperlink">超链接</span> 的地址
-     <td> <span data-x="Valid URL potentially surrounded by spaces">可能被空格包裹的合法的 URL</span>
+     <td> Address of the <span>hyperlink</span>
+     <td> <span>Valid URL potentially surrounded by spaces</span>
     <tr>
      <th> <code data-x="">href</code>
      <td> <code data-x="attr-link-href">link</code>
-     <td> 该 <span data-x="hyperlink">超链接</span> 的地址
+     <td> Address of the <span>hyperlink</span>
      <td> <span>Valid non-empty URL potentially surrounded by spaces</span>
     <tr>
      <th> <code data-x="">href</code>
@@ -345,13 +356,17 @@
      <th> <code data-x="">hreflang</code>
      <td> <code data-x="attr-hyperlink-hreflang">a</code>;
           <code data-x="attr-link-hreflang">link</code>
-     <td> 被链接资源的语言
-     <td> 合法的 BCP 47 语言标签
+     <td> Language of the linked resource
+     <td> Valid BCP 47 language tag
     <tr>
      <th> <code data-x="">http-equiv</code>
      <td> <code data-x="attr-meta-http-equiv">meta</code>
      <td> Pragma directive
-     <td> <a href="#attribute-text">Text</a>*
+     <td> "<code data-x="attr-meta-http-equiv-keyword-content-type">content-type</code>";
+          "<code data-x="attr-meta-http-equiv-keyword-default-style">default-style</code>";
+          "<code data-x="attr-meta-http-equiv-keyword-refresh">refresh</code>";
+          "<code data-x="attr-meta-http-equiv-keyword-x-ua-compatible">x-ua-compatible</code>";
+          "<code data-x="attr-meta-http-equiv-keyword-Content-Security-Policy">Content-Security-Policy</code>"
     <tr>
      <th> <code data-x="">id</code>
      <td> <span data-x="attr-id">HTML elements</span>
@@ -359,27 +374,21 @@
      <td> <a href="#attribute-text">Text</a>*
     <tr>
      <th> <code data-x="">inputmode</code>
-     <td> <code data-x="attr-fe-inputmode">input</code>;
-          <code data-x="attr-fe-inputmode">textarea</code>
+     <td> <span data-x="attr-inputmode">HTML elements</span>
      <td> Hint for selecting an input modality
-     <td> "<code data-x="attr-fe-inputmode-keyword-verbatim">verbatim</code>";
-          "<code data-x="attr-fe-inputmode-keyword-latin">latin</code>";
-          "<code data-x="attr-fe-inputmode-keyword-latin-name">latin-name</code>";
-          "<code data-x="attr-fe-inputmode-keyword-latin-prose">latin-prose</code>";
-          "<code data-x="attr-fe-inputmode-keyword-full-width-latin">full-width-latin</code>";
-          "<code data-x="attr-fe-inputmode-keyword-kana">kana</code>";
-          "<code data-x="attr-fe-inputmode-keyword-kana-name">kana-name</code>";
-          "<code data-x="attr-fe-inputmode-keyword-katakana">katakana</code>";
-          <!-- "<code data-x="attr-fe-inputmode-keyword-half-width-katakana">half-width-katakana</code>"; -->
-          "<code data-x="attr-fe-inputmode-keyword-numeric">numeric</code>";
-          "<code data-x="attr-fe-inputmode-keyword-tel">tel</code>";
-          "<code data-x="attr-fe-inputmode-keyword-email">email</code>";
-          "<code data-x="attr-fe-inputmode-keyword-url">url</code>"
+     <td> "<code data-x="attr-inputmode-keyword-none">none</code>";
+          "<code data-x="attr-inputmode-keyword-text">text</code>";
+          "<code data-x="attr-inputmode-keyword-tel">tel</code>";
+          "<code data-x="attr-inputmode-keyword-email">email</code>";
+          "<code data-x="attr-inputmode-keyword-url">url</code>"
+          "<code data-x="attr-inputmode-keyword-numeric">numeric</code>";
+          "<code data-x="attr-inputmode-keyword-decimal">decimal</code>";
+          "<code data-x="attr-inputmode-keyword-search">search</code>";
     <tr>
      <th> <code data-x="">integrity</code>
      <td> <code data-x="attr-link-integrity">link</code>;
           <code data-x="attr-script-integrity">script</code>
-     <td> 用于 <cite>Subresource Integrity</cite> 检查的完整性元数据 <ref spec="SRI">
+     <td> Integrity metadata used in <cite>Subresource Integrity</cite> checks <ref spec="SRI">
      <td> <a href="#attribute-text">Text</a>
     <tr>
      <th> <code data-x="">is</code>
@@ -420,11 +429,11 @@
      <th> <code data-x="">kind</code>
      <td> <code data-x="attr-track-kind">track</code>
      <td> The type of text track
-     <td> "<code data-x="attr-track-kind-subtitles">subtitles</code>";
-          "<code data-x="attr-track-kind-captions">captions</code>";
-          "<code data-x="attr-track-kind-descriptions">descriptions</code>";
-          "<code data-x="attr-track-kind-chapters">chapters</code>";
-          "<code data-x="attr-track-kind-metadata">metadata</code>"
+     <td> "<code data-x="attr-track-kind-keyword-subtitles">subtitles</code>";
+          "<code data-x="attr-track-kind-keyword-captions">captions</code>";
+          "<code data-x="attr-track-kind-keyword-descriptions">descriptions</code>";
+          "<code data-x="attr-track-kind-keyword-chapters">chapters</code>";
+          "<code data-x="attr-track-kind-keyword-metadata">metadata</code>"
     <tr>
      <th> <code data-x="">label</code>
      <td> <code data-x="attr-optgroup-label">optgroup</code>;
@@ -480,8 +489,8 @@
      <td> <code data-x="attr-link-media">link</code>;
           <code data-x="attr-source-media">source</code>;
           <code data-x="attr-style-media">style</code>
-     <td> 适当的媒体
-     <td> <span data-x="Valid media query list">合法的媒体查询列表</span>
+     <td> Applicable media
+     <td> <span>Valid media query list</span>
     <tr>
      <th> <code data-x="">method</code>
      <td> <code data-x="attr-fs-method">form</code>
@@ -565,10 +574,8 @@
      <td> <span>Boolean attribute</span>
     <tr>
      <th> <code data-x="">nonce</code>
-     <td> <code data-x="attr-link-nonce">link</code>;
-          <code data-x="attr-script-nonce">script</code>;
-          <code data-x="attr-style-nonce">style</code>
-     <td> 用于 <cite>Content Security Policy</cite> 检查的加密随机数 <ref spec="CSP">
+     <td> <span data-x="attr-nonce">HTML elements</span>
+     <td> Cryptographic nonce used in <cite>Content Security Policy</cite> checks <ref spec="CSP">
      <td> <a href="#attribute-text">Text</a>
     <tr>
      <th> <code data-x="">novalidate</code>
@@ -638,19 +645,19 @@
           <code data-x="attr-iframe-referrerpolicy">iframe</code>;
           <code data-x="attr-img-referrerpolicy">img</code>;
           <code data-x="attr-link-referrerpolicy">link</code>
-     <td> 由该元素发起的 <span data-x="concept-fetch">获取</span> 的 <span data-x="Referrer policy">引荐策略</span>
-     <td> <span data-x="Referrer policy">引荐策略</span>
+     <td> <span>Referrer policy</span> for <span data-x="concept-fetch">fetches</span> initiated by the element
+     <td> <span>Referrer policy</span>
     <tr>
      <th> <code data-x="">rel</code>
      <td> <code data-x="attr-hyperlink-rel">a</code>;
           <code data-x="attr-hyperlink-rel">area</code>
-     <td> 文档中包含 <span data-x="hyperlink">超链接</span> 的位置与目标资源之间的关系
-     <td> <span data-x="Set of space-separated tokens">空格分隔的令牌集合</span>*
+     <td> Relationship between the location in the document containing the <span>hyperlink</span> and the destination resource
+     <td> <span>Set of space-separated tokens</span>*
     <tr>
      <th> <code data-x="">rel</code>
      <td> <code data-x="attr-link-rel">link</code>
-     <td> 包含 <span>hyperlink</span> 的文档与目标资源之间的关系
-     <td> <span data-x="Set of space-separated tokens">空格分隔的令牌集合</span>*
+     <td> Relationship between the document containing the <span>hyperlink</span> and the destination resource
+     <td> <span>Set of space-separated tokens</span>*
     <tr>
      <th> <code data-x="">required</code>
      <td> <code data-x="attr-input-required">input</code>;
@@ -698,11 +705,6 @@
           "<code data-x="attr-th-scope-rowgroup">rowgroup</code>";
           "<code data-x="attr-th-scope-colgroup">colgroup</code>"
     <tr>
-     <th> <code data-x="">scope</code>
-     <td> <code data-x="attr-link-scope">link</code>
-     <td> <span>service worker registration</span> 的 <span>Scope url</span>（用于 <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>"）
-     <td><span data-x="Valid URL potentially surrounded by spaces">可能被空格包裹的合法 URL</span>
-    <tr>
      <th> <code data-x="">selected</code>
      <td> <code data-x="attr-option-selected">option</code>
      <td> Whether the option is selected by default
@@ -724,8 +726,8 @@
     <tr>
      <th> <code data-x="">sizes</code>
      <td> <code data-x="attr-link-sizes">link</code>
-     <td> 图标的大小 （用于 <code data-x="attr-link-rel">rel</code>="<code data-x="rel-icon">icon</code>"）
-     <td> <span data-x="Unordered set of unique space-separated tokens">不重复的空格分隔的令牌的无序集合</span>，<span data-x="ASCII case-insensitive">ASCII 大小写不敏感</span>，由 sizes* 组成
+     <td> Sizes of the icons (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-icon">icon</code>")
+     <td> <span>Unordered set of unique space-separated tokens</span>, <span>ASCII case-insensitive</span>, consisting of sizes*
     <tr>
      <th> <code data-x="">sizes</code>
      <td> <code data-x="attr-img-sizes">img</code>;
@@ -759,7 +761,7 @@
           <code data-x="attr-source-src">source</code>;
           <code data-x="attr-track-src">track</code>;
           <code data-x="attr-media-src">video</code>
-     <td> 该资源的地址
+     <td> Address of the resource
      <td> <span>Valid non-empty URL potentially surrounded by spaces</span>
     <tr>
      <th> <code data-x="">srcdoc</code>
@@ -849,8 +851,8 @@
      <th> <code data-x="">type</code>
      <td> <code data-x="attr-hyperlink-type">a</code>;
           <code data-x="attr-link-type">link</code>
-     <td> 被引用资源的类型提示
-     <td> <span data-x="Valid MIME type">合法的 MIME 类型</span>
+     <td> Hint for the type of the referenced resource
+     <td> <span>Valid MIME type</span>
     <tr>
      <th> <code data-x="">type</code>
      <td> <code data-x="attr-button-type">button</code>
@@ -862,9 +864,7 @@
      <th> <code data-x="">type</code>
      <td> <code data-x="attr-embed-type">embed</code>;
           <code data-x="attr-object-type">object</code>;
-          <code data-x="attr-script-type">script</code>;
-          <code data-x="attr-source-type">source</code>;
-          <code data-x="attr-style-type">style</code>
+          <code data-x="attr-source-type">source</code>
      <td> Type of embedded resource
      <td> <span>Valid MIME type</span>
     <tr>
@@ -882,15 +882,15 @@
           "<code data-x="attr-ol-type-keyword-lower-roman">i</code>";
           "<code data-x="attr-ol-type-keyword-upper-roman">I</code>"
     <tr>
+     <th> <code data-x="">type</code>
+     <td> <code data-x="attr-script-type">script</code>
+     <td> Type of script
+     <td> "<code data-x="">module</code>"; a <span>valid MIME type</span> that is not a <span>JavaScript MIME type</span>
+    <tr>
      <th> <code data-x="">typemustmatch</code>
      <td> <code data-x="attr-object-typemustmatch">object</code>
      <td> Whether the <code data-x="attr-object-type">type</code> attribute and the <span>Content-Type</span> value need to match for the resource to be used
      <td> <span>Boolean attribute</span>
-    <tr>
-     <th> <code data-x="">updateviacache</code>
-     <td> <code data-x="attr-link-updateviacache">link</code>
-     <td> <span>service worker registration</span> 的 <span data-x="Update via cache mode">Update via cache mode</span>（用于 <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>"）
-     <td> <span>Update via cache mode</span>
     <tr>
      <th> <code data-x="">usemap</code>
      <td> <code data-x="attr-hyperlink-usemap">img</code>;
@@ -940,11 +940,6 @@
           <code data-x="attr-dim-width">video</code>
      <td> Horizontal dimension
      <td> <span>Valid non-negative integer</span>
-    <tr>
-     <th> <code data-x="">workertype</code>
-     <td> <code data-x="attr-link-workertype">link</code>
-     <td> <span>service worker registration</span> 的 <span data-x="Service worker type">Service Worker 类型</span>（用于 <code data-x="attr-link-rel">rel</code>="<code data-x="rel-serviceworker">serviceworker</code>"）
-     <td> "<code data-x="">classic</code>"； "<code data-x="">module</code>"
     <tr>
      <th> <code data-x="">wrap</code>
      <td> <code data-x="attr-textarea-wrap">textarea</code>

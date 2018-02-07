@@ -48,9 +48,9 @@ import "https://example.com/foo/../module2.js";</pre>
    data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor url</span>.</p>
   </div>
 
-  <p>To <dfn>resolve a module specifier</dfn> given a <span>module script</span> <var>script</var>
-  and a string <var>specifier</var>, perform the following steps. It will return either a <span>URL
-  record</span> or failure.</p>
+  <p>To <dfn>resolve a module specifier</dfn> given a <span>script</span> <var>script</var> and a
+  <span>JavaScript string</span> <var>specifier</var>, perform the following steps. It will return
+  either a <span>URL record</span> or failure.</p>
 
   <ol>
    <li><p>Apply the <span>URL parser</span> to <var>specifier</var>. If the result is not failure,
@@ -60,7 +60,7 @@ import "https://example.com/foo/../module2.js";</pre>
     <p>If <var>specifier</var> does not start with the character U+002F SOLIDUS (<code
     data-x="">/</code>), the two-character sequence U+002E FULL STOP, U+002F SOLIDUS (<code
     data-x="">./</code>), or the three-character sequence U+002E FULL STOP, U+002E FULL STOP,
-    U+002F SOLIDUS (<code data-x="">../</code>), return failure and abort these steps.</p>
+    U+002F SOLIDUS (<code data-x="">../</code>), return failure.</p>
 
     <p class="note">This restriction is in place so that in the future we can allow custom module
     loaders to give special meaning to "bare" import specifiers, like <code
@@ -69,7 +69,7 @@ import "https://example.com/foo/../module2.js";</pre>
    </li>
 
    <li><p>Return the result of applying the <span>URL parser</span> to <var>specifier</var> with
-   <var>script</var>'s <span data-x="concept-module-script-base-url">base URL</span> as the base
+   <var>script</var>'s <span data-x="concept-script-base-url">base URL</span> as the base
    URL.</p></li>
   </ol>
 

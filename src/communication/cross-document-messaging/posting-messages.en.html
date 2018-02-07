@@ -88,7 +88,7 @@
      <li><p>If the <var>targetOrigin</var> argument is not a single literal U+002A ASTERISK character
      (*) and <var>targetWindow</var>'s <span data-x="concept-document-window">associated
      <code>Document</code></span>'s <span>origin</span> is not <span>same origin</span> with
-     <var>targetOrigin</var>, then abort these steps.</p></li>
+     <var>targetOrigin</var>, then return.</p></li>
 
      <li><p>Let <var>origin</var> be the <span data-x="serialization of an
      origin">serialization</span> of <var>incumbentSettings</var>'s <span
@@ -108,7 +108,7 @@
       <var>targetWindow</var>, using <code>MessageEvent</code>, with the <code
       data-x="dom-MessageEvent-origin">origin</code> attribute initialized to <var>origin</var> and
       the <code data-x="dom-MessageEvent-source">source</code> attribute initialized to
-      <var>source</var>, and then abort these steps.</p>
+      <var>source</var>, and then return.</p>
      </li>
 
      <li><p>Let <var>messageClone</var> be <var>deserializeRecord</var>.[[Deserialized]].</p></li>

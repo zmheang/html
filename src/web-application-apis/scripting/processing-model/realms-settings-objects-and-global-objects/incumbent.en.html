@@ -218,8 +218,8 @@ document.querySelector("button").addEventListener("click", bound);
    the <span>incumbent settings object</span>? As before, it should intuitively be that of <code
    data-x="">a.html</code>: the <code data-x="event-click">click</code> listener was originally
    scheduled by <code data-x="">a.html</code>, so even if something involving <code
-   data-x="">b.html</code> causes the listener to fire, the <a
-   href="#incumbent-everything">incumbent</a> responsible is that of <code
+   data-x="">b.html</code> causes the listener to fire, the <span
+   data-x="concept-incumbent-everything">incumbent</span> responsible is that of <code
    data-x="">a.html</code>.</p>
 
    <p>The callback setup is similar to the previous example: when <code data-x="">bound</code> is
@@ -252,8 +252,8 @@ document.querySelector("button").addEventListener("click", bound);
    data-x="concept-request-client">request client</span>. This is <a
    href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=26603#c36">perhaps the only justifiable use
    of the incumbent concept on the web platform</a>; in all other cases the consequences of using it
-   are simply confusing and we hope to one day switch them to use <a
-   href="#current-everything">current</a> or <a href="#relevant-everything">relevant</a> as
-   appropriate.</p>
+   are simply confusing and we hope to one day switch them to use <span
+   data-x="concept-current-everything">current</span> or <span
+   data-x="concept-relevant-everything">relevant</span> as appropriate.</p>
   </div>
 

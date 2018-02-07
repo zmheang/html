@@ -13,7 +13,8 @@
   <code>Window</code> interface must return the <code>CustomElementRegistry</code> object for that
   <code>Window</code> object.</p>
 
-  <pre class="idl">interface <dfn>CustomElementRegistry</dfn> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>CustomElementRegistry</dfn> {
   [<span>CEReactions</span>] void <span data-x="dom-CustomElementRegistry-define">define</span>(DOMString name, Function constructor, optional ElementDefinitionOptions options);
   any <span data-x="dom-CustomElementRegistry-get">get</span>(DOMString name);
   Promise&lt;void&gt; <span data-x="dom-CustomElementRegistry-whenDefined">whenDefined</span>(DOMString name);
@@ -84,20 +85,18 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
 
   <ol>
    <li><p>If <span>IsConstructor</span>(<var>constructor</var>) is false, then throw a
-   <code>TypeError</code> and abort these steps.</p></li>
+   <code>TypeError</code>.</p></li>
 
    <li><p>If <var>name</var> is not a <span>valid custom element name</span>, then throw a
-   <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> and abort these steps.</p></li>
+   <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If this <code>CustomElementRegistry</code> contains an entry with <span
    data-x="concept-custom-element-definition-name">name</span> <var>name</var>, then throw a
-   <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code> and abort these
-   steps.</p></li>
+   <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If this <code>CustomElementRegistry</code> contains an entry with <span
    data-x="concept-custom-element-definition-constructor">constructor</span> <var>constructor</var>,
-   then throw a <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code> and abort
-   these steps.</p></li>
+   then throw a <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>localName</var> be <var>name</var>.</p></li>
 
@@ -121,8 +120,7 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
    </li>
 
    <li><p>If this <code>CustomElementRegistry</code>'s <span>element definition is running</span>
-   flag is set, then throw a <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>
-   and abort these steps.</p></li>
+   flag is set, then throw a <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Set this <code>CustomElementRegistry</code>'s <span>element definition is running</span>
    flag.</p></li>
@@ -186,8 +184,8 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
      running</span> flag.</p></li>
     </ol>
 
-    <p>Finally, if the first set of substeps threw an exception, then rethrow that exception, and
-    terminate this algorithm. Otherwise, continue onward.</p>
+    <p>Finally, if the first set of substeps threw an exception, then rethrow that exception (thus
+    terminating this algorithm). Otherwise, continue onward.</p>
    </li>
 
    <li><p>Let <var>definition</var> be a new <span>custom element definition</span> with <span
@@ -253,12 +251,11 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
 
   <ol>
    <li><p>If <var>name</var> is not a <span>valid custom element name</span>, then return a new
-   promise rejected with a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> and
-   abort these steps.</p></li>
+   promise rejected with a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If this <code>CustomElementRegistry</code> contains an entry with <span
    data-x="concept-custom-element-definition-name">name</span> <var>name</var>, then return a new
-   promise resolved with undefined and abort these steps.</p></li>
+   promise resolved with undefined.</p></li>
 
    <li><p>Let <var>map</var> be this <code>CustomElementRegistry</code>'s <span>when-defined
    promise map</span>.</p></li>

@@ -26,7 +26,8 @@
    <dd><code data-x="attr-iframe-referrerpolicy">referrerpolicy</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-iframe-src">src</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-srcdoc">srcdoc</span>;
@@ -258,8 +259,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
    <li><p>If there exists an <span>ancestor browsing context</span> whose <span>active
    document</span>'s <span data-x="concept-document-url">URL</span>, ignoring <span
-   data-x="concept-url-fragment">fragments</span>, is equal to <var>url</var>, then abort these
-   steps.</p></li>
+   data-x="concept-url-fragment">fragments</span>, is equal to <var>url</var>, then return.</p></li>
    <!-- https://www.hixie.ch/tests/adhoc/html/frames/iframes/ 008.html and 009.html -->
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1969 -->
    <!-- I'm assuming that "resolve" will normalize things like scheme and hostname case -->
@@ -293,7 +293,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   location.assign() method -->
 
   <p>When a <code>Document</code> in an <code>iframe</code> is marked as <span>completely
-  loaded</span>, the user agent must run the <span>iframe load event steps</span> <span>in parallel</span>.</p>
+  loaded</span>, the user agent must run the <span>iframe load event steps</span>.</p>
 
   <p class="note">A <code data-x="event-load">load</code> event is also fired at the
   <code>iframe</code> element when it is created if no other data is loaded in it.</p>
@@ -311,7 +311,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    point).</p></li>
 
    <li><p>If <var>child document</var> has its <span>mute iframe load</span> flag set,
-   abort these steps.</p></li>
+   return.</p></li>
 
    <li><p>Set <var>child document</var>'s <span>iframe load in progress</span>
    flag.</p></li>
@@ -556,10 +556,8 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   &lt;p>&lt;img src="/usericons/1627591962735"> &lt;b>Fred Flintstone&lt;/b>&lt;/p>
   &lt;p>&lt;a href="/posts/3095182851" rel=bookmark>12:44&lt;/a> &mdash; &lt;a href="#acl-3095182851">Private Post&lt;/a>&lt;/p>
  &lt;/header>
- &lt;main>
-  &lt;p>Check out my new ride!&lt;/p>
-  <strong>&lt;iframe src="https://video.example.com/embed?id=92469812" allowfullscreen>&lt;/iframe></strong>
- &lt;/main>
+ &lt;p>Check out my new ride!&lt;/p>
+ <strong>&lt;iframe src="https://video.example.com/embed?id=92469812" allowfullscreen>&lt;/iframe></strong>
 &lt;/article></pre>
 
   </div>
@@ -632,7 +630,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
      <span>browsing context container</span> whose <span>node document</span>'s <span>origin</span>
      is <span>same origin-domain</span> with <var>document</var>'s <span>origin</span>, then set the
      <var>allowpaymentrequest flag</var> and the <var>allowusermedia flag</var> on
-     <var>document</var>, and abort these steps.</p>
+     <var>document</var>, and return.</p>
 
      <p class="note">If <code data-x="dom-document-domain">document.domain</code> has been used for
      the <span>browsing context container</span>'s <span>node document</span>, then its
@@ -687,7 +685,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
     <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has a
     <span>browsing context container</span> that is an <code>iframe</code> element, let
-    <var>iframe</var> be that element. Otherwise, abort these steps.</p></li>
+    <var>iframe</var> be that element. Otherwise, return.</p></li>
 
     <li><p>If <var>iframe</var> has an <code
     data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code> attribute specified, then

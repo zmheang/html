@@ -9,7 +9,8 @@
   <p>The <code>marquee</code> element must implement the <code>HTMLMarqueeElement</code>
   interface.</p>
 
-  <pre class="idl">[<span>HTMLConstructor</span>]
+  <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLMarqueeElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-marquee-behavior">behavior</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-marquee-bgColor">bgColor</span>;
@@ -156,7 +157,7 @@ interface <dfn>HTMLMarqueeElement</dfn> : <span>HTMLElement</span> {
 
   <ol>
 
-   <li><p>If the <span>marquee loop count</span> is &#x2212;1, then abort these steps.</p>
+   <li><p>If the <span>marquee loop count</span> is &#x2212;1, then return.</p>
 
    <li><p>Increment the <span>marquee current loop index</span> by one.</p></li>
 
@@ -184,8 +185,9 @@ interface <dfn>HTMLMarqueeElement</dfn> : <span>HTMLElement</span> {
   <hr>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
-  handler event type">event handler event types</span>) that must be supported, as <span>event handler content attributes</span> and <span>event handler IDL
-  attributes</span>, by <code>marquee</code> elements:</p>
+  handler event type">event handler event types</span>) <span w-nodev>that must be</span> supported,
+  as <span>event handler content attributes</span> and <span>event handler IDL attributes</span>, by
+  <code>marquee</code> elements:</p>
 
   <table>
    <thead>

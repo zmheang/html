@@ -23,7 +23,9 @@
    <dd><code data-x="attr-option-value">value</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>, NamedConstructor=<span data-x="dom-option">Option</span>(optional DOMString text = "", optional DOMString value, optional boolean defaultSelected = false, optional boolean selected = false)]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>,
+ NamedConstructor=<span data-x="dom-option">Option</span>(optional DOMString text = "", optional DOMString value, optional boolean defaultSelected = false, optional boolean selected = false)]
 interface <dfn>HTMLOptionElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-option-disabled">disabled</span>;
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-option-form">form</span>;
@@ -161,7 +163,7 @@ interface <dfn>HTMLOptionElement</dfn> : <span>HTMLElement</span> {
 
    </dd>
 
-   <dt><var>option</var> = new <code data-x="dom-option">Option</code>( [ <var>text</var> [, <var>value</var> [, <var>defaultSelected</var> [, <var>selected</var> ] ] ] ] )</dt>
+   <dt><var>option</var> = new <code subdfn data-x="dom-option">Option</code>( [ <var>text</var> [, <var>value</var> [, <var>defaultSelected</var> [, <var>selected</var> ] ] ] ] )</dt>
 
    <dd>
 

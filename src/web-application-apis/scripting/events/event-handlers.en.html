@@ -71,7 +71,7 @@
    <li><p>If the <span>Should element's inline behavior be blocked by Content Security
    Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when executed upon the
    attribute's <span>element</span>, "<code data-x="">script attribute</code>", and the attribute's
-   value, then abort these steps. <ref spec="CSP"></p></li>
+   value, then return. <ref spec="CSP"></p></li>
 
    <li><p>Set the corresponding <span data-x="event handlers">event handler</span> to an
    <span>internal raw uncompiled handler</span> consisting of the attribute's new value and the
@@ -152,7 +152,7 @@
 
    </li>
 
-   <li><p>If <var>callback</var> is null, then abort these steps.</p></li>
+   <li><p>If <var>callback</var> is null, then return.</p></li>
 
    <li><p>Let <var>special error event handling</var> be true if <var>E</var> is an
    <code>ErrorEvent</code> object, <var>E</var>'s <code data-x="dom-Event-type">type</code> is <code

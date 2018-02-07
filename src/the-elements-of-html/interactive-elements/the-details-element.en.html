@@ -15,7 +15,8 @@
    <dd><code data-x="attr-details-open">open</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLDetailsElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-details-open">open</span>;
 };</pre>
@@ -73,7 +74,7 @@ interface <dfn>HTMLDetailsElement</dfn> : <span>HTMLElement</span> {
 
     <p>If another <span data-x="concept-task">task</span> has been <span data-x="queue a
     task">queued</span> to run the <span>details notification task steps</span> for this
-    <code>details</code> element, then abort these steps.</p>
+    <code>details</code> element, then return.</p>
 
     <p class="note">When the <code data-x="attr-details-open">open</code> attribute is toggled
     several times in succession, these steps essentially get coalesced so that only one event is

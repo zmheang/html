@@ -1,0 +1,27 @@
+  <h6 id="HTMLAllCollection-call">[[Call]] ( <var>thisArgument</var>,  <var>argumentsList</var> )</h6>
+
+  <ol>
+   <li><p>If <var>argumentsList</var>'s <span data-x="list size">size</span> is zero, or if
+   <var>argumentsList</var>[0] is undefined, return null.</p></li>
+
+   <li><p>Let <var>nameOrIndex</var> be the result of <span
+   data-x="concept-idl-convert">converting</span> <var>argumentsList</var>[0] to a <code
+   data-x="idl-DOMString">DOMString</code>.</p></li>
+
+   <li><p>Let <var>result</var> be the result of <span
+   data-x="concept-get-all-indexed-or-named">getting the "all"-indexed or named element(s)</span>
+   from this <code>HTMLAllCollection</code> given <var>nameOrIndex</var>.</p></li>
+
+   <li><p>Return the result of <span data-x="concept-idl-convert">converting</span>
+   <var>result</var> to an ECMAScript value.</p></li>
+  </ol>
+
+  <p class="note">The <var>thisArgument</var> is ignored, and thus code such as <code
+  data-x="">Function.prototype.call.call(document.all, null, "x")</code> will still search for
+  elements. (<code data-x="">document.all.call</code> does not exist, since <code
+  data-x="">document.all</code> does not inherit from <code
+  data-x="">Function.prototype</code>.)</p>
+
+  </div>
+
+

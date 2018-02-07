@@ -2,7 +2,9 @@
 
   <pre class="idl">enum <dfn>ScrollRestoration</dfn> { "<span data-x="dom-ScrollRestoration-auto">auto</span>", "<span data-x="dom-ScrollRestoration-manual">manual</span>" };
 
+[Exposed=Window]
 interface <dfn>History</dfn> {
+  readonly attribute unsigned long <span data-x="dom-history-index">index</span>;
   readonly attribute unsigned long <span data-x="dom-history-length">length</span>;
   attribute <span>ScrollRestoration</span> <span data-x="dom-history-scroll-restoration">scrollRestoration</span>;
   readonly attribute any <span data-x="dom-history-state">state</span>;
@@ -15,7 +17,16 @@ interface <dfn>History</dfn> {
 
   <dl class="domintro">
 
-   <dt><var>window</var> . <code subdfn data-x="dom-history">history</code> . <code subdfn data-x="dom-history-length">length</code></dt>
+   <dt><var>window</var> . <code subdfn data-x="dom-history">history</code> . <code subdfn data-x="dom-history-index">index</code></dt>
+
+   <dd>
+
+    <p>Returns the index of the <span>current entry of the joint session history</span> within the
+    <span>joint session history</span>.</p>
+
+   </dd>
+
+   <dt><var>window</var> . <code data-x="dom-history">history</code> . <code subdfn data-x="dom-history-length">length</code></dt>
 
    <dd>
 
@@ -122,6 +133,13 @@ interface <dfn>History</dfn> {
 
   <div w-nodev>
 
+  <p>The <dfn><code data-x="dom-history-index">index</code></dfn> attribute of the
+  <code>History</code> interface, on getting, must return the index of the <span>current entry of
+  the joint session history</span> within the <span>top-level browsing context</span>'s <span>joint
+  session history</span>. If this <code>History</code> object is associated with a
+  <code>Document</code> that is not <span>fully active</span>, getting must instead throw a
+  <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p>
+
   <p>The <dfn><code data-x="dom-history-length">length</code></dfn> attribute of the
   <code>History</code> interface, on getting, must return the number of entries in the
   <span>top-level browsing context</span>'s <span>joint session history</span>. If this
@@ -204,7 +222,7 @@ interface <dfn>History</dfn> {
   <ol>
 
    <li><p>If the index of the <span>current entry of the joint session history</span> plus <var>delta</var> is less than zero or greater than or equal to the number of items in the
-   <span>joint session history</span>, then abort these steps.</p>
+   <span>joint session history</span>, then return.</p>
 
    <li><p>Let <var>specified entry</var> be the entry in the <span>joint session
    history</span> whose index is the sum of <var>delta</var> and the index of the
@@ -214,7 +232,7 @@ interface <dfn>History</dfn> {
    the <var>specified entry</var>.</p></li>
 
    <li><p>If the <var>specified browsing context</var>'s <span>active document</span>'s
-   <span>unload a document</span> algorithm is currently running, abort these steps.</p></li>
+   <span>unload a document</span> algorithm is currently running, return.</p></li>
 
    <li>
 
@@ -240,7 +258,7 @@ interface <dfn>History</dfn> {
 
        <li><p><span>Prompt to unload</span> the <span>active document</span> of the <var>specified
        browsing context</var>. If the user <span>refused to allow the document to be
-       unloaded</span>, then abort these steps.</p></li>
+       unloaded</span>, then return.</p></li>
 
        <li><p><span data-x="unload a document">Unload</span> the <span>active document</span> of the
        <var>specified browsing context</var> with the <var>recycle</var> parameter
@@ -280,7 +298,7 @@ interface <dfn>History</dfn> {
    <li><p>If <var>document</var> is not <span>fully active</span>, throw a
    <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
-   <li><p>Optionally, abort these steps. (For example, the user agent might disallow calls to these
+   <li><p>Optionally, return. (For example, the user agent might disallow calls to these
    methods that are invoked on a timer, or from event listeners that are not triggered in response
    to a clear user action, or that are invoked in rapid succession.)</p></li>
 
@@ -299,8 +317,7 @@ interface <dfn>History</dfn> {
      <li><span data-x="parse a url">Parse</span> the value of the third argument, relative to the
      <span>relevant settings object</span> of this <code>History</code> object.</li>
 
-     <li>If that fails, throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>
-     and abort these steps.</li>
+     <li>If that fails, throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</li>
 
      <li><p>Let <var>new URL</var> be the <span>resulting URL record</span>.</p></li>
 
@@ -309,15 +326,13 @@ interface <dfn>History</dfn> {
      record">URL records</span> differ other than the <span data-x="concept-url-path">path</span>,
      <span data-x="concept-url-query">query</span>, and <span
      data-x="concept-url-fragment">fragment</span> components, then throw a
-     <span>"<code>SecurityError</code>"</span> <code>DOMException</code> and abort these steps.</li>
+     <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</li>
 
      <li>If the <span data-x="concept-url-origin">origin</span> of <var>new URL</var> is not
      <span>same origin</span> with the <span>origin</span> of <var>document</var>, and either the
      <span data-x="concept-url-path">path</span> or <span data-x="concept-url-query">query</span>
      components of the two <span data-x="URL record">URL records</span> compared in the previous
-     step differ, throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code> and
-     abort these steps. (This prevents sandboxed content from spoofing other pages on the same
-     origin.)</li>
+     step differ, throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.(This prevents sandboxed content from spoofing other pages on the same origin.) </li>
 
     </ol>
 

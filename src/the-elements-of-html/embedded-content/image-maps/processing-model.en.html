@@ -10,7 +10,7 @@
    to a <code>map</code> element, with the element as the context node. This will return either an
    element (the <var>map</var>) or null.</p></li>
 
-   <li><p>If that returned null, then abort these steps. The image is not associated with an image
+   <li><p>If that returned null, then return. The image is not associated with an image
    map after all.</p></li>
 
    <li><p>Otherwise, the user agent must collect all the <code>area</code> elements that are
@@ -74,7 +74,7 @@
 
     <p>If the number of items in the <var>coords</var> list is less than the minimum number
     given for the <code>area</code> element's current state, as per the following table, then the
-    shape is empty; abort these steps.</p>
+    shape is empty; return.</p>
 
     <table>
      <thead>
@@ -127,7 +127,7 @@
 
    <li><p>If the <code data-x="attr-area-shape">shape</code> attribute represents the <span
    data-x="attr-area-shape-circle">circle state</span>, and the third number in the list is less than
-   or equal to zero, then the shape is empty; abort these steps.</p></li>
+   or equal to zero, then the shape is empty; return.</p></li>
 
    <li><p>Now, the shape represented by the element is the one described for the entry in the list
    below corresponding to the state of the <code data-x="attr-area-shape">shape</code> attribute:</p>

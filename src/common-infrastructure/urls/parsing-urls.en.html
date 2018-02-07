@@ -25,7 +25,7 @@
    <li><p>Let <var>urlRecord</var> be the result of applying the <span>URL parser</span> to
    <var>url</var>, with <var>baseURL</var> and <var>encoding</var>.</p></li>
 
-   <li><p>If <var>urlRecord</var> is failure, then abort these steps with an error.</p></li>
+   <li><p>If <var>urlRecord</var> is failure, then return failure.</p></li>
 
    <li><p>Let <var>urlString</var> be the result of applying the <span
    data-x="concept-url-serializer">URL serializer</span> to <var>urlRecord</var>.</p></li>

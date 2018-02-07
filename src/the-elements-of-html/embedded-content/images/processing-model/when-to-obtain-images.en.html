@@ -11,11 +11,11 @@
   whenever that element is created or has experienced <span>relevant mutations</span>.</p>
 
   <p>A user agent that obtains images on demand must <span>update the image data</span> of an
-  <code>img</code> element whenever it needs the image data (i.e. on demand),
-  but only if the <code>img</code> element is in the
-  <span data-x="img-none">unavailable</span> state. When an <code>img</code> element
-  has experienced <span>relevant mutations</span>, if the user
-  agent only obtains images on demand, the <code>img</code> element must return to the <span
-  data-x="img-none">unavailable</span> state.</p>
+  <code>img</code> element whenever it needs the image data (i.e., on demand), but only if the
+  <code>img</code> element's <span>current request</span>'s <span
+  data-x="img-req-state">state</span> is <span data-x="img-none">unavailable</span>. When an
+  <code>img</code> element has experienced <span>relevant mutations</span>, if the user agent only
+  obtains images on demand, the <code>img</code> element's <span>current request</span>'s <span
+  data-x="img-req-state">state</span> must return to <span data-x="img-none">unavailable</span>.</p>
 
 

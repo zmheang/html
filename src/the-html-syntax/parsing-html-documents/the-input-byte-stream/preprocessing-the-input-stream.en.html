@@ -15,9 +15,9 @@
   <span data-x="parse error">parse errors</span>.</p>
 
   <p class="note">The handling of U+0000 NULL characters varies based on where the characters are
-  found and happens at the later stages of the parsing. In general, they are ignored except where
-  doing so could plausibly introduce an attack vector. This handling is, by necessity, spread across
-  both the tokenization stage and the tree construction stage.</p>
+  found and happens at the later stages of the parsing. They are either ignored or, for security
+  reasons, replaced with a U+FFFD REPLACEMENT CHARACTER. This handling is, by necessity, spread
+  across both the tokenization stage and the tree construction stage.</p>
 
   <p>U+000D CARRIAGE RETURN (CR) characters and U+000A LINE FEED (LF) characters are treated
   specially. Any LF character that immediately follows a CR character must be ignored, and all CR

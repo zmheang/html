@@ -30,10 +30,9 @@
 
       <p>The <code data-x="">charset</code> parameter may be provided to specify the
       <span>document's character encoding</span>, overriding any <span data-x="character encoding
-      declaration">character encoding declarations</span> in the document other than a Byte Order Mark (BOM). The parameter's value
-      must be one of the <span data-x="encoding label">labels</span> of the <span
-      data-x="encoding">character encoding</span> used to serialize the file. <ref
-      spec=ENCODING></p>
+      declaration">character encoding declarations</span> in the document other than a Byte Order
+      Mark (BOM). The parameter's value must be an <span>ASCII case-insensitive</span> match for the
+      string "<code data-x="">utf-8</code>". <ref spec=ENCODING></p>
 
      </dd>
     </dl>
@@ -127,7 +126,6 @@
   <p><span data-x="concept-url-fragment">Fragments</span> used with <code>text/html</code> resources
   either refer to <span>the indicated part of the document</span> or provide state information for
   in-page scripts.</p>
-
 
 
 

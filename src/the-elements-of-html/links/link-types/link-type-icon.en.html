@@ -58,7 +58,7 @@
   <ul>
 
    <li><p>If the keyword doesn't contain exactly one U+0078 LATIN SMALL LETTER X or U+0058 LATIN
-   CAPITAL LETTER X character, then this keyword doesn't represent anything. Abort these steps for
+   CAPITAL LETTER X character, then this keyword doesn't represent anything. Return for
    that keyword.</p></li>
 
    <li><p>Let <var>width string</var> be the string before the "<code data-x="">x</code>" or
@@ -69,7 +69,7 @@
 
    <li><p>If either <var>width string</var> or <var>height string</var> start with
    a U+0030 DIGIT ZERO (0) character or contain any characters other than <span>ASCII digits</span>,
-   then this keyword doesn't represent anything. Abort these steps for that keyword.</p></li>
+   then this keyword doesn't represent anything. Return for that keyword.</p></li>
 
    <li><p>Apply the <span>rules for parsing non-negative integers</span> to <var>width
    string</var> to obtain <var>width</var>.</p></li>
@@ -100,11 +100,11 @@
    resolving the <span>URL</span> "<code data-x="">/favicon.ico</code>" against the
    <code>Document</code> object's <span data-x="concept-document-url">URL</span>, <span
    data-x="concept-request-client">client</span> is the <code>Document</code> object's
-   <span>relevant settings object</span>, <span data-x="concept-request-type">type</span> is "<code
-   data-x="">image</code>", <span data-x="concept-request-destination">destination</span> is "<code
-   data-x="">image</code>", <span>synchronous flag</span> is set, <span
-   data-x="concept-request-credentials-mode">credentials mode</span> is "<code
-   data-x="">include</code>", and whose <span>use-URL-credentials flag</span> is set.</p></li>
+   <span>relevant settings object</span>, <span
+   data-x="concept-request-destination">destination</span> is "<code data-x="">image</code>",
+   <span>synchronous flag</span> is set, <span data-x="concept-request-credentials-mode">credentials
+   mode</span> is "<code data-x="">include</code>", and whose <span>use-URL-credentials flag</span>
+   is set.</p></li>
 
    <!--FETCH--><li><p>Let <var>response</var> be the result of <span
    data-x="concept-fetch">fetching</span> <var>request</var>.</p></li>

@@ -1,6 +1,7 @@
   <h4>The <code>Storage</code> interface</h4>
 
-  <pre class="idl">interface <dfn>Storage</dfn> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>Storage</dfn> {
   readonly attribute unsigned long <span data-x="dom-Storage-length">length</span>;
   DOMString? <span data-x="dom-Storage-key">key</span>(unsigned long index);
   getter DOMString? <span data-x="dom-Storage-getItem">getItem</span>(DOMString key);
@@ -28,6 +29,53 @@
   and <code data-x="dom-localStorage">localStorage</code> attributes. Multiple separate objects
   implementing the <code>Storage</code> interface can all be associated with the same list of
   key/value pairs simultaneously.</p>
+
+  <dl class="domintro">
+
+   <dt><var>storage</var> . <code subdfn data-x="dom-Storage-length">length</code></dt>
+   <dd>
+    <p>Returns the number of key/value pairs currently present in the list associated with the
+    object.</p>
+   <dd>
+
+   <dt><var>storage</var> . <code subdfn data-x="dom-Storage-key">key</code> ( <var>n</var> )</dt>
+   <dd>
+    <p>Returns the name of the <var>n</var>th key in the list, or null if <var>n</var> is greater
+    than or equal to the number of key/value pairs in the object.</p>
+   <dd>
+
+   <dt><var>value</var> = <var>storage</var> . <code subdfn data-x="dom-Storage-getItem">getItem</code> ( <var>key</var> )</dt>
+   <dt><var>value</var> = <var>storage</var>[<var>key</var>]</dt>
+   <dd>
+    <p>Returns the current value associated with the given <var>key</var>, or null if the given
+    <var>key</var> does not exist in the list associated with the object.</p>
+   <dd>
+
+   <dt><var>storage</var> . <code subdfn data-x="dom-Storage-setItem">setItem</code> ( <var>key</var>, <var>value</var> )</dt>
+   <dt><var>storage</var>[<var>key</var>] = <var>value</var></dt>
+   <dd>
+    <p>Sets the value of the pair identified by <var>key</var> to <var>value</var>, creating a new
+    key/value pair if none existed for <var>key</var> previously.</p>
+
+    <p>Throws a <span>"<code>QuotaExceededError</code>"</span> <code>DOMException</code> exception
+    if the new value couldn't be set. (Setting could fail if, e.g., the user has disabled storage
+    for the site, or if the quota has been exceeded.)</p>
+
+   <dt><var>storage</var> . <code subdfn data-x="dom-Storage-removeItem">removeItem</code> ( <var>key</var> )</dt>
+   <dt><code>delete</code> <var>storage</var>[<var>key</var>]</dt>
+   <dd>
+    <p>Removes the key/value pair with the given <var>key</var> from the list associated with the
+    object, if a key/value pair with the given <var>key</var> exists.</p>
+   </dd>
+
+   <dt><var>storage</var> . <code subdfn data-x="dom-Storage-clear">clear</code>()</dt>
+   <dd>
+    <p>Empties the list associated with the object of all key/value pairs, if there are any.</p>
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
 
   <p>The <dfn><code data-x="dom-Storage-length">length</code></dfn> attribute must return the number
   of key/value pairs currently present in the list associated with the object.</p>
@@ -60,8 +108,7 @@
   the method must do nothing.</p>
 
   <p>If it couldn't set the new value, the method must throw a
-  <span>"<code>QuotaExceededError</code>"</span> <code>DOMException</code> exception. (Setting could
-  fail if, e.g., the user has disabled storage for the site, or if the quota has been exceeded.)</p>
+  <span>"<code>QuotaExceededError</code>"</span> <code>DOMException</code> exception.</p>
 
   <p>The <dfn><code data-x="dom-Storage-removeItem">removeItem(<var>key</var>)</code></dfn>
   method must cause the key/value pair with the given <var>key</var> to be removed from the
@@ -76,6 +123,8 @@
   <p>The <dfn><code data-x="dom-Storage-clear">clear()</code></dfn> method must atomically cause the
   list associated with the object to be emptied of all key/value pairs, if there are any. If there
   are none, then the method must do nothing.</p>
+
+  </div>
 
   <p class="note">When the <code data-x="dom-Storage-setItem">setItem()</code>, <code
   data-x="dom-Storage-removeItem">removeItem()</code>, and <code

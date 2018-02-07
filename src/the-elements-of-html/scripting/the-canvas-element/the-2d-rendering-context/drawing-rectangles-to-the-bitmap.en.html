@@ -26,7 +26,7 @@
 
    <dd>
 
-    <p>Clears all pixels on the bitmap in the given rectangle to transparent black.</p>
+    <p>Clears all pixels on the bitmap in the given rectangle to <span>transparent black</span>.</p>
 
    </dd>
 
@@ -56,12 +56,12 @@
 
   <ol>
 
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>Let <var>pixels</var> be the set of pixels in the specified rectangle that also
    intersect the current <span>clipping region</span>.</p></li>
 
-   <li><p>Clear the pixels in <var>pixels</var> to a fully transparent black, erasing any
+   <li><p>Clear the pixels in <var>pixels</var> to a <span>transparent black</span>, erasing any
    previous image.</p></li>
 
   </ol>
@@ -73,9 +73,9 @@
   <var>w</var>, <var>h</var>)</code></dfn> method, when invoked, must must run these steps:</p>
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
-   <li><p>If either <var>w</var> or <var>h</var> are zero, then abort these steps.</p></li>
+   <li><p>If either <var>w</var> or <var>h</var> are zero, then return.</p></li>
 
    <li><p>Paint the specified rectangular area using the <code
    data-x="dom-context-2d-fillStyle">fillStyle</code>.</p>
@@ -85,7 +85,7 @@
   <var>w</var>, <var>h</var>)</code></dfn> method, when invoked, must run these steps:</p>
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>Take the result of <span data-x="trace a path">tracing the path</span> described below,
    using the <code>CanvasPathDrawingStyles</code> interface's line styles, and fill it with the

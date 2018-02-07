@@ -1,6 +1,7 @@
   <h5>The <code>TrackEvent</code> interface</h5>
 
-  <pre class="idl">[Constructor(DOMString type, optional <span>TrackEventInit</span> eventInitDict)]
+  <pre class="idl">[Exposed=Window,
+ Constructor(DOMString type, optional <span>TrackEventInit</span> eventInitDict)]
 interface <dfn>TrackEvent</dfn> : <span>Event</span> {
   readonly attribute (<span>VideoTrack</span> or <span>AudioTrack</span> or <span>TextTrack</span>)? <span data-x="dom-TrackEvent-track">track</span>;
 };

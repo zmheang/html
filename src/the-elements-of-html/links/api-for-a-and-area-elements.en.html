@@ -1,7 +1,6 @@
   <h4>API for <code>a</code> and <code>area</code> elements</h4>
 
-  <pre class="idl">[NoInterfaceObject]
-interface <dfn>HTMLHyperlinkElementUtils</dfn> {
+  <pre class="idl">interface mixin <dfn>HTMLHyperlinkElementUtils</dfn> {
   [<span>CEReactions</span>] stringifier attribute USVString <span data-x="dom-hyperlink-href">href</span>;
   readonly attribute USVString <span data-x="dom-hyperlink-origin">origin</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-hyperlink-protocol">protocol</span>;

@@ -1,30 +1,31 @@
   <h6>The offscreen 2D rendering context</h6>
 
   <pre class="idl">[Exposed=(Window,Worker)]
-interface <span>OffscreenCanvasRenderingContext2D</span> {
+interface <dfn>OffscreenCanvasRenderingContext2D</dfn> {
   void <span data-x="offscreencontext2d-commit">commit</span>();
   readonly attribute <span>OffscreenCanvas</span> <span data-x="offscreencontext2d-canvas">canvas</span>;
 };
 
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasState</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasTransform</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasCompositing</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasImageSmoothing</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasFillStrokeStyles</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasShadowStyles</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasFilters</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasRect</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasDrawPath</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasDrawImage</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasImageData</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasPathDrawingStyles</span>;
-<span>OffscreenCanvasRenderingContext2D</span> implements <span>CanvasPath</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasState</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasTransform</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasCompositing</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasImageSmoothing</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasFillStrokeStyles</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasShadowStyles</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasFilters</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasRect</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasDrawPath</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasDrawImage</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasImageData</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasPathDrawingStyles</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasPath</span>;
 </pre>
 
-  <p>The <dfn><code>OffscreenCanvasRenderingContext2D</code></dfn> is a rendering context
-  interface for drawing to the <span data-x="offscreencanvas-bitmap">bitmap</span> of an
-  <code>OffscreenCanvas</code> object. It is similar to <code>CanvasRenderingContext2D</code>,
-  with the following differences:</p>
+  <p>The <code>OffscreenCanvasRenderingContext2D</code> object is a rendering context for drawing to
+  the <span data-x="offscreencanvas-bitmap">bitmap</span> of an <code>OffscreenCanvas</code> object.
+  It is similar to the <code>CanvasRenderingContext2D</code> object, with the following
+  differences:</p>
+
   <ul>
    <li><p><span data-x="CanvasText">text rendering</span> is not supported;</p></li>
    <!-- Text rendering may be added in the future -->
@@ -88,8 +89,8 @@ interface <span>OffscreenCanvasRenderingContext2D</span> {
    argument. Otherwise, let <var>arg</var> be undefined.</p></li>
 
    <li><p>Let <var>settings</var> be the result of <span
-   data-x="coerce context arguments for 2D">coercing the <var>arg</var> context arguments
-   for 2D</span>.</p></li>
+   data-x="concept-idl-convert">converting</span> <var>options</var> to the dictionary type
+   <code>CanvasRenderingContext2DSettings</code>. (This can throw an exception.).</p></li>
 
    <li><p>Let <var>context</var> be a new <code>OffscreenCanvasRenderingContext2D</code>
    object.</p></li>
@@ -113,8 +114,8 @@ interface <span>OffscreenCanvasRenderingContext2D</span> {
 
    <li><p>If <var>context</var>'s <span data-x="offscreencontext2d-alpha">alpha</span> flag is set
    to true, initialize all the pixels of <var>context</var>'s <span
-   data-x="offscreencontext2d-bitmap">bitmap</span> to transparent black. Otherwise, initialize
-   the pixels to opaque black.</p></li>
+   data-x="offscreencontext2d-bitmap">bitmap</span> to <span>transparent black</span>. Otherwise,
+   initialize the pixels to <span>opaque black</span>.</p></li>
 
    <li><p>Return <var>context</var>.</p></li>
 
@@ -126,8 +127,8 @@ interface <span>OffscreenCanvasRenderingContext2D</span> {
   <ol>
     <li><p>If this <code>OffscreenCanvasRenderingContext2D</code>'s <span>associated
     <code>OffscreenCanvas</code> object</span> does not have a <span
-    data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>, abort
-    these steps.</p></li>
+    data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>, then
+    return.</p></li>
 
     <li><p>Let <var>image</var> be a copy of this <code>OffscreenCanvasRenderingContext2D</code>'s
     <span data-x="offscreencontext2d-bitmap">bitmap</span>, including the value of its <span

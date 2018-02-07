@@ -4,7 +4,7 @@
 
   <p>The <code data-x="attr-input-type">type</code>, <code
   data-x="attr-fe-autocomplete">autocomplete</code>, and <code
-  data-x="attr-fe-inputmode">inputmode</code> attributes can seem confusingly similar. For instance,
+  data-x="attr-inputmode">inputmode</code> attributes can seem confusingly similar. For instance,
   in all three cases, the string "<code data-x="">email</code>" is a valid value. This section
   attempts to illustrate the difference between the three attributes and provides advice suggesting
   how to use them.</p>
@@ -50,20 +50,13 @@
   data-x="select">&lt;select></code>), radio buttons (<code data-x="attr-input-type-radio">&lt;input
   type=radio></code>), etc. It only depends on what kind of interface is desired.</p>
 
-  <p>The <code data-x="attr-fe-inputmode">inputmode</code> decides what kind of input modality (e.g.
-  keyboard) to use, when the control is a text control.</p>
+  <p>Finally, consider names. If a page just wants one name from the user, then the relevant control
+  is <code data-x="attr-input-type-text">&lt;input type=text></code>. If the page is asking for the
+  user's full name, then the relevant <code data-x="attr-fe-autocomplete">autocomplete</code> value
+  is <code data-x="attr-fe-autocomplete-name">name</code>.
 
-  <p>Consider names. If a page just wants one name from the user, then the relevant control is <code
-  data-x="attr-input-type-text">&lt;input type=text></code>. If the page is asking for the user's
-  full name, then the relevant <code data-x="attr-fe-autocomplete">autocomplete</code> value is <code
-  data-x="attr-fe-autocomplete-name">name</code>. But if the user is Japanese, and the page is asking
-  for the user's Japanese name and the user's romanized name, then it would be helpful to the user
-  if the first field defaulted to a Japanese input modality, while the second defaulted to a Latin
-  input modality (ideally with automatic capitalization of each word). This is where the <code
-  data-x="attr-fe-inputmode">inputmode</code> attribute can help:</p>
-
-  <pre>&lt;p>&lt;label>Japanese name: &lt;input name="j" type="text" autocomplete="section-jp name" inputmode="kana">&lt;/label>
-&lt;label>Romanized name: &lt;input name="e" type="text" autocomplete="section-en name" inputmode="latin-name">&lt;/label></pre>
+  <pre>&lt;p>&lt;label>Japanese name: &lt;input name="j" type="text" autocomplete="section-jp name">&lt;/label>
+&lt;label>Romanized name: &lt;input name="e" type="text" autocomplete="section-en name">&lt;/label></pre>
 
   <p>In this example, the "<code data-x="attr-fe-autocomplete-section">section-*</code>" keywords in
   the <code data-x="attr-fe-autocomplete">autocomplete</code> attributes' values tell the user agent
@@ -74,5 +67,22 @@
   <p class="note">The "<code data-x="">-jp</code>" and "<code data-x="">-en</code>" parts of the
   keywords are opaque to the user agent; the user agent cannot guess, from those, that the two names
   are expected to be in Japanese and English respectively.</p>
+
+  <p>Separate from the choices regarding <code data-x="attr-input-type">type</code> and <code
+  data-x="attr-fe-autocomplete">autocomplete</code>, the <code
+  data-x="attr-inputmode">inputmode</code> attribute decides what kind of input modality (e.g.,
+  virtual keyboard) to use, when the control is a text control.</p>
+
+  <p>Consider credit card numbers. The appropriate input type is <em>not</em> <code
+  data-x="attr-input-type-number">&lt;input type=number></code>, <a
+  href="#when-number-is-not-appropriate">as explained below</a>; it is instead <code
+  data-x="attr-input-type-text">&lt;input type=text></code>. To encourage the user agent to use a
+  numeric input modality anyway (e.g., a virtual keyboard displaying only digits), the page would
+  use</p>
+
+  <pre>&lt;p>&lt;label>Credit card number:
+                &lt;input name="cc" type="text" inputmode="numeric" pattern="[0-9]{8,19}" autocomplete="cc-number">
+&lt;/label>&lt;/p></pre>
+
 
 

@@ -136,9 +136,10 @@ translate="no">HTML&lt;/span> markup.&lt;/p></pre>
   data-x="dom-dataset">dataset</code> attribute. Each <code>DOMStringMap</code> has an <dfn
   data-x="concept-DOMStringMap-element">associated element</dfn>.</p>
 
-  <pre class="idl">[OverrideBuiltins]
+  <pre class="idl">[Exposed=Window,
+ OverrideBuiltins]
 interface <dfn>DOMStringMap</dfn> {
-  <a href="#dom-domstringmap-namedItem">getter</a> DOMString (DOMString name);
+  <a href="#dom-domstringmap-nameditem">getter</a> DOMString (DOMString name);
   [<span>CEReactions</span>] <a href="#dom-domstringmap-setitem">setter</a> void (DOMString name, DOMString value);
   [<span>CEReactions</span>] <a href="#dom-domstringmap-removeitem">deleter</a> void (DOMString name);
 };</pre>
@@ -185,7 +186,7 @@ interface <dfn>DOMStringMap</dfn> {
   <ol>
    <li><p>If <var>name</var> contains a U+002D HYPHEN-MINUS character (-) followed by an <span>ASCII
    lower alpha</span>, then throw a <span>"<code>SyntaxError</code>"</span>
-   <code>DOMException</code> and abort these steps.</p></li>
+   <code>DOMException</code>.</p></li>
 
    <li><p>For each <span>ASCII upper alpha</span> in <var>name</var>, insert a U+002D HYPHEN-MINUS
    character (-) before the character and replace the character with the same character
@@ -194,8 +195,7 @@ interface <dfn>DOMStringMap</dfn> {
    <li><p>Insert the string <code data-x="">data-</code> at the front of <var>name</var>.</p></li>
 
    <li><p>If <var>name</var> does not match the XML <code data-x="xml-Name">Name</code> production,
-   throw an <span>"<code>InvalidCharacterError</code>"</span> <code>DOMException</code> and abort
-   these steps.</p></li>
+   throw an <span>"<code>InvalidCharacterError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p><span data-x="concept-element-attributes-set-value">Set an attribute value</span> for the
    <code>DOMStringMap</code>'s <span data-x="concept-DOMStringMap-element">associated element</span>
@@ -209,7 +209,7 @@ interface <dfn>DOMStringMap</dfn> {
 <!--(can't happen while the DOMStringMap deleter has no name)
    <li><p>If <var>name</var> contains a U+002D HYPHEN-MINUS character (-) followed by an <span>ASCII
    lower alpha</span>, then throw a <span>"<code>SyntaxError</code>"</span>
-   <code>DOMException</code> and abort these steps.</p></li>
+   <code>DOMException</code>.</p></li>
 -->
 
    <li><p>For each <span>ASCII upper alpha</span> in <var>name</var>, insert a U+002D HYPHEN-MINUS

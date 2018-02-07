@@ -3,7 +3,7 @@
   <p>Each channel has two message ports. Data sent through one port is received by the other port,
   and vice versa.</p>
 
-  <pre class="idl">[Exposed=(Window,Worker), <span>Transferable</span>]
+  <pre class="idl">[Exposed=(Window,Worker,AudioWorklet), <span>Transferable</span>]
 interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
   void <span data-x="dom-MessagePort-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
   void <span data-x="dom-MessagePort-start">start</span>();
@@ -191,8 +191,7 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
    entangled, if any; otherwise let it be null.</p></li>
 
    <li><p>If any of the objects in <var>transfer</var> are this <code>MessagePort</code>, then throw
-   a <span>"<code>DataCloneError</code>"</span> <code>DOMException</code> and abort these
-   steps.</p></li>
+   a <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>doomed</var> be false.</p></li>
 
@@ -206,7 +205,7 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
    any exceptions.</p></li>
 
    <li><p>If there is no <var>targetPort</var> (i.e. if this <code>MessagePort</code> is not
-   entangled), or if <var>doomed</var> is true, then abort these steps.</p></li>
+   entangled), or if <var>doomed</var> is true, then return.</p></li>
    <!-- we don't throw an exception if there is no target port because this can happen at a moment's
    notice. we don't return false because if the port is _about_ to be closed, the message might not
    be listened for anyway. we don't do this before the steps above because otherwise you can tell
@@ -237,7 +236,7 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
 
       <p>If this throws an exception, catch it, <span data-x="concept-event-fire">fire an
       event</span> named <code data-x="event-messageerror">messageerror</code> at
-      <var>finalTargetPort</var>, using <code>MessageEvent</code>, and then abort these steps.
+      <var>finalTargetPort</var>, using <code>MessageEvent</code>, and then return.
      </li>
 
      <li><p>Let <var>messageClone</var> be <var>deserializeRecord</var>.[[Deserialized]].</p></li>
@@ -271,9 +270,9 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
   <hr>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
-  handler event type">event handler event types</span>) that must be supported, as <span>event
-  handler IDL attributes</span>, by all objects implementing the <code>MessagePort</code>
-  interface:</p>
+  handler event type">event handler event types</span>) <span w-nodev>that must be</span> supported,
+  as <span>event handler IDL attributes</span>, by all objects implementing the
+  <code>MessagePort</code> interface:</p>
 
   <table>
    <thead>

@@ -15,7 +15,8 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
-    <pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLTableSectionElement</dfn> : <span>HTMLElement</span> {
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-tbody-rows">rows</span>;
   <span>HTMLElement</span> <span data-x="dom-tbody-insertRow">insertRow</span>(optional long index = -1);

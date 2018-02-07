@@ -24,16 +24,17 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-canvas-width">width</code></dd>
    <dd><code data-x="attr-canvas-height">height</code></dd>
-   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt><!--ADD-TOPIC:DOM APIs-->
+   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">typedef (<span>CanvasRenderingContext2D</span> or <span>WebGLRenderingContext</span>) <dfn>RenderingContext</dfn>;
+    <pre class="idl">typedef (<span>CanvasRenderingContext2D</span> or <span>ImageBitmapRenderingContext</span> or <span>WebGLRenderingContext</span>) <dfn>RenderingContext</dfn>;
 
-[<span>HTMLConstructor</span>]
+[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLCanvasElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-canvas-width">width</span>;
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-canvas-height">height</span>;
 
-  <span>RenderingContext</span>? <span data-x="dom-canvas-getContext">getContext</span>(DOMString contextId, any... arguments);
+  <span>RenderingContext</span>? <span data-x="dom-canvas-getContext">getContext</span>(DOMString contextId, optional any options = null);
 
   USVString <span data-x="dom-canvas-toDataURL">toDataURL</span>(optional DOMString type, optional any quality);
   void <span data-x="dom-canvas-toBlob">toBlob</span>(<span>BlobCallback</span> _callback, optional DOMString type, optional any quality);
@@ -43,7 +44,7 @@ interface <dfn>HTMLCanvasElement</dfn> : <span>HTMLElement</span> {
 callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
    </dd>
    <dd w-nohtml>Uses <code>HTMLCanvasElement</code>.</dd>
-  </dl><!--REMOVE-TOPIC:DOM APIs-->
+  </dl>
 
   <p>The <code>canvas</code> element provides scripts with a resolution-dependent bitmap canvas,
   which can be used for rendering graphs, game graphics, art, or other visual images on the fly.</p>
@@ -52,7 +53,7 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
   element is available. For example, it is inappropriate to use a <code>canvas</code> element to
   render a page heading: if the desired presentation of the heading is graphically intense, it
   should be marked up using appropriate elements (typically <code>h1</code>) and then styled using
-  CSS and supporting technologies such as Web Components.</p>
+  CSS and supporting technologies such as <span data-x="shadow tree">shadow trees</span>.</p>
 
   <p>When authors use the <code>canvas</code> element, they must also provide content that, when
   presented to the user, conveys essentially the same function or purpose as the
@@ -104,6 +105,13 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
   attribute defaults to 300, and the <code data-x="attr-canvas-height">height</code> attribute
   defaults to 150.</p>
 
+  <p>When setting the value of the <code data-x="attr-canvas-width">width</code> or <code
+  data-x="attr-canvas-height">height</code> attribute, if the <span
+  data-x="concept-canvas-context-mode">context mode</span> of the <code>canvas</code>
+  element is set to <span data-x="concept-canvas-placeholder">placeholder</span>, the
+  user agent must throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>
+  and leave the attribute's value unchanged.</p>
+
   <p>The <span>intrinsic dimensions</span> of the <code>canvas</code> element when it
   <span>represents</span> <span>embedded content</span> are equal to the dimensions of the
   element's bitmap.</p>
@@ -138,9 +146,9 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
 
   <p>When its <span data-x="concept-canvas-context-mode">canvas context mode</span> is <span
   data-x="concept-canvas-none">none</span>, a <code>canvas</code> element has no rendering context,
-  and its bitmap must be fully transparent black with an <span>intrinsic width</span> equal to the
-  numeric value of the element's <code data-x="attr-canvas-width">width</code> attribute and an
-  <span>intrinsic height</span> equal to the numeric value of the element's <code
+  and its bitmap must be <span>transparent black</span> with an <span>intrinsic width</span> equal
+  to the numeric value of the element's <code data-x="attr-canvas-width">width</code> attribute and
+  an <span>intrinsic height</span> equal to the numeric value of the element's <code
   data-x="attr-canvas-height">height</code> attribute, those values being interpreted in <span
   data-x="'px'">CSS pixels</span>, and being updated as the attributes are set, changed, or
   removed.</p>
@@ -214,131 +222,128 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
 
   <hr>
 
-  <!--ADD-TOPIC:DOM APIs-->
   <dl class="domintro">
-
-   <dt><var>context</var> = <var>canvas</var> . <code subdfn data-x="dom-canvas-getContext">getContext</code>(<var>contextId</var> [, ... ] )</dt>
-
+   <dt><var>context</var> = <var>canvas</var> . <code subdfn data-x="dom-canvas-getContext">getContext</code>(<var>contextId</var> [, <var>options</var> ] )</dt>
    <dd>
-
-    <p>Returns an object that exposes an API for drawing on the canvas. The first argument
-    specifies the desired API, either "<code data-x="canvas-context-2d">2d</code>", "<code
-    data-x="canvas-context-bitmaprenderer">bitmaprenderer</code>" or "<code
-    data-x="canvas-context-webgl">webgl</code>". Subsequent arguments are handled by that API.</p>
+    <p>Returns an object that exposes an API for drawing on the canvas. <var>contextId</var>
+    specifies the desired API: "<code data-x="canvas-context-2d">2d</code>", "<code
+    data-x="canvas-context-bitmaprenderer">bitmaprenderer</code>", or "<code
+    data-x="canvas-context-webgl">webgl</code>". <var>options</var> is handled by that API.</p>
 
     <p>This specification defines the "<code data-x="canvas-context-2d">2d</code>" and "<code
     data-x="canvas-context-bitmaprenderer">bitmaprenderer</code>" contexts below. There is also a
-    specification that defines a "<code data-x="canvas-context-webgl">webgl</code>" context.
-    <ref spec=WEBGL></p>
+    specification that defines a "<code data-x="canvas-context-webgl">webgl</code>" context. <ref
+    spec=WEBGL></p>
 
-    <p>Returns null if the given context ID is not supported, or if the canvas has already been
-    initialized with another context type (e.g. trying to get a "<code
+    <p>Returns null if <var>contextId</var> is not supported, or if the canvas has already been
+    initialized with another context type (e.g., trying to get a "<code
     data-x="canvas-context-2d">2d</code>" context after getting a "<code
     data-x="canvas-context-webgl">webgl</code>" context).</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
   <p>The <dfn><code data-x="dom-canvas-getContext">getContext(<var>contextId</var>,
-  <var>arguments...</var>)</code></dfn> method of the <code>canvas</code> element, when invoked,
-  must run the steps in the cell of the following table whose column header describes the
-  <code>canvas</code> element's <span data-x="concept-canvas-context-mode">canvas context
-  mode</span> and whose row header describes the method's first argument.</p>
+  <var>options</var>)</code></dfn> method of the <code>canvas</code> element, when invoked, must run
+  these steps:
 
-  <table>
-   <thead>
-    <tr>
-     <td>
-     <th><span data-x="concept-canvas-none">none</span>
-     <th><span data-x="concept-canvas-2d">2d</span>
-     <th><span data-x="concept-canvas-bitmaprenderer">bitmaprenderer</span>
-     <th><span data-x="concept-canvas-webgl">webgl</span>
-     <th><span data-x="concept-canvas-placeholder">placeholder</span>
-   <tbody>
-    <tr>
-     <th>"<dfn><code data-x="canvas-context-2d">2d</code></dfn>"
-     <td>
+  <ol>
+   <li><p>If <var>options</var> is not an <span data-x="idl-object">object</span>, then set
+   <var>options</var> to null.</p></li>
 
-      Follow the <span>2D context creation algorithm</span> defined in the section below, passing
-      it the <code>canvas</code> element and the method's <var>arguments...</var>, to obtain a
-      <code>CanvasRenderingContext2D</code> object; if this does not throw an exception, then
-      set the <code>canvas</code> element's <span data-x="concept-canvas-context-mode">context
-      mode</span> to <span data-x="concept-canvas-2d">2d</span>, and return the
-      <code>CanvasRenderingContext2D</code> object.
+   <li><p>Set <var>options</var> to the result of <span
+   data-x="concept-idl-convert">converting</span> <var>options</var> to a JavaScript value.</p></li>
 
-     <td>
-      Return the same object as was returned the last time the method was invoked with this same
-      first argument.
-     <td>
-      Return null.
-     <td>
-      Return null.
-     <td>
-      Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
+   <li>
+    <p>Run the steps in the cell of the following table whose column header matches this
+    <code>canvas</code> element's <span data-x="concept-canvas-context-mode">canvas context
+    mode</span> and whose row header matches <var>contextId</var>:</p>
 
-    <tr>
-     <th>"<dfn><code data-x="canvas-context-bitmaprenderer">bitmaprenderer</code></dfn>"
-     <td>
+    <table>
+     <thead>
+      <tr>
+       <td>
+       <th><span data-x="concept-canvas-none">none</span>
+       <th><span data-x="concept-canvas-2d">2d</span>
+       <th><span data-x="concept-canvas-bitmaprenderer">bitmaprenderer</span>
+       <th><span data-x="concept-canvas-webgl">webgl</span>
+       <th><span data-x="concept-canvas-placeholder">placeholder</span>
+     <tbody>
+      <tr>
+       <th>"<dfn><code data-x="canvas-context-2d">2d</code></dfn>"
+       <td>
+        Follow the <span>2D context creation algorithm</span> defined in the section below, passing
+        it this <code>canvas</code> element and <var>options</var>, to obtain a
+        <code>CanvasRenderingContext2D</code> object; if this does not throw an exception, then set
+        this <code>canvas</code> element's <span data-x="concept-canvas-context-mode">context
+        mode</span> to <span data-x="concept-canvas-2d">2d</span>, and return the
+        <code>CanvasRenderingContext2D</code> object.
+       <td>
+        Return the same object as was returned the last time the method was invoked with this same
+        first argument.
+       <td>
+        Return null.
+       <td>
+        Return null.
+       <td>
+        Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
+      <tr>
+       <th>"<dfn><code data-x="canvas-context-bitmaprenderer">bitmaprenderer</code></dfn>"
+       <td>
+        Follow the <span><code>ImageBitmapRenderingContext</code> creation algorithm</span> defined
+        in the section below, passing it this <code>canvas</code> element and <var>options</var>, to
+        obtain an <code>ImageBitmapRenderingContext</code> object; then set this <code>canvas</code>
+        element's <span data-x="concept-canvas-context-mode">context mode</span> to <span
+        data-x="concept-canvas-bitmaprenderer">bitmaprenderer</span>, and return the
+        <code>ImageBitmapRenderingContext</code> object.
+       <td>
+        Return null.
+       <td>
+        Return the same object as was returned the last time the method was invoked with this same
+        first argument.
+       <td>
+        Return null.
+       <td>
+        Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
+      <tr>
+       <th>"<dfn><code data-x="canvas-context-webgl">webgl</code></dfn>", if the user agent supports
+       the WebGL feature in its current configuration
+       <td>
+        Follow the instructions given in the WebGL specification's <i>Context Creation</i> section
+        to obtain either a <code>WebGLRenderingContext</code> or null; if the returned value is
+        null, then return null; otherwise, set this <code>canvas</code> element's <span
+        data-x="concept-canvas-context-mode">context mode</span> to <span
+        data-x="concept-canvas-webgl">webgl</span>, and return the
+        <code>WebGLRenderingContext</code> object. <ref spec=WEBGL>
+       <td>
+        Return null.
+       <td>
+        Return null.
+       <td>
+        Return the same object as was returned the last time the method was invoked with this same
+        first argument.
+       <td>
+        Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
+      <tr>
+       <th>An unsupported value*
+       <td>
+        Return null.
+       <td>
+        Return null.
+       <td>
+        Return null.
+       <td>
+        Return null.
+       <td>
+        Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
+    </table>
 
-      Follow the <span><code>ImageBitmapRenderingContext</code> creation algorithm</span> defined
-      in the section below, passing it the <code>canvas</code> element and the method's
-      <var>arguments...</var>, to obtain an <code>ImageBitmapRenderingContext</code> object; then
-      set the <code>canvas</code> element's <span data-x="concept-canvas-context-mode">context
-      mode</span> to <span data-x="concept-canvas-bitmaprenderer">bitmaprenderer</span>, and return the
-      <code>ImageBitmapRenderingContext</code> object.
-
-     <td>
-      Return null.
-     <td>
-      Return the same object as was returned the last time the method was invoked with this same
-      first argument.
-     <td>
-      Return null.
-     <td>
-      Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
-
-    <tr>
-     <th>"<dfn><code data-x="canvas-context-webgl">webgl</code></dfn>", if the user agent supports the WebGL feature in its current configuration
-     <td>
-
-      Follow the instructions given in the WebGL specification's <i>Context Creation</i> section to
-      obtain either a <code>WebGLRenderingContext</code> or null; if the returned value is null,
-      then return null and abort these steps, otherwise, set the <code>canvas</code> element's
-      <span data-x="concept-canvas-context-mode">context mode</span> to <span
-      data-x="concept-canvas-webgl">webgl</span>, and return the <code>WebGLRenderingContext</code>
-      object <ref spec=WEBGL>
-
-     <td>
-      Return null.
-     <td>
-      Return null.
-     <td>
-      Return the same object as was returned the last time the method was invoked with this same
-      first argument.
-     <td>
-      Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
-
-    <tr>
-     <th>An unsupported value*
-     <td>
-      Return null.
-     <td>
-      Return null.
-     <td>
-      Return null.
-     <td>
-      Return null.
-     <td>
-      Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
-
-  </table>
-
-  <p class="tablenote"><small>* For example, the "<code data-x="canvas-context-webgl">webgl</code>"
-  value in the case of a user agent having exhausted the graphics hardware's abilities and having no
-  software fallback implementation.</small></p>
+    <p class="tablenote"><small>* For example, the "<code
+    data-x="canvas-context-webgl">webgl</code>" value in the case of a user agent having exhausted
+    the graphics hardware's abilities and having no software fallback implementation.</small></p>
+   </li>
+  </ol>
 
   <hr>
 
@@ -408,12 +413,12 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
 <!--ADD-TOPIC:Security-->
    <li><p>If this <code>canvas</code> element's bitmap's <span
    data-x="concept-canvas-origin-clean">origin-clean</span> flag is set to false, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code> and abort these steps.</p>
+   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p>
 <!--REMOVE-TOPIC:Security-->
 
    <li><p>If this <code>canvas</code> element's bitmap has no pixels (i.e. either its horizontal
    dimension or its vertical dimension is zero) then return the string "<code
-   data-x="">data:,</code>" and abort these steps. (This is the shortest <span data-x="data
+   data-x="">data:,</code>". (This is the shortest <span data-x="data
    protocol"><code>data:</code> URL</span>; it represents the empty string in a <code
    data-x="">text/plain</code> resource.)</p></li>
 
@@ -435,31 +440,43 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
   <var>quality</var>)</code></dfn> method, when invoked, must run these steps:</p>
 
   <ol>
-
-<!--ADD-TOPIC:Security-->
    <li><p>If this <code>canvas</code> element's bitmap's <span
    data-x="concept-canvas-origin-clean">origin-clean</span> flag is set to false, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code> and abort these steps.</p>
-<!--REMOVE-TOPIC:Security-->
+   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>Let <var>result</var> be null.</p></li>
+
+   <li><p>If this <code>canvas</code> element's bitmap has pixels (i.e., neither its horizontal
+   dimension nor its vertical dimension is zero), then set <var>result</var> to a copy of this
+   <code>canvas</code> element's bitmap.
 
    <li>
-    <p>If this <code>canvas</code> element's bitmap has no pixels (i.e. either its horizontal
-    dimension or its vertical dimension is zero) then let <var>result</var> be null.</p>
+    <p>Run these steps <span>in parallel</span>:</p>
 
-    <p>Otherwise, let <var>result</var> be a <code>Blob</code> object representing <span data-x="a
-    serialization of the bitmap as a file">a serialization of this <code>canvas</code> element's
-    bitmap as a file</span>, passing <var>type</var> and <var>quality</var> if they were given. <ref
-    spec=FILEAPI></p>
+    <ol>
+     <li><p>If <var>result</var> is non-null, then set <var>result</var> to <span data-x="a
+     serialization of the bitmap as a file">a serialization of <var>result</var> as a file</span>,
+     with <var>type</var> and <var>quality</var> if they were given.</p></li>
+
+     <li>
+      <p><span>Queue a task</span> to run these steps:</p>
+
+      <ol>
+       <li><p>If <var>result</var> is non-null, then set <var>result</var> to a new
+       <code>Blob</code> object, created in the <span data-x="concept-relevant-realm">relevant
+       Realm</span> of this <code>canvas</code> element, representing <var>result</var>. <ref
+       spec=FILEAPI></p></li>
+
+       <li><p><span data-x="es-invoking-callback-functions">Invoke</span> <var>callback</var> with
+       « <var>result</var> ».</p></li>
+      </ol>
+
+      <p>The <span>task source</span> for this task is the
+      <!--en-GB--><dfn id="canvas-blob-serialisation-task-source">canvas blob serialization task
+      source</dfn>.</p>
+     </li>
+    </ol>
    </li>
-
-   <li><p>Return, but continue running these steps <span>in parallel</span>.</p></li>
-
-   <li><p><span>Queue a task</span> to <span data-x="es-invoking-callback-functions">invoke</span>
-   the <code>BlobCallback</code> <var>callback</var> with <var>result</var> as its argument. The
-   <span>task source</span> for this task is the
-   <!--en-GB--><dfn id="canvas-blob-serialisation-task-source">canvas blob serialization task
-   source</dfn>.</p></li>
-
   </ol>
 
   <p>The <dfn><code
@@ -469,8 +486,7 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
   <ol>
    <li><p>If this <code>canvas</code> element's <span data-x="concept-canvas-context-mode">context
    mode</span> is not set to <span data-x="concept-canvas-none">none</span>, throw an
-   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> and abort these
-   steps.</p></li>
+   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>offscreenCanvas</var> be a new <code>OffscreenCanvas</code> object with its
    width and height equal to the values of the <code data-x="attr-canvas-width">width</code>

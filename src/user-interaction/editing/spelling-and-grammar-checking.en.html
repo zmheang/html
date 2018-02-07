@@ -66,17 +66,6 @@
 
    </dd>
 
-
-   <dt><var>element</var> . <code subdfn data-x="dom-forceSpellCheck">forceSpellCheck</code>()</dt>
-
-   <dd>
-
-    <p>Forces the user agent to report spelling and grammar errors on the element (if checking is
-    enabled), even if the user has never focused the element. (If the method is not invoked, user
-    agents can hide errors in text that wasn't just entered by the user.)</p>
-
-   </dd>
-
   </dl>
 
   <div w-nodev>
@@ -192,15 +181,6 @@
   <p>If checking is disabled, the user agent should not indicate spelling or grammar errors for that
   text.</p>
 
-  <p>Even when checking is enabled, user agents may opt to not report spelling or grammar errors in
-  text that the user agent deems the user has no interest in having checked (e.g. text that was
-  already present when the page was loaded, or that the user did not type, or text in controls that
-  the user has not focused, or in parts of e-mail addresses that the user agent is not confident
-  were misspelt). The <dfn><code data-x="dom-forceSpellCheck">forceSpellCheck()</code></dfn> method,
-  when invoked on an element, must override this behavior, forcing the user agent to consider all
-  spelling and grammar errors in text in that element for which checking is enabled to be of
-  interest to the user.</p>
-
   <div class="example">
 
    <p>The element with ID "a" in the following example would be the one used to determine if the
@@ -225,5 +205,4 @@
   <p class="note">This specification does not define the user interface for spelling and grammar
   checkers. A user agent could offer on-demand checking, could perform continuous checking while the
   checking is enabled, or could use other interfaces.</p>
-
 

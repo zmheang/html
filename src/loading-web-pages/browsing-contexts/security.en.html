@@ -27,16 +27,16 @@
   <hr>
 
   <p>A <span>browsing context</span> <var>A</var> is <dfn>allowed to navigate</dfn> a
-  second <span>browsing context</span> <var>B</var> if the following algorithm terminates
-  positively:</p>
+  second <span>browsing context</span> <var>B</var> if the following algorithm returns true:</p>
 
   <ol>
 
-   <li><p>If <var>A</var> is not the same <span>browsing context</span> as <var>B</var>, and <var>A</var> is not one of the <span data-x="ancestor browsing
-   context">ancestor browsing contexts</span> of <var>B</var>, and <var>B</var>
-   is not a <span>top-level browsing context</span>, and <var>A</var>'s <span>active
-   document</span>'s <span>active sandboxing flag set</span> has its <span>sandboxed navigation
-   browsing context flag</span> set, then abort these steps negatively.</p></li>
+   <li><p>If <var>A</var> is not the same <span>browsing context</span> as <var>B</var>, and
+   <var>A</var> is not one of the <span data-x="ancestor browsing context">ancestor browsing
+   contexts</span> of <var>B</var>, and <var>B</var> is not a <span>top-level browsing
+   context</span>, and <var>A</var>'s <span>active document</span>'s <span>active sandboxing flag
+   set</span> has its <span>sandboxed navigation browsing context flag</span> set, then return
+   false.</p></li>
 
    <li>
     <p>Otherwise, if <var>B</var> is a <span>top-level browsing context</span>, and is one of the
@@ -46,13 +46,13 @@
     <ol>
      <li><p>If this algorithm is <span>triggered by user activation</span> and <var>A</var>'s
      <span>active document</span>'s <span>active sandboxing flag set</span> has its <span>sandboxed
-     top-level navigation with user activation browsing context flag</span> set, then abort these
-     steps negatively.</p></li>
+     top-level navigation with user activation browsing context flag</span> set, then return
+     false.</p></li>
 
-     <li><p>Otherwise, If this algorithm is not <span>triggered by user activation</span> and
+     <li><p>Otherwise, if this algorithm is not <span>triggered by user activation</span> and
      <var>A</var>'s <span>active document</span>'s <span>active sandboxing flag set</span> has its
      <span>sandboxed top-level navigation without user activation browsing context flag</span> set,
-     then abort these steps negatively.</p></li>
+     then return false.</p></li>
     </ol>
    </li>
 
@@ -61,11 +61,11 @@
    browsing contexts</span> of <var>A</var>, and <var>A</var>'s
    <code>Document</code>'s <span>active sandboxing flag set</span> has its <span>sandboxed
    navigation browsing context flag</span> set, and <var>A</var> is not the <span>one
-   permitted sandboxed navigator</span> of <var>B</var>, then abort these steps
-   negatively.</p></li> <!-- we do not check the /sandboxed auxiliary navigation browsing context
-   flag/ here, that's only for actually opening the new top-level browsing context. -->
+   permitted sandboxed navigator</span> of <var>B</var>, then return false.</p></li> <!-- We do not
+   check the /sandboxed auxiliary navigation browsing context flag/ here; that's only for actually
+   opening the new top-level browsing context. -->
 
-   <li><p>Otherwise, terminate positively!</p></li>
+   <li><p>Return true.</p></li>
 
   </ol>
 

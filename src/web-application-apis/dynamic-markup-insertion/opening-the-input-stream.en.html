@@ -136,13 +136,18 @@
 
      <li><p>For the global <b>this</b> value, use <var>document</var>'s <span>browsing
      context</span>'s associated <code>WindowProxy</code>.</p></li>
-
-     <li><p>Let <var>realm execution context</var> be the created <span>JavaScript execution
-     context</span>.</p></li>
     </ul>
 
     <p class="&#x0058;&#x0058;&#x0058;">This is not universally implemented and can perhaps be
     removed; see <a href="https://github.com/whatwg/html/issues/1698">issue #1698</a>.</p>
+   </li>
+
+   <li>
+    <p>Let <var>realm execution context</var> be the <span>running JavaScript execution
+    context</span>.</p>
+
+    <p class="note">This is the <span>JavaScript execution context</span> created in the previous
+    step.</p>
    </li>
 
    <li><p><span>Set up a window environment settings object</span> with <var>realm execution

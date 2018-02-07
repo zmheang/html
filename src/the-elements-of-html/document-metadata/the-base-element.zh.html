@@ -13,7 +13,8 @@
    <dd><code data-x="attr-base-target">target</code></dd>
    <dt><span data-x="concept-element-dom">DOM 接口</span>：</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-base-href">href</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-base-target">target</span>;
@@ -61,6 +62,21 @@ interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
 
   <p class="note">如果有多个有 <code data-x="attr-base-target">target</code> 属性的
   <code>base</code> 元素，则忽略除第一个之外的。</p>
+
+  <p>给定 <code>a</code>， <code>area</code>， 或 <code>form</code> 元素 <var>element</var>，
+  要 <dfn data-x="get an element's target">获得元素的 target</dfn>，执行这些步骤：
+  <ol>
+   <li><p>如果 <var>element</var> 有 <code data-x="">target</code> 属性，则返回该属性的值。</p></li>
+
+   <li><p>如果 <var>element</var> 的 <span data-x="node document">节点文档</span> 包含一个
+   有 <code data-x="attr-base-target">target</code> 属性的 <code>base</code> 元素，
+   则返回第一个这样的 <code>base</code> 元素的这一
+   <code data-x="attr-base-target">target</code> 属性的值。</p></li>
+
+   <li><p>返回空字符串。</p></li>
+  </ol>
+
+  <hr>
 
   <p><span data-x="in a document tree">在文档树中</span> 第一个有
   <code data-x="attr-base-href">href</code> 内容属性的 <code>base</code> 元素元素有一个

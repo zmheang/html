@@ -1,13 +1,22 @@
   <h5 id="event-loop-for-spec-authors">Dealing with the event loop from other specifications</h5>
 
   <p>Writing specifications that correctly interact with the <span>event loop</span> can be tricky.
-  This is compounded by how this specification uses a concurrency-model-independent processing
-  model, so we say things like "<span>event loop</span>" and "<span>in parallel</span>" instead of
-  using more familiar model-specific terms like "main thread" or "on a background thread".</p>
+  This is compounded by how this specification uses concurrency-model-independent terminology, so we
+  say things like "<span>event loop</span>" and "<span>in parallel</span>" instead of using more
+  familiar model-specific terms like "main thread" or "on a background thread".</p>
 
-  <p>The overriding guideline is that any work which would otherwise block the <span>event
-  loop</span> must instead be performed <span>in parallel</span> with it. This includes (but is not
-  limited to):</p>
+  <p>By default, specification text generally runs on the <span>event loop</span>. This falls out
+  from the formal <a href="#event-loop-processing-model">event loop processing model</a>, in that
+  you can eventually trace most algorithms back to a <span data-x="concept-task">task</span> <span
+  data-x="queue a task">queued</span> there.</p>
+
+  <p class="example">The algorithm steps for any JavaScript method will be invoked by author code
+  calling that method. And author code can only be run via queued tasks, usually originating
+  somewhere in the <a href="script-processing-model"><code>script</code> processing model</a>.</p>
+
+  <p>From this starting point, the overriding guideline is that any work a specification needs to
+  perform that would otherwise block the <span>event loop</span> must instead be performed <span>in
+  parallel</span> with it. This includes (but is not limited to):</p>
 
   <ul>
    <li><p>performing heavy computation;</p></li>
@@ -50,7 +59,7 @@
 
   <ol>
    <li><p>Do any synchronous setup work, while still on the <span>event loop</span>. This may
-   include converting <span data-x="JavaScript realm">realm-specific</span> JavaScript values into
+   include converting <span data-x="JavaScript realm">realm</span>-specific JavaScript values into
    realm-agnostic specification-level values.</p></li>
 
    <li><p>Perform a set of potentially-expensive steps <span>in parallel</span>, operating entirely on

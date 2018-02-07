@@ -187,7 +187,8 @@
   <code>ValidityState</code> object that represents the <span>validity states</span> of this
   element. This object is <span>live</span>.</p>
 
-<pre class="idl">interface <dfn>ValidityState</dfn> {
+<pre class="idl">[Exposed=Window]
+interface <dfn>ValidityState</dfn> {
   readonly attribute boolean <span data-x="dom-ValidityState-valueMissing">valueMissing</span>;
   readonly attribute boolean <span data-x="dom-ValidityState-typeMismatch">typeMismatch</span>;
   readonly attribute boolean <span data-x="dom-ValidityState-patternMismatch">patternMismatch</span>;

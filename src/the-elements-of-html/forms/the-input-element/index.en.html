@@ -6,8 +6,8 @@
    <dd><span>Flow content</span>.</dd>
    <dd><span>Phrasing content</span>.</dd>
    <dd>If the <code data-x="attr-input-type">type</code> attribute is <em>not</em> in the <span data-x="attr-input-type-hidden">Hidden</span> state: <span>Interactive content</span>.</dd>
-   <dd>If the <code data-x="attr-input-type">type</code> attribute is <em>not</em> in the <span data-x="attr-input-type-hidden">Hidden</span> state: <span data-x="category-listed">Listed</span>, <span data-x="category-label">labelable</span>, <span data-x="category-submit">submittable</span>, and <span data-x="category-reset">resettable</span> <span>form-associated element</span>.</dd>
-   <dd>If the <code data-x="attr-input-type">type</code> attribute is in the <span data-x="attr-input-type-hidden">Hidden</span> state: <span data-x="category-listed">Listed</span>, <span data-x="category-submit">submittable</span>, and <span data-x="category-reset">resettable</span> <span>form-associated element</span>.</dd>
+   <dd>If the <code data-x="attr-input-type">type</code> attribute is <em>not</em> in the <span data-x="attr-input-type-hidden">Hidden</span> state: <span data-x="category-listed">Listed</span>, <span data-x="category-label">labelable</span>, <span data-x="category-submit">submittable</span>, <span data-x="category-reset">resettable</span>, and <span data-x="category-autocapitalize">autocapitalize-inheriting</span> <span>form-associated element</span>.</dd>
+   <dd>If the <code data-x="attr-input-type">type</code> attribute is in the <span data-x="attr-input-type-hidden">Hidden</span> state: <span data-x="category-listed">Listed</span>, <span data-x="category-submit">submittable</span>, <span data-x="category-reset">resettable</span>, and <span data-x="category-autocapitalize">autocapitalize-inheriting</span> <span>form-associated element</span>.</dd>
    <dd>If the <code data-x="attr-input-type">type</code> attribute is <em>not</em> in the <span data-x="attr-input-type-hidden">Hidden</span> state: <span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>Where <span>phrasing content</span> is expected.</dd>
@@ -29,7 +29,6 @@
    <dd><code data-x="attr-fs-formnovalidate">formnovalidate</code></dd>
    <dd><code data-x="attr-fs-formtarget">formtarget</code></dd>
    <dd><code data-x="attr-dim-height">height</code></dd>
-   <dd><code data-x="attr-fe-inputmode">inputmode</code></dd>
    <dd><code data-x="attr-input-list">list</code></dd>
    <dd><code data-x="attr-input-max">max</code></dd>
    <dd><code data-x="attr-input-maxlength">maxlength</code></dd>
@@ -50,7 +49,8 @@
    <dd>Also, the <code data-x="attr-input-title">title</code> attribute <span data-x="attr-input-title">has special semantics</span> on this element.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-input-accept">accept</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-input-alt">alt</span>;
@@ -69,7 +69,6 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-fs-formTarget">formTarget</span>;
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-input-height">height</span>;
   attribute boolean <span data-x="dom-input-indeterminate">indeterminate</span>;
-  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-input-inputMode">inputMode</span>;
   readonly attribute <span>HTMLElement</span>? <span data-x="dom-input-list">list</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-input-max">max</span>;
   [<span>CEReactions</span>] attribute long <span data-x="dom-input-maxLength">maxLength</span>;
@@ -259,7 +258,6 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
    <code data-x="attr-fs-formnovalidate">formnovalidate</code>,
    <code data-x="attr-fs-formtarget">formtarget</code>,
    <code data-x="attr-dim-height">height</code>,
-   <code data-x="attr-fe-inputmode">inputmode</code>,
    <code data-x="attr-input-list">list</code>,
    <code data-x="attr-input-max">max</code>,
    <code data-x="attr-input-maxlength">maxlength</code>,
@@ -594,30 +592,6 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
      <td class="no"> &middot; <!-- File Upload -->
      <td class="no"> &middot; <!-- Submit Button -->
      <td class="yes"> Yes     <!-- Image Button -->
-     <td class="no"> &middot; <!-- Reset Button -->
-<!-- <td class="no"> &middot;      Button -->
-
-    <tr>
-     <th> <code data-x="attr-fe-inputmode">inputmode</code>
-     <td class="no"> &middot; <!-- Hidden -->
-     <td class="yes"> Yes     <!-- Text -->
-<!-- <td class="yes"> Yes          Search -->
-     <td class="no"> &middot; <!-- URL, Telephone -->
-     <td class="no"> &middot; <!-- E-mail -->
-     <td class="yes"> Yes     <!-- Password -->
-     <td class="no"> &middot; <!-- Date -->
-<!-- <td class="no"> &middot;      Month -->
-<!-- <td class="no"> &middot;      Week -->
-<!-- <td class="no"> &middot;      Time -->
-     <td class="no"> &middot; <!-- Local Date and Time -->
-     <td class="no"> &middot; <!-- Number -->
-     <td class="no"> &middot; <!-- Range -->
-     <td class="no"> &middot; <!-- Color -->
-     <td class="no"> &middot; <!-- Checkbox -->
-<!-- <td class="no"> &middot;      Radio Button -->
-     <td class="no"> &middot; <!-- File Upload -->
-     <td class="no"> &middot; <!-- Submit Button -->
-     <td class="no"> &middot; <!-- Image Button -->
      <td class="no"> &middot; <!-- Reset Button -->
 <!-- <td class="no"> &middot;      Button -->
 
@@ -1452,8 +1426,7 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   <p>The <span>activation behavior</span> for <code>input</code> elements are these steps:</p>
 
   <ol>
-   <li><p>If this element is not <i data-x="concept-fe-mutable">mutable</i>, then abort these
-   steps.</p></li>
+   <li><p>If this element is not <i data-x="concept-fe-mutable">mutable</i>, then return.</p></li>
 
    <li><p>Run this element's <dfn>input activation behavior</dfn>, if any, and do nothing
    otherwise.</p></li>
@@ -1463,8 +1436,7 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   steps:</p>
 
   <ol>
-   <li><p>If this element is not <i data-x="concept-fe-mutable">mutable</i>, then abort these
-   steps.</p></li>
+   <li><p>If this element is not <i data-x="concept-fe-mutable">mutable</i>, then return.</p></li>
 
    <li><p>If this element's <code data-x="attr-input-type">type</code> attribute is in the <span
    data-x="attr-input-type-checkbox">Checkbox state</span>, then set this element's <span
@@ -1483,8 +1455,7 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   steps:</p>
 
   <ol>
-   <li><p>If the element is not <i data-x="concept-fe-mutable">mutable</i>, then abort these
-   steps.</p></li>
+   <li><p>If the element is not <i data-x="concept-fe-mutable">mutable</i>, then return.</p></li>
 
    <li><p>If the element's <code data-x="attr-input-type">type</code> attribute is in the <span
    data-x="attr-input-type-checkbox">Checkbox state</span>, then set the element's <span
@@ -1593,7 +1564,6 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   The <code data-x="attr-fe-disabled">disabled</code> attribute is used to make the control non-interactive and to prevent its value from being submitted.
   The <code data-x="attr-fae-form">form</code> attribute is used to explicitly associate the <code>input</code> element with its <span>form owner</span>.
   The <code data-x="attr-fe-autofocus">autofocus</code> attribute controls focus.
-  The <code data-x="attr-fe-inputmode">inputmode</code> attribute controls the user interface's input modality for the control.
   The <code data-x="attr-fe-autocomplete">autocomplete</code> attribute controls how the user agent provides autofill behavior.
   </p>
 
@@ -1614,15 +1584,14 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   <dfn><code data-x="dom-input-defaultValue">defaultValue</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-input-value">value</code> content attribute.</p>
 
-  <p>The <dfn><code data-x="dom-input-type">type</code></dfn> IDL attribute must <span>reflect</span>
-  the respective content attribute of the same name, <span>limited to only known values</span>. The
-  <dfn><code data-x="dom-input-inputmode">inputMode</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-fe-inputmode">inputmode</code> content attribute,
-  <span>limited to only known values</span>. The <dfn><code data-x="dom-input-maxLength">maxLength</code></dfn> IDL attribute must <span>reflect</span>
-  the <code data-x="attr-input-maxlength">maxlength</code> content attribute, <span>limited to only
-  non-negative numbers</span>.  The <dfn><code data-x="dom-input-minLength">minLength</code></dfn> IDL attribute must <span>reflect</span>
-  the <code data-x="attr-input-minlength">minlength</code> content attribute, <span>limited to only
-  non-negative numbers</span>.</p>
+  <p>The <dfn><code data-x="dom-input-type">type</code></dfn> IDL attribute must
+  <span>reflect</span> the respective content attribute of the same name, <span>limited to only
+  known values</span>. The <dfn><code data-x="dom-input-maxLength">maxLength</code></dfn> IDL
+  attribute must <span>reflect</span> the <code data-x="attr-input-maxlength">maxlength</code>
+  content attribute, <span>limited to only non-negative numbers</span>.
+  The <dfn><code data-x="dom-input-minLength">minLength</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-input-minlength">minlength</code> content attribute,
+  <span>limited to only non-negative numbers</span>.</p>
 
   <p>The IDL attributes <dfn><code data-x="dom-input-width">width</code></dfn> and <dfn><code
   data-x="dom-input-height">height</code></dfn> must return the rendered width and height of the

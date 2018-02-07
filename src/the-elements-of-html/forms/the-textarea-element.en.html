@@ -5,7 +5,7 @@
    <dd><span>Flow content</span>.</dd>
    <dd><span>Phrasing content</span>.</dd>
    <dd><span>Interactive content</span>.</dd>
-   <dd><span data-x="category-listed">Listed</span>, <span data-x="category-label">labelable</span>, <span data-x="category-submit">submittable</span>, and <span data-x="category-reset">resettable</span> <span>form-associated element</span>.</dd>
+   <dd><span data-x="category-listed">Listed</span>, <span data-x="category-label">labelable</span>, <span data-x="category-submit">submittable</span>, <span data-x="category-reset">resettable</span>, and <span data-x="category-autocapitalize">autocapitalize-inheriting</span> <span>form-associated element</span>.</dd>
    <dd><span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>Where <span>phrasing content</span> is expected.</dd>
@@ -19,7 +19,6 @@
    <dd><code data-x="attr-fe-dirname">dirname</code></dd>
    <dd><code data-x="attr-fe-disabled">disabled</code></dd>
    <dd><code data-x="attr-fae-form">form</code></dd>
-   <dd><code data-x="attr-fe-inputmode">inputmode</code></dd>
    <dd><code data-x="attr-textarea-maxlength">maxlength</code></dd>
    <dd><code data-x="attr-textarea-minlength">minlength</code></dd>
    <dd><code data-x="attr-fe-name">name</code></dd>
@@ -30,7 +29,8 @@
    <dd><code data-x="attr-textarea-wrap">wrap</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-fe-autocomplete">autocomplete</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-fe-autofocus">autofocus</span>;
@@ -38,7 +38,6 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-textarea-dirName">dirName</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-fe-disabled">disabled</span>;
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-fae-form">form</span>;
-  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-textarea-inputMode">inputMode</span>;
   [<span>CEReactions</span>] attribute long <span data-x="dom-textarea-maxLength">maxLength</span>;
   [<span>CEReactions</span>] attribute long <span data-x="dom-textarea-minLength">minLength</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-fe-name">name</span>;
@@ -355,15 +354,13 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   The <code data-x="attr-fae-form">form</code> attribute is used to explicitly associate the
   <code>textarea</code> element with its <span>form owner</span>.
   The <code data-x="attr-fe-autofocus">autofocus</code> attribute controls focus.
-  The <code data-x="attr-fe-inputmode">inputmode</code> attribute controls the user interface's input
-  modality for the control.
   The <code data-x="attr-fe-autocomplete">autocomplete</code> attribute controls how the user agent
   provides autofill behavior.
   </p>
 
   <dl class="domintro">
 
-   <dt><var>textarea</var> . <code data-x="dom-textarea-type">type</code></dt>
+   <dt><var>textarea</var> . <code subdfn data-x="dom-textarea-type">type</code></dt>
 
    <dd>
 
@@ -371,7 +368,7 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
 
    </dd>
 
-   <dt><var>textarea</var> . <code data-x="dom-textarea-value">value</code></dt>
+   <dt><var>textarea</var> . <code subdfn data-x="dom-textarea-value">value</code></dt>
 
    <dd>
 
@@ -396,17 +393,15 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   IDL attribute's default value is 20. The <code data-x="dom-textarea-rows">rows</code> IDL
   attribute's default value is 2. The <dfn><code data-x="dom-textarea-dirName">dirName</code></dfn>
   IDL attribute must <span>reflect</span> the <code data-x="attr-fe-dirname">dirname</code> content
-  attribute. The <dfn><code data-x="dom-textarea-inputMode">inputMode</code></dfn> IDL attribute
-  must <span>reflect</span> the <code data-x="attr-fe-inputmode">inputmode</code> content attribute,
-  <span>limited to only known values</span>. The <dfn><code
-  data-x="dom-textarea-maxLength">maxLength</code></dfn> IDL attribute must <span>reflect</span> the
-  <code data-x="attr-textarea-maxlength">maxlength</code> content attribute, <span>limited to only
-  non-negative numbers</span>. The <dfn><code data-x="dom-textarea-minLength">minLength</code></dfn>
-  IDL attribute must <span>reflect</span> the <code
-  data-x="attr-textarea-minlength">minlength</code> content attribute, <span>limited to only
-  non-negative numbers</span>. The <dfn><code data-x="dom-textarea-readOnly">readOnly</code></dfn>
-  IDL attribute must <span>reflect</span> the <code data-x="attr-textarea-readonly">readonly</code>
-  content attribute.</p>
+  attribute. The <dfn><code data-x="dom-textarea-maxLength">maxLength</code></dfn> IDL attribute
+  must <span>reflect</span> the <code data-x="attr-textarea-maxlength">maxlength</code> content
+  attribute, <span>limited to only non-negative numbers</span>. The
+  <dfn><code data-x="dom-textarea-minLength">minLength</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-textarea-minlength">minlength</code> content attribute,
+  <span>limited to only non-negative numbers</span>. The
+  <dfn><code data-x="dom-textarea-readOnly">readOnly</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-textarea-readonly">readonly</code> content
+  attribute.</p>
 
   <p>The <dfn><code data-x="dom-textarea-type">type</code></dfn> IDL attribute must return the value
   "<code data-x="">textarea</code>".</p>

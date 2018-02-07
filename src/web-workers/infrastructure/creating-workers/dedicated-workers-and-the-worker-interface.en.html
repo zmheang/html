@@ -17,7 +17,7 @@ dictionary <dfn>WorkerOptions</dfn> {
 
 enum <dfn>WorkerType</dfn> { "classic", "module" };
 
-<span>Worker</span> implements <span>AbstractWorker</span>;</pre>
+<span>Worker</span> includes <span>AbstractWorker</span>;</pre>
 
   <dl class="domintro">
    <dt><var>worker</var> = new <code subdfn data-x="dom-Worker">Worker</code>(<var>scriptURL</var> [, <var>options</var> ])</dt>
@@ -69,8 +69,9 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
   </div>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
-  handler event type">event handler event types</span>) that must be supported, as <span>event handler IDL attributes</span>,
-  by objects implementing the <code>Worker</code> interface:</p>
+  handler event type">event handler event types</span>) <span w-nodev>that must be</span> supported,
+  as <span>event handler IDL attributes</span>, by objects implementing the <code>Worker</code>
+  interface:</p>
 
   <table>
    <thead>
@@ -91,16 +92,15 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
   <ol>
 
    <li><p>The user agent may throw a <span>"<code>SecurityError</code>"</span>
-   <code>DOMException</code> and abort these steps if the request violates a policy decision (e.g.
-   if the user agent is configured to not allow the page to start dedicated workers).</p></li>
+   <code>DOMException</code> if the request violates a policy decision (e.g. if the user agent is
+   configured to not allow the page to start dedicated workers).</p></li>
 
    <li><p>Let <var>outside settings</var> be the <span>current settings object</span>.</p>
 
    <li><p><span data-x="parse a url">Parse</span> the <var>scriptURL</var> argument relative to
    <var>outside settings</var>.</p></li>
 
-   <li><p>If this fails, throw a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>
-   and abort these steps.</p></li>
+   <li><p>If this fails, throw a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li>
     <p>Let <var>worker URL</var> be the <span>resulting URL record</span>.</p>
@@ -119,11 +119,16 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
 
    <li><p>Associate the <var>outside port</var> with <var>worker</var>.</p></li>
 
-   <li><p>Return <var>worker</var>, and run the following step <span>in parallel</span>.</p></li>
+   <li>
+    <p>Run this step <span>in parallel</span>:</p>
 
-   <li><p><span>Run a worker</span> given <var>worker</var>, <var>worker URL</var>, <var>outside
-   settings</var>, <var>outside port</var>, and <var>options</var>.</p></li>
+    <ol>
+     <li><p><span>Run a worker</span> given <var>worker</var>, <var>worker URL</var>, <var>outside
+     settings</var>, <var>outside port</var>, and <var>options</var>.</p></li>
+    </ol>
+   </li>
 
+   <li><p>Return <var>worker</var>.</p></li>
   </ol>
 
   </div>

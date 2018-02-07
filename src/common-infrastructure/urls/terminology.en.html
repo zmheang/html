@@ -61,13 +61,12 @@
   <ol>
 
    <li><p>If there is no <code>base</code> element that has an <code
-   data-x="attr-base-href">href</code> attribute in the <code>Document</code>, then the
-   <span>document base URL</span> is the <code>Document</code>'s <span>fallback base URL</span>;
-   abort these steps.</p></li>
+   data-x="attr-base-href">href</code> attribute in the <code>Document</code>, then return the
+   <code>Document</code>'s <span>fallback base URL</span>.</p></li>
 
-   <li><p>Otherwise, the <span>document base URL</span> is the <span>frozen base URL</span> of the
-   first <code>base</code> element in the <code>Document</code> that has an <code
-   data-x="attr-base-href">href</code> attribute, in <span>tree order</span>.</p></li>
+   <li><p>Otherwise, return the <span>frozen base URL</span> of the first <code>base</code> element
+   in the <code>Document</code> that has an <code data-x="attr-base-href">href</code> attribute, in
+   <span>tree order</span>.</p></li>
 
   </ol>
 

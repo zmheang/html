@@ -32,30 +32,33 @@
   <p>The element's <span>input activation behavior</span> is to run the following steps:</p>
 
   <ol>
-
-   <li><p>If the algorithm is not <span>triggered by user activation</span>, then abort these steps
+   <li><p>If the algorithm is not <span>triggered by user activation</span>, then return
    without doing anything else.</p></li>
 
-   <li><p>Return, but continue running these steps <span>in parallel</span>.</p></li>
+   <li>
+    <p>Run these steps <span>in parallel</span>:</p>
 
-   <li><p>Optionally, wait until any prior execution of this algorithm has terminated.</p>
+    <ol>
+     <li><p>Optionally, wait until any prior execution of this algorithm has terminated.</p></li>
 
-   <li><p>Display a prompt to the user requesting that the user specify some files. If the <code
-   data-x="attr-input-multiple">multiple</code> attribute is not set, there must be no more than one
-   file selected; otherwise, any number may be selected. Files can be from the filesystem or created
-   on the fly, e.g. a picture taken from a camera connected to the user's device.</p>
+     <li><p>Display a prompt to the user requesting that the user specify some files. If the <code
+     data-x="attr-input-multiple">multiple</code> attribute is not set, there must be no more than
+     one file selected; otherwise, any number may be selected. Files can be from the filesystem or
+     created on the fly, e.g., a picture taken from a camera connected to the user's
+     device.</p></li>
 
-   <li><p>Wait for the user to have made their selection.</p></li>
+     <li><p>Wait for the user to have made their selection.</p></li>
 
-   <li><p><span>Queue a task</span> to first update the element's <span
-   data-x="concept-input-type-file-selected">selected files</span> so that it represents the user's
-   selection, then <span data-x="concept-event-fire">fire an event</span> named <code
-   data-x="event-input">input</code> at the <code>input</code> element, with the <code
-   data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, and finally <span
-   data-x="concept-event-fire">fire an event</span> named <code data-x="event-change">change</code>
-   at the <code>input</code> element, with the <code data-x="dom-Event-bubbles">bubbles</code>
-   attribute initialized to true.</p></li>
-
+     <li><p><span>Queue a task</span> to first update the element's <span
+     data-x="concept-input-type-file-selected">selected files</span> so that it represents the
+     user's selection, then <span data-x="concept-event-fire">fire an event</span> named <code
+     data-x="event-input">input</code> at the <code>input</code> element, with the <code
+     data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, and finally <span
+     data-x="concept-event-fire">fire an event</span> named <code
+     data-x="event-change">change</code> at the <code>input</code> element, with the <code
+     data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p></li>
+    </ol>
+   </li>
   </ol>
 
   <p>If the element is <i data-x="concept-fe-mutable">mutable</i>, the user agent should allow the
@@ -228,7 +231,6 @@
    <code class="no-backref" data-x="attr-fs-formnovalidate">formnovalidate</code>,
    <code class="no-backref" data-x="attr-fs-formtarget">formtarget</code>,
    <code class="no-backref" data-x="attr-dim-height">height</code>,
-   <code class="no-backref" data-x="attr-fe-inputmode">inputmode</code>,
    <code class="no-backref" data-x="attr-input-list">list</code>,
    <code class="no-backref" data-x="attr-input-max">max</code>,
    <code class="no-backref" data-x="attr-input-maxlength">maxlength</code>,

@@ -15,15 +15,15 @@
   <ol>
    <li><p>If <var>worker global scope</var>'s <span
    data-x="concept-WorkerGlobalScope-type">type</span> is "<code data-x="">module</code>", throw a
-   <code>TypeError</code> exception and abort these steps.</p></li>
+   <code>TypeError</code> exception.</p></li>
 
    <li><p>Let <var>settings object</var> be the <span>current settings object</span>.</p></li>
 
-   <li><p>If <var>urls</var> is empty, abort these steps.</p></li>
+   <li><p>If <var>urls</var> is empty, return.</p></li>
 
    <li><p><span data-x="parse a url">Parse</span> each value in <var>urls</var> relative to
    <var>settings object</var>. If any fail, throw a <span>"<code>SyntaxError</code>"</span>
-   <code>DOMException</code> and abort these steps.</p></li>
+   <code>DOMException</code>.</p></li>
 
    <li>
     <p>For each <var>url</var> in the <span data-x="resulting URL record">resulting URL
@@ -36,8 +36,8 @@
      succeeds, let <var>script</var> be the result. Otherwise, rethrow the exception.</p></li>
 
      <li>
-      <p><span data-x="run a classic script">Run the classic script</span> <var>script</var>,
-      passing the <var>rethrow errors</var> flag.</p>
+      <p><span data-x="run a classic script">Run the classic script</span> <var>script</var>, with
+      the rethrow errors argument set to true.</p>
 
       <p class="note"><var>script</var> will run until it either returns, fails to parse, fails to
       catch an exception, or gets <span data-x="abort a running script">prematurely aborted</span>

@@ -34,6 +34,7 @@
   <span>allowed in the body</span>. The <span>body-ok</span> keywords defined by this specification
   are
   <code data-x="rel-dns-prefetch">dns-prefetch</code>,
+  <code data-x="rel-modulepreload">modulepreload</code>,
   <code data-x="rel-pingback">pingback</code>,
   <code data-x="rel-preconnect">preconnect</code>,
   <code data-x="rel-prefetch">prefetch</code>,
@@ -122,6 +123,16 @@
      <td><em>not allowed</em></td>
      <td class="no"> &middot; </td>
      <td>Imports an icon to represent the current document.</td>
+    </tr>
+
+    <tr>
+     <td><code data-x="rel-modulepreload">modulepreload</code></td>
+     <td><span data-x="external resource link">External Resource</span></td>
+     <td><em>not allowed</em></td>
+     <td class="yes"> Yes </td>
+     <td>Specifies that the user agent must preemptively <span data-x="fetch a single module script">fetch the module
+     script</span> and store it in the document's <span data-x="concept-document-module-map">module map</span> for later
+     evaluation. Optionally, the module's dependencies can be fetched as well.</td>
     </tr>
 
     <tr>
@@ -218,14 +229,6 @@
      <td><span>Hyperlink</span></td>
      <td class="no"> &middot; </td>
      <td>Gives a link to a resource that can be used to search through the current document and its related pages.</td>
-    </tr>
-
-    <tr>
-     <td><code data-x="rel-serviceworker">serviceworker</code></td>
-     <td><span>Hyperlink</span></td>
-     <td><em>not allowed</em></td>
-     <td class="no"> &middot; </td>
-     <td>Declares a <span>service worker registration</span>.</td>
     </tr>
 
     <tr>

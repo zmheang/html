@@ -20,7 +20,10 @@
    <dd><code data-x="attr-fs-target">target</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[OverrideBuiltins, LegacyUnenumerableNamedProperties, <span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ OverrideBuiltins,
+ LegacyUnenumerableNamedProperties,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-form-acceptCharset">acceptCharset</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-fs-action">action</span>;
@@ -182,7 +185,7 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <dfn><code data-x="dom-form-elements">elements</code></dfn> IDL attribute must return an
   <code>HTMLFormControlsCollection</code> rooted at the <code>form</code> element's
-  <span>node document</span>, whose filter matches <span data-x="category-listed">listed elements</span>
+  <span>root</span>, whose filter matches <span data-x="category-listed">listed elements</span>
   whose <span>form owner</span> is the <code>form</code> element, with the exception of <code>input</code>
   elements whose <code data-x="attr-input-type">type</code> attribute is in the <span
   data-x="attr-input-type-image">Image Button</span> state, which must, for historical reasons, be
@@ -312,7 +315,7 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
    the entries in the <code>form</code> element's <span>past names map</span>: return the object
    associated with <var>name</var> in that map.</p></li>
 
-   <li><p>If <var>candidates</var> contains more than one node, return <var>candidates</var> and abort these steps.</p></li>
+   <li><p>If <var>candidates</var> contains more than one node, return <var>candidates</var>.</p></li>
 
    <li><p>Otherwise, <var>candidates</var> contains exactly one node. Add a mapping from
    <var>name</var> to the node in <var>candidates</var> in the <code>form</code>
@@ -366,8 +369,7 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
 
   <ol>
 
-   <li><p>If the <code>form</code> element is marked as <i data-x="locked for reset">locked for reset</i>, then abort these
-   steps.</p></li>
+   <li><p>If the <code>form</code> element is marked as <i data-x="locked for reset">locked for reset</i>, then return.</p></li>
 
    <li><p>Mark the <code>form</code> element as <dfn>locked for reset</dfn>.</p></li>
 

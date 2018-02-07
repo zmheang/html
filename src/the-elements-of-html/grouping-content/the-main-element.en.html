@@ -5,7 +5,8 @@
    <dd><span>Flow content</span>.</dd>
    <dd><span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
-   <dd>Where <span>flow content</span> is expected.</dd>
+   <dd>Where <span>flow content</span> is expected, but only if it is a <span>hierarchically correct
+   <code>main</code> element</span>.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
    <dd><span>Flow content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
@@ -14,17 +15,17 @@
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
 
-  <p>The <code>main</code> element can be used as a container for the dominant contents of another
-  element. It <span>represents</span> its children.</p>
+  <p>The <code>main</code> element <span>represents</span> the dominant contents of the
+  document.</p>
 
-  <p class="note">The <code>main</code> element is distinct from the <code>section</code> and
-  <code>article</code> elements in that the <code>main</code> element does not contribute to the
-  document <span>outline</span>.</p>
+  <p>A document must not have more than one <code>main</code> element that does not have the <code
+  data-x="attr-hidden">hidden</code> attribute specified.</p>
 
-  <p class="note">There is no restriction as to the number of <code>main</code> elements in a
-  document. Indeed, there are many cases where it would make sense to have multiple
-  <code>main</code> elements. For example, a page with multiple <code>article</code> elements might
-  need to indicate the dominant contents of each such element.</p>
+  <p>A <dfn>hierarchically correct <code>main</code> element</dfn> is one whose ancestor elements
+  are limited to <code>html</code>, <code>body</code>, <code>div</code>, <code>form</code> without
+  an <span data-x="concept-accessible-name">accessible name</span>, and <span data-x="autonomous
+  custom element">autonomous custom elements</span>. Each <code>main</code> element must be a
+  <span>hierarchically correct <code>main</code> element</span>.</p>
 
   <div class="example">
 
@@ -65,6 +66,35 @@
  &lt;p>Copyright &copy; 2013
 &lt;/footer>
 &lt;/html></pre>
+
+   <p>In the following example, multiple <code>main</code> elements are used and script is used to
+   make navigation work without a server roundtrip and to set the <code
+   data-x="attr-hidden">hidden</code> attribute on those that are not current:
+
+   <pre>&lt;!doctype html>
+&lt;html lang=en-CA>
+&lt;meta charset=utf-8>
+&lt;title> &hellip; &lt;/title>
+&lt;link rel=stylesheet href=spa.css>
+&lt;script src=spa.js async>&lt;/script>
+&lt;nav>
+ &lt;a href=/>Home&lt;/a>
+ &lt;a href=/about>About&lt;/a>
+ &lt;a href=/contact>Contact&lt;/a>
+&lt;/nav>
+&lt;main>
+ &lt;h1>Home&lt;/h1>
+ &hellip;
+&lt;/main>
+&lt;main hidden>
+ &lt;h1>About&lt;/h1>
+ &hellip;
+&lt;/main>
+&lt;main hidden>
+ &lt;h1>Contact&lt;/h1>
+ &hellip;
+&lt;/main>
+&lt;footer>Made with ❤️ by &lt;a href=https://example.com/>Example 👻&lt;/a>.&lt;/footer></pre>
 
   </div>
 

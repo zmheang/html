@@ -1,13 +1,13 @@
   <h5>Plugins</h5>
 
-  <pre class="idl">[NoInterfaceObject]
-interface <dfn>NavigatorPlugins</dfn> {
+  <pre class="idl">interface mixin <dfn>NavigatorPlugins</dfn> {
   [SameObject] readonly attribute <span>PluginArray</span> <span data-x="dom-navigator-plugins">plugins</span>;
   [SameObject] readonly attribute <span>MimeTypeArray</span> <span data-x="dom-navigator-mimeTypes">mimeTypes</span>;
   boolean <span data-x="dom-navigator-javaEnabled">javaEnabled()</span>;
 };
 
-[LegacyUnenumerableNamedProperties]
+[Exposed=Window,
+ LegacyUnenumerableNamedProperties]
 interface <dfn>PluginArray</dfn> {
   void <span data-x="dom-PluginArray-refresh">refresh</span>(optional boolean reload = false);
   readonly attribute unsigned long <span data-x="dom-PluginArray-length">length</span>;
@@ -15,14 +15,16 @@ interface <dfn>PluginArray</dfn> {
   getter <span data-x="dom-Plugin">Plugin</span>? <span data-x="dom-PluginArray-namedItem">namedItem</span>(DOMString name);
 };
 
-[LegacyUnenumerableNamedProperties]
+[Exposed=Window,
+ LegacyUnenumerableNamedProperties]
 interface <dfn>MimeTypeArray</dfn> {
   readonly attribute unsigned long <span data-x="dom-MimeTypeArray-length">length</span>;
   getter <span>MimeType</span>? <span data-x="dom-MimeTypeArray-item">item</span>(unsigned long index);
   getter <span>MimeType</span>? <span data-x="dom-MimeTypeArray-namedItem">namedItem</span>(DOMString name);
 };
 
-[LegacyUnenumerableNamedProperties]
+[Exposed=Window,
+ LegacyUnenumerableNamedProperties]
 interface <dfn data-x="dom-Plugin">Plugin</dfn> {
   readonly attribute DOMString <span data-x="dom-Plugin-name">name</span>;
   readonly attribute DOMString <span data-x="dom-Plugin-description">description</span>;
@@ -32,6 +34,7 @@ interface <dfn data-x="dom-Plugin">Plugin</dfn> {
   getter <span>MimeType</span>? <span data-x="dom-Plugin-namedItem">namedItem</span>(DOMString name);
 };
 
+[Exposed=Window]
 interface <dfn>MimeType</dfn> {
   readonly attribute DOMString <span data-x="dom-MimeType-type">type</span>;
   readonly attribute DOMString <span data-x="dom-MimeType-description">description</span>;

@@ -1,5 +1,9 @@
   <h4>Focus management APIs</h4>
 
+  <pre class="idl">dictionary <dfn>FocusOptions</dfn> {
+  boolean <span data-x="dom-focusoptions-preventscroll">preventScroll</span> = false;
+};</pre>
+
   <dl class="domintro">
 
    <dt><var>document</var> . <code subdfn data-x="dom-document-activeElement">activeElement</code></dt>
@@ -48,13 +52,19 @@
    </dd>
 -->
 
-   <dt><var>element</var> . <code subdfn data-x="dom-focus">focus</code>()</dt>
+   <dt><var>element</var> . <code subdfn data-x="dom-focus">focus</code>([ { <code
+    data-x="dom-focusoptions-preventscroll">preventScroll</code>: true } ])</dt>
 
    <dd>
 
     <p>Moves the focus to the element.</p>
 
-    <p>If the element is a <span>browsing context container</span>, moves the focus to the <span>nested browsing context</span> instead.</p>
+    <p>If the element is a <span>browsing context container</span>, moves the focus to the
+    <span>nested browsing context</span> instead.</p>
+
+    <p>By default, this method also scrolls the element into view. Providing the <code
+    data-x="dom-focusoptions-preventscroll">preventScroll</code> option and setting it to true
+    prevents this behavior.</p>
 
    </dd>
 
@@ -132,17 +142,17 @@
   <code>Document</code> object, when invoked, must return the result of running the <span>has focus
   steps</span> with the <code>Document</code> object as the argument.</p>
 
-  <p>The <dfn><code data-x="dom-window-focus">focus()</code></dfn> method on the <code>Window</code>
-  object, when invoked, must run the <span>focusing steps</span> with the <code>Window</code>
-  object's <span>browsing context</span>. Additionally, if this <span>browsing context</span> is a
-  <span>top-level browsing context</span>, user agents are encouraged to trigger some sort of
-  notification to indicate to the user that the page is attempting to gain focus.</p>
+  <p>The <dfn data-dfn-for="Window"><code data-x="dom-window-focus">focus()</code></dfn> method on
+  the <code>Window</code> object, when invoked, must run the <span>focusing steps</span> with the
+  <code>Window</code> object's <span>browsing context</span>. Additionally, if this <span>browsing
+  context</span> is a <span>top-level browsing context</span>, user agents are encouraged to trigger
+  some sort of notification to indicate to the user that the page is attempting to gain focus.</p>
 
-  <p>The <dfn><code data-x="dom-window-blur">blur()</code></dfn> method on the <code>Window</code>
-  object, when invoked, provides a hint to the user agent that the script believes the user probably
-  is not currently interested in the contents of the <span>browsing context</span> of the
-  <code>Window</code> object on which the method was invoked, but that the contents might become
-  interesting again in the future.</p>
+  <p>The <dfn data-dfn-for="Window"><code data-x="dom-window-blur">blur()</code></dfn> method on the
+  <code>Window</code> object, when invoked, provides a hint to the user agent that the script
+  believes the user probably is not currently interested in the contents of the <span>browsing
+  context</span> of the <code>Window</code> object on which the method was invoked, but that the
+  contents might become interesting again in the future.</p>
 
   <p>User agents are encouraged to ignore calls to this <code data-x="dom-window-blur">blur()</code>
   method entirely.</p>
@@ -152,24 +162,32 @@
   system widget (e.g. tab or window) that contained the <span>browsing context</span>, but hostile
   sites widely abuse this behavior to the user's detriment.</p>
 
-  <p>The <dfn><code data-x="dom-focus">focus()</code></dfn> method on elements, when invoked, must
-  run the following algorithm:</p>
+  <p>The <dfn><code data-x="dom-focus">focus(<var>options</var>)</code></dfn> method on elements, when
+  invoked, must run the following steps:</p>
 
   <ol>
 
-   <li><p>If the element is marked as <i data-x="locked for focus">locked for focus</i>, then abort these steps.</p></li>
+   <li><p>If the element is marked as <i data-x="locked for focus">locked for focus</i>, then return.</p></li>
 
    <li><p>Mark the element as <dfn>locked for focus</dfn>.</p></li>
 
    <li><p>Run the <span>focusing steps</span> for the element.</p></li>
 
+   <li><p>If the value of the <dfn><code
+   data-x="dom-focusoptions-preventscroll">preventScroll</code></dfn> dictionary member of
+   <var>options</var> is false, then <span data-x="scroll an element into view">scroll the element
+   into view</span> with scroll behavior "<code data-x="">auto</code>", block flow direction
+   position set to a UA-defined value, and inline base direction position set to a UA-defined
+   value.</p></li>
+
    <li><p>Unmark the element as <i data-x="locked for focus">locked for focus</i>.</p></li>
 
   </ol>
 
-  <p>The <dfn><code data-x="dom-blur">blur()</code></dfn> method, when invoked, should run the
-  <span>unfocusing steps</span> for the element on which the method was called. User agents may
-  selectively or uniformly ignore calls to this method for usability reasons.</p>
+  <p>The <dfn data-dfn-for="HTMLElement"><code data-x="dom-blur">blur()</code></dfn> method, when
+  invoked, should run the <span>unfocusing steps</span> for the element on which the method was
+  called. User agents may selectively or uniformly ignore calls to this method for usability
+  reasons.</p>
 
   <p class="example">For example, if the <code data-x="dom-blur">blur()</code> method is unwisely
   being used to remove the focus ring for aesthetics reasons, the page would become unusable by

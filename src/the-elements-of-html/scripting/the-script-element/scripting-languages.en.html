@@ -22,48 +22,30 @@
    <li><code>text/x-javascript</code>
   </ul>
 
-  <p>User agents must recognize all <span data-x="JavaScript MIME type">JavaScript MIME
+  <p>Servers should use <code>text/javascript</code> for JavaScript resources. Servers should not
+  use other <span data-x="JavaScript MIME type">JavaScript MIME types</span> for JavaScript
+  resources, and must not use non-<span data-x="JavaScript MIME type">JavaScript MIME
   types</span>.</p>
 
   <div w-nodev>
 
-  <p>User agents may support other <span data-x="MIME type">MIME types</span> for other languages,
-  but must not support other <span data-x="MIME type">MIME types</span> for the languages in the list
-  above. User agents are not required to support JavaScript. The processing model for languages
-  other than JavaScript is outside the scope of this specification.</p>
+  <p>User agents are not required to support JavaScript. This standard needs to be updated if a
+  language other than JavaScript comes along and gets similar wide adoption by web browsers. Until
+  such a time, implementing other languages is in conflict with this standard, given the processing
+  model defined for the <code>script</code> element.</p>
 
-  <p>The following <span data-x="MIME type">MIME types</span> (with or without parameters) must not
-  be interpreted as scripting languages:</p>
+  <p>For external JavaScript resources, MIME type parameters in `<code>Content-Type</code>` headers
+  are generally ignored. (In some cases the `<code data-x="">charset</code>` parameter has an
+  effect.) However, for the <code>script</code> element's <code
+  data-x="attr-script-type">type</code> attribute they are significant.</p>
 
-  <ul class="brief">
+  <p class="note">For example, scripts with their <code data-x="attr-script-type">type</code>
+  attribute set to "<code data-x="">text/javascript; charset=utf-8</code>" will not be
+  evaluated.</p>
 
-   <li><code>text/plain</code>
-   <li><code>text/xml</code>
-   <!--<li><code>text/html</code>-->
-   <li><code>application/octet-stream</code>
-   <li><code>application/xml</code>
-   <!--<li><code>application/xhtml+xml</code>-->
-   <!--<li><code>image/svg+xml</code>-->
-
-   <!-- the commented-out ones aren't listed here because they couldn't sanely be interpreted as a
-   scripting language anyway: they're defined to be something else. I just don't want this to
-   devolve into a list of every non-scripting type in existence. -->
-
-  </ul>
-
-  <p class="note">These types are explicitly listed here because they are poorly-defined types that
-  are nonetheless likely to be used as formats for data blocks, and it would be problematic if they
-  were suddenly to be interpreted as script by a user agent.</p>
-
-  <!-- a similar paragraph is also present in the <style> element section -->
-
-  <p>When examining types to determine if they represent supported languages, user agents must not
-  ignore MIME parameters. Types are to be compared including all parameters.</p> <!-- whether the
-  order of parameters matters is left undefined until such time as it matters; so far the only
-  relevant parameter was 'e4x', and it's gone for now -->
-
-  <p class="note">For example, types that include the <code data-x="">charset</code> parameter will
-  not be recognized as referencing any of the scripting languages listed above.</p>
+  <p>Furthermore, again for external JavaScript resources, special considerations apply around
+  `<code>Content-Type</code>` header processing as detailed in the <span>prepare a script</span>
+  algorithm and the WHATWG Fetch standard. <ref spec=FETCH>
 
   </div>
 

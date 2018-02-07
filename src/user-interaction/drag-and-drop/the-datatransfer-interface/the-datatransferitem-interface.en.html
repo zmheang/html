@@ -3,7 +3,8 @@
   <p>Each <code>DataTransferItem</code> object is associated with a <code>DataTransfer</code>
   object.</p>
 
-  <pre class="idl">interface <dfn>DataTransferItem</dfn> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>DataTransferItem</dfn> {
   readonly attribute DOMString <span data-x="dom-DataTransferItem-kind">kind</span>;
   readonly attribute DOMString <span data-x="dom-DataTransferItem-type">type</span>;
   void <span data-x="dom-DataTransferItem-getAsString">getAsString</span>(<span>FunctionStringCallback</span>? _callback);<!--
@@ -110,14 +111,14 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></pre>
 
   <ol>
 
-   <li><p>If the <var>callback</var> is null, abort these steps.</p></li>
+   <li><p>If the <var>callback</var> is null, return.</p></li>
 
    <li><p>If the <code>DataTransferItem</code> object is not in the <i
    data-x="concept-dnd-rw">read/write mode</i> or the <i data-x="concept-dnd-ro">read-only mode</i>,
-   abort these steps. The callback is never invoked.</p></li>
+   return. The callback is never invoked.</p></li>
 
-   <li><p>If <span>the drag data item kind</span> is not <i>Plain Unicode string</i>, abort these
-   steps. The callback is never invoked.</p></li>
+   <li><p>If <span>the drag data item kind</span> is not <i>Plain Unicode string</i>, then return.
+   The callback is never invoked.</p></li>
 
    <li><p>Otherwise, <span>queue a task</span> to invoke <var>callback</var>, passing the
    actual data of the item represented by the <code>DataTransferItem</code> object as the
@@ -133,7 +134,7 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></pre>
 
    <li><p>If the <code>DataTransferItem</code> object is not in the <i
    data-x="concept-dnd-rw">read/write mode</i> or the <i data-x="concept-dnd-ro">read-only mode</i>,
-   return null and abort these steps.</p></li>
+   return null.</p></li>
 
    <li>
 
@@ -167,10 +168,9 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></pre>
 
    <li><p>If the <code>DataTransferItem</code> object is not in the <i
    data-x="concept-dnd-rw">read/write mode</i> or the <i data-x="concept-dnd-ro">read-only mode</i>,
-   return null and abort these steps.</p></li>
+   then return null.</p></li>
 
-   <li><p>If <span>the drag data item kind</span> is not <i>File</i>, then return null and abort
-   these steps.</p></li>
+   <li><p>If <span>the drag data item kind</span> is not <i>File</i>, then return null.</p></li>
 
    <li><p>Return a new <code>File</code> object representing the actual data of the item represented
    by the <code>DataTransferItem</code> object.</p>
@@ -184,7 +184,7 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></pre>
 
    <li><p>If the <code>DataTransferItem</code> object is not in the <i
    data-x="concept-dnd-rw">read/write mode</i> or the <i data-x="concept-dnd-ro">read-only mode</i>,
-   return null and abort these steps.</p></li>
+   return null.</p></li>
 
    <li>
 

@@ -6,12 +6,13 @@
   <p>The <code>frameset</code> element must implement the <code>HTMLFrameSetElement</code>
   interface.</p>
 
-  <pre class="idl">[<span>HTMLConstructor</span>]
+  <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLFrameSetElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frameset-cols">cols</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frameset-rows">rows</span>;
 };
-<span>HTMLFrameSetElement</span> implements <span>WindowEventHandlers</span>;</pre>
+<span>HTMLFrameSetElement</span> includes <span>WindowEventHandlers</span>;</pre>
 
   <p>The <dfn><code data-x="dom-frameset-cols">cols</code></dfn> and <dfn><code data-x="dom-frameset-rows">rows</code></dfn> IDL attributes of the <code>frameset</code>
   element must <span>reflect</span> the respective content attributes of the same name.</p>
@@ -127,7 +128,8 @@ interface <dfn>HTMLFrameSetElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <code>frame</code> element must implement the <code>HTMLFrameElement</code> interface.</p>
 
-  <pre class="idl">[<span>HTMLConstructor</span>]
+  <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLFrameElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frame-name">name</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frame-scrolling">scrolling</span>;

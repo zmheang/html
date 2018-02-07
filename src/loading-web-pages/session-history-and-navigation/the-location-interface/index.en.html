@@ -80,7 +80,8 @@
   <span>current entry</span> of the <span>browsing context</span>'s session history to be changed,
   by adding or replacing entries in the <code data-x="dom-history">history</code> object.</p>
 
-  <pre class="idl">interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface">additional creation steps</a> and <a href="#location-internal-methods">overridden internal methods</a>
+  <pre class="idl">[Exposed=Window]
+interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface">additional creation steps</a> and <a href="#location-internal-methods">overridden internal methods</a>
   [Unforgeable] stringifier attribute USVString <span data-x="dom-location-href">href</span>;
   [Unforgeable] readonly attribute USVString <span data-x="dom-location-origin">origin</span>;
   [Unforgeable] attribute USVString <span data-x="dom-location-protocol">protocol</span>;
@@ -678,7 +679,7 @@
    data-x="event-resize">resize</code> event in response to the user resizing the <span>browsing
    context</span></dt>
 
-   <dd><p>Repaint the <span>browsing context</span> and abort these steps.</p></dd> <!-- this
+   <dd><p>Repaint the <span>browsing context</span> and return.</p></dd> <!-- this
    theoretically would have no effect but in practice can be useful to work around rendering bugs.
    -->
 

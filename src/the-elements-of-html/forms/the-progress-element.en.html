@@ -16,7 +16,8 @@
    <dd><code data-x="attr-progress-max">max</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLProgressElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute double <span data-x="dom-progress-value">value</span>;
   [<span>CEReactions</span>] attribute double <span data-x="dom-progress-max">max</span>;
@@ -101,47 +102,49 @@ interface <dfn>HTMLProgressElement</dfn> : <span>HTMLElement</span> {
 
   <p>If the progress bar is a determinate progress bar, user agents must parse the <code
   data-x="attr-progress-value">value</code> attribute's value according to the <span>rules for
-  parsing floating-point number values</span>. If this does not result in an error, and if the
-  parsed value is less than the <span data-x="concept-progress-maximum">maximum value</span> and
-  greater than zero, then the <dfn data-x="concept-progress-value">current value</dfn> of the
-  progress bar is that parsed value. Otherwise, if the parsed value was greater than or equal to the
-  <span data-x="concept-progress-maximum">maximum value</span>, then the <span
-  data-x="concept-progress-value">current value</span> of the progress bar is the <span
-  data-x="concept-progress-maximum">maximum value</span> of the progress bar. Otherwise, if parsing
-  the <code data-x="attr-progress-value">value</code> attribute's value resulted in an error, or a
-  number less than or equal to zero, then the <span data-x="concept-progress-value">current
-  value</span> of the progress bar is zero.</p>
+  parsing floating-point number values</span>. If this does not result in an error and the parsed
+  value is greater than zero, then the <dfn data-x="concept-progress-value">value</dfn> of the
+  progress bar is that parsed value. Otherwise, if parsing the <code
+  data-x="attr-progress-value">value</code> attribute's value resulted in an error or a number less
+  than or equal to zero, then the <span data-x="concept-progress-value">value</span> of the progress
+  bar is zero.</p>
+
+  <p>If the progress bar is a determinate progress bar, then the <dfn
+  data-x="concept-progress-current-value">current value</dfn> is the <span
+  data-x="concept-progress-maximum">maximum value</span>, if <span
+  data-x="concept-progress-value">value</span> is greater than the <span
+  data-x="concept-progress-maximum">maximum value</span>, and <span
+  data-x="concept-progress-value">value</span> otherwise.</p>
 
   <p><strong>UA requirements for showing the progress bar</strong>: When representing a
   <code>progress</code> element to the user, the UA should indicate whether it is a determinate or
   indeterminate progress bar, and in the former case, should indicate the relative position of the
-  <span data-x="concept-progress-value">current value</span> relative to the <span
+  <span data-x="concept-progress-current-value">current value</span> relative to the <span
   data-x="concept-progress-maximum">maximum value</span>.</p>
 
   </div>
 
   <dl class="domintro">
-
    <dt><var>progress</var> . <code subdfn data-x="dom-progress-position">position</code></dt>
 
    <dd>
-
     <p>For a determinate progress bar (one with known current and maximum values), returns the
     result of dividing the current value by the maximum value.</p>
 
     <p>For an indeterminate progress bar, returns &#x2212;1.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>If the progress bar is an indeterminate progress bar, then the <dfn><code data-x="dom-progress-position">position</code></dfn> IDL attribute must return &#x2212;1.
-  Otherwise, it must return the result of dividing the <span data-x="concept-progress-value">current
-  value</span> by the <span data-x="concept-progress-maximum">maximum value</span>.</p>
+  <p>If the progress bar is an indeterminate progress bar, then the <dfn><code
+  data-x="dom-progress-position">position</code></dfn> IDL attribute must return &#x2212;1.
+  Otherwise, it must return the result of dividing the <span
+  data-x="concept-progress-current-value">current value</span> by the <span
+  data-x="concept-progress-maximum">maximum value</span>.</p>
 
-  <p>If the progress bar is an indeterminate progress bar, then the <dfn><code data-x="dom-progress-value">value</code></dfn> IDL attribute, on getting, must return 0.
+  <p>If the progress bar is an indeterminate progress bar, then the <dfn><code
+  data-x="dom-progress-value">value</code></dfn> IDL attribute, on getting, must return 0.
   Otherwise, it must return the <span data-x="concept-progress-value">current value</span>. On
   setting, the given value must be converted to the <span>best representation of the number as a
   floating-point number</span> and then the <code data-x="dom-progress-value">value</code> content

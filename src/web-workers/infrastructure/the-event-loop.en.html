@@ -10,15 +10,15 @@
 
   <p>Each <code>WorkerGlobalScope</code> object also has a <dfn
   data-x="dom-WorkerGlobalScope-closing" data-export="" data-dfn-type="dfn"
-  data-dfn-for="WorkerGlobalScope">closing</dfn> flag, which must initially be false, but which can
-  get set to true <span w-nodev>by the algorithms in the processing model section below</span><span
-  w-nohtml>when the worker is requested to close</span>.</p>
+  data-dfn-for="WorkerGlobalScope">closing</dfn> flag, <span w-nodev>which must be</span> initially
+  false, but which can get set to true <span w-nodev>by the algorithms in the processing model
+  section below</span><span w-nohtml>when the worker is requested to close</span>.</p>
 
   <p>Once the <code>WorkerGlobalScope</code>'s <span
   data-x="dom-WorkerGlobalScope-closing">closing</span> flag is set to true, the <span>event
-  loop</span>'s <span data-x="task queue">task queues</span> must discard any further <span
-  data-x="concept-task">tasks</span> that would be added to them (tasks already on the queue are
-  unaffected except where otherwise specified). Effectively, once the <span
+  loop</span>'s <span data-x="task queue">task queues</span> <span w-nodev>must</span> discard any
+  further <span data-x="concept-task">tasks</span> that would be added to them (tasks already on the
+  queue are unaffected except where otherwise specified). Effectively, once the <span
   data-x="dom-WorkerGlobalScope-closing">closing</span> flag is true, timers stop firing,
   notifications for all pending background operations are dropped, etc.</p>
 

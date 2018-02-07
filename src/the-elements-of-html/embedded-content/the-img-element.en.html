@@ -24,9 +24,12 @@
    <dd><code data-x="attr-dim-width">width</code></dd>
    <dd><code data-x="attr-dim-height">height</code></dd>
    <dd><code data-x="attr-img-referrerpolicy">referrerpolicy</code></dd>
+   <dd><code data-x="attr-img-decoding">decoding</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>, NamedConstructor=<span data-x="dom-image">Image</span>(optional unsigned long width, optional unsigned long height)]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>,
+ NamedConstructor=<span data-x="dom-image">Image</span>(optional unsigned long width, optional unsigned long height)]
 interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-img-alt">alt</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-img-src">src</span>;
@@ -42,6 +45,7 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
   readonly attribute boolean <span data-x="dom-img-complete">complete</span>;
   readonly attribute USVString <span data-x="dom-img-currentSrc">currentSrc</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-img-referrerPolicy">referrerPolicy</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-img-decoding">decoding</span>;
 
   Promise&lt;void&gt; <span data-x="dom-img-decode">decode</span>();
 };</pre>
@@ -111,6 +115,12 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
   <span>referrer policy attribute</span>. Its purpose is to set the <span>referrer policy</span>
   used when <span data-x="concept-fetch">fetching</span> the image. <ref spec=REFERRERPOLICY></p>
 
+  <p>The <dfn data-x="attr-img-decoding"><code>decoding</code></dfn> attribute indicates the
+  preferred method to <span data-x="img-decoding-process">decode</span> this image. The attribute,
+  if present, must be an <span>image decoding hint</span>. This attribute's <i data-x="missing value
+  default">missing value default</i> and <i data-x="invalid value default">invalid value
+  default</i> are both the <span data-x="attr-img-decoding-auto-state">auto</span> state.</p>
+
   <hr>
 
   <p>The <code>img</code> element must not be used as a layout tool. In particular, <code>img</code>
@@ -176,6 +186,9 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
     <p>If the image is <span data-x="img-available">available</span> and the user agent is configured
     to display that image, then the element <span>represents</span> the element's image data.</p>
 
+    <p>If the image has a <code data-x="attr-img-src">src</code> attribute whose value is
+    the empty string, then the element <span>represents</span> nothing.</p>
+
     <p>Otherwise, the user agent should display some sort of indicator that there is an image that
     is not being rendered, and may, if requested by the user, or if so configured, or when required
     to provide contextual information in response to navigation, provide caption information for the
@@ -189,17 +202,16 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
      override the outer ones -->
 
      <li><p>If the image has a <code data-x="attr-title">title</code> attribute whose value is not
-     the empty string, then the value of that attribute is the caption information; abort these
-     steps.</p></li>
+     the empty string, then return the value of that attribute.</p></li>
 
 <!--CLEANUP-->
      <li><p>If the image is a descendant of a <code>figure</code> element that has a child
      <code>figcaption</code> element, and, ignoring the <code>figcaption</code> element and its
      descendants, the <code>figure</code> element has no <span>flow content</span> descendants other
-     than <span>inter-element whitespace</span> and the <code>img</code> element, then the contents of the first such
-     <code>figcaption</code> element are the caption information; abort these steps.</p></li>
+     than <span>inter-element whitespace</span> and the <code>img</code> element, then return the
+     contents of the first such <code>figcaption</code> element.</p></li>
 
-     <li><p>There is no caption information.</p></li>
+     <li><p>Return nothing. (There is no caption information.)</p></li>
 
     </ol>
 
@@ -282,7 +294,8 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
   respective content attributes of the same name.</p>
 
   <p>The <dfn data-x="dom-img-crossOrigin"><code>crossOrigin</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-img-crossorigin">crossorigin</code> content attribute.</p>
+  <span>reflect</span> the <code data-x="attr-img-crossorigin">crossorigin</code> content attribute,
+  <span>limited to only known values</span>.</p>
 
   <p>The <dfn data-x="dom-img-useMap"><code>useMap</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-hyperlink-usemap">usemap</code> content attribute.</p>
@@ -294,12 +307,16 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
   <span>reflect</span> the <code data-x="attr-img-referrerpolicy">referrerpolicy</code>
   content attribute, <span>limited to only known values</span>.</p>
 
+  <p>The <dfn><code data-x="dom-img-decoding">decoding</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-img-decoding">decoding</code> content
+  attribute, <span>limited to only known values</span>.
+
   </div>
 
   <dl class="domintro">
 
-   <dt><var>image</var> . <code data-x="dom-img-width">width</code> [ = <var>value</var> ]</dt>
-   <dt><var>image</var> . <code data-x="dom-img-height">height</code> [ = <var>value</var> ]</dt>
+   <dt><var>image</var> . <code subdfn data-x="dom-img-width">width</code> [ = <var>value</var> ]</dt>
+   <dt><var>image</var> . <code subdfn data-x="dom-img-height">height</code> [ = <var>value</var> ]</dt>
 
    <dd>
 
@@ -312,8 +329,8 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
 
    </dd>
 
-   <dt><var>image</var> . <code data-x="dom-img-naturalWidth">naturalWidth</code></dt>
-   <dt><var>image</var> . <code data-x="dom-img-naturalHeight">naturalHeight</code></dt>
+   <dt><var>image</var> . <code subdfn data-x="dom-img-naturalWidth">naturalWidth</code></dt>
+   <dt><var>image</var> . <code subdfn data-x="dom-img-naturalHeight">naturalHeight</code></dt>
 
    <dd>
 
@@ -323,7 +340,7 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
 
    </dd>
 
-   <dt><var>image</var> . <code data-x="dom-img-complete">complete</code></dt>
+   <dt><var>image</var> . <code subdfn data-x="dom-img-complete">complete</code></dt>
 
    <dd>
 
@@ -333,7 +350,7 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
 
    </dd>
 
-   <dt><var>image</var> . <code data-x="dom-img-currentSrc">currentSrc</code></dt>
+   <dt><var>image</var> . <code subdfn data-x="dom-img-currentSrc">currentSrc</code></dt>
 
    <dd>
 
@@ -341,24 +358,27 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
 
    </dd>
 
-   <dt><var>image</var> . <code data-x="dom-img-decode">decode</code>()</dt>
+   <dt><var>image</var> . <code subdfn data-x="dom-img-decoding">decoding</code></dt>
 
    <dd>
 
-    <p>Images usually exist in some encoded form; user agents need to decode them into raw pixels
-    before displaying them. This process can be relatively expensive.</p>
+     <p>Returns the <span>image decoding hint</span> set for this image.</p>
 
-    <p>This method causes the user agent to decode the image <span>in parallel</span>, returning a
-    promise that fulfills when decoding is complete. The decoded image data will then be readily
-    available for at least one frame after the fulfillment, ensuring that attempting to display the
-    image will complete without decoding delay.</p>
+   </dd>
+
+   <dt><var>image</var> . <code subdfn data-x="dom-img-decode">decode</code>()</dt>
+
+   <dd>
+
+    <p>This method causes the user agent to <span data-x="img-decoding-process">decode</span> the
+    image <span>in parallel</span>, returning a promise that fulfills when decoding is complete.</p>
 
     <p>The promise will be rejected with an <span>"<code>EncodingError</code>"</span>
     <code>DOMException</code> if the image cannot be decoded.</p>
 
    </dd>
 
-   <dt><var>image</var> = new <code data-x="dom-image">Image</code>( [ <var>width</var> [, <var>height</var> ] ] )</dt>
+   <dt><var>image</var> = new <code subdfn data-x="dom-image">Image</code>( [ <var>width</var> [, <var>height</var> ] ] )</dt>
 
    <dd>
 
@@ -412,9 +432,11 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
    task">queued</span> by the <span>networking task source</span> once the resource has been fetched
    has been <span data-x="queue a task">queued</span>.
 
-   <li>The <code>img</code> element is <span data-x="img-all">completely available</span>.
+   <li>The <code>img</code> element's <span>current request</span>'s <span
+   data-x="img-req-state">state</span> is <span data-x="img-all">completely available</span>.
 
-   <li>The <code>img</code> element is <span data-x="img-error">broken</span>.
+   <li>The <code>img</code> element's <span>current request</span>'s <span
+   data-x="img-req-state">state</span> is <span data-x="img-error">broken</span>.
 
   </ul>
 
@@ -426,80 +448,91 @@ interface <dfn>HTMLImageElement</dfn> : <span>HTMLElement</span> {
   <p>The <dfn data-x="dom-img-currentSrc"><code>currentSrc</code></dfn> IDL attribute
   must return the <code>img</code> element's <span>current request</span>'s <span data-x="img-req-url">current URL</span>.</p>
 
-  <p>The <dfn data-x="dom-img-decode"><code>decode</code></dfn>() method, when invoked, must perform
+  <p>The <dfn data-x="dom-img-decode"><code>decode()</code></dfn> method, when invoked, must perform
   the following steps:</p>
 
   <ol>
-   <!-- TODO: much of this could be phrased entirely in terms of the current request if
-        https://github.com/whatwg/html/issues/1055 gets fixed. See
-        https://github.com/whatwg/html/pull/2332#issuecomment-278613713 -->
-   <li>
-    <p>If any of the following conditions are true about this <code>img</code> element:</p>
-
-    <ul class="brief">
-     <li><p>its <span>node document</span> is not an <span>active document</span>;</p></li>
-
-     <li><p>it has neither a <code data-x="attr-img-src">src</code> nor a <code
-     data-x="attr-img-srcset">srcset</code> attribute;</p></li>
-
-     <li><p>it has a <code data-x="attr-img-src">src</code> attribute but its value is the empty
-     string; or</p></li>
-
-     <li><p>its <span>current request</span>'s <span data-x="img-req-state">state</span> is <span
-     data-x="img-error">broken</span>,</p></li>
-    </ul>
-
-    <p>then return a promise rejected with an <span>"<code>EncodingError</code>"</span>
-    <code>DOMException</code>.</p>
-   </li>
-
    <li><p>Let <var>promise</var> be a new promise.</p></li>
 
    <li>
-    <p><span>In parallel</span>, wait for one of the following cases to occur, and perform the
-    corresponding actions:</p>
+    <p><span>Queue a microtask</span> to perform the following steps:</p>
 
-    <dl class="switch">
-     <dt>This <code>img</code> element's <span>node document</span> stops being an <span>active
-     document</span></dt>
-     <dt>This <code>img</code> element's <span>current request</span> changes or is mutated</dt>
-     <dt>This <code>img</code> element's <span>current request</span>'s <span
-     data-x="img-req-state">state</span> becomes <span data-x="img-error">broken</span></dt>
+    <div class="note">
+     <p>This is done because <span data-x="update the image data">updating the image data</span>
+     takes place in a microtask as well. Thus, to make code such as</p>
 
-     <dd>
-      <p>Reject <var>promise</var> with an <span>"<code>EncodingError</code>"</span>
+     <pre>img.src = "stars.jpg";
+img.decode();</pre>
+
+     <p>properly decode <code data-x="">stars.jpg</code>, we need to delay any processing by one
+     microtask.</p>
+    </div>
+
+    <ol>
+     <!-- TODO: much of this could be phrased entirely in terms of the current request if
+     https://github.com/whatwg/html/issues/1055 gets fixed. See
+     https://github.com/whatwg/html/pull/2332#issuecomment-278613713 -->
+     <li>
+      <p>If any of the following conditions are true about this <code>img</code> element:</p>
+
+      <ul class="brief">
+       <li><p>its <span>node document</span> is not an <span>active document</span>;</p></li>
+
+       <li><p>its <span>current request</span>'s <span data-x="img-req-state">state</span> is <span
+       data-x="img-error">broken</span>,</p></li>
+      </ul>
+
+      <p>then reject <var>promise</var> with an <span>"<code>EncodingError</code>"</span>
       <code>DOMException</code>.</p>
-     </dd>
+     </li>
 
-     <dt>This <code>img</code> element becomes <span data-x="img-all">completely
-     available</span></dt>
+     <li>
+      <p>Otherwise, <span>in parallel</span>, wait for one of the following cases to occur, and
+      perform the corresponding actions:</p>
 
-     <dd>
-      <p>Decode the image's media data entirely into its bitmap form, suitable for rapid painting to
-      the screen.</p>
+      <dl class="switch">
+       <dt>This <code>img</code> element's <span>node document</span> stops being an <span>active
+       document</span></dt>
+       <dt>This <code>img</code> element's <span>current request</span> changes or is mutated</dt>
+       <dt>This <code>img</code> element's <span>current request</span>'s <span
+       data-x="img-req-state">state</span> becomes <span data-x="img-error">broken</span></dt>
 
-      <p>If decoding does not need to be performed for this image (for example because it is a
-      vector graphic), resolve <var>promise</var> with undefined.</p>
+       <dd>
+        <p>Reject <var>promise</var> with an <span>"<code>EncodingError</code>"</span>
+        <code>DOMException</code>.</p>
+       </dd>
 
-      <p>If decoding fails (for example due to invalid image data), reject <var>promise</var> with
-      an <span>"<code>EncodingError</code>"</span> <code>DOMException</code>.</p>
+       <dt>This <code>img</code> element's <span>current request</span>'s <span
+       data-x="img-req-state">state</span> becomes <span data-x="img-all">completely
+       available</span></dt>
 
-      <p>If the decoding process completes successfully, resolve <var>promise</var> with
-      undefined.</p>
+       <dd>
+        <p><span data-x="img-decoding-process">Decode</span> the image.</p>
 
-      <p>User agents should ensure that the decoded media data stays readily available until at
-      least the end of the next <span>update the rendering</span> step in the <span>event
-      loop</span>. This is an important part of the API contract, and should not be broken if at all
-      possible. (Typically, this would only be violated in low-memory situations that require
-      evicting decoded image data, or when the image is too large to keep in decoded form for this
-      period of time.)</p>
-     </dd>
-    </dl>
+        <p>If decoding does not need to be performed for this image (for example because it is a
+        vector graphic), resolve <var>promise</var> with undefined.</p>
 
-    <p class="note">Animated images will become <span data-x="img-all">completely available</span>
-    only after all their frames are loaded. Thus, even though an implementation could decode the
-    first frame before that point, the above steps will not do so, instead waiting until all frames
-    are available.</p>
+        <p>If decoding fails (for example due to invalid image data), reject <var>promise</var> with
+        an <span>"<code>EncodingError</code>"</span> <code>DOMException</code>.</p>
+
+        <p>If the decoding process completes successfully, resolve <var>promise</var> with
+        undefined.</p>
+
+        <p>User agents should ensure that the decoded media data stays readily available until at
+        least the end of the next successful <span>update the rendering</span> step in the
+        <span>event loop</span>. This is an important part of the API contract, and should not be
+        broken if at all possible. (Typically, this would only be violated in low-memory situations
+        that require evicting decoded image data, or when the image is too large to keep in decoded
+        form for this period of time.)</p>
+       </dd>
+      </dl>
+
+      <p class="note">Animated images will become <span data-x="img-all">completely available</span>
+      only after all their frames are loaded. Thus, even though an implementation could decode the
+      first frame before that point, the above steps will not do so, instead waiting until all
+      frames are available.</p>
+     </li>
+    </ol>
    </li>
 
    <li><p>Return <var>promise</var>.</p></li>

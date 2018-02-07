@@ -1,9 +1,12 @@
   <h4>The <code data-x="event-storage">storage</code> event</h4>
 
-  <p>The <code data-x="event-storage">storage</code> event is fired on a <code>Document</code>'s
-  <code>Window</code> object when a storage area changes, as described in the previous two sections
-  (<a href="#sessionStorageEvent">for session storage</a>, <a href="#localStorageEvent">for local
-  storage</a>).</p>
+  <p><span subdfn data-x="send a storage notification">The <code
+  data-x="event-storage">storage</code> event is fired on a <code>Document</code>'s
+  <code>Window</code> object when a storage area changes</span>, as described in the previous two
+  sections (<a href="#sessionStorageEvent">for session storage</a>, <a href="#localStorageEvent">for
+  local storage</a>).</p>
+
+  <div w-nodev>
 
   <p>When a user agent is to <dfn>send a storage notification</dfn> for a <code>Document</code>, the
   user agent must <span>queue a task</span> to <span data-x="concept-event-fire">fire an
@@ -38,5 +41,7 @@
   <code>Storage</code> object from the <code>Window</code> object of the target
   <code>Document</code> that represents the same kind of <code>Storage</code> area as was affected
   (i.e. session or local).</p>
+
+  </div>
 
 

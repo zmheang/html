@@ -1,19 +1,20 @@
   <h5 id="images-processing-model">Processing model</h5>
 
-  <p>The <span>task source</span> for the <span data-x="concept-task">tasks</span> <span data-x="queue
-  a task">queued</span> by algorithms in this section is the <span>DOM manipulation task
-  source</span>.</p>
+  <p>The <span>task source</span> for the <span data-x="concept-task">tasks</span> <span
+  data-x="queue a task">queued</span> by algorithms in this section is the <span>DOM manipulation
+  task source</span>.</p>
 
   <hr>
 
   <p>An <code>img</code> element has a <dfn>current request</dfn> and a <dfn>pending request</dfn>.
   The <span>current request</span> is initially set to a new <span>image request</span>.
-  The <span>pending request</span> is initially set to null.
-  The <span>current request</span> is usually referred to as the <code>img</code> element itself.</p>
+  The <span>pending request</span> is initially set to null.</p>
 
-  <p>An <dfn>image request</dfn> has a <dfn data-x="img-req-state">state</dfn>, <dfn data-x="img-req-url">current URL</dfn> and <dfn data-x="img-req-data">image data</dfn>.</p>
+  <p>An <dfn>image request</dfn> has a <dfn data-x="img-req-state">state</dfn>, <dfn
+  data-x="img-req-url">current URL</dfn>, and <dfn data-x="img-req-data">image data</dfn>.</p>
 
-  <p>An <span>image request</span>'s <span data-x="img-req-state">state</span> is one of the following:</p>
+  <p>An <span>image request</span>'s <span data-x="img-req-state">state</span> is one of the
+  following:</p>
 
   <dl>
 
@@ -37,25 +38,30 @@
 
   </dl>
 
-  <p>An <span>image request</span>'s <span data-x="img-req-url">current URL</span> is initially the empty string.</p>
+  <p>An <span>image request</span>'s <span data-x="img-req-url">current URL</span> is initially the
+  empty string.</p>
 
-  <p>An <span>image request</span>'s <span data-x="img-req-data">image data</span> is the decoded image data.</p>
+  <p>An <span>image request</span>'s <span data-x="img-req-data">image data</span> is the decoded
+  image data.</p>
 
-  <p>When an <span>image request</span> is either in the <span data-x="img-inc">partially
-  available</span> state or in the <span data-x="img-all">completely available</span> state, it is
-  said to be <dfn data-x="img-available">available</dfn>.</p>
+  <p>When an <span>image request</span>'s <span data-x="img-req-state">state</span> is either <span
+  data-x="img-inc">partially available</span> or <span data-x="img-all">completely available</span>,
+  the <span>image request</span> is said to be <dfn data-x="img-available">available</dfn>.</p>
 
-  <p>When an <code>img</code> element is in the <span data-x="img-all">completely available</span>
-  state <em>and</em> the user agent can decode the media data without errors, then the
-  <code>img</code> element is said to be <dfn data-x="img-good">fully decodable</dfn>.</p>
+  <p>When an <code>img</code> element's <span>current request</span>'s <span
+  data-x="img-req-state">state</span> is <span data-x="img-all">completely available</span> and the
+  user agent can decode the media data without errors, then the <code>img</code> element is said to
+  be <dfn data-x="img-good">fully decodable</dfn>.</p>
 
-  <p>An <span>image request</span> is initially <span data-x="img-none">unavailable</span>.</p>
+  <p>An <span>image request</span>'s <span data-x="img-req-state">state</span> is initially <span
+  data-x="img-none">unavailable</span>.</p>
 
-  <p>When an <code>img</code> element is <span data-x="img-available">available</span>,
-  it provides a <span>paint source</span>
-  whose width is the image's <span data-x="density-corrected intrinsic width and height">density-corrected intrinsic width</span> (if any),
-  whose height is the image's <span data-x="density-corrected intrinsic width and height">density-corrected intrinsic height</span> (if any),
-  and whose appearance is the intrinsic appearance of the image.</p>
+  <p>When an <code>img</code> element's <span>current request</span> is <span
+  data-x="img-available">available</span>, the <code>img</code> element provides a <span>paint
+  source</span> whose width is the image's <span data-x="density-corrected intrinsic width and
+  height">density-corrected intrinsic width</span> (if any), whose height is the image's <span
+  data-x="density-corrected intrinsic width and height">density-corrected intrinsic height</span>
+  (if any), and whose appearance is the intrinsic appearance of the image.</p>
 
   <hr>
 

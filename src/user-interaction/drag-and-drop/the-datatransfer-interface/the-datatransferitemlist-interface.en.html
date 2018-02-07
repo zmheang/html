@@ -3,7 +3,8 @@
   <p>Each <code>DataTransfer</code> object is associated with a <code>DataTransferItemList</code>
   object.</p>
 
-  <pre class="idl">interface <dfn>DataTransferItemList</dfn> {
+  <pre class="idl">[Exposed=Window]
+interface <dfn>DataTransferItemList</dfn> {
   readonly attribute unsigned long <span data-x="dom-DataTransferItemList-length">length</span>;
   <a href="#dom-datatransferitemlist-item">getter</a> <span>DataTransferItem</span> (unsigned long index);
   <span>DataTransferItem</span>? <span data-x="dom-DataTransferItemList-add">add</span>(DOMString data, DOMString type);<!--
@@ -101,7 +102,7 @@ DND-v5:  <span>DataTransferItem</span>? <span data-x="dom-DataTransferItemList-a
   <ol>
 
    <li><p>If the <code>DataTransferItemList</code> object is not in the <i
-   data-x="concept-dnd-rw">read/write mode</i>, return null and abort these steps.</p></li>
+   data-x="concept-dnd-rw">read/write mode</i>, return null.</p></li>
 
    <li>
 
@@ -117,8 +118,7 @@ DND-v5:  <span>DataTransferItem</span>? <span data-x="dom-DataTransferItemList-a
       data-x="the drag data item kind">kind</span> is <i>Plain Unicode string</i> and whose <span
       data-x="the drag data item type string">type string</span> is equal to the value of the
       method's second argument, <span>converted to ASCII lowercase</span>, then throw a
-      <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code> and abort these
-      steps.</p>
+      <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>.</p>
 
       <p>Otherwise, add an item to the <span>drag data store item list</span> whose <span data-x="the
       drag data item kind">kind</span> is <i>Plain Unicode string</i>, whose <span data-x="the drag
@@ -165,7 +165,7 @@ DND-v5:  <span>DataTransferItem</span>? <span data-x="dom-DataTransferItemList-a
       string">type string</span> is equal to the value of the method's second argument,
       <span>converted to ASCII lowercase</span>, and whose data is a <span>structured clone</span>
       of the method's first argument. If creating the clone throws an exception, then throw that
-      exception and abort these steps.</p>
+      exception.</p>
 
      </dd>
 -->
@@ -187,8 +187,7 @@ DND-v5:  <span>DataTransferItem</span>? <span data-x="dom-DataTransferItemList-a
 
    <li><p>If the <code>DataTransferItemList</code> object is not in the <i
    data-x="concept-dnd-rw">read/write mode</i>, throw an
-   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> and abort these
-   steps.</p></li>
+   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Remove the <var>i</var>th item from the <span>drag data store</span>.</p></li>
 

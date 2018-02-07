@@ -9,7 +9,7 @@
 
    <li><p>If the encoding that is already being used to interpret the input stream is a <span>UTF-16
    encoding</span>, then set the <span data-x="concept-encoding-confidence">confidence</span> to
-   <i>certain</i> and abort these steps. The new encoding is ignored; if it was anything but the
+   <i>certain</i> and return. The new encoding is ignored; if it was anything but the
    same encoding, then it would be clearly incorrect.</p></li>
 
    <!-- the next two steps are redundant with similar logic in the sniffer -->
@@ -24,7 +24,7 @@
 
    <li><p>If the new encoding is identical or equivalent to the encoding that is already being used
    to interpret the input stream, then set the <span
-   data-x="concept-encoding-confidence">confidence</span> to <i>certain</i> and abort these steps.
+   data-x="concept-encoding-confidence">confidence</span> to <i>certain</i> and return.
    This happens when the encoding information found in the file matches what the <span>encoding
    sniffing algorithm</span> determined to be the encoding, and in the second pass through the
    parser if the first pass found that the encoding sniffing algorithm described in the earlier
@@ -35,8 +35,7 @@
    supports changing the converter on the fly, then the user agent may change to the new converter
    for the encoding on the fly. Set the <span>document's character encoding</span> and the encoding
    used to convert the input stream to the new encoding, set the <span
-   data-x="concept-encoding-confidence">confidence</span> to <i>certain</i>, and abort these
-   steps.</p></li>
+   data-x="concept-encoding-confidence">confidence</span> to <i>certain</i>, and return.</p></li>
 
    <li><p>Otherwise, <span>navigate</span><!--DONAV reparse--> to the document again, with
    <span>replacement enabled</span>, and using the same <span>source browsing context</span>, but

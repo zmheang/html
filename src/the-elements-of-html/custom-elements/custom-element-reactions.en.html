@@ -5,23 +5,26 @@
 
   <ul>
    <li><p>When <span data-x="custom-element-upgrades">upgraded</span>, its <span data-x="custom
-   element constructor">constructor</span> is run.</p></li>
+   element constructor">constructor</span> is run, with no arguments.</p></li>
 
    <li><p>When it <span>becomes connected</span>, its <code data-x="">connectedCallback</code> is
-   run.</p></li>
+   called, with no arguments.</p></li>
 
    <li><p>When it <span>becomes disconnected</span>, its <code data-x="">disconnectedCallback</code>
-   is run.</p></li>
+   is called, with no arguments.</p></li>
 
    <li><p>When it is <span data-x="concept-node-adopt">adopted</span> into a new document, its <code
-   data-x="">adoptedCallback</code> is run.</p></li>
+   data-x="">adoptedCallback</code> is called, given the old document and new document as
+   arguments.</p></li>
 
    <li><p>When any of its attributes are <span
    data-x="concept-element-attributes-change">changed</span>, <span
    data-x="concept-element-attributes-append">appended</span>, <span
    data-x="concept-element-attributes-remove">removed</span>, or <span
    data-x="concept-element-attributes-replace">replaced</span>, its <code
-   data-x="">attributeChangedCallback</code> is run.</p></li>
+   data-x="">attributeChangedCallback</code> is called, given the attribute's local name, old value,
+   new value, and namespace as arguments. (An attribute's old or new value is considered to be null
+   when the attribute is added or removed, respectively.)</p></li>
   </ul>
 
   <p>We call these reactions collectively <dfn data-x="concept-custom-element-reaction">custom
@@ -89,8 +92,8 @@
     <ol>
      <li><p>Add <var>element</var> to the <span>backup element queue</span>.</p></li>
 
-     <li><p>If the <span>processing the backup element queue</span> flag is set, abort this
-     algorithm.</p></li>
+     <li><p>If the <span>processing the backup element queue</span> flag is set, then
+     return.</p></li>
 
      <li><p>Set the <span>processing the backup element queue</span> flag.</p></li>
 
@@ -122,7 +125,7 @@
    data-x="concept-custom-element-definition-lifecycle-callbacks">lifecycle callbacks</span> with
    key <var>callbackName</var>.</p></li>
 
-   <li><p>If <var>callback</var> is null, then abort these steps.</p></li>
+   <li><p>If <var>callback</var> is null, then return</p></li>
 
    <li>
     <p>If <var>callbackName</var> is "<code data-x="">attributeChangedCallback</code>", then:</p>
@@ -132,7 +135,7 @@
 
      <li><p>If <var>definition</var>'s <span
      data-x="concept-custom-element-definition-observed-attributes">observed attributes</span> does
-     not contain <var>attributeName</var>, then abort these steps.</p></li>
+     not contain <var>attributeName</var>, then return.</p></li>
     </ol>
    </li>
 
@@ -209,19 +212,28 @@
   Additionally, it must not appear on readonly attributes.</p>
 
   <p>Operations, attributes, setters, or deleters annotated with the <code
-  data-x="CEReactions">[CEReactions]</code> extended attribute must run the following steps
-  surrounding the actions listed in the description of the operation, setter, deleter, or the
-  attribute's setter:</p>
+  data-x="CEReactions">[CEReactions]</code> extended attribute must run the following steps in place
+  of the ones specified in their description:</p>
 
-  <dl>
-   <dt>Before executing the listed actions</dt>
-   <dd>Push a new <span>element queue</span> onto the <span>custom element reactions
-   stack</span>.</dd>
+  <ol>
+   <li><p><span data-x="stack push">Push</span> a new <span>element queue</span> onto the
+   <span>custom element reactions stack</span>.</p></li>
 
-   <dt>After executing the listed actions</dt>
-   <dd>Pop the <span>element queue</span> from the <span>custom element reactions stack</span>, and
-   <span>invoke custom element reactions</span> in that queue.</dd>
-  </dl>
+   <li><p>Run the originally-specified steps for this construct, catching any exceptions. If the
+   steps return a value, let <var>value</var> be the returned value. If they throw an exception, let
+   <var>exception</var> be the thrown exception.</p></li>
+
+   <li><p>Let <var>queue</var> be the result of <span data-x="stack pop">popping</span> from the
+   <span>custom element reactions stack</span>.</p></li>
+
+   <li><p><span>Invoke custom element reactions</span> in <var>queue</var>.</p></li>
+
+   <li><p>If an exception <var>exception</var> was thrown by the original steps, rethrow
+   <var>exception</var>.</p></li>
+
+   <li><p>If a value <var>value</var> was returned from the original steps, return
+   <var>value</var>.</p></li>
+  </ol>
 
   <div class="note">
    <p>The intent behind this extended attribute is somewhat subtle. One way of accomplishing its

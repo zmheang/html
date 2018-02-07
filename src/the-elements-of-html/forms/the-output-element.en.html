@@ -4,7 +4,7 @@
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
    <dd><span>Flow content</span>.</dd>
    <dd><span>Phrasing content</span>.</dd>
-   <dd><span data-x="category-listed">Listed</span>, <span data-x="category-label">labelable</span>, and <span data-x="category-reset">resettable</span> <span>form-associated element</span>.</dd>
+   <dd><span data-x="category-listed">Listed</span>, <span data-x="category-label">labelable</span>, <span data-x="category-reset">resettable</span>, and <span data-x="category-autocapitalize">autocapitalize-inheriting</span> <span>form-associated element</span>.</dd>
    <dd><span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>Where <span>phrasing content</span> is expected.</dd>
@@ -17,7 +17,8 @@
    <dd><code data-x="attr-fe-name">name</code> <!-- variant --> </dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-output-htmlFor">htmlFor</span>;
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-fae-form">form</span>;
@@ -168,9 +169,9 @@ interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
    <p>A simple calculator could use <code>output</code> for its display of calculated results:</p>
 
    <pre>&lt;form onsubmit="return false" oninput="o.value = a.valueAsNumber + b.valueAsNumber">
- &lt;input name=a type=number step=any> +
- &lt;input name=b type=number step=any> =
- &lt;output name=o for="a b">&lt;/output>
+ &lt;input id=a type=number step=any> +
+ &lt;input id=b type=number step=any> =
+ &lt;output id=o for="a b">&lt;/output>
 &lt;/form></pre>
 
   </div>

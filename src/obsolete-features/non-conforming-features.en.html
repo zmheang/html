@@ -4,7 +4,7 @@
 
   <dl><!-- alphabetical by first element in the group, except CSS goes last -->
 
-   <dt><code>applet</code></dt>
+   <dt><dfn><code>applet</code></dfn></dt>
    <dd><p>Use <code>embed</code> or <code>object</code> instead.</p></dd>
 
    <dt><dfn><code>acronym</code></dfn></dt>
@@ -103,6 +103,12 @@
    <dt><dfn><code data-x="attr-link-charset">charset</code></dfn> on <code>link</code> elements</dt>
    <dd><p>Use an HTTP `<code>Content-Type</code>` header on the linked resource instead.</p></dd>
 
+   <dt><dfn><code data-x="attr-script-charset">charset</code></dfn> on <code>script</code>
+   elements (except as noted in the previous section)</dt>
+   <dd><p>Omit the attribute. Both documents and scripts are required to use <span>UTF-8</span>, so
+   it is redundant to specify it on the <code>script</code> element since it inherits from the
+   document.</p></dd>
+
    <dt><dfn><code data-x="attr-a-coords">coords</code></dfn> on <code>a</code> elements</dt>
    <dt><dfn><code data-x="attr-a-shape">shape</code></dfn> on <code>a</code> elements</dt>
    <dd><p>Use <code>area</code> instead of <code>a</code> for image maps.</p></dd>
@@ -179,7 +185,6 @@
    <dt><dfn><code data-x="attr-menu-label">label</code></dfn> on <code>menu</code> elements</dt>
    <dt><dfn><code data-x="attr-contextmenu">contextmenu</code></dfn> on all elements</dt>
    <dt><dfn><code data-x="handler-onshow">onshow</code></dfn> on all elements</dt>
-   <dt><dfn><code data-x="handler-onhide">onhide</code></dfn> on all elements</dt>
    <dd><p>To implement a custom context menu, use script to handle the <code
    data-x="event-contextmenu">contextmenu</code> event.</p></dd>
 
@@ -209,12 +214,16 @@
    value types.</p></dd>
 
    <dt><dfn><code data-x="attr-script-language">language</code></dfn> on <code>script</code> elements (except as noted in the previous section)</dt>
-   <dd><p>Use the <code data-x="attr-script-type">type</code> attribute
-   instead.</p></dd>
+   <dd><p>Omit the attribute for JavaScript; for <span data-x="data block">data blocks</span>, use
+   the <code data-x="attr-script-type">type</code> attribute instead.</p></dd>
 
    <dt><dfn><code data-x="attr-script-event">event</code></dfn> on <code>script</code> elements</dt>
    <dt><dfn><code data-x="attr-script-for">for</code></dfn> on <code>script</code> elements</dt>
    <dd><p>Use DOM events mechanisms to register event listeners. <ref spec=DOM></p></dd>
+
+   <dt><dfn><code data-x="attr-style-type">type</code></dfn> on <code>style</code> elements (except as noted in the previous section)</dt>
+   <dd><p>Omit the attribute for CSS; for <span data-x="data block">data blocks</span>, use
+   <code>script</code> as the container instead of <code>style</code>.</p></dd>
 
    <dt><dfn><code data-x="attr-table-datapagesize">datapagesize</code></dfn> on <code>table</code> elements</dt>
    <dd><p>Unnecessary. Omit it altogether.</p></dd>
@@ -232,8 +241,8 @@
    <dt><dfn><code data-x="attr-td-scope">scope</code></dfn> on <code>td</code> elements</dt>
    <dd><p>Use <code>th</code> elements for heading cells.</p>
 
-   <dt><dfn><code data-x="attr-datasrc">datasrc</code></dfn> on <code>a</code>, <code>applet</code>, <code>button</code>, <code>div</code>, <code>frame</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>option</code>, <code>select</code>, <code>span</code>, <code>table</code>, and <code>textarea</code> elements</dt>
-   <dt><dfn><code data-x="attr-datafld">datafld</code></dfn> on <code>a</code>, <code>applet</code>, <code>button</code>, <code>div</code>, <code>fieldset</code>, <code>frame</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>param</code>, <code>select</code>, <code>span</code>, and <code>textarea</code> elements</dt>
+   <dt><dfn><code data-x="attr-datasrc">datasrc</code></dfn> on <code>a</code>, <code>button</code>, <code>div</code>, <code>frame</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>option</code>, <code>select</code>, <code>span</code>, <code>table</code>, and <code>textarea</code> elements</dt>
+   <dt><dfn><code data-x="attr-datafld">datafld</code></dfn> on <code>a</code>, <code>button</code>, <code>div</code>, <code>fieldset</code>, <code>frame</code>, <code>iframe</code>, <code>img</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>param</code>, <code>select</code>, <code>span</code>, and <code>textarea</code> elements</dt>
    <dt><dfn><code data-x="attr-dataformatas">dataformatas</code></dfn> on <code>button</code>, <code>div</code>, <code>input</code>, <code>label</code>, <code>legend</code>, <code>marquee</code>, <code>object</code>, <code>option</code>, <code>select</code>, <code>span</code>, and <code>table</code> elements</dt>
    <dd><p>Use script and a mechanism such as <code>XMLHttpRequest</code> to populate the page dynamically. <ref spec=XHR></p></dd>
 

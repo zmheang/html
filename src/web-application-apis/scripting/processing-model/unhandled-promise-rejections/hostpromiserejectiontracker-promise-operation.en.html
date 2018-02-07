@@ -9,7 +9,7 @@
 
    <li><p>Let <var>script</var> be the <span>running script</span>.</p></li>
 
-   <li><p>If <var>script</var> has <span>muted errors</span>, terminate these steps.</p></li>
+   <li><p>If <var>script</var>'s <span>muted errors</span> is true, terminate these steps.</p></li>
 
    <li><p>Let <var>settings object</var> be <var>script</var>'s <span>settings object</span>.</p>
    </li>
@@ -29,11 +29,11 @@
     <ol>
 
      <li><p>If <var>settings object</var>'s <span>about-to-be-notified rejected promises
-     list</span> contains <var>promise</var>, remove <var>promise</var> from that list and abort
-     these steps.</p></li>
+     list</span> contains <var>promise</var>, then remove <var>promise</var> from that list and
+     return.</p></li>
 
      <li><p>If <var>settings object</var>'s <span>outstanding rejected promises weak set</span>
-     does not contain <var>promise</var>, abort these steps.</p></li>
+     does not contain <var>promise</var>, then return.</p></li>
 
      <li><p>Remove <var>promise</var> from <var>settings object</var>'s <span>outstanding rejected
      promises weak set</span>.</p></li>

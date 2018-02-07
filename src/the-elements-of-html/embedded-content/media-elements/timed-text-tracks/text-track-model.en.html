@@ -260,7 +260,7 @@
   <ol>
 
    <li><p>If the <span>media element</span>'s <span>pending text track change notification
-   flag</span> is set, abort these steps.</p></li>
+   flag</span> is set, return.</p></li>
 
    <li><p>Set the <span>media element</span>'s <span>pending text track change notification
    flag</span>.</p></li>
@@ -328,12 +328,6 @@
    <dd>
     <p>Additional fields, as needed for the format, including the actual data of the cue. For example, WebVTT has a <span>text track cue
     writing direction</span> and so forth. <ref spec=WEBVTT></p>
-   </dd>
-
-   <dt><dfn data-x="text track rules for extracting the chapter title">Rules for extracting the chapter title</dfn>
-   <dd>
-    <p>An algorithm which, when applied to the cue, returns a string that can be used in user
-    interfaces that use the cue as a chapter title.</p>
    </dd>
 
   </dl>

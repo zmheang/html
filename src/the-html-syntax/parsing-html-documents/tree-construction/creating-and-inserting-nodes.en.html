@@ -57,8 +57,7 @@
        than the last table. -->
 
        <li><p>If <var>last table</var> has a parent node, then let <var>adjusted insertion location</var> be inside <var>last table</var>'s parent
-       node, immediately before <var>last table</var>, and abort these
-       substeps.</p></li>
+       node, immediately before <var>last table</var>, and abort these substeps.</p></li>
 
        <!-- if we get here, we know there's a last table, but it has no parent, and if there's a
        last template, it's older than the last table. -->
@@ -204,8 +203,7 @@
    <span>tree</span> as the element pointed to by the <span><code data-x="">form</code> element
    pointer</span>, then <span data-x="concept-form-association">associate</span> <var>element</var>
    with the <code>form</code> element pointed to by the <span><code data-x="">form</code> element
-   pointer</span> and suppress the running of the <span>reset the form owner</span> algorithm when
-   the parser subsequently attempts to insert the element.</p></li>
+   pointer</span> and set <var>element</var>'s <span>parser inserted flag</span>.</p></li>
 
    <li><p>Return <var>element</var>.</p></li>
 
@@ -378,7 +376,7 @@
    <li>
 
     <p>If the <var>adjusted insertion location</var> is in a <code>Document</code> node,
-    then abort these steps.
+    then return.
 
     <p class="note">The DOM will not let <code>Document</code> nodes have <code>Text</code> node
     children, so they are dropped on the floor.</p>

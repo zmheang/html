@@ -30,7 +30,7 @@
 
    <li>
 
-    <p>The user agent may display a message to the user or abort these steps (or both).</p>
+    <p>The user agent may display a message to the user or return (or both).</p>
 
     <p class="example">For instance, a kiosk browser could silently ignore any invocations of the
     <code data-x="dom-print">print()</code> method.</p>
@@ -45,7 +45,7 @@
 
     <p>If the <span>active sandboxing flag set</span> of this <code>Window</code> object's <span
     data-x="concept-document-window">associated <code>Document</code></span> has the <span>sandboxed
-    modals flag</span> set, then abort these steps.</p>
+    modals flag</span> set, then return.</p>
 
     <p class="note">If the printing dialog is blocked by a <code>Document</code>'s sandbox,
     then neither the <code data-x="event-beforeprint">beforeprint</code> nor <code

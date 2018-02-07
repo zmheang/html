@@ -1,22 +1,22 @@
   <h5><dfn>Character reference state</dfn></h5>
 
-  <p>Consume the <span>next input character</span>:</p>
+  <p>Set the <var data-x="temporary buffer">temporary buffer</var> to the empty string. Append
+   a U+0026 AMPERSAND (&amp;) character to the <var data-x="temporary buffer">temporary
+   buffer</var>. Consume the <span>next input character</span>:</p>
 
   <dl class="switch">
 
    <dt><span data-x="ASCII alphanumeric">ASCII alphanumeric</span></dt>
-   <dd><p>Set the <var data-x="temporary buffer">temporary buffer</var> to the empty string. Append
-   a U+0026 AMPERSAND (&amp;) character to the <var data-x="temporary buffer">temporary
-   buffer</var>. <span>Reconsume</span> in the <span>named character reference state</span>.</dd>
+   <dd><span>Reconsume</span> in the <span>named character reference state</span>.</dd>
 
    <dt>U+0023 NUMBER SIGN (#)</dt>
-   <dd><p>Set the <var data-x="temporary buffer">temporary buffer</var> to the empty string. Append
-   a U+0026 AMPERSAND (&amp;) character and the <span>current input character</span> to the <var
-   data-x="temporary buffer">temporary buffer</var>. Switch to the <span>numeric character reference
-   state</span>.</dd>
+   <dd>Append the <span>current input character</span> to the
+   <var data-x="temporary buffer">temporary buffer</var>. Switch to the <span>numeric character
+   reference state</span>.</dd>
 
    <dt>Anything else</dt>
-   <dd><span>Reconsume</span> in the <var data-x="return state">return state</var>.</dd>
+   <dd><span>Flush code points consumed as a character reference</span>. <span>Reconsume</span> in
+   the <var data-x="return state">return state</var>.</dd>
 
   </dl>
 

@@ -17,21 +17,18 @@
    <dd><code data-x="attr-link-crossorigin">crossorigin</code></dd>
    <dd><code data-x="attr-link-rel">rel</code></dd>
    <dd><code data-x="attr-link-media">media</code></dd>
-   <dd><code data-x="attr-link-nonce">nonce</code></dd>
    <dd><code data-x="attr-link-integrity">integrity</code></dd>
    <dd><code data-x="attr-link-hreflang">hreflang</code></dd>
    <dd><code data-x="attr-link-type">type</code></dd>
    <dd><code data-x="attr-link-referrerpolicy">referrerpolicy</code></dd>
    <dd><code data-x="attr-link-sizes">sizes</code></dd>
    <dd><code data-x="attr-link-as">as</code></dd>
-   <dd><code data-x="attr-link-scope">scope</code></dd>
-   <dd><code data-x="attr-link-updateviacache">updateviacache</code></dd>
-   <dd><code data-x="attr-link-workertype">workertype</code></dd>
    <dd><code data-x="attr-link-color">color</code></dd>
    <dd>Also, the <code data-x="attr-link-title">title</code> attribute <span data-x="attr-link-title">has special semantics</span> on this element.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-href">href</span>;
   [<span>CEReactions</span>] attribute DOMString? <span data-x="dom-link-crossOrigin">crossOrigin</span>;
@@ -39,17 +36,13 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-as">as</span>; // (default "")
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-relList">relList</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-media">media</span>;
-  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-nonce">nonce</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-integrity">integrity</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-hreflang">hreflang</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-type">type</span>;
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-sizes">sizes</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-referrerPolicy">referrerPolicy</span>;
-  [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-scope">scope</span>;
-  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-workertype">workerType</span>;
-  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-updateviacache">updateViaCache</span>;
 };
-<span>HTMLLinkElement</span> implements <span>LinkStyle</span>;</pre>
+<span>HTMLLinkElement</span> includes <span>LinkStyle</span>;</pre>
    </dd>
    <dd w-nohtml>Uses <code>HTMLLinkElement</code>.</dd>
   </dl>
@@ -84,14 +77,14 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <code data-x="rel-alternate">alternate</code>,
   <code data-x="rel-dns-prefetch">dns-prefetch</code>,
   <code data-x="rel-icon">icon</code>,
+  <code data-x="rel-modulepreload">modulepreload</code>,
   <code data-x="rel-next">next</code>,
   <code data-x="rel-pingback">pingback</code>,
   <code data-x="rel-preconnect">preconnect</code>,
   <code data-x="rel-prefetch">prefetch</code>,
   <code data-x="rel-preload">preload</code>,
   <code data-x="rel-prerender">prerender</code>,
-  <code data-x="rel-search">search</code>,
-  <code data-x="rel-serviceworker">serviceworker</code>, and
+  <code data-x="rel-search">search</code>, and
   <code data-x="rel-stylesheet">stylesheet</code>.
   <code data-x="attr-link-rel">rel</code>'s <span data-x="concept-supported-tokens">supported
   tokens</span> must only include the tokens from this list that the user agent implements the
@@ -167,11 +160,6 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <p>The <dfn><code data-x="attr-link-media">media</code></dfn> attribute says which media the
   resource applies to. The value must be a <span>valid media query list</span>.</p>
 
-  <p>The <dfn><code data-x="attr-link-nonce">nonce</code></dfn> attribute represents a cryptographic
-  nonce ("number used once") which can be used by <cite>Content Security Policy</cite> to determine
-  whether or not an <span data-x="external resource link">external resource specified by the
-  link</span> will be loaded and applied to the document. The value is text. <ref spec="CSP"></p>
-
   <p>The <dfn data-export="" data-dfn-for="link" data-dfn-type="element-attr"><code
   data-x="attr-link-integrity">integrity</code></dfn> attribute represents the <span
   data-x="concept-request-integrity-metadata">integrity metadata</span> for requests which this
@@ -237,41 +225,24 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   destination</span> is a keyword for this attribute, mapping to a state of the same name. The
   attribute must be specified on <code>link</code> elements that have a <code
   data-x="attr-link-rel">rel</code> attribute that contains the <code
-  data-x="rel-preload">preload</code> keyword, but must not be specified on <code>link</code>
-  elements which do not. <span w-nodev>The processing model for how the <code
-  data-x="attr-link-as">as</code> attribute is used is given in the <span
-  data-x="concept-link-obtain">steps to obtain the resource</span>.</span></p>
+  data-x="rel-preload">preload</code> keyword. It may be specified on <code>link</code> elements
+  that have a <code data-x="attr-link-rel">rel</code> attribute that contains the <code
+  data-x="rel-modulepreload">modulepreload</code> keyword; in such cases it must have a value which
+  is a <span data-x="concept-script-like-destination">script-like destination</span>. For other
+  <code>link</code> elements, it must not be specified.</p>
+
+  <p w-nodev>The processing model for how the <code data-x="attr-link-as">as</code> attribute is
+  used is given in the steps to obtain the resource, for <span data-x="concept-link-obtain">for
+  <code data-x="rel-preload">preload</code> links</span> and <a
+  href="#modulepreload-obtain-steps">for <code data-x="rel-modulepreload">modulepreload</code>
+  links</a>, respectively.</p>
 
   <p class="note">The attribute does not have a <i data-x="missing value default">missing value
   default</i> or <i data-x="invalid value default">invalid value default</i>, meaning that invalid
   or missing values for the attribute map to no state. This is accounted for in the processing
-  model.</p>
-
-  <hr>
-
-  <p>The <dfn><code data-x="attr-link-scope">scope</code></dfn> attribute specifies the <span>scope
-  url</span> for a <span>service worker registration</span>. If the attribute is present, the value
-  must be a <span>valid URL potentially surrounded by spaces</span>. The attribute must not be
-  specified on <code>link</code> elements that do not have a <code data-x="attr-link-rel">rel</code>
-  attribute that contains the <code data-x="rel-serviceworker">serviceworker</code> keyword.</p>
-
-  <p>The <dfn><code data-x="attr-link-updateviacache">updateviacache</code></dfn> attribute
-  specifies the <span>update via cache mode</span> for a <span>service worker registration</span>.
-  It is an <span>enumerated attribute</span>. Each <span>update via cache mode</span> is a keyword
-  for this attribute, mapping to a state of the same name. The <span>missing value default</span> is
-  the <i>imports</i> state. The attribute must not be specified on <code>link</code> elements that
-  do not have a <code data-x="attr-link-rel">rel</code> attribute that contains the
-  <code data-x="rel-serviceworker">serviceworker</code> keyword.</p>
-
-  <p>The <dfn><code data-x="attr-link-workertype">workertype</code></dfn> attribute is an
-  <span>enumerated attribute</span> that specifies the <span>service worker type</span> for a
-  <span>service worker registration</span>. The attribute's keywords are <code
-  data-x="">classic</code> and <code data-x="">module</code>, which map to the respective states
-  <i>classic</i> and <i>module</i>. The <span>missing value default</span> is the <i>classic</i>
-  state. There is an additional state, not represented by a keyword: the <i>invalid</i> state. The
-  <span>invalid value default</span> is the <i>invalid</i> state. The attribute must not be
-  specified on <code>link</code> elements that do not have a <code data-x="attr-link-rel">rel</code>
-  attribute that contains the <code data-x="rel-serviceworker">serviceworker</code> keyword.</p>
+  model. For <code data-x="rel-preload">preload</code> links, both conditions are an error; for
+  <code data-x="rel-modulepreload">modulepreload</code> links, a missing value will be treated as
+  "<code data-x="">script</code>".</p>
 
   <hr>
 
@@ -297,9 +268,7 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <dfn><code data-x="dom-link-hreflang">hreflang</code></dfn>,
   <dfn><code data-x="dom-link-integrity">integrity</code></dfn>,
   <dfn><code data-x="dom-link-media">media</code></dfn>,
-  <dfn><code data-x="dom-link-nonce">nonce</code></dfn>,
   <dfn><code data-x="dom-link-rel">rel</code></dfn>,
-  <dfn><code data-x="dom-link-scope">scope</code></dfn>,
   <dfn><code data-x="dom-link-sizes">sizes</code></dfn>, and
   <dfn><code data-x="dom-link-type">type</code></dfn>
   each must <span>reflect</span> the respective content attributes of the same name.</p>
@@ -313,7 +282,7 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <dfn><code data-x="dom-link-crossOrigin">crossOrigin</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-link-crossorigin">crossorigin</code> content
-  attribute.</p>
+  attribute, <span>limited to only known values</span>.</p>
 
   <p>The <dfn><code data-x="dom-link-referrerPolicy">referrerPolicy</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-link-referrerpolicy">referrerpolicy</code>
@@ -321,12 +290,4 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <dfn><code data-x="dom-link-rellist">relList</code></dfn> IDL attribute must <span
   data-x="reflect">reflect</span> the <code data-x="attr-link-rel">rel</code> content attribute.</p>
-
-  <p>The <dfn><code data-x="dom-link-updateViaCache">updateViaCache</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-link-updateviacache">updateviacache</code> content
-  attribute, <span>limited to only known values</span>.</p>
-
-  <p>The <dfn><code data-x="dom-link-workerType">workerType</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-link-workertype">workertype</code> content
-  attribute, <span>limited to only known values</span>.</p>
 

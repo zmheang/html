@@ -46,14 +46,6 @@
   the <i>approximate-for-speed</i> flag when seeking in response to the user manipulating an
   approximate position interface such as a seek bar.</p>
 
-  <p>For the purposes of listing chapters in the <span>media resource</span>, only <span data-x="text
-  track">text tracks</span> in the <span>media element</span>'s <span>list of text tracks</span>
-  that are <span data-x="text track showing">showing</span> and whose <span>text track kind</span> is
-  <code data-x="dom-TextTrack-kind-chapters">chapters</code> should be used. Such tracks must be
-  interpreted according to the <span>rules for constructing the chapter tree from a text
-  track</span>. When seeking in response to a user manipulating a chapter selection interface, user
-  agents should not use the <i>approximate-for-speed</i> flag.</p>
-
   <p>The <dfn><code data-x="dom-media-controls">controls</code></dfn> IDL attribute must
   <span>reflect</span> the content attribute of the same name.</p>
 
@@ -129,24 +121,20 @@
   <p>An element's <dfn>effective media volume</dfn> is determined as follows:</p>
 
   <ol>
-
    <li><p>If the user has indicated that the user agent is to override the volume of the element,
-   then the element's <span>effective media volume</span> is the volume desired by the user. Abort
-   these steps.</p></li>
+   then return the volume desired by the user.</p></li>
 
-   <li><p>If the element's audio output is <span data-x="concept-media-muted">muted</span>, the
-   element's <span>effective media volume</span> is zero. Abort these steps.</p></li>
+   <li><p>If the element's audio output is <span data-x="concept-media-muted">muted</span>, then
+   return zero.</p></li>
 
    <li><p>Let <var>volume</var> be the <span data-x="concept-media-volume">playback
    volume</span> of the audio portions of the <span>media element</span>, in range 0.0 (silent) to
    1.0 (loudest).</p></li>
 
-   <li><p>The element's <span>effective media volume</span> is <var>volume</var>,
-   interpreted relative to the range 0.0 to 1.0, with 0.0 being silent, and 1.0 being the loudest
-   setting, values in between increasing in loudness. The range need not be linear. The loudest
-   setting may be lower than the system's loudest possible setting; for example the user could have
-   set a maximum volume.</p></li>
-
+   <li><p>Return <var>volume</var>, interpreted relative to the range 0.0 to 1.0, with 0.0 being
+   silent, and 1.0 being the loudest setting, values in between increasing in loudness. The range
+   need not be linear. The loudest setting may be lower than the system's loudest possible setting;
+   for example the user could have set a maximum volume.</p></li>
   </ol>
 
   </div>

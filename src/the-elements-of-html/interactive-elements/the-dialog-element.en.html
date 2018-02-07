@@ -13,7 +13,8 @@
    <dd><code data-x="attr-dialog-open">open</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-dialog-open">open</span>;
   attribute DOMString <span data-x="dom-dialog-returnValue">returnValue</span>;
@@ -120,7 +121,7 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   <ol>
 
    <li><p>If the element already has an <code data-x="attr-dialog-open">open</code> attribute, then
-   abort these steps.</p></li>
+   return.</p></li>
 
    <li><p>Add an <code data-x="attr-dialog-open">open</code> attribute to the <code>dialog</code>
    element, whose value is the empty string.</p></li>
@@ -131,17 +132,6 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   </ol>
 
-  <hr>
-
-  <p>Each <code>Document</code> has a stack of <code>dialog</code> elements known as the
-  <dfn>pending dialog stack</dfn>. When a <code>Document</code> is created, this stack must be
-  initialized to be empty.</p>
-
-  <p>When an element is added to the <span>pending dialog stack</span>, it must also be <span
-  data-x="top-layer-add">added</span> to the <span>top layer</span>. When an element is removed from
-  the <span>pending dialog stack</span>, it must be <span data-x="list remove">removed</span>
-  from the <span>top layer</span>. <ref spec=FULLSCREEN></p>
-
   <p>When the <dfn><code data-x="dom-dialog-showModal">showModal()</code></dfn> method is invoked,
   the user agent must run the following steps:</p>
 
@@ -151,12 +141,10 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
    invoked.</p></li>
 
    <li><p>If <var>subject</var> already has an <code data-x="attr-dialog-open">open</code>
-   attribute, then throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>
-   and abort these steps.</p></li>
+   attribute, then throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If <var>subject</var> is not <span>connected</span>, then throw an
-   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> and abort these
-   steps.</p></li>
+   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Add an <code data-x="attr-dialog-open">open</code> attribute to <var>subject</var>, whose value is the empty string.</p></li>
 
@@ -165,8 +153,10 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
    <li><p>Let <var>subject</var>'s <span>node document</span> be <span data-x="blocked by a
    modal dialog">blocked by the modal dialog</span> <var>subject</var>.</p></li>
 
-   <li><p>Push <var>subject</var> onto <var>subject</var>'s
-   <span>node document</span>'s <span>pending dialog stack</span>.</p></li>
+   <li><p>If <var>subject</var>'s <span>node document</span>'s <span>top layer</span> does not
+   already <span data-x="list contains">contain</span> <var>subject</var>, then <span
+   data-x="top-layer-add">add</span> <var>subject</var> to <var>subject</var>'s <span>node
+   document</span>'s <span>top layer</span>.</p></li>
 
    <li><p>Run the <span>dialog focusing steps</span> for <var>subject</var>.</p></li>
 
@@ -177,7 +167,7 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   <ol>
 
    <li><p>If for some reason <var>subject</var> is not a <span>control group owner object</span>
-   at this point, or if it is <span>inert</span>, abort these steps.</p></li>
+   at this point, or if it is <span>inert</span>, return.</p></li>
 
    <li>
 
@@ -198,22 +188,8 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   <p>If at any time a <code>dialog</code> element is <span data-x="node is removed from a
   document">removed from a <code>Document</code></span>, then if that <code>dialog</code> is in that
-  <code>Document</code>'s <span>pending dialog stack</span>, the following steps must be run:</p>
-
-  <ol>
-
-   <li><p>Let <var>subject</var> be that <code>dialog</code> element and <var>document</var> be the <code>Document</code> from which it is being removed.</p></li>
-
-   <li><p>Remove <var>subject</var> from <var>document</var>'s <span>pending
-   dialog stack</span>.</p></li>
-
-   <li><p>If <var>document</var>'s <span>pending dialog stack</span> is not empty, then let
-   <var>document</var> be <span data-x="blocked by a modal dialog">blocked by the modal
-   dialog</span> that is at the top of <var>document</var>'s <span>pending dialog
-   stack</span>. Otherwise, let <var>document</var> be no longer <span>blocked by a modal
-   dialog</span> at all.</p></li>
-
-  </ol>
+  <code>Document</code>'s <span>top layer</span>, it must be <span
+  data-x="list remove">removed</span> from it.</p>
 
   <p>When the <dfn><code data-x="dom-dialog-close">close()</code></dfn> method is invoked, the user
   agent must <span>close the dialog</span> that the method was invoked on. If the method was invoked
@@ -228,7 +204,7 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   <ol>
 
    <li><p>If <var>subject</var> does not have an <code data-x="attr-dialog-open">open</code>
-   attribute, then abort these steps.</p></li>
+   attribute, then return.</p></li>
 
    <li><p>Remove <var>subject</var>'s <code data-x="attr-dialog-open">open</code>
    attribute.</p></li>
@@ -236,23 +212,8 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
    <li><p>If the argument <var>result</var> was provided, then set the <code
    data-x="dom-dialog-returnValue">returnValue</code> attribute to the value of <var>result</var>.</p></li>
 
-   <li>
-
-    <p>If <var>subject</var> is in its <code>Document</code>'s <span>pending dialog
-    stack</span>, then:</p>
-
-    <ol>
-
-     <li><p>Remove <var>subject</var> from that <span>pending dialog stack</span>.</p></li>
-
-     <li><p>If that <span>pending dialog stack</span> is not empty, then let <var>subject</var>'s <span>node document</span> be <span data-x="blocked by a modal
-     dialog">blocked by the modal dialog</span> that is at the top of the <span>pending dialog
-     stack</span>. Otherwise, let <var>document</var> be no longer <span>blocked by a modal
-     dialog</span> at all.</p></li>
-
-    </ol>
-
-   </li>
+   <li><p>If <var>subject</var> is in its <code>Document</code>'s <span>top layer</span>, then <span
+   data-x="list remove">remove</span> it.</p></li>
 
    <li><p><span>Queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
    <code data-x="event-close">close</code> at <var>subject</var>.</p></li>
@@ -265,14 +226,11 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p id="canceling-dialogs"><strong>Canceling dialogs</strong>: When a <code>Document</code>'s
-  <span>pending dialog stack</span> is not empty, user agents may provide a user interface that,
-  upon activation, <span data-x="queue a task">queues a task</span> to run these steps:
+  <p id="canceling-dialogs"><strong>Canceling dialogs</strong>: When <code>Document</code> is
+  <span>blocked by a modal dialog</span> <var>dialog</var>, user agents may provide a user interface
+  that, upon activation, <span data-x="queue a task">queues a task</span> to run these steps:
 
   <ol>
-   <li><p>Let <var>dialog</var> be the top <code>dialog</code> element on the
-   <code>Document</code>'s <span>pending dialog stack</span>.</p></li>
-
    <li><p>Let <var>close</var> be the result of <span data-x="concept-event-fire">firing an
    event</span> named <code data-x="event-cancel">cancel</code> at <var>dialog</var>, with the <code
    data-x="dom-Event-cancelable">cancelable</code> attribute initialized to true.</p></li>
@@ -338,17 +296,15 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   <div class="example">
 
-   <p>This dialog box has some small print. The <code>main</code> element is used to draw the user's
-   attention to the more important parts.</p>
+   <p>This dialog box has some small print. The <code>strong</code> element is used to draw the
+   user's attention to the more important part.</p>
 
    <pre>&lt;dialog>
  &lt;h1>Add to Wallet&lt;/h1>
- &lt;main>
-  &lt;p>How many gold coins do you want to add to your wallet?&lt;/p>
-  &lt;p>&lt;input name=amt type=number min=0 step=0.01 value=100>&lt;/p>
- &lt;/main>
+ &lt;p>&lt;strong>&lt;label for=amt>How many gold coins do you want to add to your wallet?&lt;/label>&lt;/strong>&lt;/p>
+ &lt;p>&lt;input id=amt name=amt type=number min=0 step=0.01 value=100>&lt;/p>
  &lt;p>&lt;small>You add coins at your own risk.&lt;/small>&lt;/p>
- &lt;p>&lt;label>&lt;input name=round type=checkbox> Only add perfectly round coins &lt;/label>
+ &lt;p>&lt;label>&lt;input name=round type=checkbox> Only add perfectly round coins &lt;/label>&lt;/p>
  &lt;p>&lt;input type=button onclick="submit()" value="Add Coins">&lt;/p>
 &lt;/dialog></pre>
 

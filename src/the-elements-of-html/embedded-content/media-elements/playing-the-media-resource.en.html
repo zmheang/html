@@ -181,7 +181,7 @@
   data-x="dom-media-HAVE_FUTURE_DATA">HAVE_FUTURE_DATA</code> or <code
   data-x="dom-media-HAVE_ENOUGH_DATA">HAVE_ENOUGH_DATA</code> and the user agent has suspended
   playback of the <span>media resource</span> in order to play content that is temporally anchored
-  to the <span>media resource</span> and has a non-zero length, or to play content that is
+  to the <span>media resource</span> and has a nonzero length, or to play content that is
   temporally anchored to a segment of the <span>media resource</span> but has a length longer than
   that segment.</p>
 
@@ -201,7 +201,7 @@
 
    <li><p>If the <span>media element</span> has a <code data-x="attr-media-loop">loop</code>
    attribute specified, then <span data-x="dom-media-seek">seek</span> to the <span>earliest
-   possible position</span> of the <span>media resource</span> and abort these steps.</p></li>
+   possible position</span> of the <span>media resource</span> and return.</p></li>
    <!-- v2/v3: We should fire a 'looping' event here to explain why this immediately fires a
    'playing' event, otherwise the 'playing' event that fires from the readyState going from
    HAVE_CURRENT_DATA back to HAVE_FUTURE_DATA will seem inexplicable (since the normally matching
@@ -365,16 +365,14 @@
   <ol>
 
    <li><p>If the <span>media element</span> is not <span>allowed to play</span>, return a promise
-   rejected with a <span>"<code>NotAllowedError</code>"</span> <code>DOMException</code> and abort
-   these steps.</p></li>
+   rejected with a <span>"<code>NotAllowedError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li>
 
     <p>If the <span>media element</span>'s <code data-x="dom-media-error">error</code> attribute is
     not null and its <span data-x="concept-MediaError-code">code</span> is <code
     data-x="dom-MediaError-MEDIA_ERR_SRC_NOT_SUPPORTED">MEDIA_ERR_SRC_NOT_SUPPORTED</code>, return a
-    promise rejected with a <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>
-    and abort these steps.</p>
+    promise rejected with a <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>.</p>
 
     <p class="note">This means that the <span>dedicated media source failure steps</span> have run.
     Playback is not possible until the <span>media element load algorithm</span> clears the <code
@@ -651,7 +649,7 @@
    <li><p>If all of the <span data-x="text track cue">cues</span> in <var>current cues</var>
    have their <span>text track cue active flag</span> set, none of the <span data-x="text track
    cue">cues</span> in <var>other cues</var> have their <span>text track cue active
-   flag</span> set, and <var>missed cues</var> is empty, then abort these steps.</p></li>
+   flag</span> set, and <var>missed cues</var> is empty, then return.</p></li>
 
    <li>
 
@@ -779,8 +777,7 @@
    remaining steps of this algorithm. (Steps in the <span>synchronous section</span> are marked with
    &#x231B;.)</p></li>
 
-   <li><p>&#x231B; If the <span>media element</span> is <span>in a document</span>, abort these
-   steps.</p></li>
+   <li><p>&#x231B; If the <span>media element</span> is <span>in a document</span>, return.</p></li>
 
    <li><p>&#x231B; Run the <span>internal pause steps</span> for the <span>media element</span>.</p>
 

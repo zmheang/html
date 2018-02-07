@@ -12,12 +12,13 @@
    <dd>Where <span>script-supporting elements</span> are expected.</dd>
    <dd>As a child of a <code>colgroup</code> element that doesn't have a <code data-x="attr-colgroup-span">span</code> attribute.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
-   <dd><span data-x="concept-content-nothing">Nothing</span>.</dd>
+   <dd><span data-x="concept-content-nothing">Nothing</span> (for clarification, <a href="#template-example">see example</a>).</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
   readonly attribute <span>DocumentFragment</span> <span data-x="dom-template-content">content</span>;
 };</pre>
@@ -30,15 +31,15 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
 
   <p>In a rendering, the <code>template</code> element <span>represents</span> nothing.</p>
 
-  <p>The <span>template contents</span> of a <code>template</code> element are not children of the
-  element itself. Instead, they are stored in a <code>DocumentFragment</code> associated with a
-  different <code>Document</code> without a <span>browsing context</span> so as to avoid the
-  <code>template</code> contents interfering with the main <code>Document</code>. (For example, this
-  avoids form controls from being submitted, scripts from executing, and so forth.) The
-  <span>template contents</span> have <a href="#no-browsing-context">no conformance
-  requirements</a>.</p>
+  <p>The <span>template contents</span> of a <code>template</code> element <a
+  href="#template-syntax">are not children of the element itself</a>.</p>
 
-  <div class="example">
+  <p class="note">It is also possible, as a result of DOM manipulation, for a <code>template</code>
+  element to contain <code>Text</code> nodes and element nodes; however, having any is a violation
+  of the <code>template</code> element's content model, since its content model is defined as <span
+  data-x="concept-content-nothing">nothing</span>.</p>
+
+  <div class="example" id="template-example">
 
    <p>For example, consider the following document:</p>
 
@@ -88,8 +89,10 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
   <div w-nodev>
 
   <p>Each <code>template</code> element has an associated <code>DocumentFragment</code> object that
-  is its <dfn>template contents</dfn>. When a <code>template</code> element is created, the user
-  agent must run the following steps to establish the <span>template contents</span>:</p>
+  is its <dfn>template contents</dfn>. The <span>template contents</span> have <a
+  href="#no-browsing-context">no conformance requirements</a>. When a <code>template</code> element
+  is created, the user agent must run the following steps to establish the <span>template
+  contents</span>:</p>
 
   <ol>
 
@@ -189,7 +192,7 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
   <ol>
 
    <li><p>If the <var>clone children flag</var> is not set in the calling <span
-   data-x="concept-node-clone">clone</span> algorithm, abort these steps.</p></li>
+   data-x="concept-node-clone">clone</span> algorithm, return.</p></li>
 
    <li><p>Let <var>copied contents</var> be the result of <span
    data-x="concept-node-clone">cloning</span> all the children of <var>node</var>'s

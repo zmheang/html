@@ -1,0 +1,249 @@
+  <h5 id="custom-handlers">Custom scheme handlers: the <code data-x="dom-navigator-registerProtocolHandler">registerProtocolHandler()</code> method</h5>
+
+  <pre class="idl">interface mixin <dfn>NavigatorContentUtils</dfn> {
+  void <span data-x="dom-navigator-registerProtocolHandler">registerProtocolHandler</span>(DOMString scheme, USVString url, DOMString title);
+  void <span data-x="dom-navigator-unregisterProtocolHandler">unregisterProtocolHandler</span>(DOMString scheme, USVString url);
+};</pre>
+
+  <p>The <dfn><code
+  data-x="dom-navigator-registerProtocolHandler">registerProtocolHandler()</code></dfn> method
+  allows Web sites to register themselves as possible handlers for particular schemes. For example,
+  an online telephone messaging service could register itself as a handler of the <code data-x="sms
+  protocol">sms:</code> scheme, so that if the user clicks on such a link, they are given the
+  opportunity to use that web site. <ref spec=SMS></p>
+
+  <dl class="domintro">
+   <dt><var>window</var> . <code data-x="dom-navigator">navigator</code> . <code subdfn data-x="dom-navigator-registerProtocolHandler">registerProtocolHandler</code>(<var>scheme</var>, <var>url</var>, <var>title</var>)</dt>
+
+   <dd>
+    <p>Registers a handler for the given scheme, at the given URL, with the given title.</p>
+
+    <p>The string "<code data-x="">%s</code>" in the URL is used as a placeholder for where to put
+    the URL of the content to be handled.</p>
+
+    <p>Throws a <span>"<code>SecurityError</code>"</span> <code>DOMException</code> if the user
+    agent blocks the registration (this might happen if trying to register as a handler for "http",
+    for instance).</p>
+
+    <p>Throws a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> if the "<code
+    data-x="">%s</code>" string is missing in the URL.</p>
+   </dd>
+  </dl>
+
+  <div w-nodev>
+
+  <p>User agents may, within the constraints described in this section, do whatever they like when
+  the method is called. A UA could, for instance, prompt the user and offer the user the opportunity
+  to add the site to a shortlist of handlers, or make the handlers their default, or cancel the
+  request. UAs could provide such a UI through modal UI or through a non-modal transient
+  notification interface. UAs could also simply silently collect the information, providing it only
+  when relevant to the user.</p>
+
+  <p>User agents should keep track of which sites have registered handlers (even if the user has
+  declined such registrations) so that the user is not repeatedly prompted with the same
+  request.</p>
+
+  <p>The arguments to the method have the following meanings and corresponding implementation
+  requirements. The requirements that involve throwing exceptions must be processed in the order
+  given below, stopping at the first exception thrown. (So the exceptions for the first argument
+  take precedence over the exceptions for the second argument.)</p>
+
+  <dl>
+   <dt><var>scheme</var></dt>
+
+   <dd>
+    <p>A scheme, such as "<code data-x="">mailto</code>" or "<code data-x="">web+auth</code>". The
+    scheme must be compared in an <span>ASCII case-insensitive</span> manner by user agents for the
+    purposes of comparing with the scheme part of URLs that they consider against the list of
+    registered handlers.</p>
+
+    <p>The <var>scheme</var> value, if it contains a colon (as in "<code data-x="">mailto:</code>"),
+    will never match anything, since schemes don't contain colons.</p>
+
+    <p>If the <code data-x="dom-navigator-registerProtocolHandler">registerProtocolHandler()</code>
+    method is invoked with a scheme that is neither a <span>safelisted scheme</span> nor a scheme
+    whose value starts with the substring "<code data-x="">web+</code>" and otherwise contains only
+    <span data-x="ASCII lower alpha">ASCII lower alphas</span>, and whose length is at least five
+    characters (including the "<code data-x="">web+</code>" prefix), the user agent must throw a
+    <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p>
+
+    <p>The following schemes are the <dfn data-x="safelisted scheme">safelisted schemes</dfn>:</p>
+
+    <ul class="brief">
+     <li><code data-x="">bitcoin</code></li> <!-- https://en.bitcoin.it/wiki/BIP_0021 -->
+     <li><code data-x="">geo</code></li>
+     <li><code data-x="">im</code></li>
+     <li><code data-x="">irc</code></li>
+     <li><code data-x="">ircs</code></li>
+     <li><code data-x="">magnet</code></li>
+     <li><code data-x="">mailto</code></li>
+     <li><code data-x="">mms</code></li>
+     <li><code data-x="">news</code></li>
+     <li><code data-x="">nntp</code></li>
+     <li><code data-x="">openpgp4fpr</code></li>
+     <li><code data-x="">sip</code></li>
+     <li><code data-x="">sms</code></li>
+     <li><code data-x="">smsto</code></li>
+     <li><code data-x="">ssh</code></li>
+     <li><code data-x="">tel</code></li>
+     <li><code data-x="">urn</code></li>
+     <li><code data-x="">webcal</code></li>
+     <li><code data-x="">wtai</code></li>
+     <li><code data-x="">xmpp</code></li>
+    </ul>
+
+    <p class="note">This list can be changed. If there are schemes that ought to be added, please
+    send feedback.</p>
+
+    <p class="note">This list excludes any schemes that could reasonably be expected to be supported
+    inline, e.g. in an <code>iframe</code>, such as <code data-x="">http</code> or (more
+    theoretically) <code data-x="">gopher</code>. If those were supported, they could potentially be
+    used in man-in-the-middle attacks, by replacing pages that have frames with such content with
+    content under the control of the protocol handler. If the user agent has native support for the
+    schemes, this could further be used for cookie-theft attacks.</p>
+
+   </dd>
+
+   <dt><var>url</var></dt>
+
+   <dd>
+
+    <p>A string used to build the <span>URL</span> of the page that will handle the requests.</p>
+
+    <p>User agents must throw a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> if
+    the <var>url</var> argument passed to one of these methods does not contain the exact literal
+    string "<code data-x="">%s</code>".</p>
+
+    <p>User agents must throw a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> if
+    <span data-x="parse a url">parsing</span> the <var>url</var> argument relative to the
+    <span>relevant settings object</span> of this <code>NavigatorContentUtils</code> object is not
+    successful.</p>
+
+    <p class="note">The <span>resulting URL string</span> would by definition not be a <span>valid
+    URL string</span> as it would include the string "<code data-x="">%s</code>" which is not a
+    valid component in a URL.</p>
+
+    <p>User agents must throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>
+    if the <span>resulting URL record</span> has an <span data-x="concept-url-origin">origin</span>
+    that differs from the <span data-x="concept-settings-object-origin">origin</span> specified by
+    the <span>relevant settings object</span> of this <code>NavigatorContentUtils</code> object.</p>
+
+    <p class="note">This is forcibly the case if the <code data-x="">%s</code> placeholder is in the
+    scheme, host, or port parts of the URL.</p>
+
+    <p>The <span>resulting URL string</span> is the <dfn>proto-URL</dfn>. It identifies the
+    handler for the purposes of the methods described below.</p>
+
+    <p>When the user agent uses this handler, it must replace the first occurrence of the exact
+    literal string "<code data-x="">%s</code>" in the <var>url</var> argument with an
+    escaped version of the <span>absolute URL</span> of the content in question (as defined below),
+    then <span data-x="parse a url">parse</span> the resulting URL, relative to the <span>relevant
+    settings object</span> of the <code>NavigatorContentUtils</code> object on which the <code
+    data-x="dom-navigator-registerProtocolHandler">registerProtocolHandler()</code> method was
+    invoked, and then <span>navigate</span><!--DONAV user--> an appropriate <span>browsing
+    context</span> to the resulting URL.</p>
+
+    <p>To get the escaped version of the <span>absolute URL</span> of the content in question, the
+    user agent must replace every character in that <span>absolute URL</span> that is not a
+    character in the URL <span>default encode set</span> with the result of <span data-x="UTF-8
+    percent encode">UTF-8 percent encoding</span> that character.</p>
+
+    <div class="example">
+
+     <p>If the user had visited a site at <code data-x="">https://example.com/</code> that made the
+     following call:</p>
+
+     <pre>navigator.registerProtocolHandler('web+soup', 'soup?url=%s', 'SoupWeb&trade;')</pre>
+
+     <p>...and then, much later, while visiting <code data-x="">https://www.example.net/</code>,
+     clicked on a link such as:</p>
+
+     <pre>&lt;a href="web+soup:chicken-k&#xEF;wi">Download our Chicken K&#xEF;wi soup!&lt;/a></pre>
+
+     <p>...then the UA might navigate to the following URL:</p>
+
+     <pre>https://example.com/soup?url=web+soup:chicken-k%C3%AFwi</pre>
+
+     <p>This site could then do whatever it is that it does with soup (synthesize it and ship it to
+     the user, or whatever).</p>
+
+    </div>
+
+   </dd>
+
+   <dt><var>title</var></dt>
+
+   <dd>
+
+    <p>A descriptive title of the handler, which the UA might use to remind the user what the site
+    in question is.</p>
+
+   </dd>
+
+  </dl>
+
+  <p>This section does not define how the pages registered by this method are used, beyond the
+  requirements on how to process the <var>url</var> value (see above). To some extent, the
+  <span data-x="navigate">processing model for navigating across documents</span> defines some cases
+  where these methods are relevant, but in general UAs may use this information wherever they would
+  otherwise consider handing content to native plugins or helper applications.</p>
+
+  <hr>
+
+  </div>
+
+  <p>In addition to the registration method, there is also a method for unregistering handlers.</p>
+
+  <dl class="domintro">
+
+   <dt><var>window</var> . <code data-x="dom-navigator">navigator</code> . <code subdfn data-x="dom-navigator-unregisterProtocolHandler">unregisterProtocolHandler</code>(<var>scheme</var>, <var>url</var>)</dt>
+
+   <dd>
+
+    <p>Unregisters the handler given by the arguments.</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>The <dfn><code data-x="dom-navigator-unregisterProtocolHandler">unregisterProtocolHandler()</code></dfn>
+  method must unregister the handler described by the two arguments to the method, where the first
+  argument gives the scheme and the second gives the string used to build the <span>URL</span> of
+  the page that will handle the requests.</p>
+
+  <p>The first argument must be compared to the schemes for which custom protocol handlers are
+  registered in an <span>ASCII case-insensitive</span> manner to find the relevant handlers.</p>
+
+  <p>The second argument must be preprocessed as described below, and if that is successful, must
+  then be matched against the <span data-x="proto-URL">proto-URLs</span> of the relevant handlers to
+  find the described handler.</p>
+
+  <p>The second argument must be preprocessed as follows:</p>
+
+  <ol>
+   <li><p>If the string does not contain the substring "<code data-x="">%s</code>", then return.
+   There's no matching handler.</p></li>
+
+   <li><p><span data-x="parse a URL">Parse</span> the string relative to the <span>relevant settings
+   object</span> of this <code>NavigatorContentUtils</code> object. If this fails, then throw a
+   <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>If the <span>resulting URL record</span>'s <span data-x="concept-url-origin">origin</span>
+   is not the <span>same origin</span> as the <span
+   data-x="concept-settings-object-origin">origin</span> of the <span>relevant settings
+   object</span> of this <code>NavigatorContentUtils</code> object, then throw a
+   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>Return the <span>resulting URL string</span> as the result of preprocessing the
+   argument.</p></li>
+  </ol>
+
+  </div>
+
+
+
+<!--ADD-TOPIC:Security-->
+  <div w-nodev>
+

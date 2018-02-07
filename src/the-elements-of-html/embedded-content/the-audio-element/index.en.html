@@ -27,7 +27,9 @@ zero or more <code>track</code> elements, then
    <dd><code data-x="attr-media-controls">controls</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[<span>HTMLConstructor</span>, NamedConstructor=<span data-x="dom-Audio">Audio</span>(optional DOMString src)]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>,
+ NamedConstructor=<span data-x="dom-Audio">Audio</span>(optional DOMString src)]
 interface <dfn>HTMLAudioElement</dfn> : <span>HTMLMediaElement</span> {};</pre>
    </dd>
    <dd w-nohtml>Uses <code>HTMLAudioElement</code>.</dd>
@@ -89,7 +91,7 @@ interface <dfn>HTMLAudioElement</dfn> : <span>HTMLMediaElement</span> {};</pre>
 
   <dl class="domintro">
 
-   <dt><var>audio</var> = new <code data-x="dom-Audio">Audio</code>( [ <var>url</var> ] )</dt>
+   <dt><var>audio</var> = new <code subdfn data-x="dom-Audio">Audio</code>( [ <var>url</var> ] )</dt>
 
    <dd>
 

@@ -1,40 +1,46 @@
   <h4>Following hyperlinks</h4>
 
+  <p>An element <var>element</var> <dfn>cannot navigate</dfn> if one of the following is true:</p>
+
+  <ul class="brief">
+   <li><var>element</var>'s <span>node document</span> is not <span>fully active</span></li>
+   <li><var>element</var> is not an <code>a</code> element and is not <span>connected</span>.</li>
+  </ul>
+
+  <p class="note">This is also used by <span data-x="concept-form-submit">form submission</span> for
+  the <code>form</code> element. The exception for <code>a</code> elements is for compatibility with
+  web content.</p>
+
   <p>When a user <dfn data-x="following hyperlinks">follows a hyperlink</dfn> created by an element
   <var>subject</var>, optionally with a <var>hyperlink suffix</var>, the user agent must run the
   following steps:</p>
 
   <ol>
+   <li><p>If <var>subject</var> <span>cannot navigate</span>, then return.</p></li>
 
    <li><p>Let <var>replace</var> be false.</p></li>
 
    <li><p>Let <var>source</var> be <var>subject</var>'s <span>node document</span>'s <span
    data-x="concept-document-bc">browsing context</span>.</p></li>
 
-   <li><p>Let <var>targetAttributeValue</var> be null.</p></li>
+   <li><p>Let <var>targetAttributeValue</var> be the empty string.</p></li>
 
-   <li><p>If <var>subject</var> is an <code>a</code> or <code>area</code> element that has a <code
-   data-x="attr-hyperlink-target">target</code> attribute, then set <var>targetAttributeValue</var>
-   to that attribute's value.</p></li>
+   <li><p>If <var>subject</var> is an <code>a</code> or <code>area</code> element, then set
+   <var>targetAttributeValue</var> to the result of <span data-x="get an element's target">getting
+   an element's target</span> given <var>subject</var>.</p></li>
 
-   <li><p>Otherwise, if <var>subject</var> is an <code>a</code> or <code>area</code> element with no
-   <code data-x="attr-hyperlink-target">target</code> attribute, but <var>subject</var>'s <span>node
-   document</span> contains a <code>base</code> element with a <code
-   data-x="attr-base-target">target</code> attribute, then set <var>targetAttributeValue</var> to
-   the value of <code data-x="attr-base-target">target</code> attribute of the first such
-   <code>base</code> element.</p></li>
-   <!-- c.f. concept-fs-target -->
+   <li><p>Let <var>noopener</var> be true if <var>subject</var>'s <a href="#linkTypes">link
+   types</a> include the <code data-x="rel-noreferrer">noreferrer</code>
+   or <code data-x="rel-noopener">noopener</code> keyword</p></li>
 
    <li><p>Let <var>target</var> and <var>replace</var> be the result of applying <span>the rules for
-   choosing a browsing context</span> given <var>targetAttributeValue</var> and
-   <var>source</var>.</p></li>
+   choosing a browsing context</span> given <var>targetAttributeValue</var>, <var>source</var>, and
+   <var>noopener</var>.</p></li>
 
    <li><p>If <var>target</var> is null, then return.</p></li>
 
-   <li><p>If <var>subject</var>'s <a href="#linkTypes">link types</a> include the <code
-   data-x="rel-noreferrer">noreferrer</code> or <code data-x="rel-noopener">noopener</code> keyword,
-   and <var>replace</var> is true, then <span data-x="disowned its opener">disown
-   <var>target</var>'s opener</span>.</p></li>
+   <li><p>If <var>noopener</var> and <var>replace</var> are true, then
+   <span data-x="disowned its opener">disown <var>target</var>'s opener</span>.</p></li>
 
    <li><p><span data-x="parse a url">Parse</span> the <span>URL</span> given by <var>subject</var>'s
    <code data-x="attr-hyperlink-href">href</code> attribute, relative to <var>subject</var>'s
@@ -48,7 +54,7 @@
     user agent may report the error to the user in a user-agent-specific manner, may <span>queue a
     task</span> to <span>navigate</span><!--DONAV hyperlink--> the <var>target</var>
     <span>browsing context</span> to an error page to report the error, or may ignore the error and
-    do nothing. In any case, the user agent must then abort these steps.</p>
+    do nothing. In any case, the user agent must then return.</p>
 
    </li>
 

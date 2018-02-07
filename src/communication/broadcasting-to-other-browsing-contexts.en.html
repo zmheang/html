@@ -24,7 +24,7 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
 
   <dl class="domintro">
 
-   <dt><var>broadcastChannel</var> = new <code data-x="dom-BroadcastChannel">BroadcastChannel</code>(<var>name</var>)</dt>
+   <dt><var>broadcastChannel</var> = new <code subdfn data-x="dom-BroadcastChannel">BroadcastChannel</code>(<var>name</var>)</dt>
 
    <dd>
 
@@ -85,8 +85,7 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
    settings object</span>.</p></li>
 
    <li><p>If <var>source</var>'s <span data-x="concept-BroadcastChannel-closed">closed flag</span>
-   is true, then throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>
-   and abort these steps.</p></li>
+   is true, then throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>sourceChannel</var> be <var>source</var>'s <span>channel name</span>.</p></li>
 
@@ -153,7 +152,7 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
       <var>destination</var>, using <code>MessageEvent</code>, with the <code
       data-x="dom-MessageEvent-origin">origin</code> attribute initialized to the <span
       data-x="serialization of an origin">serialization</span> of <var>sourceSettings</var>'s <span
-      data-x="concept-settings-object-origin">origin</span>, and then abort these steps.</p>
+      data-x="concept-settings-object-origin">origin</span>, and then return.</p>
      </li>
 
      <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
@@ -196,9 +195,9 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
   <hr>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
-  handler event type">event handler event types</span>) that must be supported, as <span>event
-  handler IDL attributes</span>, by all objects implementing the <code>BroadcastChannel</code>
-  interface:</p>
+  handler event type">event handler event types</span>) <span w-nodev>that must be</span> supported,
+  as <span>event handler IDL attributes</span>, by all objects implementing the
+  <code>BroadcastChannel</code> interface:</p>
 
   <table>
    <thead>

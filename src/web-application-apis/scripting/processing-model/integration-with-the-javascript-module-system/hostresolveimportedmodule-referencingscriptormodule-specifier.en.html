@@ -1,0 +1,36 @@
+  <h6><dfn>HostResolveImportedModule</dfn>(<var>referencingScriptOrModule</var>,
+  <var>specifier</var>)</h6>
+
+  <p>JavaScript contains an implementation-defined <span
+  data-x="js-HostResolveImportedModule">HostResolveImportedModule</span> abstract operation, very
+  slightly updated by the <cite>import()</cite> proposal. User agents must use the following
+  implementation: <ref spec=JAVASCRIPT> <ref spec=JSIMPORT></p>
+
+  <ol>
+   <li><p>Let <var>referencing script</var> be
+   <var>referencingScriptOrModule</var>.[[HostDefined]].</p></li>
+
+   <li><p>Let <var>moduleMap</var> be <var>referencing script</var>'s <span>settings object</span>'s
+   <span data-x="concept-settings-object-module-map">module map</span>.</p></li>
+
+   <li><p>Let <var>url</var> be the result of <span data-x="resolve a module specifier">resolving a
+   module specifier</span> given <var>referencing script</var> and <var>specifier</var>.</p></li>
+
+   <li><p>Assert: <var>url</var> is never failure, because <span data-x="resolve a module
+   specifier">resolving a module specifier</span> must have been <a
+   href="#validate-requested-module-specifiers">previously successful</a> with these
+   same two arguments.</p></li>
+
+   <li><p>Let <var>resolved module script</var> be <var>moduleMap</var>[<var>url</var>]. (This entry
+   must <span data-x="map exists">exist</span> for us to have gotten to this point.)</p></li>
+
+   <li><p>Assert: <var>resolved module script</var> is a <span>module script</span> (i.e., is not
+   null or "<code data-x="">fetching</code>").</p></li>
+
+   <li><p>Assert: <var>resolved module script</var>'s <span
+   data-x="concept-script-record">record</span> is not null.</p>
+
+   <li><p>Return <var>resolved module script</var>'s <span
+   data-x="concept-script-record">record</span>.</p></li>
+  </ol>
+

@@ -15,7 +15,8 @@
    <!-- v2 char, to specify the decimal character used in numeric cells -->
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
-    <pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLTableCellElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-tdth-colSpan">colSpan</span>;
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-tdth-rowSpan">rowSpan</span>;

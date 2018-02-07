@@ -1,6 +1,7 @@
   <h5>The <code>PageTransitionEvent</code> interface</h5>
 
-  <pre class="idl">[Constructor(DOMString type, optional <span>PageTransitionEventInit</span> eventInitDict)]
+  <pre class="idl">[Exposed=Window,
+ Constructor(DOMString type, optional <span>PageTransitionEventInit</span> eventInitDict)]
 interface <dfn>PageTransitionEvent</dfn> : <span>Event</span> {
   readonly attribute boolean <span data-x="dom-PageTransitionEvent-persisted">persisted</span>;
 };

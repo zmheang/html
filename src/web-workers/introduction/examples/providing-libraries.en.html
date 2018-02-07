@@ -11,16 +11,16 @@
    <dd>Takes a port, on which it will send two messages, first the public key and then the private
    key.</dd>
 
-   <dt>Given a plaintext and a public key, return the corresponding cyphertext</dt>
+   <dt>Given a plaintext and a public key, return the corresponding ciphertext</dt>
 
    <dd>Takes a port, to which any number of messages can be sent, the first giving the public key,
    and the remainder giving the plaintext, each of which is encrypted and then sent on that same
-   channel as the cyphertext. The user can close the port when it is done encrypting content.</dd>
+   channel as the ciphertext. The user can close the port when it is done encrypting content.</dd>
 
-   <dt>Given a cyphertext and a private key, return the corresponding plaintext</dt>
+   <dt>Given a ciphertext and a private key, return the corresponding plaintext</dt>
 
    <dd>Takes a port, to which any number of messages can be sent, the first giving the private key,
-   and the remainder giving the cyphertext, each of which is decrypted and then sent on that same
+   and the remainder giving the ciphertext, each of which is decrypted and then sent on that same
    channel as the plaintext. The user can close the port when it is done decrypting content.</dd>
 
   </dl>

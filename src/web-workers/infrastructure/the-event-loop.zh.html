@@ -7,17 +7,19 @@
   <span data-x="browsing context">浏览环境</span>，
   它的 <span data-x="task queue">任务队列</span> 只有事件、回调，以及网络活动
   <span data-x="concept-task">任务</span>。
-  这些 <span data-x="event loop">事件循环</span> 由 <span data-x="run a worker">运行 Worker</span>
-  算法创建。</p>
+  <span w-nodev>这些 <span data-x="event loop">事件循环</span> 由 <span data-x="run a worker">运行 Worker</span>
+  算法创建。</span></p>
 
   <p>每个 <code>WorkerGlobalScope</code> 对象也有一个 <dfn
-  data-x="dom-WorkerGlobalScope-closing">closing</dfn> 标志，初始值必须为 false，
-  但可以被下面的处理模型一节中的算法设为 true。</p>
+  data-x="dom-WorkerGlobalScope-closing">closing</dfn> 标志，初始值
+  <span w-nodev>必须</span>为 false，
+  但在 <span w-nohtml>worker 收到关闭请求时</span>
+  可以 <span w-nodev>被下面的处理模型一节中的算法</span> 设为 true。</p>
 
   <p>一旦 <code>WorkerGlobalScope</code> 的 <span
   data-x="dom-WorkerGlobalScope-closing">closing</span> 标志被设为 true，
   <span data-x="event loop">事件循环</span> 的 <span data-x="task queue">任务队列</span>
-  必须忽略后续添加的 <span data-x="concept-task">任务</span>
+  <span w-nodev>必须</span> 忽略后续添加的 <span data-x="concept-task">任务</span>
   （已经在队列中的任务不受影响，除非另有说明）。
   也就是说一旦 <span data-x="dom-WorkerGlobalScope-closing">closing</span> 标志位 true，
   定时器会停止触发，所有正在进行的后台操作的通知会被扔掉。</p>

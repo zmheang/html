@@ -93,17 +93,16 @@
    <dt><dfn>creator referrer policy</dfn></dt>
    <dd><var>creator document</var>'s <span data-x="concept-document-referrer-policy">referrer
    policy</span></dd>
-
-   <dt><dfn>creator context security</dfn></dt>
-   <dd>The result of executing <span>Is environment settings object a secure context?</span> on
-   <var>creator document</var>'s <span>relevant settings object</span></dd>
   </dl>
 
   <div w-nodev>
 
-  <p>To <dfn data-x="creating a new browsing context">create a new browsing context</dfn>:</p>
+  <p>To <dfn data-x="creating a new browsing context">create a new browsing context</dfn>,
+  optionally given <var>noopener</var>:</p>
 
   <ol>
+   <li><p>If <var>noopener</var> was not given, let it be false.</p></li>
+
    <li><p>Let <var>browsingContext</var> be a new <span>browsing context</span>.</p></li>
 
    <li>
@@ -117,10 +116,15 @@
 
      <li><p>For the global <b>this</b> value, use <var>browsingContext</var>'s
      <code>WindowProxy</code> object.</li>
-
-     <li><p>Let <var>realm execution context</var> be the created <span>JavaScript execution
-     context</span>.</p></li>
     </ul>
+   </li>
+
+   <li>
+    <p>Let <var>realm execution context</var> be the <span>running JavaScript execution
+    context</span>.</p>
+
+    <p class="note">This is the <span>JavaScript execution context</span> created in the previous
+    step.</p>
    </li>
 
    <li><p><span>Set up a window environment settings object</span> with <var>realm execution
@@ -164,6 +168,19 @@
 
    <li><p>Add <var>document</var> to <var>browsingContext</var>'s <span>session
    history</span>.</p></li>
+
+   <!--
+    NOTE: Clean up this logic in the future. SessionStorage ownership is unclear.
+    https://github.com/whatwg/html/pull/2832#issuecomment-315239343
+   -->
+
+   <li id="copy-session-storage"><p>If <var>noopener</var> is false, <var>browsingContext</var> is a
+   <span>top-level browsing context</span>, and <span>creator origin</span> is <span>same
+   origin</span> with <var>document</var>'s <span>origin</span>, then copy the <code
+   data-x="dom-sessionStorage">sessionStorage</code> storage area of the <span>creator origin</span>
+   from the <span>creator browsing context</span> into <var>browsingContext</var>'s set of session
+   storage areas. These areas must be considered separate, not affecting each other in any
+   way.</p></li>
 
    <li><p>Return <var>browsingContext</var>.</p></li>
   </ol>

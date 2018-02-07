@@ -17,7 +17,7 @@
     <p>Otherwise, if the drag operation was invoked on a <code>Document</code>, it is the first
     element, going up the ancestor chain, starting at the node that the user tried to drag, that has
     the IDL attribute <code data-x="dom-draggable">draggable</code> set to true. If there is no such
-    element, then nothing is being dragged; abort these steps, the drag-and-drop operation is never
+    element, then nothing is being dragged; return, the drag-and-drop operation is never
     started.</p>
 
     <p>Otherwise, the drag operation was invoked outside the user agent's purview. What is being
@@ -176,7 +176,7 @@
 
      </li>
 
-     <li><p>If <var>urls</var> is still empty, abort these substeps.</p></li>
+     <li><p>If <var>urls</var> is still empty, then return.</p></li>
 
      <li><p>Let <var>url string</var> be the result of concatenating the strings in <var>urls</var>,
      in the order they were added, separated by a U+000D CARRIAGE RETURN U+000A LINE FEED character
@@ -219,9 +219,8 @@
     <p><span>Fire a DND event</span> named <code data-x="event-dnd-dragstart">dragstart</code> at the
     <span>source node</span>.</p>
 
-    <p>If the event is canceled, then the drag-and-drop operation should not occur; abort these
-    steps.</p> <!-- only a should because the UA can always allow the user to drag without the page
-    knowing -->
+    <p>If the event is canceled, then the drag-and-drop operation should not occur; return.</p>
+    <!-- only a should because the UA can always allow the user to drag without the page knowing -->
 
     <p class="note">Since events with no event listeners registered are, almost by definition, never
     canceled, drag-and-drop is always available to the user if the author does not specifically
@@ -289,7 +288,7 @@
    <li>
 
     <p>If the user agent is still performing the previous iteration of the sequence (if any) when
-    the next iteration becomes due, abort these steps for this iteration (effectively "skipping
+    the next iteration becomes due, return for this iteration (effectively "skipping
     missed frames" of the drag-and-drop operation).</p>
 
    </li>

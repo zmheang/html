@@ -446,13 +446,16 @@
 
   <ol>
 
-   <li><p>If there are no properties named <var>subname</var> in <var>subitem</var>, then abort these substeps, returning the empty string.</p></li>
+   <li><p>If there are no properties named <var>subname</var> in <var>subitem</var>, then return the
+   empty string.</p></li>
 
-   <li><p>If the <span data-x="concept-property-value">value</span> of the first property named <var>subname</var> in <var>subitem</var> is an <span
-   data-x="concept-item">item</span>, then abort these substeps, returning the empty string.</p></li>
+   <li><p>If the <span data-x="concept-property-value">value</span> of the first property named
+   <var>subname</var> in <var>subitem</var> is an <span data-x="concept-item">item</span>, then
+   return the empty string.</p></li>
 
    <li><p>Return the result of <span>escaping the vCard text string</span> given by the <span
-   data-x="concept-property-value">value</span> of the first property named <var>subname</var> in <var>subitem</var>.</p></li>
+   data-x="concept-property-value">value</span> of the first property named <var>subname</var> in
+   <var>subitem</var>.</p></li>
 
   </ol>
 

@@ -19,7 +19,7 @@
     <p>If <var>entry</var> no longer holds a <code>Document</code> object, then
     <span>navigate</span><!--DONAV history traversal after eviction--> the <span>browsing
     context</span> to <var>entry</var>'s <span>URL</span> to perform an <span>entry update</span> of
-    <var>entry</var>, and abort these steps. The "<span>navigate</span>" algorithm reinvokes this
+    <var>entry</var>, and return. The "<span>navigate</span>" algorithm reinvokes this
     "traverse" algorithm to complete the traversal, at which point there <em>is</em> a
     <code>Document</code> object and so this step gets skipped. The navigation must be done using
     the same <span>source browsing context</span> as was used the first time <var>entry</var> was
@@ -110,8 +110,8 @@
 
       <ol>
 
-       <li><p>If the <code>Document</code>'s <span>page showing</span> flag is true, then abort this
-       task (i.e. don't fire the event below).</p></li>
+       <li><p>If the <code>Document</code>'s <span>page showing</span> flag is true, then abort
+       these steps.</p></li>
 
        <li><p>Set the <code>Document</code>'s <span>page showing</span> flag to true.</p></li>
 

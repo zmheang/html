@@ -31,7 +31,8 @@
    <dd><code data-x="attr-dim-height">height</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-dim-width">width</span>;
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-dim-height">height</span>;
@@ -92,19 +93,16 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
    frame</span>.</p></li>
 
    <li><p>If the <code data-x="attr-video-poster">poster</code> attribute's value is the empty string
-   or if the attribute is absent, then there is no <span>poster frame</span>; abort these
-   steps.</p></li>
+   or if the attribute is absent, then there is no <span>poster frame</span>; return.</p></li>
 
    <li><p><span data-x="parse a url">Parse</span> the <code
    data-x="attr-video-poster">poster</code> attribute's value relative to the element's <span>node
-   document</span>. If this fails, then there is no <span>poster frame</span>; abort these
-   steps.</p></li>
+   document</span>. If this fails, then there is no <span>poster frame</span>; return.</p></li>
 
    <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
    <span data-x="concept-request-url">url</span> is the <span>resulting URL record</span>,
    <span data-x="concept-request-client">client</span> is the element's <span>node document</span>'s
    <code>Window</code> object's <span>environment settings object</span>, <span
-   data-x="concept-request-type">type</span> is "<code data-x="">image</code>", <span
    data-x="concept-request-destination">destination</span> is "<code data-x="">image</code>",
    <span data-x="concept-request-credentials-mode">credentials mode</span> is "<code
    data-x="">include</code>", and whose <span>use-URL-credentials flag</span> is set.
@@ -154,7 +152,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
    subsequent value but the <span>media resource</span> does not have a video channel)</dt>
 
    <dd>The <code>video</code> element <span>represents</span> its <span>poster frame</span>, if any,
-   or else transparent black with no <span>intrinsic dimensions</span>.</dd>
+   or else <span>transparent black</span> with no <span>intrinsic dimensions</span>.</dd>
 
    <dt>When the <code>video</code> element is <span data-x="dom-media-paused">paused</span>, the <span
    data-x="current playback position">current playback position</span> is the first frame of video,

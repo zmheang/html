@@ -25,7 +25,7 @@
      <td><span data-x="attr-track-kind-descriptions">Descriptions</span>
      <td><code data-x="dom-TextTrack-kind-descriptions">descriptions</code>
     <tr>
-     <td><span data-x="attr-track-kind-chapters">Chapters</span>
+     <td><span data-x="attr-track-kind-chapters">Chapters metadata</span>
      <td><code data-x="dom-TextTrack-kind-chapters">chapters</code>
     <tr>
      <td><span data-x="attr-track-kind-metadata">Metadata</span>
@@ -79,10 +79,10 @@
 
   <ol>
 
-   <li><p>If the element's <span>blocked-on-parser</span> flag is true, abort these steps.</p></li>
+   <li><p>If the element's <span>blocked-on-parser</span> flag is true, then return.</p></li>
 
-   <li><p>If the element's <span>did-perform-automatic-track-selection</span> flag is true, abort
-   these steps.</p></li>
+   <li><p>If the element's <span>did-perform-automatic-track-selection</span> flag is true, then
+   return.</p></li>
 
    <li><p><span>Honor user preferences for automatic text track selection</span> for this
    element.</p></li>
@@ -101,11 +101,9 @@
    <li><p><span>Perform automatic text track selection</span> for <code
    data-x="dom-TextTrack-kind-descriptions">descriptions</code>.</p></li>
 
-   <li><p><span>Perform automatic text track selection</span> for <code
-   data-x="dom-TextTrack-kind-chapters">chapters</code>.</p></li>
-
    <li><p>If there are any <span data-x="text track">text tracks</span> in the <span>media
    element</span>'s <span>list of text tracks</span> whose <span>text track kind</span> is <code
+   data-x="dom-TextTrack-kind-metadata">chapters</code> or <code
    data-x="dom-TextTrack-kind-metadata">metadata</code> that correspond to <code>track</code>
    elements with a <code data-x="attr-track-default">default</code> attribute set whose <span>text
    track mode</span> is set to <span data-x="text track disabled">disabled</span>, then set the
@@ -127,10 +125,10 @@
    whose <span>text track kind</span> is one of the kinds that were passed to the algorithm, if any,
    in the order given in the <span>list of text tracks</span>.</p></li>
 
-   <li><p>If <var>candidates</var> is empty, then abort these steps.</p></li>
+   <li><p>If <var>candidates</var> is empty, then return.</p></li>
 
    <li><p>If any of the <span data-x="text track">text tracks</span> in <var>candidates</var> have a <span>text track mode</span> set to <span data-x="text track
-   showing">showing</span>, abort these steps.</p></li>
+   showing">showing</span>, return.</p></li>
 
    <li>
 
@@ -186,15 +184,15 @@
   <ol>
 
    <li><p>If another occurrence of this algorithm is already running for this <span>text
-   track</span> and its <code>track</code> element, abort these steps, letting that other algorithm
+   track</span> and its <code>track</code> element, return, letting that other algorithm
    take care of this element.</p></li>
 
    <li><p>If the <span>text track</span>'s <span>text track mode</span> is not set to one of <span
-   data-x="text track hidden">hidden</span> or <span data-x="text track showing">showing</span>, abort
-   these steps.</p></li>
+   data-x="text track hidden">hidden</span> or <span data-x="text track showing">showing</span>,
+   then return.</p></li>
 
    <li><p>If the <span>text track</span>'s <code>track</code> element does not have a <span>media
-   element</span> as a parent, abort these steps.</p></li>
+   element</span> as a parent, return.</p></li>
 
    <li><p>Run the remainder of these steps <span>in parallel</span>, allowing whatever caused these steps to
    run to continue.</p></li>
@@ -224,13 +222,12 @@
     <ol>
      <li><p>Let <var>request</var> be the result of <span
      data-x="create a potential-CORS request">creating a potential-CORS request</span> given
-     <var>URL</var>, "<code data-x="">media</code>", and <var>corsAttributeState</var>, and with the
+     <var>URL</var>, "<code data-x="">track</code>", and <var>corsAttributeState</var>, and with the
      <i>same-origin fallback flag</i> set.</p></li>
 
      <li><p>Set <var>request</var>'s <span data-x="concept-request-client">client</span> to the
      <code>track</code> element's <span>node document</span>'s <code>Window</code> object's
-     <span>environment settings object</span> and <span data-x="concept-request-type">type</span> to
-     "<code data-x="">track</code>".</p></li>
+     <span>environment settings object</span>.</p></li>
 
      <!--FETCH--><li><p><span data-x="concept-fetch">Fetch</span> <var>request</var>.</p></li>
     </ol>

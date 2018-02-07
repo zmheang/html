@@ -22,7 +22,8 @@
    <dd><code data-x="attr-meta-charset">charset</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLMetaElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-meta-name">name</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-meta-httpEquiv">httpEquiv</span>;
@@ -52,15 +53,14 @@ interface <dfn>HTMLMetaElement</dfn> : <span>HTMLElement</span> {
   specified, then the <code data-x="attr-meta-content">content</code> attribute must also be
   specified. Otherwise, it must be omitted.</p>
 
-  <p>The <dfn><code data-x="attr-meta-charset">charset</code></dfn> attribute specifies the character
-  encoding used by the document. This is a <span>character encoding declaration</span>. If the
-  attribute is present in an <span data-x="XML documents">XML document</span>, its value must be an
-  <span>ASCII case-insensitive</span> match for the string "<code data-x="">utf-8</code>" (and the
-  document is therefore forced to use <span>UTF-8</span> as its encoding).</p>
+  <p>The <dfn><code data-x="attr-meta-charset">charset</code></dfn> attribute specifies the <span
+  data-x="encoding">character encoding</span> used by the document. This is a <span>character
+  encoding declaration</span>. If the attribute is present, its value must be an <span>ASCII
+  case-insensitive</span> match for the string "<code data-x="">utf-8</code>".</p>
 
   <p class="note">The <code data-x="attr-meta-charset">charset</code> attribute on the
-  <code>meta</code> element has no effect in XML documents, and is only allowed in order to
-  facilitate migration to and from XML.</p>
+  <code>meta</code> element has no effect in XML documents, but is allowed in XML documents in order
+  to facilitate migration to and from XML.</p>
 
   <p>There must not be more than one <code>meta</code> element with a <code
   data-x="attr-meta-charset">charset</code> attribute per document.</p>

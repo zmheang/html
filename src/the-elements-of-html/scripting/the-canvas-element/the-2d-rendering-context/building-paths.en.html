@@ -66,18 +66,13 @@
 
    </dd>
 
-   <dt><var>context</var> . <code subdfn data-x="dom-context-2d-arcTo">arcTo</code>(<var>x1</var>, <var>y1</var>, <var>x2</var>, <var>y2</var>, <var>radiusX</var> [, <var>radiusY</var>, <var>rotation</var> ] )</dt>
-   <dt><var>path</var> . <code data-x="dom-context-2d-arcTo">arcTo</code>(<var>x1</var>, <var>y1</var>, <var>x2</var>, <var>y2</var>, <var>radiusX</var> [, <var>radiusY</var>, <var>rotation</var> ] )</dt>
+   <dt><var>context</var> . <code subdfn data-x="dom-context-2d-arcTo">arcTo</code>(<var>x1</var>, <var>y1</var>, <var>x2</var>, <var>y2</var>, <var>radius</var>)</dt>
+   <dt><var>path</var> . <code data-x="dom-context-2d-arcTo">arcTo</code>(<var>x1</var>, <var>y1</var>, <var>x2</var>, <var>y2</var>, <var>radius</var>)</dt>
 
    <dd>
 
     <p>Adds an arc with the given control points and radius to the current subpath, connected to the
     previous point by a straight line.</p>
-
-    <p>If two radii are provided, then the first controls the width of the arc's ellipse, and the
-    second controls the height. If only one is provided, or if they are the same, then the arc is
-    from a circle. In the case of an ellipse, the rotation argument controls the clockwise
-    inclination of the ellipse relative to the x-axis.</p>
 
     <p>Throws an <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> if the given
     radius is negative.</p>
@@ -441,7 +436,7 @@ try {
   method, when invoked, must run these steps:</p>
 
   <ol>
-   <li><p>If either of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If either of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>Create a new subpath with the specified point as its first (and only) point.</p></li>
   </ol>
@@ -461,20 +456,19 @@ try {
   and finally add this new subpath to the path.</p>
 
   <p class="note">If the last subpath had more than one point in its list of points, then this is
-  equivalent to adding a straight line connecting the last point back to the first point, thus
-  "closing" the shape, and then repeating the last (possibly implied) <code
-  data-x="dom-context-2d-moveTo">moveTo()</code> call.</p>
+  equivalent to adding a straight line connecting the last point back to the first point of the last
+  subpath, thus "closing" the subpath.</p>
 
+  <hr>
 
   <p>New points and the lines connecting them are added to subpaths using the methods described
   below. In all cases, the methods only modify the last subpath in the object's path.</p>
-
 
   <p>The <dfn><code data-x="dom-context-2d-lineTo">lineTo(<var>x</var>, <var>y</var>)</code></dfn>
   method, when invoked, must run these steps:</p>
 
   <ol>
-   <li><p>If either of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If either of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>If the object's path has no subpaths, then <span>ensure there is a subpath</span> for
    <span data-x="">(<var>x</var>, <var>y</var>)</span>.</p></li>
@@ -489,7 +483,7 @@ try {
   steps:</p>
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p><span>Ensure there is a subpath</span> for <span data-x="">(<var>cpx</var>,
    <var>cpy</var>)</span></p></li>
@@ -506,7 +500,7 @@ try {
   method, when invoked, must run these steps:</p>
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p><span>Ensure there is a subpath</span> for <span data-x="">(<var>cp1x</var>,
    <var>cp1y</var>)</span>.</p></li>
@@ -521,20 +515,16 @@ try {
   <hr>
 
   <p>The <dfn><code data-x="dom-context-2d-arcTo">arcTo(<var>x1</var>, <var>y1</var>, <var>x2</var>,
-  <var>y2</var>, <var>radiusX</var>, <var>radiusY</var>, <var>rotation</var>)</code></dfn> method,
-  when invoked, must run these steps:</p>
+  <var>y2</var>, <var>radius</var>)</code></dfn> method, when invoked, must run these steps:</p>
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p><span>Ensure there is a subpath</span> for <span data-x="">(<var>x1</var>,
    <var>y1</var>)</span>.</p></li>
 
-   <li><p>If either <var>radiusX</var> or <var>radiusY</var> are negative, then throw an
-   <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code>.</p></li>
-
-   <li><p>If <var>radiusY</var> is omitted, then set <var>radiusY</var> to
-   <var>radiusX</var>.</p></li>
+   <li><p>If <var>radius</var> is negative, then throw an <span>"<code>IndexSizeError</code>"</span>
+   <code>DOMException</code>.</p></li>
 
    <li><p>Let the point (<var>x0</var>, <var>y0</var>) be the last point in the subpath, transformed
    by the inverse of the <span data-x="dom-context-2d-transformation">current transformation
@@ -543,51 +533,57 @@ try {
 
    <li><p>If the point (<var>x0</var>, <var>y0</var>) is equal to the point (<var>x1</var>,
    <var>y1</var>), or if the point (<var>x1</var>, <var>y1</var>) is equal to the point
-   (<var>x2</var>, <var>y2</var>), or if both <var>radiusX</var> and <var>radiusY</var> are zero,
-   then add the point (<var>x1</var>, <var>y1</var>) to the subpath, and connect that point to the
-   previous point (<var>x0</var>, <var>y0</var>) by a straight line.</p></li>
+   (<var>x2</var>, <var>y2</var>), or if <var>radius</var> is zero, then add the point
+   (<var>x1</var>, <var>y1</var>) to the subpath, and connect that point to the previous point
+   (<var>x0</var>, <var>y0</var>) by a straight line.</p></li>
 
    <li><p>Otherwise, if the points (<var>x0</var>, <var>y0</var>), (<var>x1</var>, <var>y1</var>),
    and (<var>x2</var>, <var>y2</var>) all lie on a single straight line, then add the point
    (<var>x1</var>, <var>y1</var>) to the subpath, and connect that point to the previous point
    (<var>x0</var>, <var>y0</var>) by a straight line.</p></li>
 
-   <li><p>Otherwise, let <var>The Arc</var> be the shortest arc given by circumference of the
-   ellipse that has radius <var>radiusX</var> on the major axis and radius <var>radiusY</var> on the
-   minor axis, and whose semi-major axis is rotated <var>rotation</var> radians clockwise from the
-   positive x-axis, and that has one point tangent to the half-infinite line that crosses the point
-   (<var>x0</var>, <var>y0</var>) and ends at the point (<var>x1</var>, <var>y1</var>), and that has
-   a different point tangent to the half-infinite line that ends at the point (<var>x1</var>,
-   <var>y1</var>) and crosses the point (<var>x2</var>, <var>y2</var>). The points at which this
-   ellipse touches these two lines are called the start and end tangent points respectively. Connect
-   the point (<var>x0</var>, <var>y0</var>) to the start tangent point by a straight line, adding
-   the start tangent point to the subpath, and then connect the start tangent point to the end
-   tangent point by <var>The Arc</var>, adding the end tangent point to the subpath.</p></li>
+   <li><p>Otherwise, let <var>The Arc</var> be the shortest arc given by circumference of the circle
+   that has radius <var>radius</var>, and that has one point tangent to the half-infinite line that
+   crosses the point (<var>x0</var>, <var>y0</var>) and ends at the point (<var>x1</var>,
+   <var>y1</var>), and that has a different point tangent to the half-infinite line that ends at the
+   point (<var>x1</var>, <var>y1</var>) and crosses the point (<var>x2</var>, <var>y2</var>). The
+   points at which this circle touches these two lines are called the start and end tangent points
+   respectively. Connect the point (<var>x0</var>, <var>y0</var>) to the start tangent point by a
+   straight line, adding the start tangent point to the subpath, and then connect the start tangent
+   point to the end tangent point by <var>The Arc</var>, adding the end tangent point to the
+   subpath.</p></li>
   </ol>
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-context-2d-arc">arc(<var>x</var>, <var>y</var>,
-  <var>radius</var>, <var>startAngle</var>, <var>endAngle</var>, <var>anticlockwise</var>)</code></dfn> and <dfn><code data-x="dom-context-2d-ellipse">ellipse(<var>x</var>, <var>y</var>, <var>radiusX</var>, <var>radiusY</var>, <var>rotation</var>, <var>startAngle</var>, <var>endAngle</var>, <var>anticlockwise</var>)</code></dfn> methods draw arcs.</p>
+  <p>The <dfn><code data-x="dom-context-2d-arc">arc(<var>x</var>, <var>y</var>, <var>radius</var>,
+  <var>startAngle</var>, <var>endAngle</var>, <var>anticlockwise</var>)</code></dfn> method, when
+  invoked, must run the <span>ellipse method steps</span> with this, <var>x</var>, <var>y</var>,
+  <var>radius</var>, <var>radius</var>, 0, <var>startAngle</var>, <var>endAngle</var>, and
+  <var>anticlockwise</var>.</p>
 
-  <p>The <code data-x="dom-context-2d-arc">arc()</code> method is equivalent to the <code
-  data-x="dom-context-2d-ellipse">ellipse()</code> method in the case where the two radii are equal.
-  When the <code data-x="dom-context-2d-arc">arc()</code> method is invoked, it must act as if the
-  <code data-x="dom-context-2d-ellipse">ellipse()</code> method had been invoked with the <var>radiusX</var> and <var>radiusY</var> arguments set to the value of the <var>radius</var> argument, the <var>rotation</var> argument set to zero, and the
-  other arguments set to the same values as their identically named arguments on the <code
-  data-x="dom-context-2d-arc">arc()</code> method.</p>
+  <p class="note">This makes it equivalent to <code data-x="dom-context-2d-ellipse">ellipse()</code>
+  except that both radii are equal and <var>rotation</var> is 0.</p>
 
-  <p>The <code data-x="dom-context-2d-ellipse">ellipse()</code> method, when invoked, must run these
-  steps:</p>
+  <p>The <dfn><code data-x="dom-context-2d-ellipse">ellipse(<var>x</var>, <var>y</var>,
+  <var>radiusX</var>, <var>radiusY</var>, <var>rotation</var>, <var>startAngle</var>,
+  <var>endAngle</var>, <var>anticlockwise</var>)</code></dfn> method, when invoked, must run the
+  <span>ellipse method steps</span> with this, <var>x</var>, <var>y</var>, <var>radiusX</var>,
+  <var>radiusY</var>, <var>rotation</var>, <var>startAngle</var>, <var>endAngle</var>, and
+  <var>anticlockwise</var>.</p>
+
+  <p>The <dfn>ellipse method steps</dfn>, given <var>canvasPath</var>, <var>x</var>, <var>y</var>,
+  <var>radiusX</var>, <var>radiusY</var>, <var>rotation</var>, <var>startAngle</var>,
+  <var>endAngle</var>, and <var>anticlockwise</var>, are:
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>If either <var>radiusX</var> or <var>radiusY</var> are negative, then throw an
    <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code>.</p></li>
 
-   <li><p>If the object's path has any subpaths, then add a straight line from the last point in the
-   subpath to the start point of the arc.</p></li>
+   <li><p>If <var>canvasPath</var>'s path has any subpaths, then add a straight line from the last
+   point in the subpath to the start point of the arc.</p></li>
 
    <li>
     <p>Add the start and end points of the arc to the subpath, and connect them with an arc. The arc
@@ -626,7 +622,7 @@ try {
   <var>h</var>)</code></dfn> method, when invoked, must run these steps:</p>
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>Create a new subpath containing just the four points (<var>x</var>, <var>y</var>),
    (<var>x</var>+<var>w</var>, <var>y</var>), (<var>x</var>+<var>w</var>,

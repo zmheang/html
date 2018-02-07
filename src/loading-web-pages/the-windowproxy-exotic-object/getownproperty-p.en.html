@@ -67,11 +67,17 @@
      <li><p>Let <var>value</var> be the <code>WindowProxy</code> object of the
      <span data-x="dom-window-nameditem-filter">named object</span> with the name <var>P</var>.
 
-     <li><p>Return <span>PropertyDescriptor</span>{
-     [[Value]]: <var>value</var>,
-     [[Enumerable]]: true,
-     [[Writable]]: false,
-     [[Configurable]]: true }.</p></li>
+     <li>
+      <p>Return <span>PropertyDescriptor</span>{
+      [[Value]]: <var>value</var>,
+      [[Enumerable]]: false,
+      [[Writable]]: false,
+      [[Configurable]]: true }.</p>
+
+      <p class="note">The reason the property descriptors are non-enumerable, despite this
+      mismatching the same-origin behavior, is for compatibility with existing Web content. See <a
+      href="https://github.com/whatwg/html/issues/3183">issue #3183</a> for details.</p>
+     </li>
     </ol>
 
    <li><p>Throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>

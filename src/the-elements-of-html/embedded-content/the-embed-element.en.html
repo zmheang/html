@@ -36,7 +36,8 @@
    <dd>Any other attribute that has no namespace (see prose).</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
 interface <dfn>HTMLEmbedElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-embed-src">src</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-embed-type">type</span>;
@@ -131,11 +132,11 @@ interface <dfn>HTMLEmbedElement</dfn> : <span>HTMLElement</span> {
   <ol>
 
    <li><p>If another <span data-x="concept-task">task</span> has since been queued to run <span>the
-   <code>embed</code> element setup steps</span> for this element, then abort these steps.</p></li>
+   <code>embed</code> element setup steps</span> for this element, then return.</p></li>
 
    <li><p>If the <span>Should element be blocked <i lang="la">a priori</i> by Content Security
    Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when executed on the element,
-   then abort these steps. <ref spec="CSP"></p></li>
+   then return. <ref spec="CSP"></p></li>
 
    <li>
 
@@ -171,8 +172,7 @@ interface <dfn>HTMLEmbedElement</dfn> : <span>HTMLElement</span> {
       <ol>
 
        <li><p>If another <span data-x="concept-task">task</span> has since been queued to run
-       <span>the <code>embed</code> element setup steps</span> for this element, then abort these
-       steps.</p></li>
+       <span>the <code>embed</code> element setup steps</span> for this element, then return.</p></li>
 
        <li>
 

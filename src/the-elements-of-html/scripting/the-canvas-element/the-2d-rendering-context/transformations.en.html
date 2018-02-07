@@ -10,9 +10,6 @@
   objects, on objects implementing the <code>CanvasTransform</code> interface.</p>
   <!-- conformance criteria for actual drawing are described in the various sections below -->
 
-  <p class="note">Most of the API uses <code>DOMMatrix</code> objects rather than this API. This API
-  remains mostly for historical reasons.</p>
-
   <div w-nodev>
 
   <p>The transformations must be performed in reverse order.</p>
@@ -80,12 +77,12 @@
 
    </dd>
 
-   <dt><var>context</var> . <code data-x="dom-context-2d-setTransform">setTransform</code>(<var>transform</var>)</dt>
+   <dt><var>context</var> . <code subdfn data-x="dom-context-2d-setTransform-matrix">setTransform</code>(<var>transform</var>)</dt>
 
    <dd>
 
     <p>Changes the <span>current transformation matrix</span> <em>to</em> the matrix represented by
-    the passed <code>DOMMatrixInit</code> dictionary.</p>
+    the passed <code>DOMMatrix2DInit</code> dictionary.</p>
 
    </dd>
 
@@ -105,7 +102,7 @@
   method, when invoked, must run these steps:</p>
 
   <ol>
-   <li><p>If either of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If either of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>Add the scaling transformation described by the arguments to the <span>current
    transformation matrix</span>. The <var>x</var> argument represents the scale factor in the
@@ -117,7 +114,7 @@
   when invoked, must run these steps:</p>
 
   <ol>
-   <li><p>If <var>angle</var> is infinite or NaN, then abort these steps.</p></li>
+   <li><p>If <var>angle</var> is infinite or NaN, then return.</p></li>
 
    <li><p>Add the rotation transformation described by the argument to the <span>current
    transformation matrix</span>. The <var>angle</var> argument represents a clockwise rotation angle
@@ -128,7 +125,7 @@
   <var>y</var>)</code></dfn> method, when invoked, must run these steps:</p>
 
   <ol>
-   <li><p>If either of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If either of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>Add the translation transformation described by the arguments to the <span>current
    transformation matrix</span>. The <var>x</var> argument represents the translation distance in
@@ -141,7 +138,7 @@
   run these steps:</p>
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>Replace the <span>current transformation matrix</span> with the result of multiplying the
    current transformation matrix with the matrix described by:</p></li>
@@ -190,7 +187,7 @@
   run these steps:</p>
 
   <ol>
-   <li><p>If any of the arguments are infinite or NaN, then abort these steps.</p></li>
+   <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>Reset the <span>current transformation matrix</span> to the identity matrix.</p></li>
 
@@ -199,10 +196,21 @@
    <var>d</var>, <var>e</var>, <var>f</var>)</code> method with the same arguments.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="">setTransform(<var>transform</var>)</code></dfn> method, when invoked,
-  must reset the <span>current transformation matrix</span> to the value represented by the result
-  of <span data-x="create a DOMMatrix from a dictionary">creating a <code>DOMMatrix</code> from a
-  dictionary</span> <var>transform</var>.</p>
+  <p>The <dfn><code
+  data-x="dom-context-2d-setTransform-matrix">setTransform(<var>transform</var>)</code></dfn>
+  method, when invoked, must run these steps:</p>
+
+  <ol>
+   <li><p>Let <var>matrix</var> be the result of <span data-x="create a DOMMatrix from a 2D
+   dictionary">creating a <code>DOMMatrix</code> from the 2D dictionary</span>
+   <var>transform</var>.</p>
+
+   <li><p>If one or more of <var>matrix</var>'s <span>m11 element</span>, <span>m12 element</span>,
+   <span>m21 element</span>, <span>m22 element</span>, <span>m41 element</span>, or <span>m42
+   element</span> are infinite or NaN, then return.</p></li>
+
+   <li><p>Reset the <span>current transformation matrix</span> to <var>matrix</var>.</p></li>
+  </ol>
 
   <p>The <dfn><code data-x="dom-context-2d-resetTransform">resetTransform()</code></dfn> method,
   when invoked, must reset the <span>current transformation matrix</span> to the identity

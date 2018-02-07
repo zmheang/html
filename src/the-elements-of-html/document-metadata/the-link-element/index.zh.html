@@ -18,16 +18,12 @@
    <dd><code data-x="attr-link-crossorigin">crossorigin</code></dd>
    <dd><code data-x="attr-link-rel">rel</code></dd>
    <dd><code data-x="attr-link-media">media</code></dd>
-   <dd><code data-x="attr-link-nonce">nonce</code></dd>
    <dd><code data-x="attr-link-integrity">integrity</code></dd>
    <dd><code data-x="attr-link-hreflang">hreflang</code></dd>
    <dd><code data-x="attr-link-type">type</code></dd>
    <dd><code data-x="attr-link-referrerpolicy">referrerpolicy</code></dd>
    <dd><code data-x="attr-link-sizes">sizes</code></dd>
    <dd><code data-x="attr-link-as">as</code></dd>
-   <dd><code data-x="attr-link-scope">scope</code></dd>
-   <dd><code data-x="attr-link-updateviacache">updateviacache</code></dd>
-   <dd><code data-x="attr-link-workertype">workertype</code></dd>
    <dd><code data-x="attr-link-color">color</code></dd>
    <dd>此外，在该元素上 <code data-x="attr-link-title">title</code> 属性 <span data-x="attr-link-title">有特殊的语义</span>。</dd>
    <dt><span data-x="concept-element-dom">DOM 接口</span>：</dt>
@@ -40,17 +36,13 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-as">as</span>; // (default "")
   [SameObject，PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-relList">relList</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-media">media</span>;
-  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-nonce">nonce</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-integrity">integrity</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-hreflang">hreflang</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-type">type</span>;
   [SameObject，PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-sizes">sizes</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-referrerPolicy">referrerPolicy</span>;
-  [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-scope">scope</span>;
-  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-workertype">workerType</span>;
-  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-updateviacache">updateViaCache</span>;
 };
-<span>HTMLLinkElement</span> implements <span>LinkStyle</span>;</pre>
+<span>HTMLLinkElement</span> includes <span>LinkStyle</span>;</pre>
    </dd>
    <dd w-nohtml>Uses <code>HTMLLinkElement</code>。</dd>
   </dl>
@@ -85,14 +77,14 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <code data-x="rel-alternate">alternate</code>，
   <code data-x="rel-dns-prefetch">dns-prefetch</code>，
   <code data-x="rel-icon">icon</code>，
+  <code data-x="rel-modulepreload">modulepreload</code>,
   <code data-x="rel-next">next</code>，
   <code data-x="rel-pingback">pingback</code>，
   <code data-x="rel-preconnect">preconnect</code>，
   <code data-x="rel-prefetch">prefetch</code>，
   <code data-x="rel-preload">preload</code>，
   <code data-x="rel-prerender">prerender</code>，
-  <code data-x="rel-search">search</code>，
-  <code data-x="rel-serviceworker">serviceworker</code>，和
+  <code data-x="rel-search">search</code>，和
   <code data-x="rel-stylesheet">stylesheet</code>。
   <code data-x="attr-link-rel">rel</code> 的
   <span data-x="concept-supported-tokens">支持的令牌</span> 必须只包含这个列表中用户代理实现了相应处理模型的令牌。</p>
@@ -246,35 +238,6 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p><dfn><code data-x="attr-link-scope">scope</code></dfn> 属性为
-  <span data-x="service worker registration">Service Worker Registration</span> 指定了
-  <span>scope url</span>。如果出现了该属性，其值必须是一个
-  <span data-x="valid URL potentially surrounded by spaces">可能被空格包裹的合法的 URL</span>。
-  该属性不得指定在 <code data-x="attr-link-rel">rel</code> 属性不包含
-  <code data-x="rel-serviceworker">serviceworker</code> 关键字的 <code>link</code> 元素上。</p>
-
-  <p><dfn><code data-x="attr-link-updateviacache">updateviacache</code></dfn> 属性指定了
-  <span data-x="service worker registration">Service Worker Registration</span>
-  <span data-x="update via cache mode">update via cache mode</span>。
-  它是一个 <span data-x="enumerated attribute">枚举属性</span>。
-  每个 <span>update via cache mode</span> 是该属性的一个关键字，映射到同名状态。
-  <span data-x="missing value default">缺失值默认</span> 是 <i>imports</i> 状态。
-  该属性不得指定在 <code data-x="attr-link-rel">rel</code> 属性不包含
-  <code data-x="rel-serviceworker">serviceworker</code> 关键字的 <code>link</code> 元素上。</p>
-
-  <p><dfn><code data-x="attr-link-workertype">workertype</code></dfn> 属性是一个
-  <span data-x="enumerated attribute">枚举属性</span>，
-  为 <span data-x="service worker registration">Service Worker Registration</span> 指定了
-  <span data-x="service worker type">Service Worker 类型</span>。该属性的关键字是 <code
-  data-x="">classic</code> 和 <code data-x="">module</code>，分别映射为
-  <i>classic</i> 和 <i>module</i> 状态。<span data-x="missing value default">缺失值默认</span>
-  为 <i>classic</i> 状态。有一个额外的不被关键字表示的状态： <i>invalid</i> 状态。
-  <span data-x="invalid value default">非法值默认</span> 就是 <i>invalid</i> 状态。
-  该属性不得指定在 <code data-x="attr-link-rel">rel</code> 属性不包含
-  <code data-x="rel-serviceworker">serviceworker</code> 关键字的 <code>link</code> 元素上。</p>
-
-  <hr>
-
   <p><dfn><code data-x="attr-link-color">color</code></dfn> 属性用于 <code
   data-x="">mask-icon</code> 链接类型。该属性不得指定在
   <code data-x="attr-link-rel">rel</code> 属性不包含 <code data-x="">mask-icon</code> 关键字的
@@ -316,12 +279,3 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <p><dfn><code data-x="dom-link-rellist">relList</code></dfn> IDL 属性必须 <span
   data-x="reflect">反映</span> <code data-x="attr-link-rel">rel</code> 内容属性。</p>
-
-  <p><dfn><code data-x="dom-link-updateViaCache">updateViaCache</code></dfn> IDL 属性必须
-  <span data-x="reflect">反映</span> <code data-x="attr-link-updateviacache">updateviacache</code> 内容属性，
-  并 <span data-x="limited to only known values">限制到已知的值</span>。</p>
-
-  <p><dfn><code data-x="dom-link-workerType">workerType</code></dfn> IDL 属性必须
-  <span data-x="reflect">反映</span> <code data-x="attr-link-workertype">workertype</code> 内容属性，
-  并 <span data-x="limited to only known values">限制到已知的值</span>。</p>
-
