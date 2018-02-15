@@ -1,0 +1,56 @@
+  <h5>端口作为 Web 上对象能力模型的基础</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>可以把端口当做为系统中其他角色提供有限能力的一种方式（在对象能力模型的意义上），
+  这可能是一个弱能力的系统，用端口只是为了在源内通信的方便，
+  也可能是一个强能力的系统，由一个源 <var>provider</var> 提供，作为唯一的机制给另一个源
+  <var>consumer</var> 来从 <var>provider</var> 获取信息或造成改变。</p>
+
+  <p>例如，考虑一个社交网站嵌入了一个 <code>iframe</code>
+  它是用户的邮件联系人提供者（一个联系人网站，来自第二个源），
+  以及第二个 <code>iframe</code>（一个游戏网站，来自第三个源）
+  外面的社交网站和第二个 <code>iframe</code> 中的游戏无法访问第一个 <code>iframe</code> 中的任何东西；它们只能：</p>
+
+  <ul class="brief">
+
+   <li>把 <code>iframe</code> <span data-x="Navigate">导航</span> 到新的 <span>URL</span>，
+   比如同样的 <span>URL</span> 但有不同的 <span data-x="concept-url-fragment">fragment</span>，
+   使 <code>iframe</code> 中的 <code>Window</code> 收到一个
+   <code data-x="event-hashchange">hashchange</code> 事件。</li>
+
+   <li>改变 <code>iframe</code> 的大小，使 <code>iframe</code> 中的 <code>Window</code>
+   收到一个 <code data-x="event-resize">resize</code> 事件。</li>
+
+   <!-- anything else? -->
+
+   <li>使用 <code data-x="dom-window-postMessage">window.postMessage()</code> API 发送一个
+   <code data-x="event-message">message</code> 事件给
+   <code>iframe</code> 中的 <code>Window</code>。</li>
+
+  </ul>
+
+  <p>联系人提供者使用这些方法（尤其是第三个）来给其他域提供操作用户地址簿的 API。
+  例如，响应 "<code data-x="">add-contact Guillaume Tell
+  &lt;tell@pomme.example.net></code>" 时，在用户的地址簿中新增指定的人和 e-mail。</p>
+
+  <p>为了避免 Web 上任何站点都可以操作用户的地址簿，联系人提供者可能只允许确定的信任站点调用，
+  比如这个社交网站。</p>
+
+  <p>现在假设这个游戏希望添加联系人到用户的地址簿，而且这个社交网站也愿意允许它这样做，
+  实质上是“共享”联系人提供者对社交网站的信任。实现这一共享有很多方式，
+  最简单的是在游戏站点和联系人站点之间代理消息。
+  然而该方案有一些困难：它需要社交网站完全信任游戏网站不会滥用特权，
+  或者要求社交网站对每个请求进行验证来确保请求是否被允许
+  （例如添加多个联系人、读取联系人、删除联系人等）。
+  如果可能有多个游戏同时与联系人提供者通信，还需要额外的复杂性。</p>
+
+  <p>然而，使用消息 Channel 和 <code>MessagePort</code> 对象可以解决所有这些问题。
+  当游戏告诉设计网络它需要添加联系人时，社交网站可以请求联系人提供者添加单个联系人的
+  <em data-x="capability">能力</em>，而非直接请求添加一个联系人。
+  然后联系人提供者提供一对 <code>MessagePort</code> 对象，把其中一个返回给社交网站，
+  社交网站再把它转交给游戏。游戏和联系人提供者就有了直接的连接，
+  因此联系人提供者知道只对它开放 "添加联系人" 的请求。
+  换句话说，这个游戏被赋予了添加单个联系人的能力。</p>
+
+

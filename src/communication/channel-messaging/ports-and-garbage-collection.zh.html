@@ -1,0 +1,44 @@
+  <h4 id="ports-and-garbage-collection">端口与垃圾回收</h4>
+
+  <div w-nodev>
+
+  <p>当一个 <code>MessagePort</code> 对象 <var>o</var> 被关联时，用户代理的表现必须像是
+  <var>o</var> 的关联 <code>MessagePort</code> 对象有一个 <var>o</var> 的强引用。
+  或者就像 <var>o</var> 的 <span data-x="concept-port-owner">owner</span> 指定的
+  <span data-x="concept-settings-object-global">全局对象</span> 有一个
+  <var>o</var> 的强引用。</p>
+
+  <div class="note">
+
+   <p>这样给定一个事件监听器，它收到一个消息端口后可以忘掉它。
+   只要该事件监听器还可能收到消息，这个通道就仍然被维护着。</p>
+
+   <p>当然这在通道的两侧都会发生，只要它们不能从活跃的代码到达，两个端口就都会被垃圾回收。
+   即使它们之间还有对方的强引用。</p>
+
+  </div>
+
+  <p>进一步地，当
+  <span data-x="task queue">任务队列</span> 中的 <span data-x="concept-task">任务</span>
+  仍然有一个要派发在 <code>MessagePort</code> 上的事件时，
+  或者这个 <code>MessagePort</code> 对象的
+  <span data-x="port message queue">端口消息队列</span> 处于启用状态且非空时，
+  <code>MessagePort</code> 对象不得被垃圾回收。
+ </p>
+  <!-- we
+  might not need to explicitly say the first part if UI Events is fixed to say that events on a
+  task queue prevent GC -->
+
+  <!-- ports in the ports attribute of a MessageEvent that isn't dispatched yet are safe because the
+  MessageEvent is safe -->
+
+  </div>
+
+  <p class="note">强烈鼓励作者显式地关闭 <code>MessagePort</code> 对象来解关联它们，
+  这样它们的资源可以被重新回收。
+  创建很多歌 <code>MessagePort</code> 对象并直接丢弃它们而不关闭可能导致瞬时内存使用率高，
+  因为垃圾收集不一定能够及时执行，尤其是对于垃圾收集可能涉及跨进程协调的
+  <code>MessagePort</code> 而言。</p>
+
+
+

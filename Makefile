@@ -34,6 +34,10 @@ build:
 	rm -rf $(OUTPUT)/resources && cp -r resources $(OUTPUT)
 	cp -r images/* $(OUTPUT)/images/
 
+update-progress:
+	data=`bash ./bin/progress.sh | awk -F: '{print $$2}'`; \
+	sed -i "s|当前进度.*|当前进度：$${data}|" README.md
+
 # Split subtree before deploy:
 # git subtree split --prefix output/html -b gh-pages
 deploy:
@@ -56,3 +60,6 @@ clean-cache:
 serve:
 	echo open http://localhost:8899/html
 	http-server -p 8899 ./output
+
+progress:
+	./bin/progress.sh

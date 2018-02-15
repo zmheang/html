@@ -1,0 +1,77 @@
+  <h4>消息通道</h4>
+
+  <pre class="idl">[<span data-x="dom-MessageChannel">Constructor</span>, Exposed=(Window,Worker)]
+interface <dfn>MessageChannel</dfn> {
+  readonly attribute <span>MessagePort</span> <span data-x="dom-MessageChannel-port1">port1</span>;
+  readonly attribute <span>MessagePort</span> <span data-x="dom-MessageChannel-port2">port2</span>;
+};</pre>
+
+  <dl class="domintro">
+
+   <dt><var>channel</var> = new <code subdfn data-x="dom-MessageChannel">MessageChannel</code>()</dt>
+
+   <dd>
+
+    <p>返回有两个新的 <code>MessagePort</code> 对象的，一个新的 <code>MessageChannel</code> 对象。</p>
+
+   </dd>
+
+   <dt><var>channel</var> . <code subdfn data-x="dom-MessageChannel-port1">port1</code></dt>
+
+   <dd>
+
+    <p>返回第一个 <code>MessagePort</code> 对象。</p>
+
+   </dd>
+
+   <dt><var>channel</var> . <code subdfn data-x="dom-MessageChannel-port2">port2</code></dt>
+
+   <dd>
+
+    <p>返回第二个 <code>MessagePort</code> 对象。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-MessageChannel">MessageChannel()</code></dfn> 构造函数被调用时，
+  必须执行以下算法：</p>
+
+  <ol>
+
+   <li><p><span data-x="Create a new messageport object">
+   创建一个新的 <code>MessagePort</code> 对象</span>，
+   其 <span data-x="concept-port-owner">owner</span> 是
+   <span data-x="incumbent settings object">当前设置对象</span>，
+   令 <var>port1</var> 为那个对象。</p></li>
+
+   <li><p><span data-x="Create a new messageport object">
+   创建一个新的 <code>MessagePort</code> 对象</span>，
+   其 <span data-x="concept-port-owner">owner</span> 是
+   <span data-x="incumbent settings object">当前设置对象</span>，
+   令 <var>port2</var> 为那个对象。</p></li>
+
+   <li><p><span data-x="Entangle">关联</span> <var>port1</var> 与 <var>port2</var> 对象。</p></li>
+
+   <li><p>实例化一个 <code>MessageChannel</code> 对象，令 <var>channel</var> 为那个对象。</p></li>
+
+   <li><p>令 <var>channel</var> 对象的 <code data-x="dom-MessageChannel-port1">port1</code> 属性
+   为 <var>port1</var>。</p>
+
+   <li><p>令 <var>channel</var> 对象的 <code data-x="dom-MessageChannel-port2">port2</code> 属性
+   为 <var>port2</var>。</p>
+
+   <li><p>返回 <var>channel</var>。</p></li>
+
+  </ol>
+
+  <p><dfn><code data-x="dom-MessageChannel-port1">port1</code></dfn> 和 <dfn><code
+  data-x="dom-MessageChannel-port2">port2</code></dfn> 属性必须返回
+  <code>MessageChannel</code> 创建时它们被赋予的值。</p>
+
+  </div>
+
+
+

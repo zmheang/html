@@ -1,0 +1,308 @@
+  <h4>消息端口</h4>
+
+  <p>每个通道都有两个消息端口。从一个端口发送的数据会从另一个端口收到，反之亦然。</p>
+
+  <pre class="idl">[Exposed=(Window,Worker,AudioWorklet), <span>Transferable</span>]
+interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
+  void <span data-x="dom-MessagePort-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
+  void <span data-x="dom-MessagePort-start">start</span>();
+  void <span data-x="dom-MessagePort-close">close</span>();
+
+  // event handlers
+  attribute <span>EventHandler</span> <span data-x="handler-MessagePort-onmessage">onmessage</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-MessagePort-onmessageerror">onmessageerror</span>;
+};</pre>
+
+  <dl class="domintro">
+
+   <dt><var>port</var> . <code subdfn data-x="dom-MessagePort-postMessage">postMessage</code>(<var>message</var> [, <var>transfer</var>] )</dt>
+
+   <dd>
+
+    <p>通过通道发布一条消息。列在 <var>transfer</var> 中的对象已经被传输（不仅是克隆），
+    意味着在发送侧无法使用了。</p>
+
+    <p>如果 <var>transfer</var> 数组包含重复的对象、源或目标端口时，
+    或者 <var>message</var> 不可克隆，
+    抛出一个 <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p>
+
+   </dd>
+
+   <dt><var>port</var> . <code subdfn data-x="dom-MessagePort-start">start</code>()</dt>
+
+   <dd>
+
+    <p>开始派发端口上收到的消息。</p>
+
+   </dd>
+
+   <dt><var>port</var> . <code subdfn data-x="dom-MessagePort-close">close</code>()</dt>
+
+   <dd>
+
+    <p>断开端口，端口不再处于激活状态。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>每个 <code>MessagePort</code> 对象可以与另一个关联（对称关系）。
+  每个 <code>MessagePort</code> 对象也可以有一个 <span data-x="task source">任务源</span>
+  称为 <dfn data-x="port message queue">端口消息队列</dfn>，初始为空。
+  <span data-x="port message queue">端口消息队列</span> 可以被启用和禁用，初始禁用。
+  一旦被启用，就不能再被禁用了
+  （虽然队列中的消息可以移动到其他队列或者全部移除，也可以达到一样的效果），
+  <code>MessagePort</code> 还有一个 <dfn data-x="has been shipped">已经被转移</dfn> 标志，
+  初始必须为 false，以及一个 <dfn data-x="concept-port-owner">owner</dfn>，
+  这是一个在对象创建时设置的 <span data-x="settings object">设置对象</span>，描述如下：</p>
+
+  <p>当端口的 <span data-x="port message queue">端口消息队列</span> 被启用时，
+  <span data-x="event loop">事件循环</span> 不许使用它作为其中一个
+  <span data-x="task source">任务源</span>。当端口的 <span
+  data-x="concept-port-owner">owner</span> 指定的
+  <span data-x="responsible event loop">负责事件循环</span> 是一个
+  <span data-x="browsing context">浏览上下文的</span> <span data-x="event loop">事件循环</span>时，
+  <span data-x="queue a task">排在</span> 它的 <span data-x="port message queue">端口消息队列</span>
+  的所有 <span data-x="concept-task">任务</span> 必须与该端口的
+  <span data-x="concept-port-owner">owner</span> 指定的
+  <span data-x="responsible document">负责文档</span> 相关联。</p>
+
+  <p class="note">如果该端口的 <span data-x="concept-port-owner">owner</span> 指定的
+  <span data-x="responsible document">负责文档</span> 是
+  <span data-x="fully active">完全激活的</span>，
+  但事件监听器的脚本的 <span data-x="settings object">设置对象</span> 指定的 <span
+  data-x="responsible document">负责文档</span> <em>不</em> 是
+  <span data-x="fully active">完全激活的</span>，消息将会丢失。</p> <!-- because of the jump-to-entry-point
+  algorithm first step -->
+
+  <p>每个 <span data-x="event loop">事件循环</span> 有一个 <span data-x="task source">任务源</span>
+  称为 <dfn data-x="unshipped port message queue">未转移的端口消息队列</dfn>。
+  这是一个虚拟的 <span data-x="task source">任务源</span>：它的必须表现地就像它包含满足以下条件的每个
+  <code>MessagePort</code> 的 <span data-x="port message queue">端口消息队列</span> 的
+  <span data-x="concept-task">任务</span>：</p>
+
+  <p>其 <span data-x="has been shipped">已被转移</span> 标志位 false 且
+  <span data-x="port message queue">端口消息队列</span> 被启用，且
+  <span data-x="concept-port-owner">owner</span>
+  将 <span data-x="event loop">事件循环</span> 指定为
+  <span data-x="responsible event loop">负责事件循环</span>。</p>
+
+  <p>这些任务的顺序为它们加入到对应的 <span data-x="task source">任务源</span> 的顺序。
+  从 <span data-x="unshipped port message queue">为转移的端口消息队列</span> 移除
+  <span data-x="concept-task">任务</span> 时，必须从对应的
+  <span data-x="port message queue">端口消息队列</span> 中移除。</p>
+
+  <p>当 <code>MessagePort</code> 的 <span data-x="has been shipped">已被转移</span> 标志为 false 时，
+  <span data-x="event loop">事件循环</span> 必须忽略它的
+  <span data-x="port message queue">端口消息队列</span>
+  （此时使用 <span data-x="unshipped port message queue">未转移的端口消息队列</span>）。</p>
+
+  <p class="note">
+  当一个端口、其关联端口、或者它克隆自的对象被传输时，
+  <span data-x="has been shipped">已被转移</span> 标志位设为 true
+  当 <code>MessagePort</code> 的 <span data-x="has been shipped">已被转移</span> 标志为 true 时，
+  其 <span data-x="port message queue">端口消息队列</span> 是一级
+  <span data-x="task source">任务源</span>，不受任何
+  <span data-x="unshipped port message queue">未转移的端口消息队列</span> 影响。</p>
+
+  <p>当用户代理使用特定的
+  <span data-x="environment settings object">环境设置对象</span> 作为 <var>owner</var>
+  <dfn data-x="create a new messageport object">创建 <code>MessagePort</code> 对象</dfn> 时，
+  必须实例化一个新的 <code>MessagePort</code> 对象，并令其 <span data-x="concept-port-owner">owner</span>
+  为 <var>owner</var>。</p>
+
+  <p>当用户代理 <dfn data-x="entangle">关联</dfn> 两个 <code>MessagePort</code> 对象时，
+  必须执行以下步骤：</p>
+
+  <ol>
+
+   <li>
+
+    <p>如果其中给一个端口已经关联，则把它与之前关联的端口解关联。</p>
+
+    <p class="note">如果那两个之前关联的端口是同一个
+    <code>MessageChannel</code> 对象的两个端口，则那个 <code>MessageChannel</code>
+    对象不再表示任何真正的端口：它的两个端口已经不再关联。</p>
+
+   </li>
+
+   <li>
+
+    <p>关联这两个端口，让它们组成新通道的两部分。
+    （没有 <code>MessageChannel</code> 对象表示这个通道）</p>
+
+    <p>经过这个步骤的两个端口 <var>A</var> 和 <var>B</var>
+    被称为关联的；其中一个关联到了另一个，反之亦然。</p>
+
+    <p class="note">尽管本标准把这个过程描述为瞬间的，但它们更有可能通过消息传递来实现。
+    就像其他所有算法一样，关键是只要最终结果无法与规范区分（在黑盒的意义上）。</p>
+
+   </li>
+
+  </ol>
+
+  <hr>
+
+  <p id="transferMessagePort"><code>MessagePort</code> 对象是
+  <span data-x="transferable objects">可传输对象</span>。
+  给定 <var>value</var> 和 <var>dataHolder</var>，
+  它们的 <span data-x="transfer steps">传输步骤</span> 是：</p>
+
+  <ol>
+   <li><p>设置 <var>value</var> 的 <span data-x="has been shipped">已被转移</span> 标志为 true。</p></li>
+
+   <li><p>设置 <var>dataHolder</var>.[[PortMessageQueue]] 到 <var>value</var> 的
+   <span data-x="port message queue">端口消息队列</span>。</p></li>
+
+   <li>
+    <p>如果 <var>value</var> 与另一个端口 <var>remotePort</var> 关联，则：</p>
+
+    <ol>
+     <li><p>设置 <var>remotePort</var> 的 <span data-x="has been shipped">已被转移</span> 标志为 true。</p></li>
+
+     <li><p>设置 <var>dataHolder</var>.[[RemotePort]] 为 <var>remotePort</var>。</p></li>
+    </ol>
+   </li>
+
+   <li><p>否则，设置 <var>dataHolder</var>.[[RemotePort]] 为 null。</p></li>
+  </ol>
+
+  <p>给定 <var>dataHolder</var> 和 <var>value</var>，
+  它们的 <span data-x="transfer-receiving steps">传输-接收步骤</span> 是：</p>
+
+  <ol>
+   <li><p>设置 <var>value</var> 的 <span data-x="has been shipped">已被转移</span> 标志为 true。</p></li>
+
+   <li><p>设置 <var>value</var> 的 <span data-x="concept-port-owner">owner</span> 为
+   <var>value</var> 的 <span data-x="relevant settings object">相关设置对象</span>。</p></li>
+
+   <li><p>把所有要在 <var>dataHolder</var>.[[PortMessageQueue]] 上触发
+   <code data-x="event-message">message</code> 事件的
+   <span data-x="concept-task">tasks</span>（如果有的话）
+   移动到
+   <var>value</var> 的 <span data-x="port message queue">端口消息队列</span> 上，
+   保持 <var>value</var> 的 <span data-x="port message queue">端口消息队列</span> 处于初始的禁用状态，
+   如果 <var>value</var> 的 <span data-x="concept-port-owner">owner</span> 指定的
+   <span data-x="responsible event loop">负责事件循环</span> 是一个
+   <span data-x="browsing context">浏览上下文</span> <span data-x="event loop">事件循环</span>，
+   将移动后的 <span data-x="concept-task">任务</span> 与
+   <var>value</var> 的 <span data-x="concept-port-owner">owner</span> 指定的
+   <span data-x="responsible document">负责文档</span> 相关联。</p></li>
+
+   <li><p>如果 <var>dataHolder</var>.[[RemotePort]] 非 null，则 <span data-x="entangle">关联</span>
+   <var>dataHolder</var>.[[RemotePort]] 和 <var>value</var>。（这将会把
+   <var>dataHolder</var>.[[RemotePort]] 与它之前关联的被转移的端口解关联）。
+  </p></li>
+  </ol>
+
+  <hr>
+
+  <p><dfn><code data-x="dom-MessagePort-postMessage">postMessage(<var>message</var>,
+  <var>transfer</var>)</code></dfn> 方法在 <code>MessagePort</code> 对象上被调用时，必须执行以下步骤：</p>
+
+  <ol> <!-- a lot of this is similar or identical to window.postMessage -->
+   <li><p>令 <var>targetPort</var> 为与该 <code>MessagePort</code> 关联的端口（如果有的话）；
+   否则令它为 null。</p></li>
+
+   <li><p>如果在 <var>transfer</var> 中的任何一个对象是这个 <code>MessagePort</code>，
+   则抛出一个 <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
+
+   <li><p>令 <var>doomed</var> 为 false。</p></li>
+
+   <li><p>如果 <var>targetPort</var> 非 null 且 <var>transfer</var> 中有任何对象是
+   <var>targetPort</var>，则设置 <var>doomed</var> 为 true，并（可选地）在开发终端中报告
+   目标端口被发送到了它自己，导致通道丢失。</p></li>
+
+   <li><p>令 <var>serializeWithTransferResult</var> 为
+   <span>StructuredSerializeWithTransfer</span>(<var>message</var>, <var>transfer</var>)。
+   重新抛出任何异常。</p></li>
+
+   <li><p>如果没有 <var>targetPort</var> （比如这个 <code>MessagePort</code> 未关联），
+   或者如果 <var>doomed</var> 为 true，则返回。</p></li>
+   <!-- we don't throw an exception if there is no target port because this can happen at a moment's
+   notice. we don't return false because if the port is _about_ to be closed, the message might not
+   be listened for anyway. we don't do this before the steps above because otherwise you can tell
+   the difference (in whether the ports have become useless, or in when the structured clone
+   algorithm runs scripts). We don't throw an exception for 'doomed' being true, because this can't
+   necessarily be detected right now every time -->
+
+   <li>
+    <p>在 <var>targetPort</var> 的 <span data-x="port message queue">端口消息队列</span>
+    中添加一个 <span data-x="concept-task">任务</span> 执行以下步骤：</p>
+
+    <ol>
+     <li>
+      <p>令 <var>finalTargetPort</var> 为在当前任务所在的
+      <span data-x="port message queue">端口消息队列</span> 的 <code>MessagePort</code>。</p>
+
+      <p class="note">这可能与 <var>targetPort</var> 不同，如果 <var>targetPort</var>
+      自己被传输，它的所有任务都跟着移动。</p>
+     </li>
+
+     <li><p>令 <var>targetRealm</var> 为 <var>finalTargetPort</var> 的 <span
+     data-x="concept-relevant-realm">相关 Realm</span>。</p></li>
+
+     <li>
+      <p>令 <var>deserializeRecord</var> 为
+      <span>StructuredDeserializeWithTransfer</span>(<var>serializeWithTransferResult</var>,
+      <var>targetRealm</var>)。</p>
+
+      <p>如果这抛出了异常，捕获它并在
+      <var>finalTargetPort</var> 上用 <code>MessageEvent</code>
+      <span data-x="concept-event-fire">触发一个</span>
+      名为 <code data-x="event-messageerror">messageerror</code> 的事件，然后返回。
+     </li>
+
+     <li><p>令 <var>messageClone</var> 为 <var>deserializeRecord</var>.[[Deserialized]]。</p></li>
+
+     <li><p>令 <var>newPorts</var> 为一个新的 <span data-x="frozen array">冻结的数组</span>
+     该数组包含所有 <var>deserializeRecord</var>.[[TransferredValues]] 中的
+     <code>MessagePort</code> 对象（如果有的话），保持它们的相对顺序。</p></li>
+
+     <li><p>在 <var>finalTargetPort</var> 上用 <code>MessageEvent</code>,
+     <span data-x="concept-event-fire">触发一个</span> 名为 <code data-x="event-message">message</code>
+     的事件，其 <code data-x="dom-MessageEvent-data">data</code> 属性初始化为
+     <var>messageClone</var> 且 <code data-x="dom-MessageEvent-ports">ports</code>
+     属性初始化为<var>newPorts</var>。</p></li>
+    </ol>
+   </li>
+  </ol>
+
+  <hr>
+
+  <p><dfn><code data-x="dom-MessagePort-start">start()</code></dfn> 方法必须启用其端口的
+  <span data-x="port message queue">端口消息队列</span>，如果还没有启用的话。</p>
+
+  <hr>
+
+  <p>
+  在已关联的端口 <var>local port</var> 上调用
+  <dfn><code data-x="dom-MessagePort-close">close()</code></dfn> 方法时，
+  用户代理必须解关联这两个端口。
+  如果该方法在一个未关联的端口上调用时，该方法必须什么都不做。</p>
+
+  <hr>
+
+  <p>下面是所有实现 <code>MessagePort</code> 接口的对象 <span w-nodev>必须</span> 支持的
+  <span data-x="event handlers">事件处理器</span>
+  （以及它们相应的<span data-x="event handler event type">事件处理器事件类型</span>），
+  作为 <span data-x="event handler IDL attributes">事件处理器 IDL 属性</span>：</p>
+
+  <table>
+   <thead>
+    <tr><th><span data-x="event handlers">事件处理器</span> <th><span data-x="Event handler event type">事件处理器事件类型</span>
+   <tbody>
+    <tr><td><dfn><code data-x="handler-MessagePort-onmessage">onmessage</code></dfn> <td> <code data-x="event-message">message</code>
+    <tr><td><dfn><code data-x="handler-MessagePort-onmessageerror">onmessageerror</code></dfn> <td> <code data-x="event-messageerror">messageerror</code>
+  </table>
+
+  <p>第一次设置 <code>MessagePort</code> 对象的
+  <code data-x="handler-MessagePort-onmessage">onmessage</code> IDL 属性时，
+  端口的 <span data-x="port message queue">端口消息队列</span> 必须被启用，
+  就像调用了 <code data-x="dom-MessagePort-start">start()</code> 方法一样。</p>
+
+  </div>
+
+

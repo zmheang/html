@@ -1,0 +1,40 @@
+  <h4>概述</h4>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>为了使独立的代码片段之间可以相互通信（例如运行在不同
+  <span data-x="browsing context">浏览上下文</span> 的代码直接通信），
+  作者可以使用 <span data-x="channel messaging">Channel 通信</span>。</p>
+
+  <p>该机制下的通信 Channel 实现为双向管道，两端各一个端口。
+  从一个端口发送的消息被传递到另一个端口，反之亦然。
+  消息被作为 DOM 事件传递，不会中断或阻塞正在执行的
+  <span data-x="concept-task">任务</span>。</p>
+
+  <p>创建连接（两个关联的端口）使用 <code data-x="">MessageChannel()</code>
+  构造函数：</p>
+
+  <pre>var channel = new MessageChannel();</pre>
+
+  <p>其中一个端口作为本地端口保存，另一个发送到了远程代码，例如
+  使用 <code data-x="dom-window-postMessage">postMessage()</code>:</p>
+
+  <pre>otherWindow.postMessage('hello', 'https://example.com', [channel.port2]);</pre>
+
+  <p>发送消息使用端口上的 <code data-x="dom-MessagePort-postMessage">postMessage()</code> 方法：</p>
+
+  <pre>channel.port1.postMessage('hello');</pre>
+
+  <p>接收消息需要监听 <code data-x="event-message">message</code> 事件：</p>
+
+  <pre>channel.port1.onmessage = handleMessage;
+function handleMessage(event) {
+  // message is in event.data
+  // ...
+}</pre>
+
+  <p>发送到端口的数据可以是结构化的；例如向 <code>MessagePort</code> 传递字符串数组：</p>
+
+  <pre>port1.postMessage(['hello', 'world']);</pre>
+
+

@@ -1,0 +1,17 @@
+  <h5>端口作为抽象服务实现的基础</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>继续上一部分提到的例子，特别考虑联系人提供者。
+  初始的实现可能是简单地在服务的 <code>iframe</code> 中使用 <code>XMLHttpRequest</code> 对象，
+  一个改进版本可能会使用 <span data-x="SharedWorker">共享 worker</span>
+  和一个 <code>WebSocket</code> 连接。</p>
+
+  <p>如果初始的设计使用了 <code>MessagePort</code> 对象来赋予能力，或者甚至仅仅是为了支持多个并发的独立会话，
+  这个服务的实现就可以直接从
+  "每个 <code>iframe</code> 中一个 <code>XMLHttpRequest</code>" 模型迁移到
+  "共享 <code>WebSocket</code>" 模型，
+  完全不需要改变 API：服务提供者一侧的端口可以全部转发到共享 Worker，完全不影响 API 的用户。</p>
+
+
+

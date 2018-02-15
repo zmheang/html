@@ -1,0 +1,62 @@
+  <h5>示例</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <div class="example">
+
+   <p>在这个例子中，两个 JavaScript 库通过 <code>MessagePort</code> 相互连接。
+   这允许它们托管在不同的框架或 <code>Worker</code> 对象中而不需要改变 API。</p>
+
+   <pre>&lt;script src="contacts.js">&lt;/script> &lt;!-- exposes a contacts object -->
+&lt;script src="compose-mail.js">&lt;/script> &lt;!-- exposes a composer object -->
+&lt;script>
+ var channel = new MessageChannel();
+ composer.addContactsProvider(channel.port1);
+ contacts.registerConsumer(channel.port2);
+&lt;/script></pre>
+
+   <p>Here's what the "addContactsProvider()" function's implementation could look like:</p>
+
+   <pre>function addContactsProvider(port) {
+  port.onmessage = function (event) {
+    switch (event.data.messageType) {
+      'search-result': handleSearchResult(event.data.results); break;
+      'search-done': handleSearchDone(); break;
+      'search-error': handleSearchError(event.data.message); break;
+      // ...
+    }
+  };
+};</pre>
+
+   <p>或者也可以这样实现：</p>
+
+   <pre>function addContactsProvider(port) {
+  port.addEventListener('message', function (event) {
+    if (event.data.messageType == 'search-result')
+      handleSearchResult(event.data.results);
+  });
+  port.addEventListener('message', function (event) {
+    if (event.data.messageType == 'search-done')
+      handleSearchDone();
+  });
+  port.addEventListener('message', function (event) {
+    if (event.data.messageType == 'search-error')
+      handleSearchError(event.data.message);
+  });
+  // ...
+  port.start();
+};</pre>
+
+   <p>关键的区别在于，当使用 <code
+   data-x="dom-EventTarget-addEventListener">addEventListener()</code> 时，必须调用 <code
+   data-x="dom-MessagePort-start">start()</code> 方法。当使用 <code
+   data-x="handler-MessagePort-onmessage">onmessage</code> 时，已经默认调用了 <code
+   data-x="dom-MessagePort-start">start()</code>。</p>
+
+   <p>无论显式或隐式地（通过设置 <code data-x="handler-MessagePort-onmessage">onmessage</code>）
+   调用 <code data-x="dom-MessagePort-start">start()</code> 方法，都会启动消息流：
+   发送到消息端口的消息初始是暂停的，这样就不会在脚本还没能建立监听器之前被丢掉。</p>
+
+  </div>
+
+
