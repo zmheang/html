@@ -1,0 +1,133 @@
+  <h4>发布消息</h4>
+
+  <dl class="domintro">
+
+   <dt><var>window</var> . <code subdfn data-x="dom-window-postMessage">postMessage</code>(<var>message</var>, <var>targetOrigin</var> [, <var>transfer</var> ] )</dt>
+
+   <dd>
+
+    <p>像指定的 window 发送消息。消息可以是结构化的对象，
+    例如嵌套对象和数组，可以包含 JavaScript 值（字符串、数字、<code>Date</code>、对象等等），
+    也可以包含数据对象比如 <code>File</code> <code>Blob</code>，<code>FileList</code>，
+    以及 <code data-x="idl-ArrayBuffer">ArrayBuffer</code> 对象。</p>
+
+    <p><var>transfer</var> 中列出的对象会被传输，而非仅仅克隆，
+    这意味着在发送的一方不再能用了。</p>
+
+    <p>如果目标 window 的域不符合给定的域，该消息会被丢弃以避免信息泄露。
+    给任意域发送消息时，要把目标域设为 "<code data-x="">*</code>"。
+    限制只给 same-origin 目标发送消息时，不需要显式地声明域，
+    把目标域设为 "<code data-x="">/</code>" 即可。</p>
+
+    <p>如果 <var>transfer</var> 数组包含重复的对象，或者 <var>message</var> 不可克隆时，
+    抛出一个 <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p>
+
+   </dd>
+
+  </dl>
+
+  <p class="note">给刚导航到新 <code>Document</code> 的 <span>browsing context</span> 上的
+  <code>Window</code> 发布消息时，消息可能无法到达接收者：
+  目标 <span data-x="browsing context">浏览上下文</span> 中的脚本必须有时间设置消息监听器。
+  因此，如果要发送消息给一个刚创建的子 <code>iframe</code> 的 <code>Window</code>，
+  建议作者在子 <code>Document</code> 中发送消息给父级来声明它已经准备好接收消息了，
+  父级则等待该消息到来后再开发发送消息。</p>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-window-postMessage">postMessage(<var>message</var>,
+  <var>targetOrigin</var>, <var>transfer</var>)</code></dfn> 方法在一个
+  <code>Window</code> 对象上被调用时，必须执行以下步骤：</p>
+
+  <ol> <!-- a lot of this is similar or identical to port.postMessage -->
+
+   <li><p>令 <var>targetWindow</var> 为当前 <code>Window</code> 对象。</p>
+
+   <li><p>令 <var>targetRealm</var> 为 <var>targetWindow</var> 的 <span
+   data-x="concept-global-object-realm">Realm</span>。</p></li>
+
+   <li><p>令 <var>incumbentSettings</var> 为
+   <span data-x="incumbent settings object">当前设置对象</span>。</p></li>
+   <!-- This is one of the few cases where incumbent is probably the right choice. Current or
+   relevant would mean that the MessageEvent's source property always points to the "calling"
+   window, in same-origin cases. See discussion at
+   https://github.com/whatwg/html/issues/1542#issuecomment-233502636 -->
+
+   <li><p>如果 <var>targetOrigin</var> 是一个 U+002F SOLIDUS 字符 (/)，则将
+   <var>targetOrigin</var> 设置为 <var>incumbentSettings</var> 的 <span
+   data-x="concept-settings-object-origin">origin</span>。</p>
+
+   <li>
+    <p>否则，如果 <var>targetOrigin</var> 不是一个 U+002A ASTERISK 字符 (*)，则：</p>
+
+    <ol>
+     <li><p>令 <var>parsedURL</var> 为在 <var>targetOrigin</var> 上执行
+       <span data-x="URL parser">URL 解析</span> 的结果。</p></li>
+
+     <li><p>如果 <var>parsedURL</var> 是失败，则抛出 <span>"<code>SyntaxError</code>"</span>
+     <code>DOMException</code>。</p></li>
+
+     <li><p>设置 <var>targetOrigin</var> 为 <var>parsedURL</var> 的 <span
+     data-x="concept-url-origin">origin</span>。</p></li>
+    </ol>
+   </li>
+
+   <li><p>令 <var>serializeWithTransferResult</var> 为
+   <span>StructuredSerializeWithTransfer</span>(<var>message</var>, <var>transfer</var>)。
+   重新抛出任何异常。</p></li>
+
+   <li>
+    <p>在 <span data-x="posted message task source">已发布消息队列源</span> 中
+    <span data-x="Queue a task">排一个任务</span> 执行以下步骤：</p>
+
+    <ol>
+     <li><p>如果 <var>targetOrigin</var> 参数不是单个 U+002A ASTERISK 字符 (*) 且
+     <var>targetWindow</var> 的 <span data-x="concept-document-window">关联
+     <code>Document</code></span> 的 <span data-x="origin">源</span> 不
+     与 <var>targetOrigin</var> <span data-x="same origin">同源</span>，则返回。</p></li>
+
+     <li><p>令 <var>origin</var> 为 <var>incumbentSettings</var>
+     的 <span data-x="concept-settings-object-origin">origin</span>
+     的 <span data-x="serialization of an origin">序列化</span>。</p></li>
+
+     <li><p>令 <var>source</var> 为 <code>WindowProxy</code> 对象对应的
+     <var>incumbentSettings</var> 的 <span data-x="concept-settings-object-global">全局对象</span>
+     （一个 <code>Window</code> 对象）。</p></li>
+
+     <li>
+      <p>令 <var>deserializeRecord</var> 为
+      <span>StructuredDeserializeWithTransfer</span>(<var>serializeWithTransferResult</var>,
+      <var>targetRealm</var>)。</p>
+
+      <p>如果这抛出了异常，捕获它并使用 <code>MessageEvent</code>
+      在 <var>targetWindow</var> 上
+      <span data-x="concept-event-fire">产生</span> 一个名为
+      <code data-x="event-messageerror">messageerror</code> 的事件，
+      并把 <code data-x="dom-MessageEvent-origin">origin</code> 属性初始化为 <var>origin</var>，
+      <code data-x="dom-MessageEvent-source">source</code> 属性初始化为 <var>source</var>，
+      然后返回。</p>
+     </li>
+
+     <li><p>令 <var>messageClone</var> 为 <var>deserializeRecord</var>.[[Deserialized]]。</p></li>
+
+     <li><p>令 <var>newPorts</var> 为一个新的 <span>frozen array</span>，包含
+     <var>deserializeRecord</var>.[[TransferredValues]] 中所有的
+     <code>MessagePort</code> 对象（如果有的话），
+     并保持它们的相对顺序。</p></li>
+
+     <li><p><span data-x="concept-event-fire">
+     使用 <code>MessageEvent</code> 在 <var>targetWindow</var> 上
+     产生</span> 一个名为 <code data-x="event-message">message</code> 的事件，
+     其 <code data-x="dom-MessageEvent-origin">origin</code> 属性初始化为 <var>origin</var>，
+     <code data-x="dom-MessageEvent-source">source</code> 属性初始化为 <var>source</var>，
+     <code data-x="dom-MessageEvent-data">data</code> 属性初始化为 <var>messageClone</var>，
+     <code data-x="dom-MessageEvent-ports">ports</code> 属性初始化为 <var>newPorts</var>。</p></li>
+    </ol>
+   </li>
+  </ol>
+
+  </div>
+
+
+
+

@@ -1,0 +1,36 @@
+  <h4>概述</h4>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <div class="example">
+
+   <p>例如，如果文档 A 包含一个 <code>iframe</code> 元素，其中包含文档 B，
+   A 中的脚本调用了 B 的 <code>Window</code> 对象上的
+   <code data-x="dom-window-postMessage">postMessage()</code>，
+   然后这个对象上会产生一个消息事件，标记为源自文档 A 的 <code>Window</code>。
+   文档 A 中的脚本可能像这样：</p>
+
+   <pre>var o = document.getElementsByTagName('iframe')[0];
+o.contentWindow.postMessage('Hello world', 'https://b.example.org/');</pre>
+
+   <p>脚本通过 <code data-x="">addEventListener()</code>（或类似机制）
+   为传入的事件注册事件处理器。例如文档 B 中的脚本可能像这样：</p>
+
+   <pre>window.addEventListener('message', receiver, false);
+function receiver(e) {
+  if (e.origin == 'https://example.com') {
+    if (e.data == 'Hello world') {
+      e.source.postMessage('Hello', e.origin);
+    } else {
+      alert(e.data);
+    }
+  }
+}</pre>
+
+   <p>该脚本先检查域是否符合预期，
+   然后再检查消息，把它显示给用户或者把它发送回首先发送消息的文档。</p>
+
+  </div>
+
+
+<!--ADD-TOPIC:Security-->

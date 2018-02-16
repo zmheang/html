@@ -1,0 +1,244 @@
+  <h3><dfn data-x="broadcast channels">向其他浏览上下文广播</dfn></h3>
+
+  <p>同一个用户，同一个用户代理，同一个 <span data-x="origin">域</span>，
+  但不同 <span data-x="browsing context">浏览上下文</span> 的页面有时需要相互发送通知，
+  例如 “嘿，用户在我这里登录了，重新检查你的信任状态”。</p>
+
+  <p>对于复杂情况，例如管理共享状态的锁定，管理服务器和多个本地客户端之间的资源同步，
+  共享与远程主机的 <code>WebSocket</code> 连接等等，
+  <span data-x="SharedWorker">共享 Worker</span> 是最合适的解决方案。</p>
+
+  <p>但对于简单情况，共享 Worker 可能是不合理的开销，
+  作者可以使用这一章描述的简单的基于通道的广播机制。</p>
+
+  <pre class="idl">[<span data-x="dom-BroadcastChannel">Constructor</span>(DOMString name), Exposed=(Window,Worker)]
+interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
+  readonly attribute DOMString <span data-x="dom-BroadcastChannel-name">name</span>;
+  void <span data-x="dom-BroadcastChannel-postMessage">postMessage</span>(any message);
+  void <span data-x="dom-BroadcastChannel-close">close</span>();
+  attribute <span>EventHandler</span> <span data-x="handler-BroadcastChannel-onmessage">onmessage</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-BroadcastChannel-onmessageerror">onmessageerror</span>;
+};</pre>
+
+  <dl class="domintro">
+
+   <dt><var>broadcastChannel</var> = new <code subdfn data-x="dom-BroadcastChannel">BroadcastChannel</code>(<var>name</var>)</dt>
+
+   <dd>
+
+    <p>返回一个新的 <code>BroadcastChannel</code> 对象，通过它可以像指定的通道名发送和接收消息。</p>
+
+   </dd>
+
+   <dt><var>broadcastChannel</var> . <code subdfn data-x="dom-BroadcastChannel-name">name</code></dt>
+
+   <dd>
+
+    <p>返回通道名（传递给构造函数的）。</p>
+
+   </dd>
+
+   <dt><var>broadcastChannel</var> . <code subdfn data-x="dom-BroadcastChannel-postMessage">postMessage</code>(<var>message</var>)</dt>
+
+   <dd>
+
+    <p>向为这个通道建立的 <code>BroadcastChannel</code> 对象发送给定的消息。
+    消息可以是结构化对象，例如嵌套对象和数组。</p>
+
+   </dd>
+
+   <dt><var>broadcastChannel</var> . <code subdfn data-x="dom-BroadcastChannel-close">close</code>()</dt>
+
+   <dd>
+
+    <p>关闭 <code>BroadcastChannel</code> 对象，让它可以被垃圾回收。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><code>BroadcastChannel</code> 对象有一个 <dfn data-x="channel name">通道名</dfn>，
+  一个 <dfn data-x="broadcastChannel-settings-object"><code>BroadcastChannel</code> 设置对象</dfn>，
+  以及一个 <dfn data-x="concept-BroadcastChannel-closed">关闭标志</dfn>。</p>
+
+  <p><dfn><code data-x="dom-BroadcastChannel">BroadcastChannel()</code></dfn> 构造函数被调用时，
+  必须创建和返回一个 <code>BroadcastChannel</code> 对象，
+  其 <span data-x="channel name">通道名</span> 为构造函数的第一个参数，
+  其 <span data-x="broadcastChannel-settings-object"><code>BroadcastChannel</code> 设置对象</span>
+  为 <span data-x="incumbent settings object">当前设置对象</span>，
+  其 <span data-x="concept-BroadcastChannel-closed">关闭标志</span> 为 false。</p>
+
+  <p><dfn><code data-x="dom-BroadcastChannel-name">name</code></dfn> 属性必须返回
+  <span data-x="channel name">通道名</span>。</p>
+
+  <p><dfn><code
+  data-x="dom-BroadcastChannel-postMessage">postMessage(<var>message</var>)</code></dfn> 方法在
+  <code>BroadcastChannel</code> 对象上被调用时,必须执行以下步骤：</p>
+
+  <ol>
+   <li><p>令 <var>source</var> 为这个 <code>BroadcastChannel</code>。</p></li>
+
+   <li><p>令 <var>sourceSettings</var> 为 <var>source</var> 的
+   <span data-x="broadcastChannel-settings-object"><code>BroadcastChannel</code> 设置对象</span>。</p></li>
+
+   <li><p>如果 <var>source</var> 的 <span data-x="concept-BroadcastChannel-closed">关闭标志</span>
+   为 true，则抛出一个 <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>。</p></li>
+
+   <li><p>令 <var>sourceChannel</var> 为 <var>source</var> 的 <span data-x="channel name">通道名</span>。</p></li>
+
+   <li><p>令 <var>targetRealm</var> 为用户代理定义的 Realm。</p></li>
+
+   <li><p>令 <var>serialized</var> 为 <span>StructuredSerialize</span>(<var>message</var>)。
+   重新抛出任何异常。</p></li>
+
+   <li>
+    <p>令 <var>destinations</var> 为符合以下要求的 <code>BroadcastChannel</code> 对象的列表：</p>
+
+    <ul>
+     <li>
+      <p>其 <span data-x="broadcastChannel-settings-object"><code>BroadcastChannel</code> 设置对象</span> 指定了以下之一：</p>
+
+      <ul>
+       <li><p>一个 <code>Window</code> <span data-x="concept-settings-object-global">全局对象</span>，
+       以及一个 <span data-x="fully active">完全激活的</span>
+       <span data-x="responsible document">负责文档</span>，或</p></li>
+
+       <li><p>一个 <code>WorkerGlobalScope</code>
+       <span data-x="concept-settings-object-global">全局对象</span>
+       且它的 <span data-x="dom-WorkerGlobalScope-closing">正则关闭</span> 标志为 false，
+       且它的 <span>worker</span> 不是一个 <span data-x="suspendable worker">可终止的 Worker</span>。</p></li>
+      </ul>
+     </li>
+
+     <li><p>它们的 <span data-x="broadcastChannel-settings-object"><code>BroadcastChannel</code> 设置对象</span> 的 <span
+     data-x="concept-settings-object-origin">源</span> 与
+     <var>sourceSettings</var> 的 <span data-x="concept-settings-object-origin">源</span>
+     <span data-x="same origin">同源</span>。</p></li>
+
+     <li><p>它们的 <span data-x="channel name">通道名</span>
+     <span data-x="case-sensitive">大消息敏感</span> 地匹配<var>sourceChannel</var>。</p></li>
+
+     <li><p>它们的 <span data-x="concept-BroadcastChannel-closed">已关闭标志</span> 为 false。</p></li>
+    </ul>
+   </li>
+
+   <li><p>从 <var>destinations</var> 移除 <var>source</var>。</p></li>
+
+   <li><p>将 <var>destinations</var> 排序，使得所有
+   <span data-x="BroadcastChannel-settings-object"><code>BroadcastChannel</code> 设置对象</span>
+   指定了同样
+   <span data-x="responsible event loop">负责事件循环</span> 的
+   <code>BroadcastChannel</code> 对象按照创建顺序排序，老的在先。
+   （这并没有定义完全排序。在这个约束下，用户代理可以按任意方式排序）</p></li>
+
+   <li>
+    <p>对 <var>destinations</var> 中的每一个 <code>BroadcastChannel</code> 对象 <var>destination</var>，
+    <span data-x="queue a task">排一个任务</span> 执行以下步骤：</p>
+
+    <ol>
+     <li><p>令 <var>targetRealm</var> 为 <var>destination</var> 的 <span
+     data-x="concept-relevant-realm">相关 Realm</span>。</p></li>
+
+     <li>
+      <p>令 <var>data</var> 为 <span>StructuredDeserialize</span>(<var>serialized</var>,
+      <var>targetRealm</var>)。</p>
+
+      <p>如果抛出了异常，捕获它，在 <var>destination</var> 上使用 <code>MessageEvent</code>
+      <span data-x="concept-event-fire">发生</span> 一个名为
+      <code data-x="event-messageerror">messageerror</code> 的事件，
+      <code data-x="dom-MessageEvent-origin">origin</code> 属性初始化为
+      <var>sourceSettings</var> 的 <span data-x="concept-settings-object-origin">origin</span> 的
+      <span data-x="serialization of an origin">序列化</span>，然后返回。</p>
+     </li>
+
+     <li><p>在 <var>destination</var> 上使用 <code>MessageEvent</code>
+     <span data-x="concept-event-fire">发生</span> 一个名为 <code data-x="event-message">message</code>
+     的事件，其 <code data-x="dom-MessageEvent-data">data</code> 属性初始化为 <var>data</var>，
+     <code data-x="dom-MessageEvent-origin">origin</code> 属性初始化为
+     <var>sourceSettings</var> 的 <span data-x="concept-settings-object-origin">origin</span> 的
+     <span data-x="serialization of an origin">序列化</span>。</p></li>
+    </ol>
+
+    <p><span data-x="concept-task">任务</span> 必须使用
+    <span data-x="DOM manipulation task source">DOM 操作任务源</span>，
+    而且对于那些目标 <code>BroadcastChannel</code> 对象的
+    <span data-x="broadcastChannel-settings-object"><code>BroadcastChannel</code> 设置对象</span>
+    指定的 <span data-x="event loop">事件循环</span>
+    是一个 <span data-x="browsing context">浏览上下文</span>
+    <span data-x="event loop">事件循环</span> 的任务，必须与
+    那个目标的 <code>BroadcastChannel</code> 对象的
+    <span data-x="broadcastChannel-settings-object"><code>BroadcastChannel</code> 设置对象</span>
+    指定的 <span data-x="responsible document">负责文档</span> 相关联。</p>
+   </li>
+  </ol>
+
+  <p>当 <span data-x="concept-BroadcastChannel-closed">已关闭标志</span> 为 false 的
+  <code>BroadcastChannel</code> 对象还有事件处理器注册在 <code data-x="event-message">message</code>
+  事件上时，<code>BroadcastChannel</code> 对象的
+  <span data-x="broadcastChannel-settings-object"><code>BroadcastChannel</code> 设置对象</span>
+  指定的 <span data-x="concept-settings-object-global">全局对象</span> 上必须有一个强引用指向
+  <code>BroadcastChannel</code> 对象自己。</p>
+
+  <p><dfn><code data-x="dom-BroadcastChannel-close">close()</code></dfn> 方法必须
+  把调用它的 <code>BroadcastChannel</code> 对象的
+  <span data-x="concept-BroadcastChannel-closed">已关闭标志</span>
+  设置为 true。</p>
+
+  <p class="note">强烈鼓励作者在不需要它们时，显式地关闭 <code>BroadcastChannel</code> 对象，
+  这样它们就可以被垃圾回收了。
+  创建很多 <code>BroadcastChannel</code> 对象并在留有一个事件监听器时抛弃但不关闭他们，
+  会导致明显的内存泄露，因为只要它们有事件处理器（或页面或 Worker 别关闭），这些对象就会继续活着。</p>
+
+  <hr>
+
+  <p>下面的例子是所有实现 <code>BroadcastChannel</code> 接口的对象
+  <span w-nodev>必须</span>
+  以 <span data-x="event handler IDL attributes">事件处理器 IDL 属性</span> 方式支持的
+  <span data-x="event handlers">事件处理器</span>
+  （以及对应的 <span data-x="event handler event type">事件处理器事件类型</span>）：</p>
+
+  <table>
+   <thead>
+    <tr><th><span data-x="event handlers">事件处理器</span> <th><span data-x="Event handler event type">事件处理器事件类型</span>
+   <tbody>
+    <tr><td><dfn><code data-x="handler-BroadcastChannel-onmessage">onmessage</code></dfn> <td> <code data-x="event-message">message</code>
+    <tr><td><dfn><code data-x="handler-BroadcastChannel-onmessageerror">onmessageerror</code></dfn> <td> <code data-x="event-messageerror">messageerror</code>
+  </table>
+
+  </div>
+
+  <div class="example">
+
+   <p>假设一个页面想要知道用户登出，包括从其他标签页登出：</p>
+
+   <pre>var authChannel = new BroadcastChannel('auth');
+authChannel.onmessage = function (event) {
+  if (event.data == 'logout')
+    showLogout();
+}
+
+function logoutRequested() {
+  // called when the user asks us to log them out
+  doLogout();
+  showLogout();
+  authChannel.postMessage('logout');
+}
+
+function doLogout() {
+  // actually log the user out (e.g. clearing cookies)
+  // ...
+}
+
+function showLogout() {
+  // update the UI to indicate we're logged out
+  // ...
+}</pre>
+
+  </div>
+
+
+
+<!--ADD-TOPIC:Workers-->
+
