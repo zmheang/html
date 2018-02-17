@@ -1,0 +1,59 @@
+  <h4 id="server-sent-events-intro">概述</h4>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>为了让服务器能够使用 HTTP 或专用的服务器推送协议推送数据给 Web 页面，
+  本规范引入了 <code>EventSource</code> 接口。</p>
+
+  <p>使用本 API 包括创建 <code>EventSource</code> 对象和注册事件处理器。</p>
+
+  <pre>var source = new EventSource('updates.cgi');
+source.onmessage = function (event) {
+  alert(event.data);
+};</pre>
+
+  <p>在服务器端，某个脚本（这个例子中是 "<code data-x="">updates.cgi</code>"）发送了
+  下列格式的消息，并设置了 <code>text/event-stream</code> 的 MIME 类型：</p>
+
+  <pre>data: This is the first message.
+
+data: This is the second message, it
+data: has two lines.
+
+data: This is the third message.</pre>
+
+  <hr>
+
+  <p>作者可以使用不同的事件类型分隔事件。下面这个是有两种事件类型（"add" 和 "remove"）的流：</p>
+
+  <pre>event: add
+data: 73857293
+
+event: remove
+data: 2153
+
+event: add
+data: 113411</pre>
+
+  <p>处理这样的流的脚本可能看起来像这样（其中 <code data-x="">addHandler</code>
+  和 <code data-x="">removeHandler</code> 函数接受一个参数，就是事件）：</p>
+
+  <pre>var source = new EventSource('updates.cgi');
+source.addEventListener('add', addHandler, false);
+source.addEventListener('remove', removeHandler, false);</pre>
+
+  <p>默认的事件类型是 "message"。</p>
+
+  <p>事件流总是使用 UTF-8 解码。没有办法声明另外一种字符编码。</p>
+
+  <hr>
+
+  <p>事件流请求可以使用 HTTP 301 或 307 重定向，就像普通 HTTP 请求一样。
+  如果连接关闭客户端会重新连接；可以使用 HTTP 204 No Content 响应码来告诉客户端不要重连了。</p>
+
+  <p>使用这个 API 而不是用 <code>XMLHttpRequest</code> 或 <code>iframe</code> 模拟，
+  可以让用户代理更好地利用网络资源，尤其是用户代理实现者和网络维护者可以事先协调。
+  其他的好处包括，能显著节约移动设备的电量。
+  这在下面的一章 <a href="#eventsource-push">无连接推送</a> 中有更详细的讨论。</p>
+
+

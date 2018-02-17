@@ -1,0 +1,126 @@
+  <h3><code>MessageEvent</code> 接口</h3>
+
+  <p><span data-x="server-sent events">服务器发送的事件</span>,
+  <span>Web sockets</span>, <span data-x="cross-document messaging">跨文档通信</span>,
+  <span data-x="channel messaging">通道通信</span>, 和
+  <span data-x="broadcast channels">广播通道</span> 中的
+  <code data-x="event-message">消息</code> 使用 <code>MessageEvent</code> 接口：</p>
+
+  <pre class="idl">[Constructor(DOMString type, optional <span>MessageEventInit</span> eventInitDict), Exposed=(Window,Worker,AudioWorklet)]
+interface <dfn>MessageEvent</dfn> : <span>Event</span> {
+  readonly attribute any <span data-x="dom-MessageEvent-data">data</span>;
+  readonly attribute USVString <span data-x="dom-MessageEvent-origin">origin</span>;
+  readonly attribute DOMString <span data-x="dom-MessageEvent-lastEventId">lastEventId</span>;
+  readonly attribute <span>MessageEventSource</span>? <span data-x="dom-MessageEvent-source">source</span>;
+  readonly attribute FrozenArray&lt;<span>MessagePort</span>&gt; <span data-x="dom-MessageEvent-ports">ports</span>;
+
+  void <span data-x="dom-MessageEvent-initMessageEvent">initMessageEvent</span>(DOMString type, optional boolean bubbles = false, optional boolean cancelable = false, optional any data = null, optional USVString origin = "", optional DOMString lastEventId = "", optional <span>MessageEventSource</span>? source = null, optional sequence&lt;<span>MessagePort</span>&gt; ports = []);
+};
+
+dictionary <dfn>MessageEventInit</dfn> : <span>EventInit</span> {
+  any data = null;
+  USVString origin = "";
+  DOMString lastEventId = "";
+  <span>MessageEventSource</span>? source = null;
+  sequence&lt;<span>MessagePort</span>&gt; ports = [];
+};
+
+typedef (<span>WindowProxy</span> or <span>MessagePort</span> or <span>ServiceWorker</span>) <dfn>MessageEventSource</dfn>;</pre>
+
+  <dl class="domintro">
+
+   <dt><var>event</var> . <code subdfn data-x="dom-MessageEvent-data">data</code></dt>
+
+   <dd>
+
+    <p>返回消息的数据。</p>
+
+   </dd>
+
+   <dt><var>event</var> . <code subdfn data-x="dom-MessageEvent-origin">origin</code></dt>
+
+   <dd>
+
+    <p>返回消息的域，用于 <span data-x="server-sent events">服务器发送的事件</span> 和
+    <span data-x="cross-document messaging">跨文档通信</span>。</p>
+
+   </dd>
+
+   <dt><var>event</var> . <code subdfn data-x="dom-MessageEvent-lastEventId">lastEventId</code></dt>
+
+   <dd>
+
+    <p>返回 <span data-x="concept-event-stream-last-event-id">上一个事件 ID 字符串</span>,
+    用于 <span data-x="server-sent events">服务器发送的事件</span>。</p>
+
+   </dd>
+
+   <dt><var>event</var> . <code subdfn data-x="dom-MessageEvent-source">source</code></dt>
+
+   <dd>
+
+    <p>返回源 window 的 <code>WindowProxy</code>, 用于
+    <span data-x="cross-document messaging">跨文档通信</span>,
+    挂载 <code>MessagePort</code>,
+    以及在 <code>SharedWorkerGlobalScope</code> 对象上触发的
+    <code data-x="event-WorkerGlobalScope-connect">connect</code> 事件中。</p>
+
+   </dd>
+
+   <dt><var>event</var> . <code subdfn data-x="dom-MessageEvent-ports">ports</code></dt>
+
+   <dd>
+
+    <p>返回与消息同时发送的 <code>MessagePort</code> 数组, 用于
+    <span data-x="cross-document messaging">跨文档通信</span> 和
+    <span data-x="channel messaging">通道通信</span>。</p>
+
+   </dd>
+
+   <!-- initMessageEvent is deprecated -->
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-MessageEvent-data">data</code></dfn> 属性必须返回它被初始化的值。
+  表示被发送的消息。</p>
+
+  <p><dfn><code data-x="dom-MessageEvent-origin">origin</code></dfn> 属性必须返回它被初始化的值。
+  在 <span data-x="server-sent events">服务器发送的事件</span> 和
+  <span data-x="cross-document messaging">跨文档通信</span> 中，
+  它表示发送消息的文档的 <span data-x="origin">源</span>
+  （通常是文档的 scheme, 主机名和端口，
+  不包括它的路径和 <span data-x="concept-url-fragment">fragment</span>）。</p>
+
+  <p><dfn><code data-x="dom-MessageEvent-lastEventId">lastEventId</code></dfn>
+  属性必须返回它被初始化的值。在 <span data-x="server-sent events">服务器发送的事件</span> 中，
+  它表示事件源的
+  <span data-x="concept-event-stream-last-event-id">上一个事件 ID 字符串</span>。</p>
+
+  <p><dfn><code data-x="dom-MessageEvent-source">source</code></dfn> 属性必须返回它被初始化的值。
+  在 <span data-x="cross-document messaging">跨文档通信</span> 中，
+  它表示发送消息的 <code>Window</code> 对象的
+  <span data-x="browsing context">浏览上下文</span> 的 <code>WindowProxy</code>；
+
+  在 <span data-x="SharedWorkerGlobalScope">共享 Worker</span> 使用的
+  <code data-x="event-WorkerGlobalScope-connect">connect</code> 事件中，它表示
+  正在连接的新 <code>MessagePort</code>。</p>
+
+  <p><dfn><code data-x="dom-MessageEvent-ports">ports</code></dfn> 属性必须返回它被初始化的值。
+  在 <span data-x="cross-document messaging">跨文档通信</span> 和
+  <span data-x="channel messaging">通道通信</span> 中它表示，
+  被发送的 <code>MessagePort</code> 数组。</p>
+
+  <!-- handwave this one since it's deprecated anyway... let me know if there's interop issues -->
+  <p><dfn><code data-x="dom-MessageEvent-initMessageEvent">initMessageEvent()</code></dfn>
+  方法初始化事件的方式必须与命名相似的 <code data-x="dom-Event-initEvent">initEvent()</code> 方法类似。
+  <ref spec=DOM></p>
+
+  </div>
+
+  <p class="note">很多 API （例如 <code>WebSocket</code>， <code>EventSource</code>）都
+  在它们的 <code data-x="event-message">message</code> 事件上直接使用
+  <code>MessageEvent</code> 接口，而没有使用 <code>MessagePort</code> API。</p>
+
+

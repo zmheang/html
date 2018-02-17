@@ -34,6 +34,9 @@ build:
 	rm -rf $(OUTPUT)/resources && cp -r resources $(OUTPUT)
 	cp -r images/* $(OUTPUT)/images/
 
+find-one:
+	./bin/find-one-to-translate.sh
+
 update-progress:
 	data=`bash ./bin/progress.sh | awk -F: '{print $$2}'`; \
 	sed -i "s|当前进度.*|当前进度：$${data}|" README.md

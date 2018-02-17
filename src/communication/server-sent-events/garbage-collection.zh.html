@@ -1,0 +1,38 @@
+  <h4>垃圾回收</h4>
+
+  <p>当 <code>EventSource</code> 对象的 <code
+  data-x="dom-EventSource-readyState">readyState</code> 是 <code
+  data-x="dom-EventSource-CONNECTING">CONNECTING</code> 且该对象有一个或更多事件监听器
+  在监听 <code data-x="event-open">open</code>, <code
+  data-x="event-message">message</code> 或 <code data-x="event-error">error</code> 事件时，
+  调用 <code>EventSource</code> 对象的构造器的
+  <code>Window</code> 或 <code>WorkerGlobalScope</code> 对象上
+  必须有一个指向 <code>EventSource</code> 对象自己的强引用。</p>
+
+  <p>当 <code>EventSource</code> 对象的 <code
+  data-x="dom-EventSource-readyState">readyState</code> 是 <code
+  data-x="dom-EventSource-OPEN">OPEN</code> 且该对象有一个或更多事件监听器
+  在监听 <code data-x="event-message">message</code> 或 <code data-x="event-error">error</code> 事件时，
+  调用 <code>EventSource</code> 对象的构造器的
+  <code>Window</code> 或 <code>WorkerGlobalScope</code> 对象上
+  必须有一个指向 <code>EventSource</code> 对象自己的强引用。</p>
+
+  <p>当 <span data-x="remote event task source">远程事件任务源</span> 中存在由
+  <code>EventSource</code> 对象入队的事件时，
+  调用 <code>EventSource</code> 对象的构造器的
+  <code>Window</code> 或 <code>WorkerGlobalScope</code> 对象上
+  必须有一个指向那个 <code>EventSource</code> 对象的强引用。</p>
+
+  <p>当用户代理要 <dfn data-x="concept-EventSource-forcibly-close">强制关闭</dfn> 一个
+  <code>EventSource</code> 对象时（这在 <code>Document</code> 对象永远消失时就会发生），
+  用户代理必须终止为这个 <code>EventSource</code> 对象启动的任何
+  <span data-x="concept-fetch">fetch</span> 算法的实例，
+  同时必须设置 <code data-x="dom-EventSource-readyState">readyState</code> 属性为 <code
+  data-x="dom-EventSource-CLOSED">CLOSED</code>。</p> <!-- same as calling close() -->
+
+  <p>如果 <code>EventSource</code> 对象在连接仍然打开的情况下被垃圾回收，
+  用户代理必须终止为这个 <code>EventSource</code> 对象启动的任何
+  <span data-x="concept-fetch">fetch</span> 算法的实例。</p> <!-- no need to throw tasks away or anything; for it
+  to get garbage collected, there can't be anything that would be able to receive those events -->
+
+
