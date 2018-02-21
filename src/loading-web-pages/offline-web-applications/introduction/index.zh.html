@@ -1,0 +1,45 @@
+  <h4>概述</h4>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>为了使用户在网络连接不可用时，仍然继续与 Web 应用和文档交互 &mdash; 例如，
+  因为他们在其 ISP 覆盖外旅行时 &mdash; 作者可以提供一个清单，列出 Web 应用离线工作需要的文件列表，
+  用户的浏览器保存一份文件拷贝来供离线使用。</p>
+
+  <p>举个例子，考虑一个简单的时钟应用包括一个，HTML 页面 "<code
+  data-x="">clock1.html</code>", 一个 CSS 样式表 "<code data-x="">clock.css</code>"，和一个
+  JavaScript 脚本 "<code data-x="">clock.js</code>"。</p>
+
+  <p>在添加清单之前，这些文件可能看起来像这样：</p>
+
+  <pre>EXAMPLE offline/clock/clock1.html</pre>
+  <pre>EXAMPLE offline/clock/clock.css</pre>
+  <pre>EXAMPLE offline/clock/clock.js</pre>
+
+  <p>如果用户在离线时尝试打开 "<code data-x="">clock1.html</code>" 页面，
+  用户代理（除非恰好它仍然在本地缓存里）将会失败。</p>
+
+  <p>作者可以提供一个这3个文件的清单，比如叫 "<code
+  data-x="">clock.appcache</code>"：</p>
+
+  <pre>EXAMPLE offline/clock/clock.appcache</pre>
+
+  <p>稍微改动一下 HTML 文件，把清单（作为 <code>text/cache-manifest</code> 服务）
+  链接到应用：</p>
+
+  <pre>EXAMPLE offline/clock/clock2.html</pre>
+
+  <p>现在，如果用户进入这个页面，浏览器会缓存这些文件并让它们在用户离线时仍然可用。</p>
+
+  <p class="note">鼓励作者在清单文件中包含一个主页面，但实践中引用清单文件的页面会被自动缓存，
+  即使没有显式地提到它。</p>
+
+  <p class="note">除了 "no-store" 指令之外，HTTP 缓存头和
+  TLS（加密的，使用 <code data-x="https protocol">https:</code>）
+  上的页面缓存限制都会被清单覆盖。
+  因此从应用缓存来的页面在用户代理更新它之前不会过期，即使是 TLS 下的应用也可以离线工作。</p>
+
+  <p><a href="/demos/offline/clock/clock2.html">在线查看该示例</a>。</p>
+
+
+
