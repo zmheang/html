@@ -1,0 +1,21 @@
+  <h4 id="read-multipart-x-mixed-replace"><dfn data-x="navigate-multipart-x-mixed-replace"> <code>multipart/x-mixed-replace</code> 资源的媒体的页面加载处理模型</dfn></h4>
+
+  <p>在 <span data-x="browsing context">浏览上下文</span> 加载一个
+  <code>multipart/x-mixed-replace</code> 类型的资源时，
+  用户代理必须使用 multipart 类型的规则解析资源。 <ref spec=RFC2046></p>
+
+  <p>对资源中的每个 body part，用户代理必须执行
+  <span data-x="process a navigate response">处理导航响应算法</span>，
+  使用新的 body part和同一个 <span data-x="browsing context">浏览上下文</span>，
+  如果同一资源的上一个 body part 产生了一个正在创建和
+  <span data-x="initialize the Document object">初始化</span>
+  的 <code>Document</code> 对象，则 <span data-x="replacement enabled">开启替换</span> ，
+  否则与调用当前过程的 <span data-x="navigate">导航</span> 过程使用同样的配置。</p>
+
+  <p>为使得算法处理这些 body part 的表现与处理独立的资源一致，
+  在碰到边界时用户代理必须表现地就像没有更多字节一样。</p>
+
+  <p class="note">因此， <code data-x="event-load">load</code> 事件（以及 <code
+  data-x="event-unload">unload</code> 事件）会为每个载入的 body part 触发。</p>
+
+

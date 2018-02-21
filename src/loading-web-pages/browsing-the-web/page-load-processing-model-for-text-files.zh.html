@@ -1,0 +1,52 @@
+  <h4 id="read-text"><dfn data-x="navigate-text">文本文件的页面加载处理模型</dfn></h4>
+
+  <p>在 <span data-x="browsing context">浏览上下文</span> 中加载纯文本文档时，
+  用户代理应该 <span data-x="queue a task">排一个任务</span> 来创建
+  <code>Document</code> 对象，把它标记为 <span data-x="HTML documents">HTML 文档</span>，
+  设置其 <span data-x="concept-document-content-type">内容类型</span> 为
+  资源的 <span data-x="Content-Type sniffing">计算后的 MIME 类型</span>
+  （<span data-x="navigate">导航</span> 算法中的 <var>type</var>），
+  <span data-x="initialize the Document object">初始化 <code>Document</code> 对象</span>，
+  创建一个 <span data-x="HTML parser">HTML 解析器</span> 并把它关联到这个 <code>Document</code>，
+  表现地就像 tokenizer 已经触发了名为 "pre" 的开始标签一样，紧接着一个
+  U+000A LINE FEED (LF) 字符<!-- to get eaten, so that a leading LF in the text/plain stream doesn't get
+  eaten itself-->，把 <span data-x="HTML parser">HTML 解析器</span>的 tokenizer 切换到
+  <span data-x="PLAINTEXT state">纯文本状态</span>。
+  在执行获取时 <span data-x="networking task source">网络任务源</span> 放到
+  <span data-x="task queue">任务队列</span> 的每个 <span data-x="concept-task">任务</span>
+  在完成时都必须用获取到的字节填充这个解析器的 <span data-x="input byte stream">输入字节流</span>，
+  使得 <span data-x="HTML parser">HTML 解析器</span> 对输入流执行适当的处理。</p>
+
+  <p>如何将纯文本文档的字节转换为真正字符的规则，
+  以及真正渲染文字给用户的规则，定义在该资源
+  <span data-x="Content-Type sniffing">计算得到的 MIME 类型</span>
+  （<span data-x="navigate">导航</span> 算法中的 <var>type</var>）的规范中。</p>
+
+  <p><span data-x="document's character encoding">文档的字符编码</span> 必须设置为解码文档时用的字符编码。</p>
+
+  <p>在创建 <code>Document</code> 对象时，用户代理必须不参考清单，并传入新创建的
+  <code>Document</code> 来执行 <span
+  data-x="concept-appcache-init">应用缓存选择算法</span>。</p>
+
+  <!-- next two paragraphs are nearly identical to the navigate-html section and similar to the
+  "navigate-ua-inline" section, and the next three are similar to the navigate-media and
+  navigate-plugin sections; keep them all in sync -->
+
+  <p>当没有字节可用时，用户代理必须 <span data-x="queue a task">排一个任务</span>
+  让解析器处理这个虚拟的 EOF 字符，最终使得 <code data-x="event-load">load</code> 事件触发。</p>
+
+  <p>在创建 <code>Document</code> 对象后，页面完全结束加载之前，
+  用户代理必须
+  <span data-x="update the session history with the new page">用新的页面更新会话历史</span>。</p>
+
+  <p>用户代理可能会添加内容到 <code>Document</code> 的 <code>head</code> 元素，
+  例如链接一个样式表，提供一个脚本，或者给文档一个 <code>title</code>。</p>
+
+  <p class="note">特别是如果用户代理支持 RFC 3676 的 <code data-x="">Format=Flowed</code>
+  特性，就需要应用额外的样式来使文字正确折行，以及处理引用特性。
+  这可以通过使用 CSS 扩展来完成。</p>
+
+  <p>这部分提到的两个任务的 <span data-x="task source">任务源</span> 必须是
+  <span data-x="networking task source">网络任务源</span>。</p>
+
+
