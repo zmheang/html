@@ -1,0 +1,42 @@
+  <h4 id="read-plugin"><dfn data-x="navigate-plugin">使用插件的内容的页面加载处理模型</dfn></h4>
+
+  <p>在 <span data-x="browsing context">浏览上下文</span> 中加载一个需要外部资源来渲染的资源时，
+  用户代理应该创建一个 <code>Document</code> 对象，把它标记为
+  <span data-x="HTML documents">HTML 文档</span>，以及
+  <dfn data-x="plugin document">插件文档</dfn>，设置其
+  <span data-x="concept-document-content-type">内容类型</span> 为该资源
+  <span data-x="Content-Type sniffing">计算后的 MIME 类型</span>
+  （在 <span>navigate</span> 算法中的 <var>type</var>），
+  <span data-x="initialize the Document object">初始化 <code>Document</code> 对象</span>，
+  添加一个 <code>html</code> 元素到 <code>Document</code> 中，
+  添加一个 <code>head</code> 元素和一个 <code>body</code> 元素到
+  <code>html</code> 元素，添加一个 <code>embed</code> 到 <code>body</code> 元素，
+  然后设置 <code>embed</code> 元素的 <code data-x="attr-embed-src">src</code> 属性
+  到资源的地址。</p>
+
+  <p class="note"><span data-x="plugin document">插件文档</span> 这个术语用于
+  <cite>Content Security Policy</cite> 作为确保 <code>iframe</code>
+  不能被用于逃脱 <code data-x="">plugin-types</code> 指令机制的一部分。 <ref spec=CSP></p>
+
+  <!-- next three paragraphs are similar to the navigate-text section，keep them in sync -->
+
+  <p>然后，用户代理必须表现地像已经 <span data-x="stop parsing">停止解析</span> 一样。</p>
+
+  <p>在创建 <code>Document</code> 对象时，用户代理必须不参考清单，并传入新创建的
+  <code>Document</code> 来执行 <span
+  data-x="concept-appcache-init">应用缓存选择算法</span>。</p>
+
+  <p>在创建 <code>Document</code> 对象后，页面结束完全加载之前，
+  用户代理必须 <span data-x="update the session history with the new page">用新的页面更新会话历史</span>。</p>
+
+  <p>用户代理可能会添加内容到 <code>Document</code> 的 <code>head</code> 元素，
+  或者添加属性到 <code>embed</code> 元素，例如链接一个样式表或者给文档一个 <code>title</code>。</p>
+
+  <p class="note" id="sandboxPluginNavigate">如果 <code>Document</code> 的
+  <span data-x="active sandboxing flag set">激活沙盒标识</span> 的
+  <span data-x="sandboxed plugins browsing context flag">沙盒插件浏览上下文标识</span> 处于已设置状态，
+  如果相关 <span data-x="plugin">插件</span> 不够
+  <span data-x="concept-plugin-secure">安全</span> 的话，
+  合成的 <code>embed</code> 元素将会 <a href="#sandboxPluginEmbed">渲染内容失败</a>。</p>
+
+

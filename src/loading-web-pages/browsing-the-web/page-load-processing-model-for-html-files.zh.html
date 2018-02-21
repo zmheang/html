@@ -1,0 +1,36 @@
+  <h4 id="read-html"><dfn data-x="navigate-html">HTML 文件的页面加载处理模型</dfn></h4>
+
+  <p>在 <span data-x="browsing context">浏览上下文</span> 中加载一个 HTML 文档时，
+  用户代理必须 <span data-x="queue a task">排一个任务</span> 来创建
+  <code>Document</code> 对象，把它标记为 <span data-x="HTML documents">HTML 文档</span>，
+  设置其 <span data-x="concept-document-content-type">内容类型</span> 为
+  "<code data-x="">text/html</code>"，
+  <span data-x="initialize the Document object">初始化 <code>Document</code> 对象</span>，
+  创建一个 <span data-x="HTML parser">HTML 解析器</span> 并把它关联到这个 <code>Document</code>。
+  在执行获取时 <span data-x="networking task source">网络任务源</span> 放到
+  <span data-x="task queue">任务队列</span> 的每个 <span data-x="concept-task">任务</span>
+  在完成时都必须用获取到的字节填充这个解析器的 <span data-x="input byte stream">输入字节流</span>，
+  使得 <span data-x="HTML parser">HTML 解析器</span> 对输入流执行适当的处理。</p>
+
+  <p class="note"><span data-x="input byte stream">输入字节流</span> 将字节转换为字符来提供给
+  <span data-x="tokenization">tokenizer</span>。这个过程部分依赖于在
+  资源中真正的 <span data-x="Content-Type">Content-Type 元数据</span> 中的字符编码信息；
+  计算得到的类型不用于这个用途。</p>
+
+  <!-- next two paragraphs are nearly identical to the navigate-text section，keep them in sync -->
+
+  <p>当没有字节可用时，用户代理必须 <span data-x="queue a task">排一个任务</span>
+  让解析器处理这个虚拟的 EOF 字符，最终使得 <code data-x="event-load">load</code> 事件触发。</p>
+
+  <p>创建 <code>Document</code> 对象后，但在任何脚本执行前，
+  当然也在解析器 <span data-x="stop parsing">停止</span> 之前，用户代理必须
+  <span data-x="update the session history with the new page">用新的页面更新会话历史</span>。</p>
+
+  <p class="note"><a href="#parser-appcache">在 HTML 解析中</a>，会发生
+  <span data-x="concept-appcache-init">应用缓存选择</span>。</p>
+
+  <p>这部分提到的两个任务的 <span data-x="task source">任务源</span> 必须是
+  <span data-x="networking task source">网络任务源</span>。</p>
+
+
+
