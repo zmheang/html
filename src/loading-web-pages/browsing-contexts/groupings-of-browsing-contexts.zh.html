@@ -1,0 +1,47 @@
+  <h4>浏览上下文分类</h4>
+
+  <p>每个 <span data-x="browsing context">浏览上下文</span> 定义中有一个或更多
+  <dfn data-x="directly reachable browsing contexts">可直接到达的浏览上下文</dfn>
+  组成的列表。它们是：</p>
+
+  <ul>
+
+   <li><span data-x="browsing context">浏览上下文</span> 它自己。</li>
+
+   <li>所有 <span data-x="browsing context">浏览上下文</span> 的
+   <span data-x="child browsing context">子浏览上下文</span>。</li>
+
+   <li><span data-x="browsing context">浏览上下文</span> 的
+   <span data-x="parent browsing context">父浏览上下文</span>。</li>
+
+   <li>所有
+   <span data-x="opener browsing context">opener 浏览上下文</span> 是就是它的
+   <span data-x="browsing context">浏览上下文</span>。</li>
+
+   <li><span data-x="browsing context">浏览上下文</span> 的 <span data-x="opener browsing context">opener 浏览上下文</span>。</li>
+
+  </ul>
+
+  <p>某一瞬间所有 <span data-x="directly reachable browsing contexts">可直接到达的浏览上下文</span>
+  组成了一个 <dfn data-x="unit of related browsing contexts">相关浏览上下文单元</dfn>。</p>
+
+  <p>每个 <span data-x="unit of related browsing contexts">相关浏览上下文单元</span> 进一步分为数目尽可能小的组，
+  每个组的成员的 <span data-x="active document">活动文档</span> 的
+  <span data-x="origin">域</span> 都可以通过适当地操作
+  <code data-x="dom-document-domain">document.domain</code> 属性，
+  使得与组中的其他成员 <span data-x="same origin-domain">同源</span>，
+  但不能变得与其他组的成员 <span data-x="same origin-domain">同源</span>。
+  每个这样的组称为 <dfn data-export="" data-x="unit of related similar-origin browsing contexts">
+  相关类似源浏览上下文单元</dfn>。</p>
+
+  <p class="note">
+  每个 <span data-x="unit of related similar-origin browsing contexts">相关相似源浏览上下文单元</span>
+  最多有一个 <span data-x="event loop">事件循环</span>
+  （尽管几个 <span data-x="unit of related
+  similar-origin browsing contexts">相关相似源浏览上下文单元</span>
+  也可能共享一个 <span data-x="event loop">事件循环</span>）。</p>
+
+  </div>
+
+
+

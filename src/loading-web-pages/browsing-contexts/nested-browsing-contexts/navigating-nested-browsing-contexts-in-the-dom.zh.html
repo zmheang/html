@@ -1,0 +1,130 @@
+  <h5>在 DOM 中导航嵌套浏览上下文</h5>
+
+  <dl class="domintro">
+
+   <dt><var>window</var> . <code subdfn data-x="dom-top">top</code></dt>
+
+   <dd>
+
+    <p>返回 <span data-x="top-level browsing context">顶级浏览上下文</span>
+    的 <code>WindowProxy</code>。</p>
+
+   </dd>
+
+   <dt><var>window</var> . <code subdfn data-x="dom-parent">parent</code></dt>
+
+   <dd>
+
+    <p>返回 <span data-x="parent browsing context">父浏览上下文</span> 的
+    <code>WindowProxy</code>。</p>
+
+   </dd>
+
+   <dt><var>window</var> . <code subdfn data-x="dom-frameElement">frameElement</code></dt>
+
+   <dd>
+
+    <p>返回 <span data-x="browsing context container">浏览上下文容器</span> 的 <code>Element</code>。</p>
+
+    <p>如果都没有或者遇到跨域情况就返回 null。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-top">top</code></dfn> IDL 属性在读取时，必须执行以下算法：</p>
+
+  <ol>
+   <li><p>令<var>windowProxy</var> 为这个 <code>Window</code> 对象的
+   <code>WindowProxy</code> 对象。</p></li>
+
+   <li><p>如果不存在 <code>WindowProxy</code> 对象是 <var>windowProxy</var> 的
+   <span data-x="browsing context">浏览上下文</span> 则返回 null。</p>
+
+   <li><p>令<var>context</var> 为那个 <span data-x="browsing context">浏览上下文</span>。</p></li>
+
+   <li><p>如果 <var>context</var> 是一个
+   <span data-x="top-level browsing context">顶级浏览上下文</span>，则返回
+   <var>context</var>的 <code>WindowProxy</code> 对象。</p></li>
+
+   <li><p>否则，<var>context</var> 必须有一个
+   <span data-x="top-level browsing context">顶级浏览上下文</span>
+   （即没有 <span data-x="parent browsing context">父浏览上下文</span> 的
+   <span data-x="ancestor browsing context">祖先浏览上下文</span>）。
+   返回那个 <span data-x="top-level browsing context">顶级浏览上下文</span>
+   的 <code>WindowProxy</code> 对象。</p></li>
+  </ol>
+
+  <p><dfn><code data-x="dom-parent">parent</code></dfn> IDL 属性在读取时，必须执行以下算法：</p>
+
+  <ol>
+   <li><p>令<var>windowProxy</var> 为这个 <code>Window</code> 对象的 <code>WindowProxy</code> 对象。</p></li>
+
+   <li><p>如果不存在 <code>WindowProxy</code> 对象是 <var>windowProxy</var> 的
+   <span data-x="browsing context">浏览上下文</span> 则返回 null。</p>
+
+   <li><p>令<var>context</var> 为那个 <span data-x="browsing context">浏览上下文</span>。</p></li>
+
+   <li><p>如果 <var>context</var> 是一个另一个 <span data-x="browsing context">浏览上下文</span>
+   <var>parent</var> 的 <span data-x="child browsing context">子浏览上下文</span>，
+   则返回 <var>parent</var> 的 <code>WindowProxy</code> 对象。</p></li>
+
+   <li><p>否则，<var>context</var> 一定是一个
+   <span data-x="top-level browsing context">顶级浏览上下文</span>。
+   返回 <var>context</var> 的 <code>WindowProxy</code> 对象。</p></li>
+  </ol>
+
+  <p><dfn><code data-x="dom-frameElement">frameElement</code></dfn> IDL 属性在读取时必须执行以下算法：</p>
+
+  <ol>
+   <li><p>令<var>windowProxy</var> 为这个 <code>Window</code> 对象的 <code>WindowProxy</code> 对象。</p></li>
+
+   <li><p>如果不存在 <code>WindowProxy</code> 对象是 <var>windowProxy</var> 的
+   <span data-x="browsing context">浏览上下文</span> 则返回 null。</p>
+
+   <li><p>令<var>context</var> 为那个 <span data-x="browsing context">浏览上下文</span>。</p></li>
+
+   <li><p>如果 <var>context</var> 不是 <span data-x="nested browsing context">嵌套浏览上下文</span>，
+   则返回 null。</p></li>
+
+   <li><p>令<var>container</var> 为 <var>context</var> 的
+   <span data-x="browsing context container">浏览上下文容器</span>。</p></li>
+
+   <li><p>如果 <var>container</var> 的 <span data-x="node document">节点文档</span> 的
+   <span data-x="origin">域</span> 与
+   <span data-x="current settings object">当前设置对象</span> 的
+   <span data-x="concept-settings-object-origin">域</span> 不是
+   <span data-x="same origin-domain">同域</span> 则返回 null。</p></li>
+
+   <li><p>返回 <var>container</var>。</p></li>
+  </ol>
+
+  <div class="example">
+   <p>这些 IDL 属性返回 null 的例子：</p>
+
+   <pre>&lt;!DOCTYPE html>
+&lt;iframe>&lt;/iframe>
+
+&lt;script>
+"use strict";
+const element = document.querySelector("iframe");
+const iframeWindow = element.contentWindow;
+element.remove();
+
+console.assert(iframeWindow.top === null);
+console.assert(iframeWindow.parent === null);
+console.assert(iframeWindow.frameElement === null);
+&lt;/script></pre>
+
+   <p>这里 <code data-x="">iframeWindow</code> 对应的
+   <span data-x="browsing context">浏览上下文</span>
+   在 <code data-x="">元素</code> 被从文档中移除时
+   <span data-x="a browsing context is discarded">被丢弃</span> 了。</p>
+  </div>
+
+  </div>
+
+
+

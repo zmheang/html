@@ -1,0 +1,74 @@
+  <h3><dfn><code>application/microdata+json</code></dfn></h3>
+
+  <p>这个注册用于社区评审，之后会提交给 IESG 评审通过，通过 IANA 注册。</p>
+
+  <!--
+   To: ietf-types@iana.org
+   Subject: Registration of media type application/microdata+json
+  -->
+
+  <dl>
+   <dt>类型名：</dt>
+   <dd>application</dd>
+   <dt>子类型名：</dt>
+   <dd>microdata+json</dd>
+   <dt>必选参数：</dt>
+   <dd>同 <code>application/json</code> <ref spec=JSON></dd>
+   <dt>可选参数：</dt>
+   <dd>同 <code>application/json</code> <ref spec=JSON></dd>
+   <dt>编码注意事项：</dt>
+   <dd>8bit (总是 UTF-8)</dd>
+<!--ADD-TOPIC:Security-->
+   <dt>安全注意事项：</dt>
+   <dd>同 <code>application/json</code> <ref spec=JSON></dd>
+<!--REMOVE-TOPIC:Security-->
+   <dt>可互操作性注意事项：</dt>
+   <dd>同 <code>application/json</code> <ref spec=JSON></dd>
+   <dt>已发布规范：</dt>
+   <dd>
+
+    将资源标记为 <code>application/microdata+json</code> 类型断言了
+    该资源是一个 JSON 文本，包含一个只有一个
+    "<code data-x="">items</code>" 属性的对象，这个属性由一个数组组成，每个都是一个对象。
+    该对象有一个 "<code data-x="">id</code>" 属性，其值为字符串；
+    有一个 "<code data-x="">type</code>" 属性，其值为字符串；
+    有一个 "<code data-x="">properties</code>" 属性，其属性值为对象或字符串构成的数组，
+    其中的对象与上述 "<code data-x="">items</code>" 属性的格式一致。
+    因此，相关规范是 JSON 规范和本规范。 <ref spec=JSON>
+
+   </dd>
+   <dt>使用该媒体类型的应用：</dt>
+   <dd>
+
+    <p>传输用于 HTML 的元数据特性的数据的那些应用。尤其是用于拖放操作的那类应用。</p>
+
+   </dd>
+   <dt>更多信息：</dt>
+   <dd>
+    <dl>
+     <dt>神奇数字：</dt>
+     <dd>同 <code>application/json</code> <ref spec=JSON></dd>
+     <dt>文件扩展名：</dt>
+     <dd>同 <code>application/json</code> <ref spec=JSON></dd>
+     <dt>Mac 文件类型码：</dt>
+     <dd>同 <code>application/json</code> <ref spec=JSON></dd>
+    </dl>
+   </dd>
+   <dt>更多信息请联系的人和电子邮件地址：</dt>
+   <dd>Ian Hickson &lt;ian@hixie.ch></dd>
+   <dt>用途：</dt>
+   <dd>通用</dd>
+   <dt>使用限制：</dt>
+   <dd>没有限制。</dd>
+   <dt>作者：</dt>
+   <dd>Ian Hickson &lt;ian@hixie.ch></dd>
+   <dt>变更控制：</dt>
+   <dd>W3C</dd>
+  </dl>
+
+  <p>与 <code>application/microdata+json</code> 资源一起使用的
+  <span data-x="concept-url-fragment">Fragments</span> 的语义同
+  <code>application/json</code>（也就是说写这篇文档时还没有额外的语义）。
+  <ref spec=JSON></p>
+
+

@@ -1,0 +1,75 @@
+  <h3><dfn><code>text/cache-manifest</code></dfn></h3>
+
+  <p>这个注册用于社区评审，之后会提交给 IESG 评审通过，通过 IANA 注册。</p>
+
+  <!--
+   To: ietf-types@iana.org
+   Subject: Registration of media type text/cache-manifest
+  -->
+
+  <dl>
+   <dt>类型名：</dt>
+   <dd>text</dd>
+   <dt>子类型名：</dt>
+   <dd>cache-manifest</dd>
+   <dt>必选参数：</dt>
+   <dd>无</dd>
+   <dt>可选参数：</dt>
+   <dd>
+    <dl>
+     <dt><code data-x="">charset</code></dt>
+     <dd>
+
+      <p>可以提供 <code data-x="">charset</code> 参数。
+      该参数的值必须是 "<code data-x="">utf-8</code>"。
+      该参数没有意义；只是为了与遗留服务器兼容。</p>
+
+     </dd>
+    </dl>
+   </dd>
+   <dt>编码注意事项：</dt>
+   <dd>8bit (总是 UTF-8)</dd>
+<!--ADD-TOPIC:Security-->
+   <dt>安全注意事项：</dt>
+   <dd>
+    <p>Cache 清单自己不会直接引起风险，除非其中包含了敏感信息。
+    但是要求实现方基于缓存清单填充缓存时遵循特定的规则，
+    来确保遵守了那些基于域的限制。
+    没有正确地实现这些规则可能导致信息泄露，跨站脚本攻击，以及类似的事情。</p>
+   </dd>
+<!--REMOVE-TOPIC:Security-->
+   <dt>可互操作性注意事项：</dt>
+   <dd> 无论是符合规范的内容还是不合规范的内容，处理规则都定义在本规范中。</dd>
+   <dt>已发布规范：</dt>
+   <dd>本文档就是相关规范。</dd>
+   <dt>使用该媒体类型的应用：</dt>
+   <dd> Web 浏览器。</dd>
+   <dt>更多信息：</dt>
+   <dd>
+    <dl>
+     <dt>神奇数字：</dt>
+     <dd>Cache 清单以字符串 "<code data-x="">CACHE MANIFEST</code>" 开始，
+     紧接着一个 U+0020 SPACE 字符，一个 U+0009 CHARACTER TABULATION (tab) 字符，
+     一个 U+000A LINE FEED (LF) 字符，或一个 U+000D CARRIAGE RETURN (CR) 字符。</dd>
+     <dt>文件扩展名：</dt>
+     <dd>"<code data-x="">appcache</code>"</dd>
+     <dt>Mac 文件类型码：</dt>
+     <dd>该类型没有推荐的 Mac 文件类型码。</dd>
+    </dl>
+   </dd>
+   <dt>更多信息请联系的人和电子邮件地址：</dt>
+   <dd>Ian Hickson &lt;ian@hixie.ch></dd>
+   <dt>用途：</dt>
+   <dd>通用</dd>
+   <dt>使用限制：</dt>
+   <dd>没有限制。</dd>
+   <dt>作者：</dt>
+   <dd>Ian Hickson &lt;ian@hixie.ch></dd>
+   <dt>变更控制：</dt>
+   <dd>W3C</dd>
+  </dl>
+
+  <p><span data-x="concept-url-fragment">Fragments</span> 对
+  <code>text/cache-manifest</code> 资源没有语义。</p>
+
+

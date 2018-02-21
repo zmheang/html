@@ -1,0 +1,49 @@
+  <h5>在 DOM 中导航辅助浏览上下文</h5>
+
+  <p>
+  <code>Window</code> 对象上的 <dfn data-x="dom-opener"><code>opener</code></dfn>
+  IDL 属性在读取时，必须返回创建当前
+  <span data-x="browsing context">浏览上下文</span> 的
+  <span data-x="browsing context">浏览上下文</span>
+  （它的 <span data-x="opener browsing context">打开自浏览上下文</span>）的
+  <code>WindowProxy</code> 对象，如有它存在，并且可用，并且当前
+  <span data-x="browsing context">浏览上下文</span>
+  还没有 <i data-x="disowned its opener">解除它的opener</i>；
+  否则，必须返回 null。
+  在设置时，如果新的值是 null 则当前
+  <span data-x="browsing context">浏览上下文</span> 必须
+  <dfn data-x="disowned its opener" data-export="">解除它的opener</dfn>；
+  如果新的值是其他，则用户代理必须调用
+
+    <!-- dark magic incantation begins -->
+    <code>Window</code> 对象的 [[DefineOwnProperty]] 内部方法，传递
+    "<code data-x="">opener</code>" 作为属性键，{
+    [[Value]]: <var>value</var>, [[Writable]]: true, [[Enumerable]]: true,
+    [[Configurable]]: true } 作为属性描述符，
+    <!-- dark magic incantation ends -->
+
+  其中 <var>value</var> 是新的值。</p>
+
+ <div class="note">
+  <p>如果一个 <span data-x="browsing context">浏览上下文</span> 已经
+  <span data-x="disowned its opener">解除了它的opener</span>，
+  其 <code data-x="dom-opener">window.opener</code> 的值为 <code
+  data-x="">null</code>。这阻止了 <span data-x="browsing context">浏览上下文</span>
+  中的脚本改变它的 <span data-x="opener browsing context">opener浏览上下文</span> 的
+  <code>Window</code>（即创建 <span data-x="browsing context">浏览上下文</span> 的 window）
+  的任何属性。</p>
+
+  <p>否则，如果一个 <span data-x="browsing context">浏览上下文</span> 还 <em>没有</em>
+  <span data-x="disowned its opener">解除它的opener</span>，
+  则在那个 <span data-x="browsing context">浏览上下文</span> 中的脚本可以使用 <code
+  data-x="dom-opener">window.opener</code> 来改变它的
+  <span data-x="opener browsing context">opener浏览上下文</span> 的 <code>Window</code> 的属性。
+  例如，一个运行在 <span data-x="browsing context">浏览上下文</span> 中的脚本可以改变
+  <code data-x="">window.opener.location</code> 的值，导致
+  <span data-x="opener browsing context">opener浏览上下文</span> 导航到完全不同的文档。</p>
+ </div>
+
+
+<!--ADD-TOPIC:Security-->
+  <div w-nodev>
+
