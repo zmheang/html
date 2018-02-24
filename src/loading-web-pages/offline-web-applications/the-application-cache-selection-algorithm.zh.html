@@ -1,0 +1,91 @@
+  <h4>应用缓存选择算法</h4>
+
+  <p>当使用 <code>Document</code> <var>document</var>
+  和可选的清单 <span>URL</span> <var>manifest URL</var>
+  调用 <dfn data-x="concept-appcache-init">应用缓存选择算法</dfn>时，
+  用户代理必须执行如下列表中第一套适当的步骤：</p>
+
+  <dl class="switch">
+
+   <dt>如果有一个 <var>manifest URL</var>，并且 <var>document</var> 是从一个
+   <span data-x="application cache">应用缓存</span> 加载的，并且该缓存的
+   <span data-x="application cache group">应用缓存组</span> 的
+   <span data-x="concept-appcache-manifest">清单</span> 的 URL 与
+   <var>manifest URL</var> <em>不同</em>。
+
+   </dt>
+
+   <dd>
+
+    <p>在加载 <var>document</var> 的 <span data-x="application cache">应用缓存</span> 中，
+    标记获取 <var>document</var> 的资源入口为
+    <span data-x="concept-appcache-foreign">foreign</span>。</p>
+
+    <p>从 <span data-x="navigate">导航算法</span> 的头部重启当前导航，
+    撤销在初次加载过程中的任何改动，（只要确保
+    <span data-x="update the session history with the new page">使用新的页面更新会话历史</span>
+    步骤只在该 <span data-x="concept-appcache-init">应用缓存选择算法</span> 执行
+    <em>之后</em> 完成，就可以避免改动，但不要求这样做）。</p>
+
+    <p class="note">导航将会导致加载不同的资源，因为在导航时不会选择 "foreign" 入口。</p>
+
+    <p>用户代理可以提示用户缓存清单和文档元数据之间的不一致，来帮助也要开发。</p>
+
+   </dd>
+
+
+   <dt>如果 <var>document</var> 是从 <span data-x="application cache">应用缓存</span> 加载的，
+   并且那个 <span data-x="application cache">应用缓存</span> 仍然存在
+   （它现在不是 <span data-x="concept-appcache-obsolete">废弃</span> 状态）
+                      )<!--[redundant], and either there is no <var>manifest URL</var>, or the URL of the <span
+   data-x="concept-appcache-manifest">manifest</span> of the cache's <span>application cache
+   group</span> is the same as <var>manifest URL</var>--></dt>
+
+   <dd>
+
+    <p>将 <var>document</var> 与加载它的 <span data-x="application cache">应用缓存</span> 关联。
+    为那个 <span data-x="application cache">应用缓存</span> 的
+    <span data-x="application cache group">应用缓存组</span>
+    在后台调用 <span data-x="application cache download process">应用缓存下载过程</span>，
+    使用 <var>document</var> 作为 <span data-x="cache host">缓存 Host</span>。</p>
+
+   </dd>
+
+
+   <dt>如果 <var>document</var> <!--[redundant] was not loaded from an <span>application
+   cache</span>, but it--> 是使用 `<code data-x="">GET</code>` 加载的，
+   且存在一个 <var>manifest URL</var>，且 <var>manifest URL</var> 与
+   <var>document</var></dt> <span data-x="same origin">同源</span>。
+
+   <dd>
+
+    <p>
+    为 <var>manifest URL</var> 在后台调用
+    <span data-x="application cache download process">应用缓存下载过程</span>
+    使用 <var>document</var> 作为 <span>cache host</span>
+    使用解析 <var>document</var> 的资源作为 <span data-x="concept-appcache-master">主</span> 资源。</p>
+
+    <p>如果存在由 <var>document</var> <span data-x="same origin">同源的</span> 入口 URL 标识的
+    <span data-x="relevant application cache">相关的应用缓存</span>，
+    排除掉标记为 <span data-x="concept-appcache-foreign">foreign</span> 的入口，
+    然后在加载任何子资源时，用户代理应使用匹配为 HTTP 缓存的
+    <span data-x="concept-appcache-selection">最合适的应用缓存</span>。
+    用户代理也可能有其他缓存，这些缓存也可以用。</p>
+
+   </dd>
+
+
+   <dt>其他情况</dt> <!-- not from cache and either no <var>manifest URL</var>, or
+   non-GET, or wrong-origin manifest -->
+
+   <dd>
+
+    <p><code>Document</code> 没有与任何 <span data-x="application cache">应用缓存</span> 关联。</p>
+    <p>如果存在一个 <var>manifest URL</var>，用户代理可以报告用户它已经被忽略，来帮助应用开发。</p>
+
+   </dd>
+
+  </dl>
+
+
+

@@ -1,0 +1,45 @@
+  <h5>支持遗留应用的离线缓存</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>应用缓存特性的最佳使用状态是应用逻辑与应用和用户数据分离，逻辑（HTML、脚本、样式、图片等）
+  列在清单里存储到应用缓存，应用的静态 HTML 页面数目是有限的。
+  应用和用户数据存储在 Web Storage 或客户端 Indexed Database 中，通过
+  Web Socket、<code>XMLHttpRequest</code>、服务器发送的事件、或其他类似机制动态更新。</p>
+
+  <p>利用这一模型可以为用户提供快速的体验：应用瞬间加载（并显示旧数据），网络允许时获取最新数据。</p>
+
+  <p>然而历史应用的设计倾向于把用户数据和逻辑混合在 HTML 中，每个操作会从服务器加载整个 HTML 页面。</p>
+
+  <div class="example">
+
+   <p>例如，考虑一个新闻应用。不使用应用缓存特性时，这样的应用典型的架构是，
+   用户获取主页面，服务器返回一个动态产生的页面，其中混合了当前的头条和用户接口逻辑。</p>
+
+   <p>但是为应用缓存特性设计的新闻应用会让主页面只包含逻辑，
+   在主页面中（比如使用<code>XMLHttpRequest</code>）独立地从服务器获取数据。</p>
+
+  </div>
+
+  <p>混合内容模型不适用于应用程序缓存功能：由于内容被缓存，因此用户总是会看到上次更新缓存时的旧数据。</p>
+
+  <p>虽然没办法让遗留的模型与分离模型一样快，但至少
+  <em>可以</em> 通过 <span data-x="concept-appcache-mode-prefer-online">prefer-online</span>
+  <span data-x="concept-appcache-mode">应用缓存模式</span> 让它支持离线使用。
+  为此，在 <span data-x="concept-appcache-manifest">拥有缓存清单</span>
+  中列出 HTML 页面中你希望离线使用的所有静态资源，
+  在 HTML 文件中通过 <code data-x="attr-html-manifest">manifest</code>
+  属性来选择清单文件，然后添加下列行到清单底部：</p>
+
+  <pre>SETTINGS:
+prefer-online
+NETWORK:
+*</pre>
+
+  <p>这会使 <span data-x="application cache">应用缓存</span> 在用户离线时只用于 <span
+  data-x="concept-appcache-master">主入口</span>，
+  使得应用缓存可以用作原子性的 HTTP 缓存（只对清单中列出的资源有效），
+  同时其余没列出的资源当用户在线时可正常访问。</p>
+
+
+
