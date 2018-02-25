@@ -1,9 +1,13 @@
 language: node_js
 node_js:
   - "8"
-before_script:
-  - "sudo apt-get install fp-compiler"
-  - "git clone https://github.com/whatwg/wattsi.git --depth=1"
+sudo: required
+dist: trusty
+install:
+  - "npm install"
+  - "git submodule add https://github.com/nielsAD/travis-lazarus.git travis-lazarus"
+  - "./travis-lazarus/.travis.install.py"
+  - "git submodule add https://github.com/whatwg/wattsi.git wattsi"
   - "cd wattsi && ./build.sh"
 script:
   - "export PATH=$PATH:`pwd`/wattsi/bin"
