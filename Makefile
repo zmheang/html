@@ -13,7 +13,7 @@ update-en:
 
 build: update-progress
 	node ./bin/merge.js > html/source
-	[ -d html-build ] || git clone https://github.com/whatwg/html-build.git --depth=1
+	[ -d html-build ] || git clone https://github.com/whatwg-cn/html-build.git --depth=1
 	HTML_OUTPUT=$(OUTPUT) bash html-build/build.sh -n
 	sed -i \
 		-e 's/"\/\?multipage/"\/html\/multipage/g' \
@@ -34,9 +34,6 @@ build: update-progress
 	rm -rf $(OUTPUT)/resources && cp -r resources $(OUTPUT)
 	cp -r images/* $(OUTPUT)/images/
 
-find-one:
-	./bin/find-one-to-translate.sh
-
 update-progress:
 	data=`bash ./bin/progress.sh | awk -F: '{print $$2}'`; \
 	sed -i "s|当前进度.*|当前进度：$${data}|" README.md
@@ -55,14 +52,3 @@ deploy:
 
 deploy-force:
 	git push origin `git subtree split --prefix output/html`:gh-pages --force
-
-clean-cache:
-	rm -rf html-build/.cache
-
-# `npm install http-server` first
-serve:
-	echo open http://localhost:8899/html
-	http-server -p 8899 ./output
-
-progress:
-	./bin/progress.sh
