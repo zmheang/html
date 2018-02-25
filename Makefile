@@ -2,16 +2,18 @@ OUTPUT=$(abspath output/html)
 HTMLS=$(OUTPUT)/multipage/*.html $(OUTPUT)/*.html
 RESULTS=$(HTMLS) $(OUTPUT)/*.js
 
-update-en:
-	[ -d html ] || git clone https://github.com/whatwg/html.git --depth=1
-	cd html && git checkout master source && git pull && cd ..
+html:
+	git clone https://github.com/whatwg/html.git --depth=1
+
+update-en: html
+	cd html && git fetch && git reset --hard origin/master && cd ..
 	mv html/source source
 	rm -rf src/SUMMARY.en.md
 	find src/ -name "*.en.html" -delete
 	find src/ -type d -empty -delete
 	node ./bin/split.js
 
-build: update-progress
+build: update-progress html
 	node ./bin/merge.js > html/source
 	[ -d html-build ] || git clone https://github.com/whatwg-cn/html-build.git --depth=1
 	HTML_OUTPUT=$(OUTPUT) bash html-build/build.sh -n
