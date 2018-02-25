@@ -2,7 +2,8 @@ language: node_js
 node_js:
   - "8"
 before_script:
-  - "git clone https://github.com/whatwg/wattsi.git"
+  - "sudo apt-get install fp-compiler"
+  - "git clone https://github.com/whatwg/wattsi.git --depth=1"
   - "cd wattsi && ./build.sh"
 script:
   - "export PATH=$PATH:`pwd`/wattsi/bin"
