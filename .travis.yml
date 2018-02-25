@@ -3,6 +3,9 @@ node_js:
   - "8"
 sudo: required
 dist: trusty
+env:
+  - LAZ_VER=3.0.0
+  - "PATH=$PATH:`pwd`/wattsi/bin"
 install:
   - "npm install"
   - "git submodule add https://github.com/nielsAD/travis-lazarus.git travis-lazarus"
@@ -10,5 +13,4 @@ install:
   - "git submodule add https://github.com/whatwg/wattsi.git wattsi"
   - "cd wattsi && ./build.sh"
 script:
-  - "export PATH=$PATH:`pwd`/wattsi/bin"
   - "npm run build"
