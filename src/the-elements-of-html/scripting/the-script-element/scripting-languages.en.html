@@ -1,26 +1,9 @@
   <h5 id="scriptingLanguages">Scripting languages</h5>
 
-  <p>A <dfn data-export="">JavaScript MIME type</dfn> is a <span>MIME type</span> string that is one
-  of the following and refers to JavaScript: <ref spec=JAVASCRIPT></p>
-
-  <ul class="brief">
-   <li><code>application/ecmascript</code>
-   <li><code>application/javascript</code>
-   <li><code>application/x-ecmascript</code>
-   <li><code>application/x-javascript</code>
-   <li><code>text/ecmascript</code>
-   <li><code>text/javascript</code>
-   <li><code>text/javascript1.0</code>
-   <li><code>text/javascript1.1</code>
-   <li><code>text/javascript1.2</code>
-   <li><code>text/javascript1.3</code>
-   <li><code>text/javascript1.4</code>
-   <li><code>text/javascript1.5</code>
-   <li><code>text/jscript</code>
-   <li><code>text/livescript</code>
-   <li><code>text/x-ecmascript</code>
-   <li><code>text/x-javascript</code>
-  </ul>
+  <p w-nodev>User agents are not required to support JavaScript. This standard needs to be updated
+  if a language other than JavaScript comes along and gets similar wide adoption by web browsers.
+  Until such a time, implementing other languages is in conflict with this standard, given the
+  processing model defined for the <code>script</code> element.</p>
 
   <p>Servers should use <code>text/javascript</code> for JavaScript resources. Servers should not
   use other <span data-x="JavaScript MIME type">JavaScript MIME types</span> for JavaScript
@@ -29,19 +12,15 @@
 
   <div w-nodev>
 
-  <p>User agents are not required to support JavaScript. This standard needs to be updated if a
-  language other than JavaScript comes along and gets similar wide adoption by web browsers. Until
-  such a time, implementing other languages is in conflict with this standard, given the processing
-  model defined for the <code>script</code> element.</p>
-
   <p>For external JavaScript resources, MIME type parameters in `<code>Content-Type</code>` headers
   are generally ignored. (In some cases the `<code data-x="">charset</code>` parameter has an
   effect.) However, for the <code>script</code> element's <code
-  data-x="attr-script-type">type</code> attribute they are significant.</p>
+  data-x="attr-script-type">type</code> attribute they are significant; it uses the <span>JavaScript
+  MIME type essence match</span> concept.</p>
 
   <p class="note">For example, scripts with their <code data-x="attr-script-type">type</code>
   attribute set to "<code data-x="">text/javascript; charset=utf-8</code>" will not be
-  evaluated.</p>
+  evaluated, even though that is a valid <span>JavaScript MIME type</span> when parsed.</p>
 
   <p>Furthermore, again for external JavaScript resources, special considerations apply around
   `<code>Content-Type</code>` header processing as detailed in the <span>prepare a script</span>

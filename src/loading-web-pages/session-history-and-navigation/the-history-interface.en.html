@@ -4,7 +4,6 @@
 
 [Exposed=Window]
 interface <dfn>History</dfn> {
-  readonly attribute unsigned long <span data-x="dom-history-index">index</span>;
   readonly attribute unsigned long <span data-x="dom-history-length">length</span>;
   attribute <span>ScrollRestoration</span> <span data-x="dom-history-scroll-restoration">scrollRestoration</span>;
   readonly attribute any <span data-x="dom-history-state">state</span>;
@@ -17,16 +16,7 @@ interface <dfn>History</dfn> {
 
   <dl class="domintro">
 
-   <dt><var>window</var> . <code subdfn data-x="dom-history">history</code> . <code subdfn data-x="dom-history-index">index</code></dt>
-
-   <dd>
-
-    <p>Returns the index of the <span>current entry of the joint session history</span> within the
-    <span>joint session history</span>.</p>
-
-   </dd>
-
-   <dt><var>window</var> . <code data-x="dom-history">history</code> . <code subdfn data-x="dom-history-length">length</code></dt>
+   <dt><var>window</var> . <code subdfn data-x="dom-history">history</code> . <code subdfn data-x="dom-history-length">length</code></dt>
 
    <dd>
 
@@ -132,13 +122,6 @@ interface <dfn>History</dfn> {
 
 
   <div w-nodev>
-
-  <p>The <dfn><code data-x="dom-history-index">index</code></dfn> attribute of the
-  <code>History</code> interface, on getting, must return the index of the <span>current entry of
-  the joint session history</span> within the <span>top-level browsing context</span>'s <span>joint
-  session history</span>. If this <code>History</code> object is associated with a
-  <code>Document</code> that is not <span>fully active</span>, getting must instead throw a
-  <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p>
 
   <p>The <dfn><code data-x="dom-history-length">length</code></dfn> attribute of the
   <code>History</code> interface, on getting, must return the number of entries in the

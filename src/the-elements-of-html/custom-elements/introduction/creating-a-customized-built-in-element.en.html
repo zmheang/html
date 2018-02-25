@@ -44,8 +44,8 @@
   what element interface it extends, as many elements share the same interface (such as
   <code>q</code> and <code>blockquote</code> both sharing <code>HTMLQuoteElement</code>).</p>
 
-  <p>To use our <span>customized built-in element</span>, we use the <code
-  data-x="attr-is">is</code> attribute on a <code>button</code> element:</p>
+  <p>To construct our <span>customized built-in element</span> from parsed HTML source text, we use
+  the <code data-x="attr-is">is</code> attribute on a <code>button</code> element:</p>
 
   <pre>&lt;button is="plastic-button">Click Me!&lt;/button></pre>
 
@@ -54,8 +54,8 @@
   me?&lt;/plastic-button></code> will simply create an <code>HTMLElement</code> with no special
   behavior.</p>
 
-  <p>If you need to create a type-extended element programmatically, you can use the following form
-  of <code data-x="dom-Document-createElement">createElement()</code>:</p>
+  <p>If you need to create a customized built-in element programmatically, you can use the following
+  form of <code data-x="dom-Document-createElement">createElement()</code>:</p>
 
   <pre>const plasticButton = document.createElement("button", { is: "plastic-button" });
 plasticButton.textContent = "Click me!";</pre>
@@ -63,11 +63,20 @@ plasticButton.textContent = "Click me!";</pre>
   <p>And as before, the constructor will also work:</p>
 
   <pre>const plasticButton2 = new PlasticButton();
-console.log(plasticButton2.localName);          // will output "button"
-console.log(plasticButton2.getAttribute("is")); // will output "plastic-button"</pre>
+console.log(plasticButton2.localName);  // will output "button"
+console.assert(plasticButton2 instanceof PlasticButton);
+console.assert(plasticButton2 instanceof HTMLButtonElement);</pre>
 
-  <p>Notably, all the of the ways in which <code>button</code> is special apply to such "plastic
-  buttons" as well: their focus behavior, ability to participate in <span
+  <p>Note that when creating a customized built-in element programmatically, the <code
+  data-x="attr-is">is</code> attribute will not be present in the DOM, since it was not explicitly
+  set. However, <a href="#attr-is-during-serialization">it will be added to the output when
+  serializing</a>:</p>
+
+  <pre>console.assert(!plasticButton.hasAttribute("is"));
+console.log(plasticButton.outerHTML); // will output '&lt;button is="plastic-button">&lt;/button>'</pre>
+
+  <p>Regardless of how it is created, all the of the ways in which <code>button</code> is special
+  apply to such "plastic buttons" as well: their focus behavior, ability to participate in <span
   data-x="concept-form-submit">form submission</span>, the <code
   data-x="attr-fe-disabled">disabled</code> attribute, and so on.</p>
 

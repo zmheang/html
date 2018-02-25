@@ -55,9 +55,9 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   the type of script represented:</p>
 
   <ul>
-    <li><p>Omitting the attribute, setting it to the empty string, or setting it to an <span>ASCII
-    case-insensitive</span> match for a <span>JavaScript MIME type</span>, means that the script is
-    a <span>classic script</span>, to be interpreted according to the JavaScript <i
+    <li><p>Omitting the attribute, setting it to the empty string, or setting it to a
+    <span>JavaScript MIME type essence match</span>, means that the script is a <span>classic
+    script</span>, to be interpreted according to the JavaScript <i
     data-x="js-prod-Script">Script</i> top-level production. Classic scripts are affected by the
     <code data-x="attr-script-async">async</code> and <code data-x="attr-script-defer">defer</code>
     attributes, but only when the <code data-x="attr-script-src">src</code> attribute is set.
@@ -74,18 +74,18 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
     <li><p>Setting the attribute to any other value means that the script is a <dfn>data
     block</dfn>, which is not processed. None of the <code>script</code> attributes (except <code
     data-x="attr-script-type">type</code> itself) have any effect on data blocks. Authors must use
-    a <span>valid MIME type</span> that is not a <span>JavaScript MIME type</span> to denote data
-    blocks.</p></li>
+    a <span>valid MIME type string</span> that is not a <span>JavaScript MIME type essence
+    match</span> to denote data blocks.</p></li>
   </ul>
 
   <p class="note">The requirement that <span data-x="data block">data blocks</span>
-  <!--non-normative-->must be denoted using a <span>valid MIME type</span> is in place to avoid
-  potential future collisions. If this specification ever adds additional types of
+  <!--non-normative-->must be denoted using a <span>valid MIME type string</span> is in place to
+  avoid potential future collisions. If this specification ever adds additional types of
   <span>script</span>, they will be triggered by setting the <code
   data-x="attr-script-type">type</code> attribute to something which is not a MIME type, like how
   the "<code data-x="">module</code>" value denotes <span data-x="module script">module
-  scripts</span>. By using a valid MIME type now, you ensure that your data block will not ever be
-  reinterpreted as a different script type, even in future user agents.</p>
+  scripts</span>. By using a valid MIME type string now, you ensure that your data block will not
+ ever be reinterpreted as a different script type, even in future user agents.</p>
 
   <p><span data-x="classic script">Classic scripts</span> and <span data-x="module script">module
   scripts</span> may either be embedded inline or may be imported from an external file using the

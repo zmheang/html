@@ -108,11 +108,12 @@
 
    </li>
 
+   <li><p>Let <var>source text</var> be the element's <span>child text content</span>.</p></li>
+
    <li id="script-processing-empty">
 
-    <p>If the element has no <code data-x="attr-script-src">src</code> attribute, and its child
-    nodes, if any, consist only of comment nodes and empty <code>Text</code> nodes, then return. The
-    script is not executed.</p>
+    <p>If the element has no <code data-x="attr-script-src">src</code> attribute, and <var>source
+    text</var> is the empty string, then return. The script is not executed.</p>
 
    </li>
 
@@ -161,9 +162,9 @@
 
     <ul>
 
-     <li>If <var>the script block's type string</var> is an <span>ASCII case-insensitive</span>
-     match for any <span>JavaScript MIME type</span>, <span data-x="concept-script-type">the
-     script's type</span> is "<code data-x="">classic</code>".</li>
+     <li>If <var>the script block's type string</var> is a <span>JavaScript MIME type essence
+     match</span>, <span data-x="concept-script-type">the script's type</span> is "<code
+     data-x="">classic</code>".</li>
 
      <li>If <var>the script block's type string</var> is an <span>ASCII case-insensitive</span>
      match for the string "<code data-x="">module</code>", <span data-x="concept-script-type">the
@@ -230,8 +231,8 @@
    data-x="attr-script-src">src</code> content attribute, and the <span>Should element's inline
    behavior be blocked by Content Security Policy?</span> algorithm returns "<code
    data-x="">Blocked</code>" when executed upon the <code>script</code> element, "<code
-   data-x="">script</code>", and the <code>script</code> element's <span>child text content</span>,
-   then return. The script is not executed. <ref spec="CSP"></p></li>
+   data-x="">script</code>", and <var>source text</var>, then return. The script is not executed.
+   <ref spec="CSP"></p></li>
 
    <li id="script-processing-for">
 
@@ -391,9 +392,6 @@
     run these substeps:</p>
 
     <ol>
-     <li><p>Let <var>source text</var> be the <code>script</code> element's <span>child text
-     content</span>.</p></li>
-
      <li><p>Let <var>base URL</var> be the <code>script</code> element's <span>node
      document</span>'s <span>document base URL</span>.</p></li>
 

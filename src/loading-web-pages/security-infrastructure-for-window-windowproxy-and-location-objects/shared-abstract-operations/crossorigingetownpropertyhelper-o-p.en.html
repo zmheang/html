@@ -4,13 +4,6 @@
   caller needs to throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p>
 
   <ol>
-   <li><p>If <var>P</var> is <span>@@toStringTag</span>, <span>@@hasInstance</span>, or
-   <span>@@isConcatSpreadable</span>, then return <span>PropertyDescriptor</span>{
-   [[Value]]: undefined,
-   [[Writable]]: false,
-   [[Enumerable]]: false,
-   [[Configurable]]: true }.</p></li>
-
    <li><p>Let <var>crossOriginKey</var> be a tuple consisting of the <span>current settings
    object</span>, <var>O</var>'s <span>relevant settings object</span>, and <var>P</var>.</p></li>
 
@@ -85,6 +78,14 @@
      </li>
     </ol>
    </li>
+
+   <li><p>If <var>P</var> is "<code data-x="">then</code>", <span>@@toStringTag</span>,
+   <span>@@hasInstance</span>, or <span>@@isConcatSpreadable</span>, then return
+   <span>PropertyDescriptor</span>{
+   [[Value]]: undefined,
+   [[Writable]]: false,
+   [[Enumerable]]: false,
+   [[Configurable]]: true }.</p></li>
 
    <li><p>Return undefined.</p></li>
   </ol>

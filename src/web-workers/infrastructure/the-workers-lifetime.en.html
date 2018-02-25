@@ -10,11 +10,6 @@
   <var>worker global scope</var>. This list includes the implicit <code>MessagePort</code> in the
   case of <span data-x="DedicatedWorkerGlobalScope">dedicated workers</span>.</p>
 
-  <p>Whenever a <code>Document</code> object is <span data-x="discard a Document">discarded</span>,
-  it must be <span data-x="list remove">removed</span> from the <span>owner set</span> of each
-  <code>WorkerGlobalScope</code> object whose set <span data-x="list contains">contains</span> that
-  <code>Document</code> object.</p>
-
   <p id="list-of-relevant-document-objects-to-add">Given an <span>environment settings object</span>
   <var>o</var> when creating or obtaining a worker, the <dfn>relevant owner to add</dfn> depends on
   the type of <span data-x="concept-settings-object-global">global object</span> specified by

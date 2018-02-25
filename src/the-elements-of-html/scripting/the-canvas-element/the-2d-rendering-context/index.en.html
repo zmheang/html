@@ -369,9 +369,10 @@ interface <dfn>Path2D</dfn> {
    <li><p>Set <var>context</var>'s <span>output bitmap</span> to the same bitmap as
    <var>target</var>'s bitmap (so that they are shared).</p></li>
 
-   <li><p><span data-x="concept-canvas-set-bitmap-dimensions">Set bitmap dimensions</span> to the
-   numeric values of <var>target</var>'s <code data-x="attr-canvas-width">width</code> and
-   <code data-x="attr-canvas-height">height</code> content attributes.</p></li>
+   <li><p><span data-x="concept-canvas-set-bitmap-dimensions">Set bitmap dimensions</span> to
+   <span data-x="obtain-numeric-values">the numeric values</span> of <var>target</var>'s <code
+   data-x="attr-canvas-width">width</code> and <code data-x="attr-canvas-height">height</code>
+   content attributes.</p></li>
 
    <li>
     <p>Process each of the members of <var>settings</var> as follows:</p>
@@ -401,13 +402,15 @@ interface <dfn>Path2D</dfn> {
    <li><p>Let <var>canvas</var> be the <code>canvas</code> element to which the rendering
    context's <code data-x="dom-context-2d-canvas">canvas</code> attribute was initialized.</p></li>
 
-   <li><p>If the numeric value of <var>canvas</var>'s <code data-x="attr-canvas-width">width</code>
-   content attribute differs from <var>width</var>, then set <var>canvas</var>'s <code
+   <li><p>If <span data-x="obtain-numeric-values">the numeric value</span> of
+   <var>canvas</var>'s <code data-x="attr-canvas-width">width</code> content
+   attribute differs from <var>width</var>, then set <var>canvas</var>'s <code
    data-x="attr-canvas-width">width</code> content attribute to the shortest possible string
    representing <var>width</var> as a <span>valid non-negative integer</span>.</p></li>
 
-   <li><p>If the numeric value of <var>canvas</var>'s <code data-x="attr-canvas-height">height</code>
-   content attribute differs from <var>height</var>, then set <var>canvas</var>'s <code
+   <li><p>If <span data-x="obtain-numeric-values">the numeric value</span> of
+   <var>canvas</var>'s <code data-x="attr-canvas-height">height</code> content
+   attribute differs from <var>height</var>, then set <var>canvas</var>'s <code
    data-x="attr-canvas-height">height</code> content attribute to the shortest possible string
    representing <var>height</var> as a <span>valid non-negative integer</span>.</p></li>
 

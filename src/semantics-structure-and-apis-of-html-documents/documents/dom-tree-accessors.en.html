@@ -202,6 +202,23 @@
 
   </ol>
 
+  <p class="note">The value returned by the <code data-x="dom-document-body">body</code> getter is
+  not always the one passed to the setter.</p>
+
+  <div class="example">
+   <p>In this example, the setter successfully inserts a <code>body</code> element (though this is
+   non-conforming since SVG does not allow a <code>body</code> as child of <span>SVG
+   <code>svg</code></span>). However the getter will return null because the document element is not
+   <code>html</code>.</p>
+
+   <pre>&lt;svg xmlns="http://www.w3.org/2000/svg">
+ &lt;script>
+  document.body = document.createElementNS("http://www.w3.org/1999/xhtml", "body");
+  console.assert(document.body === null);
+ &lt;/script>
+&lt;/svg></pre>
+  </div>
+
   </div>
 
   <hr>

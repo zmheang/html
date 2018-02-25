@@ -20,7 +20,7 @@
      <th> <code data-x="">accept</code>
      <td> <code data-x="attr-input-accept">input</code>
      <td> Hint for expected file type in <span data-x="attr-input-type-file">file upload controls</span>
-     <td> <span>Set of comma-separated tokens</span>* consisting of <span data-x="valid MIME type">valid MIME types with no parameters</span> or <code data-x="">audio/*</code>, <code data-x="">video/*</code>, or <code data-x="">image/*</code>
+     <td> <span>Set of comma-separated tokens</span>* consisting of <span data-x="valid MIME type string with no parameters">valid MIME type strings with no parameters</span> or <code data-x="">audio/*</code>, <code data-x="">video/*</code>, or <code data-x="">image/*</code>
     <tr>
      <th> <code data-x="">accept-charset</code>
      <td> <code data-x="attr-form-accept-charset">form</code>
@@ -852,7 +852,7 @@
      <td> <code data-x="attr-hyperlink-type">a</code>;
           <code data-x="attr-link-type">link</code>
      <td> Hint for the type of the referenced resource
-     <td> <span>Valid MIME type</span>
+     <td> <span>Valid MIME type string</span>
     <tr>
      <th> <code data-x="">type</code>
      <td> <code data-x="attr-button-type">button</code>
@@ -866,7 +866,7 @@
           <code data-x="attr-object-type">object</code>;
           <code data-x="attr-source-type">source</code>
      <td> Type of embedded resource
-     <td> <span>Valid MIME type</span>
+     <td> <span>Valid MIME type string</span>
     <tr>
      <th> <code data-x="">type</code>
      <td> <code data-x="attr-input-type">input</code>
@@ -885,7 +885,7 @@
      <th> <code data-x="">type</code>
      <td> <code data-x="attr-script-type">script</code>
      <td> Type of script
-     <td> "<code data-x="">module</code>"; a <span>valid MIME type</span> that is not a <span>JavaScript MIME type</span>
+     <td> "<code data-x="">module</code>"; a <span>valid MIME type string</span> that is not a <span>JavaScript MIME type essence match</span>
     <tr>
      <th> <code data-x="">typemustmatch</code>
      <td> <code data-x="attr-object-typemustmatch">object</code>

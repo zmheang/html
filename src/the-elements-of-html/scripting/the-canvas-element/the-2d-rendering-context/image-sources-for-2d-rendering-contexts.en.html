@@ -27,35 +27,49 @@
   <p class="note">The <code>ImageBitmap</code> interface can be created from a number of other
   image-representing types, including <code>ImageData</code>.</p>
 
-  <p>To <dfn>check the usability of the <var>image</var> argument</dfn>, where <var>image</var> is a
-  <code>CanvasImageSource</code> object, run these steps:</p>
+  <p>To <dfn>check the usability of the <var>image</var> argument</dfn>, where <var>image</var>
+  is a <code>CanvasImageSource</code> object, run these steps:</p>
 
   <ol>
-   <li><p>If <var>image</var> is an <code>HTMLOrSVGImageElement</code> object whose <span>current
-   request</span>'s <span data-x="img-req-state">state</span> is <span
-   data-x="img-error">broken</span>, then throw an <span>"<code>InvalidStateError</code>"</span>
-   <code>DOMException</code>.</p></li>
+   <li>
+    <p>Switch on <var>image</var>:</p>
 
-   <li><p>If <var>image</var> is an <code>HTMLOrSVGImageElement</code> object that is not <span
-   data-x="img-good">fully decodable</span>, or if <var>image</var> is an
-   <code>HTMLVideoElement</code> object whose <code data-x="dom-media-readyState">readyState</code>
-   attribute is either <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code> or <code
-   data-x="dom-media-HAVE_METADATA">HAVE_METADATA</code>, then return <i>bad</i>.</p></li>
+    <dl class="switch">
+     <dt><code>HTMLOrSVGImageElement</code></dt>
+     <dd>
+      <p>If <var>image</var>'s <span>current request</span>'s <span
+      data-x="img-req-state">state</span> is <span data-x="img-error">broken</span>, then
+      throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p>
 
-   <li><p>If <var>image</var> is an <code>HTMLOrSVGImageElement</code> object with an
-   <span>intrinsic width</span> or <span>intrinsic height</span> (or both) equal to zero, then
-   return <i>bad</i>.</p></li> <!--
-   https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2567 -->
+      <p>If <var>image</var> is not <span data-x="img-good">fully decodable</span>,
+      then return <i>bad</i>.</p>
 
-   <li><p>If <var>image</var> is an <code>HTMLCanvasElement</code> object with either a horizontal
-   dimension or a vertical dimension equal to zero, then throw an
-   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
+      <p>If <var>image</var> has an <span>intrinsic width</span> or <span>intrinsic height</span>
+      (or both) equal to zero, then return <i>bad</i>.</p> <!--
+      https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2567 -->
+     </dd>
 
-   <li><p>If <var>image</var> is an <code>ImageBitmap</code> object with its
-   <span>[[Detached]]</span> internal slot value set to true, then throw an
-   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
+     <dt><code>HTMLVideoElement</code></dt>
+     <dd><p>If <var>image</var>'s <code data-x="dom-media-readyState">readyState</code>
+     attribute is either <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code> or <code
+     data-x="dom-media-HAVE_METADATA">HAVE_METADATA</code>, then return <i>bad</i>.</p></dd>
 
-   <li><p>Return <i>good</i>.</p></li>
+     <dt><code>HTMLCanvasElement</code></dt>
+     <dt><code>OffscreenCanvas</code></dt>
+     <dd><p>If <var>image</var> has either a horizontal dimension or a vertical dimension
+     equal to zero, then throw an <span>"<code>InvalidStateError</code>"</span>
+     <code>DOMException</code>.</p></dd>
+
+     <dt><code>ImageBitmap</code></dt>
+     <dd><p>If <var>image</var>'s <span>[[Detached]]</span> internal slot value
+     is set to true, then throw an <span>"<code>InvalidStateError</code>"</span>
+     <code>DOMException</code>.</p></dd>
+    </dl>
+   </li>
+
+   <li>
+    <p>Return <i>good</i>.</p>
+   </li>
   </ol>
 
   <p>When a <code>CanvasImageSource</code> object represents an <code>HTMLOrSVGImageElement</code>,

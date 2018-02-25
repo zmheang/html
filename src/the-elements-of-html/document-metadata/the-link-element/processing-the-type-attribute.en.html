@@ -1,18 +1,19 @@
   <h5>Processing the <code data-x="attr-link-type">type</code> attribute</h5>
 
   <p>If the <code data-x="attr-link-type">type</code> attribute is present, then the user agent must
-  assume that the resource is of the given type (even if that is not a <span>valid MIME type</span>,
-  e.g. the empty string). If the attribute is omitted, but the <span>external resource link</span>
-  type has a default type defined, then the user agent must assume that the resource is of that
-  type. If the UA does not support the given <span>MIME type</span> for the given link relationship,
-  then the UA should not <span data-x="concept-link-obtain">obtain</span> the resource; if the UA
-  does support the given <span>MIME type</span> for the given link relationship, then the UA should
-  <span data-x="concept-link-obtain">obtain</span> the resource at the appropriate time as specified
-  for the <span>external resource link</span>'s particular type.  If the attribute is omitted, and
-  the <span>external resource link</span> type does not have a default type defined, but the user
-  agent would <span data-x="concept-link-obtain">obtain</span> the resource if the type was known
-  and supported, then the user agent should <span data-x="concept-link-obtain">obtain</span> the
-  resource under the assumption that it will be supported.</p>
+  assume that the resource is of the given type (even if that is not a <span>valid MIME type
+  string</span>, e.g. the empty string). If the attribute is omitted, but the <span>external
+  resource link</span> type has a default type defined, then the user agent must assume that the
+  resource is of that type. If the UA does not support the given <span>MIME type</span> for the
+  given link relationship, then the UA should not <span data-x="concept-link-obtain">obtain</span>
+  the resource; if the UA does support the given <span>MIME type</span> for the given link
+  relationship, then the UA should <span data-x="concept-link-obtain">obtain</span> the resource at
+  the appropriate time as specified for the <span>external resource link</span>'s particular type.
+  If the attribute is omitted, and the <span>external resource link</span> type does not have a
+  default type defined, but the user agent would <span data-x="concept-link-obtain">obtain</span>
+  the resource if the type was known and supported, then the user agent should <span
+  data-x="concept-link-obtain">obtain</span> the resource under the assumption that it will be
+  supported.</p>
 
   <p>User agents must not consider the <code data-x="attr-link-type">type</code> attribute
   authoritative &mdash; upon fetching the resource, user agents must not use the <code

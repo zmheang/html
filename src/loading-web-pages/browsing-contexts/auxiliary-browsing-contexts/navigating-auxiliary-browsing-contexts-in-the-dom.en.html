@@ -1,39 +1,50 @@
   <h5>Navigating auxiliary browsing contexts in the DOM</h5>
 
-  <p>The <dfn><code data-x="dom-opener">opener</code></dfn> IDL attribute on the <code>Window</code>
-  object, on getting, must return the <code>WindowProxy</code> object of the <span>browsing
-  context</span> from which the current <span>browsing context</span> was created (its <span>opener
-  browsing context</span>), if there is one, if it is still available, and if the current
-  <span>browsing context</span> has not <i data-x="disowned its opener">disowned its opener</i>;
-  otherwise, it must return null. On setting, if the new value is null then the current
-  <span>browsing context</span> must <dfn data-x="disowned its opener" data-export="">disown its
-  opener</dfn>; if the new value is anything else then the user agent must
+  <p>An <span>auxiliary browsing context</span> can be <dfn
+  id="disowned-its-opener">disowned</dfn>.</p>
 
-    <!-- dark magic incantation begins -->
-    call the [[DefineOwnProperty]] internal method of the <code>Window</code> object, passing the
-    property name "<code data-x="">opener</code>" as the property key, and the Property Descriptor {
-    [[Value]]: <var>value</var>, [[Writable]]: true, [[Enumerable]]: true,
-    [[Configurable]]: true } as the property descriptor,
-    <!-- dark magic incantation ends -->
+  <p>The <dfn><code data-x="dom-opener">opener</code></dfn> attribute's getter, must run these
+  steps:</p>
 
-  where <var>value</var> is the new value.</p>
+  <ol>
+   <li><p>If the current <span>browsing context</span> is <span>disowned</span>, then return
+   null.</p></li>
 
- <div class="note">
-  <p>If a <span>browsing context</span> has <span data-x="disowned its opener">disowned its
-  opener</span>, the value of its <code data-x="dom-opener">window.opener</code> is <code
-  data-x="">null</code>. That prevents scripts in the <span>browsing context</span> from changing
-  any properties of its <span>opener browsing context</span>'s <code>Window</code> (i.e., the window
-  from which the <span>browsing context</span> was created).</p>
+   <li><p>If the current <span>browsing context</span> has no <span>opener browsing context</span>,
+   then return null.</p></li>
 
-  <p>Otherwise, if a <span>browsing context</span> has <em>not</em> <span>disowned its
-  opener</span>, then scripts in that <span>browsing context</span> can use <code
-  data-x="dom-opener">window.opener</code> to change properties of its <span>opener browsing
-  context</span>'s <code>Window</code>. For example, a script running in the <span>browsing
-  context</span> can change the value of <code data-x="">window.opener.location</code>, causing the
-  <span>opener browsing context</span> to navigate to a completely different document.</p>
- </div>
+   <li><p>Return the current <span>browsing context</span>'s <span>opener browsing context</span>'s
+   <code>WindowProxy</code> object.</p></li>
+  </ol>
+
+  <p>The <code data-x="dom-opener">opener</code> attribute's setter, must run these steps:</p>
+
+  <ol>
+   <li><p>If the given value is null, then <span data-x="disowned">disown</span> the current
+   <span>browsing context</span> and return.</p></li>
+
+   <li><p>Return the result of calling <span>OrdinaryDefineOwnProperty</span>(this
+   <code>Window</code> object, "<code data-x="">opener</code>", { [[Value]]: the given value,
+   [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true }). Rethrow any
+   exceptions.</p></li>
+  </ol>
+
+  <div class="note">
+   <p>If a <span>browsing context</span> is <span>disowned</span>, its <code
+   data-x="dom-opener">window.opener</code> attribute is null. That prevents scripts in the
+   <span>browsing context</span> from changing any properties of its <span>opener browsing
+   context</span>'s <code>Window</code> object (i.e., the <code>Window</code> object from which the
+   <span>browsing context</span> was created).</p>
+
+   <p>Otherwise, if a <span>browsing context</span> is not <span>disowned</span>, then scripts in
+   that <span>browsing context</span> can use <code data-x="dom-opener">window.opener</code> to
+   change properties of its <span>opener browsing context</span>'s <code>Window</code> object. For
+   example, a script running in the <span>browsing context</span> can change the value of <code
+   data-x="">window.opener.location</code>, causing the <span>opener browsing context</span> to
+   navigate to a completely different document.</p>
+  </div>
 
 
-<!--ADD-TOPIC:Security-->
+
   <div w-nodev>
 

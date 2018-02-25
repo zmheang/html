@@ -41,11 +41,11 @@
    <li><p>Lose the strong reference from the <code>Document</code>'s <span
    data-x="concept-document-bc">browsing context</span> to the <code>Document</code>.</p></li>
 
-  </ol>
+   <li><p><span data-x="list remove">Remove</span> the <code>Document</code> object from the
+   <span>owner set</span> of each <code>WorkerGlobalScope</code> object whose set <span
+   data-x="list contains">contains</span> that <code>Document</code> object.</p></li>
 
-  <p class="note">Whenever a <code>Document</code> object is <span data-x="discard a
-  Document">discarded</span>, it is also removed from the <span>owner set</span> of each worker
-  whose set contains that <code>Document</code>.</p>
+  </ol>
 
   <p>When <dfn data-export="">a <em>browsing context</em> is discarded</dfn>, the strong reference
   from the user agent itself to the <span>browsing context</span> must be severed, and all the

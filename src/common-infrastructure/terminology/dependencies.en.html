@@ -282,10 +282,13 @@
 
     <ul class="brief">
      <li><dfn data-x-href="https://mimesniff.spec.whatwg.org/#mime-type">MIME type</dfn></li>
-     <li><dfn data-x-href="https://mimesniff.spec.whatwg.org/#valid-mime-type">valid MIME type</dfn></li>
-     <li><dfn data-x-href="https://mimesniff.spec.whatwg.org/#valid-mime-type-with-no-parameters">valid MIME type with no parameters</dfn></li>
-     <li><dfn data-x-href="https://mimesniff.spec.whatwg.org/#xml-mime-type">XML MIME type</dfn></li>
+     <li><dfn data-x-href="https://mimesniff.spec.whatwg.org/#valid-mime-type">valid MIME type string</dfn></li>
+     <li><dfn data-x-href="https://mimesniff.spec.whatwg.org/#valid-mime-type-with-no-parameters">valid MIME type string with no parameters</dfn></li>
      <li><dfn data-x-href="https://mimesniff.spec.whatwg.org/#html-mime-type">HTML MIME type</dfn></li>
+     <li><dfn data-x-href="https://mimesniff.spec.whatwg.org/#javascript-mime-type">JavaScript MIME type</dfn> and
+         <dfn data-x-href="https://mimesniff.spec.whatwg.org/#javascript-mime-type-essence-match">JavaScript MIME type essence match</dfn></li>
+     <li><dfn data-x-href="https://mimesniff.spec.whatwg.org/#json-mime-type">JSON MIME type</dfn></li>
+     <li><dfn data-x-href="https://mimesniff.spec.whatwg.org/#xml-mime-type">XML MIME type</dfn></li>
     </ul>
 
    </dd>
@@ -987,7 +990,7 @@
      <li><p>If <var>color</var> is failure, then return failure.</p></li>
 
      <li>
-      <p>If <var>color</var> is <code>currentColor</code>, then:</p>
+      <p>If <var>color</var> is <span>'currentcolor'</span>, then:</p>
 
       <ol>
        <li><p>If <var>element</var> is not given, then set <var>color</var> to <span>opaque
@@ -1086,14 +1089,14 @@
     specification: <ref spec=CSSLOGICAL></p>
 
     <ul class="brief">
-      <li>The <dfn data-x-href="https://drafts.csswg.org/css-logical-props/#propdef-margin-block-start">'margin-block-start'</dfn>,
-              <dfn data-x-href="https://drafts.csswg.org/css-logical-props/#propdef-margin-block-end">'margin-block-end'</dfn>,
-              <dfn data-x-href="https://drafts.csswg.org/css-logical-props/#propdef-margin-inline-start">'margin-inline-start'</dfn>, and
-              <dfn data-x-href="https://drafts.csswg.org/css-logical-props/#propdef-margin-inline-end">'margin-inline-end'</dfn> properties</li>
-      <li>The <dfn data-x-href="https://drafts.csswg.org/css-logical-props/#propdef-padding-block-start">'padding-block-start'</dfn>,
-              <dfn data-x-href="https://drafts.csswg.org/css-logical-props/#propdef-padding-block-end">'padding-block-end'</dfn>,
-              <dfn data-x-href="https://drafts.csswg.org/css-logical-props/#propdef-padding-inline-start">'padding-inline-start'</dfn>, and
-              <dfn data-x-href="https://drafts.csswg.org/css-logical-props/#propdef-padding-inline-end">'padding-inline-end'</dfn> properties</li>
+      <li>The <dfn data-x-href="https://drafts.csswg.org/css-logical/#propdef-margin-block-start">'margin-block-start'</dfn>,
+              <dfn data-x-href="https://drafts.csswg.org/css-logical/#propdef-margin-block-end">'margin-block-end'</dfn>,
+              <dfn data-x-href="https://drafts.csswg.org/css-logical/#propdef-margin-inline-start">'margin-inline-start'</dfn>, and
+              <dfn data-x-href="https://drafts.csswg.org/css-logical/#propdef-margin-inline-end">'margin-inline-end'</dfn> properties</li>
+      <li>The <dfn data-x-href="https://drafts.csswg.org/css-logical/#propdef-padding-block-start">'padding-block-start'</dfn>,
+              <dfn data-x-href="https://drafts.csswg.org/css-logical/#propdef-padding-block-end">'padding-block-end'</dfn>,
+              <dfn data-x-href="https://drafts.csswg.org/css-logical/#propdef-padding-inline-start">'padding-inline-start'</dfn>, and
+              <dfn data-x-href="https://drafts.csswg.org/css-logical/#propdef-padding-inline-end">'padding-inline-end'</dfn> properties</li>
     </ul>
 
     <p>The following terms and features are defined in the <cite>CSS Color</cite> specification:
@@ -1102,8 +1105,8 @@
     <ul class="brief">
      <li><dfn data-x-href="https://drafts.csswg.org/css-color/#named-color">named color</dfn></li>
      <li><dfn data-x-href="https://drafts.csswg.org/css-color/#typedef-color">&lt;color></dfn></li>
-     <li><dfn data-x-href="https://drafts.csswg.org/css-color/#valdef-color-currentcolor">currentColor</dfn></li>
      <li>The <dfn data-x-href="https://drafts.csswg.org/css-color/#the-color-property">'color'</dfn> property</li>
+     <li>The <dfn data-x-href="https://drafts.csswg.org/css-color/#valdef-color-currentcolor" id="currentcolor">'currentcolor'</dfn> value</li>
      <li><dfn data-x-href="https://drafts.csswg.org/css-color/#opaque-black">opaque black</dfn></li>
      <li><dfn data-x-href="https://drafts.csswg.org/css-color/#transparent-black">transparent black</dfn></li>
     </ul>

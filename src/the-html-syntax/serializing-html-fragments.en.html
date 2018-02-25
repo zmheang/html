@@ -43,6 +43,14 @@
         <code data-x="dom-Document-createElement">createElement()</code>, <var>tagname</var> will be
         lowercase.</p>
 
+        <p>If <var>current node</var>'s <span data-x="concept-element-is-value"><code
+        data-x="">is</code> value</span> is not null, and the element does not have an <code
+        data-x="attr-is">is</code> attribute in its attribute list, then append the string "<code
+        data-x=""> is="</code>", followed by <var>current node</var>'s <span
+        data-x="concept-element-is-value"><code data-x="">is</code> value</span> <span
+        data-x="escaping a string">escaped as described below</span> in <i>attribute mode</i>,
+        followed by a U+0022 QUOTATION MARK character (&quot;).</p>
+
         <p>For each attribute that the element has, append a U+0020 SPACE character, the <span
         data-x="attribute's serialized name">attribute's serialized name as described below</span>, a
         U+003D EQUALS SIGN character (=), a U+0022 QUOTATION MARK character (&quot;), the
@@ -283,6 +291,63 @@ Hello.&lt;/pre></pre>
    content</span> starts with a single newline character. After a serialize-reparse roundtrip, the
    <code>pre</code> element's <span>child text content</span> is simply "<code
    data-x="">Hello.</code>".</p>
+  </div>
+
+  <p id="attr-is-during-serialization">Because of the special role of the <code
+  data-x="attr-is">is</code> attribute in signaling the creation of <span data-x="customized
+  built-in element">customized built-in elements</span>, in that it provides a mechanism for parsed
+  HTML to set the element's <span data-x="concept-element-is-value"><code data-x="">is</code>
+  value</span>, we special-case its handling during serialization.This ensures that an element's
+  <span data-x="concept-element-is-value"><code data-x="">is</code> value</span> is preserved
+  through serialize-parse roundtrips.</p>
+
+  <div class="example">
+   <p>When creating a <span>customized built-in element</span> via the parser, a developer uses the <code
+   data-x="attr-is">is</code> attribute directly; in such cases serialize-parse roundtrips work fine.</p>
+
+   <pre>&lt;script>
+window.SuperP = class extends HTMLParagraphElement {};
+customElements.define("super-p", SuperP, { extends: "p" });
+&lt;/script>
+
+&lt;div id="container">&lt;p is="super-p">Superb!&lt;/p>&lt;/div>
+
+&lt;script>
+console.log(container.innerHTML); // &lt;p is="super-p">
+container.innerHTML = container.innerHTML;
+console.log(container.innerHTML); // &lt;p is="super-p">
+console.assert(container.firstChild instanceof SuperP);
+&lt;/script></pre>
+
+   <p>But when creating a customized built-in element via its <span data-x="custom element
+   constructor">constructor</span> or via <code
+   data-x="dom-Document-createElement">createElement()</code>, the <code data-x="attr-is">is</code>
+   attribute is not added. Instead, the <span data-x="concept-element-is-value"><code
+   data-x="">is</code> value</span> (which is what the custom elements machinery uses) is set
+   without intermediating through an attribute.</p>
+
+   <pre>&lt;script>
+container.innerHTML = "";
+const p = document.createElement("p", { is: "super-p" });
+container.appendChild(p);
+
+// The is attribute is not present in the DOM:
+console.assert(!p.hasAttribute("is"));
+
+// But the element is still a super-p:
+console.assert(p instanceof SuperP);
+&lt;/script></pre>
+
+   <p>To ensure that serialize-parse roundtrips still work, the serialization process explicitly
+   writes out the element's <span data-x="concept-element-is-value"><code data-x="">is</code>
+   value</span> as an <code data-x="attr-is">is</code> attribute:</p>
+
+   <pre>&lt;script>
+console.log(container.innerHTML); // &lt;p is="super-p">
+container.innerHTML = container.innerHTML;
+console.log(container.innerHTML); // &lt;p is="super-p">
+console.assert(container.firstChild instanceof SuperP);
+&lt;/script></pre>
   </div>
 
   <p><dfn id="escapingString">Escaping a string</dfn> (for the purposes of the algorithm above)

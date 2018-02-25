@@ -97,13 +97,14 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
   <hr>
 
   <p>The <code>canvas</code> element has two attributes to control the size of the element's bitmap:
-  <dfn><code data-x="attr-canvas-width">width</code></dfn> and <dfn><code data-x="attr-canvas-height">height</code></dfn>. These attributes, when specified, must have
+  <dfn><code data-x="attr-canvas-width">width</code></dfn> and <dfn><code
+  data-x="attr-canvas-height">height</code></dfn>. These attributes, when specified, must have
   values that are <span data-x="valid non-negative integer">valid non-negative integers</span>. <span
-  w-nodev>The <span>rules for parsing non-negative integers</span> must be used to obtain their
-  numeric values. If an attribute is missing, or if parsing its value returns an error, then the
-  default value must be used instead.</span> The <code data-x="attr-canvas-width">width</code>
-  attribute defaults to 300, and the <code data-x="attr-canvas-height">height</code> attribute
-  defaults to 150.</p>
+  w-nodev>The <span>rules for parsing non-negative integers</span> must be used to <dfn
+  data-x="obtain-numeric-values">obtain their numeric values</dfn>. If an attribute is missing,
+  or if parsing its value returns an error, then the default value must be used instead.</span>
+  The <code data-x="attr-canvas-width">width</code> attribute defaults to 300, and the
+  <code data-x="attr-canvas-height">height</code> attribute defaults to 150.</p>
 
   <p>When setting the value of the <code data-x="attr-canvas-width">width</code> or <code
   data-x="attr-canvas-height">height</code> attribute, if the <span
@@ -147,8 +148,9 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
   <p>When its <span data-x="concept-canvas-context-mode">canvas context mode</span> is <span
   data-x="concept-canvas-none">none</span>, a <code>canvas</code> element has no rendering context,
   and its bitmap must be <span>transparent black</span> with an <span>intrinsic width</span> equal
-  to the numeric value of the element's <code data-x="attr-canvas-width">width</code> attribute and
-  an <span>intrinsic height</span> equal to the numeric value of the element's <code
+  to <span data-x="obtain-numeric-values">the numeric value</span> of the element's <code
+  data-x="attr-canvas-width">width</code> attribute and an <span>intrinsic height</span> equal to
+  <span data-x="obtain-numeric-values">the numeric value</span> of the element's <code
   data-x="attr-canvas-height">height</code> attribute, those values being interpreted in <span
   data-x="'px'">CSS pixels</span>, and being updated as the attributes are set, changed, or
   removed.</p>
@@ -184,8 +186,9 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
       <p><span data-x="concept-canvas-2d">2d</span></p>
      <td>
       <p>Follow the steps to <span data-x="concept-canvas-set-bitmap-dimensions">set bitmap
-      dimensions</span> to the numeric values of the <code data-x="attr-canvas-width">width</code>
-      and <code data-x="attr-canvas-height">height</code> content attributes.</p>
+      dimensions</span> to <span data-x="obtain-numeric-values">the numeric values</span>
+      of the <code data-x="attr-canvas-width">width</code> and <code
+      data-x="attr-canvas-height">height</code> content attributes.</p>
 
     <tr>
      <th>

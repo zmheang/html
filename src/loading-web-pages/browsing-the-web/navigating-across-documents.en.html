@@ -526,7 +526,7 @@
      <dd>Follow the steps given in the <span data-x="navigate-html">HTML document</span>
      section, and then, once they have completed, return.</dd>
 
-     <dt>an <span>XML MIME type</span> that is not an <span>explicitly supported XML
+     <dt>an <span>XML MIME type</span> that is not an <span>explicitly supported XML MIME
      type</span></dt>
 
      <dd>Follow the steps given in the <span data-x="navigate-xml">XML document</span> section. If
@@ -536,7 +536,7 @@
      return.</dd>
 
      <dt>a <span>JavaScript MIME type</span></dt>
-     <dt>a <span>JSON MIME type</span> that is not an <span>explicitly supported JSON
+     <dt>a <span>JSON MIME type</span> that is not an <span>explicitly supported JSON MIME
      type</span></dt>
      <dt>"<code>text/cache-manifest</code>"</dt>
      <dt>"<code>text/css</code>"</dt>
@@ -561,22 +561,19 @@
 
     </dl>
 
-    <p>An <dfn>explicitly supported XML type</dfn> is one for which the user agent is configured to
-    use an external application to render the content (either a <span>plugin</span> rendering
-    directly in <var>browsingContext</var>, or a separate application), or one for which the user
-    agent has dedicated processing rules (e.g. a Web browser with a built-in Atom feed viewer would
-    be said to explicitly support the <code>application/atom+xml</code> MIME type), or one for which
-    the user agent has a dedicated handler.</p>
-
-    <p>The term <dfn>JSON MIME type</dfn> is used to refer to the <span data-x="MIME type">MIME
-    types</span> <code>application/json</code>, <code>text/json</code>, and any <span>MIME
-    type</span> whose subtype ends with the five characters "<code data-x="">+json</code>".
-
-    <p>An <dfn>explicitly supported JSON type</dfn> is one for which the user agent is configured to
-    use an external application to render the content (either a <span>plugin</span> rendering
-    directly in <var>browsingContext</var>, or a separate application), or one for which the user
-    agent has dedicated processing rules, or one for which the user agent has a dedicated
+    <p>An <dfn>explicitly supported XML MIME type</dfn> is an <span>XML MIME type</span> for which
+    the user agent is configured to use an external application to render the content (either a
+    <span>plugin</span> rendering directly in <var>browsingContext</var>, or a separate
+    application), or one for which the user agent has dedicated processing rules (e.g. a Web browser
+    with a built-in Atom feed viewer would be said to explicitly support the
+    <code>application/atom+xml</code> MIME type), or one for which the user agent has a dedicated
     handler.</p>
+
+    <p>An <dfn>explicitly supported JSON MIME type</dfn> is a <span>JSON MIME type</span> for which
+    the user agent is configured to use an external application to render the content (either a
+    <span>plugin</span> rendering directly in <var>browsingContext</var>, or a separate
+    application), or one for which the user agent has dedicated processing rules, or one for which
+    the user agent has a dedicated handler.</p>
 
     <p><dfn data-x="set the document's address">Setting the document's address</dfn>: If there is no
     <dfn>override URL</dfn>, then any <code>Document</code> created by these steps must have its

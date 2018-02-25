@@ -64,22 +64,17 @@ interface <dfn>HTMLFrameSetElement</dfn> : <span>HTMLElement</span> {
   first appropriate steps from the following list:</p>
 
   <dl class="switch">
+   <dt>If the element has no <code undefined data-x="attr-frame-src">src</code> attribute specified,
+   and the user agent is processing the <code>frame</code>'s attributes for the first time</dt>
 
-   <dt>If the element has no <code undefined data-x="attr-frame-src">src</code> attribute specified, and the
-   user agent is processing the <code>frame</code>'s attributes for the first time</dt>
-
-   <dd>
-
-    <p><span>Queue a task</span> to <span data-x="concept-event-fire">fire an event</span>
-    named <code data-x="event-load">load</code> at the <code>frame</code> element.</p>
-
-   </dd>
+   <dd><p><span>Queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
+   <code data-x="event-load">load</code> at the <code>frame</code> element using the <span>DOM
+   manipulation task source</span>.</p></dd>
 
    <dt>Otherwise</dt>
 
    <dd><p>Run the <span>otherwise steps for <code>iframe</code> or <code>frame</code>
    elements</span>.</p></dd>
-
   </dl>
 
   <p>Any <span data-x="navigate">navigation</span> required of the user agent in the <span>process
@@ -103,12 +98,8 @@ interface <dfn>HTMLFrameSetElement</dfn> : <span>HTMLElement</span> {
   <!-- next few paragraphs are also from <iframe> but less detailed -->
 
   <p>When a <code>Document</code> in a <code>frame</code> is marked as <span>completely
-  loaded</span>, the user agent must <span>queue a task</span> to <span
-  data-x="concept-event-fire">fire an event</span> named <code data-x="event-load">load</code> at
-  the <code>frame</code> element.</p>
-
-  <p>The <span>task source</span> for the <span data-x="concept-task">tasks</span> above is the
-  <span>DOM manipulation task source</span>.</p>
+  loaded</span>, the user agent must <span data-x="concept-event-fire">fire an event</span> named
+  <code data-x="event-load">load</code> at the <code>frame</code> element.</p>
 
   <p>When a <code>frame</code> element has a non-null <span>nested browsing context</span>, and its
   <span>nested browsing context</span>'s <span>active document</span> is not <span>ready for

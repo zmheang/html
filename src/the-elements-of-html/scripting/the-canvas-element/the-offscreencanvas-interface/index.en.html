@@ -21,6 +21,10 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
 };
 </pre>
 
+  <p class="note"><code>OffscreenCanvas</code> is an <code>EventTarget</code> so that WebGL can
+  fire <code data-x="">webglcontextlost</code> and <code data-x="">webglcontextrestored</code>
+  events at it. <ref spec=WEBGL></p>
+
   <p><code>OffscreenCanvas</code> objects are used to create rendering contexts, much like an
   <code>HTMLCanvasElement</code>, but with no connection to the DOM. This makes it possible to
   use canvas rendering contexts in <a href="#workers">workers</a>.</p>
