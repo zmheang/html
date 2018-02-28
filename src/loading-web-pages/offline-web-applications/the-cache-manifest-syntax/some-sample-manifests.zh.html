@@ -1,0 +1,88 @@
+  <h5>一些示例清单</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <div class="example">
+
+   <p>这个示例清单要求缓存两个图片和一个样式表，并把一个 CGI 脚本加入安全列表。</p>
+
+   <pre>CACHE MANIFEST
+# the above line is required
+
+# this is a comment
+# there can be as many of these anywhere in the file
+# they are all ignored
+  # comments can have spaces before them
+  # but must be alone on the line
+
+# blank lines are ignored too
+
+# these are files that need to be cached they can either be listed
+# first, or a "CACHE:" header could be put before them, as is done
+# lower down.
+images/sound-icon.png
+images/background.png
+# note that each file has to be put on its own line
+
+# here is a file for the online safelist -- it isn't cached, and
+# references to this file will bypass the cache, always hitting the
+# network (or trying to, if the user is offline).
+NETWORK:
+comm.cgi
+
+# here is another set of files to cache, this time just the CSS file.
+CACHE:
+style/default.css</pre>
+
+   <p>下列写法是等效的：</p>
+
+   <pre>CACHE MANIFEST
+NETWORK:
+comm.cgi
+CACHE:
+style/default.css
+images/sound-icon.png
+images/background.png</pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>离线应用缓存清单可以使用绝对路径，甚至绝对 URL：</p>
+
+   <pre>CACHE MANIFEST
+
+/main/home
+/main/app.js
+/settings/home
+/settings/app.js
+https://img.example.com/logo.png
+https://img.example.com/check.png
+https://img.example.com/cross.png</pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>以下清单定义了一个捕获所有错误的页面，用户离线时用于所有页面的显示。
+   还指定了<span data-x="concept-appcache-onlinesafelist-wildcard">在线安全列表通配标志</span>
+   为 <i>open</i>，意味着不会阻止对外站资源的访问。
+   （由于捕获所有错误的 fallback 命名空间，站内资源的访问也不会被阻止）</p>
+
+   <p>只要站点的所有页面都引用这个清单，它们被获取后就会缓存到本地，
+   后续访问同一页面时就会立即从缓存加载。
+   除非清单发生了变化，那些页面不会再从服务器获取。
+   当清单改变时，所有文件都会重新下载。</p>
+
+   <p>但是子资源（比如样式表、图片等）只会使用普通的 HTTP 缓存语义进行缓存。</p>
+
+   <pre>CACHE MANIFEST
+FALLBACK:
+/ /offline.html
+NETWORK:
+*</pre>
+
+  </div>
+
+
+
