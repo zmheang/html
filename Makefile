@@ -36,30 +36,6 @@ build: update-progress html
 	rm -rf $(OUTPUT)/resources && cp -r resources $(OUTPUT)
 	cp -r images/* $(OUTPUT)/images/
 
-# 待编译相关脚本移动至 html-build 项目后，这里简化
-fast-build: update-progress html
-	node ./bin/merge.js fast > html/source
-	[ -d html-build ] || git clone https://github.com/whatwg-cn/html-build.git --depth=1
-	HTML_OUTPUT=$(OUTPUT) bash html-build/build.sh -n
-	sed -i \
-		-e 's/"\/\?multipage/"\/html\/multipage/g' \
-		-e "s/'\/\?multipage/'\/html\/multipage/g" \
-		-e 's/=\/\?link-fixup.js/=\/html\/link-fixup.js/g' \
-		-e "s/'\/\?fonts\//'\/html\/fonts\//g" \
-		-e 's/=\/\?images\//=\/html\/images\//g' \
-		-e 's/=\/\?demos\//=\/html\/demos\//g' \
-		-e 's/=\/\?entities.json/=\/html\/entities.json/g' \
-		$(RESULTS)
-	sed -i -r \
-		-e 's/standard.css>/standard.css><link rel=stylesheet href=\/html\/resources\/zh-cn.css>/' \
-		-e 's/issue-url=[^ ]+\s+src=[^ ]+/issue-url=https:\/\/github.com\/whatwg-cn\/html\/issues\/new src=\/html\/resources\/file-issue.js/' \
-		-e 's/\/html-dfn\.js/\/html\/resources\/html-dfn.js/' \
-		-e '$$a\<script src=\/html\/resources\/zh-cn.js></script>' \
-		$(HTMLS)
-	node ./bin/json-pretify.js ${OUTPUT}/multipage/fragment-links.json
-	rm -rf $(OUTPUT)/resources && cp -r resources $(OUTPUT)
-	cp -r images/* $(OUTPUT)/images/
-
 update-progress:
 	data=`bash ./bin/progress.sh | awk -F: '{print $$2}'`; \
 	sed -i "s|当前进度.*|当前进度：$${data}|" README.md

@@ -1,11 +1,13 @@
 const fs = require('fs');
-const spawnSync = require('child_process').spawnSync
 const path = require('path');
 const skeletonPath = path.resolve(__dirname, '../skeleton.html');
-
+const moment = require('moment');
+const dateForFiles = require('../lib/date-for-files.js');
 const skeleton = fs.readFileSync(skeletonPath, 'utf8');
 const rFile = /<file src="([^"]*?)">/g;
 const root = path.resolve(__dirname, '..');
+
+moment.locale('zh-cn');
 
 let match;
 let target = '';
@@ -19,7 +21,8 @@ process.argv.forEach(arg => {
   }
 });
 
-while (match = rFile.exec(skeleton)) {
+dateForFiles().then(dates => {
+  while (match = rFile.exec(skeleton)) {
     let enPath = 'src/' + match[1] + '.en.html';
     let zhPath = 'src/' + match[1] + '.zh.html';
 
@@ -61,17 +64,19 @@ while (match = rFile.exec(skeleton)) {
     target += skeleton.slice(begin, match.index);
     target += content;
     begin = match.index + match[0].length;
-}
-
-target += skeleton.slice(begin);
-process.stdout.write(target);
-
-function modified(file) {
-  if (fast) return 'Unkown due to fast build';
-  let result = spawnSync('git', ['log', '-1', '--format="%ai (%ar)"', '--', file]);
-  if (result.error) {
-    throw result.error;
   }
-  let str = String(result.stdout);
-  return str.trim().replace(/"/g, '');
-}
+
+  target += skeleton.slice(begin);
+  process.stdout.write(target);
+
+  function modified(file) {
+    let date = dates[file];
+    if (!date) {
+      return '';
+    }
+
+    let mm = moment(date);
+    return mm.format() + '（' + mm.fromNow() + '）'
+  }
+})
+.catch(e => console.error(e));
