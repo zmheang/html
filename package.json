@@ -7,6 +7,8 @@
     "build": "make build",
     "serve": "http-server -p 8899 ./output",
     "progress": "./bin/progress.sh",
+    "preview": "curl -X POST -d '' https://api.netlify.com/build_hooks/5a96da9afd0efa4a0b738e90",
+    "deploy": "make deploy",
     "clean": "rm -rf html-build/.cache",
     "find-one": "./bin/find-one-to-translate.js | head"
   },
@@ -29,9 +31,9 @@
   "homepage": "https://github.com/whatwg-cn/html#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "gitlog": "^3.1.2",
     "http-server": "^0.11.1",
     "mkpath": "^1.0.0",
-    "moment": "^2.20.1",
-    "nodegit": "^0.21.0"
+    "moment": "^2.20.1"
   }
 }
