@@ -1,0 +1,19 @@
+  <h6><code>PromiseRejectionEvent</code> 接口</h6>
+
+  <pre class="idl">[Constructor(DOMString type, <span>PromiseRejectionEventInit</span> eventInitDict), Exposed=(Window,Worker)]
+interface <dfn>PromiseRejectionEvent</dfn> : <span>Event</span> {
+  readonly attribute Promise&lt;any&gt; <span data-x="dom-PromiseRejectionEvent-promise">promise</span>;
+  readonly attribute any <span data-x="dom-PromiseRejectionEvent-reason">reason</span>;
+};
+
+dictionary <dfn>PromiseRejectionEventInit</dfn> : <span>EventInit</span> {
+  required Promise&lt;any&gt; promise;
+  any reason;
+};</pre>
+
+  <p><dfn><code data-x="dom-PromiseRejectionEvent-promise">promise</code></dfn>
+  属性必须返回它初始化的值，表示这个通知的 Promise。</p>
+
+  <p><dfn><code data-x="dom-PromiseRejectionEvent-reason">reason</code></dfn>
+  属性必须返回它初始化的值，表示这个 Promise 的拒绝原因。</p>
+
