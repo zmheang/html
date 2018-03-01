@@ -47,6 +47,8 @@
       header.appendChild(popup);
 
       var enHref = 'https://html.spec.whatwg.org' + location.pathname.replace(/^\/html/, '') + location.search + location.hash;
+      var zhDate = popup.dataset.zhDate ? new Date(popup.dataset.zhDate).toLocaleString() : '尚未翻译';
+      var enDate = new Date(popup.dataset.enDate).toLocaleString();
       popup.innerHTML =
         '<p class="guide">' + 
         '  <a target="_blank" href="' + popup.dataset.zhFile + '" class="btn-link-1">我来翻译</a>' +
@@ -56,11 +58,11 @@
         '<hr/>' +
         '<p class="meta">' + 
         '  <a href="' + enHref + '" class="btn-link">查看原文</a>' + 
-        '  <span class="date">' + popup.dataset.enDate + '</span>' +
+        '  <span class="date">' + enDate + '</span>' +
         '</p>' +
         '<p class="meta">' + 
         '  <span>中文翻译</span>' + 
-        '  <span class="date">' + (popup.dataset.zhDate || '尚未翻译') + '</span>' +
+        '  <span class="date">' + zhDate + '</span>' +
         '</p>';
     });
 

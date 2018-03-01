@@ -1,13 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const skeletonPath = path.resolve(__dirname, '../skeleton.html');
-const moment = require('moment');
-const dateForFiles = require('../lib/date-for-files.js');
+const git = require('../lib/git.js');
 const skeleton = fs.readFileSync(skeletonPath, 'utf8');
 const rFile = /<file src="([^"]*?)">/g;
 const root = path.resolve(__dirname, '..');
-
-moment.locale('zh-cn');
 
 let match;
 let target = '';
@@ -21,13 +18,13 @@ process.argv.forEach(arg => {
   }
 });
 
-let dates = dateForFiles();
+let dates = git.dates();
 while (match = rFile.exec(skeleton)) {
   let enPath = 'src/' + match[1] + '.en.html';
   let zhPath = 'src/' + match[1] + '.zh.html';
 
-  let enModified = modified(enPath);
-  let zhModified = modified(zhPath);
+  let enModified = dates[enPath] || '';
+  let zhModified = dates[zhPath] || '';
   let content;
   try {
     content = fs.readFileSync(path.resolve(root, zhPath), 'utf8');
@@ -68,13 +65,3 @@ while (match = rFile.exec(skeleton)) {
 
 target += skeleton.slice(begin);
 process.stdout.write(target);
-
-function modified(file) {
-  let date = dates[file];
-  if (!date) {
-    return '';
-  }
-
-  let mm = moment(date);
-  return mm.format() + '（' + mm.fromNow() + '）'
-}

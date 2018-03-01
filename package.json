@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "make build",
-    "serve": "http-server -p 8899 ./output",
+    "start": "http-server -p 8899 ./output",
     "progress": "./bin/progress.sh",
     "preview": "curl -X POST -d '' https://api.netlify.com/build_hooks/5a96da9afd0efa4a0b738e90",
     "deploy": "make deploy",
