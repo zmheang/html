@@ -1,0 +1,114 @@
+  <h5 id="definitions">定义</h5>
+
+  <p>为了协调事件、用户交互、脚本、渲染、网络等，用户代理必须使用这一小节描述的
+  <dfn data-x="event loop" data-lt="event loop" data-export="">事件循环</dfn>。
+  共有两种事件循环：用于 <span data-x="browsing context">浏览上下文的</span>，
+  以及用于 <a href="#workers">worker</a> 的。</p>
+
+  <p>每个用户代理必须有至少一个 <span data-x="browsing context">浏览上下文</span>
+  <span data-x="event loop">事件循环</span>，
+  每个 <span data-x="unit of related similar-origin browsing contexts">
+  相关类似域名浏览上下文单位</span> 最多一个。</p>
+
+  <p class="note">一个 <span data-x="unit of related browsing contexts">相关浏览上下文单位</span>
+  有多于一个 <span data-x="event loop">事件循环</span> 时，当
+  那个组中的一个 <span data-x="browsing context">浏览上下文</span>
+  <span data-x="navigate">导航</span> 时就会很复杂。因为它会从一个
+  <span data-x="unit of related similar-origin browsing contexts">相关类似域名浏览上下文单元</span>
+  切换到另一个。本规范目前没有描述如何处理这些复杂性。</p>
+
+  <p><span data-x="browsing context">浏览上下文</span> <span data-x="event loop">事件循环</span>
+  总是有至少一个 <span data-x="browsing context">浏览上下文</span>。如果这样的
+  <span data-x="event loop">事件循环</span> 的 <span data-x="browsing context">浏览上下文</span>
+  消失了，那么这个 <span data-x="event loop">事件循环</span> 也会消失。
+  <span data-x="browsing context">浏览上下文</span> 总是有一个 <span data-x="event loop">事件循环</span>
+  来协调它的活动。</p>
+
+  <p><a href="#worker-event-loop" data-x="Worker event loops">Worker 事件循环</a> 是类似的：
+  每个 Worker 有一个 <span data-x="event loop">事件循环</span>，
+  且 <span data-x="run a worker">Worker 处理模型</span> 管理着
+  <span data-x="event loop">事件循环</span> 的生命期。</p>
+
+  <hr>
+
+  <p>一个 <span data-x="event-loop">事件循环</span> 有一个或更多
+  <dfn data-x="task queue">任务队列</dfn>。一个
+  <span data-x="task-queue">任务队列</span> 是一个
+  <dfn data-x="concept-task" data-lt="task" data-export="">任务</dfn> 的有序列表，
+  这些任务是负责以下工作的算法：</p>
+
+  <dl>
+
+   <dt>事件</dt>
+
+   <dd>
+
+    <p>在特定的 <code>EventTarget</code> 上派发一个 <code>Event</code> 对象，
+    通常由专门的任务完成。</p>
+
+    <p class="note">不是所有事件都是由 <span data-x="task-queue">任务队列</span> 派发的，
+    很多是在其他任务执行过程中派发的。</p>
+
+   </dd>
+
+
+   <dt>解析</dt>
+
+   <dd><p><span data-x="html-parser">HTML 解析器</span> 标记化一个或更多字节，
+   然后处理结果标记。这通常是一个任务。</p></dd>
+
+
+   <dt>回调</dt>
+
+   <dd><p>调用一个回调通常是由专用任务来完成的。</p></dd>
+
+
+   <dt>使用资源</dt>
+
+   <dd><p>当一个算法 <span data-x="concept-fetch">获取</span> 一个资源时，如果获取发生在一个非阻塞的情况，
+   那么一旦某个或全部资源可用，对资源的处理由一个任务来执行。</p></dd>
+
+
+   <dt>对 DOM 操作作出反应</dt>
+
+   <dd><p>有些元素在 DOM 操作时会触发一些任务，例如当元素
+   <span data-x="node is inserted into a document">插入到文档中</span> 时。</p>
+
+  </dl>
+
+  <p>在 <span data-x="browsing-context">浏览环境</span> <span data-x="event loop">事件循环</span> 中，
+  每个 <span data-x="concept-task">任务</span> 与一个 <code>Document</code> 关联；
+  如果任务在一个元素的上下文入队，那么它就是这个元素的
+  <span data-x="node-document">节点文档</span>；
+  如果任务在一个 <span data-x="browsing-context">浏览环境</span> 的上下文入队，
+  那么它就是 <span data-x="browsing-context">浏览环境</span> 在任务入队时的
+  <span data-x="active document">活跃文档</span>；
+  如果该任务是由（或为了）<span data-x="concept-script">脚本</span> 入队的，那么该文档就是脚本的
+  <span data-x="settings-object">设置对象</span> 指定的
+  <span data-x="responsible-document">负责文档</span>。</p>
+
+  <p><span data-x="concept-task">任务</span> 针对特定的 <span data-x="event-loop">事件循环</span>：
+  即为 <span data-x="concept-task">task</span> 的关联 <code>Document</code> 或 <a href="#workers">worker</a>
+  处理 <span data-x="concept-task">任务</span> 的 <span data-x="event-loop">事件循环</span>。</p>
+
+  <p>当用户代理要 <dfn data-export="" data-x="queue a task">入队一个任务</dfn> 时，它必须把给定的任务添加到
+  相关 <span data-x="event loop">事件循环</span> 的其中一个 <span data-x="task queue">任务队列</span> 里面。</p>
+
+  <p>每个 <span data-x="concept-task">任务</span> 都定义为来自特定的
+  <dfn data-export="" data-x="task source">任务源</dfn>。
+  来自特定 <span data-x="task-source">任务源</span> 和指向特定的 <span data-x="event-loop">事件循环</span>
+  的的所有任务（例如，由一个 <code>Document</code> 的定时器生成的回调、<code>Document</code> 上鼠标移动触发的事件、
+  为 <code>Document</code> 的解析器入队的任务）必须总是被添加到同一个 <span data-x="task-queue">任务队列</span>，
+  但来自不同 <span data-x="task source">任务源</span> 的 <span data-x="concept-task">任务</span> 可以放在不同的
+  <span data-x="task queue">任务队列</span> 中。</p>
+
+  <p class="example">例如，一个用户代理可以有一个 <span data-x="task-queue">任务队列</span> 处理鼠标和键盘事件
+  （<span data-x="user interaction task source">用户交互任务源</span>），另一个来处理其他的。
+  这样用户代理可以给键盘和鼠标事件比其他任务多 3/4 的处理时间，保证接口响应但又不让其他任务队列饥饿，
+  并且永远不处理来自任何 <span data-x="task-source">任务源</span> 的乱序的事件。</p>
+
+  <p>每个 <span data-x="event-loop">事件循环</span> 有一个 <dfn data-x="currently running task">当前执行任务</dfn>。
+  初始化为 null，它用来处理重新进入的情况。
+  每个 <span data-x="event-loop">事件循环</span> 还有一个 <dfn data-x="performing a microtask checkpoint">执行一个 microtask 检查点</dfn> 标志，
+  初始必须设为 false。它用来防止重新进入 <span data-x="perform-a-microtask-checkpoint">microtask 检查点</span> 算法的调用。</p>
+

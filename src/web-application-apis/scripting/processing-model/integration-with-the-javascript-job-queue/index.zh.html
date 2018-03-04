@@ -1,0 +1,19 @@
+  <h5>与 JavaScript 任务队列的集成</h5>
+
+  <p>JavaScript 规范定义了 JavaScript 任务和任务队列抽象，
+  以便指定某些不变量，以确定操作如何使用干净的
+  <span data-x="JavaScript execution context stack">JavaScript 执行上下文堆栈</span>
+  以特定顺序执行。然而截至撰写本文时，<span data-x="js-EnqueueJob">EnqueueJob</span>
+  在其规范中的定义还不足以灵活地与作为宿主环境的 HTML 集成。<ref spec=JAVASCRIPT></p>
+
+  <p class="note">这不完全正确，事实上利用算法的 "实现方定义" 部分的的自由性，
+  可以把算法扭曲为我们所用。但这样做的结果是用一堆间接的和变通的方式完全绕开任务队列基础设施。
+  虽然技术上符合实现方定义行为的边界，但我们不会走这条路，而是引入了下面的
+  <span data-x="willful violation">对规范的有意违反</span>。</p>
+
+  <p>同样地，用户代理必须使用以下定义代替 JavaScript 规范中的定义。
+  这保证了由 JavaScript 规范入队的 Promise 任务能很好地集成到用户代理的
+  <span data-x="event loop">事件循环</span> 中。</p>
+
+  <p>用户代理不得使用 JavaScript 规范中的 <span>RunJobs</span> 抽象操作。</p>
+
