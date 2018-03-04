@@ -31,9 +31,9 @@
 
   <hr>
 
-  <p>一个 <span data-x="event-loop">事件循环</span> 有一个或更多
+  <p>一个 <span data-x="event loop">事件循环</span> 有一个或更多
   <dfn data-x="task queue">任务队列</dfn>。一个
-  <span data-x="task-queue">任务队列</span> 是一个
+  <span data-x="task queue">任务队列</span> 是一个
   <dfn data-x="concept-task" data-lt="task" data-export="">任务</dfn> 的有序列表，
   这些任务是负责以下工作的算法：</p>
 
@@ -46,7 +46,7 @@
     <p>在特定的 <code>EventTarget</code> 上派发一个 <code>Event</code> 对象，
     通常由专门的任务完成。</p>
 
-    <p class="note">不是所有事件都是由 <span data-x="task-queue">任务队列</span> 派发的，
+    <p class="note">不是所有事件都是由 <span data-x="task queue">任务队列</span> 派发的，
     很多是在其他任务执行过程中派发的。</p>
 
    </dd>
@@ -54,7 +54,7 @@
 
    <dt>解析</dt>
 
-   <dd><p><span data-x="html-parser">HTML 解析器</span> 标记化一个或更多字节，
+   <dd><p><span data-x="html parser">HTML 解析器</span> 标记化一个或更多字节，
    然后处理结果标记。这通常是一个任务。</p></dd>
 
 
@@ -76,39 +76,39 @@
 
   </dl>
 
-  <p>在 <span data-x="browsing-context">浏览环境</span> <span data-x="event loop">事件循环</span> 中，
+  <p>在 <span data-x="browsing context">浏览环境</span> <span data-x="event loop">事件循环</span> 中，
   每个 <span data-x="concept-task">任务</span> 与一个 <code>Document</code> 关联；
   如果任务在一个元素的上下文入队，那么它就是这个元素的
-  <span data-x="node-document">节点文档</span>；
-  如果任务在一个 <span data-x="browsing-context">浏览环境</span> 的上下文入队，
-  那么它就是 <span data-x="browsing-context">浏览环境</span> 在任务入队时的
+  <span data-x="node document">节点文档</span>；
+  如果任务在一个 <span data-x="browsing context">浏览环境</span> 的上下文入队，
+  那么它就是 <span data-x="browsing context">浏览环境</span> 在任务入队时的
   <span data-x="active document">活跃文档</span>；
   如果该任务是由（或为了）<span data-x="concept-script">脚本</span> 入队的，那么该文档就是脚本的
-  <span data-x="settings-object">设置对象</span> 指定的
-  <span data-x="responsible-document">负责文档</span>。</p>
+  <span data-x="settings object">设置对象</span> 指定的
+  <span data-x="responsible document">负责文档</span>。</p>
 
-  <p><span data-x="concept-task">任务</span> 针对特定的 <span data-x="event-loop">事件循环</span>：
+  <p><span data-x="concept-task">任务</span> 针对特定的 <span data-x="event loop">事件循环</span>：
   即为 <span data-x="concept-task">task</span> 的关联 <code>Document</code> 或 <a href="#workers">worker</a>
-  处理 <span data-x="concept-task">任务</span> 的 <span data-x="event-loop">事件循环</span>。</p>
+  处理 <span data-x="concept-task">任务</span> 的 <span data-x="event loop">事件循环</span>。</p>
 
   <p>当用户代理要 <dfn data-export="" data-x="queue a task">入队一个任务</dfn> 时，它必须把给定的任务添加到
   相关 <span data-x="event loop">事件循环</span> 的其中一个 <span data-x="task queue">任务队列</span> 里面。</p>
 
   <p>每个 <span data-x="concept-task">任务</span> 都定义为来自特定的
   <dfn data-export="" data-x="task source">任务源</dfn>。
-  来自特定 <span data-x="task-source">任务源</span> 和指向特定的 <span data-x="event-loop">事件循环</span>
+  来自特定 <span data-x="task source">任务源</span> 和指向特定的 <span data-x="event loop">事件循环</span>
   的的所有任务（例如，由一个 <code>Document</code> 的定时器生成的回调、<code>Document</code> 上鼠标移动触发的事件、
-  为 <code>Document</code> 的解析器入队的任务）必须总是被添加到同一个 <span data-x="task-queue">任务队列</span>，
+  为 <code>Document</code> 的解析器入队的任务）必须总是被添加到同一个 <span data-x="task queue">任务队列</span>，
   但来自不同 <span data-x="task source">任务源</span> 的 <span data-x="concept-task">任务</span> 可以放在不同的
   <span data-x="task queue">任务队列</span> 中。</p>
 
-  <p class="example">例如，一个用户代理可以有一个 <span data-x="task-queue">任务队列</span> 处理鼠标和键盘事件
+  <p class="example">例如，一个用户代理可以有一个 <span data-x="task queue">任务队列</span> 处理鼠标和键盘事件
   （<span data-x="user interaction task source">用户交互任务源</span>），另一个来处理其他的。
   这样用户代理可以给键盘和鼠标事件比其他任务多 3/4 的处理时间，保证接口响应但又不让其他任务队列饥饿，
-  并且永远不处理来自任何 <span data-x="task-source">任务源</span> 的乱序的事件。</p>
+  并且永远不处理来自任何 <span data-x="task source">任务源</span> 的乱序的事件。</p>
 
-  <p>每个 <span data-x="event-loop">事件循环</span> 有一个 <dfn data-x="currently running task">当前执行任务</dfn>。
+  <p>每个 <span data-x="event loop">事件循环</span> 有一个 <dfn data-x="currently running task">当前执行任务</dfn>。
   初始化为 null，它用来处理重新进入的情况。
-  每个 <span data-x="event-loop">事件循环</span> 还有一个 <dfn data-x="performing a microtask checkpoint">执行一个 microtask 检查点</dfn> 标志，
-  初始必须设为 false。它用来防止重新进入 <span data-x="perform-a-microtask-checkpoint">microtask 检查点</span> 算法的调用。</p>
+  每个 <span data-x="event loop">事件循环</span> 还有一个 <dfn data-x="performing a microtask checkpoint">执行一个 microtask 检查点</dfn> 标志，
+  初始必须设为 false。它用来防止重新进入 <span data-x="perform a microtask checkpoint">microtask 检查点</span> 算法的调用。</p>
 

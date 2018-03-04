@@ -43,5 +43,5 @@ function extractDfns (content){
 }
 
 function normalize(id) {
-  return id.trim().replace(/\s+/g, '-').toLowerCase()
+  return id.trim().replace(/\s+/g, ' ').toLowerCase()
 }
