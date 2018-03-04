@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const skeletonPath = path.resolve(__dirname, '../skeleton.html');
-const git = require('../lib/git.js');
+const repo = require('../lib/repo.js');
 const skeleton = fs.readFileSync(skeletonPath, 'utf8');
 const rFile = /<file src="([^"]*?)">/g;
 const root = path.resolve(__dirname, '..');
@@ -18,7 +18,7 @@ process.argv.forEach(arg => {
   }
 });
 
-let dates = git.dates();
+let dates = repo.dates();
 while (match = rFile.exec(skeleton)) {
   let enPath = 'src/' + match[1] + '.en.html';
   let zhPath = 'src/' + match[1] + '.zh.html';

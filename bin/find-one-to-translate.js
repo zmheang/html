@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 const path = require('path');
-const git = require('../lib/git.js');
+const repo = require('../lib/repo.js');
 const moment = require('moment');
 
 moment.locale('zh-cn');
 
-let dates = git.dates();
-let files = git.files();
+let dates = repo.dates();
+let files = repo.files();
 
 Object.keys(dates).reverse().forEach(file => {
   let match = /^(.*)\.en\.html$/.exec(file);

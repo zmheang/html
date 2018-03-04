@@ -1,3 +1,14 @@
+" Pre-requisites:
+" Plugin 'Chiel92/vim-autoformat'
+" Plugin 'vim-syntastic/syntastic'
+
+" vim-autoformat config, run :Autoformat to format
+let g:formatdef_spec = '"./bin/translate-references.js"'
+let g:formatters_html = ['spec']
+let g:syntastic_html_checkers = ['spec']
+
+set ts=4
+set sw=4
 function! TranslatePunc()
     execute '%s/\zs\.\ze\(<\|$\| \)/。/g'
     execute '%s/ 。 / . /g'
