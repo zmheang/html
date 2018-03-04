@@ -1,0 +1,43 @@
+  <h6 id="relevant">Relevant</h6>
+
+  <p>
+  <span data-x="platform object">平台对象</span> 的
+  <dfn data-export="" data-x="relevant settings object">相关设置对象</dfn>
+  定义如下：</p>
+
+  <dl class="switch">
+   <dt>如果该对象是一个 <span data-x="global object">全局对象</span></dt>
+   <dd>本规范中的每个 <span data-x="global object">全局对象</span> 创建时都会有一个
+   对应的 <span data-x="environment settings object">环境设置对象</span>；
+   这就是它的 <span data-x="relevant settings object">相关设置对象</span>。</dd>
+
+   <dt>其他情况</dt>
+   <dd>
+    <p>
+    非全局 <span data-x="platform object">平台对象</span> <var>o</var> 的
+    <span data-x="relevant settings object">相关设置对象</span> 是
+    相关的 <span data-x="concept-settings-object-global">全局对象</span> 为
+    <var>o</var> <span data-x="global environment associated with">关联的全局环境</span> 的
+    全局对象的 <span data-x="environment settings object">环境设置对象</span>。</p>
+
+    <p class="note">"<span data-x="global environment associated with">关联的全局环境</span>"
+    概念来自很久之前，甚至在现代 JavaScript 规范及其 <span data-x="JavaScript
+    realm">realms</span> 概念以前。我们期待 Web IDL 规范更新时，每个
+    <span data-x="platform object">平台对象</span> 都有一个与之关联的
+    <span data-x="JavaScript realm">Realm</span>，
+    这个定义可以更换那些术语。<ref spec=JAVASCRIPT> <ref
+    spec=WEBIDL></p>
+   </dd>
+  </dl>
+
+  <p>那么 <span data-x="platform object">平台对象</span> 的
+  <dfn data-export="" data-x="concept-relevant-realm">相关 Realm</dfn> 就是它的
+  <span data-x="relevant settings object">相关设置对象</span> 的
+  <span data-x="environment settings object's Realm">Realm</span>。</p>
+
+  <p>类似地，<span data-x="platform object">平台对象</span> 的
+  <dfn data-export="" data-x="concept-relevant-global">相关全局对象</dfn> 就是它的
+  <span data-x="relevant settings object">相关设置对象</span> 的
+  <span data-x="concept-settings-object-global">全局对象</span>。</p>
+
+

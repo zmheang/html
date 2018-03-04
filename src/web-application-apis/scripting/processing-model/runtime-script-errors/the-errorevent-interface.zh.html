@@ -1,0 +1,36 @@
+  <h6><code>ErrorEvent</code> 接口</h6>
+
+  </div>
+
+  <pre class="idl">[Constructor(DOMString type, optional <span>ErrorEventInit</span> eventInitDict), Exposed=(Window,Worker)]
+interface <dfn>ErrorEvent</dfn> : <span>Event</span> {
+  readonly attribute DOMString <span data-x="dom-ErrorEvent-message">message</span>;
+  readonly attribute USVString <span data-x="dom-ErrorEvent-filename">filename</span>;
+  readonly attribute unsigned long <span data-x="dom-ErrorEvent-lineno">lineno</span>;
+  readonly attribute unsigned long <span data-x="dom-ErrorEvent-colno">colno</span>;
+  readonly attribute any <span data-x="dom-ErrorEvent-error">error</span>;
+};
+
+dictionary <dfn>ErrorEventInit</dfn> : <span>EventInit</span> {
+  DOMString message = "";
+  USVString filename = "";
+  unsigned long lineno = 0;
+  unsigned long colno = 0;
+  any error = null;
+};</pre>
+
+  <p><dfn><code data-x="dom-ErrorEvent-message">message</code></dfn> 属性必须返回
+  它初始化的值。它表示错误消息。</p>
+
+  <p>The <dfn><code data-x="dom-ErrorEvent-filename">filename</code></dfn> 属性必须返回
+  它初始化的值。它表示最初发生错误的脚本的 <span>URL</span>。</p>
+
+  <p>The <dfn><code data-x="dom-ErrorEvent-lineno">lineno</code></dfn> 属性必须返回
+  它初始化的值。它表示脚本中错误发生的行号。</p>
+
+  <p>The <dfn><code data-x="dom-ErrorEvent-colno">colno</code></dfn> 属性必须返回
+  它初始化的值。它表示脚本中错误发生的列号。</p>
+
+  <p>The <dfn><code data-x="dom-ErrorEvent-error">error</code></dfn> 属性必须返回
+  它初始化的值。合适的时候，它设为表示错误的对象（例如未捕获 DOM 异常中的异常对象）。</p>
+

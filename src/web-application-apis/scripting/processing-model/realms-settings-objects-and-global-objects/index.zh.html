@@ -1,0 +1,217 @@
+  <h5 id="realms-settings-objects-global-objects">Realm, 设置对象, 和全局对象</h5>
+
+  <p><dfn data-export="" data-x="global object">全局对象</dfn> 是
+  <span>JavaScript realm</span> 的 [[GlobalObject]] 字段的 JavaScript 对象。</p>
+
+  <p class="note">本规范中，所有 <span data-x="JavaScript realm">JavaScript
+  realm</span> 都是使用 <code>Window</code> 或 <code>WorkerGlobalScope</code>
+  <span data-x="global object">全局对象</span> 来
+  <span data-x="js-InitializeHostDefinedRealm">初始化</span> 的。</p>
+
+  <p>
+  在 <span data-x="JavaScript realm">JavaScript Realm</span>，
+  <span data-x="global object">全局对象</span>，和
+  <span data-x="environment settings object">环境设置对象</span>
+  之间，总是存在一个 1-1-1 映射：</p>
+
+  <ul>
+   <li><p>每个 <span>JavaScript realm</span> 有一个 [[HostDefined]] 字段，它包含一个
+   <dfn data-x="concept-realm-settings-object" data-export="" data-lt="settings object"
+   data-dfn-for="Realm">Realm 的设置对象</dfn>。</p></li>
+
+   <li><p>每个 <span>JavaScript realm</span> 有一个 [[GlobalObject]] 字段，它包含一个
+   <dfn data-x="concept-realm-global" data-export="" data-lt="global object" data-dfn-for="Realm">
+   Realm 的全局对象</dfn>。</p></li>
+
+   <li><p>本规范中每个 <span data-x="global object">全局对象</span>
+   都是在对应的 <span>JavaScript realm</span>
+   （称为 <dfn data-x="concept-global-object-realm" data-export="" data-lt="Realm"
+   data-dfn-for="global object">全局对象的 Realm</dfn>）
+   <span data-x="js-InitializeHostDefinedRealm">初始化</span>
+   期间创建的。</p></li>
+
+   <li id="relevant-settings-object-for-a-global-object"><p>本规范中每个
+   <span data-x="global object">全局对象</span> 创建时都有对应的
+   <span data-x="environment settings object">环境设置对象</span>，
+   称为它的 <span data-x="relevant settings object">相关设置对象</span>。</p>
+
+   <li><p><span data-x="environment settings object">环境设置对象</span> 的
+   <span data-x="realm execution context">Realm 执行上下文</span> 的
+   Realm 组件是 <dfn data-x="environment settings object's Realm" data-export=""
+   data-lt="Realm" data-dfn-for="environment settings object">该环境设置对象的 Realm</dfn>。</p></li>
+
+   <li><p><span data-x="environment settings object">环境设置对象</span> 的
+   <span data-x="environment settings object's Realm">Realm</span> 有一个 [[GlobalObject]] 字段，
+   包含 <dfn data-export=""
+   data-x="concept-settings-object-global" data-lt="global object" data-dfn-for="environment
+   settings object">这个环境设置对象的全局对象</dfn>。</p></li>
+  </ul>
+
+  <hr>
+
+  <p>本规范中定义算法步骤时，指出用哪个 <span>JavaScript realm</span>，
+  （等价地，哪个 <span data-x="global object">全局对象</span>，
+   或哪个 <span data-x="environment settings object">环境设置对象</span>）通常很重要。
+   通常有至少 4 种可能：</p>
+
+  <dl>
+    <dt><dfn data-x="concept-entry-everything">Entry</dfn></dt>
+    <dd>这对应于初始化当前执行动作的脚本：例如当用户代理调用作者代码时进入的函数或脚本。</dd>
+
+    <dt><dfn data-x="concept-incumbent-everything">Incumbent</dfn></dt>
+    <dd>这对应于栈上最近进入的作者提供的函数或脚本，
+    或者最初安排当前执行的回调的那个作者提供的函数或脚本。</dd>
+
+    <dt><dfn data-x="concept-current-everything">Current</dfn></dt>
+    <dd>这对应于当前执行的函数对象，包括内置的用户代理函数
+    （从 <span data-x="current Realm Record">当前 JavaScript realm</span> 得到），
+    这些函数可能不是由 JavaScript 实现的。
+    </dd>
+
+    <dt><dfn data-x="concept-relevant-everything">Relevant</dfn></dt>
+    <dd>每个 <span data-x="platform object">平台对象</span> 有一个
+    <span data-x="concept-relevant-realm">relevant Realm</span>，
+    大概是创建它的 <span>JavaScript realm</span>。当编写算法时，
+    <span data-x="concept-relevant-realm">relevant Realm</span> 比较重要的
+    <span data-x="platform object">平台对象</span> 是当前执行函数对象的 <b>this</b> 值。
+    有些情况下，还有其他的一些重要的
+    <span data-x="concept-relevant-realm">relevant Realms</span>，比如参数对应的那些。</dd>
+  </dl>
+
+  <p>注意 <span data-x="concept-entry-everything">entry</span>， <span
+  data-x="concept-incumbent-everything">incumbent</span>，和 <span
+  data-x="concept-current-everything">current</span> 的概念可以在没有任何限定的情况下使用，
+  但 <span data-x="concept-relevant-everything">relevant</span> 必须用于特定的
+  <span data-x="platform object">平台对象</span>。</p>
+
+  <div class="example">
+
+   <p>考虑下面的页面，<code data-x="">a.html</code> 加载到了一个浏览器窗口中，
+   <code data-x="">b.html</code> 加载到了 <code>iframe</code> 中，
+   <code data-x="">c.html</code> 和 <code data-x="">d.html</code> 的代码省略了
+   （他们可以直接是空文档）：</p>
+
+   <pre>&lt;!-- a.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;title>Entry page&lt;/title>
+
+&lt;iframe src="b.html">&lt;/iframe>
+&lt;button onclick="frames[0].hello()">Hello&lt;/button>
+
+&lt;!--b.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;title>Incumbent page&lt;/title>
+
+&lt;iframe src="c.html" id="c">&lt;/iframe>
+&lt;iframe src="d.html" id="d">&lt;/iframe>
+
+&lt;script>
+  const c = document.querySelector("#c").contentWindow;
+  const d = document.querySelector("#d").contentWindow;
+
+  window.hello = () => {
+    c.print.call(d);
+  };
+&lt;/script></pre>
+
+   <p>每个页面有它的 <span data-x="browsing context">浏览上下文</span>，因此也有它自己的
+   <span>JavaScript realm</span>，<span data-x="global object">全局对象</span> 和
+   <span data-x="environment settings object">环境设置对象</span>。</p>
+
+   <p>当 <code data-x="">a.html</code> 中的按钮按下时，会调用
+   <code data-x="dom-print">print()</code> 方法：</p>
+
+   <ul>
+    <li><p><span data-x="concept-entry-realm">entry Realm</span> 就是 <code
+    data-x="">a.html</code> 对应的那个。</p></li>
+    <li><p><span data-x="concept-incumbent-realm">incumbent Realm</span> 就是 <code
+    data-x="">b.html</code> 对应的那个。</p></li>
+    <li><p><span data-x="current Realm Record">current Realm</span> 就是 <code
+    data-x="">c.html</code> （由于 <code data-x="dom-print">print()</code> 方法来自正在执行的
+    <code data-x="">c.html</code>）对应的那个。</p></li>
+    <li><p>调用
+    <code data-x="dom-print">print()</code> 方法的那个对象的
+    <span data-x="concept-relevant-realm">relevant Realm</span> 是
+    <code data-x="">d.html</code> 对应的那个。</p></li>
+   </ul>
+  </div>
+
+  <p class="warning"><span data-x="concept-incumbent-everything">incumbent</span> 和 <span
+  data-x="concept-entry-everything">entry</span> 概念不应用于新的规范，
+  因为它们过于复杂且不够直观。我们正在致力于移除本平台上仍然存在的引用：
+  <span data-x="concept-incumbent-everything">incumbent</span> 见 <a
+  href="https://github.com/whatwg/html/issues/1430">issue #1430</a>，
+  <span data-x="concept-entry-everything">entry</span> 见
+  <a href="https://github.com/whatwg/html/issues/1431">issue #1431</a>。</p>
+
+  <p>通常 Web 平台标准应该使用 <span data-x="concept-relevant-everything">relevant</span> 概念，
+  对应于正在操作的对象（通常是当前方法的 <b>this</b> 值）。
+  这与 JavaScript 规范不匹配，
+  那里 <span data-x="concept-current-everything">current</span> 通常被用作默认值
+  （例如在 <code data-x="">Array.prototype.map</code> 中确定应该使用哪个
+  <span>JavaScript realm</span> 的 <code data-x="">Array</code> 构造函数来构造结果时）。
+  但是，这种不一致性深深植根于平台之中，我们不得不接受它。</p>
+
+  <p>注意在构造器中还没有 <b>this</b> 值，<span data-x="concept-current-everything">current</span>
+  概念就是合适的默认值。</p>
+
+  <div class="example">
+   <p>通常选择 <span data-x="concept-relevant-everything">relevant</span> 的概念作为默认值
+   比 <span data-x="concept-current-everything">current</span> 概念更好，
+   其中一个原因是它更适合创建永久的会返回多次的对象。例如 <code
+   data-x="dom-navigator-getBattery">navigator.getBattery()</code>
+   方法会在调用它的 <code>Navigator</code> 对象的
+   <span data-x="concept-relevant-realm">relevant Realm</span> 中创建 Promise。
+   但这会有如下影响： <ref spec=BATTERY>
+
+   <pre>&lt;!-- outer.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;title>Relevant Realm demo: outer page&lt;/title>
+&lt;script>
+  function doTest() {
+    const promise = navigator.getBattery.call(frames[0].navigator);
+
+    console.log(promise instanceof Promise);           // logs false
+    console.log(promise instanceof frames[0].Promise); // logs true
+
+    frames[0].hello();
+  }
+&lt;/script>
+&lt;iframe src="inner.html" onload="doTest()">&lt;/iframe>
+
+&lt;!-- inner.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;title>Relevant Realm demo: inner page&lt;/title>
+&lt;script>
+  function hello() {
+    const promise = navigator.getBattery();
+
+    console.log(promise instanceof Promise);        // logs true
+    console.log(promise instanceof parent.Promise); // logs false
+  }
+&lt;/script></pre>
+
+   <p>如果 <code data-x="dom-navigator-getBattery">getBattery()</code> 方法的算法中，
+   使用的是 <span data-x="current Realm Record">current Realm</span>，所有的结果会反转过来。
+   也就是说在 <code data-x="">outer.html</code> 中第一次在
+   <code data-x="">inner.html</code> 的 <code>Navigator</code> 对象上调用
+   <code data-x="dom-navigator-getBattery">getBattery()</code> 方法后，
+   会永久地存一个在 <code data-x="">outer.html</code> 的 <span>JavaScript realm</span> 中创建的
+   <code data-x="">Promise</code> 对象，
+   在 <code data-x="">hello()</code> 中的这种调用，函数会返回一个 “错误” 的 Realm。
+   由于这是我们不希望发生的，该算法还是使用 <span data-x="concept-relevant-realm">relevant Realm</span>，
+   给出上述注释中表示的合理结果。</p>
+  </div>
+
+  <hr>
+
+  <p>本节剩余的部分正式定义了 <span
+  data-x="concept-entry-everything">entry</span>， <span
+  data-x="concept-incumbent-everything">incumbent</span>， <span
+  data-x="concept-current-everything">current</span> 和 <span
+  data-x="concept-relevant-everything">relevant</span> 概念。</p>
+
