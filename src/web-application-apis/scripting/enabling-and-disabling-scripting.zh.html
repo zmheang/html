@@ -1,0 +1,44 @@
+  <h4>启用和禁用脚本</h4>
+
+  <p>在 <em><span data-x="browsing context">浏览环境</span></em> 中下列条件都为真时，
+  <dfn data-x="concept-bc-script">脚本处于启用状态</dfn>：</p>
+
+  <ul>
+
+   <li>用户代理支持脚本。</li>
+
+   <li>用户当前没有为这个 <span data-x="browsing context">浏览环境</span> 禁用脚本。
+   （用户代理可能为用户提供全局或更细粒度的禁用脚本的选项，例如根据每个域来禁用）
+   <!--INSERT FINGERPRINT-->
+   </li>
+
+   <li id="sandboxScriptBlocked"><span data-x="browsing context">浏览环境</span> 的
+   <span data-x="active document">活动文档</span> 的
+   <span data-x="active sandboxing flag set">激活沙盒标识</span> 没有设置它的
+   <span data-x="sandboxed scripts browsing context flag">沙盒脚本浏览上下文标志</span>。</li>
+
+  </ul>
+
+  <p>在 <span data-x="browsing context">浏览环境</span> 中上述任何条件为假时，
+  <dfn data-x="concept-bc-noscript">脚本处于禁用状态</dfn>
+  （例如当脚本没有 <span data-x="concept-bc-script">启用</span> 时）。</p>
+
+  <hr>
+
+  <p>如果一个节点 <em>node</em> 的 <span data-x="node document">节点文档</span> 有一个
+  <span data-x="concept-document-bc">浏览上下文</span>，
+  且该 <span data-x="browsing context">浏览环境</span> 中
+  <span data-x="concept-bc-script">启用了脚本</span>，那么
+  该节点 <em>node</em> 就 <dfn data-x="concept-n-script">启用了脚本</dfn>。</p>
+
+  <p>如果不存在这样的 <span data-x="browsing context">浏览环境</span>，
+  或者该 <span data-x="browsing context">浏览环境</span> 中
+  <span data-x="concept-bc-noscript">脚本被禁用</span>，那么该节点就
+  <dfn data-x="concept-n-noscript">禁用了脚本</dfn>.</p>
+
+  </div>
+
+
+  <div w-nodev>
+
+  <!-- SCRIPT EXEC (marks areas related to creation of scripts) -->

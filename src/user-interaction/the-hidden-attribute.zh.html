@@ -1,0 +1,89 @@
+  <h3><dfn><code data-x="attr-hidden">hidden</code></dfn> 属性</h3>
+
+  <p>所有 <span data-x="html elements">HTML 元素</span> 都可以有 <code data-x="attr-hidden">hidden</code>
+  内容属性。<code data-x="attr-hidden">hidden</code> 属性是一个
+  <span data-x="boolean attribute">布尔属性</span>。
+  在元素上指定时，它表示该元素还没有（或不再）与当前页面状态直接相关。
+  或用来声明页面的其他部分会复用这部分内容，而不是让用户直接访问。
+  <span w-nodev>用户代理不应渲染设置了 <code data-x="attr-hidden">hidden</code> 属性的元素。
+  这一要求可以直接从样式层实现。例如，HTML+CSS 用户代理可以
+  <a href="#hiddenCSS" data-x="using the rules suggested in the Rendering section">
+  使用在渲染一节中建议的规则</a> 实现这些要求。</span></p>
+
+  <p class="note">因为这个属性通常使用 CSS 实现，可能会被 CSS 覆盖。
+  例如，一个规则在所有元素上应用 'display: block'，就会移除
+  <code data-x="attr-hidden">hidden</code> 属性的效果。
+  因此作者在编写样式表时必须小心，确保该属性的样式仍然符合预期。</p>
+
+  <div class="example">
+
+   <p>在下面的例子中，该属性用于在用户未登录时隐藏 Web 游戏的主屏幕：</p>
+
+   <pre>  &lt;h1>The Example Game&lt;/h1>
+  &lt;section id="login">
+   &lt;h2>Login&lt;/h2>
+   &lt;form>
+    ...
+    &lt;!-- calls login() once the user's credentials have been checked -->
+   &lt;/form>
+   &lt;script>
+    function login() {
+      // switch screens
+      document.getElementById('login').hidden = true;
+      document.getElementById('game').hidden = false;
+    }
+   &lt;/script>
+  &lt;/section>
+  &lt;section id="game" hidden>
+   ...
+  &lt;/section></pre>
+
+  </div>
+
+  <p><code data-x="attr-hidden">hidden</code> 属性不得用于在其他显示中隐藏可以显示给用户的内容。
+  例如，使用 <code data-x="attr-hidden">hidden</code> 来隐藏选项卡中的面板是不正确的，
+  因为选项卡接口仅仅是一种溢出式显示 &mdash;
+  直接把所有表单控件显示在一个大页面上并配一个滚动条可以一样好地呈现。
+  使用该属性只在某个显示终端上隐藏内容是一样的不正确 &mdash; 如果某个元素被标记为 <code
+  data-x="attr-hidden">hidden</code>，它就在所有显示终端上都隐藏，比如说包括屏幕阅读器。</p>
+
+  <!-- for example, "<a hidden href=#content>Skip to content</a>" would be inappropriate. -->
+  <!-- (but only add that example if you first add some more good valid examples -->
+
+  <p>自己不是 <code data-x="attr-hidden">hidden</code> 的元素不得
+  <span data-x="hyperlink">超链接</span> 到 <code data-x="attr-hidden">hidden</code> 的元素。
+  没有 <code data-x="attr-hidden">hidden</code> 的 <code>label</code> 和 <code>output</code>
+  元素的 <code data-x="">for</code> 属性一样不可引用
+  <code data-x="attr-hidden">hidden</code> 的元素。
+  在两种场景中，这样的引用会导致用户困惑。</p>
+
+  <p>但是其他上下文中的元素和脚本可以引用 <code data-x="attr-hidden">hidden</code> 的元素。</p>
+
+  <div class="example">
+
+   <p>例如，使用 <code data-x="attr-hyperlink-href">href</code> 属性链接到标记为
+   <code data-x="attr-hidden">hidden</code> 的小节可能是不正确的。
+   因为内容本身不可用或不相关，所以没有理由链接到它。</p>
+
+   <p>但是，使用 ARIA <code data-x="attr-aria-describedby">aria-describedby</code> 属性引用
+   <code data-x="attr-hidden">hidden</code> 的描述是可以的。
+   这时隐藏描述意味着它们自己没有用处，它们只在被它们所描述的图片引用时才有用。</p>
+
+   <p>类似地，一个有 <code data-x="attr-hidden">hidden</code> 属性的 <code>canvas</code> 元素，
+   可以被一个图形引擎脚本用来作为屏幕外的缓冲，一个表单控件可以通过它的
+   <code data-x="attr-fae-form">form</code> 属性引用一个隐藏的 <code>form</code> 元素。</p>
+
+  </div>
+
+  <p>被 <code data-x="attr-hidden">hidden</code> 属性隐藏的部分中的元素仍然是活跃的。
+  例如，这些部分中的脚本和表单控件仍然会执行和提交。只有它们对用户的显示变了。</p>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-hidden">hidden</code></dfn> IDL 属性必须 <span data-x="reflect">反映</span>
+  同名内容属性。</p>
+
+  </div>
+
+
+
