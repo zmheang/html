@@ -1,0 +1,56 @@
+  <h4>概述</h4>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>每个可以激活和获得焦点的元素都可以使用 <code data-x="attr-accesskey">accesskey</code>
+  属性指定一个组合键来激活它。</p>
+
+  <p>具体的快捷键由用户代理决定，基于用户键盘的信息，平台上既有的快捷键，
+  以及已经在页面上指定的快捷键，使用在 <code data-x="attr-accesskey">accesskey</code>
+  属性中提供的信息作为指导。</p>
+
+  <p>为了确保相关的键盘快捷键对多数输入设备都可用，作者可以在
+  <code data-x="attr-accesskey">accesskey</code> 属性中提供一些替代快捷键。</p>
+
+  <p>每个替代键包含一个字符，比如一个字母或者数字。</p>
+
+  <p>用户代理可以给用户提供一个快捷键列表，但是也鼓励作者提供快捷键列表。
+  <code data-x="dom-accessKeyLabel">accessKeyLabel</code> IDL 属性返回一个字符串，
+  表示用户代理实际指定的组合键。</p>
+
+  <div class="example">
+
+   <p>在这个例子中，作者提供了一个可以用快捷键调用的按钮。
+   为了支持全键盘，作者提供了 "C" 作为一个可能的键。
+   为了支持只有数字键的设备，作者提供了 "1" 作为另一个可能的键。</p>
+
+   <pre>&lt;input type=button value=Collect onclick="collect()"
+       <strong>accesskey="C 1"</strong> id=c></pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>为了告诉用户快捷键是什么，作者在这里有这样一个脚本，显式地把组合键添加到按钮的标签上：</p>
+
+   <pre>function addShortcutKeyLabel(button) {
+<strong>  if (button.accessKeyLabel != '')
+    button.value += ' (' + button.accessKeyLabel + ')';</strong>
+}
+addShortcutKeyLabel(document.getElementById('c'));</pre>
+
+   <p>不同平台的浏览器会显示不同的标签。即使是同样的组合键，基于该平台流行的惯例也可能有所不同。
+   例如，如果一个组合键是 Control , Shift 和字母 C，
+   一个 Windows 浏览器可能显示为 "<samp>Ctrl+Shift+C</samp>"，
+   而一个 Mac 浏览器可能显示为 "<samp>^&#x21E7;C</samp>"，
+   而在 Emacs 浏览器中可能只是显示为 "<samp>C-C</samp>"。
+   类似地，如果组合键是一个 Alt 和 Escape 键，Windows 可能会使用 "<samp>Alt+Esc</samp>"，
+   Mac 可能会使用 "<samp>&#x2325;&#x238B;</samp>"，
+   Emacs 浏览器可能会使用 "<samp>M-ESC</samp>" 或 "<samp>ESC ESC</samp>"。</p>
+
+   <p>因此通常来讲，尝试解析 <code data-x="dom-accessKeyLabel">accessKeyLabel</code>
+   IDL 属性返回的值是不明智的。</p>
+
+  </div>
+
+

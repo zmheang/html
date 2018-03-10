@@ -10,7 +10,7 @@
     "preview": "curl -X POST -d '' https://api.netlify.com/build_hooks/5a96da9afd0efa4a0b738e90",
     "deploy": "make deploy",
     "clean": "rm -rf html-build/.cache",
-    "find-one": "./bin/find-one-to-translate.js | head"
+    "find": "./bin/find-one-to-translate.js | head"
   },
   "repository": {
     "type": "git",

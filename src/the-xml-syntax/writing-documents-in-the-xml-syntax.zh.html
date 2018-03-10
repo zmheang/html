@@ -1,0 +1,27 @@
+  <h3 id="writing-xhtml-documents">以 XML 语法编写文档</h3>
+
+  </div>
+
+  <p class="note">HTML 的 XML 语法以前称为 "XHTML"，但本规范不适用这一术语
+  （一个原因是这样的术语不能用于 MathML 和 SVG 的 HTML 语法）。</p>
+
+  <p>XML 的语法定义在 XML 和 Namespaces in XML 规范中。<ref spec=XML>
+  <ref spec=XMLNS></p>
+
+  <p>本规范没有在 XML 规范的基础上定义任何语法级别的要求。</p>
+
+  <p>XML 文档可能会包含一个 <code data-x="">DOCTYPE</code>，但符合本规范不要求包含。
+  本规范没有定义共有或系统标识符，也没有提供正式的 DTD。</p>
+
+  <p class="note">根据 XML 规范，XML 处理器不保证处理 DOCTYPE 中引用的外部 DTD 子集。
+  这意味着，例如为 XML 文档中的字符使用
+  <a href="https://www.w3.org/TR/xml/#dt-entref">实体引用</a>
+  时，如果它们定义在外部文件中（
+  除了 <code data-x="">&amp;lt;</code>，<code data-x="">&amp;gt;</code>，
+  <code data-x="">&amp;amp;</code>， <code data-x="">&amp;quot;</code> 以及
+  <code data-x="">&amp;apos;</code> 之外
+  ）就是不安全的。</p>
+
+
+  <div w-nodev>
+
