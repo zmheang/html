@@ -38,13 +38,16 @@
   data-x="concept-range">range</span> manipulation), they will instead be delayed until after all
   the relevant user agent processing steps have completed, and then run together as a batch.</p>
 
-  <p>Additionally, the precise ordering of these reactions is managed via a somewhat-complicated
-  stack-of-queues system, described below. The intention behind this system is to guarantee that
-  <span data-x="concept-custom-element-reaction">custom element reactions</span> always are invoked
-  in the same order as their triggering actions, at least within the local context of a single
-  <span>custom element</span>. (Because <span data-x="concept-custom-element-reaction">custom
-  element reaction</span> code can perform its own mutations, it is not possible to give a global
-  ordering guarantee across multiple elements.)</p>
+  <p><span w-nodev>Additionally, the precise ordering of these reactions is managed via a
+  somewhat-complicated stack-of-queues system, described below. The intention behind this system is
+  to guarantee</span><span w-nohtml>It is guaranteed</span> that <span
+  data-x="concept-custom-element-reaction">custom element reactions</span> always are invoked in the
+  same order as their triggering actions, at least within the local context of a single <span>custom
+  element</span>. (Because <span data-x="concept-custom-element-reaction">custom element
+  reaction</span> code can perform its own mutations, it is not possible to give a global ordering
+  guarantee across multiple elements.)</p>
+
+  <div w-nodev>
 
   <hr>
 
@@ -270,6 +273,8 @@
 
     <li><p><code>ShadowRoot</code>'s <code data-x="">innerHTML</code> IDL attribute</p></li>
    </ul>
+  </div>
+
   </div>
 
 

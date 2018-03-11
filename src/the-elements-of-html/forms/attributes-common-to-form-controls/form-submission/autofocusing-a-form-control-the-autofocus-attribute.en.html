@@ -22,10 +22,12 @@
   <div w-nodev>
 
   <p>When an element with the <code data-x="attr-fe-autofocus">autofocus</code> attribute specified
-  is <span data-x="node is inserted into a document">inserted into a document</span>, user agents
-  should run the following steps:</p>
+  is <span data-x="node is inserted into a document">inserted into a document</span>, <span>queue a
+  task</span> on the <span>user interaction task source</span> to run the following steps:</p>
 
   <ol>
+   <li><p>If the user has indicated (for example, by starting to type in a form control) that they
+   do not wish focus to be changed, then optionally return.</p></li>
 
    <li><p>Let <var>target</var> be the element's <span>node document</span>.</p></li>
 
@@ -33,7 +35,7 @@
    then return.</p></li>
 
    <li><p>If <var>target</var>'s <span data-x="concept-document-bc">browsing context</span> has no
-   <span>top-level browsing context</span> (e.g. it is a <span>nested browsing context</span> with
+   <span>top-level browsing context</span> (e.g., it is a <span>nested browsing context</span> with
    no <span>parent browsing context</span>), then return.</p></li>
 
    <li><p>If <var>target</var>'s <span>active sandboxing flag set</span> has the
@@ -54,14 +56,9 @@
    document</span> is the same as <var>target</var>'s <span>top-level browsing
    context</span>'s <span>active document</span>, then return.</p></li>
 
-   <li><p>If the user has indicated (for example, by starting to type in a form control) that they
-   do not wish focus to be changed, then optionally return.</p></li>
-
-   <li><p><span>Queue a task</span> that runs the <span>focusing steps</span> for the element. User
-   agents may also change the scrolling position of the document, or perform some other action that
-   brings the element to the user's attention. The <span>task source</span> for this task is the
-   <span>user interaction task source</span>.</p></li>
-
+   <li><p>Run the <span>focusing steps</span> for the element. User agents may also change the
+   scrolling position of the document, or perform some other action that brings the element to the
+   user's attention.</p></li>
   </ol>
 
   <p class="note">This handles the automatic focusing during document load. The <code

@@ -1,6 +1,6 @@
   <h4 id="custom-elements-api">The <code>CustomElementRegistry</code> interface</h4>
 
-  <p>Each <code>Window</code> object is associated with a unique instance of a
+  <p w-nodev>Each <code>Window</code> object is associated with a unique instance of a
   <code>CustomElementRegistry</code> object, allocated when the <code>Window</code> object is
   created.</p>
 
@@ -9,15 +9,18 @@
   the <code>HTMLElement</code> interface, and there is exactly one <code>HTMLElement</code>
   interface per <code>Window</code> object.</p>
 
-  <p>The <dfn><code data-x="dom-window-customElements">customElements</code></dfn> attribute of the
-  <code>Window</code> interface must return the <code>CustomElementRegistry</code> object for that
-  <code>Window</code> object.</p>
+  <div w-nodev>
+
+  <p>The <dfn><code data-x="dom-window-customElements">customElements</code></dfn> attribute
+  of the <code>Window</code> interface must return the <code>CustomElementRegistry</code> object for
+  that <code>Window</code> object.</p>
 
   <pre class="idl">[Exposed=Window]
 interface <dfn>CustomElementRegistry</dfn> {
   [<span>CEReactions</span>] void <span data-x="dom-CustomElementRegistry-define">define</span>(DOMString name, Function constructor, optional ElementDefinitionOptions options);
   any <span data-x="dom-CustomElementRegistry-get">get</span>(DOMString name);
   Promise&lt;void&gt; <span data-x="dom-CustomElementRegistry-whenDefined">whenDefined</span>(DOMString name);
+  [<span>CEReactions</span>] void <span data-x="dom-CustomElementRegistry-upgrade">upgrade</span>(<span>Node</span> root);
 };
 
 dictionary <dfn>ElementDefinitionOptions</dfn> {
@@ -39,6 +42,8 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
   mapping <span data-x="valid custom element name">valid custom element names</span> to promises. It
   is used to implement the <code
   data-x="dom-CustomElementRegistry-whenDefined">whenDefined()</code> method.</p>
+
+  </div>
 
   <dl class="domintro">
    <dt><var>window</var> . <code data-x="dom-window-customElements">customElements</code> . <code
@@ -75,13 +80,22 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
    promise will be immediately fulfilled.) Returns a promise rejected with a
    <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> if not given a <span>valid
    custom element name</span>.</dd>
+
+   <dt><var>window</var> . <code data-x="dom-window-customElements">customElements</code> . <code
+   subdfn data-x="dom-CustomElementRegistry-upgrade">upgrade</code>(<var>root</var>)</dt>
+
+   <dd><span data-x="concept-try-upgrade">Tries to upgrade</span> all <span>shadow-including
+   inclusive descendant</span> elements of <var>root</var>, even if they are not
+   <span>connected</span>.</dd>
   </dl>
 
   <p><dfn>Element definition</dfn> is a process of adding a <span>custom element definition</span>
   to the <code>CustomElementRegistry</code>. This is accomplished by the <code
-  data-x="dom-CustomElementRegistry-define">define()</code> method. When invoked, the <dfn><code
-  data-x="dom-CustomElementRegistry-define">define(<var>name</var>, <var>constructor</var>,
-  <var>options</var>)</code></dfn> method must run these steps:</p>
+  data-x="dom-CustomElementRegistry-define">define()</code> method. <span w-nodev>When invoked,
+  the <dfn><code data-x="dom-CustomElementRegistry-define">define(<var>name</var>,
+  <var>constructor</var>, <var>options</var>)</code></dfn> method must run these steps:</span></p>
+
+  <div w-nodev>
 
   <ol>
    <li><p>If <span>IsConstructor</span>(<var>constructor</var>) is false, then throw a
@@ -269,6 +283,8 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
    <li><p>Return <var>promise</var>.</p></li>
   </ol>
 
+  </div>
+
   <div class="example">
    <p>The <code data-x="dom-CustomElementRegistry-whenDefined">whenDefined()</code> method can be
    used to avoid performing an action until all appropriate <span data-x="custom element">custom
@@ -293,4 +309,39 @@ fetch(articleURL)
     articleContainer.hidden = false;
   });</pre>
   </div>
+
+  <div w-nodev>
+
+  <p>When invoked, the <dfn><code
+  data-x="dom-CustomElementRegistry-upgrade">upgrade(<var>root</var>)</code></dfn> method must run
+  these steps:</p>
+
+  <ol>
+   <li><p>Let <var>candidates</var> be a <span>list</span> of all of <var>root</var>'s
+   <span>shadow-including inclusive descendant</span> elements, in <span>tree order</span>.</p></li>
+
+   <li><p><span data-x="list iterate">For each</span> <var>candidate</var> of <var>candidates</var>,
+   <span data-x="concept-try-upgrade">try to upgrade</span> <var>candidate</var>.</p></li>
+  </ol>
+
+  </div>
+
+  <div class="example">
+   <p>The <code data-x="dom-CustomElementRegistry-upgrade">upgrade()</code> method allows upgrading
+   of elements at will. Normally elements are automatically upgraded when they become
+   <span>connected</span>, but this method can be used if you need to upgrade before you're ready to
+   connect the element.</p>
+
+   <pre>const el = document.createElement("spider-man");
+
+class SpiderMan extends HTMLElement {}
+customElements.define("spider-man", SpiderMan);
+
+console.assert(!(el instanceof SpiderMan)); // not yet upgraded
+
+customElements.upgrade(el);
+console.assert(el instanceof SpiderMan);    // upgraded!</pre>
+  </div>
+
+  <div w-nodev>
 

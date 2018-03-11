@@ -102,40 +102,32 @@
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-document-activeElement">activeElement</code></dfn> attribute on
-  <code>Document</code> objects must return the value returned by the following steps:</p>
+  <p>The <dfn><code data-x="dom-document-activeElement">activeElement</code></dfn> attribute's
+  getter must run these steps:</p>
 
   <ol>
+   <li><p>Let <var>candidate</var> be this <code>Document</code> object.</p></li>
 
-   <li><p>Let <var>candidate</var> be the <code>Document</code> on which the method was
-   invoked.</p></li>
+   <li><p>While <var>candidate</var> has a <span>dialog group</span> with a designated
+   <span>focused dialog of the dialog group</span>, set <var>candidate</var> to the
+   designated <span>focused dialog of the dialog group</span>.</p></li>
 
-   <li><p>If <var>candidate</var> has a <span>dialog group</span> with a designated
-   <span>focused dialog of the dialog group</span>, then let <var>candidate</var> be the
-   designated <span>focused dialog of the dialog group</span>, and redo this step.</p></li>
+   <li><p>If <var>candidate</var> has a non-empty <span>control group</span>, then set
+   <var>candidate</var> to the designated <span>focused area of the control group</span>.</p></li>
 
-   <li><p>If <var>candidate</var> has a non-empty <span>control group</span>, let <var>candidate</var> be the designated <span>focused area of the control
-   group</span>.</p>
+   <li><p>If <var>candidate</var> is a <span>focusable area</span>, then set <var>candidate</var> to
+   <var>candidate</var>'s <span>DOM anchor</span>.</p></li>
 
-   </li>
+   <li><p>If <var>candidate</var> is not a <code>Document</code> object, then return
+   <var>candidate</var>.</p></li>
 
-   <li><p>If <var>candidate</var> is a <span>focusable area</span>, let <var>candidate</var> be <var>candidate</var>'s <span>DOM anchor</span>.</p></li>
+   <li><p>If <var>candidate</var> has a <span data-x="the body element">body element</span>, then
+   return that <span data-x="the body element">body element</span>.</p></li>
 
-   <li>
+   <li><p>If <var>candidate</var>'s <span>document element</span> is non-null, then return that
+   <span>document element</span>.</p></li>
 
-    <p>If <var>candidate</var> is a <code>Document</code> that has a <span data-x="the
-    body element">body element</span>, then let <var>candidate</var> be <span>the body
-    element</span> of that <code>Document</code>.</p>
-
-    <p>Otherwise, if <var>candidate</var> is a <code>Document</code> with a non-null <span>document
-    element</span>, then let <var>candidate</var> be that <span>document element</span>.</p>
-
-    <p>Otherwise, if <var>candidate</var> is a <code>Document</code>, then let <var>candidate</var> be null.</p>
-
-   </li>
-
-   <li><p>Return <var>candidate</var>.</p></li>
-
+   <li><p>Return null.</p></li>
   </ol>
 
   <p>The <dfn><code data-x="dom-document-hasFocus">hasFocus()</code></dfn> method on the

@@ -26,7 +26,8 @@
    <li><p>Let <var>deep</var> be false.</p></li>
 
    <li><p>If <span data-x="js-Type">Type</span>(<var>value</var>) is Undefined, Null, Boolean,
-   String, or Number, then return { [[Type]]: "primitive", [[Value]]: <var>value</var> }.</p></li>
+   Number, BigInt, or String, then return { [[Type]]: "primitive",
+   [[Value]]: <var>value</var> }. <ref spec=JSBIGINT></p></li>
 
    <li><p>If <span data-x="js-Type">Type</span>(<var>value</var>) is Symbol, then throw a
    <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
@@ -39,6 +40,10 @@
    <li><p>Otherwise, if <var>value</var> has a [[NumberData]] internal slot, then set
    <var>serialized</var> to { [[Type]]: "Number", [[NumberData]]: <var>value</var>.[[NumberData]]
    }.</p></li>
+
+   <li><p>Otherwise, if <var>value</var> has a [[BigIntData]]
+   internal slot, then set <var>serialized</var> to { [[Type]]: "BigInt", [[BigIntData]]:
+   <var>value</var>.[[BigIntData]] }. <ref spec=JSBIGINT></p></li>
 
    <li><p>Otherwise, if <var>value</var> has a [[StringData]] internal slot, then set
    <var>serialized</var> to { [[Type]]: "String", [[StringData]]: <var>value</var>.[[StringData]]

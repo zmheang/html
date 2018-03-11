@@ -73,13 +73,20 @@
   used to instantiate new <code>ImageData</code> objects.</p>
 
   <p>When the <code data-x="dom-imagedata">ImageData()</code> constructor is invoked with two
-  numeric arguments <var>sw</var> and <var>sh</var>, it must <span>create an <code>ImageData</code>
-  object</span> with parameter <var>pixelsPerRow</var> set to <var>sw</var>, and <var>rows</var> set
-  to <var>sh</var>. The image data of the newly created <code>ImageData</code> object must be
-  initialized to <span>transparent black</span>. If both <var>sw</var> and <var>sh</var> are
-  nonzero, then return the new <code>ImageData</code> object. If one or both of <var>sw</var> and
-  <var>sh</var> are zero, then the constructor must throw an
-  <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> instead.</p>
+  numeric arguments <var>sw</var> and <var>sh</var>, it must run these steps:</p>
+
+  <ol>
+   <li><p>If one or both of <var>sw</var> and <var>sh</var> are zero, then throw an
+   <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p><span>Create an <code>ImageData</code> object</span> with parameter
+   <var>pixelsPerRow</var> set to <var>sw</var>, and <var>rows</var> set to <var>sh</var>.</p></li>
+
+   <li><p>Initialize the image data of the newly created <code>ImageData</code> object to
+   <span>transparent black</span>.</p></li>
+
+   <li><p>Return the newly created <code>ImageData</code> object.</p></li>
+  </ol>
 
   <p>When the <code data-x="dom-imagedata">ImageData()</code> constructor is invoked with its first
   argument being an <code data-x="idl-Uint8ClampedArray">Uint8ClampedArray</code> <var>source</var>

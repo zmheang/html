@@ -29,24 +29,28 @@
    <li><p>If <var>serialized</var>.[[Type]] is "primitive", then set <var>value</var> to
    <var>serialized</var>.[[Value]].</p>
 
-   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "Boolean", then set <var>value</var> to a new Boolean object in
-   <var>targetRealm</var> whose [[BooleanData]] internal slot value is
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "Boolean", then set <var>value</var> to a
+   new Boolean object in <var>targetRealm</var> whose [[BooleanData]] internal slot value is
    <var>serialized</var>.[[BooleanData]].</p></li>
 
-   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "Number", then set <var>value</var> to a new Number object in
-   <var>targetRealm</var> whose [[NumberData]] internal slot value is
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "Number", then set <var>value</var> to a
+   new Number object in <var>targetRealm</var> whose [[NumberData]] internal slot value is
    <var>serialized</var>.[[NumberData]].</p></li>
 
-   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "String", then set <var>value</var> to a new String object in
-   <var>targetRealm</var> whose [[StringData]] internal slot value is
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "BigInt", then set <var>value</var> to a
+   new BigInt object in <var>targetRealm</var> whose [[BigIntData]] internal slot value is
+   <var>serialized</var>.[[BigIntData]]. <ref spec=JSBIGINT></p></li>
+
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "String", then set <var>value</var> to a
+   new String object in <var>targetRealm</var> whose [[StringData]] internal slot value is
    <var>serialized</var>.[[StringData]].</p></li>
 
-   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "Date", then set <var>value</var> to a new Date object in
-   <var>targetRealm</var> whose [[DateValue]] internal slot value is
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "Date", then set <var>value</var> to a new
+   Date object in <var>targetRealm</var> whose [[DateValue]] internal slot value is
    <var>serialized</var>.[[DateValue]].</p></li>
 
-   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "RegExp", then set <var>value</var> to a new RegExp object in
-   <var>targetRealm</var> whose [[RegExpMatcher]] internal slot value is
+   <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "RegExp", then set <var>value</var> to a
+   new RegExp object in <var>targetRealm</var> whose [[RegExpMatcher]] internal slot value is
    <var>serialized</var>.[[RegExpMatcher]], whose [[OriginalSource]] internal slot value is
    <var>serialized</var>.[[OriginalSource]], and whose [[OriginalFlags]] internal slot value is
    <var>serialized</var>.[[OriginalFlags]].</p></li>

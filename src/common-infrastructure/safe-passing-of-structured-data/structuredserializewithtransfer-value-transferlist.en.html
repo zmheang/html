@@ -30,12 +30,15 @@
      <var>transferable</var>.<span>[[Detached]]</span> is true, then throw a
      <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
 
+     <li><p>If <var>memory</var>[<var>transferable</var>] <span data-x="map exists">exists</span>,
+     then throw a <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
+
      <li>
       <p><span data-x="map set">Set</span> <var>memory</var>[<var>transferable</var>] to {
       [[Type]]: an uninitialized value }.</p>
 
-      <p class="note"><var>transferable</var> is not transferred yet as that operation has side
-      effects and <span>StructuredSerializeInternal</span> can throw.</p>
+      <p class="note"><var>transferable</var> is not transferred yet as transferring has side
+      effects and <span>StructuredSerializeInternal</span> needs to be able to throw first.</p>
      </li>
     </ol>
    </li>
