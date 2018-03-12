@@ -1,0 +1,26 @@
+  <h4>注释</h4>
+
+  <p><dfn data-x="syntax-comments">注释</dfn> 必须有如下格式：</p>
+
+  <ol>
+
+   <li>字符串 "<code data-x="">&lt;!--</code>"。</li>
+
+   <li>可选的 <span data-x="syntax-text">文本</span>，额外的限制是该文本不得以字符串
+   "<code data-x="">&gt;</code>" 或 "<code data-x="">-></code>" 起始。
+   也不的包含 "<code data-x="">&lt;!--</code>", "<code data-x="">--&gt;</code>" 或
+   "<code data-x="">--!&gt;</code>"，也不得以字符串 "<code data-x="">&lt;!-</code>" 结尾。</li>
+
+   <li>字符串 "<code data-x="">--&gt;</code>"。</li>
+
+  </ol>
+
+  <p class="note"><span data-x="syntax-text">text</span> 允许以字符串
+  "<code data-x="">&lt;!</code>" 结束，比如 <code data-x="">&lt;!--My favorite operators are > and
+  &lt;!--></code>。</p>
+
+
+<!--HTMLPARSER-->
+
+  <div w-nodev>
+

@@ -594,6 +594,8 @@
   "close a worker": "关闭 worker",
   "concept-sharedworkerglobalscope-constructor-origin": "构造器 origin",
   "concept-sharedworkerglobalscope-constructor-url": "构造器 url",
+  "syntax-newlines": "换行",
+  "syntax-charref": "字符引用",
   "html fragment serialization algorithm": "HTML 片段的序列化算法",
   "mathml namespace": "MathML 命名空间",
   "attribute's serialized name": "属性的序列化名称",

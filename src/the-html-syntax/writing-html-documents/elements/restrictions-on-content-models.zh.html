@@ -1,0 +1,23 @@
+  <h5 id="element-restrictions">内容模型限制</h5>
+
+  <p>由于历史原因，某些元素在其内容模型之外还有额外的限制。</p>
+
+  <p><code>table</code> 元素不得包含 <code>tr</code> 元素，虽然根据本规范描述的内容模型
+  这些元素技术上是允许在 <code>table</code> 里的。
+  （如果代码中在 <code>table</code> 里放一个 <code>tr</code> 元素，
+  实际上暗示着在它前面加一个 <code>tbody</code> 开始标签。）</p>
+
+  <p>单个 <span data-x="syntax-newlines">newline</span> 可以紧挨着放在
+  <code>pre</code> 和 <code>textarea</code> 元素的
+  <span data-x="syntax-start-tag">开始标签</span> 后面。
+  这不影响元素的处理。如果元素的内容本身以 <span data-x="syntax-newlines">换行</span> 开头，
+  就 <em>必须</em> 包含这个可选的 <span data-x="syntax-newlines">换行</span>
+  （否则内容中的前导换行符将被视为可选换行符并被忽略）。</p>
+
+  <div class="example">
+   <p>下面两个 <code>pre</code> 块是等价的：</p>
+   <pre>&lt;pre>Hello&lt;/pre></pre>
+   <pre>&lt;pre><br>Hello&lt;/pre></pre>
+  </div>
+
+
