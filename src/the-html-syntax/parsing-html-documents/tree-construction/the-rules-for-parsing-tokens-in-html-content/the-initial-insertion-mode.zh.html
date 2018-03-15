@@ -1,0 +1,145 @@
+  <h6 id="the initial insertion mode">"<dfn data-x="insertion mode: initial">initial</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: initial">initial</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <dt>如果该标记是一个 U+0009 CHARACTER
+   TABULATION, U+000A LINE FEED (LF), U+000C FORM FEED (FF),
+   U+000D CARRIAGE RETURN (CR), 或 U+0020 SPACE 字符标记。</dt>
+   <dd>
+    <p>忽略这个标记。</p>
+   </dd>
+
+   <dt>注释标记</dt>
+   <dd>
+    <p>在 <code>Document</code> 对象上 <span data-x="Insert a comment">插入注释</span> 作为最后一个子节点。</p>
+   </dd>
+
+   <dt>DOCTYPE 标记</dt>
+   <dd>
+
+    <p>如果这个 DOCTYPE 标记的名字不是字符串 "<code data-x="">html</code>"
+    的 <span data-x="case-sensitive">大小写敏感</span> 匹配，
+    或者该标记的系统标识符不存在或者 <span data-x="case-sensitive">大小写敏感地</span>
+    匹配字符串 "<code>about:legacy-compat</code>"，
+    那么这是一个解析错误 <span data-x="parse error">解析错误</span>。</p>
+
+    <p>在 <code>Document</code> 节点上追加一个 <code>DocumentType</code> 节点，
+    其 <code data-x="">name</code> 属性设为 DOCTYPE 标记给出的名字，如果没有就设为空字符串；
+    <code data-x="">publicId</code> 属性设为 DOCTYPE 标记给出的共有标识符，如果没有就设为空字符串；
+    <code data-x="">systemId</code> 属性设为 DOCTYPE 标记给出的系统标识符，如果没有就设为空字符串；
+    <code>DocumentType</code> 对象的其他属性适当地设为 null 或者空列表。
+    把 <code>DocumentType</code> 节点关联到 <code>Document</code> 对象，
+    这样它就会作为 <code>Document</code> 对象的 <code data-x="">doctype</code> 属性值返回。</p>
+
+    <p id="quirks-mode-doctypes">如果该文档 <em>不是</em>
+    <span data-x="an iframe srcdoc document">一个 <code>iframe</code>
+    <code data-x="attr-iframe-srcdoc">srcdoc</code> 文档</span>，
+    且 DOCTYPE 标记匹配以下一个条件，就把 <code>Document</code> 设为
+    <span data-x="quirks mode">怪异模式</span>：</p>
+
+    <ul class="brief">
+     <li> <i data-x="force-quirks flag">force-quirks 标志</i> 处于 <i>on</i>。 </li>
+     <li> 名字不是 "<code data-x="">html</code>" （<span data-x="case-sensitive">大小写敏感</span>）。</li>
+     <li> 公共标识符为："<code data-x="">-//W3O//DTD W3 HTML Strict 3.0//EN//</code>" </li>
+     <li> 公共标识符为："<code data-x="">-/W3C/DTD HTML 4.0 Transitional/EN</code>" </li>
+     <li> 公共标识符为："<code data-x="">HTML</code>" </li>
+     <li> 公共标识符为："<code data-x="">http://www.ibm.com/data/dtd/v11/ibmxhtml1-transitional.dtd</code>" </li>
+     <li> 公共标识符以 "<code data-x="">+//Silmaril//dtd html Pro v0r11 19970101//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//AS//DTD HTML 3.0 asWedit + extensions//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//AdvaSoft Ltd//DTD HTML 3.0 asWedit + extensions//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 2.0 Level 1//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 2.0 Level 2//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 2.0 Strict Level 1//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 2.0 Strict Level 2//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 2.0 Strict//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 2.0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 2.1E//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 3.0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 3.2 Final//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 3.2//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML 3//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML Level 0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML Level 1//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML Level 2//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML Level 3//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML Strict Level 0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML Strict Level 1//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML Strict Level 2//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML Strict Level 3//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML Strict//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//IETF//DTD HTML//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Metrius//DTD Metrius Presentational//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Microsoft//DTD Internet Explorer 2.0 HTML Strict//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Microsoft//DTD Internet Explorer 2.0 HTML//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Microsoft//DTD Internet Explorer 2.0 Tables//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Microsoft//DTD Internet Explorer 3.0 HTML Strict//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Microsoft//DTD Internet Explorer 3.0 HTML//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Microsoft//DTD Internet Explorer 3.0 Tables//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Netscape Comm. Corp.//DTD HTML//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Netscape Comm. Corp.//DTD Strict HTML//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//O'Reilly and Associates//DTD HTML 2.0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//O'Reilly and Associates//DTD HTML Extended 1.0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//O'Reilly and Associates//DTD HTML Extended Relaxed 1.0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//SQ//DTD HTML 2.0 HoTMetaL + extensions//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//SoftQuad Software//DTD HoTMetaL PRO 6.0::19990601::extensions to HTML 4.0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//SoftQuad//DTD HoTMetaL PRO 4.0::19971010::extensions to HTML 4.0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Spyglass//DTD HTML 2.0 Extended//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Sun Microsystems Corp.//DTD HotJava HTML//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//Sun Microsystems Corp.//DTD HotJava Strict HTML//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD HTML 3 1995-03-24//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD HTML 3.2 Draft//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD HTML 3.2 Final//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD HTML 3.2//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD HTML 3.2S Draft//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD HTML 4.0 Frameset//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD HTML 4.0 Transitional//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD HTML Experimental 19960712//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD HTML Experimental 970421//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD W3 HTML//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3O//DTD W3 HTML 3.0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//WebTechs//DTD Mozilla HTML 2.0//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//WebTechs//DTD Mozilla HTML//</code>" 开始</li>
+     <li> 系统标识符缺失或公共标识符以 "<code data-x="">-//W3C//DTD HTML 4.01 Frameset//</code>" 开始</li>
+     <li> 系统标识符缺失或公共标识符以 "<code data-x="">-//W3C//DTD HTML 4.01 Transitional//</code>" 开始</li>
+    </ul>
+
+    <p>否则，如果该文档 <em>不是</em>
+    <span data-x="an iframe srcdoc document">一个 <code>iframe</code> <code data-x="attr-iframe-srcdoc">srcdoc</code> 文档</span>，
+    且 DOCTYPE 标记匹配以下任一条件，那么设置 <code>Document</code> 到 <span data-x="limited-quirks mode">受限的怪异模式</span>：</p>
+
+    <ul class="brief">
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD XHTML 1.0 Frameset//</code>" 开始</li>
+     <li> 公共标识符以 "<code data-x="">-//W3C//DTD XHTML 1.0 Transitional//</code>" 开始</li>
+     <li> 系统标识符缺失或公共标识符以 "<code data-x="">-//W3C//DTD HTML 4.01 Frameset//</code>" 开始</li>
+     <li> 系统标识符缺失或公共标识符以 "<code data-x="">-//W3C//DTD HTML 4.01 Transitional//</code>" 开始</li>
+    </ul>
+
+    <p>系统标识符和公共标识符字符串与上述列表给出的值进行比较时，必须采用
+    <span data-x="ascii case-insensitive">ASCII 大小写不敏感</span> 的方式。
+    上述条件中，值为空字符串的系统标识符不被认为缺失。</p>
+
+    <p>然后将 <span data-x="insertion mode">插入模式</span> 设置为 "<span data-x="insertion mode: before
+    html">before html</span>"。</p>
+
+   </dd>
+
+   <dt>任何其他情况</dt>
+   <dd>
+
+    <p>如果该文档 <em>不是</em>
+    <span data-x="an iframe srcdoc document">一个 <code>iframe</code>
+    <code data-x="attr-iframe-srcdoc">srcdoc</code> 文档</span>，
+    那么这是一个 <span data-x="parse error">解析错误</span>；
+    把 <code>Document</code> 设置为 <span data-x="quirks mode">怪异模式</span>。</p>
+
+    <p>任何情况下，都把 <span data-x="insertion mode">插入模式</span> 设置为
+    "<span data-x="insertion mode: before html">before html</span>"，然后开始重新处理标记。</p>
+
+   </dd>
+
+  </dl>
+
+

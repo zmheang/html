@@ -1,0 +1,179 @@
+  <h3 id="Parsing HTML fragments">解析 HTML 片段</h3>
+
+  <p>下面的步骤构成了 <dfn data-x="HTML fragment parsing algorithm">HTML 片段解析算法</dfn>。
+  该算法的输入包括一个 <code>Element</code> 元素，称为
+  <dfn data-x="concept-frag-parse-context"><var>context</var></dfn> 元素，
+  它为解析器提供了上下文；以及一个 <var>input</var>，就是要解析的字符串。
+  返回一个包含0个或更多节点的列表。</p>
+
+  <p class="note">在解析器这一部分的算法中标记为 <dfn>fragment case</dfn> 的部分，
+  是只在解析器是为该算法创建的时候才发生的。
+  该算法已经用这样的标记标注过，但只用于表达这样的信息，并没有规范的权重。
+  如果当解析器并非为本算法创建但仍然发生了 <span>fragment case</span> 描述的条件，
+  那么就是本规范中的一个错误。</p>
+
+  <ol>
+
+   <li>
+
+    <p>创建一个新的 <code>Document</code> 节点，把它标记为 <span data-x="HTML
+    documents">HTML 文档</span>。</p>
+
+   </li>
+
+   <li>
+
+    <p>如果 <var data-x="concept-frag-parse-context">context</var> 元素的
+    <span data-x="node document">节点文档</span> 处于 <span data-x="quirks mode">怪异模式</span>，
+    那么令 <code>Document</code> 处于 <span data-x="quirks mode">怪异模式</span>。
+    否则 <var data-x="concept-frag-parse-context">context</var> 元素的
+    <span data-x="node document">节点文档</span> 就处于
+    <span data-x="limited-quirks mode">受限的怪异模式</span>，
+    然后令 <code>Document</code> 处于 <span data-x="limited-quirks mode">受限的怪异模式</span>。
+    否则让 <code>Document</code> 处于 <span data-x="no-quirks mode">非怪异模式</span>。</p>
+
+   </li>
+
+   <li>
+
+    <p>创建一个新的 <span data-x="html parser">HTML 解析器</span>，
+    并把它关联到刚创建的 <code>Document</code> 节点。</p>
+
+   </li>
+
+   <li>
+
+    <p>按下面的描述，根据 <var data-x="concept-frag-parse-context">context</var> 元素设置
+    <span data-x="html parser">HTML 解析器</span> 的
+    <span>tokenization</span> 阶段的状态：</p>
+
+    <dl class="switch">
+
+     <dt><code>title</code></dt>
+     <dt><code>textarea</code></dt>
+
+     <dd>将 tokenizer 切换到 <span data-x="RCDATA state">RCDATA 状态</span>。</dd>
+
+
+     <dt><code>style</code></dt>
+     <dt><code>xmp</code></dt>
+     <dt><code>iframe</code></dt>
+     <dt><code>noembed</code></dt>
+     <dt><code>noframes</code></dt>
+
+     <dd>将 tokenizer 切换到 <span data-x="RAWTEXT state">RAWTEXT 状态</span>。</dd>
+
+
+     <dt><code>script</code></dt>
+
+     <dd>将 tokenizer 切换到 <span data-x="script data state">脚本数据状态</span>。</dd>
+
+
+     <dt><code>noscript</code></dt>
+
+     <dd>如果 <span data-x="scripting flag">脚本标志</span> 处于启用状态，
+     将 tokenizer 切换到 <span data-x="RAWTEXT state">RAWTEXT 状态</span>。
+     否则，让 tokenizer 留在 <span data-x="data state">数据状态</span>。</dd>
+
+
+     <dt><code>plaintext</code></dt>
+
+     <dd>将 tokenizer 切换到 <span data-x="plaintext state">纯文本状态</span>。</dd>
+
+
+     <dt>任何其他元素</dt>
+
+     <dd>将 tokenizer 留在 <span data-x="data state">数据状态</span>。</dd>
+
+    </dl>
+
+    <p class="note">出于性能原因，不报告错误的实现，以及直接使用本规范中描述的实际状态机的实现，
+    可以（在上述提到的地方）使用 PLAINTEXT 状态，而不是 RAWTEXT 和脚本数据状态。
+    除了关于解析错误的规则之外，它们是等价的，
+    因为 fragment case 中没有 <span data-x="appropriate end tag token">适当的结束标记</span>，
+    所以它们涉及的状态转换少得多。</p>
+
+   </li>
+
+   <li>
+
+    <p>令 <var>root</var> 为一个新的没有属性的 <code>html</code> 元素。</p>
+
+   </li>
+
+   <li>
+
+    <p>把 <var>root</var> 元素添加到上面创建的 <code>Document</code> 节点中。</p>
+
+   </li>
+
+   <li>
+
+    <p>建立解析器的 <span data-x="stack of open elements">打开元素栈</span>，
+    让它只包含一个 <var>root</var> 元素。</p>
+
+   </li>
+
+   <li>
+
+    <p>如果 <var data-x="concept-frag-parse-context">context</var> 元素是一个
+    <code>template</code>，把 "<span data-x="insertion mode: in template">in template</span>"
+    压入 <span data-x="stack of template insertion modes">模板插入模式的栈</span>，
+    这样它就变成了新的 <span data-x="current template insertion mode">当前模板插入模式</span>。</p>
+
+   </li>
+
+   <li>
+
+    <p>创建一个开始标签的标记，其名字为 <var data-x="concept-frag-parse-context">context</var> 的
+    local name，其属性为 <var data-x="concept-frag-parse-context">context</var> 的属性。</p>
+
+    <p>令这个开始标签标记为 <var data-x="concept-frag-parse-context">context</var> 元素的开始标签标记，
+    比如可以用于确定是否是一个 <span data-x="HTML integration point">HTML 集成点</span>。</p>
+
+   </li>
+
+   <li>
+
+    <p><span data-x="reset the insertion mode appropriately">适当地重置解析器的插入模式</span>。</p>
+
+    <p class="note">该算法中解析器会引用 <var data-x="concept-frag-parse-context">context</var> 元素。</p>
+
+   </li>
+
+   <li>
+
+    <p>设置解析器的 <span data-x="form element pointer"><code>form</code> 元素指针</span> 为
+    离 <var data-x="concept-frag-parse-context">context</var> 元素最近的
+    <code>form</code> 元素节点（直接从祖先链向上找，包括该元素自己），如果有的话。
+    （如果没有这样的 <code>form</code> 元素，
+    <span data-x="form element pointer"><code>form</code> 元素指针</span> 就保持它的初始值 null）</p>
+
+   </li>
+
+   <li>
+
+    <p>把 <var>input</var> 放到刚创建的 <span data-x="html parser">HTML 解析器</span> 的
+    <span data-x="input stream">输入流</span> 中。字符编码的 <span
+    data-x="concept-encoding-confidence">信心</span> 为 <i>irrelevant</i>。</p>
+
+   </li>
+
+   <li>
+
+    <p>启动这个解析器，让它开始运行直到消耗完刚才插入到输入流中的所有字符。</p>
+
+   </li>
+
+   <li>
+
+    <p>按照 <span data-x="tree order">树序</span> 返回 <var>root</var> 的子节点。</p>
+
+   </li>
+
+  </ol>
+
+  </div>
+
+
+

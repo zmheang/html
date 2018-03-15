@@ -1,0 +1,31 @@
+  <h4>CDATA 部分</h4>
+
+  <p><dfn data-x="syntax-cdata">CDATA 部分</dfn> 必须按顺序包含以下部分：</p>
+
+  <ol>
+
+   <li>字符串 "<code data-x="">&lt;![CDATA[</code>"。</li>
+
+   <li>可选地，不包含字符串 "<code data-x="">]]></code>" 的 <span data-x="syntax-text">文本</span>。</li>
+
+   <li>字符串 "<code data-x="">]]></code>"。</li>
+
+  </ol>
+
+  <div class="example">
+
+   <p>CDATA 部分职能用于外部内容（MathML 或 SVG）。在这个例子中，
+   CDATA 部分用于转义 <span>MathML <code>ms</code></span> 元素的内容：</p>
+
+   <pre>&lt;p>You can add a string to a number, but this stringifies the number:&lt;/p>
+&lt;math>
+ &lt;ms>&lt;![CDATA[x&lt;y]]>&lt;/ms>
+ &lt;mo>+&lt;/mo>
+ &lt;mn>3&lt;/mn>
+ &lt;mo>=&lt;/mo>
+ &lt;ms>&lt;![CDATA[x&lt;y3]]>&lt;/ms>
+&lt;/math></pre>
+
+  </div>
+
+

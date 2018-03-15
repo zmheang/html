@@ -1,0 +1,151 @@
+  <h6 id="parsing-main-intemplate">"<dfn data-x="insertion mode: in template">in template</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: in template">in template</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <!-- first, tokens we always ignore: -->
+
+   <!-- html: ignored in "in body" mode if there's a <template> on the stack -->
+   <!-- head: ignored in "in body" mode always -->
+   <!-- body: ignored in "in body" mode if there's a <template> on the stack -->
+   <!-- frameset: ignored in "in body" mode if frameset-ok is set to not-ok, which <template> sets it to -->
+
+
+   <!-- second, tokens that are ambiguous (allowed in multiple modes), let's just handle them in a generic way and not pick a mode: -->
+
+   <dt>字符标记</dt>
+   <dt>注释标记</dt>
+   <dt>DOCTYPE 标记</dt>
+   <dd>
+
+    <p> <span data-x="using the rules for">使用</span>
+    "<span data-x="insertion mode: in body">in body</span>"
+    <span data-x="insertion mode">插入模式</span> 的规则处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "base", "basefont", "bgsound", "link", "meta", "noframes", "script", "style", "template", "title" 的开始标签</dt>
+   <dt>名为 "template" 的结束标签</dt>
+   <dd>
+
+    <p> <span data-x="using the rules for">使用</span>
+    "<span data-x="insertion mode: in head">in head</span>"
+    <span data-x="insertion mode">插入模式</span> 的规则处理该标记。</p>
+
+   </dd>
+
+   <!-- now, tokens that imply certain modes -->
+
+   <dt>名为 "caption", "colgroup", "tbody", "tfoot", "thead" 的开始标签</dt>
+   <dd>
+
+    <p>把当前 <span data-x="current template insertion mode">当前模板插入模式</span> 弹出
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>。</p>
+
+    <p>把 "<span data-x="insertion mode: in table">in table</span>" 压入
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>，
+    让它称为新的 <span data-x="current template insertion mode">当前模板插入模式</span>。</p>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到
+    "<span data-x="insertion mode: in table">in table</span>" 后重新处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "col" 的开始标签</dt>
+   <dd>
+
+    <p>把 <span data-x="current template insertion mode">当前模板插入模式</span> 弹出
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>。</p>
+
+    <p>把 "<span data-x="insertion mode: in column group">in column group</span>" 压入
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>
+    让它称为新的 <span data-x="current template insertion mode">当前模板插入模式</span>。</p>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到
+    "<span data-x="insertion mode: in column group">in column group</span>" 后重新处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "tr" 的开始标签</dt>
+   <dd>
+
+    <p>把 <span data-x="current template insertion mode">当前模板插入模式</span> 弹出
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>。</p>
+
+    <p>把 "<span data-x="insertion mode: in table body">in table body</span>" 压入
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>
+    让它称为新的 <span data-x="current template insertion mode">当前模板插入模式</span>。</p>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到
+    "<span data-x="insertion mode: in table body">in table body</span>" 后重新处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "td", "th" 的开始标签</dt>
+   <dd>
+
+    <p>把 <span data-x="current template insertion mode">当前模板插入模式</span> 弹出
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>。</p>
+
+    <p>把 "<span data-x="insertion mode: in row">in row</span>" 压入
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>
+    让它称为新的 <span data-x="current template insertion mode">当前模板插入模式</span>。</p>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到
+    "<span data-x="insertion mode: in row">in row</span>" 后重新处理该标记。</p>
+
+   </dd>
+
+   <!-- default to in-body mode -->
+
+   <dt>任何其他开始标签</dt>
+   <dd>
+
+    <p>把 <span data-x="current template insertion mode">当前模板插入模式</span> 弹出
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>。</p>
+
+    <p>把 "<span data-x="insertion mode: in body">in body</span>" 压入
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>
+    让它称为新的 <span data-x="current template insertion mode">当前模板插入模式</span>。</p>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到
+    "<span data-x="insertion mode: in body">in body</span>" 后重新处理该标记。</p>
+
+   </dd>
+
+   <dt>任何其他结束标签</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。忽略该标签。</p>
+   </dd>
+
+   <!-- EOF -->
+
+
+   <dt>文件尾（EOF）标记</dt>
+   <dd>
+
+    <p>如果在 <span data-x="stack of open elements">打开元素栈</span> 上没有
+    <code>template</code> 元素，就 <span data-x="stop parsing">停止解析</span>。（<span>fragment case</span>）</p>
+
+    <p>否则这就是一个 <span data-x="parse error">解析错误</span>。</p>
+
+    <!-- fake </template> -->
+    <p>从 <span data-x="stack of open elements">打开元素栈</span> 弹栈直到弹出来的是一个 <code>template</code> 元素。</p>
+
+    <p><span data-x="Clear the list of active formatting elements up to the last marker">清空直到最后一个标记的活跃的格式化元素列表</span>。</p>
+
+    <p>把 <span data-x="current template insertion mode">当前模板插入模式</span> 弹出
+    <span data-x="stack of template insertion modes">模板插入模式的栈</span>。</p>
+
+    <p><span data-x="reset the insertion mode appropriately">适当地重置解析器的插入模式</span>.</p>
+    <!-- end of fake </template> -->
+
+    <p>重新处理该标记。</p>
+
+   </dd>
+
+  </dl>
+
+

@@ -1,0 +1,99 @@
+  <h6 id="parsing-main-intbody">"<dfn data-x="insertion mode: in table body">in table body</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: in table body">in table body</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <dt>名为 "tr" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="Clear the stack back to a table body context">将栈清除回表格体上下文</span>。（见下文）</p>
+
+    <p>为该标记 <span data-x="Insert an HTML element">插入一个 HTML 元素</span>，
+    然后把 <span data-x="insertion mode">插入模式</span> 切换到
+    "<span data-x="insertion mode: in row">in row</span>"。</p>
+
+   </dd>
+
+   <dt>名为 "th", "td" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="Parse error">解析错误</span>。</p>
+
+    <!-- fake </tr> -->
+    <p><span data-x="Clear the stack back to a table body context">将栈清除回表格体上下文</span>。（见下文）</p>
+
+    <p>为 "tr" 开始标签标记 <span data-x="Insert an HTML element">插入一个 HTML 元素</span>，
+    不设置任何属性，然后把 <span data-x="insertion mode">插入模式</span> 切换为
+    "<span data-x="insertion mode: in row">in row</span>"。</p>
+    <!-- end of fake </tr> -->
+
+    <p>重新处理当前标记。</p>
+
+   </dd>
+
+   <dt>名为 "tbody", "tfoot", "thead" 的结束标签标记</dt>
+   <dd>
+
+    <p>如果 <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in table scope">在表格范围内没有</span>
+    一个与该标记同名的 <span data-x="HTML elements">HTML 元素</span>，
+    这就是一个 <span data-x="parse error">解析错误</span>；忽略这个标记。</p>
+
+    <p>否则：</p>
+
+    <p><span data-x="Clear the stack back to a table body context">将栈清除回表格体上下文</span>。（见下文）</p>
+
+    <p>把 <span data-x="current node">当前节点</span> 从 <span data-x="stack of open elements">打开元素栈</span> 弹出。
+    把 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in table">in table</span>"。</p>
+
+   </dd>
+
+   <dt>名为 "caption", "col", "colgroup", "tbody", "tfoot", "thead" 的开始标记</dt>
+   <dt>名为 "table" 的结束标签</dt>
+   <dd>
+
+    <p>如果 <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in table scope">在表格范围内没有一个
+    <code>tbody</code>, <code>thead</code>, 或 <code>tfoot</code> 元素</span>，
+    这是一个 <span data-x="parse error">解析错误</span>；忽略该标记。</p>
+
+    <p>否则：</p>
+
+    <p><span data-x="Clear the stack back to a table body context">将栈清除回表格体上下文</span>。（见下文）</p>
+
+    <!-- fake </tbody>, </tfoot>, or </thead>, whatever is the current node -->
+
+    <p>把 <span data-x="current node">当前节点</span> 从 <span data-x="stack of open elements">打开元素栈</span> 弹出。
+    把 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in table">in table</span>"。</p>
+
+    <!-- end of fake </tbody>, </tfoot>, or </thead>, whatever was the current node -->
+
+    <p>重新处理当前标记。</p>
+
+   </dd>
+
+   <dt>名为 "body", "caption", "col", "colgroup", "html", "td", "th", "tr" 的结束标签</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。忽略该标记。</p>
+   </dd>
+
+   <dt>任何其他情况</dt>
+   <dd>
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    table">in table</span>" <span data-x="insertion mode">插入模式</span> 的规则处理该标记。</p>
+   </dd>
+
+  </dl>
+
+  <p>当上述步骤中要求 UA <dfn data-x="clear the stack back to a table body context">将栈清除回表格体上下文</dfn> 时，
+  UA 必须从 <span data-x="stack of open elements">打开元素栈</span> 弹出元素，直到
+  <span data-x="current node">当前节点</span> 不是
+  <code>tbody</code>, <code>tfoot</code>, <code>thead</code>, <code>template</code> 或 <code>html</code> 元素为止。</p>
+
+  <p class="note">
+  在这一处理后，<span data-x="current node">当前节点</span> 是一个 <code>html</code> 元素的，
+  就是一个 <span>fragment case</span>。</p>
+
+
