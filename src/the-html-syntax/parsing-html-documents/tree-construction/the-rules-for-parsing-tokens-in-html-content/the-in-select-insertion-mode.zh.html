@@ -1,0 +1,173 @@
+  <h6 id="parsing-main-inselect">"<dfn data-x="insertion mode: in select">in select</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: in select">in select</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <dt>一个 U+0000 NULL 字符标记</dt>
+   <dd>
+    <p><span data-x="Parse error">解析错误</span>。忽略该标记。</p>
+   </dd>
+
+   <dt>任何其他字符标记</dt>
+   <dd>
+
+    <p><span data-x="insert a character">插入该标记的字符</span>。</p>
+
+   </dd>
+
+   <dt>注释标记</dt>
+   <dd>
+    <p><span data-x="Insert a comment">插入注释</span>。</p>
+   </dd>
+
+   <dt>DOCTYPE 标记</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。忽略该标记。</p>
+   </dd>
+
+   <dt>名为 "html" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    body">in body</span>" <span data-x="insertion mode">插入模式</span> 处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "option" 的开始标签</dt>
+   <dd>
+
+    <!-- fake </option> (maybe) -->
+    <p>如果 <span data-x="current node">当前节点</span> 是一个 <code>option</code> 元素，
+    把该元素从 <span data-x="stack of open elements">打开元素栈</span> 弹出。</p>
+    <!-- end of fake </option> -->
+
+    <p>为该标记 <span data-x="insert an html element">插入一个 HTML 元素</span>。</p>
+
+   </dd>
+
+   <dt>名为 "optgroup" 的开始标签</dt>
+   <dd>
+
+    <!-- fake </option> (maybe) -->
+    <p>如果 <span data-x="current node">当前节点</span> 是一个 <code>option</code> 元素，
+    把该元素从 <span data-x="stack of open elements">打开元素栈</span> 弹出。</p>
+    <!-- end of fake </option> -->
+
+    <!-- fake </optgroup> (maybe) -->
+    <p>如果 <span data-x="current node">当前节点</span> 是一个 <code>optgroup</code> 元素，
+    把该元素从 <span data-x="stack of open elements">打开元素栈</span> 弹出。</p>
+    <!-- end of fake </optgroup> -->
+
+    <p>为该标记 <span data-x="insert an html element">插入一个 HTML 元素</span>。</p>
+
+   </dd>
+
+   <dt>名为 "optgroup" 的结束标签</dt>
+   <dd>
+
+    <!-- fake </option> (maybe) -->
+    <p>首先，如果 <span data-x="current node">当前节点</span> 是一个 <code>option</code> 元素，
+    而且在 <span data-x="stack of open elements">打开元素栈</span> 中紧接着该节点之前的那个元素是一个
+    <code>optgroup</code> 元素，那么把 <span data-x="current node">当前节点</span> 从
+    <span data-x="stack of open elements">打开元素栈</span> 弹出。</p>
+    <!-- end of fake </option> -->
+
+    <p>如果 <span data-x="current node">当前节点</span> 是一个 <code>optgroup</code> 元素，
+    那么把该节点从 <span data-x="stack of open elements">打开元素栈</span> 弹出。
+    否则，这是一个 <span data-x="parse error">解析错误</span>；忽略该标记。</p>
+
+   </dd>
+
+   <dt>名为 "option" 的结束标签</dt>
+   <dd>
+
+    <p>如果 <span data-x="current node">当前节点</span> 是一个 <code>option</code> 元素，就把那个节点从
+    <span data-x="stack of open elements">打开元素栈</span> 弹出。
+    否则这就是一个 <span data-x="parse error">解析错误</span>；忽略该标记。</p>
+
+   </dd>
+
+   <dt>名为 "select" 的结束标签</dt>
+   <dd>
+
+    <p>如果 <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in select scope">在 select 范围内没有 <code>select</code> 元素</span>，
+    这是一个 <span data-x="parse error">解析错误</span>；忽略该标记。（<span>fragment case</span>）</p>
+
+    <p>否则：</p>
+
+    <p>从 <span data-x="stack of open elements">打开元素栈</span> 弹出元素，直到得到一个 <code>select</code> 元素。</p>
+
+    <p><span data-x="reset the insertion mode appropriately">适当地重置解析器的插入模式</span>。</p>
+
+   </dd>
+
+   <dt>名为 "select" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="parse error">解析错误</span>。</p>
+
+    <!-- fake </select> -->
+    <p>如果 <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in select scope">在 select 范围内没有一个 <code>select</code> 元素</span>，
+    忽略该标记（<span>fragment case</span>）</p>
+
+    <p>否则：</p>
+
+    <p>从 <span data-x="stack of open elements">打开元素栈</span> 弹出元素，直到得到一个 <code>select</code> 元素。</p>
+
+    <p><span data-x="reset the insertion mode appropriately">适当地重置解析器的插入模式</span>。</p>
+    <!-- end of fake </select> -->
+
+    <p class="note">就是把它当作结束标签处理了。</p>
+
+   </dd>
+
+   <dt>名为 "input", "keygen", "textarea" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="parse error">解析错误</span>。</p>
+
+    <!-- fake </select> -->
+    <p>如果 <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in select scope">在 select 范围内没有一个 <code>select</code> 元素</span>，
+    忽略该标记。（<span>fragment case</span>）</p>
+
+    <p>否则：</p>
+
+    <p>从 <span data-x="stack of open elements">打开元素栈</span> 弹出元素直到得到一个 <code>select</code> 元素。</p>
+
+    <p><span data-x="reset the insertion mode appropriately">适当地重置解析器的插入模式</span>。</p>
+    <!-- end of fake </select> -->
+
+    <p>重新处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "script", "template" 的开始标签</dt>
+   <dt>名为 "template" 的结束标签</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> the "<span data-x="insertion mode: in
+    head">in head</span>" <span data-x="insertion mode">插入模式</span> 处理该标记。</p>
+
+   </dd>
+
+   <dt>文件尾（EOF）标记</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    body">in body</span>" <span data-x="insertion mode">插入模式</span> 处理该标记。</p>
+
+   </dd>
+
+   <dt>其他情况</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。忽略该标记。</p>
+   </dd>
+
+  </dl>
+
+

@@ -1,0 +1,77 @@
+  <h6 id="parsing-main-inheadnoscript">"<dfn data-x="insertion mode: in head noscript">in head noscript</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: in head noscript">in head noscript</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <dt>DOCTYPE 标记</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。忽略该标记。</p>
+   </dd>
+
+   <dt>名为 "html" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    body">in body</span>" <span data-x="insertion mode">插入模式</span> 处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "noscript" 的结束标签</dt>
+   <dd>
+
+    <p>Pop the <span data-x="current node">当前节点</span> (which will be a <code>noscript</code> element) from the
+    <span data-x="stack of open elements">打开元素栈</span>; the new <span data-x="current node">当前节点</span> will be a <code>head</code> element.</p>
+
+    <p>把 <span data-x="current node">当前节点</span>（是一个 <code>noscript</code> 元素）
+    从 <span data-x="stack of open elements">打开元素栈</span> 弹出，
+    新的 <span data-x="current node">当前节点</span> 会是一个 <code>head</code> 元素。</p>
+
+    <p>把 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in head">in head</span>"。</p>
+
+   </dd>
+
+   <dt>字符标记 U+0009 CHARACTER TABULATION, U+000A LINE FEED (LF), U+000C
+   FORM FEED (FF), U+000D CARRIAGE RETURN (CR), 或 U+0020 SPACE</dt>
+   <dt>注释标记</dt>
+   <dt>名为 "basefont", "bgsound", "link", "meta", "noframes", "style" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in head">in head</span>" <span data-x="insertion mode">插入模式</span> 处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "br" 的结束标签</dt>
+   <dd>
+    <p>执行下面“任何其他情况”所描述的步骤。</p>
+   </dd>
+
+   <dt>名为 "head", "noscript" 的开始标签</dt>
+   <dt>任何其他结束标签</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。忽略该标记。</p>
+   </dd>
+
+   <dt>任何其他情况</dt>
+   <dd>
+
+    <!-- can't get here with an EOF and a fragment case -->
+
+    <p><span data-x="parse error">解析错误</span>.</p>
+
+    <!-- fake </noscript> -->
+    <p>把 <span data-x="current node">当前节点</span>（是一个 <code>noscript</code> 元素）
+    从 <span data-x="stack of open elements">打开元素栈</span> 弹出，
+    新的 <span data-x="current node">当前节点</span> 会是一个 <code>head</code> 元素。</p>
+
+    <p>把 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in head">in head</span>"。</p>
+    <!-- end fake </noscript> -->
+
+    <p>重新处理该标记。</p>
+
+   </dd>
+
+  </dl>
+
+

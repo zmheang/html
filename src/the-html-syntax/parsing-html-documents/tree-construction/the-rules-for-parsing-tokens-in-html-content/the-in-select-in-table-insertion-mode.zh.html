@@ -1,0 +1,56 @@
+  <h6 id="parsing-main-inselectintable">"<dfn data-x="insertion mode: in select in table">in select in table</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: in select in table">in select in table</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <dt>名为 "caption", "table", "tbody", "tfoot", "thead", "tr", "td", "th" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="Parse error">解析错误</span>。</p>
+
+    <!-- fake </select> -->
+    <p>从 <span data-x="stack of open elements">打开元素栈</span> 弹出元素，直到得到一个 <code>select</code> 元素。</p>
+
+    <p><span data-x="Reset the insertion mode appropriately">适当地重置插入模式</span>。</p>
+    <!-- end of fake </select> -->
+
+    <p>重新处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "caption", "table", "tbody", "tfoot", "thead", "tr", "td", "th" 的结束标签</dt>
+   <dd>
+
+    <p><span data-x="parse error">解析错误</span>.</p>
+
+    <p>如果 <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in table scope">在 table 范围内不包含</span>
+    与该标记同名的 <span data-x="HTML elements">HTML 元素</span>，
+    忽略该标记。</p>
+
+    <p>否则：</p>
+
+    <!-- fake </select> -->
+    <p>从 <span data-x="stack of open elements">打开元素栈</span> 弹出元素，直到得到一个 <code>select</code> 元素。</p>
+
+    <p><span data-x="reset the insertion mode appropriately">适当地重置解析器的插入模式</span>.</p>
+    <!-- end of fake </select> -->
+
+    <p>重新处理该标记。</p>
+
+   </dd>
+
+   <dt>其他情况</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    select">in select</span>" <span data-x="insertion mode">插入模式</span> 处理该标记。</p>
+
+   </dd>
+
+  </dl>
+
+
+
