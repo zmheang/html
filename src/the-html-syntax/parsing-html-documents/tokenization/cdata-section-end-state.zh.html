@@ -1,0 +1,22 @@
+  <h5 id="CDATA section end state"><dfn data-x="CDATA section end state">CDATA 部分结束状态</dfn></h5>
+
+  <p>使用掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+    <dt>U+005D RIGHT SQUARE BRACKET (])</dt>
+    <dd>发出一个 U+005D RIGHT SQUARE BRACKET 字符标记。</dd>
+
+    <dt>U+003E GREATER-THAN SIGN character</dt>
+    <dd>切换到 <span data-x="data state">数据状态</span>。</dd>
+
+    <dt>任何其他情况</dt>
+    <dd>发出两个 U+005D RIGHT SQUARE BRACKET 字符标记。
+    在 <span data-x="cdata section state">CDATA 部分状态</span>
+    <span data-x="reconsume">重新消耗</span> 该字符。
+    </dd>
+
+  </dl>
+
+
+

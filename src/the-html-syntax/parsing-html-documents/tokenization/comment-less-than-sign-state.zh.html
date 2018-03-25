@@ -1,0 +1,19 @@
+  <h5 id="Comment less-than sign state"><dfn data-x="Comment less-than sign state">注释小于号状态</dfn></h5>
+
+  <p>消耗掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+   <dt>U+0021 EXCLAMATION MARK (!)</dt>
+   <dd>把 <span data-x="current input character">当前输入字符</span> 添加到注释标记的数据。
+   切换到 <span data-x="comment less-than sign bang state">注释小于号感叹号状态</span>。</dd>
+
+   <dt>U+003C LESS-THAN SIGN (&lt;)</dt>
+   <dd>把 <span data-x="current input character">当前输入字符</span> 添加到注释标记的数据。</dd>
+
+   <dt>任何其他字符</dt>
+   <dd>在 <span data-x="comment state">注释状态</span> <span data-x="Reconsume">重新消耗它</span>。</dd>
+
+  </dl>
+
+

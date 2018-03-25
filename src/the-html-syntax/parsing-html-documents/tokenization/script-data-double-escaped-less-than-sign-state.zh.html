@@ -1,0 +1,20 @@
+  <h5><dfn data-x="Script data double escaped less-than sign state">脚本数据双重转义小于号状态</dfn></h5>
+
+  <p>使用掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+   <dt>U+002F SOLIDUS (/)</dt>
+   <dd>设置 <var data-x="temporary buffer">temporary buffer</var> 设为空字符串。
+   切换到 <span data-x="script data double escape end state">脚本数据双重转义结束状态</span>。
+   发出一个 U+002F SOLIDUS 字符标记。</dd>
+
+   <dt>任何其他情况</dt>
+   <dd>
+   在 <span data-x="script data double escaped state">脚本数据双重转义状态</span>
+   <span data-x="reconsume">重新消耗</span> 该字符。
+   </dd>
+
+  </dl>
+
+

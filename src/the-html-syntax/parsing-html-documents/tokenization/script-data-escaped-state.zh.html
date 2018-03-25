@@ -1,0 +1,30 @@
+  <h5 id="Script data escaped state"><dfn data-x="Script data escaped state">脚本数据转义状态</dfn></h5>
+
+  <p>使用掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+   <dt>U+002D HYPHEN-MINUS (-)</dt>
+   <dd>切换到 <span data-x="script data escaped dash state">脚本数据转义横线状态</span>。
+   发出一个 U+002D HYPHEN-MINUS 字符标记。</dd>
+
+   <dt>U+003C LESS-THAN SIGN (&lt;)</dt>
+   <dd>切换到 <span data-x="script data escaped less-than sign state">脚本数据转义小于号状态</span>。</dd>
+
+   <dt>U+0000 NULL</dt>
+   <dd>这是一个 <span
+   data-x="parse-error-unexpected-null-character">unexpected-null-character</span>
+   <span data-x="parse error">解析错误</span>。
+   发出一个 U+FFFD REPLACEMENT CHARACTER 字符标记。</dd>
+
+   <dt>EOF</dt>
+   <dd>这是一个
+   <span data-x="parse-error-eof-in-script-html-comment-like-text">eof-in-script-html-comment-like-text</span>
+   <span data-x="parse error">解析错误</span>。发出一个 EOF 标记。</dd>
+
+   <dt>任何其他情况</dt>
+   <dd>把 <span data-x="current input character">当前输入字符</span> 作为字符标记发出。</dd>
+
+  </dl>
+
+

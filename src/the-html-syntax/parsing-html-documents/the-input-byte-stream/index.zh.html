@@ -1,0 +1,41 @@
+  <h4 id="the input byte stream"><dfn data-x="input byte stream">输入字节流</dfn></h4>
+
+  <p>作为 tokenization 阶段的输入的代码点流，最初是经过用户代理的，
+  被视为字节流（通常通过网络或本地文件系统）。
+  这些字节是根据特定 <i>字符编码</i>
+  对实际字符进行的编码，用户代理用该字符编码将字节解码为字符。</p>
+
+  <p class="note">对于 XML 文档，用户代理确定字符编码的算法由 XML 规范给出。
+  本小节不适用于 XML 文档。 <ref spec=XML></p>
+
+  <p>通常使用下面定义的 <span data-x="encoding sniffing algorithm">编码探测算法</span> 来确定字符编码。</p>
+
+  <p>给定一个字符编码，<span data-x="input byte stream">输入字节流</span> 中的字节必须转换为给
+  tokenizer <span data-x="input stream">输入流</span> 的字符，
+  这其中需要传递 <span data-x="input byte stream">输入字节流</span> 本身，
+  以及用来 <span data-x="decode">解码</span> 的字符编码。</p>
+
+  <p class="note">前导 Byte Order Mark (BOM) 会使 tokenizer 忽略字符编码参数，并跳过这个 BOM。</p>
+
+  <p class="note">不符合编码标准的（例如 UTF-8 输入字节流中的非法 UTF-8 字节序列）
+  原始字节流中的字节或字节序列也是一致性检查工具需要报告的错误。<ref spec=ENCODING></p>
+
+  <p class="warning">解码算法描述了如何处理非法输入；
+  为了安全起见，精确地遵守这些规则是很必要的。
+  对无效字节序列的处理的区别可能会导致脚本注入缺陷（虽然还有其他问题）。</p>
+
+  <p>当 HTML 解析器解码一个输入字节流时，它必须使用一个字符编码以及对应的 <dfn
+  data-x="concept-encoding-confidence">信心</dfn>。
+  这个信息可能是 <i>tentative</i>, <i>certain</i> 或 <i>irrelevant</i>。
+  无论信心是 <i>tentative</i> 或 <i>certain</i> 这个字符编码都会
+  <a href="#meta-charset-during-parse">用于解析</a> 来决定是否
+  <span data-x="change the encoding">更改字符编码</span>。
+  如果不需要字符编码， 例如因为解析器正在操作 Unicode 流根本不需要字符编码，
+  那么 <span data-x="concept-encoding-confidence">信心</span> 就是 <i>irrelevant</i>。</p>
+
+  <p class="note">有些算法给解析器的数据时，会直接
+  在 <span data-x="input stream">输入流</span> 中添加字符，
+  而不是在 <span data-x="input byte stream">输入字节流</span> 中添加字节。</p>
+
+
+

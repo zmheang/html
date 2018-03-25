@@ -1,0 +1,71 @@
+  <h6 id="parsing-main-incaption">The "<dfn data-x="insertion mode: in caption">in caption</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: in caption">in caption</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <dt>名为 "caption" 的结束标签</dt>
+   <dd>
+
+    <p>the <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in table scope">在表格范围内不包含一个 <code>caption</code> 元素</span>，
+    这是一个 <span data-x="parse error">解析错误</span>； 忽略该标记。 (<span>fragment case</span>)</p>
+
+    <p>否则:</p>
+
+    <p><span data-x="generate implied end tags">生成暗示的结束标签</span>。</p>
+
+    <p>现在如果 <span data-x="current node">当前节点</span> 不是 <code>caption</code> 元素，
+    那么这是一个 <span data-x="parse error">解析错误</span>。</p>
+
+    <p>从栈中弹出元素直到得到一个 <code>caption</code> 元素。</p>
+
+    <p><span data-x="clear the list of active formatting elements up to the last marker">清空直到最后一个标记的活跃的格式化元素列表</span>。</p>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in table">in table</span>"。</p>
+   </dd>
+
+   <dt>名为 "caption"，"col"，"colgroup"，"tbody"，"td"，"tfoot"， "th"，"thead"，"tr" 的开始标签</dt>
+   <dt>名为 "table" 的结束标签</dt>
+   <dd>
+
+    <p>如果 <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in table scope">在表格范围内没有 <code>caption</code> 元素</span>，
+    这是一个 <span data-x="parse error">解析错误</span>; 忽略该标记。 (<span>fragment case</span>)</p>
+
+    <p>否则:</p>
+
+    <!-- fake </caption> -->
+    <p><span data-x="generate implied end tags">生成暗示的结束标签</span>。</p>
+
+    <p>现在如果 <span data-x="current node">当前节点</span> 不是 <code>caption</code> 元素，
+    那么这是一个 <span data-x="parse error">解析错误</span>。</p>
+
+    <p>从栈中弹出元素直到得到一个 <code>caption</code> 元素。</p>
+
+    <p><span data-x="clear the list of active formatting elements up to the last marker">清空直到最后一个标记的活跃的格式化元素列表</span>。</p>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in table">in table</span>"。</p>
+    <!-- end of fake </caption> -->
+
+    <p>重新处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "body"，"col"，"colgroup"，"html"，"tbody"，"td"， "tfoot"，"th"，"thead"，"tr" 的结束标签</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。 忽略该标记。</p>
+   </dd>
+
+   <dt>任何其他标记</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    body">in body</span>" <span data-x="insertion mode">插入模式</span> 的规则处理该标记。</p>
+
+   </dd>
+
+  </dl>
+
+

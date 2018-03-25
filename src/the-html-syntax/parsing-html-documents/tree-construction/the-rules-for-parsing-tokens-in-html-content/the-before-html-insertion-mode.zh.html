@@ -1,0 +1,105 @@
+  <h6>"<dfn data-x="insertion mode: before html">before html</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: before html">before html</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <dt>DOCTYPE 标记</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。 忽略该标记。</p>
+   </dd>
+
+   <dt>注释标记</dt>
+   <dd>
+    <p>在 <code>Document</code> 最后 <span data-x="insert a comment">插入注释</span>
+    作为最后一个子节点。</p>
+   </dd>
+
+   <dt>字符标记 U+0009 CHARACTER TABULATION，U+000A LINE FEED (LF)，U+000C
+   FORM FEED (FF)，U+000D CARRIAGE RETURN (CR)，或 U+0020 SPACE</dt>
+   <dd>
+    <p>忽略该标记。</p>
+   </dd>
+
+   <dt>名为 "html" 的开始标签</dt>
+   <dd>
+
+    <p>
+    在 <span data-x="html namespace">HTML 命名空间</span>
+    <span data-x="create an element for the token">为该标记创建一个元素</span>，
+    其目标父元素是 <code>Document</code>。把它添加到 <code>Document</code> 对象。
+    把该元素放到 <span data-x="stack of open elements">打开元素栈</span>。</p>
+
+    <p id="parser-appcache">如果 <code>Document</code> 正在作为
+    <span data-x="browsing context">浏览环境</span> 的 <span data-x="navigate">导航</span>
+    的一步进行载入，执行这些步骤：</p>
+
+    <ol>
+
+     <li><p>如果为该文档的 <span data-x="concept-document-url">URL</span>
+     执行 <span data-x="scope-match-algorithm">匹配 service worker 注册</span>
+     的结果不是 null，执行 <span data-x="concept-appcache-init">应用缓存选择算法</span>，
+     把 <code>Document</code> 对象传给它，不带 manifest。</p></li>
+
+     <li>
+
+      <p>否则，执行这些子步骤:</p>
+
+      <ol>
+
+       <li><p>如果新创建的元素有一个 <code data-x="attr-html-manifest">manifest</code>
+       属性且值为非空字符串，就相对于新创建的文档的 <span data-x="node document">节点文档</span>
+       <span data-x="parse a url">解析</span> 该属性的值，
+       如果成功就执行 <span data-x="concept-appcache-init">应用缓存选择算法</span>，
+       传参包括 <code>Document</code> 对象以及设置 <i>exclude fragment 标志</i>
+       的情况下对 <span data-x="resulting url record">结果 URL 记录</span>
+       应用 <span data-x="concept-url-serializer">URL 序列化</span> 算法的结果。</p></li>
+
+       <li><p>否则，执行 <span data-x="concept-appcache-init">应用缓存选择算法</span>，
+       把 <code>Document</code> 对象传给它，不带 manifest。</p></li>
+
+      </ol>
+
+     </li>
+
+    </ol>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换为 "<span data-x="insertion mode: before head">before
+    head</span>"。</p>
+
+   </dd>
+
+   <dt>名为 "head"，"body"，"html"，"br" 的结束标签</dt>
+   <dd>
+    <p>执行下面“任何其他标记”的步骤。</p>
+   </dd>
+
+   <dt>任何其他结束标签</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。 忽略该标记。</p>
+   </dd>
+
+   <dt>任何其他标记</dt>
+   <dd>
+
+    <p>创建一个 <code>html</code> 元素，其 <span data-x="node document">节点文档</span> 是 <code>Document</code> 对象。
+    把它添加到 <code>Document</code> 对象。把该元素放到 <span data-x="stack of open elements">打开元素栈</span>。</p>
+
+
+    <p>如果 <code>Document</code> 正在作为
+    <span data-x="browsing context">浏览环境</span> 的 <span data-x="navigate">导航</span>
+    的一步进行载入，则执行 <span data-x="concept-appcache-init">应用缓存选择算法</span>，不带 manifest
+    并传入 <code>Document</code> 对象。</p>
+
+    <p>把 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: before head">before
+    head</span>"，然后重新处理该标记。</p>
+
+   </dd>
+
+  </dl>
+
+  <p><span data-x="document element">document 元素</span> 最终可能被从 <code>Document</code> 对象移除，
+  比如可能是脚本移除了它；这种情况下什么都不会发生，会按照下一部分描述的规则继续把内容添加到对应的节点。</p>
+
+

@@ -1,0 +1,34 @@
+  <h5 id="Script data double escape end state"><dfn data-x="Script data double escape end state">脚本数据双重转义结束状态</dfn></h5>
+
+  <p>使用掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+   <dt>U+0009 CHARACTER TABULATION (tab)</dt>
+   <dt>U+000A LINE FEED (LF)</dt>
+   <dt>U+000C FORM FEED (FF)</dt>
+   <!--<dt>U+000D CARRIAGE RETURN (CR)</dt>-->
+   <dt>U+0020 SPACE</dt>
+   <dt>U+002F SOLIDUS (/)</dt>
+   <dt>U+003E GREATER-THAN SIGN (&gt;)</dt>
+   <dd>如果 <var data-x="temporary buffer">temporary buffer</var> 是字符串 "<code
+   data-x="">script</code>"，就切换到 <span data-x="script data escaped state">脚本数据转义状态</span>。
+   否则，切换到 <span data-x="script data double escaped state">脚本数据双重转义状态</span>。
+   把 <span data-x="current input character">当前输入字符</span> 作为字符标记发出。</dd>
+
+   <dt><span data-x="ascii upper alpha">ASCII 大写字母</span></dt>
+   <dd>把 <span data-x="current input character">当前输入字符</span> （添加一个 0x0020 到该字符的代码点）
+   的小写版本追加到 <var data-x="temporary buffer">temporary buffer</var>。
+   把 <span data-x="current input character">当前输入字符</span> 作为字符标记发出。</dd>
+
+   <dt><span data-x="ascii lower alpha">ASCII 小写字母</span></dt>
+   <dd>把 <span data-x="current input character">当前输入字符</span> 追加到
+   <var data-x="temporary buffer">temporary buffer</var>。
+   把 <span data-x="current input character">当前输入字符</span> 作为字符标记发出。</dd>
+
+   <dt>任何其他情况</dt>
+   <dd>在 <span data-x="script data double escaped state">脚本数据双重转义状态</span> <span data-x="Reconsume">重新消耗</span> 该字符。</dd>
+
+  </dl>
+
+

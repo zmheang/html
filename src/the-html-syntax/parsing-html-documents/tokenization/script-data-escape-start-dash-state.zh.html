@@ -1,0 +1,17 @@
+  <h5 id="Script data escape start dash state"><dfn data-x="Script data escape start dash state">脚本数据转义开始</dfn></h5>
+
+  <p>使用掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+   <dt>U+002D HYPHEN-MINUS (-)</dt>
+   <dd>切换到 <span data-x="script data escaped dash dash state">脚本数据转义横线横线状态</span>。
+   发出一个 U+002D HYPHEN-MINUS 字符标记。</dd>
+
+   <dt>任何其他情况</dt>
+   <dd>在 <span data-x="script data state">脚本数据状态</span>
+   <span data-x="reconsume">重新消耗</span> 该字符。</dd>
+
+  </dl>
+
+

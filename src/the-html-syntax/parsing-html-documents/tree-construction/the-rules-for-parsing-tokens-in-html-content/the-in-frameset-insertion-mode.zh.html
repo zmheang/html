@@ -1,0 +1,93 @@
+  <h6 id="parsing-main-inframeset">"<dfn data-x="insertion mode: in frameset">in frameset</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: in frameset">in frameset</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <dt>字符标记 U+0009 CHARACTER TABULATION, U+000A LINE FEED (LF), U+000C
+   FORM FEED (FF), U+000D CARRIAGE RETURN (CR) 或 U+0020 SPACE</dt>
+   <dd>
+    <p><span data-x="insert a character">插入该字符</span>。</p>
+   </dd>
+
+   <dt>评论标记</dt>
+   <dd>
+    <p><span data-x="Insert a comment">插入该字符</span>。</p>
+   </dd>
+
+   <dt>DOCTYPE 字符</dt>
+   <dd>
+    <p><span data-x="Parse error">解析错误</span>。忽略该字符。</p>
+   </dd>
+
+   <dt>名为 "html" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    body">in body</span>" <span data-x="insertion mode">插入模式</span> 处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "frameset" 的开始标签</dt>
+   <dd>
+    <p>为该标记 <span data-x="insert an html element">插入一个 HTML 元素</span>。</p>
+   </dd>
+
+   <dt>名为 "frameset" 的结束标签</dt>
+   <dd>
+
+    <p>如果 <span data-x="current node">当前节点</span> 是根 <code>html</code> 元素，
+    那么这是一个 <span data-x="parse error">解析错误</span>；忽略该标记。（<span>fragment case</span>）</p>
+
+    <p>否则，把 <span data-x="current node">当前节点</span> 从
+    <span data-x="stack of open elements">打开元素栈</span> 弹出。</p>
+
+    <p>如果该解析器最初 <em>不是</em> 作为 <span data-x="html fragment parsing algorithm">HTML 片段解析算法</span>
+    （<span>fragment case</span>） 的一部分创建的，且 <span data-x="current node">当前节点</span> 不再是
+    <code>frameset</code> 元素，那么把 <span data-x="insertion mode">插入模式</span> 切换到 "<span
+    data-x="insertion mode: after frameset">after frameset</span>"。</p>
+
+   </dd>
+
+   <dt>名为 "frame" 的开始标签</dt>
+   <dd>
+
+    <p>为该标记 <span data-x="insert an html element">插入一个 HTML 元素</span>。
+    立即把 <span data-x="current node">当前节点</span> 供 <span data-x="stack of open elements">打开元素栈</span>
+    弹出。</p>
+
+    <p><span data-x="acknowledge self-closing flag">确认该标记的
+    <i data-x="self-closing flag">self-closing 标志</i></span>，如果设置了这个标志的话。</p>
+
+   </dd>
+
+   <dt>名为 "noframes" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    head">in head</span>" <span data-x="insertion mode">插入模式</span> 处理该标记。</p>
+
+   </dd>
+
+   <dt>文件尾（EOF）标记</dt>
+   <dd>
+
+    <p>如果 <span data-x="current node">当前节点</span> 不是根 <code>html</code> 元素，
+    那么这是一个 <span data-x="parse error">解析错误</span>。</p>
+
+    <p class="note">在 <span>fragment case</span> 中，<span data-x="current node">当前节点</span> 只能是根
+    <code>html</code> 元素。</p>
+
+    <p><span data-x="stop parsing">停止解析</span>。</p>
+
+   </dd>
+
+   <dt>任何其他标记</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。忽略该标记。</p>
+   </dd>
+
+  </dl>
+
+

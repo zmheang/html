@@ -1,0 +1,22 @@
+  <h5 id="CDATA section state"><dfn data-x="CDATA section state">CDATA 部分状态</dfn></h5>
+
+  <p>消耗掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+    <dt>U+005D RIGHT SQUARE BRACKET (])</dt>
+    <dd>切换到 <span data-x="CDATA section bracket state">CDATA 部分括号状态</span>。</dd>
+
+    <dt>EOF</dt>
+    <dd>这是一个 <span data-x="parse-error-eof-in-cdata">eof-in-cdata</span>
+    <span data-x="parse error">解析错误</span>。发出一个 EOF 标记。</dd>
+
+    <dt>任何其他字符</dt>
+    <dd>把 <span data-x="current input character">当前输入字符</span> 作为一个字符标记发出。</dd>
+
+  </dl>
+
+  <p class="note">U+0000 NULL 字符在构造树的阶段，作为
+  <span data-x="insertion mode: in foreign content">in foreign content</span>
+  插入模式的一部分进行处理。CDATA 部分只出现在这里。</p>
+

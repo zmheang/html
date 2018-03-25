@@ -1,0 +1,100 @@
+  <h6 id="parsing-main-intd">"<dfn data-x="insertion mode: in cell">in cell</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: in cell">in cell</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <dt>名为 "td"，"th" 的结束标签</dt>
+   <dd>
+
+    <p>如果 <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in table scope">在表格范围内没有</span>
+    一个与该标记同名的 <span data-x="HTML elements">HTML 元素</span>，
+    那么这是一个 <span data-x="parse error">解析错误</span>; 忽略该标记。</p>
+
+    <p>否则：</p>
+
+    <p><span data-x="Generate implied end tags">生成暗示的结束标签</span>。</p>
+
+    <p>现在如果 <span data-x="current node">当前节点</span> 不是与该标记同名的
+    <span data-x="HTML elements">HTML 元素</span>，那么这是一个 <span data-x="parse error">解析错误</span>。</p>
+
+    <p>从 <span data-x="stack of open elements">打开元素栈</span> 弹出元素，直到弹出了与该标记同名的
+    <span data-x="HTML elements">HTML 元素</span> 为止。</p>
+
+    <p><span data-x="clear the list of active formatting elements up to the last marker">清空直到最后一个标记的活跃的格式化元素列表</span>。</p>
+
+    <p>把 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in row">in
+    row</span>"。</p> <!-- current node here will be a <tr> normally; but could be <html> in the
+    fragment case，or <template> in the template case -->
+
+   </dd>
+
+   <dt>名为 "caption"，"col"， "colgroup"，"tbody"，"td"，"tfoot"，"th"，"thead"，"tr" 的开始标签</dt>
+   <dd>
+
+    <p>如果 <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in table scope">在表格范围内 <em>不包含</em>
+    <code>td</code> 或 <code>th</code> 元素</span>，
+    那么这是一个 <span data-x="parse error">解析错误</span>；忽略该标记。 (<span>fragment case</span>)</p>
+
+    <p>否则，<span data-x="close the cell">关闭该单元格</span>（见下文）并重新处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "body"，"caption"， "col"，"colgroup"，"html" 的结束标签</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。 忽略该标记。</p>
+   </dd>
+
+   <dt>名为 "table"，"tbody"， "tfoot"，"thead"，"tr" 的结束标签</dt>
+   <dd>
+
+    <p>如果 <span data-x="stack of open elements">打开元素栈</span>
+    <span data-x="has an element in table scope">在表格范围内不包含</span>
+    与该标记同名的 <span data-x="HTML elements">HTML 元素</span>，
+    那么这是一个 <span data-x="parse error">解析错误</span>； 忽略该标记。</p>
+
+    <p>否则，<span data-x="close the cell">关闭该单元格</span>（见下文）并重新处理该标记。</p>
+
+   </dd>
+
+   <dt>任何其他标记</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    body">in body</span>" <span data-x="insertion mode">插入模式</span> 的规则处理该标记。</p>
+
+   </dd>
+
+  </dl>
+
+  <p>上述步骤中的 <dfn data-x="close the cell">关闭单元格</dfn>，是指执行以下算法：</p>
+
+  <ol>
+
+   <!-- fake </td> or </th> -->
+   <li><p><span data-x="Generate implied end tags">生成暗示的结束标签</span>。</p></li>
+
+   <li><p>如果现在的 <span data-x="current node">当前节点</span> 不是 <code>td</code> 或 <code>th</code> 元素，
+   那么这是一个 <span data-x="parse error">解析错误</span>。</p></li>
+
+   <li><p>从 <span data-x="stack of open elements">打开元素栈</span> 弹出元素，直到得到一个 <code>td</code>
+   或 <code>th</code> 元素。</p></li>
+
+   <li><p><span data-x="clear the list of active formatting elements up to the last marker">清空直到最后一个标记的活跃的格式化元素列表</span>。</p></li>
+
+   <li><p>把 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in row">in
+   row</span>"。</p></li> <!-- current node here will be a <tr> normally; but could be <html> in the
+   fragment case，or <template> in the template case -->
+   <!-- end of fake </td> or </th> -->
+
+  </ol>
+
+  <p class="note"><span data-x="stack of open elements">打开元素栈</span>
+  <span data-x="has an element in table scope">在表格上下文</span>
+  不可能同时包含 <code>td</code> 和 <code>th</code> 元素，
+  当调用 <span data-x="close the cell">关闭单元格</span> 算法时也不可能包含它们。</p>
+
+

@@ -1,0 +1,23 @@
+  <h5 id="script data less-than sign state"><dfn data-x="Script data less-than sign state"></dfn></h5>
+
+  <p>消耗掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+   <dt>U+002F SOLIDUS (/)</dt>
+   <dd>把 <var data-x="temporary buffer">临时缓冲区</var> 设为空字符串。切换到
+   <span data-x="script data end tag open state">脚本数据结束标签打开状态</span>。</dd>
+
+   <dt>U+0021 EXCLAMATION MARK (!)</dt>
+   <dd>切换到 <span data-x="script data escape start state">脚本数据转义开始状态</span>。
+   发出一个 U+003C LESS-THAN SIGN 和 U+0021 EXCLAMATION MARK 字符标记。</dd>
+
+   <dt>任何其他字符</dt>
+   <dd>发出一个 U+003C LESS-THAN SIGN 字符标记。
+   在 <span data-x="script data state">脚本数据状态</span> 中
+   <span data-x="Reconsume">重新消耗</span> 该字符。
+   </dd>
+
+  </dl>
+
+

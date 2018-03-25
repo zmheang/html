@@ -1,0 +1,26 @@
+  <h5 id="Parsing elements that contain only text">解析只包含文本的元素</h5>
+
+  <p><dfn data-x="generic raw text element parsing algorithm">通用原始文本元素解析算法</dfn>
+  和 <dfn data-x="generic RCDATA element parsing algorithm">通用 RCDATA 元素解析算法</dfn>
+  包括以下步骤。这些算法只会被开始标签的标记调用。</p>
+
+  <ol>
+
+   <li><p>为该标记 <span data-x="insert an html element">插入一个 HTML 元素</span>。</p></li>
+
+   <li><p>如果被调用的是
+   <span data-x="generic raw text element parsing algorithm">通用原始文本元素解析算法</span>，
+   把 tokenizer 切换到 <span data-x="rawtext state">RAWTEXT 状态</span>；
+   否则，如果被调用的是
+   <span data-x="generic RCDATA element parsing algorithm">通用 RCDATA 元素解析算法</span>，
+   把 tokenizer 切换到 <span data-x="rcdata state">RCDATA 状态</span>。</p></li>
+
+   <li><p>令 <span data-x="original insertion mode">原始插入模式</span> 为当前
+   <span data-x="insertion mode">插入模式</span>。</p>
+
+   <li><p>然后，把 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode:
+   text">text</span>"。</p></li>
+
+  </ol>
+
+

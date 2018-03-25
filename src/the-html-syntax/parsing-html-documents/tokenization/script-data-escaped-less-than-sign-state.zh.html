@@ -1,0 +1,24 @@
+  <h5 id="Script data escaped less-than sign state"><dfn data-x="Script data escaped less-than sign state">脚本数据转义小于号状态</dfn></h5>
+
+  <p>消耗掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+   <dt>U+002F SOLIDUS (/)</dt>
+   <dd>设置 <var data-x="temporary buffer">temporary buffer</var> 为空字符串。切换到
+   <span data-x="script data escaped end tag open state">脚本数据转义结束标签打开状态</span>。</dd>
+
+   <dt><span data-x="ASCII alpha">ASCII 字符</span></dt>
+   <dd>设置 <var data-x="temporary buffer">temporary buffer</var> 为空字符串。发出一个
+   U+003C LESS-THAN SIGN 字符标记。
+   在 <span data-x="script data double escape start state">小本数据双重转义开始状态</span>
+   <span data-x="reconsume">重新消耗该字符</span>。</dd>
+
+   <dt>任何其他情况</dt>
+   <dd>发出一个 U+003C LESS-THAN SIGN 字符标记。
+   在 <span data-x="script data escaped state">脚本数据转义状态</span>
+   <span data-x="reconsume">重新消耗</span> 该字符。</dd>
+
+  </dl>
+
+

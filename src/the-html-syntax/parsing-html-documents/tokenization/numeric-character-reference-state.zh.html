@@ -1,0 +1,21 @@
+  <h5 id="Numeric character reference state"><dfn data-x="Numeric character reference state">数字字符引用状态</dfn></h5>
+
+  <p>设置 <dfn><var data-x="character reference code">字符引用代码</var></dfn> 为 zero (0)。</p>
+
+  <p>消耗掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+    <dt>U+0078 LATIN SMALL LETTER X</dt>
+    <dt>U+0058 LATIN CAPITAL LETTER X</dt>
+    <dd>把 <span data-x="current input character">当前输入字符</span> 追加到
+    <var data-x="temporary buffer">temporary buffer</var>。
+    切换到 <span data-x="hexademical character reference start state">十六进制字符引用开始状态</span>。</dd>
+
+    <dt>任何其他情况</dt>
+    <dd>在 <span data-x="decimal character reference start state">十进制字符引用开始状态</span>
+    <span data-x="reconsume">重新消耗</span> 该字符。</dd>
+
+  </dl>
+
+

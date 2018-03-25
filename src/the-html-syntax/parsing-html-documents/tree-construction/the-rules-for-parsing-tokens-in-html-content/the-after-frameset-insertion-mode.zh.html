@@ -1,0 +1,61 @@
+  <h6 id="parsing-main-afterframeset">"<dfn data-x="insertion mode: after frameset">after frameset</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: after frameset">after frameset</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <!-- due to rules in the "in frameset" mode，this can't be entered in the fragment case -->
+  <dl class="switch">
+
+   <dt>字符标记 U+0009 CHARACTER TABULATION，U+000A LINE FEED (LF)，U+000C
+   FORM FEED (FF)，U+000D CARRIAGE RETURN (CR)，或 U+0020 SPACE</dt>
+   <dd>
+    <p><span data-x="insert a character">插入该字符</span>。</p>
+   </dd>
+
+   <dt>注释标记</dt>
+   <dd>
+    <p><span data-x="insert a comment">插入注释</span>。</p>
+   </dd>
+
+   <dt>DOCTYPE 标记</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。忽略该标记。</p>
+   </dd>
+
+   <dt>名为 "html" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    body">in body</span>" <span data-x="insertion mode">插入模式</span> 的规则处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "html" 的结束标签</dt>
+   <dd>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: after after
+    frameset">after after frameset</span>"。</p>
+
+   </dd>
+
+   <dt>名为 "noframes" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    head">in head</span>" <span data-x="insertion mode">插入模式</span> 的规则处理该标记。</p>
+
+   </dd>
+
+   <dt>文件尾（EOF）标记</dt>
+   <dd>
+    <p><span data-x="stop parsing">停止解析</span>。</p>
+   </dd>
+
+   <dt>任何其他标记</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。 忽略该标记。</p>
+   </dd>
+
+  </dl>
+
+

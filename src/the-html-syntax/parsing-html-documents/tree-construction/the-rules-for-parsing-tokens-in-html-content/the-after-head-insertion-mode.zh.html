@@ -1,0 +1,107 @@
+  <h6>"<dfn data-x="insertion mode: after head">after head</dfn>" 插入模式</h6>
+
+  <p>当用户代理应用 "<span data-x="insertion mode: after head">after head</span>"
+  <span data-x="insertion mode">插入模式</span> 的规则时，用户代理必须按以下规则处理标记：</p>
+
+  <dl class="switch">
+
+   <dt>字符标记 U+0009 CHARACTER
+   TABULATION，U+000A LINE FEED (LF)，U+000C FORM FEED (FF)，
+   U+000D CARRIAGE RETURN (CR) 或 U+0020 SPACE</dt>
+   <dd>
+    <p><span data-x="insert a character">插入一个字符</span>。</p>
+   </dd>
+
+   <dt>注释标记</dt>
+   <dd>
+    <p><span data-x="insert a comment">插入注释</span>。</p>
+   </dd>
+
+   <dt>DOCTYPE 标记</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。 忽略该标记。</p>
+   </dd>
+
+   <dt>名为 "html" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    body">in body</span>" <span data-x="insertion mode">插入模式</span> 的规则处理该标记。</p>
+
+   </dd>
+
+   <dt>名为 "body" 的开始标签</dt>
+   <dd>
+
+    <p>为该标记 <span data-x="insert an html element">插入一个 HTML 元素</span>。</p>
+
+    <p>设置 <span data-x="frameset-ok flag">frameset-ok 标志</span> 为 "not ok"。</p>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in body">in
+    body</span>"。</p>
+
+   </dd>
+
+   <dt>名为 "frameset" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="insert an html element">插入一个 HTML 元素</span> 为该标记。</p>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in frameset">in frameset</span>"。</p>
+
+   </dd>
+
+   <dt>名为 "base"，"basefont"，"bgsound"，"link"，"meta"， "noframes"，"script"，"style"，"template"，"title" 的开始标签</dt>
+   <dd>
+
+    <p><span data-x="parse error">解析错误</span>。</p>
+
+    <p>把 <span data-x="head element pointer"><code data-x="">head</code> 元素指针</span>
+    指向的那个元素压入 <span data-x="stack of open elements">打开元素栈</span>。</p>
+
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    head">in head</span>" <span data-x="insertion mode">插入模式</span> 的规则处理该标记。</p>
+
+    <p>把 <span data-x="head element pointer"><code data-x="">head</code> 元素指针</span>
+    指向的元素从 <span data-x="stack of open elements">打开元素栈</span> 移除。
+    （这时它可能不是 <span data-x="current node">当前节点</span>）</p>
+
+    <p class="note"><span data-x="head element pointer"><code data-x="">head</code> 元素指针</span>
+    这时不会是 null。</p>
+
+   </dd>
+
+   <dt>名为 "template" 的结束标签</dt>
+   <dd>
+    <p><span data-x="using the rules for">使用</span> "<span data-x="insertion mode: in
+    head">in head</span>" <span data-x="insertion mode">插入模式</span> 的规则处理该标记。</p>
+   </dd>
+
+   <dt>名为 "body"，"html"，"br" 的结束标签</dt>
+   <dd>
+    <p>执行下面 "任何其他情况" 的步骤。</p>
+   </dd>
+
+   <dt>名为 "head" 的开始标签</dt>
+   <dt>任何其他结束标签</dt>
+   <dd>
+    <p><span data-x="parse error">解析错误</span>。忽略该标记。</p>
+   </dd>
+
+   <dt>任何其他情况</dt>
+   <dd>
+
+    <!-- fake <body>，but without resetting frameset-ok -->
+    <p>为 "body" 开始标签标记 <span data-x="insert an html element">插入一个 HTML 元素</span>，不设任何属性。</p>
+
+    <p>将 <span data-x="insertion mode">插入模式</span> 切换到 "<span data-x="insertion mode: in body">in
+    body</span>"。</p>
+    <!-- end fake <body> -->
+
+    <p>重新处理当前标记。</p>
+
+   </dd>
+
+  </dl>
+
+

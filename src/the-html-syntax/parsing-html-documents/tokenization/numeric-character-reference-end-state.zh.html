@@ -1,0 +1,89 @@
+  <h5 x="Numeric character reference end state"><dfn data-x="Numeric character reference end state">数字字符引用结束状态</dfn></h5>
+
+  <p>检查 <var data-x="character reference code">字符引用代码</var>：</p>
+
+  <ul>
+    <li><p>如果数字是 0x00, 那么这是一个 <span
+    data-x="parse-error-null-character-reference">null 字符引用</span>
+    <span data-x="parse error">解析错误</span>。
+    把 <var data-x="character reference code">character-reference-code</var> 设为 0xFFFD。</p></li>
+
+    <li><p>如果数字大于 0x10FFFF, 那么这是一个 <span
+    data-x="parse-error-character-reference-outside-unicode-range">character-reference-outside-unicode-range</span>
+    <span data-x="parse error">解析错误</span>。
+    把 <var data-x="character reference code">字符引用代码</var> 设为 0xFFFD。</p></li>
+
+    <li><p>如果该数字是 <span data-x="surrogate">surrogate</span>, 那么这是一个 <span
+    data-x="parse-error-surrogate-character-reference">surrogate-character-reference</span>
+    <span data-x="parse error">解析错误</span>。
+    把 <var data-x="character reference code">字符引用代码</var> 设为 0xFFFD。</p></li>
+
+    <li><p>如果该数字是 a <span data-x="noncharacter">noncharacter</span>, 那么这是一个
+    <span data-x="parse-error-noncharacter-character-reference">noncharacter-character-reference</span>
+    <span data-x="parse error">解析错误</span>。</p></li>
+
+    <li><p>如果该数字是 0x0D<!-- CR is not allowed -->，或者
+    <span data-x="control">control</span> 但不是 <span data-x="ascii whitespace">空格</span>，
+    那么这是一个 <span data-x="parse-error-control-character-reference">control-character-reference</span>
+    <span data-x="parse error">解析错误</span>。
+    如果该数字出现在下表中的第一列，那就把 <var data-x="character reference code">字符引用代码</var>
+    设为该数字所在行的第二列中的数字。</p>
+    <!-- these are Unicode C1 control characters -->
+
+    <table id="table-charref-overrides">
+      <thead>
+      <tr><th>Number <th colspan=2>Code point
+      <tbody>
+      <!-- <tr><td>0x0D <td>0x000D <td>CARRIAGE RETURN (CR) -->
+      <tr><td>0x80 <td>0x20AC <td>EURO SIGN (&#x20AC;)
+      <!-- <tr><td>0x81 <td>0x0081 <td>&lt;control> -->
+      <tr><td>0x82 <td>0x201A <td>SINGLE LOW-9 QUOTATION MARK (&#x201A;)
+      <tr><td>0x83 <td>0x0192 <td>LATIN SMALL LETTER F WITH HOOK (&#x0192;)
+      <tr><td>0x84 <td>0x201E <td>DOUBLE LOW-9 QUOTATION MARK (&#x201E;)
+      <tr><td>0x85 <td>0x2026 <td>HORIZONTAL ELLIPSIS (&#x2026;)
+      <tr><td>0x86 <td>0x2020 <td>DAGGER (&#x2020;)
+      <tr><td>0x87 <td>0x2021 <td>DOUBLE DAGGER (&#x2021;)
+      <tr><td>0x88 <td>0x02C6 <td>MODIFIER LETTER CIRCUMFLEX ACCENT (&#x02C6;)
+      <tr><td>0x89 <td>0x2030 <td>PER MILLE SIGN (&#x2030;)
+      <tr><td>0x8A <td>0x0160 <td>LATIN CAPITAL LETTER S WITH CARON (&#x0160;)
+      <tr><td>0x8B <td>0x2039 <td>SINGLE LEFT-POINTING ANGLE QUOTATION MARK (&#x2039;)
+      <tr><td>0x8C <td>0x0152 <td>LATIN CAPITAL LIGATURE OE (&#x0152;)
+      <!-- <tr><td>0x8D <td>0x008D <td>&lt;control> -->
+      <tr><td>0x8E <td>0x017D <td>LATIN CAPITAL LETTER Z WITH CARON (&#x017D;)
+      <!-- <tr><td>0x8F <td>0x008F <td>&lt;control> -->
+      <!-- <tr><td>0x90 <td>0x0090 <td>&lt;control> -->
+      <tr><td>0x91 <td>0x2018 <td>LEFT SINGLE QUOTATION MARK (&#x2018;)
+      <tr><td>0x92 <td>0x2019 <td>RIGHT SINGLE QUOTATION MARK (&#x2019;)
+      <tr><td>0x93 <td>0x201C <td>LEFT DOUBLE QUOTATION MARK (&#x201C;)
+      <tr><td>0x94 <td>0x201D <td>RIGHT DOUBLE QUOTATION MARK (&#x201D;)
+      <tr><td>0x95 <td>0x2022 <td>BULLET (&#x2022;)
+      <tr><td>0x96 <td>0x2013 <td>EN DASH (&#x2013;)
+      <tr><td>0x97 <td>0x2014 <td>EM DASH (&#x2014;)
+      <tr><td>0x98 <td>0x02DC <td>SMALL TILDE (&#x02DC;)
+      <tr><td>0x99 <td>0x2122 <td>TRADE MARK SIGN (&#x2122;)
+      <tr><td>0x9A <td>0x0161 <td>LATIN SMALL LETTER S WITH CARON (&#x0161;)
+      <tr><td>0x9B <td>0x203A <td>SINGLE RIGHT-POINTING ANGLE QUOTATION MARK (&#x203A;)
+      <tr><td>0x9C <td>0x0153 <td>LATIN SMALL LIGATURE OE (&#x0153;)
+      <!-- <tr><td>0x9D <td>0x009D <td>&lt;control> -->
+      <tr><td>0x9E <td>0x017E <td>LATIN SMALL LETTER Z WITH CARON (&#x017E;)
+      <tr><td>0x9F <td>0x0178 <td>LATIN CAPITAL LETTER Y WITH DIAERESIS (&#x0178;)
+    </table></li>
+  </ul>
+
+  <p>把 <var data-x="temporary buffer">temporary buffer</var> 设为空字符串。
+  给 <var data-x="temporary buffer">temporary buffer</var> 追加一个等于
+  <var data-x="character reference code">字符引用代码</var> 的代码点。
+  <span data-x="Flush code points consumed as a character reference">把消耗掉的代码点输出为字符引用</span>。
+  切换到 <var data-x="return state">return state</var>。</p>
+
+  </div>
+
+
+  <div w-nodev>
+
+  <!-- v2: One thing that this doesn't define is handling deeply nested documents. There are
+  compatibility requirements around that: you can't throw away the elements altogether, consider Tux
+  made only with opening <font> elements, one per character. Seems that the best thing to do is to
+  close some formatting elements from the middle of the stack when you hit a limit, or something.
+  -->
+

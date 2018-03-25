@@ -1,0 +1,20 @@
+  <h5 id="RCDATA end tag open state"><dfn data-x="RCDATA end tag open state">RCDATA 结束标签打开状态</dfn></h5>
+  <!-- identical to the RAWTEXT (and Script data) end tag open state, except s/RAWTEXT/RCDATA/g -->
+
+  <p>使用掉 <span data-x="next input character">下一个输入字符</span>：</p>
+
+  <dl class="switch">
+
+   <dt><span data-x="ASCII alpha">ASCII 字符</span></dt>
+   <dd>创建一个新的结束标签标记，把它的标签名设为空字符串。
+   在 <span data-x="RCDATA end tag name state">RCDATA 结束标签名状态</span>
+   <span data-x="Reconsume">重新消耗</span> 该字符。
+
+   <dt>任何其他情况</dt>
+   <dd>发出一个 U+003C LESS-THAN SIGN 和 U+002F SOLIDUS 字符标记。
+   在 <span data-x="RCDATA state">RCDATA 状态</span>
+   <span data-x="Reconsume">重新消耗</span> 该字符。</dd>
+
+  </dl>
+
+

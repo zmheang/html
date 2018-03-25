@@ -14,9 +14,6 @@ function! TranslatePunc()
     execute '%s/ 。 / . /g'
     execute '%s/, /，/g'
     execute '%s/,$/，/g'
-    execute '%s/:/：/g'
-    execute '%s/https：/https:/g'
-    execute '%s/http：/http:/g'
 endfunction
 
 function! TranslateTerm()
@@ -24,9 +21,23 @@ function! TranslateTerm()
     execute '%s/Set /设置/g'
     execute "%s/'s/的/g"
     execute '%s/one or more/一个或更多/g'
+    execute '%s/start tag whose/开始标签 whose/g'
+    execute '%s/end tag whose/结束标签 whose/g'
+    execute '%s/Reprocess the token/重新处理该标记'
+    execute '%s/pop the/把  从  弹出/g'
+    execute '%s/ignore the token/忽略该标记/ig'
+    execute '%s/Process the token/处理该标记/ig'
+    execute '%s/for the token/为该标记/ig'
     execute '%s/Optionally/可选地/g'
     execute '%s/Otherwise/否则/g'
     execute '%s/is true/为 true/g'
+    execute '%s/character token/字符标记/g'
+    execute '%s/This is an/这是一个/g'
+    execute '%s/Switch to/切换到/g'
+    execute '%s/Emit a/发出一个/g'
+    execute '%s/Emit the/发出/g'
+    execute '%s/Anything else/任何其他情况/g'
+    execute '%s/to the empty string/设为空字符串/g'
     execute '%s/e\.g\./例如/g'
     execute '%s/then:/则：/g'
     execute '%s/then throw a/则抛出一个/g'
@@ -47,3 +58,4 @@ endfunction
 set sw=2 ts=2
 
 nnoremap <F6> :call PreTranslate()<CR>
+nnoremap <F4> :source helper.vim<CR>
