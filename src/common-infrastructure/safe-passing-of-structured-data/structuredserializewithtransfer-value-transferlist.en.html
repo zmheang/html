@@ -21,13 +21,8 @@
      <span>[[Detached]]</span> internal slot, then throw a
      <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
 
-     <li><p>If <var>transferable</var> has an [[ArrayBufferData]] internal slot and either !
-     <span>IsSharedArrayBuffer</span>(<var>transferable</var>) is true or !
-     <span>IsDetachedBuffer</span>(<var>transferable</var>) is true, then throw a
-     <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
-
-     <li><p>If <var>transferable</var> has a <span>[[Detached]]</span> internal slot and
-     <var>transferable</var>.<span>[[Detached]]</span> is true, then throw a
+     <li><p>If <var>transferable</var> has an [[ArrayBufferData]] internal slot and !
+     <span>IsSharedArrayBuffer</span>(<var>transferable</var>) is true, then throw a
      <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
 
      <li><p>If <var>memory</var>[<var>transferable</var>] <span data-x="map exists">exists</span>,
@@ -54,6 +49,14 @@
     <var>transferList</var>:</p>
 
     <ol>
+     <li><p>If <var>transferable</var> has an [[ArrayBufferData]] internal slot and !
+     <span>IsDetachedBuffer</span>(<var>transferable</var>) is true, then throw a
+     <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
+
+     <li><p>If <var>transferable</var> has a <span>[[Detached]]</span> internal slot and
+     <var>transferable</var>.<span>[[Detached]]</span> is true, then throw a
+     <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
+
      <li><p>Let <var>dataHolder</var> be <var>memory</var>[<var>transferable</var>].</p></li>
 
      <li>

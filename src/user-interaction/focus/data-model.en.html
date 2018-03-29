@@ -191,28 +191,6 @@
 
   <hr>
 
-  <p>Each <span>control group owner object</span> can also act as the <dfn data-x="dialog group
-  manager">manager</dfn> of a <dfn>dialog group</dfn>.</p>
-
-  <p>Each <code>dialog</code> element that has an <code data-x="attr-dialog-open">open</code>
-  attribute specified and that is <span>being rendered</span> (i.e. that is a <span>control group
-  owner object</span>) and is not <span>expressly inert</span>
-  belongs to the <span>dialog group</span> whose <span data-x="dialog group manager">manager</span> is
-  the <code>dialog</code> element's nearest ancestor <span>control group owner object</span>.</p>
-
-  <p>If no <code>dialog</code> element has a particular <span>control group owner object</span> as
-  its nearest ancestor <span>control group owner object</span>, then that <span>control group owner
-  object</span> has no <span>dialog group</span>.</p>
-
-  <p>Each <span>dialog group</span> can have a <code>dialog</code> designated as the <dfn>focused
-  dialog of the dialog group</dfn>. Which <code>dialog</code> is so designated changes over time,
-  based on algorithms in this specification.</p>
-
-  <p>Elements in <span data-x="dialog group">dialog groups</span> are ordered in <span>tree
-  order</span>.</p>
-
-  <hr>
-
   <p>One <span>focusable area</span> in each non-empty <span>control group</span> is designated the
   <dfn>focused area of the control group</dfn>. Which control is so designated changes over time,
   based on algorithms in this specification. If a <span>control group</span> is empty, it has no <span
@@ -236,11 +214,7 @@
 
    <li>
 
-    <p>If <var>candidate</var> has a <span>dialog group</span> with a designated
-    <span>focused dialog of the dialog group</span>, then let <var>candidate</var> be the
-    designated <span>focused dialog of the dialog group</span>, and redo this step.</p>
-
-    <p>Otherwise, if <var>candidate</var> has a non-empty <span>control group</span>, and the
+    <p>If <var>candidate</var> has a non-empty <span>control group</span>, and the
     designated <span>focused area of the control group</span> is a <span>browsing context
     container</span> with a non-null <span>nested browsing context</span>, then let
     <var>candidate</var> be the <span>active document</span> of that <span>browsing context
@@ -288,11 +262,7 @@
 
    <li>
 
-    <p>If <var>current object</var> is a <code>dialog</code> object in a <span>dialog group</span>,
-    let <var>current object</var> be that <span>dialog group</span>'s <span data-x="dialog group
-    manager">manager</span>, and return to the step labeled <i>loop</i>.</p>
-
-    <p>Otherwise, if <var>current object</var> is a <span>focusable area</span>, let <var>current
+    <p>If <var>current object</var> is a <span>focusable area</span>, let <var>current
     object</var> be that <span>focusable area</span>'s <span>control group</span>'s <span
     data-x="control group owner object">owner object</span>, and return to the step labeled
     <i>loop</i>.</p>

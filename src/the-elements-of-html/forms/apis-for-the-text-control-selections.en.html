@@ -98,23 +98,96 @@
 
   <div w-nodev>
 
-  <p>For <code>input</code> elements, these methods and attributes must operate on the element's
-  <span data-x="concept-fe-value">value</span>. For <code>textarea</code> elements, these methods and
-  attributes must operate on the element's <span data-x="concept-textarea-raw-value">raw
-  value</span>.</p>
+  <p>All <code>input</code> elements to which these APIs <span
+  data-x="concept-input-apply">apply</span>, and all <code>textarea</code> elements, have either a
+  <dfn data-x="concept-textarea/input-selection">selection</dfn> or a <dfn
+  data-x="concept-textarea/input-cursor">text entry cursor position</dfn> at all times (even for
+  elements that are not <span>being rendered</span>). The initial state must consist of a <span
+  data-x="concept-textarea/input-cursor">text entry cursor</span> at the beginning of the control.</p>
+  <!-- Previously the spec said to let platform conventions decide, but the web depends on it being
+  at the beginning; see https://bugzilla.mozilla.org/show_bug.cgi?id=1337392 -->
 
-  <p>Where possible, user interface features for changing the text selection in <code>input</code>
-  and <code>textarea</code> elements must be implemented in terms of the DOM API described in this
-  section, so that, e.g., all the same events fire.</p>
+  <p>For <code>input</code> elements, these APIs must operate on the element's <span
+  data-x="concept-fe-value">value</span>. For <code>textarea</code> elements, these APIs must
+  operate on the element's <span data-x="concept-fe-api-value">API value</span>. In the below
+  algorithms, we call the value string being operated on the <dfn
+  data-x="concept-textarea/input-relevant-value">relevant value</dfn>.</p>
 
-  <p>The selections of <code>input</code> and <code>textarea</code> elements have a <dfn>selection
-  direction</dfn>, which is either "<code data-x="">forward</code>", "<code
-  data-x="">backward</code>", or "<code data-x="">none</code>". This direction is set when the user
-  manipulates the selection. The exact meaning of the selection direction depends on the platform.
-  To <dfn>set the selection direction</dfn> of an element to a given direction, update the element's
-  <span>selection direction</span> to the given direction, unless the direction is "<code
-  data-x="">none</code>" and the platform does not support that direction; in that case, update the
-  element's <span>selection direction</span> to "<code data-x="">forward</code>".</p>
+  <div class="example">
+   <p>The use of <span data-x="concept-fe-api-value">API value</span> instead of <span
+   data-x="concept-textarea-raw-value">raw value</span> for <code>textarea</code> elements means
+   that U+000D (CR) characters are normalized away. For example,
+
+   <pre>&lt;textarea id="demo">&lt;/textarea>
+&lt;script>
+ demo.value = "A\r\nB";
+ demo.setRangeText("replaced", 0, 2);
+ assert(demo.value === "replacedB");
+&lt;/script></pre>
+
+   <p>If we had operated on the <span data-x="concept-textarea-raw-value">raw value</span> of "<code
+   data-x="">A\r\nB</code>", then we would have replaced the characters "<code
+   data-x="">A\r</code>", ending up with a result of "<code data-x="">replaced\nB</code>". But since
+   we used the <span data-x="concept-fe-api-value">API value</span> of "<code
+   data-x="">A\nB</code>", we replaced the characters "<code data-x="">A\n</code>", giving "<code
+   data-x="">replacedB</code>".</p>
+  </div>
+
+  <p>Whenever the <span data-x="concept-textarea/input-relevant-value">relevant value</span> changes
+  for an element to which these APIs apply, run these steps:</p>
+
+  <ol>
+   <li>
+    <p>If the element has a <span data-x="concept-textarea/input-selection">selection</span>:</p>
+
+    <ol>
+     <li><p>If the start of the selection is now past the end of the <span
+     data-x="concept-textarea/input-relevant-value">relevant value</span>, set it to the end of the
+     <span data-x="concept-textarea/input-relevant-value">relevant value</span>.</p></li>
+
+     <li><p>If the end of the selection is now past the end of the <span
+     data-x="concept-textarea/input-relevant-value">relevant value</span>, set it to the end of the
+     <span data-x="concept-textarea/input-relevant-value">relevant value</span>.</p></li>
+
+     <li><p>If the user agent does not support empty selection, and both the start and end of the
+     selection are now pointing to the end of the <span
+     data-x="concept-textarea/input-relevant-value">relevant value</span>, then instead set the
+     element's <span data-x="concept-textarea/input-cursor">text entry cursor position</span> to the
+     end of the <span data-x="concept-textarea/input-relevant-value">relevant value</span>, removing
+     any selection.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Otherwise, the element must have a <span data-x="concept-textarea/input-cursor">text entry
+   cursor position</span> position. If it is now past the end of the <span
+   data-x="concept-textarea/input-relevant-value">relevant value</span>, set it to the end of the
+   <span data-x="concept-textarea/input-relevant-value">relevant value</span>.</p></li>
+  </ol>
+
+  <p class="note">In some cases where the <span
+  data-x="concept-textarea/input-relevant-value">relevant value</span> changes, other parts of the
+  specification will also modify the <span data-x="concept-textarea/input-cursor">text entry cursor
+  position</span>, beyond just the clamping steps above. For example, see the <code
+  data-x="dom-textarea-value">value</code> setter for <code>textarea</code>.</p>
+
+  <p>Characters with no visible rendering, such as U+200D ZERO WIDTH JOINER, still count as
+  characters. Thus, for instance, the selection can include just an invisible character, and the
+  text insertion cursor can be placed to one side or another of such a character.</p>
+
+  <p>Where possible, user interface features for changing the <span
+  data-x="concept-textarea/input-selection">text selection</span> in <code>input</code> and
+  <code>textarea</code> elements must be implemented using the <span>set the selection range</span>
+  algorithm so that, e.g., all the same events fire.</p>
+
+  <p>The <span data-x="concept-textarea/input-selection">selections</span> of <code>input</code> and
+  <code>textarea</code> elements have a <dfn>selection direction</dfn>, which is either "<code
+  data-x="">forward</code>", "<code data-x="">backward</code>", or "<code data-x="">none</code>".
+  This direction is set when the user manipulates the selection. The exact meaning of the selection
+  direction depends on the platform. To <dfn>set the selection direction</dfn> of an element to a
+  given direction, update the element's <span>selection direction</span> to the given direction,
+  unless the direction is "<code data-x="">none</code>" and the platform does not support that
+  direction; in that case, update the element's <span>selection direction</span> to "<code
+  data-x="">forward</code>".</p>
 
   <div class="note">
    <p>On Windows, the direction indicates the position of the caret relative to
@@ -158,11 +231,16 @@
    data-x="dom-textarea/input-selectionStart">selectionStart</code> <span data-x="do not apply">does
    not apply</span> to this element, return null.</p></li>
 
-   <li><p>If there is no selection, return the offset (in logical order) to the character that
-   immediately follows the text entry cursor.</p></li>
+   <li><p>If there is no <span data-x="concept-textarea/input-selection">selection</span>, return
+   the offset (in logical order) within the <span
+   data-x="concept-textarea/input-relevant-value">relevant value</span> to the character that
+   immediately follows the <span data-x="concept-textarea/input-cursor">text entry
+   cursor</span>.</p></li>
 
-   <li><p>Return the offset (in logical order) to the character that immediately follows
-   the start of the selection.</p></li>
+   <li><p>Return the offset (in logical order) within the <span
+   data-x="concept-textarea/input-relevant-value">relevant value</span> to the character that
+   immediately follows the start of the <span
+   data-x="concept-textarea/input-selection">selection</span>.</p></li>
   </ol>
 
   <p>The <code data-x="dom-textarea/input-selectionStart">selectionStart</code> attribute's setter
@@ -193,11 +271,16 @@
    data-x="dom-textarea/input-selectionEnd">selectionEnd</code> <span data-x="do not apply">does
    not apply</span> to this element, return null.</p></li>
 
-   <li><p>If there is no selection, return the offset (in logical order) to the character that
-   immediately follows the text entry cursor.</p></li>
+   <li><p>If there is no <span data-x="concept-textarea/input-selection">selection</span>, return
+   the offset (in logical order) within the <span
+   data-x="concept-textarea/input-relevant-value">relevant value</span> to the character that
+   immediately follows the <span data-x="concept-textarea/input-cursor">text entry
+   cursor</span>.</p></li>
 
-   <li><p>Return the offset (in logical order) to the character that immediately follows
-   the end of the selection.</p></li>
+   <li><p>Return the offset (in logical order) within the <span
+   data-x="concept-textarea/input-relevant-value">relevant value</span> to the character that
+   immediately follows the end of the <span
+   data-x="concept-textarea/input-selection">selection</span>.</p></li>
   </ol>
 
   <p>The <code data-x="dom-textarea/input-selectionEnd">selectionEnd</code> attribute's setter must
@@ -265,14 +348,17 @@
 
    <li><p>If <var>end</var> is null, let <var>end</var> be zero.</p></li>
 
-   <li><p>Set the selection of the text control to the sequence of characters starting with the
-   character at the <var>start</var>th position (in logical order) and ending with the character at
-   the <span data-x="">(<var>end</var>-1)</span>th position. Arguments greater than the length of
-   the value of the text control (including the special value infinity) must be treated as pointing
-   at the end of the text control. If <var>end</var> is less than or equal to <var>start</var> then
-   the start of the selection and the end of the selection must both be placed immediately before
-   the character with offset <var>end</var>. In UAs where there is no concept of an empty selection,
-   this must set the cursor to be just before the character with offset <var>end</var>.</p></li>
+   <li><p>Set the <span data-x="concept-textarea/input-selection">selection</span> of the text
+   control to the sequence of characters within the <span
+   data-x="concept-textarea/input-relevant-value">relevant value</span> starting with the character
+   at the <var>start</var>th position (in logical order) and ending with the character at the <span
+   data-x="">(<var>end</var>-1)</span>th position. Arguments greater than the length of the <span
+   data-x="concept-textarea/input-relevant-value">relevant value</span> of the text control
+   (including the special value infinity) must be treated as pointing at the end of the text
+   control. If <var>end</var> is less than or equal to <var>start</var> then the start of the
+   selection and the end of the selection must both be placed immediately before the character with
+   offset <var>end</var>. In UAs where there is no concept of an empty selection, this must set the
+   cursor to be just before the character with offset <var>end</var>.</p></li>
 
    <li><p>If <var>direction</var> is not a <span>case-sensitive</span> match for either the string
    "<code data-x="">backward</code>" or "<code data-x="">forward</code>", or if the
@@ -282,11 +368,13 @@
    <li><p><span>Set the selection direction</span> of the text control to
    <var>direction</var>.</p></li>
 
-   <li><p>If the previous steps caused the selection of the text control to be modified (in either
-   extent or <span data-x="selection direction">direction</span>), then <span>queue a task</span>,
-   using the <span>user interaction task source</span>, to <span data-x="concept-event-fire">fire an
-   event</span> named <code data-x="event-select">select</code> at the element, with the <code
-   data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p></li>
+   <li><p>If the previous steps caused the <span
+   data-x="concept-textarea/input-selection">selection</span> of the text control to be modified (in
+   either extent or <span data-x="selection direction">direction</span>), then <span>queue a
+   task</span>, using the <span>user interaction task source</span>, to <span
+   data-x="concept-event-fire">fire an event</span> named <code data-x="event-select">select</code>
+   at the element, with the <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to
+   true.</p></li>
 
   </ol>
 
@@ -319,11 +407,15 @@
    <li><p>If <var>start</var> is greater than <var>end</var>, then throw an
    <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code>.</p></li>
 
-   <li><p>If <var>start</var> is greater than the length of the value of the text control, then set
-   it to the length of the value of the text control.</p></li>
+   <li><p>If <var>start</var> is greater than the length of the <span
+   data-x="concept-textarea/input-relevant-value">relevant value</span> of the text control, then
+   set it to the length of the <span data-x="concept-textarea/input-relevant-value">relevant
+   value</span> of the text control.</p></li>
 
-   <li><p>If <var>end</var> is greater than the length of the value of the text control, then set it
-   to the length of the value of the text control.</p></li>
+   <li><p>If <var>end</var> is greater than the length of the <span
+   data-x="concept-textarea/input-relevant-value">relevant value</span> of the text control, then
+   set it to the length of the <span data-x="concept-textarea/input-relevant-value">relevant
+   value</span> of the text control.</p></li>
 
    <li><p>Let <var>selection start</var> be the current value of the <code
    data-x="dom-textarea/input-selectionStart">selectionStart</code> attribute.</p></li>
@@ -331,12 +423,13 @@
    <li><p>Let <var>selection end</var> be the current value of the <code
    data-x="dom-textarea/input-selectionEnd">selectionEnd</code> attribute.</p></li>
 
-   <li><p>If <var>start</var> is less than <var>end</var>, delete the sequence of
-   characters starting with the character at the <var>start</var>th position (in logical
-   order) and ending with the character at the <span data-x="">(<var>end</var>-1)</span>th
-   position.</p></li>
+   <li><p>If <var>start</var> is less than <var>end</var>, delete the sequence of characters within
+   the element's <span data-x="concept-textarea/input-relevant-value">relevant value</span> starting
+   with the character at the <var>start</var>th position (in logical order) and ending with the
+   character at the <span data-x="">(<var>end</var>-1)</span>th position.</p></li>
 
-   <li><p>Insert the value of the first argument into the text of the value of the text control,
+   <li><p>Insert the value of the first argument into the text of the <span
+   data-x="concept-textarea/input-relevant-value">relevant value</span> of the text control,
    immediately before the <var>start</var>th character.</p></li>
 
    <li><p>Let <var>new length</var> be the length of the value of the first argument.</p></li>
@@ -435,21 +528,9 @@
   "<span data-x="dom-SelectionMode-preserve">preserve</span>" // default
 };</pre>
 
-  <p>All elements to which this API <span data-x="concept-input-apply">applies</span> have either a
-  selection or a text entry cursor position at all times (even for elements that are not <span>being
-  rendered</span>). The initial state must consist of a text entry cursor at the beginning of the
-  control.</p>
-  <!-- Previously the spec said to let platform conventions decide, but the web depends on it being
-  at the beginning; see https://bugzilla.mozilla.org/show_bug.cgi?id=1337392 -->
+  <hr>
 
   </div>
-
-
-  <p>Characters with no visible rendering, such as U+200D ZERO WIDTH JOINER, still count as
-  characters. Thus, for instance, the selection can include just an invisible character, and the
-  text insertion cursor can be placed to one side or another of such a character.</p>
-
-  <hr>
 
   <div class="example">
 

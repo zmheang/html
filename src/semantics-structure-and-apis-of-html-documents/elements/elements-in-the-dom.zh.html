@@ -76,7 +76,6 @@ interface <dfn>HTMLElement</dfn> : <span>Element</span> {
 <span>HTMLElement</span> includes <span>GlobalEventHandlers</span>;
 <span>HTMLElement</span> includes <span>DocumentAndElementEventHandlers</span>;
 <span>HTMLElement</span> includes <span>ElementContentEditable</span>;
-<span>HTMLElement</span> includes <span>NoncedElement</span>;
 
 // 注意：<a href="#customized-built-in-element-restrictions">有意</a> 不是 [<span>HTMLConstructor</span>]
 [Exposed=Window]
@@ -122,6 +121,20 @@ interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</pre>
   从 <code>HTMLElement</code> 到一个子类，而不是后者从 <code>HTMLUnknownElement</code> 到一个不相关的子类。</p>
 
   </div>
+
+  <p>HTML 和 SVG 元素共同的特性使用 <code>HTMLOrSVGElement</code> 接口 mixin: <ref spec=SVG></p>
+
+  <pre class="idl">interface mixin <dfn>HTMLOrSVGElement</dfn> {
+  [SameObject] readonly attribute <span>DOMStringMap</span> <span data-x="dom-dataset">dataset</span>;
+  attribute DOMString <span data-x="dom-HTMLOrSVGElement-nonce">nonce</span>;
+
+  [<span>CEReactions</span>] attribute long <span data-x="dom-tabindex">tabIndex</span>;
+  void <span data-x="dom-focus">focus</span>(optional <span>FocusOptions</span> options);
+  void <span data-x="dom-blur">blur</span>();
+};
+<span>HTMLElement</span> includes <span>HTMLOrSVGElement</span>;
+<span>SVGElement</span> includes <span>HTMLOrSVGElement</span>;
+</pre>
 
   <div w-nodev>
 

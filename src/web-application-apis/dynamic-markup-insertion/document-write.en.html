@@ -71,12 +71,10 @@
      0 or <var>document</var>'s <span>ignore-destructive-writes counter</span> is greater than 0,
      then return.</p></li>
 
-     <li><p>Run the <span>document open steps</span> with <var>document</var>, "<code
-     data-x="">text/html</code>", and the empty string. If the user <span>refused to allow the
-     document to be unloaded</span>, then return. Otherwise, the <span>insertion
-     point</span> will point at just before the end of the (empty) <span>input
+     <li><p>Run the <span>document open steps</span> with <var>document</var> and the empty string.
+     If the user <span>refused to allow the document to be unloaded</span>, then return. Otherwise,
+     the <span>insertion point</span> will point at just before the end of the (empty) <span>input
      stream</span>.</p></li>
-     <!-- The second and third argument passed above are the defaults per document.open()'s IDL. -->
     </ol>
    </li>
 

@@ -119,8 +119,8 @@
      <tbody>
       <tr>
        <th><var>starting point</var> is a <span>browsing context</span>
-       <td>Let <var>candidate</var> be the first <span>suitable sequentially focusable area</span> in <var>starting point</var>'s <span>active document</span>'s <span>primary control group</span>, if any; or else null
-       <td>Let <var>candidate</var> be the last <span>suitable sequentially focusable area</span> in <var>starting point</var>'s <span>active document</span>'s <span>primary control group</span>, if any; or else null
+       <td>Let <var>candidate</var> be the first <span>suitable sequentially focusable area</span> in <var>starting point</var>'s <span>active document</span>'s <span>control group</span>, if any; or else null
+       <td>Let <var>candidate</var> be the last <span>suitable sequentially focusable area</span> in <var>starting point</var>'s <span>active document</span>'s <span>control group</span>, if any; or else null
       <tr>
        <th><var>selection mechanism</var> is <i>DOM</i>
        <td>Let <var>candidate</var> be the first <span>suitable sequentially focusable area</span> in the <span>home control group</span> following <var>starting point</var>, if any; or else null
@@ -135,11 +135,6 @@
     <p>A <dfn>suitable sequentially focusable area</dfn> is a <span>focusable area</span> whose <span>DOM
     anchor</span> is not <span>inert</span> and that is in its <span>control group</span>'s <span>sequential
     focus navigation order</span>.</p>
-
-    <p>The <dfn>primary control group</dfn> of a <span>control group owner object</span> <var>X</var> is the <span>control group</span> of <var>X</var> if <var>X</var> has no <span>dialog group</span> or if its <span>dialog group</span> has no
-    designated <span>focused dialog of the dialog group</span>, otherwise, it is the <span>primary
-    control group</span> of <var>X</var>'s <span>dialog group</span>'s designated
-    <span>focused dialog of the dialog group</span>.</p>
 
     <p>The <dfn>home control group</dfn> is the <span>control group</span> to which <var>starting point</var> belongs.</p>
 

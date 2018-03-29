@@ -32,7 +32,7 @@ partial interface <dfn id="document" data-lt="">Document</dfn> {
   readonly attribute <span>HTMLOrSVGScriptElement</span>? <span data-x="dom-document-currentScript">currentScript</span>; // classic scripts in a document tree only
 
   // <span>dynamic markup insertion</span>
-  [<span>CEReactions</span>] <span>Document</span> <span data-x="dom-document-open">open</span>(optional DOMString type = "text/html", optional DOMString replace = "");
+  [<span>CEReactions</span>] <span>Document</span> <span data-x="dom-document-open">open</span>(optional DOMString type, optional DOMString replace = ""); // type is ignored
   <span>WindowProxy</span> <span data-x="dom-document-open">open</span>(USVString url, DOMString name, DOMString features);
   [<span>CEReactions</span>] void <span data-x="dom-document-close">close</span>();
   [<span>CEReactions</span>] void <span data-x="dom-document-write">write</span>(DOMString... text);

@@ -61,14 +61,10 @@ interface <dfn>HTMLElement</dfn> : <span>Element</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-lang">lang</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-translate">translate</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-dir">dir</span>;
-  [SameObject] readonly attribute <span>DOMStringMap</span> <span data-x="dom-dataset">dataset</span>;
 
   // <span>user interaction</span>
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-hidden">hidden</span>;
   void <span data-x="dom-click">click</span>();
-  [<span>CEReactions</span>] attribute long <span data-x="dom-tabindex">tabIndex</span>;
-  void <span data-x="dom-focus">focus</span>(optional <span>FocusOptions</span> options);
-  void <span data-x="dom-blur">blur</span>();
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-accessKey">accessKey</span>;
   readonly attribute DOMString <span data-x="dom-accessKeyLabel">accessKeyLabel</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-draggable">draggable</span>;
@@ -81,7 +77,6 @@ interface <dfn>HTMLElement</dfn> : <span>Element</span> {
 <span>HTMLElement</span> includes <span>GlobalEventHandlers</span>;
 <span>HTMLElement</span> includes <span>DocumentAndElementEventHandlers</span>;
 <span>HTMLElement</span> includes <span>ElementContentEditable</span>;
-<span>HTMLElement</span> includes <span>NoncedElement</span>;
 
 // Note: <a href="#customized-built-in-element-restrictions">intentionally</a> not [<span>HTMLConstructor</span>]
 [Exposed=Window]
@@ -130,6 +125,21 @@ interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</pre>
   instead of a lateral one, from <code>HTMLUnknownElement</code> to an unrelated subclass.</p>
 
   </div>
+
+  <p>Features shared between HTML and SVG elements use the <code>HTMLOrSVGElement</code> interface
+  mixin: <ref spec=SVG></p>
+
+  <pre class="idl">interface mixin <dfn>HTMLOrSVGElement</dfn> {
+  [SameObject] readonly attribute <span>DOMStringMap</span> <span data-x="dom-dataset">dataset</span>;
+  attribute DOMString <span data-x="dom-HTMLOrSVGElement-nonce">nonce</span>;
+
+  [<span>CEReactions</span>] attribute long <span data-x="dom-tabindex">tabIndex</span>;
+  void <span data-x="dom-focus">focus</span>(optional <span>FocusOptions</span> options);
+  void <span data-x="dom-blur">blur</span>();
+};
+<span>HTMLElement</span> includes <span>HTMLOrSVGElement</span>;
+<span>SVGElement</span> includes <span>HTMLOrSVGElement</span>;
+</pre>
 
   <div w-nodev>
 

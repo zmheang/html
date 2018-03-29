@@ -19,8 +19,9 @@
     data-x="attr-lang">lang</code> attribute to specify the language of each name.</p>
 
     <p>There must not be more than one <code>meta</code> element with a given <span>language</span>
-    and with its <code data-x="attr-meta-name">name</code> attribute set to the value <code
-    data-x="meta-application-name">application-name</code> per document.</p>
+    and where the <code data-x="attr-meta-name">name</code> attribute value is an
+    <span>ASCII case-insensitive</span> match for
+    <code data-x="meta-application-name">application-name</code> per document.</p>
 
     <div w-nodev>
 
@@ -45,9 +46,11 @@
 
      <li>
 
-      <p>Let <var>winning language</var> be the first language in <var>languages</var> for which there is a <code>meta</code> element in the
-      <code>Document</code> that has its <code data-x="attr-meta-name">name</code> attribute set to
-      the value <code data-x="meta-application-name">application-name</code> and whose
+      <p>Let <var>winning language</var> be the first language in <var>languages</var> for which
+      there is a <code>meta</code> element in the <code>Document</code> where the
+      <code data-x="attr-meta-name">name</code> attribute value is an
+      <span>ASCII case-insensitive</span> match for
+      <code data-x="meta-application-name">application-name</code> and whose
       <span>language</span> is the language in question.</p>
 
       <p>If none of the languages have such a <code>meta</code> element, then return;
@@ -58,9 +61,10 @@
      <li>
 
       <p>Return the value of the <code data-x="attr-meta-content">content</code> attribute of the
-      first <code>meta</code> element in the <code>Document</code> in <span>tree order</span> that
-      has its <code data-x="attr-meta-name">name</code> attribute set to the value <code
-      data-x="meta-application-name">application-name</code> and whose <span>language</span> is <var>winning language</var>.</p>
+      first <code>meta</code> element in the <code>Document</code> in <span>tree order</span> where the
+      <code data-x="attr-meta-name">name</code> attribute value is an
+      <span>ASCII case-insensitive</span> match for <code data-x="meta-application-name">application-name</code>
+      and whose <span>language</span> is <var>winning language</var>.</p>
 
      </li>
 
@@ -83,8 +87,9 @@
 
    <dd><p>The value must be a free-form string that describes the page. The value must be
    appropriate for use in a directory of pages, e.g. in a search engine. There must not be more than
-   one <code>meta</code> element with its <code data-x="attr-meta-name">name</code> attribute set to
-   the value <code data-x="meta-description">description</code> per document.</p></dd>
+   one <code>meta</code> element where the <code data-x="attr-meta-name">name</code> attribute value
+   is an <span>ASCII case-insensitive</span> match for
+   <code data-x="meta-description">description</code> per document.</p></dd>
 
    <dt><dfn><code data-x="meta-generator">generator</code></dfn></dt>
 
@@ -144,9 +149,9 @@
      <li>
 
       <p>For each <code>meta</code> element with a <code data-x="attr-meta-name">name</code>
-      attribute and a <code data-x="attr-meta-content">content</code> attribute and whose <code
-      data-x="attr-meta-name">name</code> attribute's value is <code
-      data-x="meta-keywords">keywords</code>:</p>
+      attribute and a <code data-x="attr-meta-content">content</code> attribute and where the <code
+      data-x="attr-meta-name">name</code> attribute value is an <span>ASCII case-insensitive</span>
+      match for <code data-x="meta-keywords">keywords</code>:</p>
 
       <ol>
 
@@ -202,7 +207,7 @@
       <ul class="brief">
        <li>The element is <span>in a document tree</span></li>
        <li>The element has a <code data-x="attr-meta-name">name</code> attribute, whose value is
-       <code data-x="meta-referrer">referrer</code></li>
+       an <span>ASCII case-insensitive</span> match for <code data-x="meta-referrer">referrer</code></li>
        <li>The element has a <code data-x="attr-meta-content">content</code> attribute, whose value
        is not the empty string</li>
        <li>The element is a child of <span>the <code>head</code> element</span> of the document</li>
@@ -266,7 +271,8 @@
     specified value, or use it as a color highlight in a tab bar or task switcher.</p>
 
     <p>There must not be more than one <code>meta</code> element with its <code
-    data-x="attr-meta-name">name</code> attribute set to the value <code
+    data-x="attr-meta-name">name</code> attribute value set to an
+    <span>ASCII case-insensitive</span> match for <code
     data-x="meta-theme-color">theme-color</code> per document.</p>
 
     <div class="example">
@@ -292,7 +298,7 @@
        <ul class="brief">
         <li>The element is <span>in a document tree</span></li>
         <li>The element has a <code data-x="attr-meta-name">name</code> attribute, whose value is
-        <code data-x="meta-theme-color">theme-color</code></li>
+        an <span>ASCII case-insensitive</span> match for <code data-x="meta-theme-color">theme-color</code></li>
         <li>The element has a <code data-x="attr-meta-content">content</code> attribute</li>
        </ul>
       </li>

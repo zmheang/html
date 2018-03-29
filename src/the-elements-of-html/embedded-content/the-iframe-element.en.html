@@ -142,9 +142,11 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   </div>
 
   <p class="note">In <span>the HTML syntax</span>, authors need only remember to use U+0022
-  QUOTATION MARK characters (") to wrap the attribute contents and then to escape all U+0022
-  QUOTATION MARK (") and U+0026 AMPERSAND (&amp;) characters, and to specify the <code
-  data-x="attr-iframe-sandbox">sandbox</code> attribute, to ensure safe embedding of content.</p>
+  QUOTATION MARK characters (") to wrap the attribute contents and then to escape all U+0026
+  AMPERSAND (&amp;) and U+0022 QUOTATION MARK (") characters, and to specify the <code
+  data-x="attr-iframe-sandbox">sandbox</code> attribute, to ensure safe embedding of content. (And
+  remember to escape ampersands before quotation marks, to ensure quotation marks become &amp;quot;
+  and not &amp;amp;quot;.)</p>
 
   <p class="note">In XML the U+003C LESS-THAN SIGN character (&lt;) needs to be escaped as well. In
   order to prevent <a href="https://www.w3.org/TR/xml/#AVNormalize">attribute-value

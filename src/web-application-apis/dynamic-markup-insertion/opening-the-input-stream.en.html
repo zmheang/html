@@ -4,19 +4,14 @@
   with different numbers of arguments.</p>
 
   <dl class="domintro">
-
    <dt><var>document</var> = <var>document</var> . <code subdfn data-x="dom-document-open">open</code>( [ <var>type</var> [, <var>replace</var> ] ] )</dt>
-
    <dd>
-
     <p>Causes the <code>Document</code> to be replaced in-place, as if it was a new
     <code>Document</code> object, but reusing the previous object, which is then returned.</p>
 
-    <p>If the <var>type</var> argument is omitted or has the value
-    "<code>text/html</code>", then the resulting <code>Document</code> has an HTML parser associated
-    with it, which can be given data to parse using <code
-    data-x="dom-document-write">document.write()</code>. Otherwise, all content passed to <code
-    data-x="dom-document-write">document.write()</code> will be parsed as plain text.</p>
+    <p>The resulting <code>Document</code> has an HTML parser associated with it, which can be given
+    data to parse using <code data-x="dom-document-write">document.write()</code>. (The
+    <var>type</var> argument is ignored.)</p>
 
     <p>If the <var>replace</var> argument is present and has the value "<code
     data-x="">replace</code>", the existing entries in the session history for the
@@ -29,17 +24,10 @@
 
     <p>Throws an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> if the
     parser is currently executing a <span>custom element constructor</span>.</p>
-
    </dd>
 
    <dt><var>window</var> = <var>document</var> . <code data-x="dom-document-open">open</code>( <var>url</var>, <var>name</var>, <var>features</var> )</dt>
-
-   <dd>
-
-    <p>Works like the <code data-x="dom-open">window.open()</code> method.</p>
-
-   </dd>
-
+   <dd><p>Works like the <code data-x="dom-open">window.open()</code> method.</p></dd>
   </dl>
 
   <div w-nodev>
@@ -50,8 +38,8 @@
   unloaded</span>. Initially, the counter must be set to zero.</p> <!--
   https://www.hixie.ch/tests/adhoc/dom/level0/document/open/unload/ -->
 
-  <p>The <dfn>document open steps</dfn>, given a <var>document</var>, <var>type</var>, and
-  <var>replaceInput</var>, are as follows:</p>
+  <p>The <dfn>document open steps</dfn>, given a <var>document</var> and <var>replaceInput</var>,
+  are as follows:</p>
 
   <ol>
    <li><p>If <var>document</var> is an <span data-x="XML documents">XML document</span>, then throw
@@ -197,41 +185,6 @@
    <li><p>Set the <span>current document readiness</span> of <var>document</var> to "<code
    data-x="">loading</code>".</p></li>
 
-   <li>
-
-    <!-- text/plain handling -->
-
-    <p>If <var>type</var> is an <span>ASCII case-insensitive</span> match for the string
-    "<code data-x="">replace</code>", then, for historical reasons, set it to the string "<code
-    data-x="">text/html</code>".</p>
-
-    <p>Otherwise:</p>
-
-    <p>If the <var>type</var> string contains a U+003B SEMICOLON character (;), remove the
-    first such character and all characters from it up to the end of the string.</p>
-
-    <p><span>Strip leading and trailing ASCII whitespace</span> from <var>type</var>.</p>
-
-   </li>
-
-   <li>
-
-    <p>If <var>type</var> is <em>not</em> now an <span>ASCII case-insensitive</span> match
-    for the string "<code>text/html</code>", then act as if the tokenizer had emitted a start tag
-    token with the tag name "pre" followed by a single U+000A LINE FEED (LF) character<!-- to get
-    eaten, so that a leading LF in the written text doesn't get eaten itself-->, then switch the
-    <span>HTML parser</span>'s tokenizer to the <span>PLAINTEXT state</span>.</p>
-
-    <!--
- https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E...%3Ciframe%3E%3C%2Fiframe%3E%3Cscript%3Eonload%20%3D%20function%20()%20%7B%20%0D%0A%20%20var%20d%20%3D%20document.getElementsByTagName('iframe')%5B0%5D.contentDocument%3B%0D%0A%20%20d.open('image%2Fsvg%2Bxml')%3B%0D%0A%20%20d.write(%22%3Cinput%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml'%20value%3D'(x)html'%2F%3E%22)%3B%0D%0A%20%20d.close()%3B%0D%0A%7D%3B%3C%2Fscript%3E
- https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E...%3Ciframe%3E%3C%2Fiframe%3E%3Cscript%3Eonload%20%3D%20function%20()%20%7B%20%0D%0A%20%20var%20d%20%3D%20document.getElementsByTagName('iframe')%5B0%5D.contentDocument%3B%0D%0A%20%20d.open('image%2Fgif')%3B%0D%0A%20%20var%20a%20%3D%20%5B%200x47%2C%200x49%2C%200x46%2C%200x38%2C%200x39%2C%200x61%2C%200x01%2C%200x00%2C%200x01%2C%200x00%2C%0D%0A%20%20%20%20%20%20%20%20%20%20%20%200x80%2C%200xff%2C%200x00%2C%200xc0%2C%200xc0%2C%200xc0%2C%200x00%2C%200x00%2C%200x00%2C%200x21%2C%0D%0A%20%20%20%20%20%20%20%20%20%20%20%200xf9%2C%200x04%2C%200x01%2C%200x00%2C%200x00%2C%200x00%2C%200x00%2C%200x2c%2C%200x00%2C%200x00%2C%0D%0A%20%20%20%20%20%20%20%20%20%20%20%200x00%2C%200x00%2C%200x01%2C%200x00%2C%200x01%2C%200x00%2C%200x00%2C%200x02%2C%200x02%2C%200x44%2C%0D%0A%20%20%20%20%20%20%20%20%20%20%20%200x01%2C%200x00%2C%200x3b%20%5D%3B%0D%0A%20%20var%20s%20%3D%20%22%22%3B%0D%0A%20%20for%20(var%20i%20%3D%200%3B%20i%20%3C%20a.length%3B%20i%20%2B%3D%201)%0D%0A%20%20%20%20s%20%2B%3D%20String.fromCharCode(a%5Bi%5D)%3B%0D%0A%20%20d.write(s)%3B%0D%0A%20%20d.close()%3B%0D%0A%7D%3B%3C%2Fscript%3E
- https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E...%3Ciframe%3E%3C%2Fiframe%3E%3Cscript%3Eonload%20%3D%20function%20()%20{%20%0A%20%20var%20d%20%3D%20document.getElementsByTagName(%27iframe%27)[0].contentDocument%3B%0A%20%20d.open(%27Text%2Fplain%27)%3B%0A%20%20d.write(%27%3Cb%3Etest%27)%3B%0A%20%20d.close()%3B%0A}%3B%3C%2Fscript%3E
- https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E...%3Ciframe%3E%3C%2Fiframe%3E%3Cscript%3Eonload%20%3D%20function%20()%20{%20%0A%20%20var%20d%20%3D%20document.getElementsByTagName(%27iframe%27)[0].contentDocument%3B%0A%20%20d.open(%27%20text%2Fplain%27)%3B%0A%20%20d.write(%27%3Cb%3Etest%27)%3B%0A%20%20d.close()%3B%0A}%3B%3C%2Fscript%3E
- https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E...%3Ciframe%3E%3C%2Fiframe%3E%3Cscript%3Eonload%20%3D%20function%20()%20{%20%0A%20%20var%20d%20%3D%20document.getElementsByTagName(%27iframe%27)[0].contentDocument%3B%0A%20%20d.open(%27text%2Fplain%3B%27)%3B%0A%20%20d.write(%27%3Cb%3Etest%27)%3B%0A%20%20d.close()%3B%0A}%3B%3C%2Fscript%3E
-    -->
-
-   </li>
-
    <li><p>Remove any <span data-x="concept-task">tasks</span> queued by the <span>history traversal
    task source</span> that are associated with any <code>Document</code> objects in the
    <span>top-level browsing context</span>'s <span>document family</span>.</p></li>
@@ -268,10 +221,11 @@
   <p>When invoked with two arguments or fewer, the <code
   data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> method must
   return the result of running the <span>document open steps</span> with this <code>Document</code>
-  object, <var>type</var>, and <var>replace</var>.
+  object and <var>replace</var>.
 
-  <p class="note">The <code data-x="dom-document-open">document.open()</code> method does not affect
-  whether a <code>Document</code> is <span>ready for post-load tasks</span> or <span>completely
+  <p class="note">The <var>type</var> argument is ignored. Also, the <code
+  data-x="dom-document-open">document.open()</code> method does not affect whether a
+  <code>Document</code> is <span>ready for post-load tasks</span> or <span>completely
   loaded</span>.</p>
 
   <p>When invoked with three arguments, the <code data-x="dom-document-open">open(<var>url</var>,

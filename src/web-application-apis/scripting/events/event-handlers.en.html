@@ -88,22 +88,38 @@
 
   <hr>
 
-  <p>When an <span data-x="event handlers">event handler</span> <var>H</var> of an element or object
-  <var>T</var> implementing the <code>EventTarget</code> interface is first set to a non-null value,
-  the user agent must append an <span data-x="concept-event-listener">event listener</span> to the
-  list of <span data-x="concept-event-listener">event listeners</span> associated with <var>T</var>
-  with <b>type</b> set to the <dfn data-export="">event handler event type</dfn> corresponding to
-  <var>H</var> and <b>callback</b> set to the result of creating a Web IDL <code
-  data-x="dom-EventListener">EventListener</code> instance representing a reference to a function of
-  one argument that executes the steps of <span>the event handler processing algorithm</span>, given
-  <var>H</var> and its argument. The <code data-x="dom-EventListener">EventListener</code>'s
-  <span>callback context</span> can be arbitrary; it does not impact the steps of <span>the event
-  handler processing algorithm</span>. <ref spec=DOM></p>
+  <p>When an <span data-x="event handlers">event handler</span> <var>H</var> of an
+  <code>EventTarget</code> object <var>T</var> is first set to a non-null value, then:
 
-  <p class="note">The <b>callback</b> is emphatically <em>not</em> the <span data-x="event
-  handlers">event handler</span> itself. Every event handler ends up registering the same
-  <b>callback</b>, the algorithm defined below, which takes care of invoking the right callback, and
-  processing the callback's return value.</p>
+  <ol>
+   <li>
+    <p>Let <var>callback</var> be the result of creating a Web IDL <code
+    data-x="dom-EventListener">EventListener</code> instance representing a reference to a function
+    of one argument that executes the steps of <span>the event handler processing algorithm</span>,
+    given <var>H</var> and its argument.</p>
+
+    <p>The <code data-x="dom-EventListener">EventListener</code>'s <span>callback context</span> can
+    be arbitrary; it does not impact the steps of <span>the event handler processing
+    algorithm</span>. <ref spec=DOM></p>
+
+    <p class="note">The callback is emphatically <em>not</em> the <span data-x="event
+    handlers">event handler</span> itself. Every event handler ends up registering the same
+    callback, the algorithm defined below, which takes care of invoking the right callback, and
+    processing the callback's return value.</p>
+   </li>
+
+   <li>
+    <p>Let <var>listener</var> be a new <span>event listener</span> whose <span data-x="event
+    listener type">type</span> is the <dfn data-export="">event handler event type</dfn>
+    corresponding to <var>H</var> and <span data-x="event listener callback">callback</span> is
+    <var>callback</var>.</p>
+
+    <p class="note">To be clear, an <span>event listener</span> is different from an <code
+    data-x="dom-EventListener">EventListener</code>.</p>
+   </li>
+
+   <li><p><span>Add an event listener</span> with <var>T</var> and <var>listener</var>.</p></li>
+  </ol>
 
   <p class="note">This only happens the first time the <span data-x="event handlers">event
   handler</span>'s value is set. Since listeners are called in the order they were registered, the
