@@ -601,6 +601,11 @@
   "syntax-charref": "字符引用",
   "syntax-cdata": "CDATA 部分",
   "syntax-comments": "注释",
+  "encoding sniffing algorithm": "编码探测算法",
+  "input stream": "输入流",
+  "decode": "解码",
+  "concept-encoding-confidence": "信心",
+  "change the encoding": "更改字符编码",
   "rcdata less-than sign state": "RCDATA 小于号状态",
   "next input character": "下一个输入字符",
   "rcdata end tag open state": "RCDATA 结束标签打开状态",
@@ -680,7 +685,5 @@
   "xmlns namespace": "XMLNS 命名空间",
   "xlink namespace": "XLink 命名空间",
   "appropriate end tag token": "适当的结束标记",
-  "html integration point": "HTML 集成点",
-  "input stream": "输入流",
-  "concept-encoding-confidence": "信心"
+  "html integration point": "HTML 集成点"
 }

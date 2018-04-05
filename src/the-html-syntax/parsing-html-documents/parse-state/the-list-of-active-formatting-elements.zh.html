@@ -1,0 +1,113 @@
+  <h5 data-x="The list of active formatting elements" id="The list of active formatting elements">活动格式化元素列表</h5>
+
+  <p><dfn data-x="list of active formatting elements">活动格式化元素列表</dfn> 初始为空。
+  它用来处理错误嵌套的 <span data-x="formatting">格式化元素标签</span>。</p>
+
+  <p>该列表包含 <span>formatting</span> 类别下的元素以及
+  <span data-x="concept-parser-marker">标记</span>。
+  当进入 <code>applet</code>, <code>object</code>, <code>marquee</code>, <code>template</code>,
+  <code>td</code>, <code>th</code>, 和 <code>caption</code> 元素时会插入
+  <dfn data-x="concept-parser-marker">标记</dfn>。
+  用来防止格式化 "泄漏" <em>到</em> <code>applet</code>, <code>object</code>, <code>marquee</code>,
+  <code>template</code>, <code>td</code>, <code>th</code>, 和 <code>caption</code> 元素。</p>
+
+  <p>此外，每个 <span data-x="list of active formatting elements">活动的格式化原始列表</span>
+  中的元素都与创建它的标记相关联，这样在必要时可以为那个标记继续创建元素。</p>
+
+  <p>当下面的步骤要 UA 把一个元素 <var>element</var>
+  <dfn data-x="push onto the list of active formatting elements">推入到活动格式化元素</dfn> 时，
+  UA 必须执行以下步骤：</p>
+
+  <ol id="noah">
+
+   <li><p>如果在 <span data-x="list of active formatting elements">活动的格式化原始列表</span> 中
+   最后一个 <span data-x="concept-parser-marker">标记</span>
+   后已经有三个元素（如果没有标记，就匹配任意地方）
+   与 <var>element</var> 有同样的名字、命名空间和属性，就把最先的那个元素从
+   <span data-x="list of active formatting elements">活动的格式化原始列表</span> 移除。
+   比较属性时必须以元素刚被解析器创建出来的状态为准；
+   如果两个元素的所有属性可以配对，每一对属性有同样的属性名、命名空间和值（顺序不重要），
+   那么就说两个元素有相同的属性。</p>
+
+   <p class="note">这是诺亚方舟条款。。但每个家庭有三个人，而不是两个。</p></li>
+   <!-- A sort of polyamorous Noah's Ark, if you will. -->
+
+   <li><p>把 <var>element</var> 添加到 <span data-x="list of active formatting elements">活动的格式化原始列表</span>。</p></li>
+
+  </ol>
+
+  <p>当下面的步骤要 UA
+  <dfn data-x="reconstruct the active formatting elements">重新构造活动的格式化元素</dfn> 时，
+  UA 必须执行以下步骤：</p>
+
+  <ol>
+
+   <li><p>如果 <span data-x="list of active formatting elements">活动的格式化原始列表</span> 中没有项目，
+   那就没什么要重新构造的，停止本算法。</p></li>
+
+   <li><p>如果 <span data-x="list of active formatting elements">活动的格式化原始列表</span>
+   的最后一项（最近添加的）是一个 <span data-x="concept-parser-marker">标记</span>，
+   或者如果它是 <span data-x="stack of open elements">打开元素栈</span> 中的元素，
+   那么也没有什么要重新构造的；停止本算法。</p></li>
+
+   <li><p>令 <var>entry</var> 为
+   <span data-x="list of active formatting elements">活动的格式化原始列表</span>
+   的最后一项（最近添加的）。</p></li>
+
+   <li><p><i>Rewind</i>：如果在
+   <span data-x="list of active formatting elements">活动的格式化原始列表</span>
+   中 <var>entry</var> 之前没有项目，那就跳到标记为 <i>create</i> 的步骤。</p></li>
+
+   <li><p>令 <var>entry</var> 为
+   <span data-x="list of active formatting elements">活动的格式化原始列表</span>
+   中 <var>entry</var> 的前一项。</p></li>
+
+   <li><p>如果 <var>entry</var> 既不是一个 <span data-x="concept-parser-marker">标记</span>，
+   也不是 <span data-x="stack of open elements">打开元素栈</span> 中的元素，
+   跳到标记为 <i>rewind</i> 的步骤。</p></li>
+
+   <li><p><i>Advance</i>: 令 <var>entry</var> 为
+   <span data-x="list of active formatting elements">活动的格式化原始列表</span>
+   中 <var>entry</var> 的后一项。</p></li>
+
+   <li><p><i>Create</i>: 为创建 <var>entry</var> 的标记
+   <span data-x="insert an html element">插入一个 HTML 元素</span>，来得到
+   <var>new element</var>。</p></li>
+
+   <li><p>把列表中的 <var>entry</var> 替换为一个 <var>new element</var> 的项目。</p></li>
+
+   <li><p>如果 <span data-x="list of active formatting elements">活动的格式化原始列表</span>
+   中 <var>new element</var> 的项目不是列表的最后一项，返回到标记为 <i>advance</i> 的步骤。</p></li>
+
+  </ol>
+
+  <p>这样的效果是重新打开所有在当前 body，cell 或 caption（任何最早的元素）格式化元素中的，没有显式关闭的元素。</p>
+
+  <p class="note">本标准中，<span data-x="list of active formatting elements">活动的格式化原始列表</span>
+  总是由按时间排序的元素组成，最先添加的元素在最前面，最后添加的元素在最后
+  （当然上述算法中 7-10 的循环除外）。</p>
+
+  <p>当下面的步骤要 UA
+  <dfn data-x="clear the list of active formatting elements up to the last marker">
+  清楚活动格式化元素列表到最后一个标记
+  </dfn> 时，UA 必须执行以下步骤：</p>
+
+  <ol>
+
+   <li><p>令 <var>entry</var> 为
+   <span data-x="list of active formatting elements">活动的格式化原始列表</span>
+   中的最后一项（最近添加的）。</p></li>
+
+   <li><p>从
+   <span data-x="list of active formatting elements">活动的格式化原始列表</span>
+   中移除 <var>entry</var>。</p></li>
+
+   <li><p>如果 <var>entry</var> 是一个 <span data-x="concept-parser-marker">标记</span>，
+   则立即停止本算法。该列表已经清除到了最后一个 <span
+   data-x="concept-parser-marker">标记</span>。</p></li>
+
+   <li><p>跳到步骤 1。</p></li>
+
+  </ol>
+
+

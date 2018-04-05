@@ -1,0 +1,15 @@
+  <h5 id="The element pointers" data-x="The element pointers">元素指针</h5>
+
+  <p><dfn data-x="head element pointer"><code data-x="">head</code> 元素指针</dfn> 和
+  <dfn data-x="form element pointer"><code data-x="">form</code> 元素指针</dfn> 初始都为 null。</p>
+
+  <p>一旦 <code>head</code> 元素已经解析完成（不管是隐式地还是显式地）
+  <span data-x="head element pointer"><code data-x="">head</code> 元素指针</span>
+  都会设置为指向这一节点。</p>
+
+  <p><span data-x="form element pointer"><code data-x="">form</code> 元素指针</span>
+  指向仍然打开的还未看到关闭标签的最后一个 <code>form</code> 元素。
+  它用来让表单控件即使最坏的写法下也可以关联到表单。
+  在 <code>template</code> 元素中要忽略它。</p>
+
+
