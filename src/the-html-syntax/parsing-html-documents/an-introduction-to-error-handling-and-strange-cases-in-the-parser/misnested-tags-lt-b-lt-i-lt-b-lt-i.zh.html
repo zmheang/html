@@ -1,0 +1,35 @@
+  <h5 id="misnested-tags:-b-i-/b-/i">错误嵌套的标签：&lt;b>&lt;i>&lt;/b>&lt;/i></h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>这是一个最常讨论的有问题的标记：</p>
+
+  <pre>&lt;p>1&lt;b>2&lt;i>3&lt;/b>4&lt;/i>5&lt;/p></pre>
+
+  <p>直到 "3" 解析的结果都很直观，这时 DOM 看起来是这样：</p>
+
+  <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>p</code><ul><li class="t3"><code>#text</code>: <span data-x="">1</span></li><li class="t1"><code>b</code><ul><li class="t3"><code>#text</code>: <span data-x="">2</span></li><li class="t1"><code>i</code><ul><li class="t3"><code>#text</code>: <span data-x="">3</span></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+  <p>这里 <span data-x="stack of open elements">打开元素栈</span> 有五个元素：
+  <code>html</code>, <code>body</code>, <code>p</code>, <code>b</code> 以及 <code>i</code>。
+  <span data-x="list of active formatting elements">活动格式化元素列表</span> 只有两个：
+  <code>b</code> 和 <code>i</code>。<span data-x="insertion mode">插入模式</span> 为
+  "<span data-x="insertion mode: in body">in body</span>"。</p>
+
+  <p>在收到标签名为 "b" 的结束标记时，会调用
+  "<a href="#adoptionAgency" data-x="adoption agency algorithm">adoption agency algorithm</a>"。
+  这是一个简单的例子，<var>formatting element</var> 为 <code>b</code> 元素，
+  且没有 <var>furthest block</var>。
+  因此 <span data-x="stack of open elements">打开元素栈</span> 最终只有三个元素：
+  <code>html</code>, <code>body</code> 和 <code>p</code>，
+  <span data-x="list of active formatting elements">活动格式化元素列表</span> 只有一个 <code>i</code>。
+  这时 DOM 树没有变化。</p>
+
+  <p>下一个标记是一个字符（"4"），触发了
+  <span data-x="reconstruct the active formatting elements">重新构造活动的格式化元素算法</span>，
+  这个例子中就是 <code>i</code> 元素。因此会为 <code>Text</code> 节点 "4" 创建一个 <code>i</code> 元素。
+  在收到 "i" 的结束标签标记后，再插入 <code>Text</code> 节点 "5"，DOM 看起来如下：</p>
+
+  <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>p</code><ul><li class="t3"><code>#text</code>: <span data-x="">1</span></li><li class="t1"><code>b</code><ul><li class="t3"><code>#text</code>: <span data-x="">2</span></li><li class="t1"><code>i</code><ul><li class="t3"><code>#text</code>: <span data-x="">3</span></li></ul></li></ul></li><li class="t1"><code>i</code><ul><li class="t3"><code>#text</code>: <span data-x="">4</span></li></ul></li><li class="t3"><code>#text</code>: <span data-x="">5</span></li></ul></li></ul></li></ul></li></ul>
+
+

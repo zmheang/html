@@ -1,0 +1,55 @@
+  <h5 id="misnested-tags:-b-p-/b-/p">错误嵌套的标签：&lt;b>&lt;p>&lt;/b>&lt;/p></h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>这是与上一个例子类似的一个例子：</p>
+
+  <pre>&lt;b>1&lt;p>2&lt;/b>3&lt;/p></pre>
+
+  <p>直到 "2" 解析的结果都很直观：</p>
+
+  <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>b</code><ul><li class="t3"><code>#text</code>: <span data-x="">1</span></li><li class="t1"><code>p</code><ul><li class="t3"><code>#text</code>: <span data-x="">2</span></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+  <p>有趣的部分是解析到 "b" 的结束标记时。</p>
+
+  <p>在看到该标记之前，<span data-x="stack of open elements">打开元素栈</span> 有四个元素：
+  <code>html</code>, <code>body</code>, <code>b</code>, 和 <code>p</code>。
+  <span data-x="list of active formatting elements">活动格式化元素列表</span> 只有一个：
+  <code>b</code>。<span data-x="insertion mode">插入模式</span> 为
+  "<span data-x="insertion mode: in body">in body</span>"。</p>
+
+  <p>在收到 "b" 的结束标记时，会像上一个例子那样调用
+  "<a href="#adoptionAgency" data-x="adoption agency algorithm">adoption agency 算法</a>"。
+  但这个例子中 <em>有</em> 一个 <var>furthest block</var>，即 <code>p</code> 元素。
+  因此 adoption agency 算法不会被跳过。</p>
+
+  <p><var>common ancestor</var> 为 <code>body</code> 元素。
+  "bookmark" 的概念标记了 <code>b</code> 在
+  <span data-x="list of active formatting elements">活动格式化元素列表</span> 中的位置，
+  但由于该列表只有一个元素，这个 bookmark 没啥作用。</p>
+
+  <p>算法继续进行，<var>node</var> 最终被设为格式化元素（<code>b</code>），
+  <var>last node</var> 最终被设为 <var>furthest block</var> （<code>p</code>）。</p>
+
+  <p><var>last node</var> 被追加（移动）到 <var>common ancestor</var>，所以 DOM 变成了这样：</p>
+
+  <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>b</code><ul><li class="t3"><code>#text</code>: <span data-x="">1</span></li></ul></li><li class="t1"><code>p</code><ul><li class="t3"><code>#text</code>: <span data-x="">2</span></li></ul></li></ul></li></ul></li></ul>
+
+  <p>继续创建一个 <code>b</code> 元素，把 <code>p</code> 元素的子节点移动过去：</p>
+
+  <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>b</code><ul><li class="t3"><code>#text</code>: <span data-x="">1</span></li></ul></li><li class="t1"><code>p</code></li></ul></li></ul></li></ul>
+  <ul class="domTree"><li class="t1"><code>b</code><ul><li class="t3"><code>#text</code>: <span data-x="">2</span></li></ul></li></ul>
+
+  <p>最后把新的 <code>b</code> 元素追加到 <code>p</code> 元素，所以 DOM 变成了这样：</p>
+
+  <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>b</code><ul><li class="t3"><code>#text</code>: <span data-x="">1</span></li></ul></li><li class="t1"><code>p</code><ul><li class="t1"><code>b</code><ul><li class="t3"><code>#text</code>: <span data-x="">2</span></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+  <p>
+  从 <span data-x="list of active formatting elements">活动格式化元素列表</span>
+  和 <span data-x="stack of open elements">打开元素栈</span>
+  移除 <code>b</code> 元素，
+  所以当解析 "3" 时，它被追加到了 <code>p</code> 元素：</p>
+
+  <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>b</code><ul><li class="t3"><code>#text</code>: <span data-x="">1</span></li></ul></li><li class="t1"><code>p</code><ul><li class="t1"><code>b</code><ul><li class="t3"><code>#text</code>: <span data-x="">2</span></li></ul></li><li class="t3"><code>#text</code>: <span data-x="">3</span></li></ul></li></ul></li></ul></li></ul>
+
+

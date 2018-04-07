@@ -1,0 +1,49 @@
+  <h5 id="Scripts that modify the page as it is being parsed">解析时修改页面的脚本</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>考虑下面的标记，这个例子中我们假设这个文档的
+  <span>URL</span> 是 <code data-x="">https://example.com/inner</code>，
+  正在渲染到另一个 <span>URL</span> 为 <code data-x="">https://example.com/outer</code>
+  的文档的 <code>iframe</code> 中：</p>
+
+  <pre>&lt;div id=a>
+ &lt;script>
+  var div = document.getElementById('a');
+  parent.document.body.appendChild(div);
+ &lt;/script>
+ &lt;script>
+  alert(document.URL);
+ &lt;/script>
+&lt;/div>
+&lt;script>
+ alert(document.URL);
+&lt;/script></pre>
+
+  <p>直到第一个 "script" 结束标签（在解析它之前），结果相对比较直观：</p>
+
+  <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>div</code> <span data-x="" class="t2"><code class="attribute name" data-x="attr-id">id</code>="<code class="attribute value" data-x="">a</code>"</span><ul><li class="t3"><code>#text</code>: <span data-x="">
+ </span></li><li class="t1"><code>script</code><ul><li class="t3"><code>#text</code>: <span data-x="">var div = document.getElementById('a'); &#x23CE; parent.document.body.appendChild(div);</span></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+  <p>解析这个脚本后 <code>div</code> 元素和它的子元素 <code>script</code> 消失了：</p>
+
+  <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code></li></ul></li></ul>
+
+  <p>这时它们在前面所说的外层 <span data-x="browsing context">浏览环境</span> 的
+  <code>Document</code> 中。但 <span data-x="stack of open elements">打开元素栈</span>
+  <em>仍然包含 <code>div</code> 元素</em>。</p>
+
+  <p>所以当解析第二个 <code>script</code> 元素时，它被插入
+  <em>到了外层 <code>Document</code> 对象</em>。</p>
+
+  <p>解析到的文档与创建解析器的 <code>Document</code> 不同时，其中的脚本不会执行，
+  所以第一个 alert 不会显示。</p>
+
+  <p>一旦解析到 <code>div</code> 元素的结束标签，<code>div</code> 元素就被弹栈，
+  所以下一个 <code>script</code> 元素处于内层 <code>Document</code> 中：</p>
+
+  <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>script</code><ul><li class="t3"><code>#text</code>: <span data-x="">alert(document.URL);</span></li></ul></li></ul></li></ul></li></ul>
+
+  <p>该脚本会被执行，产生一个写着 "https://example.com/inner" 的 alert。</p>
+
+

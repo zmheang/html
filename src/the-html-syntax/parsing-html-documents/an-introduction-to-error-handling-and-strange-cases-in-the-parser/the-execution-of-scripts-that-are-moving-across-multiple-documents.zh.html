@@ -1,0 +1,17 @@
+  <h5 id="The execution of scripts that are moving across multiple documents">在多个文档中移动的脚本的执行</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>继续上一小节的例子，考虑第二个 <code>script</code> 元素是外部脚本的情况
+  （即有 <code data-x="attr-script-src">src</code> 属性的脚本）。
+  由于该元素创建时不在解析器的 <code>Document</code> 中，这个外链脚本甚至不会被下载。</p>
+
+  <p>
+  具有 <code data-x="attr-script-src">src</code> 属性的
+  <code>script</code> 元素正常地解析到其解析器的 <code>Document</code> 中的情况，
+  如果该元素被移动到其他文档中时它还在下载中，那么它会继续下载但不会执行。</p>
+
+  <p class="note">通常在 <code>Document</code> 之间移动 <code>script</code> 元素是一个糟糕的实践。</p>
+
+
+

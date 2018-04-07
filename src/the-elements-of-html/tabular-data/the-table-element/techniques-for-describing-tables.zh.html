@@ -1,0 +1,212 @@
+  <h5 id="table-descriptions-techniques">描述表格的技术</h5>
+
+  <p id="table-descriptions">
+  如果一个表格不以第一行和第一列作为标题，或着其他难以理解的情况，作者引入介绍该表格的解释性信息。
+  该信息对所有用户都很有用，尤其是对于无法看到该表的用户，例如屏幕阅读器的用户。</p>
+
+  <p>这样的解释性信息应该介绍表格的目的，概述其基本单元格结构，
+  突出显示任何趋势或模式，通常用来教会用户如何使用这个表格。</p>
+
+  <!-- Describing the conclusions of the data in a table is useful to everyone; explaining how to
+  read the table, if not obvious from the headers alone, is useful to everyone; describing the
+  structure of the table, if it is easy to grasp visually, might not be useful to everyone, but it
+  might also not be useful to users who can quickly navigate the table with an accessibility tool.
+  -->
+
+  <p>例如下面的表格：</p>
+
+  <table>
+   <caption>Characteristics with positive and negative sides</caption>
+   <thead>
+    <tr>
+     <th id="n"> Negative
+     <th> Characteristic
+     <th> Positive
+   <tbody>
+    <tr>
+     <td headers="n r1"> Sad
+     <th id=r1> Mood
+     <td> Happy
+    <tr>
+     <td headers="n r2"> Failing
+     <th id=r2> Grade
+     <td> Passing
+  </table>
+
+  <p>如果有一段描述来解释该表格的布局就很有用，比如
+  “性格在第二列给出，左侧一列是缺点，右侧一列是优点”。</p>
+
+  <p>有很多种方式引入这个信息，比如：</p>
+
+  <dl>
+
+   <dt>在环绕表格的段落中</dt>
+
+   <dd>
+    <div class="example"><pre><strong>&lt;p>In the following table, characteristics are given in the second
+column, with the negative side in the left column and the positive
+side in the right column.&lt;/p></strong>
+&lt;table>
+ &lt;caption>Characteristics with positive and negative sides&lt;/caption>
+ &lt;thead>
+  &lt;tr>
+   &lt;th id="n"> Negative
+   &lt;th> Characteristic
+   &lt;th> Positive
+ &lt;tbody>
+  &lt;tr>
+   &lt;td headers="n r1"> Sad
+   &lt;th id="r1"> Mood
+   &lt;td> Happy
+  &lt;tr>
+   &lt;td headers="n r2"> Failing
+   &lt;th id="r2"> Grade
+   &lt;td> Passing
+&lt;/table></pre></div>
+   </dd>
+
+   <dt>在表格的 <code>caption</code> 中</dt>
+
+   <dd>
+    <div class="example"><pre>&lt;table>
+<strong> &lt;caption>
+  &lt;strong>Characteristics with positive and negative sides.&lt;/strong>
+  &lt;p>Characteristics are given in the second column, with the
+  negative side in the left column and the positive side in the right
+  column.&lt;/p></strong>
+ &lt;/caption>
+ &lt;thead>
+  &lt;tr>
+   &lt;th id="n"> Negative
+   &lt;th> Characteristic
+   &lt;th> Positive
+ &lt;tbody>
+  &lt;tr>
+   &lt;td headers="n r1"> Sad
+   &lt;th id="r1"> Mood
+   &lt;td> Happy
+  &lt;tr>
+   &lt;td headers="n r2"> Failing
+   &lt;th id="r2"> Grade
+   &lt;td> Passing
+&lt;/table></pre></div>
+   </dd>
+
+   <dt>在表格的 <code>caption</code> 中，用一个 <code>details</code> 元素</dt>
+
+   <dd>
+    <div class="example"><pre>&lt;table>
+ &lt;caption>
+  &lt;strong>Characteristics with positive and negative sides.&lt;/strong>
+<strong>  &lt;details>
+   &lt;summary>Help&lt;/summary>
+   &lt;p>Characteristics are given in the second column, with the
+   negative side in the left column and the positive side in the right
+   column.&lt;/p>
+  &lt;/details></strong>
+ &lt;/caption>
+ &lt;thead>
+  &lt;tr>
+   &lt;th id="n"> Negative
+   &lt;th> Characteristic
+   &lt;th> Positive
+ &lt;tbody>
+  &lt;tr>
+   &lt;td headers="n r1"> Sad
+   &lt;th id="r1"> Mood
+   &lt;td> Happy
+  &lt;tr>
+   &lt;td headers="n r2"> Failing
+   &lt;th id="r2"> Grade
+   &lt;td> Passing
+&lt;/table></pre></div>
+   </dd>
+
+   <dt>在同一 <code>figure</code> 中在表格的旁边</dt>
+
+   <dd>
+    <div class="example"><pre>&lt;figure>
+ &lt;figcaption>Characteristics with positive and negative sides&lt;/figcaption>
+<strong> &lt;p>Characteristics are given in the second column, with the
+ negative side in the left column and the positive side in the right
+ column.&lt;/p></strong>
+ &lt;table>
+  &lt;thead>
+   &lt;tr>
+    &lt;th id="n"> Negative
+    &lt;th> Characteristic
+    &lt;th> Positive
+  &lt;tbody>
+   &lt;tr>
+    &lt;td headers="n r1"> Sad
+    &lt;th id="r1"> Mood
+    &lt;td> Happy
+   &lt;tr>
+    &lt;td headers="n r2"> Failing
+    &lt;th id="r2"> Grade
+    &lt;td> Passing
+ &lt;/table>
+&lt;/figure></pre></div>
+   </dd>
+
+   <dt>在同一 <code>figure</code> 的 <code>figcaption</code> 中，表格的旁边</dt>
+
+   <dd>
+    <div class="example"><pre>&lt;figure>
+ &lt;figcaption>
+  &lt;strong>Characteristics with positive and negative sides&lt;/strong>
+<strong>  &lt;p>Characteristics are given in the second column, with the
+  negative side in the left column and the positive side in the right
+  column.&lt;/p></strong>
+ &lt;/figcaption>
+ &lt;table>
+  &lt;thead>
+   &lt;tr>
+    &lt;th id="n"> Negative
+    &lt;th> Characteristic
+    &lt;th> Positive
+  &lt;tbody>
+   &lt;tr>
+    &lt;td headers="n r1"> Sad
+    &lt;th id="r1"> Mood
+    &lt;td> Happy
+   &lt;tr>
+    &lt;td headers="n r2"> Failing
+    &lt;th id="r2"> Grade
+    &lt;td> Passing
+ &lt;/table>
+&lt;/figure></pre></div>
+   </dd>
+
+  </dl>
+
+  <p>作者也可以使用其他技术，或适当地结合上述技术。</p>
+
+  <p>相比于编写一段描述来解释表格的布局，最佳的选择当然还是调整好表格使得不再有解释的必要。</p>
+
+  <div class="example">
+
+   <p>对于上面示例中使用的表格，对表格进行简单的重新排列使标题位于顶部和左侧。
+   这样就消除了解释的必要，也不需要使用 <code data-x="attr-tdth-headers">headers</code> 属性了：</p>
+
+   <pre>&lt;table>
+ &lt;caption>Characteristics with positive and negative sides&lt;/caption>
+ &lt;thead>
+  &lt;tr>
+   &lt;th> Characteristic
+   &lt;th> Negative
+   &lt;th> Positive
+ &lt;tbody>
+  &lt;tr>
+   &lt;th> Mood
+   &lt;td> Sad
+   &lt;td> Happy
+  &lt;tr>
+   &lt;th> Grade
+   &lt;td> Failing
+   &lt;td> Passing
+&lt;/table></pre>
+
+  </div>
+
+
