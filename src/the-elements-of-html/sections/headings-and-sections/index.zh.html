@@ -1,0 +1,144 @@
+  <h4 id="Headings and sections"><dfn data-x="Headings and sections">标题和章节</dfn></h4>
+
+  <p><code>h1</code>&ndash;<code>h6</code> 元素和 <code>hgroup</code> 元素是标题。</p>
+
+  <p>
+  <span data-x="sectioning content">章节内容</span> 元素中的第一个
+  <span data-x="heading content">标题内容</span> 元素
+  <span data-x="represents">表示着</span> 那个章节的标题。
+  后续同样 <span data-x="rank">级别</span> 或更高级别的标题（默认）开启新的章节，
+  更低 <span data-x="rank">级别</span> 的标题默认开启前述章节的子章节。
+  两种场景中标题元素都 <span data-x="represents">表示</span> 那个默认章节的标题。</p>
+
+  <p>某些元素称为 <dfn data-x="sectioning root">章节根</dfn>，
+  包括 <code>blockquote</code> 和 <code>td</code> 元素。
+  这些元素可以有自己的目录结构，但这些元素内的章节和标题不会形成它们祖先节点的目录结构。</p>
+
+  <!-- when updating this also update the category index -->
+  <ul class="brief category-list">
+   <li><code>blockquote</code></li>
+   <li><code>body</code></li>
+   <li><code>details</code></li>
+   <li><code>dialog</code></li>
+   <li><code>fieldset</code></li>
+   <li><code>figure</code></li>
+   <li><code>td</code></li>
+  </ul>
+
+  <!-- a document element isn't a sectioning root. This means, for instance, that you don't get an
+  outline if you just have a random XML file with <html:h1> elements in it. Other vocabs need to
+  define what their sectioning root is. -->
+
+  <p><span data-x="sectioning content">章节内容</span> 元素总是被视为
+  最近的祖先 <span data-x="sectioning root">章节根元素</span> 的章节，
+  或者最近的祖先 <span data-x="sectioning content">章节内容</span> 元素的章节。
+  这里只要最近的，不论是否属于其他标题默认创建的章节。</p>
+
+  <div class="example">
+   <p>对下面的片段：</p>
+   <pre>&lt;body&gt;
+ &lt;h1&gt;Foo&lt;/h1&gt;
+ &lt;h2&gt;Bar&lt;/h2&gt;
+ &lt;blockquote&gt;
+  &lt;h3&gt;Bla&lt;/h3&gt;
+ &lt;/blockquote&gt;
+ &lt;p&gt;Baz&lt;/p&gt;
+ &lt;h2&gt;Quux&lt;/h2&gt;
+ &lt;section&gt;
+  &lt;h3&gt;Thud&lt;/h3&gt;
+ &lt;/section&gt;
+ &lt;p&gt;Grunt&lt;/p&gt;
+&lt;/body&gt;</pre>
+   <p>结构可能是：</p>
+   <ol>
+    <li>
+     Foo (显式 <code>body</code> 章节的标题，包含 "Grunt" 一段)
+     <ol>
+      <li>
+       Bar (这个标题默认创建了章节，来包含一个引用块和 "Baz" 一段)
+      </li>
+      <li>
+       Quux (这个标题默认创建了一个没有其他内容的章节，标题除外)
+      </li>
+      <li>
+       Thud (显式 <code>section</code> 章节的标题)
+      </li>
+     </ol>
+    </li>
+   </ol>
+   <p>注意上述 <code>section</code> 结束了前一个隐式创建的章节，
+   这样后续的段落（"Grunt"）重新回到了顶级。</p>
+  </div>
+
+  <p>章节可以包含任何 <span data-x="rank">级别</span> 的标题，
+  但强烈建议作者或者只用 <code>h1</code> 元素，
+  或者使用与章节的嵌套级别相应 <span data-x="rank">级别</span> 的标题元素。</p>
+
+  <p>也强烈建议作者在
+  <span data-x="sectioning content">章节内容</span> 的元素上显式地包装一个章节元素，
+  而不是在同一个 <span data-x="sectioning content">章节内容</span>
+  元素内写多个标题并依赖隐式的章节生成。</p>
+
+  <div class="example">
+   <p>例如，下面的片段是正确的：</p>
+
+   <pre>&lt;body&gt;
+ &lt;h4&gt;Apples&lt;/h4&gt;
+ &lt;p&gt;Apples are fruit.&lt;/p&gt;
+ &lt;section&gt;
+  &lt;h2&gt;Taste&lt;/h2&gt;
+  &lt;p&gt;They taste lovely.&lt;/p&gt;
+  &lt;h6&gt;Sweet&lt;/h6&gt;
+  &lt;p&gt;Red apples are sweeter than green ones.&lt;/p&gt;
+  &lt;h1&gt;Color&lt;/h1&gt;
+  &lt;p&gt;Apples come in various colors.&lt;/p&gt;
+ &lt;/section&gt;
+&lt;/body&gt;</pre>
+
+   <p>然而同一个文档可以更清晰地表达为：</p>
+
+   <pre>&lt;body&gt;
+ &lt;h1&gt;Apples&lt;/h1&gt;
+ &lt;p&gt;Apples are fruit.&lt;/p&gt;
+ &lt;section&gt;
+  &lt;h2&gt;Taste&lt;/h2&gt;
+  &lt;p&gt;They taste lovely.&lt;/p&gt;
+  &lt;section&gt;
+   &lt;h3&gt;Sweet&lt;/h3&gt;
+   &lt;p&gt;Red apples are sweeter than green ones.&lt;/p&gt;
+  &lt;/section&gt;
+ &lt;/section&gt;
+ &lt;section&gt;
+  &lt;h2&gt;Color&lt;/h2&gt;
+  &lt;p&gt;Apples come in various colors.&lt;/p&gt;
+ &lt;/section&gt;
+&lt;/body&gt;</pre>
+
+   <p>上述两个文档语义上等价，而且在兼容的用户代理上会产生同样的目录结构。</p>
+
+   <p>下面第三个例子语义上也是等价的，可能更容易维护
+   （例如，如果在编辑中经常移动章节的话）：</p>
+
+   <pre>&lt;body&gt;
+ &lt;h1&gt;Apples&lt;/h1&gt;
+ &lt;p&gt;Apples are fruit.&lt;/p&gt;
+ &lt;section&gt;
+  &lt;h1&gt;Taste&lt;/h1&gt;
+  &lt;p&gt;They taste lovely.&lt;/p&gt;
+  &lt;section&gt;
+   &lt;h1&gt;Sweet&lt;/h1&gt;
+   &lt;p&gt;Red apples are sweeter than green ones.&lt;/p&gt;
+  &lt;/section&gt;
+ &lt;/section&gt;
+ &lt;section&gt;
+  &lt;h1&gt;Color&lt;/h1&gt;
+  &lt;p&gt;Apples come in various colors.&lt;/p&gt;
+ &lt;/section&gt;
+&lt;/body&gt;</pre>
+
+   <p>这最后一个例子可能需要加一些显式的样式规则才能在旧浏览器中很好地呈现。
+   没有 CSS 支持的旧浏览器会把所有标题渲染成顶级标题。</p>
+
+  </div>
+
+

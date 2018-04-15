@@ -1,0 +1,59 @@
+  <h6 id="Filters">滤镜</h6>
+
+  <p>对实现了 <code>CanvasFilters</code> 接口的对象的所有绘图操作
+  都会被全局 <dfn><code data-x="dom-context-2d-filter">滤镜</code></dfn> 属性影响。</p>
+
+  <dl class="domintro">
+
+   <dt><var>context</var> . <code subdfn data-x="dom-context-2d-filter">filter</code> [ = <var>value</var> ]</dt>
+
+   <dd>
+
+    <p>返回当前滤镜。</p>
+
+    <p>可以设置它来改变滤镜。不能解析为 <span>&lt;filter-function-list&gt;</span> 的值会被忽略。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>在读取 <code data-x="dom-context-2d-filter">filter</code> 属性时，
+  必须返回上一个成功设置的值。不得重新序列化它的值。
+  在设置时，如果新的值是 'none' （不是空字符串、 null 或 undefined），
+  那么必须禁用这个上下文的滤镜。
+  否则，必须把这个值解析为 <span>&lt;filter-function-list&gt;</span> 值。
+  如果该值不能解析为一个 <span>&lt;filter-function-list&gt;</span> 值，
+  其中独立于属性的样式表语法如 'inherit' 或 'initial' 被认为是非法值并被忽略，
+  而且该属性的值必须保持之前的值。当创建实现了 <code>CanvasFilters</code> 接口的对象时，
+  必须把该属性的值设为 'none'。</p>
+
+  <p><span>&lt;filter-function-list&gt;</span> 值包括一个或更多滤镜函数或 SVG 滤镜的引用组成的序列。
+  滤镜的输入被用作该列表中第一个滤镜的输入。后续项取前一项的输出作为输入。 <ref spec="FILTERS"></p>
+
+  <p>解释
+  <code data-x="dom-context-2d-filter">filter</code> 属性的值使用的坐标时，
+  一像素相当于一个 SVG 用户空间单位，一个 canvas 坐标空间单位。
+  滤镜坐标不会受 <span data-x="dom-context-2d-transformation">当前转换矩阵</span> 影响。
+  当前转换矩阵只影响滤镜的输入。滤镜作用于 <span data-x="output bitmap">输出位图</span>
+  的坐标空间。</p>
+
+  <p>如果 <code data-x="dom-context-2d-filter">filter</code> 属性的值使用
+  百分比或 <span>'em'</span> 或 <span>'ex'</span> 单位定义了长度，那么必须相对于设置该属性时
+  <span data-x="font style source object">字体样式源对象</span> 的 <span>'font-size'</span> 属性的
+  <span data-x="computed value">计算后的值</span> 来解释该长度。
+  如果 <span data-x="computed value">计算后的值</span> 是 undefined
+  （比如由于 <span data-x="font style source object">字体样式源对象</span> 不是元素或没有
+  <span data-x="being rendered">被渲染</span>），
+  那么必须相对于 <code data-x="dom-context-2d-font">font</code> 属性的默认值来解释相对关键字。
+  不支持 'larger' 和 'smaller' 关键字。</p>
+
+  <p>如果 <code data-x="dom-context-2d-filter">filter</code> 属性的值是同一文档中
+  SVG 滤镜的引用，而且该 SVG 滤镜发生了改变，那么改变后的滤镜将会用作下一次绘图操作。</p>
+
+  <p>如果 <code data-x="dom-context-2d-filter">filter</code> 属性的值是外部资源文档中的
+  SVG 滤镜的引用，而且在调用绘图操作时该外部文档还没加载完成，那么执行该绘制操作时不得使用滤镜。</p>
+
+  </div>
+

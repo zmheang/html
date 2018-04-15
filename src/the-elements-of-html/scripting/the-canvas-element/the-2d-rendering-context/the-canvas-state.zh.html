@@ -1,0 +1,92 @@
+  <h6>Canvas 状态</h6>
+
+  <p>实现 <code>CanvasState</code> 接口的对象维护一个绘图状态栈。
+  <dfn data-x="drawing state">绘图状态</dfn> 这样组成：</p>
+
+  <ul class="brief">
+   <li>当前 <span data-x="dom-context-2d-transformation">转换矩阵</span>。</li>
+   <li>当前 <span data-x="clipping region">裁剪区域</span>。</li>
+   <li>以下属性的当前值： <code
+   data-x="dom-context-2d-strokeStyle">strokeStyle</code>, <code
+   data-x="dom-context-2d-fillStyle">fillStyle</code>, <code
+   data-x="dom-context-2d-globalAlpha">globalAlpha</code>, <code
+   data-x="dom-context-2d-lineWidth">lineWidth</code>, <code
+   data-x="dom-context-2d-lineCap">lineCap</code>, <code
+   data-x="dom-context-2d-lineJoin">lineJoin</code>, <code
+   data-x="dom-context-2d-miterLimit">miterLimit</code>, <code
+   data-x="dom-context-2d-lineDashOffset">lineDashOffset</code>, <code
+   data-x="dom-context-2d-shadowOffsetX">shadowOffsetX</code>, <code
+   data-x="dom-context-2d-shadowOffsetY">shadowOffsetY</code>, <code
+   data-x="dom-context-2d-shadowBlur">shadowBlur</code>, <code
+   data-x="dom-context-2d-shadowColor">shadowColor</code>, <code
+   data-x="dom-context-2d-filter">filter</code>, <code
+   data-x="dom-context-2d-globalCompositeOperation">globalCompositeOperation</code>, <code
+   data-x="dom-context-2d-font">font</code>, <code
+   data-x="dom-context-2d-textAlign">textAlign</code>, <code
+   data-x="dom-context-2d-textBaseline">textBaseline</code>, <code
+   data-x="dom-context-2d-direction">direction</code>, <code
+   data-x="dom-context-2d-imageSmoothingEnabled">imageSmoothingEnabled</code>, <code
+   data-x="dom-context-2d-imageSmoothingQuality">imageSmoothingQuality</code>。</li>
+   <li>当前 <span>dash list</span>。</li>
+  </ul>
+
+  <p class="note"><span data-x="current default path">当前默认路径</span>
+  和渲染上下文的位图不属于绘图状态。
+  <span data-x="current default path">当前默认路径</span> 是持久的，只能使用
+  <code data-x="dom-context-2d-beginPath">beginPath()</code> 方法重置。
+  位图取决于渲染上下文是否（以及如何）绑定到 <code>canvas</code> 元素。</p>
+
+  <dl class="domintro">
+
+   <dt><var>context</var> . <code subdfn data-x="dom-context-2d-save">save</code>()</dt>
+
+   <dd>
+
+    <p>把当前状态推入栈中。</p>
+
+   </dd>
+
+   <dt><var>context</var> . <code subdfn data-x="dom-context-2d-restore">restore</code>()</dt>
+
+   <dd>
+
+    <p>把栈顶部状态弹出并恢复到这个状态。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><dfn><code data-x="dom-context-2d-save">save()</code></dfn> 方法被调用时，
+  必须把当前绘图状态拷贝一份然后推入到绘图状态栈。</p>
+
+  <p><dfn><code data-x="dom-context-2d-restore">restore()</code></dfn> 方法被调用时，
+  必须把绘图状态栈顶的项目弹出，按它的描述重置绘图状态。
+  如果没有保存的状态，这个方法必须什么都不做。</p>
+
+  <p>当用户代理要
+  <dfn data-x="reset the rendering context to its default state">重置渲染上下文到默认状态</dfn> 时，
+  它必须清除绘图状态栈，并把构成 <span data-x="drawing state">绘图状态</span> 的所有东西设置回初始值。</p>
+
+  <!-- v7
+idea from Mihai:
+> 5. Drawing states should be saveable with IDs, and for easier restoring.
+>
+> save(id)
+> restore(id)
+>
+> If id is not provided, then save() works as defined now. The same for
+> restore().
+>
+> Currently, it's not trivial to save and restore a specific state.
+...and from Philip:
+> I think a more convenient syntax would be:
+>   var state = ctx.save();
+>   ctx.restore(state);
+> But how would it interact with normal calls to ctx.restore()?
+  -->
+
+  </div>
+
+

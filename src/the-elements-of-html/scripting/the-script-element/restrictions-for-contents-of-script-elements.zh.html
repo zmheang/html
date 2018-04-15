@@ -1,0 +1,114 @@
+  <h5><dfn data-x="script content restrictions"><code>script</code> 元素内容的限制</dfn></h5>
+
+  <p class="note">避免本章中描述的这些奇怪限制的最简单安全的方式就是总是转义
+  "<code data-x="">&lt;!--</code>" 为 "<code data-x="">&lt;\!--</code>",
+  "<code data-x="">&lt;script</code>" 为 "<code data-x="">&lt;\script</code>",
+  "<code data-x="">&lt;/script</code>" 为 "<code data-x="">&lt;\/script</code>"
+  （例如在字符串中、正则表达式中，或者注释中），同时避免编写在表达式中使用这些构造的代码。
+  这样就可以避免本章中的限制产生的陷阱：
+  即，由于历史原因在 HTML 中解析 <code>script</code> 块是一个奇怪的过程，
+  碰到这些序列时表现地很不直观。</p>
+
+  <p><code>script</code> 元素的 <code>textContent</code> 必须匹配
+  下面的 <code data-x="">script</code> 的 ABNF 生成式，其中的字符集是 Unicode。
+  <ref spec=ABNF></p>
+
+  <pre>script        = outer *( comment-open inner comment-close outer )
+
+outer         = &lt; any string that doesn't contain a substring that matches not-in-outer >
+not-in-outer  = comment-open
+inner         = &lt; any string that doesn't contain a substring that matches not-in-inner >
+not-in-inner  = comment-close / script-open
+
+comment-open  = "&lt;!--"
+comment-close = "-->"
+script-open   = "&lt;" s c r i p t tag-end
+
+s             =  %x0053 ; U+0053 LATIN CAPITAL LETTER S
+s             =/ %x0073 ; U+0073 LATIN SMALL LETTER S
+c             =  %x0043 ; U+0043 LATIN CAPITAL LETTER C
+c             =/ %x0063 ; U+0063 LATIN SMALL LETTER C
+r             =  %x0052 ; U+0052 LATIN CAPITAL LETTER R
+r             =/ %x0072 ; U+0072 LATIN SMALL LETTER R
+i             =  %x0049 ; U+0049 LATIN CAPITAL LETTER I
+i             =/ %x0069 ; U+0069 LATIN SMALL LETTER I
+p             =  %x0050 ; U+0050 LATIN CAPITAL LETTER P
+p             =/ %x0070 ; U+0070 LATIN SMALL LETTER P
+t             =  %x0054 ; U+0054 LATIN CAPITAL LETTER T
+t             =/ %x0074 ; U+0074 LATIN SMALL LETTER T
+
+tag-end       =  %x0009 ; U+0009 CHARACTER TABULATION (tab)
+tag-end       =/ %x000A ; U+000A LINE FEED (LF)
+tag-end       =/ %x000C ; U+000C FORM FEED (FF)
+tag-end       =/ %x0020 ; U+0020 SPACE
+tag-end       =/ %x002F ; U+002F SOLIDUS (/)
+tag-end       =/ %x003E ; U+003E GREATER-THAN SIGN (&gt;)</pre>
+
+  <p>当 <code>script</code> 元素包含 <span data-x="script documentation">脚本文档</span> 时，
+  对该元素的内容有更多的限制，描述如下。</p>
+
+  <div class="example">
+
+   <p>下面的脚本演示了这个问题，假设你有一个标签包含这样的字符串：</p>
+
+   <pre>var example = 'Consider this string: &lt;!-- &lt;script>';
+console.log(example);</pre>
+
+   <p>如果有人直接把这个字符串放到 <code>script</code> 块中，就会违反上述限制：
+   restrictions above:</p>
+
+   <pre>&lt;script>
+  var example = 'Consider this string: &lt;!-- &lt;script>';
+  console.log(example);
+&lt;/script></pre>
+
+   <p>更大的问题（也即违反那些规则的原因）是脚本的解析会很奇怪：
+   <em>上述脚本块并未结束</em>。
+   也就是说，看起来是结束标签的 "<code data-x="">&lt;/script></code>" 实际上仍然是
+   <code>script</code> 块的内容。这个脚本不会执行（因为它没有结束）；
+   如果它最终还是执行了（比如下面的情况），它会因为脚本不合法（下面有高亮）而失败：</p>
+
+   <pre>&lt;script><mark>
+  var example = 'Consider this string: &lt;!-- &lt;script>';
+  console.log(example);
+&lt;/script>
+&lt;!-- despite appearances, this is actually part of the script still! -->
+&lt;script>
+ ... // this is the same script block still...
+</mark>&lt;/script></pre>
+
+   <p>这种行为是历史原因造成的，在 HTML 中 <code>script</code> 元素中的
+   "<code data-x="">&lt;!--</code>" 和 "<code data-x="">&lt;script</code>"
+   字符串需要匹配，才能让解析器认为块已经结束。</p>
+
+   <p>参照本章开始提到的方式转义这个出问题的字符串，就可以完全避免这个问题：</p>
+
+   <pre>&lt;script><mark>
+  var example = 'Consider this string: &lt;\!-- &lt;\script>';
+  console.log(example);
+</mark>&lt;/script>
+&lt;!-- this is just a comment between script blocks -->
+&lt;script><mark>
+ ... // this is a new script block
+</mark>&lt;/script></pre>
+
+   <p>这种字符序列在正常的脚本表达式中也可能出现，比如下面这个例子：</p>
+
+   <pre>if (x&lt;!--y) { ... }
+if ( player&lt;script ) { ... }</pre>
+
+   <p>这种情况下无法转义这些字符，但可以重写表达式来避免这个字符序列，如：</p>
+
+   <pre>if (x &lt; !--y) { ... }
+if (!--y > x) { ... }
+if (!(--y) > x) { ... }
+if (player &lt; script) { ... }
+if (script > player) { ... }</pre>
+
+   <p>这样做还能避免另一个陷阱：由于相关的历史原因，
+   在 <span data-x="classic script">经典脚本</span> 中字符串 "&lt;!--"
+   实际上被处理为行注释的开始，就像 "//" 一样。</p>
+
+  </div>
+
+

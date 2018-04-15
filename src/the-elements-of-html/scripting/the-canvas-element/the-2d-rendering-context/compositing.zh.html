@@ -1,0 +1,65 @@
+  <h6 id="Compositing">合成</h6>
+
+  <dl class="domintro">
+
+   <dt><var>context</var> . <code subdfn data-x="dom-context-2d-globalAlpha">globalAlpha</code> [ = <var>value</var> ]</dt>
+
+   <dd>
+
+    <p>返回当前应用于渲染操作的 alpha 值。</p>
+
+    <p>可以设置来改变 alpha 值。在 0.0 .. 1.0 之外的值会被忽略。</p>
+
+   </dd>
+
+
+   <dt><var>context</var> . <code subdfn data-x="dom-context-2d-globalCompositeOperation">globalCompositeOperation</code> [ = <var>value</var> ]</dt>
+
+   <dd>
+
+    <p>返回当前合成操作，来自 Compositing 和 Blending 规范定义的值。<ref spec=COMPOSITE>.</p>
+
+    <p>可以设置来改变合成操作。未知值会被忽略。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>
+  在实现了 <code>CanvasCompositing</code> 接口的对象上的所有绘图操作都会被全局合成属性影响：
+  <code data-x="dom-context-2d-globalAlpha">globalAlpha</code> 和
+  <code data-x="dom-context-2d-globalCompositeOperation">globalCompositeOperation</code>。</p>
+
+  <!-- conformance criteria for painting are described in the "drawing model" section below -->
+
+  <p><dfn><code data-x="dom-context-2d-globalAlpha">globalAlpha</code></dfn> 属性给出了应用于形状和图像在合成到
+  <span data-x="output bitmap">输出位图</span> 上之前的 alpha 值。这个值必须在 0.0 （完全透明） 到 1.0 （不透明）之间。
+  如果尝试把这个值设置到范围外，包括 Infinity 和 Not-a-Number (NaN) 值，该属性必须保持之前的值。
+  当创建上下文时，必须把 <code data-x="dom-context-2d-globalAlpha">globalAlpha</code> 属性设置初始值 1.0。</p>
+
+  <p><dfn><code data-x="dom-context-2d-globalCompositeOperation">globalCompositeOperation</code></dfn> 属性
+  设置了 <dfn data-x="current composition operator">当前合成操作</dfn>，
+  它控制着给定 <code data-x="dom-context-2d-globalAlpha">globalAlpha</code>
+  和当前转换矩阵，形状和图像如何绘制到 <span data-x="output bitmap">输出位图</span>。
+  可能的值定义在 Compositing 和 Blending 规范，也包括 <dfn><code data-x="gcop-source-over"
+  data-x-href="https://drafts.fxtf.org/compositing-1/#porterduffcompositingoperators_srcover">source-over</code></dfn>
+  和 <dfn><code data-x="gcop-copy"
+  data-x-href="https://drafts.fxtf.org/compositing-1/#porterduffcompositingoperators_src">copy</code></dfn> 值。
+  <ref spec=COMPOSITE></p>
+
+  <p>这些值是大小写敏感的 &mdash; 它们必须完全按照定义的方式使用。用户代理不得识别非
+  <span data-x="case-sensitive">大小写敏感</span> 匹配的 Compositing 和 Blending 规范给出的值。<ref spec=COMPOSITE></p>
+
+  <p>在设置时，如果用户代理不识别指定的值，就必须忽略它，让
+  <code data-x="dom-context-2d-globalCompositeOperation">globalCompositeOperation</code> 的值不受影响。
+  否则，必须把该属性的值设置为给定的新值。</p>
+
+  <p>当创建上下文时，必须把 <code data-x="dom-context-2d-globalCompositeOperation">globalCompositeOperation</code>
+  属性设为初始值 <code data-x="gcop-source-over">source-over</code>。</p>
+
+  </div>
+
+
+

@@ -1,0 +1,12 @@
+  <h6 id="Working with externally-defined SVG filters">使用外部定义的 SVG 滤镜</h6>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>因为在外部定义的滤镜完成载入之前，绘制使用的滤镜值都是 'none'，
+  因此作者可能希望在进行绘图操作前确定滤镜是否已经载入。
+  一种实现方式是在同一个页面的其他地方加一个元素来载入外部定义的滤镜，
+  （比如 <span>SVG <code>use</code></span> 元素），
+  然后等待 <code data-x="">load</code> 事件的派发。</p>
+
+  <div w-nodev>
+

@@ -1,0 +1,18 @@
+  <h6 id="Implementation notes">实现说明</h6>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p><span data-x="output bitmap">输出位图</span>，当没有被用户代理直接直接显示时，
+  实现中可以只记录已经应用的绘图操作序列，而不更新整个位图，直到需要位图的实际数据时。
+  （例如调用了 <code data-x="dom-context-2d-drawImage">drawImage()</code> 或
+  <code data-x="dom-createImageBitmap">createImageBitmap()</code> 工厂方法）
+  很多情况下这样可以提高内存的使用效率。</p>
+
+  <p><code>canvas</code> 元素的位图在实践中总是需要的，
+  渲染上下文的 <span data-x="output bitmap">输出位图</span>（如果有的话）
+  只是 <code>canvas</code> 元素的位图的别名。</p>
+
+  <p>有时也会需要额外的位图，比如为了使 canvas 在绘制大小与其
+  <span data-x="intrinsic dimensions">固有尺寸</span> 不同时更快，
+  或者为了实现双缓冲来使得绘制命令继续执行的同时图像可以持续地更新（比如在页面滚动时）。</p>
+
