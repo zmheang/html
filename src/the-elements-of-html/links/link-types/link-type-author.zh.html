@@ -1,0 +1,25 @@
+  <h5 id="link-type-author">"<dfn><code data-x="rel-author">author</code></dfn>" 链接类型</h5>
+
+  <p><code data-x="rel-author">author</code> 关键字可用于 <code>link</code>，<code>a</code> 和
+  <code>area</code> 元素。该关键字会创建一个 <span data-x="hyperlink">超链接</span>。</p>
+
+  <p>对于 <code>a</code> 和 <code>area</code> 元素，<code data-x="rel-author">author</code>
+  关键字表示被引用的文档提供了离定义该超链接的元素最近的祖先 <code>article</code> 元素的作者的更多信息，
+  如果没有这样的祖先元素，就是指整个页面的作者。</p>
+
+  <p>对于 <code>link</code> 元素，<code data-x="rel-author">author</code> 关键字表示被引用文档提供了
+  关于整个页面的作者的更多信息。</p>
+
+  <p class="note">"被引用文档" 可以是（也经常是）一个 <code data-x="mailto
+  protocol">mailto:</code> URL 给出了作者的 e-mail 地址。<ref spec=MAILTO></p>
+
+  <div w-nodev>
+
+  <p><strong>同义词</strong>：由于历史原因，用户代理必须把
+  <code data-x="">rev</code> 属性值为 "<code data-x="">made</code>" 的
+  <code>link</code>, <code>a</code>, 和 <code>area</code> 元素也当作有一个
+  <code data-x="rel-author">author</code> 关键字来处理。</p>
+
+  </div>
+
+

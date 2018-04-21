@@ -1,0 +1,15 @@
+  <h5 id="link-type-dns-prefetch">"<dfn><code data-x="rel-dns-prefetch">dns-prefetch</code></dfn>" 链接类型</h5>
+
+  <p><code data-x="rel-dns-prefetch">dns-prefetch</code> 关键字可用于
+  <code>link</code> 元素。该关键字会创建
+  <span data-x="external resource link">外部资源链接</span>。
+  这个关键字是 <span>body-ok</span> 的。</p>
+
+  <p><code data-x="rel-dns-prefetch">dns-prefetch</code> 关键字表示最好为指定资源的
+  <span data-x="origin">域</span> 事先执行 DNS 解析，因为用户很可能会要位于那个
+  <span data-x="origin">域</span> 的资源，避免了 DNS 解析相关的延迟会提升用户体验。
+  <span w-nodev>用户代理必须实现 <cite>Resource Hints</cite> 所描述的
+  <code data-x="rel-dns-prefetch">dns-prefetch</code> 关键字的处理模型。</span>
+  <ref spec=RESOURCEHINTS></p>
+
+  <p><code data-x="rel-dns-prefetch">dns-prefetch</code> 关键字没有默认的资源类型。</p>

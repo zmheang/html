@@ -1,0 +1,24 @@
+  <h5 id="link-type-help">"<dfn><code data-x="rel-help">help</code></dfn>" 链接类型</h5>
+
+  <p><code data-x="rel-help">help</code> 关键字可用于 <code>link</code>，<code>a</code> 和
+  <code>area</code> 元素。该关键字会创建一个 <span data-x="hyperlink">超链接</span>。</p>
+
+  <p>对于 <code>a</code> 和 <code>area</code> 元素，<code data-x="rel-help">help</code>
+  关键字表示被引用文档为定义了该超链接的父元素及其子元素提供了更多帮助信息。</p>
+
+  <div class="example">
+
+   <p>在下面的例子中，表单控件关联了上下文相关的帮助。用户代理可以使用这个信息，
+   比如用户按下 “Help” 或 “F1” 键时可以显示被引用的文档。</p>
+
+   <pre> &lt;p>&lt;label> Topic: &lt;input name=topic> &lt;a href="help/topic.html" rel="help">(Help)&lt;/a>&lt;/label>&lt;/p></pre>
+
+  </div>
+
+  <p>对于 <code>link</code> 元素，这个 <code data-x="rel-help">help</code> 关键字表示
+  被引用的文档为整个页面提供了帮助。</p>
+
+  <p>对于 <code>a</code> 和 <code>area</code> 元素，在有些浏览器中 <code
+  data-x="rel-help">help</code> 关键字会使链接显示不同的光标。</p>
+
+

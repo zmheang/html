@@ -1,0 +1,69 @@
+  <h5 id="link-type-tag">"<dfn><code data-x="rel-tag">tag</code></dfn>" 链接类型</h5>
+
+  <p><code data-x="rel-tag">tag</code> 关键字可用于 <code>a</code> 和
+  <code>area</code> 元素。该关键字会创建一个 <span data-x="hyperlink">超链接</span>。</p>
+
+  <p><code data-x="rel-tag">tag</code> 关键字表示被引用的文档表示的 <em>tag</em>
+  适用于当前文档。</p>
+
+  <p class="note">由于它表示该 tag <em>适用于当前文档</em>,
+  在 <a href="#tag-cloud">tag 云</a> 的标记中用这个关键字是不合适的，因为 tag 云列出了很多页面的 tag。</p>
+
+  <div class="example">
+
+   <p>本文档是关于宝石的，所以它有一个
+   "<code data-x="">https://en.wikipedia.org/wiki/Gemstone</code>"
+   <i>tag</i> 来把它归类到“珠宝”，而不是美国的城镇、Ruby 包格式，或瑞士机车分级：</p>
+
+   <pre>&lt;!DOCTYPE HTML>
+&lt;html lang="en">
+ &lt;head>
+  &lt;title>My Precious&lt;/title>
+ &lt;/head>
+ &lt;body>
+  &lt;header>&lt;h1>My precious&lt;/h1> &lt;p>Summer 2012&lt;/p>&lt;/header>
+  &lt;p>Recently I managed to dispose of a red gem that had been
+  bothering me. I now have a much nicer blue sapphire.&lt;/p>
+  &lt;p>The red gem had been found in a bauxite stone while I was digging
+  out the office level, but nobody was willing to haul it away. The
+  same red gem stayed there for literally years.&lt;/p>
+  &lt;footer>
+   Tags: &lt;a rel=tag href="https://en.wikipedia.org/wiki/Gemstone">Gemstone&lt;/a>
+  &lt;/footer>
+ &lt;/body>
+&lt;/html></pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>在 <em>本</em> 文档中有两篇文章。但 "<code data-x="rel-tag">tag</code>" 链接适用于整个页面
+   （不论它放在了哪里，以及是否在 <code>article</code> 元素中）。</p>
+
+   <pre>&lt;!DOCTYPE HTML>
+&lt;html lang="en">
+ &lt;head>
+  &lt;title>Gem 4/4&lt;/title>
+ &lt;/head>
+ &lt;body>
+  &lt;article>
+   &lt;h1>801: Steinbock&lt;/h1>
+   &lt;p>The number 801 Gem 4/4 electro-diesel has an ibex and was rebuilt in 2002.&lt;/p>
+  &lt;/article>
+  &lt;article>
+   &lt;h1>802: Murmeltier&lt;/h1>
+   &lt;figure>
+    &lt;img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Trains_de_la_Bernina_en_hiver_2.jpg"
+         alt="The 802 was red with pantographs and tall vents on the side.">
+    &lt;figcaption>The 802 in the 1980s, above Lago Bianco.&lt;/figcaption>
+   &lt;/figure>
+   &lt;p>The number 802 Gem 4/4 electro-diesel has a marmot and was rebuilt in 2003.&lt;/p>
+  &lt;/article>
+  &lt;p class="topic">&lt;a rel=tag href="https://en.wikipedia.org/wiki/Rhaetian_Railway_Gem_4/4">Gem 4/4&lt;/a>&lt;/p>
+ &lt;/body>
+&lt;/html></pre>
+
+  </div>
+
+
+

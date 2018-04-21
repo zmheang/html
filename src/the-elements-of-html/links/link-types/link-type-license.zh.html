@@ -1,0 +1,53 @@
+  <h5 id="link-type-license">"<dfn><code data-x="rel-license">license</code></dfn>" 链接类型</h5>
+
+  <p><code data-x="rel-license">license</code> 关键字可用于 <code>link</code>，<code>a</code> 和
+  <code>area</code> 元素。该关键字会创建一个 <span data-x="hyperlink">超链接</span>。</p>
+
+  <p><code data-x="rel-license">license</code>
+  关键字表示被引用文档提供了当前文档中主要内容的版权许可条款。</p>
+
+  <p>本规范未指定如何区分文档中的主要内容和不被视为该主要内容的部分。
+  应该让用户能够明确这个区分。</p>
+
+  <div class="example">
+
+   <p>考虑一个相片分享网站。这个站点的一个页面可能会描述并显示一张照片，这个页面可能是这样写的：</p>
+
+   <pre>&lt;!DOCTYPE HTML>
+&lt;html lang="en">
+ &lt;head>
+  &lt;title>Exampl Pictures: Kissat&lt;/title>
+  &lt;link rel="stylesheet" href="/style/default">
+ &lt;/head>
+ &lt;body>
+  &lt;h1>Kissat&lt;/h1>
+  &lt;nav>
+   &lt;a href="../">Return to photo index&lt;/a>
+  &lt;/nav>
+  &lt;figure>
+   &lt;img src="/pix/39627052_fd8dcd98b5.jpg">
+   &lt;figcaption>Kissat&lt;/figcaption>
+  &lt;/figure>
+  &lt;p>One of them has six toes!&lt;/p>
+  &lt;p>&lt;small>&lt;a rel="license" href="http://www.opensource.org/licenses/mit-license.php">MIT Licensed&lt;/a>&lt;/small>&lt;/p>
+  &lt;footer>
+   &lt;a href="/">Home&lt;/a> | &lt;a href="../">Photo index&lt;/a>
+   &lt;p>&lt;small>&copy; copyright 2009 Exampl Pictures. All Rights Reserved.&lt;/small>&lt;/p>
+  &lt;/footer>
+ &lt;/body>
+&lt;/html></pre>
+
+   <p>这个例子中 <code data-x="rel-license">license</code> 只适用于这张照片
+   （该文档的主要内容）而不是整个文档。尤其不是页面的设计本身，它的版权在文档底部给出。
+   这可以通过样式来表达清楚（例如让许可链接贴着照片，同时把页面的版权以细小的文字放在页底）。</p>
+
+  </div>
+
+  <div w-nodev>
+
+  <p><strong>同义词</strong>：由于历史原因，用户代理必须把 "<code data-x="">copyright</code>"
+  当作 <code data-x="rel-license">license</code> 关键字处理。</p>
+
+  </div>
+
+

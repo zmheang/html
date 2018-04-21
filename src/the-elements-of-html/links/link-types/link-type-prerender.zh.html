@@ -1,0 +1,15 @@
+  <h5 id="link-type-prerender">"<dfn><code data-x="rel-prerender">prerender</code></dfn>" 链接类型</h5>
+
+  <p><code data-x="rel-prerender">prerender</code> 关键字可用于 <code>link</code>
+  元素。该关键字会创建 <span data-x="external resource link">外部资源链接</span>。
+  这个关键在是 <span>body-ok</span> 的。</p>
+
+  <p><code data-x="rel-prerender">prerender</code> 关键字表示指定的资源可能在下次导航时用到。
+  所以最好先去 <span data-x="concept-fetch">获取</span> 这个资源并处理它，
+  比如 <span data-x="concept-fetch">获取</span> 它的子资源或执行一些渲染。<span
+  w-nodev>用户代理必须实现 <cite>Resource Hints</cite> 中描述的
+  <code data-x="rel-prerender">prerender</code> 关键字的处理模型。</span>
+  <ref spec=RESOURCEHINTS></p>
+
+  <p><code data-x="rel-prerender">prerender</code> 关键字没有默认的资源类型。</p>
+

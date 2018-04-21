@@ -1,0 +1,18 @@
+  <h4 id="case-sensitivity-of-the-css-'attr()'-function">CSS <span>'attr()'</span> 函数的大小写敏感性</h4>
+
+  <p>CSS Values and Units 规范把 <span>'attr()'</span> 函数的属性名的大小写敏感性留给宿主语言来定义。
+  <ref spec=CSSVALUES></p>
+
+  <p>当比较 CSS <span>'attr()'</span> 函数的属性名部分与
+  <span data-x="html documents">HTML 文档</span> 中的
+  <span data-x="html elements">HTML 元素</span> 的
+  无命名空间的属性名时，
+  CSS <span>'attr()'</span> 函数的属性名部分首先必须
+  <span data-x="converted to ascii lowercase">转换为 ASCII 小写</span>。
+  该函数与其他属性对比时必须根据它原有的大小写。
+  在上述两种情况下，比较过程都是 <span data-x="case-sensitive">大小写敏感的</span>。</p>
+
+  <p class="note">这与比较 CSS <span data-x="attribute selector">属性选择器</span> 的名字部分是一样的，
+  在下一节中说明。</p>
+
+

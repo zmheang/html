@@ -1,0 +1,19 @@
+  <h6 id="link-type-next">"<dfn><code data-x="rel-next">next</code></dfn>" 链接类型</h6>
+
+  <p><code data-x="rel-next">next</code> 关键字可用于 <code>link</code>,
+  <code>a</code> 和 <code>area</code> 元素。该关键字会创建 <span data-x="hyperlink">超链接</span>。</p>
+
+  <p><code data-x="rel-next">next</code> 关键字表示该文档是一个文档序列的一部分，
+  而且该链接指向逻辑上位于当前文档之后的那个文档。</p>
+
+  <p w-nodev>当 <code data-x="rel-next">next</code> 关键字用于 <code>link</code> 元素时，
+  用户代理应该实现一个 <cite>Resource Hints</cite> 中描述的处理模型，
+  也就是说这样的链接应该被当做使用了
+  <code data-x="rel-dns-prefetch">dns-prefetch</code>, <code data-x="rel-preconnect">preconnect</code>,
+  <code data-x="rel-prefetch">prefetch</code> 或 <code data-x="rel-prerender">prerender</code>
+  关键字来处理。用户代理希望使用哪个资源暗示是实现相关的；
+  例如用户代理为了节省数据、电池或计算量可能会希望使用代价较小的
+  <code data-x="rel-preconnect">preconnect</code> 暗示，
+  或者希望基于对类似场景中以前的用户行为的启发式分析来选取一个资源暗示。<ref spec="RESOURCEHINTS"></p>
+
+

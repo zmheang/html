@@ -1,0 +1,27 @@
+  <h5 id="using-the-accesskey-attribute-on-a-legend-element-to-define-a-command">
+  在 <code>legend</code> 元素上
+  <dfn data-x="legend-command">使用 <code data-x="attr-accesskey">accesskey</code> 属性
+  来定义一个命令</dfn></h5>
+
+  <p>有 <span data-x="assigned access key">指定的访问键</span> 的 <code>legend</code> 元素，
+  如果其祖先 <code>fieldset</code> 元素有一个不是 <code>label</code> 或 <code>legend</code>
+  的后代元素（而且不是 <code>legend</code> 元素的后代元素），而且这个后代元素
+  <span data-x="concept-command">定义了一个命令</span>，那么这个 <code>legend</code> 元素就
+  <span data-x="concept-command">定义了一个命令</span>。</p>
+
+  <p>命令的 <span data-x="command-facet-Label">Label</span> 是该元素的
+  <code>textContent</code> IDL 属性给出的字符串。</p>
+
+  <p>命令的 <span data-x="command-facet-AccessKey">AccessKey</span> 是该元素的
+  <span data-x="assigned access key">指定的访问键</span>。</p>
+
+  <p>命令的 <span data-x="command-facet-HiddenState">Hidden State</span>, <span
+  data-x="command-facet-DisabledState">Disabled State</span> 和 <span
+  data-x="command-facet-Action">Action</span> 与
+  <code>legend</code> 元素的父元素的 <span data-x="tree order">按照树序</span> 的第一个
+  <span data-x="concept-command">定义了命令</span> 的，
+  而且不是 <code>legend</code> 元素的后代，也不是 <code>label</code> 或 <code>legend</code> 元素的，
+  后代元素的相应属性相同。
+  </p>
+
+

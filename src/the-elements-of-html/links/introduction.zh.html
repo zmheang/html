@@ -1,0 +1,42 @@
+  <h4 id="introduction-2">概述</h4>
+
+  <p>链接是一种概念构造，由 <code>a</code>, <code>area</code> 和 <code>link</code> 元素创建，
+  <span data-x="represents">表示</span> 两个资源之间的联系，其中一个是当前 <code>Document</code>。
+  在 HTML 中有两种链接：</p>
+
+  <dl>
+
+   <dt><dfn data-x="external resource link" data-lt="external resource link" data-export="">
+   外部资源链接</dfn></dt>
+
+   <dd><p>这些链接指向的资源用于增强当前文档，通常由用户代理自动处理。</p></dd>
+
+   <dt><dfn data-x="hyperlink" data-lt="hyperlink" data-export="">超链接</dfn></dt>
+
+   <dd><p>这些指向其他文档的链接通常通过用户代理暴露给用户，这样用户可以让用户代理
+   <span data-x="navigate">导航</span> 到那些资源，例如在浏览器中访问或者下载它们。</p></dd>
+
+  </dl>
+
+  <p>对于有 <code data-x="attr-link-href">href</code> 属性和
+  <code data-x="attr-link-rel">rel</code> 属性的 <code>link</code> 元素，
+  必须为 <code data-x="attr-link-rel">rel</code> 属性的关键字按照
+  <a href="#linkTypes">链接类型</a> 部分的定义创建一个链接。</p>
+
+  <p>类似地，对于有 <code data-x="attr-hyperlink-href">href</code> 属性和
+  <code data-x="attr-hyperlink-rel">rel</code> 属性的 <code>a</code> 和 <code>area</code> 元素，
+  必须为 <code data-x="attr-hyperlink-rel">rel</code> 属性的关键字按照
+  <a href="#linkTypes">链接类型 </a> 部分的定义创建一个链接。
+  与 <code>link</code> 元素不同，对于有 <code data-x="attr-hyperlink-href">href</code> 属性的
+  <code>a</code> 和 <code>area</code> 元素，如果没有
+  <code data-x="attr-hyperlink-rel">rel</code> 属性或
+  <code data-x="attr-hyperlink-rel">rel</code> 属性的关键字的定义中没有一个是用来指定
+  <span data-x="hyperlink">超链接</span> 的，也必须创建一个 <span data-x="hyperlink">超链接</span>。
+  这个暗示的超链接没有特殊含义（它也没有 <a href="#linkTypes">链接类型</a>），只是把该元素的
+  <span data-x="node document">节点文档</span> 链接到了该元素的 <code
+  data-x="attr-hyperlink-href">href</code> 属性给出的资源。</p>
+
+  <p><span data-x="hyperlink">超链接</span> 可以有一个或更多的
+  <dfn data-x="hyperlink annotation">超链接注释</dfn>，用来修改这个超链接的处理语义。</p>
+
+

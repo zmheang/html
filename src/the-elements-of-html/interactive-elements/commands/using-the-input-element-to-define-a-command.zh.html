@@ -1,0 +1,53 @@
+  <h5 id="using-the-input-element-to-define-a-command">
+  <dfn data-x="input-command">使用 <code>input</code> 元素来定义命令</dfn></h5>
+
+  <p> <code data-x="attr-input-type">type</code> 属性处于
+  <span data-x="attr-input-type-submit">Submit Button</span>, <span
+  data-x="attr-input-type-reset">Reset Button</span>, <span data-x="attr-input-type-image">Image
+  Button</span>, <span data-x="attr-input-type-button">Button</span>, <span
+  data-x="attr-input-type-radio">Radio Button</span>, 或 <span
+  data-x="attr-input-type-checkbox">Checkbox</span> 状态之一的
+  <code>input</code> 元素 <span data-x="concept-command">定义了命令</span>。</p>
+
+  <p>这个命令的 <span data-x="command-facet-Label">Label</span> 按如下过程确定：</p>
+
+  <ul>
+
+    <li><p>如果 <code data-x="attr-input-type">type</code> 属性处于
+    <span data-x="attr-input-type-submit">Submit Button</span>, <span
+    data-x="attr-input-type-reset">Reset Button</span>, <span data-x="attr-input-type-image">Image
+    Button</span>, 或 <span data-x="attr-input-type-button">Button</span> 状态，那么
+    <span data-x="command-facet-Label">Label</span> 就是
+    <code data-x="attr-input-value">value</code> 属性（如果有的话）给出的字符串，
+    如果没有的话，就是 UA 用作这个按钮标签的一个与 UA 和地区都有关的值。</p></li>
+
+    <li><p>否则，如果该元素是一个 <span data-x="labeled control">有标签的控件</span>，
+    那么 <span data-x="command-facet-Label">Label</span> 就是给这个控件
+    <span data-x="labeled control">打标签</span> 的 <code>label</code> 元素中，
+    按照 <span data-x="tree order">树序</span> 的第一个元素的
+    <code>textContent</code> 给出的字符串。
+    （在 DOM 术语中，这个字符串就是 <code data-x=""><var>element</var>.labels[0].textContent</code>）</p></li>
+
+    <li><p>否则，如果有 <code data-x="attr-input-value">value</code> 属性，那么
+    <span data-x="command-facet-Label">Label</span> 就是这个属性的值。</p></li>
+
+    <li><p>否则， <span data-x="command-facet-Label">Label</span> 就是空字符串。</p></li>
+
+  </ul>
+
+  <p>这个命令的 <span data-x="command-facet-AccessKey">AccessKey</span> 就是这个元素
+  <span data-x="assigned access key">被指定的访问键</span>（如果有的话）。</p>
+
+  <p>如果这个元素有 <code data-x="attr-hidden">hidden</code> 属性，
+  它的 <span data-x="command-facet-HiddenState">Hidden State</span> 就是 true（隐藏），
+  否则是 false。</p>
+
+  <p>如果这个元素或它的一个祖先是 <span data-x="inert">不活动的</span>，
+  或者设置了这个元素的 <span data-x="concept-fe-disabled">disabled</span> 状态，
+  那么这个命令的 <span data-x="command-facet-DisabledState">Disabled State</span> 就是 true，
+  否则是 false。</p>
+
+  <p>这个命令的 <span data-x="command-facet-Action">Action</span> 会在这个元素上
+  <span data-x="fire a click event">触发一个 <code data-x="event-click">click</code> 事件</span>。</p>
+
+

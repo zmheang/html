@@ -1,0 +1,161 @@
+  <h5 id="other link types">其他链接类型</h5>
+
+  <p><dfn data-x="concept-rel-extensions">预定义链接类型的扩展</dfn> 可以注册在
+  <a href="http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions">
+  microformats Wiki 已有的 rel 值页面</a>。 <ref spec=MFREL></p>
+
+  <p>任何人在任何时候都可以编辑 <span data-x="">microformats Wiki 已有的 rel 值页面</span>
+  来增加一个类型。扩展类型必须指定以下信息：</p>
+
+  <dl>
+
+   <dt>关键字</dt>
+
+   <dd>
+
+    <p>要定义的实际关键字。这个值不应与其他已定义的值相似以避免混淆。
+    （例如只有大小写不同）</p>
+
+    <p>如果值包含 U+003A COLON 字符（:），它就必须是一个 <span data-x="absolute url">绝对 URL</span>。</p>
+
+   </dd>
+
+
+   <dt>作用于... <code>link</code></dt>
+
+   <dd>
+
+    <p>下面之一：</p>
+
+    <dl>
+
+     <dt>不允许</dt>
+
+     <dd>改关键字不得在 <code>link</code> 元素上指定。</dd>
+
+     <dt>超链接</dt>
+
+     <dd>该关键字可以在 <code>link</code> 元素上指定；它会创建一个
+     <span data-x="hyperlink">超链接</span>。</dd>
+
+     <dt>外部资源</dt>
+
+     <dd>改关键字可以在 <code>link</code> 元素上指定，它会创建一个
+     <span data-x="external resource link">外部资源链接</span>。</dd>
+
+    </dl>
+
+   </dd>
+
+
+   <dt>作用于... <code>a</code> 和 <code>area</code></dt>
+
+   <dd>
+
+    <p>下面之一：</p>
+
+    <dl>
+
+     <dt>不允许</dt>
+
+     <dd>该关键字不得在 <code>a</code> 和 <code>area</code> 元素上指定。</dd>
+
+     <dt>超链接</dt>
+
+     <dd>该关键字可以在 <code>a</code> 和 <code>area</code> 元素上指定；它会创建一个
+     <span data-x="hyperlink">超链接</span>。</dd>
+
+     <dt>外部资源</dt>
+
+     <dd>该关键字可以在 <code>a</code> 和 <code>area</code> 元素上指定；它会创建一个
+     <span data-x="external resource link">外部资源链接</span>。</dd>
+
+     <dt>超链接注释</dt>
+
+     <dd>该关键字可以在 <code>a</code> 和 <code>area</code> 元素上指定；它用来 <span
+     data-x="hyperlink annotation">注释</span> 该元素创建的其他 <span data-x="hyperlink">超链接</span>。</dd>
+
+    </dl>
+
+   </dd>
+
+
+   <dt>简要描述</dt>
+
+   <dd><p>对这个关键字的含义进行简短的非形式化的描述。</p></dd>
+
+
+   <dt>规范</dt>
+
+   <dd><p>指向对该关键字的语义和要求的更细节的描述的链接。
+   它可以是 Wiki 上的另一个页面，或者一个外部页面。</p></dd>
+
+
+   <dt>同义词</dt>
+
+   <dd><p>有着同样处理要求的其他关键字值的列表。
+   作者不应该使用已经定义为同义词的值，它们只是为了让用户代理支持旧的内容。
+   任何人都可以移除一个实践中已经不再使用的同义词
+   只有用于兼容旧内容的同义词才应该注册在这里。</p></dd>
+
+
+   <dt>状态</dt>
+
+   <dd>
+
+    <p>以下之一：</p>
+
+    <dl>
+
+     <dt>已提出</dt>
+
+     <dd>该名称还没有接受广泛的 peer review 和 approval。有人提出了它并且正在用或者马上就要使用。</dd>
+
+     <dt>已批准</dt>
+
+     <dd>该名称已经接受了广泛的 peer review 和 approval。并且有一个标准明确地定义了如何处理使用了这个名称的页面，包括哪些使用方式是错误的。</dd>
+
+     <dt>已终止</dt>
+
+     <dd>该名称已经接受了广泛的peer review 并且被认为是有用的。现存的页面已经在使用这个名称，
+     但新的页面应该避免使用。 "简要说明" 和 "规范" 入口会给出作者应该用哪些替代品，如果有的话。</dd>
+
+    </dl>
+
+    <p>如果一个关键字与其他现存的值冗余，那么应该把它移除并列为那个现存值的同义词。</p>
+
+    <p>如果一个关键字已经添加到 “已提议” 状态经过一个多月的时间并未被使用或标准化，
+    那么应该把它从注册中移除。</p>
+
+    <p>如果一个关键字已经添加到 “已提议” 状态但却与现存的值冗余，
+    就应该把它移除并列为该现存值的同义词。
+    如果一个名称被添加到 “已提议” 状态但被发现有害，则应该把它改为 “已终止” 状态。</p>
+
+    <p>任何人都可以随时更新状态，但应该根据上述定义进行。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>一致性检查工具必须使用
+  <span data-x="">microformats wiki 已有的 rel 值页面</span> 给出的信息来决定值是否被允许：
+  对于本规范中定义的值或标记为 “已提议” 或 “已批准” 的值，当用于 “作用于...” 字段描述的元素时，
+  工具必须接受它，但标记为 “已终止” 的值，或者本标准和上述页面都没有列出的值，就必须视为不合法并拒绝它。
+  一致性检查工具可以缓存这个信息（例如，为了性能原因或为了避免使用不可靠的网络连接）。</p>
+
+  <p>当作者使用本规范和 Wiki 页面没有定义的新类型时，一致性检查工具应该可以提示把这个值添加到 Wiki，
+  使用上面描述的细节，并设为 “已提议” 状态。</p>
+
+  </div>
+
+  <p>
+  在 <a href="http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions">
+  microformats wiki 已有 rel 值页面</a> 中定义为扩展的类型，
+如果状态是 “已提议” 或 “已批准” 就可以根据 “作用于...” 字段用于
+  <code>link</code> 的 <code data-x="">rel</code> 属性, <code>a</code>, 和 <code>area</code>
+  元素。<ref spec=MFREL></p>
+
+
+

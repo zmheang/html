@@ -1,0 +1,40 @@
+  <h5 id="using-the-accesskey-attribute-to-define-a-command-on-other-elements"><dfn data-x="accesskey-command">使用 <code data-x="attr-accesskey">accesskey</code> 属性给其他元素定义命令</dfn></h5>
+
+  <p>有 <span data-x="assigned access key">指定的访问键</span> 的元素
+  <span data-x="concept-command">定义了一个命令</span>。</p>
+
+  <p>如果前面的章节中定义了一个元素 <span data-x="concept-command">会定义命令</span>，
+  那么应该遵循对应章节的定义，并忽略本小节。否则，本小节就适用于那个元素。</p>
+
+  <p>命令的 <span data-x="command-facet-Label">Label</span> 取决于元素本身。
+  如果该元素是 <span data-x="labeled control">有标签的控件</span>，
+  那么 <span data-x="command-facet-Label">Label</span> 就是给这个控件
+  <span data-x="labeled control">打标签</span> 的 <code>label</code> 元素中，
+  按照 <span data-x="tree order">树序</span> 的第一个元素的
+  <code>textContent</code> 给出的字符串。
+  （在 DOM 术语中，这个字符串就是 <code data-x=""><var>element</var>.labels[0].textContent</code>）。
+  否则 <span data-x="command-facet-Label">Label</span> 就是元素自己的 <code>textContent</code>。</p>
+
+  <p>命令的 <span data-x="command-facet-AccessKey">AccessKey</span> 就是元素的
+  <span data-x="assigned access key">被指定的访问键</span>。</p>
+
+  <p>如果这个元素有 <code data-x="attr-hidden">hidden</code> 属性，
+  它的 <span data-x="command-facet-HiddenState">Hidden State</span> 就是 true（隐藏），
+  否则是 false。</p>
+
+  <p>如果这个元素或它的一个祖先是 <span data-x="inert">不活动的</span>，
+  那么这个命令的 <span data-x="command-facet-DisabledState">Disabled State</span> 就是 true，
+  否则是 false。</p>
+
+  <p>这个命令的 <span data-x="command-facet-Action">Action</span> 是执行以下步骤：</p>
+
+  <ol>
+
+   <li>为这个元素执行 <span data-x="focusing steps">聚焦步骤</span>。</li>
+
+   <li>在这个元素上 <span data-x="fire a click event">触发一个
+   <code data-x="event-click">click</code> 事件</span>。</li>
+
+  </ol>
+
+  </div>

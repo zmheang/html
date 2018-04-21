@@ -1,0 +1,46 @@
+  <h5 id="Security with canvas elements"><code>canvas</code> 元素的安全问题</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>如果一个 <span data-x="origin">域</span>
+  的脚本可以访问另一个（非 <span data-x="same origin">同域</span> 的）
+  域的图片信息（例如读取像素）就可能发生 <strong>信息泄露</strong>。</p>
+
+  <p>为了减轻这个问题，
+  <code>canvas</code> 元素和 <code>ImageBitmap</code> 对象使用的位图定义有一个标志，
+  来表示它们是否 <span data-x="concept-canvas-origin-clean">origin-clean</span>。
+  所有位图开始时 <span data-x="concept-canvas-origin-clean">origin-clean</span> 都设为 true。
+  使用到跨域图片时该标志被设为 false。</p>
+
+  <p><code data-x="dom-canvas-toDataURL">toDataURL()</code>, <code
+  data-x="dom-canvas-toBlob">toBlob()</code>, 和 <code
+  data-x="dom-context-2d-getImageData">getImageData()</code> 方法会检查这个标志，
+  并且会抛出一个 <span>"<code>SecurityError</code>"</span> <code>DOMException</code>，
+  以保证不泄漏跨域数据。</p>
+
+  <p><span data-x="concept-canvas-origin-clean">origin-clean</span> 标志的值会通过
+  <code data-x="dom-createImageBitmap">createImageBitmap()</code> 从一个
+  源 <code>canvas</code> 元素的位图传播到新的 <code>ImageBitmap</code> 对象。
+  反过来，如果源 <code>ImageBitmap</code> 对象的位图的
+  <span data-x="concept-canvas-origin-clean">origin-clean</span> 标志为 false，
+  目标 <code>canvas</code> 元素的位图在 <code data-x="dom-context-2d-drawImage">drawImage</code>
+  时会把它的
+  <span data-x="concept-canvas-origin-clean">origin-clean</span> 标志设为 false。
+  </p>
+
+  <p>在某些情况下这个标志会被重置；例如绑定有 <code>CanvasRenderingContext2D</code>
+  的 <code>canvas</code> 元素的
+  <code data-x="attr-canvas-width">width</code> 或 <code data-x="attr-canvas-height">height</code>
+  内容属性的值改变时，该位图会被清空且它的
+  <span data-x="concept-canvas-origin-clean">origin-clean</span>
+  标志会被重置。</p>
+
+  <p>在 <code>ImageBitmapRenderingContext</code> 中，
+  当 <code>ImageBitmap</code> 对象通过
+  <span data-x="dom-ImageBitmapRenderingContext-transferFromImageBitmap">transferFromImageBitmap()</span>
+  转移到 <code>canvas</code> 时，它的
+  <span data-x="concept-canvas-origin-clean">origin-clean</span> 标志会被传播。
+  </p>
+
+  </div>
+
