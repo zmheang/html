@@ -1,0 +1,22 @@
+  <h5 id="using-the-a-element-to-define-a-command"><dfn data-x="a-command">使用 <code>a</code> 元素来定义命令</dfn></h5>
+
+  <p>有 <code data-x="attr-hyperlink-href">href</code> 属性的 <code>a</code> 元素
+  <span data-x="concept-command">会定义命令</span>。</p>
+
+  <p>这个命令的 <span data-x="command-facet-Label">Label</span> 是该元素的
+  <code>textContent</code> IDL 属性给出的字符串。</p>
+
+  <p>这个命令的 <span data-x="command-facet-AccessKey">AccessKey</span> 是该元素
+  <span data-x="assigned access key">被指定的访问键</span>，如果有的话。</p>
+
+  <p>如果这个元素有 <code data-x="attr-hidden">hidden</code> 属性，
+  它的 <span data-x="command-facet-HiddenState">Hidden State</span> 就是 true（隐藏），
+  否则是 false。</p>
+
+  <p>如果这个元素或它的一个祖先是 <span data-x="inert">不活动的</span>，
+  那么这个命令的 <span data-x="command-facet-DisabledState">Disabled State</span> 就是 true，
+  否则是 false。</p>
+
+  <p>这个命令的 <span data-x="command-facet-Action">Action</span> 会在这个元素上
+  <span data-x="fire a click event">触发一个 <code data-x="event-click">click</code> 事件</span>。</p>
+
