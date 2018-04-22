@@ -18,7 +18,6 @@
   object <var>document</var> and optionally a <var>recursiveFlag</var>, run these steps:</p>
 
   <ol>
-
    <li><p>Increase the <span>event loop</span>'s <span>termination nesting level</span> by
    1.</p></li>
 
@@ -95,13 +94,14 @@
    1.</p></li>
   </ol>
 
-  <p>When a user agent is to <dfn data-export="">unload a document</dfn>, it must run the following
-  steps. These steps are passed an argument, <var>recycle</var>, which is either true or false,
-  indicating whether the <code>Document</code> object is going to be re-used. (This is set by the
-  <code data-x="dom-document-open">document.open()</code> method.)</p>
+  <p>To <dfn data-export="">unload a document</dfn>, given a boolean recycle, and optionally a
+  <var>recursiveFlag</var>, run these steps:</p>
+
+  <p class="note">The <var>recycle</var> argument indicates whether the <code>Document</code> object
+  is going to be reused; it is set by the <code data-x="dom-document-open">document.open()</code>
+  method.</p>
 
   <ol>
-
    <li><p>Increase the <span>event loop</span>'s <span>termination nesting level</span> by
    one.</p></li>
 
@@ -123,12 +123,10 @@
    true, and false otherwise, and <var>legacy target override flag</var> set.</p></li>
 
    <li>
-
     <p>Run any <dfn>unloading document visibility change steps</dfn> for <code>Document</code> that
     are defined by <span>other applicable specifications</span>.</p>
 
     <p class="note">This is specifically intended for use by the Page Visibility specification. <ref spec=PAGEVIS></p>
-
    </li>
 
    <li><p><i>Unload event</i>: If the <code>Document</code>'s <span>fired unload</span> flag is
@@ -146,43 +144,37 @@
    <li><p>Run any <span>unloading document cleanup steps</span> for <code>Document</code> that are
    defined by this specification and <span>other applicable specifications</span>.</p></li>
 
-   <li><p>If this algorithm was invoked by another instance of the "unload a document" algorithm
-   (i.e. by the steps below that invoke this algorithm for all descendant browsing contexts), then
-   jump to the step labeled <i>end</i>.</p></li>
-
-   <li><p>Let <var>descendants</var> be the <span>list of the descendant browsing
-   contexts</span> of the <code>Document</code>.</p></li>
-
    <li>
-
-    <p>If <var>descendants</var> is not an empty list, then for each <span>browsing
-    context</span> <var>b</var> in <var>descendants</var> run the following
-    substeps:</p>
+    <p>If the <var>recursiveFlag</var> is not set, then:</p>
 
     <ol>
+     <li><p>Let <var>descendants</var> be the <span>list of the descendant browsing
+     contexts</span> of the <code>Document</code>.</p></li>
 
-     <li><p><span data-x="unload a document">Unload</span> the <span>active document</span> of the
-     <span>browsing context</span> <var>b</var> with the <var>recycle</var>
-     parameter set to false.</p></li>
+     <li>
+      <p>For each <var>browsingContext</var> in <var>descendants</var>:</p>
 
-     <li><p>If the <i data-x="concept-document-salvageable">salvageable</i> state of the <span>active
-     document</span> of the <span>browsing context</span> <var>b</var> is false, then set
-     the <i data-x="concept-document-salvageable">salvageable</i> state of <em>this</em> document to
-     false also.</p></li>
+      <ol>
+       <li><p><span data-x="unload a document">Unload</span> the <span>active document</span> of
+       <var>browsingContext</var> with the <var>recycle</var> parameter set to false, and the
+       <var>recursiveFlag</var> set.</p></li>
 
+       <li><p>If the <i data-x="concept-document-salvageable">salvageable</i> state of the
+       <span>active document</span> of <var>browsingContext</var> is false, then set the
+       <i data-x="concept-document-salvageable">salvageable</i> state of <em>this</em> document to
+       false also.</p></li>
+      </ol>
+     </li>
+
+     <li><p>If both the <code>Document</code>'s <i
+     data-x="concept-document-salvageable">salvageable</i> state and <var>recycle</var> are false,
+     then the <code>Document</code>'s <span data-x="concept-document-bc">browsing context</span>
+     must <span data-x="discard a document">discard the <code>Document</code></span>.</p></li>
     </ol>
-
    </li>
 
-   <li><p>If both the <code>Document</code>'s <i
-   data-x="concept-document-salvageable">salvageable</i> state and <var>recycle</var> are
-   false, then the <code>Document</code>'s <span data-x="concept-document-bc">browsing
-   context</span> must <span data-x="discard a document">discard the
-   <code>Document</code></span>.</p></li>
-
-   <li><p><i>End</i>: Decrease the <code>Document</code>'s <span>ignore-opens-during-unload
-   counter</span> by one.</p></li>
-
+   <li><p>Decrease the <code>Document</code>'s <span>ignore-opens-during-unload counter</span> by
+   one.</p></li>
   </ol>
 
   <p>This specification defines the following <dfn data-export="">unloading document cleanup
