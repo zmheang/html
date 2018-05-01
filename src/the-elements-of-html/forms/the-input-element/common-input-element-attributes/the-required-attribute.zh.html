@@ -1,0 +1,64 @@
+  <h6 id="the-required-attribute"><code data-x="attr-input-required">required</code> 属性</h6>
+
+  <p><dfn><code data-x="attr-input-required">required</code></dfn> 属性是一个
+  <span data-x="boolean attribute">布尔属性</span>。当指定时这个元素就是 <dfn
+  data-x="concept-input-required"><i>必要的</i></dfn>。</p>
+
+  <div w-nodev>
+
+  <p><strong>约束验证</strong>：如果这个元素是 <i data-x="concept-input-required">必要的</i>，
+  且它的 <code data-x="dom-input-value">value</code> IDL 属性
+  <span data-x="concept-input-apply">适用</span> 且处于 <span
+  data-x="dom-input-value-value">value</span> 模式，而且该元素是 <i
+  data-x="concept-fe-mutable">可变的</i>，而且该元素的 <span
+  data-x="concept-fe-value">value</span> 为空字符串，那么这个元素就
+  <span data-x="suffering from being missing">处于缺失错误状态</span>。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>下面的表单有两个必要字段，一个是邮件地址另一个是密码。
+   第三个字段只在用户输入与密码字段同样的密码时才有效。</p>
+
+   <pre>&lt;h1>Create new account&lt;/h1>
+&lt;form action="/newaccount" method=post
+      oninput="up2.setCustomValidity(up2.value != up.value ? 'Passwords do not match.' : '')">
+ &lt;p>
+  &lt;label for="username">E-mail address:&lt;/label>
+  &lt;input id="username" type=email required name=un>
+ &lt;p>
+  &lt;label for="password1">Password:&lt;/label>
+  &lt;input id="password1" type=password required name=up>
+ &lt;p>
+  &lt;label for="password2">Confirm password:&lt;/label>
+  &lt;input id="password2" type=password name=up2>
+ &lt;p>
+  &lt;input type=submit value="Create account">
+&lt;/form></pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>对于单选按钮，如果 <span data-x="radio button group">分组</span> 中任意一个单选按钮被选中，
+   <code data-x="attr-input-required">required</code> 属性就会被满足。
+   因此在下面的例子中，可以选中任意一个单选按钮，而不仅仅是标记为必选的那个：</p>
+
+   <pre>&lt;fieldset>
+ &lt;legend>Did the movie pass the Bechdel test?&lt;/legend>
+ &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="no-characters"> No, there are not even two female characters in the movie. &lt;/label>
+ &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="no-names"> No, the female characters never talk to each other. &lt;/label>
+ &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="no-topic"> No, when female characters talk to each other it's always about a male character. &lt;/label>
+ &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="yes" <strong>required</strong>> Yes. &lt;/label>
+ &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="unknown"> I don't know. &lt;/label>
+&lt;/fieldset></pre>
+
+   <p>为避免困惑
+   关于是否 <span data-x="radio button group">单选按钮分组</span> 是否是必选的，
+   鼓励作者在组中的所有单选按钮上都指定属性，其实通常也鼓励作者避免这种没有初始选中的单选按钮分组，
+   因为用户无法返回到这个状态，因此也通常被认为是糟糕的用户界面。</p>
+
+  </div>
+
+

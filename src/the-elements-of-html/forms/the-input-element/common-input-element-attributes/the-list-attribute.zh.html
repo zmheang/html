@@ -1,0 +1,176 @@
+  <h6 id="the list attribute"><code data-x="attr-input-list">list</code> 属性</h6>
+
+  <!-- if we add any more types of controls, the handling of multiple="" below needs refactoring -->
+
+  <p><dfn><code data-x="attr-input-list">list</code></dfn> 属性用于识别
+  给用户列出了建议的预定义选项的元素。</p>
+
+  <p>如果指定了这个属性，它的值必须是同一个 <span data-x="tree">树</span>
+  中的 <code>datalist</code> 元素的 <span data-x="concept-id">ID</span>。</p>
+
+  <div w-nodev>
+
+  <p><dfn data-x="concept-input-list">建议来源元素</dfn> 是在 <span data-x="tree">树</span> 中的
+  按照 <span data-x="tree order">树序</span> 的第一个 <span data-x="concept-id">ID</span>
+  属性等于 <code data-x="attr-input-list">list</code> 属性值的 <code>datalist</code> 元素。
+  如果没有 <code data-x="attr-input-list">list</code> 属性，或者没有这个
+  <span data-x="concept-id">ID</span> 的元素，或者第一个有这个 <span data-x="concept-id">ID</span>
+  的元素不是 <code>datalist</code> 元素，那就没有
+  <span data-x="concept-input-list">建议来源元素</span>。</p>
+
+  <p>如果有一个 <span data-x="concept-input-list">建议来源元素</span>，那么当用户代理
+  允许用户编辑这个 <code>input</code> 元素的 <span data-x="concept-fe-value">值</span> 时，
+  用户代理应该把 <span data-x="concept-input-list">建议来源元素</span>
+  表示的建议以与控件类型相适应的方式提供给用户。
+  如果合适的话，用户代理应该使用建议的 <span data-x="concept-option-label">label</span> 和
+  <span data-x="concept-option-value">value</span> 来给用户标识建议。</p>
+
+  <p>如果建议很多，鼓励用户代理过滤 <span data-x="concept-input-list">建议来源元素</span> 表示的建议，
+  （比如基于用户目前的输入）只显示最相关的那些。没有定义精确的阈值，但 4-7 个值是比较合理的。
+  如果是基于用户输入进行过滤，用户代理应该对建议的
+  <span data-x="concept-option-label">label</span> 和 <span data-x="concept-option-value">value</span>
+  进行子字符串匹配。
+  </p>
+
+  <div class="example">
+   <p>这个文本字段允许你选择一个JavaScript 函数类型。</p>
+
+   <pre>&lt;input type="text" list="function-types">
+&lt;datalist id="function-types">
+  &lt;option value="function">function&lt;/option>
+  &lt;option value="async function">async function&lt;/option>
+  &lt;option value="function*">generator function&lt;/option>
+  &lt;option value="=>">arrow function&lt;/option>
+  &lt;option value="async =>">async arrow function&lt;/option>
+  &lt;option value="async function*">async generator function&lt;/option>
+&lt;/datalist></pre>
+
+   <p>对遵守以上建议的用户代理，<span data-x="concept-option-label">label</span> 和
+   <span data-x="concept-option-value">value</span> 可能会显示为：</p>
+
+   <p><img src="/images/sample-datalist.svg" width="280" height="150" alt="A text box with a drop down button on the right hand side; with, below, a drop down box containing a list of the six values the left and the six labels on the right."></p>
+
+   <p>然后键入 "<kbd>arrow</kbd>" 或 "<kbd>=></kbd>" 将会把列表过滤为
+   "arrow function" 和 "async arrow function"。
+   键入 "<kbd>generator</kbd>" 或 "<kbd>*</kbd>" 将会把列表过滤为
+   "generator function" 和 "async generator function"。</p>
+  </div>
+
+  <p class="note">与往常一样，用户代理可以自己决定什么样的用户界面适合特定的要求和特定的用户场景。
+  但这在历史上是实现方，Web 开发者，用户都容易混淆的地方，
+  所以我们给出了一些 "应该" 遵守的建议。</p>
+
+
+  <p>如何处理用户选择建议项取决于这个控件元素只接受单个值还是接受多个值：</p>
+
+  <dl class="switch">
+
+   <dt>如果这个元素没有设置 <code data-x="attr-input-multiple">multiple</code> 属性
+   或者如果 <code data-x="attr-input-multiple">multiple</code> 属性 <span data-x="do
+   not apply">不适用</span></dt>
+
+   <dd>
+
+    <p>当用户选择一项建议时，<code>input</code> 元素的 <span
+    data-x="concept-fe-value">值</span> 必须被设置为选中建议的 <span
+    data-x="concept-option-value">值</span>，就像用户自己写了那个值一样。</p>
+
+   </dd>
+
+   <!-- multiple types where there's a potentially growing number of values -->
+   <dt>如果这个元素的 <code data-x="attr-input-type">type</code> 属性处于 <span
+   data-x="attr-input-type-email">Email</span> 状态且该元素设置了 <code
+   data-x="attr-input-multiple">multiple</code> 属性<!--, and the <code
+   data-x="attr-input-multiple">multiple</code> attribute does <span
+   data-x="concept-input-apply">apply</span>--></dt>
+
+   <dd>
+
+    <p>当用户选择一项建议时，用户代理必须添加一个新项目到
+    <code>input</code> 元素的 <span data-x="concept-fe-values">值</span> 中，
+    其值为选中建议项的 <span data-x="concept-option-value">值</span>，
+    或者把 <code>input</code> 元素的 <span data-x="concept-fe-values">值</span>
+    中的既有项改为选中的建议项的 <span data-x="concept-option-value">值</span> 给出的值。
+    就像是用户自己添加了一项那个值，或者把既有项编辑成那个值。
+    应用上述哪个行为取决于用户代理定义的用户界面。</p>
+
+   </dd>
+
+  </dl>
+
+  <hr>
+
+  <p>如果 <code data-x="attr-input-list">list</code> 属性
+  <span data-x="do not apply">不适用</span>，就不存在
+  <span data-x="concept-input-list">建议来源元素</span>。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>这个 URL 字段提供了一些建议。</p>
+
+   <pre>&lt;label>Homepage: &lt;input name=hp type=url list=hpurls>&lt;/label>
+&lt;datalist id=hpurls>
+ &lt;option value="https://www.google.com/" label="Google">
+ &lt;option value="https://www.reddit.com/" label="Reddit">
+&lt;/datalist></pre>
+
+   <p>用户历史中的其他 URL 也可能显示；这取决于用户代理。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>这个例子演示了如何使用自动完成列表功能设计一个表单，同时仍然能在旧用户代理上做有用的降级。</p>
+
+   <p>如果自动完成列表仅仅是一种帮助，而且对内容不重要。那么直接使用
+   <code>datalist</code> 元素和子 <code>option</code> 元素就足够了。
+   为了阻止在旧用户代理上渲染这些值，需要把它们放到
+   <code data-x="attr-option-value">value</code> 属性中，而不是内联。</p>
+
+   <pre>&lt;p&gt;
+ &lt;label&gt;
+  Enter a breed:
+  &lt;input type="text" name="breed" list="breeds"&gt;
+  &lt;datalist id="breeds"&gt;
+   &lt;option value="Abyssinian"&gt;
+   &lt;option value="Alpaca"&gt;
+   &lt;!-- ... --&gt;
+  &lt;/datalist&gt;
+ &lt;/label&gt;
+&lt;/p&gt;</pre>
+
+   <p>但如果需要在旧 UA 显示这些值，fallback 内容可以放在 <code>datalist</code> 元素中，像这样：</p>
+
+   <pre>&lt;p&gt;
+ &lt;label&gt;
+  Enter a breed:
+  &lt;input type="text" name="breed" list="breeds"&gt;
+ &lt;/label&gt;
+ &lt;datalist id="breeds"&gt;
+  &lt;label&gt;
+   or select one from the list:
+   &lt;select name="breed"&gt;
+    &lt;option value=""&gt; (none selected)
+    &lt;option&gt;Abyssinian
+    &lt;option&gt;Alpaca
+    &lt;!-- ... --&gt;
+   &lt;/select&gt;
+  &lt;/label&gt;
+ &lt;/datalist&gt;
+&lt;/p&gt;
+</pre>
+
+   <p>fallback 内容只会在不支持 <code>datalist</code> 的 UA 显示。
+   但这些 option 会被所有 UA 检测到，即使它们不是 <code>datalist</code> 元素的子节点。</p>
+
+   <p>注意如果在 <code>datalist</code> 中用到的 <code>option</code> 元素处于
+   <code data-x="attr-option-selected">selected</code> 状态，
+   它会在旧 UA 上默认选中（因为它会影响 <code>select</code>），
+   但它在支持 <code>datalist</code> 的 UA 上对 <code>input</code> 元素将不会有任何影响。</p>
+
+  </div>
+
+
+

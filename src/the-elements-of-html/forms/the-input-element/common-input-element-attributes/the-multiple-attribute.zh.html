@@ -1,0 +1,53 @@
+  <h6 id="the-multiple-attribute"><code data-x="attr-input-multiple">multiple</code> 属性</h6>
+
+  <p><dfn><code data-x="attr-input-multiple">multiple</code></dfn> 属性是一个
+  <span data-x="boolean attribute">布尔属性</span>，表示是否允许用户指定多个值。</p>
+
+  <div class="example">
+
+   <p>下面的片段展示了 e-mail 客户端的 "To" 字符串如何接受多个 e-mail 地址。</p>
+
+   <pre>&lt;label>To: &lt;input type=email multiple name=to>&lt;/label></pre>
+
+   <p>如果用户的联系人数据库中有这样两个朋友："Spider-Man" （地址为"spider@parker.example.net"）和
+   "Scarlet Witch"（地址为"scarlet@avengers.example.net"），
+   在用户输入了 "<kbd>s</kbd>" 后，用户代理可能会给用户建议这些 e-mail 地址。</p>
+
+   <!-- Having alternative text in the following image would be bogus and non-conforming use of
+   HTML, since the image is redundant with the previous paragraph. In particular, just describing
+   the image would be especially bad for accessibility as it would be disorienting, there having
+   been no mention that an image is present. -->
+   <p><img src="/images/sample-email-1.svg" width="330" height="100" alt=""></p>
+
+   <p>这个页面可能会链接到用户的联系人数据库：</p>
+
+   <pre>&lt;label>To: &lt;input type=email multiple name=to list=contacts>&lt;/label>
+...
+&lt;datalist id="contacts">
+ &lt;option value="hedral@damowmow.com">
+ &lt;option value="pillar@example.com">
+ &lt;option value="astrophy@cute.example">
+ &lt;option value="astronomy@science.example.org">
+&lt;/datalist></pre>
+
+   <p>假设用户在文本控件中输入了 "<kbd>bob@example.net</kbd>"，然后开始键入第二个
+   e-mail 地址，开头是 "<kbd>s</kbd>"。用户代理可能会显示前面提到的两个朋友，
+   以及 <code>datalist</code> 元素给出的 "astrophy" 和 "astronomy" 两个值。</p>
+
+   <!-- As above, having a non-empty alt="" attribute on the following image would be dumb, which is
+   why it's left blank. The pertinent parts of the image are already described in the prose, and the
+   non-pertinent parts aren't relevant to users who can't see the image, obviously. -->
+   <p><img src="/images/sample-email-2.svg" width="330" height="140" alt=""></p>
+
+  </div>
+
+  <div class="example">
+
+   <p>下面的片段展示了 e-mail 客户端的 "Attachments" 字段是如何接受多个文件上传的。</p>
+
+   <pre>&lt;label>Attachments: &lt;input type=file multiple name=att>&lt;/label></pre>
+
+  </div>
+
+
+

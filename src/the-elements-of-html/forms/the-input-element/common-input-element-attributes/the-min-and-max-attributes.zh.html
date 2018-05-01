@@ -1,0 +1,124 @@
+  <h6 id="the-min-and-max-attributes"><code data-x="attr-input-min">min</code> 和 <code data-x="attr-input-max">max</code> 属性</h6>
+
+  <!-- if more numeric control types start supporting multiple="", this will need to be refactored -->
+
+  <p>有些表单控件可以有显式的约束来限制用户提供的值的范围。
+  通常，这样的范围将是线性的并且是连续的。
+  表单控件可能 <dfn data-x="has a periodic domain">有周期性的范围</dfn> 但最宽可能的范围是有限的，
+  作者可以显式地设置一个横跨边界的范围。</p>
+
+  <p class="example">具体而言，最广泛的
+  <code data-x="attr-input-type-time">type=time</code> 控件最宽的范围是午夜到午夜（24小时），
+  作者可以设置连续线性的范围（比如9pm到11pm），也可以设置跨过午夜的不连续的范围（比如 11pm 到 1am）。</p>
+
+  <p><dfn><code data-x="attr-input-min">min</code></dfn> 和
+  <dfn><code data-x="attr-input-max">max</code></dfn> 属性表示这个元素允许的值的范围。</p>
+
+  <div w-nodev>
+
+  <p>它们的语法由定义 <code data-x="attr-input-type">type</code>
+  属性当前状态的章节定义。</p>
+
+  <p>如果这个元素有 <code data-x="attr-input-min">min</code> 属性，而且对
+  <code data-x="attr-input-min">min</code> 属性执行
+  <span data-x="concept-input-value-string-number">字符串转换为数字算法</span>
+  的结果是一个数字，那么这个数字就是该元素的 <dfn data-x="concept-input-min">最小值</dfn>；
+  否则，如果 <code data-x="attr-input-type">type</code> 属性的当前状态定义了 <dfn
+  data-x="concept-input-min-default">默认最小值</dfn>，那么这就是 <span
+  data-x="concept-input-min">最小值</span>；否则，这个元素就没有 <span
+  data-x="concept-input-min">最小值</span>。</p>
+
+  <p><code data-x="attr-input-min">min</code> 属性还定义了 <span
+  data-x="concept-input-min-zero">step base</span>。</p>
+
+  <p>如果这个元素有 <code data-x="attr-input-max">max</code> 属性，而且对
+  <code data-x="attr-input-max">max</code> 属性执行
+  <span data-x="concept-input-value-string-number">字符串转换为数字算法</span>
+  的结果是一个数字，那么这个数字就是该元素的 <dfn data-x="concept-input-max">最大值</dfn>；
+  否则，如果 <code data-x="attr-input-type">type</code> 属性的当前状态定义了 <dfn
+  data-x="concept-input-max-default">默认最大值</dfn>，那么这就是 <span
+  data-x="concept-input-max">最大值</span>；否则，这个元素就没有 <span
+  data-x="concept-input-max">最大值</span>。</p>
+
+  </div>
+
+  <p>如果这个元素没有 <span data-x="has a periodic domain">周期性的范围</span>，
+  <code data-x="attr-input-max">max</code> 属性的值（<span
+  data-x="concept-input-max">最大值</span>）不得小于 <code
+  data-x="attr-input-min">min</code> 属性的值（<span
+  data-x="concept-input-min">最小值</span>）。</p>
+
+  <div w-nodev>
+
+  <p class="note">如果没有 <span data-x="has a periodic domain">周期性的范围</span> 的元素的
+  <span data-x="attr-input-max">最大值</span> 小于它的 <span
+  data-x="attr-input-min">最小值</span>，只要这个元素有 <span data-x="concept-fe-value">值</span>，
+  那么它或者 <span data-x="suffering from an underflow">处于下溢出错误状态</span>，
+  或者 <span data-x="suffering from an overflow">处于上溢出错误状态</span>。</p>
+
+  <p>如果元素 <span data-x="has a periodic domain">有周期性的范围</span> 且它的
+  <span data-x="concept-input-max">最大值</span> 小于 <span data-x="concept-input-min">最小值</span>，
+  那么它就 <dfn data-x="has a reversed range">有反转的范围</dfn>。</p>
+
+  </div>
+
+  <p>如果一个元素定义了
+  <span data-x="concept-input-min">最小值</span> 或 <span data-x="concept-input-max">最大值</span>，
+  那么它就 <dfn data-x="have range limitations">有范围限制</dfn>。</p>
+
+  <div w-nodev>
+
+  <p><strong>约束验证</strong>：当元素有 <span
+  data-x="attr-input-min">最小值</span> 而且没有
+  <span data-x="has a reversed range">反转范围</span>，而且对元素的
+  <span data-x="concept-fe-value">value</span> 给出的字符串执行
+  <span data-x="concept-input-value-string-number">字符串转换为数字算法</span> 得到的结果是一个数字，
+  而且得到的这个数字小于 <span
+  data-x="attr-input-min">最小值</span>，这个元素就
+  <span data-x="suffering from an underflow">处于下溢出错误状态</span>。</p>
+
+  <p><strong>约束验证</strong>：当元素有 <span
+  data-x="attr-input-max">最大值</span> 而且没有
+  <span data-x="has a reversed range">反转范围</span>，而且对元素的
+  <span data-x="concept-fe-value">value</span> 给出的字符串执行
+  <span data-x="concept-input-value-string-number">字符串转换为数字算法</span> 得到的结果是一个数字，
+  而且得到的这个数字大于 <span
+  data-x="attr-input-max">最大值</span>，这个元素就
+  <span data-x="suffering from an underflow">处于上溢出错误状态</span>。</p>
+
+  <p><strong>约束验证</strong>：当元素 <span data-x="has a reversed range">有反转范围</span> 时，
+  如果在该元素的 <span data-x="concept-fe-value">value</span> 给出的字符串上执行
+  <span data-x="concept-input-value-string-number">字符串转换为数字算法</span> 得到的结果是一个数字，
+  而且这个数字大于 <span data-x="attr-input-max">最大值</span> <em>且</em> 小于 <span
+  data-x="attr-input-min">最小值</span>，该元素就同时
+  <span data-x="suffering from an underflow">处于下溢出状态</span> 和
+  <span data-x="suffering from an overflow">上溢出状态</span>。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>下面的日期控件限制输入在 1980 年之前：</p>
+
+   <pre>&lt;input name=bday type=date max="1979-12-31"></pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>下面的数字控件限制输入为大于 0 的整数：</p>
+
+   <pre>&lt;input name=quantity required="" type="number" min="1" value="1"></pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>下面的时间控件限制输入为 9pm 到 6am 之间的分钟，默认为午夜：</p>
+
+   <pre>&lt;input name="sleepStart" type=time min="21:00" max="06:00" step="60" value="00:00"></pre>
+
+  </div>
+
+
+

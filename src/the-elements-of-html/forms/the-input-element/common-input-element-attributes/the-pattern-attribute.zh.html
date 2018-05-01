@@ -1,0 +1,76 @@
+  <h6 id="the pattern attribute"><code data-x="attr-input-pattern">pattern</code> 属性</h6>
+
+  <!-- if more text control types start supporting multiple="", this will need to be refactored -->
+
+  <p><dfn><code data-x="attr-input-pattern">pattern</code></dfn> 属性指定了
+  该控件的 <span data-x="concept-fe-value">值</span> 的正则表达式，
+  或者当设置了 <code data-x="attr-input-multiple">multiple</code> 属性并且输入控件 <span
+  data-x="concept-input-apply">适用这个属性</span> 时，
+  就要检查这个控件的值 <span data-x="concept-fe-values">值</span>。</p>
+
+  <p>如果指定了这个属性，它的值必须匹配 JavaScript <i data-x="js-prod-Pattern">Pattern</i> 生成式。</p>
+
+  <div w-nodev>
+
+  <p>如果 <code>input</code> 元素设置了 <code data-x="attr-input-pattern">pattern</code>
+  属性，且这个属性的值可以作为 JavaScript 正则表达式（只带 "<code data-x="">u</code>" 标志）成功地编译，
+  那么结果正则表达式就是这个元素的
+  <dfn data-x="compiled pattern regular expression">编译后的模式正则表达式</dfn>。
+  如果这个元素没有这种属性，或者其属性值不能成功编译，那么这个元素就没有
+  <span data-x="compiled pattern regular expression">编译后的模式正则表达式</span>。<ref spec=JAVASCRIPT></p>
+
+  <p class="note">如果值不能成功编译，鼓励用户代理把这个日志打到开发控制台来帮助调试。</p>
+
+  <p><strong>约束验证</strong>：如果这个元素的 <span data-x="concept-fe-value">值</span>
+  不是空字符串，或者元素没有指定 <code data-x="attr-input-multiple">multiple</code> 属性，
+  或者它 <span data-x="do not apply">不适用</span> 于 <code>input</code> 元素的 <code
+  data-x="attr-input-type">type</code> 属性的当前状态，且这个元素有
+  <span data-x="compiled pattern regular expression">编译后的模式正则表达式</span>
+  但这个正则不匹配元素的 <span data-x="concept-fe-value">值</span>，那么就说这个元素
+  <span data-x="suffering from a pattern mismatch">处于模式不匹配错误状态</span>。</p>
+
+  <p><strong>约束验证</strong>：如果这个元素的 <span
+  data-x="concept-fe-value">value</span> 不是空字符串，
+  且这个元素指定了 <code data-x="attr-input-multiple">multiple</code> 属性，
+  且 <span data-x="concept-input-apply">适用于</span> <code>input</code> 元素，
+  且该元素有一个 <span data-x="compiled pattern regular expression">编译后的模式正则表达式</span>，
+  但这个正则不匹配元素的每一个值 <span data-x="concept-fe-values">values</span>，
+  那么这个元素 <span data-x="suffering from a pattern mismatch">处于模式不匹配错误状态</span>。</p>
+
+  <p>把 <span data-x="compiled pattern regular expression">编译后的模式正则表达式</span>
+  与字符串进行匹配时，必须把它的开始位置对准字符串的开始位置，它的结尾对准字符串的结尾位置。</p>
+
+  <p class="note">这意味着用于这个属性的正则表达式语言与用于 JavaScript 的一样，除了
+  <code data-x="attr-input-pattern">pattern</code> 属性匹配的是整个值，而不是一个子集
+  （有些像是在前面添加一个 <code data-x="">^(?:</code>，在后面加一个 <code data-x="">)$</code>）</p>
+
+  </div>
+
+  <p>当一个 <code>input</code> 元素设置有 <code data-x="attr-input-pattern">pattern</code> 属性时，
+  作者应该引入一个 <dfn><code data-x="attr-input-title">title</code></dfn> 属性来描述这个模式。
+  如果有的话，当用户代理提示用户模式不匹配的时候，或者其他任何适当的时候，都可以使用这个属性的内容。
+  比如显示为一个 tooltip，或者在控件 <span data-x="gains focus">获得焦点</span> 时由辅助技术读出来。</p>
+
+  <div class="example">
+   <p>例如下面的片段：</p>
+   <pre>&lt;label&gt; Part number:
+ &lt;input pattern="[0-9][A-Z]{3}" name="part"
+        title="A part number is a digit followed by three uppercase letters."/&gt;
+&lt;/label&gt;</pre>
+   <p>...could cause the UA to display an alert such as:</p>
+   <pre><samp>A part number is a digit followed by three uppercase letters.
+You cannot submit this form when the field is incorrect.</samp></pre>
+  </div>
+
+  <p>当一个控件有 <code data-x="attr-input-pattern">pattern</code> 属性时，如果用了 <code
+  data-x="attr-input-title">title</code> 属性，它就必须描述这个模式。
+  也可以包含额外的信息，只要是帮助用户填写这个控件的。否则辅助技术将受到影响。</p>
+
+  <p class="example">假如 title 属性包含控件标题，
+  辅助技术可能会说 <samp>你输入的文字不匹配要求的模式：生日</samp>，这根本没用。</p>
+
+  <p>UA 仍然可以在没错误的情况下显示 <code data-x="attr-title">title</code>
+  （例如作为悬停在空间上时的 tooltip），这样作者应该注意不要把
+  <code data-x="attr-input-title">title</code> 的文字写得像是已经发生了错误一样。</p>
+
+

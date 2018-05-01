@@ -1,0 +1,22 @@
+  <h6 id="the-size-attribute"><code data-x="attr-input-size">size</code> 属性</h6>
+
+  <p><dfn><code data-x="attr-input-size">size</code></dfn> 属性给出了
+  在用户编辑元素的 <span data-x="concept-fe-value">值</span> 的时候，用户代理允许用户看到的字符数目。</p>
+
+  <p>指定 <code data-x="attr-input-size">size</code> 属性时，值必须是一个大于零的
+  <span data-x="valid non-negative integer">合法的非负整数</span>。</p>
+
+  <div w-nodev>
+
+  <p>如果指定了这个属性，就必须使用
+  <span data-x="rules for parsing non-negative integers">解析非负整数的规则</span> 解析它的值，
+  如果结果是一个大于零的数字，用户代理应该确保至少那么多字符可见。</p>
+
+  <p><code data-x="dom-input-size">size</code> IDL 属性
+  <span data-x="limited to only non-negative numbers greater than zero">仅限于大于零的非负整数</span>，
+  默认值为 20。</p>
+
+  </div>
+
+
+
