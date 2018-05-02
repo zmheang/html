@@ -34,7 +34,7 @@
      <td><dfn><code data-x="attr-meta-http-equiv-keyword-refresh">refresh</code></dfn>
      <td>
     <tr w-nodev>
-     <td><span data-x="attr-meta-http-equiv-set-cookie">Cookie setter</span>
+     <td><span data-x="attr-meta-http-equiv-set-cookie">Set-Cookie</span>
      <td><dfn><code data-x="attr-meta-http-equiv-keyword-set-cookie">set-cookie</code></dfn>
      <td>Non-conforming
     <tr>
@@ -435,27 +435,12 @@ people expect to have work and what is necessary.
 
    </dd>
 
-   <dt w-nodev><dfn data-x="attr-meta-http-equiv-set-cookie">Cookie setter</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-set-cookie">set-cookie</code>"</code>)
+   <dt w-nodev><dfn data-x="attr-meta-http-equiv-set-cookie">Set-Cookie state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-set-cookie">set-cookie</code>"</code>)
 
    <dd w-nodev>
+    <p>This pragma is non-conforming and has no effect.</p>
 
-    <p>This pragma sets an HTTP cookie. <ref spec=COOKIES></p>
-
-    <p>It is non-conforming. Real HTTP headers should be used instead.</p>
-
-    <ol>
-
-     <li><p>If the <code>meta</code> element has no <code data-x="attr-meta-content">content</code>
-     attribute, or if that attribute's value is the empty string, then return.</p></li>
-
-     <li><p>Act as if <span data-x="receives a set-cookie-string">receiving a
-     set-cookie-string</span> for the document's <span data-x="concept-document-url">URL</span> via
-     a "non-HTTP" API, consisting of the value of the element's <code
-     data-x="attr-meta-content">content</code> attribute <span data-x="utf-8 encode">encoded as
-     UTF-8</span>. <ref spec=COOKIES> <ref spec=ENCODING></p></li>
-
-    </ol>
-
+    <p>User agents are required to ignore this pragma.</p>
    </dd>
 
 

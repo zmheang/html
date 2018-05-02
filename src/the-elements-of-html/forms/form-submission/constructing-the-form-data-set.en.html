@@ -1,9 +1,9 @@
   <h5 id="constructing-form-data-set">Constructing the form data set</h5>
 
   <p>The algorithm to <dfn data-x="constructing the form data set" data-export=""
-  data-lt="constructing the form data set">construct the form data set</dfn> for a form
-  <var>form</var> optionally in the context of a submitter <var>submitter</var> is as follows. If
-  not specified otherwise, <var>submitter</var> is null.</p>
+  data-lt="constructing the form data set">construct the form data set</dfn> given a form
+  <var>form</var>, an optional submitter <var>submitter</var>, and an optional <var>encoding</var>,
+  is as follows. If not specified otherwise, <var>submitter</var> is null.</p>
 
   <ol>
 
@@ -143,6 +143,22 @@
      append an entry to the <var>form data set</var> with <var>name</var> as the
      name, the returned form submission value as the value, and the string "<code
      data-x="">object</code>" as the type.</p></li>
+
+     <li>
+      <p>Otherwise, if the <var>field</var> element is an <code>input</code> element whose <code
+      data-x="attr-input-type">type</code> attribute is in the <span
+      data-x="attr-input-type-hidden">Hidden</span> state and <var>name</var> is "<code
+      data-x="attr-fe-name-charset">_charset_</code>":</p>
+
+      <ol>
+       <li><p>Let <var>charset</var> be the <span data-x="encoding name">name</span> of
+       <var>encoding</var> if <var>encoding</var> is given, and "<code data-x="">UTF-8</code>"
+       otherwise.</p></li>
+
+       <li><p>Append an entry to the <var>form data set</var> with <var>name</var> as the name,
+       <var>charset</var> as the value, and <var>type</var> as the type.</p></li>
+      </ol>
+     </li>
 
      <li><p>Otherwise, append an entry to the <var>form data set</var> with <var>name</var> as the name, the <span data-x="concept-fe-value">value</span> of the <var>field</var> element as the value, and <var>type</var> as the type.</p></li>
 

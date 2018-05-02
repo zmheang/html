@@ -34,6 +34,10 @@
    data-x="concept-request">request</span> whose <span data-x="concept-request-url">url</span> is
    <var>resource</var>.</p></li>
 
+   <li><p>If <var>resource</var> is a <span data-x="concept-request">request</span> and this is
+   a <dfn>reload-triggered navigation</dfn>, then set <var>resource</var>'s <span
+   data-x="concept-request-reload-navigation-flag">reload-navigation flag</span>.
+
    <li id="sandboxLinks">
     <p>If the <span>source browsing context</span> is not <span>allowed to navigate</span>
     <var>browsingContext</var>, then:</p>
@@ -71,7 +75,7 @@
    <span>prompt to unload</span> algorithm.</p></li>
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1946 to 1955 -->
 
-   <li id="navigate-fragid-step"><p>If this is not a <dfn>reload-triggered navigation</dfn>,
+   <li id="navigate-fragid-step"><p>If this is not a <span>reload-triggered navigation</span>,
    <var>resource</var> is a <span data-x="concept-request">request</span>, <var>resource</var>'s
    <span data-x="concept-request-url">url</span> <span data-x="concept-url-equals">equals</span>
    <var>browsingContext</var>'s <span>active document</span>'s <span

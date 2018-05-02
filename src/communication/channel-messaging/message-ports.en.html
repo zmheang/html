@@ -15,36 +15,21 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
 };</pre>
 
   <dl class="domintro">
-
    <dt><var>port</var> . <code subdfn data-x="dom-MessagePort-postMessage">postMessage</code>(<var>message</var> [, <var>transfer</var>] )</dt>
-
    <dd>
-
     <p>Posts a message through the channel. Objects listed in <var>transfer</var> are
     transferred, not just cloned, meaning that they are no longer usable on the sending side.</p>
 
     <p>Throws a <span>"<code>DataCloneError</code>"</span> <code>DOMException</code> if
-    <var>transfer</var> array contains duplicate objects or the source or target ports, or if
-    <var>message</var> could not be cloned.</p>
-
+    <var>transfer</var> contains duplicate objects or <var>port</var>, or if <var>message</var>
+    could not be cloned.</p>
    </dd>
 
    <dt><var>port</var> . <code subdfn data-x="dom-MessagePort-start">start</code>()</dt>
-
-   <dd>
-
-    <p>Begins dispatching messages received on the port.</p>
-
-   </dd>
+   <dd><p>Begins dispatching messages received on the port.</p></dd>
 
    <dt><var>port</var> . <code subdfn data-x="dom-MessagePort-close">close</code>()</dt>
-
-   <dd>
-
-    <p>Disconnects the port, so that it is no longer active.</p>
-
-   </dd>
-
+   <dd><p>Disconnects the port, so that it is no longer active.</p></dd>
   </dl>
 
   <div w-nodev>
@@ -190,22 +175,22 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
    <li><p>Let <var>targetPort</var> be the port with which this <code>MessagePort</code> is
    entangled, if any; otherwise let it be null.</p></li>
 
-   <li><p>If any of the objects in <var>transfer</var> are this <code>MessagePort</code>, then throw
-   a <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>If <var>transfer</var> <span data-x="list contains">contains</span> this
+   <code>MessagePort</code>, then throw a <span>"<code>DataCloneError</code>"</span>
+   <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>doomed</var> be false.</p></li>
 
-   <li><p>If <var>targetPort</var> is not null and any of the objects in <var>transfer</var> are
-   <var>targetPort</var>, then set <var>doomed</var> to true, and optionally report to a developer
-   console that the target port was posted to itself, causing the communication channel to be
-   lost.</p></li>
+   <li><p>If <var>targetPort</var> is not null and <var>transfer</var> <span data-x="list
+   contains">contains</span> <var>targetPort</var>, then set <var>doomed</var> to true and
+   optionally report to a developer console that the target port was posted to itself, causing the
+   communication channel to be lost.</p></li>
 
    <li><p>Let <var>serializeWithTransferResult</var> be
    <span>StructuredSerializeWithTransfer</span>(<var>message</var>, <var>transfer</var>). Rethrow
    any exceptions.</p></li>
 
-   <li><p>If there is no <var>targetPort</var> (i.e. if this <code>MessagePort</code> is not
-   entangled), or if <var>doomed</var> is true, then return.</p></li>
+   <li><p>If <var>targetPort</var> is null, or if <var>doomed</var> is true, then return.</p></li>
    <!-- we don't throw an exception if there is no target port because this can happen at a moment's
    notice. we don't return false because if the port is _about_ to be closed, the message might not
    be listened for anyway. we don't do this before the steps above because otherwise you can tell
@@ -257,15 +242,21 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-MessagePort-start">start()</code></dfn> method must enable its port's
-  <span>port message queue</span>, if it is not already enabled.</p>
+  <p>The <dfn><code data-x="dom-MessagePort-start">start()</code></dfn> method, when invoked, must
+  enable this <code>MessagePort</code> object's <span>port message queue</span>, if it is not
+  already enabled.</p>
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-MessagePort-close">close()</code></dfn> method, when called on a port
-  <var>local port</var> that is entangled with another port, must cause the user agent to
-  disentangle the two ports. If the method is called on a port that is not entangled, then the
-  method must do nothing.</p>
+  <p>The <dfn><code data-x="dom-MessagePort-close">close()</code></dfn> method, when invoked, must
+  run these steps:</p>
+
+  <ol>
+   <li><p>Set this <code>MessagePort</code> object's <span>[[Detached]]</span> internal slot value
+   to true.</p></li>
+
+   <li><p>If this <code>MessagePort</code> object is entangled, disentangle it.</p></li>
+  </ol>
 
   <hr>
 

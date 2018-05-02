@@ -13,24 +13,33 @@
   with the new page</span>.</p>
 
   <ol>
-
    <li>
+    <p>If <var>entry</var> no longer holds a <code>Document</code> object, then:</p>
 
-    <p>If <var>entry</var> no longer holds a <code>Document</code> object, then
-    <span>navigate</span><!--DONAV history traversal after eviction--> the <span>browsing
-    context</span> to <var>entry</var>'s <span>URL</span> to perform an <span>entry update</span> of
-    <var>entry</var>, and return. The "<span>navigate</span>" algorithm reinvokes this
-    "traverse" algorithm to complete the traversal, at which point there <em>is</em> a
-    <code>Document</code> object and so this step gets skipped. The navigation must be done using
-    the same <span>source browsing context</span> as was used the first time <var>entry</var> was
-    created. (This can never happen with <span>replacement enabled</span>.)</p>
+    <ol>
+     <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
+     <span data-x="concept-request-url">url</span> is <var>entry</var>'s <span>URL</span>.</p></li>
 
-    <p class="note">If the resource was obtained using a non-idempotent action, for example a POST
-    form submission, or if the resource is no longer available, for example because the computer is
-    now offline and the page wasn't cached, navigating to it again might not be possible. In this
-    case, the navigation will result in a different page than previously; for example, it might be
-    an error message explaining the problem or offering to resubmit the form.</p>
+     <li>
+      <p><span>Navigate</span><!--DONAV history traversal after eviction--> the <span>browsing
+      context</span> to <var>request</var> to perform an <span>entry update</span> of
+      <var>entry</var>. The navigation must be done using the same <span>source browsing
+      context</span> as was used the first time <var>entry</var> was created. (This can never happen
+      with <span>replacement enabled</span>.)</p>
 
+      <p class="note">The "<span>navigate</span>" algorithm reinvokes this "traverse" algorithm to
+      complete the traversal, at which point <var>entry</var> holds a <code>Document</code>
+      object.</p>
+
+      <p class="note">If the resource was obtained using a non-idempotent action, for example a POST
+      form submission, or if the resource is no longer available, for example because the computer
+      is now offline and the page wasn't cached, navigating to it again might not be possible. In
+      this case, the navigation will result in a different page than previously; for example, it
+      might be an error message explaining the problem or offering to resubmit the form.</p>
+     </li>
+
+     <li><p>Return.</p></li>
+    </ol>
    </li>
 
    <li><p>If the <span>current entry</span>'s title was not set by the <code

@@ -109,9 +109,8 @@
    <!-- removes callbacks that fired between this algorithm starting and the times and databases
         being aborted in the "unload" step above -->
 
-   <li><p>Remove all child nodes of <var>document</var>, without firing any mutation
-   events.</p></li>
-   <!-- as of 2009-03-30, only WebKit fired mutation events here. -->
+   <li><p><span data-x="concept-node-replace-all">Replace all</span> with null within
+   <var>document</var>, without firing any mutation events.</p></li>
 
    <li>
     <p>Call the JavaScript <span

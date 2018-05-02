@@ -52,11 +52,11 @@
 
    <!-- unlock -->
 
-   <li><p>Let <var>form data set</var> be the result of <span>constructing the form data
-   set</span> for <var>form</var> in the context of <var>submitter</var>.</p></li>
-
    <li><p>Let <var>encoding</var> be the result of <span>picking an encoding for the
    form</span>.</p>
+
+   <li><p>Let <var>form data set</var> be the result of <span>constructing the form data
+   set</span> with <var>form</var>, <var>submitter</var>, and <var>encoding</var>.</p></li>
 
    <li><p>Let <var>action</var> be the <var>submitter</var> element's <span
    data-x="concept-fs-action">action</span>.</p></li>
@@ -250,7 +250,7 @@
 
        <dd>
         <p>Let <var>body</var> be the result of running the <span><code data-x="">text/plain</code>
-        encoding algorithm</span> with <var>form data set</var> and <var>encoding</var>.</p>
+        encoding algorithm</span> with <var>form data set</var>.</p>
 
         <p>Set <var>body</var> to the result of <span data-x="encode">encoding</span>
         <var>body</var> using <var>encoding</var>.</p>
@@ -300,9 +300,8 @@
        <dt><code data-x="attr-fs-enctype-text">text/plain</code></dt>
 
        <dd>
-        <p>Let <var>body</var> be the result of running the <span><code
-        data-x="">text/plain</code> encoding algorithm</span> with <var>form data set</var> and
-        <var>encoding</var>.</p>
+        <p>Let <var>body</var> be the result of running the <span><code data-x="">text/plain</code>
+        encoding algorithm</span> with <var>form data set</var>.</p>
 
         <p>Set <var>body</var> to the result of concatenating the result of <span data-x="UTF-8
         percent encode">UTF-8 percent encoding</span> each code point in <var>body</var>, using the
