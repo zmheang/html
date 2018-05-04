@@ -1,0 +1,105 @@
+  <h5 id="common-input-element-events">通用事件行为</h5>
+
+  <p>当 <code data-x="event-input">input</code> 和 <code data-x="event-change">change</code>
+  事件 <span data-x="concept-input-apply">适用</span> 时
+  （也就是除 <span data-x="concept-button">按钮</span> 和
+  <code data-x="attr-input-type">type</code> 属性处于 <span
+  data-x="attr-input-type-hidden">Hidden</span> 状态的控件之外的 <code>input</code> 控件），
+  这些事件的触发表示用户已经在与控件进行交互。
+  只要用户修改了控件的数据就会触发 <code data-x="event-input">input</code> 事件
+  当编辑的值提交时，如果这个值对该控件有效或者该控件
+  <a href="#unfocus-causes-change-event">失去了焦点</a>
+  就会触发 <code data-x="event-change">change</code> 事件。
+  所有情况下 <code data-x="event-input">input</code> 事件都会在对应的
+  <code data-x="event-change">change</code> 事件（如果有）前到达。</p>
+
+  <p>当 <code>input</code> 元素定义有 <span data-x="input activation behavior">输入激活行为</span>，
+  在上一章定义 <code data-x="attr-input-type">type</code> 属性的状态时，给出了
+  分发这些事件的规则（如果 <span data-x="concept-input-apply">适用</span> 的话），
+  （这适用于 <code data-x="attr-input-type">type</code> 属性处于
+  <span data-x="attr-input-type-checkbox">Checkbox</span> 状态，
+  <span data-x="attr-input-type-radio">Radio Button</span> 状态，或者
+  <span data-x="attr-input-type-file">File Upload</span> 状态的所有
+  <code>input</code> 控件。）</p>
+
+  <p>对没有定义 <span data-x="input activation behavior">输入激活行为</span> 的 <code>input</code> 元素，
+  如果这些事件 <span data-x="concept-input-apply">适用</span>，
+  而且涉及交互式操作和显式的提交动作的用户交互，那么当用户改变元素的
+  <span data-x="concept-fe-value">值</span> 时，用户代理必须
+  <span data-x="queue a task">入队一个任务</span> 来在 <code>input</code> 元素上
+  <span data-x="concept-event-fire">触发一个</span> 名为 <code
+  data-x="event-input">input</code> 的事件，其 <code data-x="dom-Event-bubbles">bubbles</code>
+  属性初始化为 true，只要用户提交了改动，用户代理就必须
+  <span data-x="queue a task">入队一个任务</span> 来在 <code>input</code> 元素上
+  <span data-x="concept-event-fire">触发一个</span> 名为 <code data-x="event-change">change</code>
+  的事件，其 <code data-x="dom-Event-bubbles">bubbles</code> 属性初始化为 true。</p>
+
+  <p class="example">一个涉及交互操作和提交动作的用户界面的例子是，
+  使用指点设备操作一个有滑块的 <span data-x="attr-input-type-range">Range</span> 控件。
+  当用户拖动控件的滑块时，只要位置发生改变就会触发 <code data-x="event-input">input</code> 事件，
+  而 <code data-x="event-change">change</code> 事件只会在用户放开滑块时触发，
+  这时指定的值才会提交。</p>
+
+  <p>对于没有定义 <span data-x="input activation behavior">输入激活行为</span> 的
+  <code>input</code> 元素，如果这些事件 <span data-x="concept-input-apply">适用</span>，
+  而且用户界面涉及一个显式的提交动作但没有间接的交互，那么只要用户给该元素的
+  <span data-x="concept-fe-value">value</span> 提交了改动，用户代理就必须
+  <span data-x="queue a task">入队一个任务</span> 来首先在 <code>input</code> 元素上
+  <span data-x="concept-event-fire">触发一个</span> 名为
+  <code data-x="event-input">input</code> 的事件，其 <code data-x="dom-Event-bubbles">bubbles</code>
+  属性初始为 true，然后在 <code>input</code> 元素上 <span data-x="concept-event-fire">触发一个</span> 名为
+  <code data-x="event-change">change</code> 的事件，其 <code data-x="dom-Event-bubbles">bubbles</code>
+  属性初始为 true。</p>
+
+  <p class="example">一个涉及提交动作的用户界面的例子是 <span data-x="attr-input-type-color">Color</span> 控件，
+  它只有一个打开色盘的按钮：如果 <span data-x="concept-fe-value">value</span> 只会在对话框关闭时发生改变，
+  那么这就是显式的提交动作。另一方面，如果是交互式地操作控件来改变颜色，那就可能没有提交动作了。</p>
+
+  <p class="example">另一个有提交动作的用户界面例子是允许用户文本输入和从下拉日历中选择的
+  <span data-x="attr-input-type-date">Date</span> 控件：
+  文本输入可能没有一个显式的提交步骤，但从下拉日历中选择并关闭下拉菜单就是一个提交动作。</p>
+
+  <p>对于没有定义 <span data-x="input activation behavior">输入激活行为</span> 的
+  <code>input</code> 元素，如果这些事件 <span data-x="concept-input-apply">适用</span>，
+  只要用户在没有显式的提交动作的情况下改变了元素的 <span data-x="concept-fe-value">值</span>，
+  用户代理就必须 <span data-x="queue a task">入队一个任务</span> 来在 <code>input</code> 元素上
+  <span data-x="concept-event-fire">触发一个</span> 名为 <code data-x="event-input">input</code> 的事件，
+  其 <code data-x="dom-Event-bubbles">bubbles</code> 属性初始为 true。
+  在控件 <a href="#unfocus-causes-change-event">失去焦点</a> 时，将会触发对应的
+  <code data-x="event-change">change</code> 事件（如果有）。</p>
+
+  <p class="example">用户改变元素的 <span data-x="concept-fe-value">值</span> 的例子包括，
+  用户在文本控件总输入，粘贴新的值到控件中，或者在那个控件中撤销编辑。
+  有些用户交互不会改变值，例如在空的文本控件中按下删除键，
+  或粘贴替换的文本恰好和控件中的文本相同。</p>
+
+  <p class="example">对于有滑块的 <span data-x="attr-input-type-range">Range</span> 控件，
+  如果用户已经 <span data-x="focused">获得焦点</span> 并正在用键盘与之交互，
+  这将是另一个不经过提交步骤改变元素 <span data-x="concept-fe-value">值</span> 的例子。</p>
+
+  <p>在只触发一个 <code data-x="event-input">input</code> 事件的
+  <span data-x="concept-task">任务</span> 中，用户代理可以在用户交互后等待适当的时间，
+  再 <span data-x="queue a task">入队</span> 任务；
+  例如，用户代理可以等待用户 100ms 不敲键，这样就能只在用户输入间歇时触发，而不是每次敲键都触发。
+  <!-- similar text is present in the <textarea> section -->
+
+  <p>如果用户代理要为用户改变 <code>input</code> 元素的 <span
+  data-x="concept-fe-value">值</span> （比如作为表单预填充特性的一部分），
+  用户代理必须 <span data-x="queue a task">入队一个任务</span> 来首先适当地更新 <span
+  data-x="concept-fe-value">值</span>，然后在这个 <code>input</code> 元素上
+  <span data-x="concept-event-fire">触发一个</span> 名为 <code data-x="event-input">input</code> 的事件，
+  其 <code data-x="dom-Event-bubbles">bubbles</code> 属性初始化为 true，然后在 <code>input</code> 元素上
+  <span data-x="concept-event-fire">触发一个</span> 名为 <code data-x="event-change">change</code> 的事件，
+  其 <code data-x="dom-Event-bubbles">bubbles</code> 属性初始化为 true。</p>
+
+  <p class="note">这些事件不会因为脚本改变表单控件的值而触发。
+  （这是为了让用户操作下更新表单控件的值更容易，这样就不需要过滤掉脚本自行改的情况以避免死循环。）</p>
+
+  <p>
+  这些 <span data-x="concept-task">任务</span> 的 <span data-x="task source">任务源</span> 是
+  <span data-x="user interaction task source">用户交互任务源</span>。</p>
+
+  </div>
+
+
+

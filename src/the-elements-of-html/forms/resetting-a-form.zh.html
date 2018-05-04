@@ -1,0 +1,27 @@
+  <h4 id="resetting-a-form">表单重置</h4>
+
+  <p><dfn data-x="concept-form-reset">重置</dfn>
+  <code>form</code> 元素 <var>form</var> 时，要执行这些步骤：</p>
+
+  <ol>
+   <li><p> 在 <var>form</var> 上
+   <span data-x="concept-event-fire">触发一个</span> 名为 <code data-x="event-reset">reset</code> 的事件，
+   其 <code data-x="dom-Event-bubbles">bubbles</code> 和
+   <code data-x="dom-Event-cancelable">cancelable</code> 属性初始化为 true，
+   令 <var>reset</var> 为上述触发事件操作的结果。</p></li>
+
+   <li><p>如果 <var>reset</var> 为 true，就调用每个
+   <span data-x="form owner">表单 owner</span> 为 <var>form</var>
+   的 <span data-x="category-reset">可重置元素</span> 的
+   <span data-x="concept-form-reset-control">重置算法</span>。</p></li>
+  </ol>
+
+  <p>每个 <span data-x="category-reset">可重置元素</span> 定义了它自己的 <dfn
+  data-x="concept-form-reset-control">重置算法</dfn>。
+  这些算法中对表单控件的改变，不计为用户引起的改变
+  （因此，不会引发 <code data-x="event-input">input</code> 事件）。</p>
+
+  </div>
+
+
+
