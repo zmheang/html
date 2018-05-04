@@ -1,28 +1,27 @@
   <h4>Aborting a document load</h4>
 
-  <p>If a <code>Document</code> is <dfn data-x="abort a document">aborted</dfn>, the user agent must
-  run the following steps:</p>
+  <p>To <dfn data-x="abort a document">abort</dfn> a <code>Document</code> <var>document</var>:</p>
 
   <ol>
 
    <li><p><span data-x="abort a document">Abort</span> the <span data-x="active document">active
    documents</span> of every <span>child browsing context</span>. If this results in any of those
    <code>Document</code> objects having their <i
-   data-x="concept-document-salvageable">salvageable</i> state set to false, then set this
-   <code>Document</code>'s <i data-x="concept-document-salvageable">salvageable</i> state to false
+   data-x="concept-document-salvageable">salvageable</i> state set to false, then set
+   <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state to false
    also.</p></li>
 
    <li><p>Cancel any instances of the <span data-x="concept-fetch">fetch</span> algorithm in the
-   context of this <code>Document</code>, discarding any <span data-x="concept-task">tasks</span>
+   context of <var>document</var>, discarding any <span data-x="concept-task">tasks</span>
    <span data-x="queue a task">queued</span> for them, and discarding any further data received from
    the network for them. If this resulted in any instances of the <span
    data-x="concept-fetch">fetch</span> algorithm being canceled or any <span data-x="queue a
    task">queued</span> <span data-x="concept-task">tasks</span> or any network data getting
-   discarded, then set the <code>Document</code>'s <i
+   discarded, then set <var>document</var>'s <i
    data-x="concept-document-salvageable">salvageable</i> state to false.</p></li>
 
-   <li><p>If the <code>Document</code> has an <span>active parser</span>, then <span data-x="abort a
-   parser">abort that parser</span> and set the <code>Document</code>'s <i
+   <li><p>If <var>document</var> has an <span>active parser</span>, then <span data-x="abort a
+   parser">abort that parser</span> and set <var>document</var>'s <i
    data-x="concept-document-salvageable">salvageable</i> state to false.</p></li>
 
    <!-- we could also stop all script, or stop animations -->

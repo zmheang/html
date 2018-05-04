@@ -94,8 +94,9 @@
    1.</p></li>
   </ol>
 
-  <p>To <dfn data-export="">unload a document</dfn>, given a boolean recycle, and optionally a
-  <var>recursiveFlag</var>, run these steps:</p>
+  <p>To <dfn data-export="" data-x="unload a document" data-lt="unload a document">unload</dfn> a
+  <code>Document</code> <var>document</var>, given a boolean <var>recycle</var> and optionally a
+  <var>recursiveFlag</var>:</p>
 
   <p class="note">The <var>recycle</var> argument indicates whether the <code>Document</code> object
   is going to be reused; it is set by the <code data-x="dom-document-open">document.open()</code>
@@ -105,43 +106,43 @@
    <li><p>Increase the <span>event loop</span>'s <span>termination nesting level</span> by
    one.</p></li>
 
-   <li><p>Increase the <code>Document</code>'s <span>ignore-opens-during-unload counter</span> by
+   <li><p>Increase <var>document</var>'s <span>ignore-opens-during-unload counter</span> by
    one.</p></li>
 
-   <li><p>If the <code>Document</code>'s <span>page showing</span> flag is false, then jump to the
+   <li><p>If <var>document</var>'s <span>page showing</span> flag is false, then jump to the
    step labeled <i>unload event</i> below (i.e. skip firing the <code
    data-x="event-pagehide">pagehide</code> event and don't rerun the <span>unloading document
    visibility change steps</span>).</p></li>
 
-   <li><p>Set the <code>Document</code>'s <span>page showing</span> flag to false.</p></li>
+   <li><p>Set <var>document</var>'s <span>page showing</span> flag to false.</p></li>
 
    <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
-   data-x="event-pagehide">pagehide</code> at the <code>Document</code> object's <code>Window</code>
+   data-x="event-pagehide">pagehide</code> at <var>document</var>'s <code>Window</code>
    object, using <code>PageTransitionEvent</code>, with the <code
-   data-x="dom-PageTransitionEvent-persisted">persisted</code> attribute initialized to true if the
-   <code>Document</code> object's <i data-x="concept-document-salvageable">salvageable</i> state is
+   data-x="dom-PageTransitionEvent-persisted">persisted</code> attribute initialized to true if
+   <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state is
    true, and false otherwise, and <var>legacy target override flag</var> set.</p></li>
 
    <li>
-    <p>Run any <dfn>unloading document visibility change steps</dfn> for <code>Document</code> that
+    <p>Run any <dfn>unloading document visibility change steps</dfn> for <var>document</var> that
     are defined by <span>other applicable specifications</span>.</p>
 
     <p class="note">This is specifically intended for use by the Page Visibility specification. <ref spec=PAGEVIS></p>
    </li>
 
-   <li><p><i>Unload event</i>: If the <code>Document</code>'s <span>fired unload</span> flag is
+   <li><p><i>Unload event</i>: If <var>document</var>'s <span>fired unload</span> flag is
    false, then <span data-x="concept-event-fire">fire an event</span> named <code
-   data-x="event-unload">unload</code> at the <code>Document</code>'s object <code>Window</code>
+   data-x="event-unload">unload</code> at <var>document</var>'s <code>Window</code>
    object, with <var>legacy target override flag</var> set.</p></li>
 
    <li><p>Decrease the <span>event loop</span>'s <span>termination nesting level</span> by
    one.</p></li>
 
    <li><p>If any event listeners were triggered by the earlier <i>unload event</i> step, then set
-   the <code>Document</code> object's <i data-x="concept-document-salvageable">salvageable</i> state
-   to false and set the <code>Document</code>'s <span>fired unload</span> flag to true.</p></li>
+   <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state
+   to false and set <var>document</var>'s <span>fired unload</span> flag to true.</p></li>
 
-   <li><p>Run any <span>unloading document cleanup steps</span> for <code>Document</code> that are
+   <li><p>Run any <span>unloading document cleanup steps</span> for <var>document</var> that are
    defined by this specification and <span>other applicable specifications</span>.</p></li>
 
    <li>
@@ -149,7 +150,7 @@
 
     <ol>
      <li><p>Let <var>descendants</var> be the <span>list of the descendant browsing
-     contexts</span> of the <code>Document</code>.</p></li>
+     contexts</span> of <var>document</var>.</p></li>
 
      <li>
       <p>For each <var>browsingContext</var> in <var>descendants</var>:</p>
@@ -161,28 +162,27 @@
 
        <li><p>If the <i data-x="concept-document-salvageable">salvageable</i> state of the
        <span>active document</span> of <var>browsingContext</var> is false, then set the
-       <i data-x="concept-document-salvageable">salvageable</i> state of <em>this</em> document to
+       <i data-x="concept-document-salvageable">salvageable</i> state of <var>document</var> to
        false also.</p></li>
       </ol>
      </li>
 
-     <li><p>If both the <code>Document</code>'s <i
+     <li><p>If both <var>document</var>'s <i
      data-x="concept-document-salvageable">salvageable</i> state and <var>recycle</var> are false,
-     then the <code>Document</code>'s <span data-x="concept-document-bc">browsing context</span>
-     must <span data-x="discard a document">discard the <code>Document</code></span>.</p></li>
+     then <span data-x="discard a document">discard</span><var>document</var>.</p></li>
     </ol>
    </li>
 
-   <li><p>Decrease the <code>Document</code>'s <span>ignore-opens-during-unload counter</span> by
+   <li><p>Decrease <var>document</var>'s <span>ignore-opens-during-unload counter</span> by
    one.</p></li>
   </ol>
 
   <p>This specification defines the following <dfn data-export="">unloading document cleanup
-  steps</dfn>. Other specifications can define more.</p>
+  steps</dfn>. Other specifications can define more.  Given a <code>Document</code> <var>document</var>:</p>
 
   <ol>
 
-   <li><p>Let <var>window</var> be the <code>Document</code>'s <code>Window</code> object.</p></li>
+   <li><p>Let <var>window</var> be <var>document</var>'s <code>Window</code> object.</p></li>
 
    <li>
 
@@ -190,15 +190,15 @@
     data-x="concept-relevant-global">relevant global object</span> is equal to <var>window</var>,
     <span>make disappear</span> <var>webSocket</var>.</p>
 
-    <p>If this affected any <code>WebSocket</code> objects, then set the <code>Document</code>'s <i
+    <p>If this affected any <code>WebSocket</code> objects, then set <var>document</var>'s <i
     data-x="concept-document-salvageable">salvageable</i> state to false.</p>
 
    </li>
 
    <li>
 
-    <p>If the <code>Document</code>'s <i data-x="concept-document-salvageable">salvageable</i>
-    state is false, run the following substeps:</p>
+    <p>If <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i>
+    state is false, then:</p>
 
     <ol>
 

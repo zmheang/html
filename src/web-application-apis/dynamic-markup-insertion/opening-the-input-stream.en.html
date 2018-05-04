@@ -102,7 +102,8 @@
 
    <li><p><span data-x="abort a document">Abort</span> <var>document</var>.</p></li>
 
-   <li><p>Unregister all event listeners registered on <var>document</var> and its descendants.</p>
+   <li><p>For each <span>shadow-including inclusive descendant</span> <var>node</var> of
+   <var>document</var>, <span>remove all event listeners</span> with <var>node</var>.</p></li>
 
    <li><p>Remove any <span data-x="concept-task">tasks</span> associated with <var>document</var> in
    any <span>task source</span>.</p></li>
@@ -153,9 +154,6 @@
 
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E...%3Ciframe%20src%3D%22document%22%3E%3C%2Fiframe%3E%0A%3Cscript%3Eonload%20%3D%20function%20()%20%7B%20f%20%3D%20document.getElementsByTagName('iframe')%5B0%5D%3B%20d%20%3D%20f.contentWindow.document%3B%20%7D%3C%2Fscript%3E%0A%3Cinput%20type%3Dbutton%20onclick%3D%22w(d.documentElement.innerHTML)%22%20value%3D%22dump%22%3E%0A%3Cinput%20type%3Dbutton%20onclick%3D%22d.open()%3B%20d.write('%3Cscript%3Evar%20x%20%3D%20new%20XMLHttpRequest()%3Bx.open(%26quot%3BGET%26quot%3B%2C%20%26quot%3BGET%26quot%3B)%3Bx.onreadystatechange%3Dfunction()%20%7B%20alert(x.readyState)%3B%20%7D%3Bx.send(null)%3B%3C%2Fscript%3E')%3Bd.close()%3B%20setTimeout(function()%20%7B%20d.open()%3B%20d.write('%3Cp%3Etest%3C%2Fp%3E')%3B%20d.close()%20%7D%2C%200)%3B%22%20value%3D%22xhr%22%3E%0A%3Cinput%20type%3Dbutton%20onclick%3D%22d.onclick%20%3D%20function()%20%7B%20w('click')%20%7D%22%20value%3D%22add%20click%20handler%22%3E%0A%3Cinput%20type%3Dbutton%20onclick%3D%22d.open()%3B%20d.write('%3Cp%3Etest%3C%2Fp%3E')%3B%20d.close()%22%20value%3D%22replace%22%3E%0A%3Cinput%20type%3Dbutton%20onclick%3D%22d.open()%3B%20d.write('%3Cp%3E%3Cscript%3Ei%20%3D%200%3B%20setTimeout(%26quot%3Bparent.w(i%2B%2B)%26quot%3B%2C%202000)%3C%2Fscript%3E%3C%2Fp%3E')%3B%20d.close()%22%20value%3D%22replace%20with%20timer%22%3E -->
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E%0D%0A...%3Ciframe%3E%3C%2Fiframe%3E%0D%0A%3Cscript%3E%0D%0Aonload%20%3D%20function%20()%20%7B%0D%0A%20frames%5B0%5D.test%20%3D%201%0D%0A%20w(frames%5B0%5D.test)%3B%0D%0A%20var%20a%20%3D%20frames%5B0%5D.document.location.assign%3B%0D%0A%20w(a)%3B%0D%0A%20w(frames%5B0%5D.document.location.assign%20%3D%3D%3D%20a)%3B%0D%0A%20frames%5B0%5D.document.open()%3B%0D%0A%20frames%5B0%5D.document.write('%3Cscript%3Edocument.write(test)%3C%5C%2Fscript%3E')%3B%0D%0A%20frames%5B0%5D.document.close()%3B%0D%0A%20w(frames%5B0%5D.test)%3B%0D%0A%20w(frames%5B0%5D.document.location.assign%20%3D%3D%3D%20a)%3B%0D%0A%7D%0D%0A%3C%2Fscript%3E -->
-
-   <li><p>Change <var>document</var>'s <span data-x="document's character encoding">character
-   encoding</span> to <span>UTF-8</span>.</p></li>
 
    <li><p>If <var>document</var> is <span>ready for post-load tasks</span>, then set
    <var>document</var>'s <span>reload override flag</span> and set <var>document</var>'s
