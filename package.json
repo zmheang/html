@@ -6,11 +6,11 @@
   "scripts": {
     "build": "make build",
     "start": "http-server -p 8899 ./output",
-    "progress": "./bin/progress.sh",
+    "progress": "bash ./bin/progress.sh",
     "preview": "curl -X POST -d '' https://api.netlify.com/build_hooks/5a96da9afd0efa4a0b738e90",
     "deploy": "make deploy",
     "clean": "rm -rf html-build/.cache",
-    "find": "./bin/find-one-to-translate.js | head"
+    "find": "node ./bin/find-one-to-translate.js | head"
   },
   "repository": {
     "type": "git",
