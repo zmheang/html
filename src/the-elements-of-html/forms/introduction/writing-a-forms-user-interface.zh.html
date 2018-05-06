@@ -1,0 +1,160 @@
+  <h5 id="writing-a-form's-user-interface">编写表单的用户界面</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>为了这个简短的介绍，我们将创建一个 Pizza 订购表单。</p>
+
+  <p>表单都以 <code>form</code> 元素开始，其中可以放置一些控件。
+  多数控件都由 <code>input</code> 元素表示，它默认提供一个文本控件。
+  使用 <code>label</code> 元素来描述控件；标签文本和控件自己都会进入
+  <code>label</code> 元素内。表单的每一部分都是一个
+  <span data-x="paragraph">段落</span>，一般会用 <code>p</code> 元素来与其他部分分隔。
+  放到一起，可以这样询问顾客的名字：</p>
+
+  <pre><strong>&lt;form>
+ &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
+&lt;/form></strong></pre>
+
+  <p>为了让用户选择 Pizza 的大小，我们可以使用一组单选按钮。
+  单选按钮也是用 <code>input</code> 元素，这次设置一个 <code
+  data-x="attr-input-type">type</code> 属性，值为 <code
+  data-x="attr-input-type-radio">radio</code>。
+  为了让单选按钮成组，要使用 <code data-x="attr-fe-name">name</code> 属性给它们一样的名字。
+  为了让一批控件成为一组，比如这个例子中的单选按钮，可以使用
+  <code>fieldset</code> 元素。这样的控件组的标题由 <code>fieldset</code> 中的第一个元素给出，
+  这个元素必须是一个 <code>legend</code> 元素。</p>
+
+  <pre>&lt;form>
+ &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
+<strong> &lt;fieldset>
+  &lt;legend> Pizza Size &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Small &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Medium &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Large &lt;/label>&lt;/p>
+ &lt;/fieldset></strong>
+&lt;/form></pre>
+
+  <p class="note">我们高亮了上一个步骤中的改变。</p>
+
+  <p>我们可以使用复选框来选择配料。这些复选框也使用 <code>input</code> 元素，
+  它们的 <code data-x="attr-input-type">type</code> 属性值为 <code
+  data-x="attr-input-type-checkbox">checkbox</code>：</p>
+
+  <pre>&lt;form>
+ &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
+ &lt;fieldset>
+  &lt;legend> Pizza Size &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Small &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Medium &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Large &lt;/label>&lt;/p>
+ &lt;/fieldset>
+<strong> &lt;fieldset>
+  &lt;legend> Pizza Toppings &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=checkbox> Bacon &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Extra Cheese &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Onion &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Mushroom &lt;/label>&lt;/p>
+ &lt;/fieldset></strong>
+&lt;/form></pre>
+
+  <p>这个 pizza 店总会犯一些错误，因此需要顾客的联系方式。
+  为此我们可以使用电话号码的表单控件（<code data-x="attr-input-type">type</code> 属性设为
+  <code data-x="attr-input-type-tel">tel</code> 的 <code>input</code> 元素），
+  以及 e-mail 地址（<code data-x="attr-input-type">type</code> 属性设为
+  <code data-x="attr-input-type-email">email</code> 的 <code>input</code> 元素）：</p>
+
+  <pre>&lt;form>
+ &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
+<strong> &lt;p>&lt;label>Telephone: &lt;input type=tel>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>E-mail address: &lt;input type=email>&lt;/label>&lt;/p></strong>
+ &lt;fieldset>
+  &lt;legend> Pizza Size &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Small &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Medium &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Large &lt;/label>&lt;/p>
+ &lt;/fieldset>
+ &lt;fieldset>
+  &lt;legend> Pizza Toppings &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=checkbox> Bacon &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Extra Cheese &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Onion &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Mushroom &lt;/label>&lt;/p>
+ &lt;/fieldset>
+&lt;/form></pre>
+
+  <p>我们可以使用 <code data-x="attr-input-type">type</code> 属性设为
+  <code data-x="attr-input-type-time">time</code> 的 <code>input</code> 元素来询问配送时间。
+  很多控件都可以设置可选值的范围；这个例子中我们关心的属性是
+  <code data-x="attr-input-min">min</code>, <code data-x="attr-input-max">max</code> 和
+  <code data-x="attr-input-step">step</code>。这些属性分别用来设置最小时间，最大时间，
+  以及允许的值之间的间隔（单位为秒）。这个 pizza 店只在 11am 到 9pm 之间配送，
+  而且不保证精确到 15 分钟以内，我们可以这样写：</p>
+
+  <pre>&lt;form>
+ &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Telephone: &lt;input type=tel>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>E-mail address: &lt;input type=email>&lt;/label>&lt;/p>
+ &lt;fieldset>
+  &lt;legend> Pizza Size &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Small &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Medium &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Large &lt;/label>&lt;/p>
+ &lt;/fieldset>
+ &lt;fieldset>
+  &lt;legend> Pizza Toppings &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=checkbox> Bacon &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Extra Cheese &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Onion &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Mushroom &lt;/label>&lt;/p>
+ &lt;/fieldset>
+<strong> &lt;p>&lt;label>Preferred delivery time: &lt;input type=time min="11:00" max="21:00" step="900">&lt;/label>&lt;/p></strong>
+&lt;/form></pre>
+
+  <p><code>textarea</code> 元素可以用来提供多行文本。例如我们要用它来给顾客提供一个地方，编写配送备注：</p>
+
+  <pre>&lt;form>
+ &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Telephone: &lt;input type=tel>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>E-mail address: &lt;input type=email>&lt;/label>&lt;/p>
+ &lt;fieldset>
+  &lt;legend> Pizza Size &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Small &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Medium &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Large &lt;/label>&lt;/p>
+ &lt;/fieldset>
+ &lt;fieldset>
+  &lt;legend> Pizza Toppings &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=checkbox> Bacon &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Extra Cheese &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Onion &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Mushroom &lt;/label>&lt;/p>
+ &lt;/fieldset>
+ &lt;p>&lt;label>Preferred delivery time: &lt;input type=time min="11:00" max="21:00" step="900">&lt;/label>&lt;/p>
+<strong> &lt;p>&lt;label>Delivery instructions: &lt;textarea>&lt;/textarea>&lt;/label>&lt;/p></strong>
+&lt;/form></pre>
+
+  <p>最后，为了让表单可以提交我们要用一个 <code>button</code> 元素：</p>
+
+  <pre>&lt;form>
+ &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Telephone: &lt;input type=tel>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>E-mail address: &lt;input type=email>&lt;/label>&lt;/p>
+ &lt;fieldset>
+  &lt;legend> Pizza Size &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Small &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Medium &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size> Large &lt;/label>&lt;/p>
+ &lt;/fieldset>
+ &lt;fieldset>
+  &lt;legend> Pizza Toppings &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=checkbox> Bacon &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Extra Cheese &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Onion &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox> Mushroom &lt;/label>&lt;/p>
+ &lt;/fieldset>
+ &lt;p>&lt;label>Preferred delivery time: &lt;input type=time min="11:00" max="21:00" step="900">&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Delivery instructions: &lt;textarea>&lt;/textarea>&lt;/label>&lt;/p>
+<strong> &lt;p>&lt;button>Submit order&lt;/button>&lt;/p></strong>
+&lt;/form></pre>
+
+
