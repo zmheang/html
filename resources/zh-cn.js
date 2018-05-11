@@ -63,19 +63,19 @@
       header.classList.add('zh-' + getTransateStatus(popup.dataset.zhDate, popup.dataset.enDate));
 
       popup.innerHTML =
-        '<p class="guide">' + 
-        '  <a target="_blank" href="' + enHref + '" class="btn-link">查看原文</a>' + 
+        '<p class="guide">' +
+        '  <a target="_blank" href="' + enHref + '" class="btn-link">查看原文</a>' +
         '  <a target="_blank" href="' + popup.dataset.zhFile + '" class="btn-link">我来翻译</a>' +
         '  <a target="_blank" href="https://github.com/whatwg-cn/html/wiki/翻译指南" class="btn-link">翻译指南</a>' +
         '  <a target="_blank" href="' + popup.dataset.enFile + '" class="btn-link">英文源码</a>' +
-        '</p>' + 
+        '</p>' +
         '<hr/>' +
-        '<p class="meta">' + 
-        '  <span class="title">原文更新</span>' + 
+        '<p class="meta">' +
+        '  <span class="title">原文更新</span>' +
         '  <span class="date">' + enDate + '</span>' +
         '</p>' +
-        '<p class="meta translate">' + 
-        '  <span class="title">中文翻译</span>' + 
+        '<p class="meta translate">' +
+        '  <span class="title">中文翻译</span>' +
         '  <span class="date">' + zhDate + '</span>' +
         '</p>';
     });
