@@ -44,24 +44,38 @@
   function addTranslateInfo() {
     document.querySelectorAll('.translate-info').forEach(function(popup) {
       var header = popup.previousElementSibling;
+      if (header.classList.contains('no-toc')) {
+        popup.remove();
+        return;
+      }
       header.appendChild(popup);
+      var selfLink = header.querySelector('a.self-link');
+      if (!selfLink) {
+        popup.remove();
+        return;
+      }
+      var selfHash = extractHash(popup.dataset.enFile) || selfLink.hash;
 
-      var enHref = 'https://html.spec.whatwg.org' + location.pathname.replace(/^\/html/, '') + location.search + location.hash;
+      var enHref = 'https://html.spec.whatwg.org' + location.pathname.replace(/^\/html/, '') + location.search + selfHash;
       var zhDate = popup.dataset.zhDate ? new Date(popup.dataset.zhDate).toLocaleString() : '尚未翻译';
       var enDate = new Date(popup.dataset.enDate).toLocaleString();
+
+      header.classList.add('zh-' + getTransateStatus(popup.dataset.zhDate, popup.dataset.enDate));
+
       popup.innerHTML =
         '<p class="guide">' + 
-        '  <a target="_blank" href="' + popup.dataset.zhFile + '" class="btn-link-1">我来翻译</a>' +
-        '  <a target="_blank" href="https://github.com/whatwg-cn/html/wiki/翻译指南" class="btn-link-2">翻译指南</a>' +
-        '  <a target="_blank" href="' + popup.dataset.enFile + '" class="btn-link-3">英文源码</a>' +
+        '  <a target="_blank" href="' + enHref + '" class="btn-link">查看原文</a>' + 
+        '  <a target="_blank" href="' + popup.dataset.zhFile + '" class="btn-link">我来翻译</a>' +
+        '  <a target="_blank" href="https://github.com/whatwg-cn/html/wiki/翻译指南" class="btn-link">翻译指南</a>' +
+        '  <a target="_blank" href="' + popup.dataset.enFile + '" class="btn-link">英文源码</a>' +
         '</p>' + 
         '<hr/>' +
         '<p class="meta">' + 
-        '  <a href="' + enHref + '" class="btn-link">查看原文</a>' + 
+        '  <span class="title">原文更新</span>' + 
         '  <span class="date">' + enDate + '</span>' +
         '</p>' +
-        '<p class="meta">' + 
-        '  <span>中文翻译</span>' + 
+        '<p class="meta translate">' + 
+        '  <span class="title">中文翻译</span>' + 
         '  <span class="date">' + zhDate + '</span>' +
         '</p>';
     });
@@ -72,6 +86,31 @@
       a.innerText = content;
       a.title = title;
       return a;
+    }
+
+    function getTransateStatus(zhDate, enDate) {
+      if (!zhDate) {
+        return 'untranslated';
+      }
+      zhDate = new Date(zhDate);
+      enDate = new Date(enDate);
+      if (zhDate >= enDate) {
+        return 'translated';
+      } else {
+        return 'outdated';
+      }
+    }
+
+    function extractHash(enFile) {
+      var m = /([^\/]+)\/([^\/]+)\.en\.html$/.exec(enFile);
+      if (!m) {
+        return null
+      }
+      if (m[2] === 'index') {
+        return '#' + m[1]
+      } else {
+        return '#' + m[2]
+      }
     }
   }
 
