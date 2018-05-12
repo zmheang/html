@@ -26,9 +26,10 @@ h2, h3, h4, h5, h6 {
     z-index: 100;
     left: 0;
     background: #cbfba2;
-    padding: 15px 15px 5px 15px;
+    padding: 15px;
     border-radius: 2px;
     border: 1px solid #156918;
+    color: #3c790a;
 }
 .translate-info p {
     margin: 0;
@@ -40,12 +41,8 @@ h2, h3, h4, h5, h6 {
 }
 .translate-info .guide {
     text-align: center;
-}
-.translate-info .btn-link-1 {
-    float: left;
-}
-.translate-info .btn-link-3 {
-    float: right;
+    display: flex;
+    justify-content: space-between;
 }
 .translate-info .meta .date {
     margin-left: 15px;
@@ -60,4 +57,17 @@ h4:hover .translate-info,
 h5:hover .translate-info,
 h6:hover .translate-info {
     display: block;
+}
+
+.zh-outdated {
+    background-color: yellow;
+}
+.zh-outdated::after {
+    content: '\26A0 本小节的翻译已过时';
+    padding-left: 14px;
+    font-style: italic;
+    font-weight: normal;
+}
+.zh-outdated .translate-info .translate {
+    background-color: yellow;
 }
