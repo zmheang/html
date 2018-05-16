@@ -1,0 +1,45 @@
+  <h5 id="implicit-submission">隐式提交</h5>
+
+  <p><code>form</code> 元素的 <dfn data-x="default button">默认按钮</dfn> 是
+  <span data-x="form owner">表单 owner</span> 是这个 <code>form</code> 元素的
+  按照 <span data-x="tree order">树序</span> 的第一个 <span
+  data-x="concept-submit-button">提交按钮</span>。</p>
+
+  <p>如果用户代理支持用户隐式地提交表单（例如在某些平台下当文本控件
+  <span data-x="focused">获得焦点</span> 时按下回车键就会暗示提交表单），
+  然后如果表单的 <span data-x="default button">默认按钮</span> 有
+  <span data-x="activation behavior">激活行为</span>
+  且不处于 <span data-x="concept-fe-disabled">禁用状态</span> 就必须提交表单，
+  而且用户代理就必须在那个 <span data-x="default button">默认按钮</span> 上
+  <span data-x="fire a click event">触发一个 <code data-x="event-click">click</code> 事件</span>。</p>
+
+  <p class="note">Web 上有些页面只有在隐式提交表单时才可用，因此强烈建议用户代理支持此功能。</p>
+
+  <p><!-- For Web compatibility reasons caused by obscure historical accidents, -->对于表单没有
+  <span data-x="concept-submit-button">提交按钮</span> 的情况，如果多个字段 <i>阻止了隐式提交</i>，
+  那么隐式提交机制必须什么都不做；
+  否则用户代理必须从 <code>form</code> 元素自己 <span data-x="concept-form-submit">提交</span>
+  <code>form</code> 元素。</p>
+
+  <p>上一段中，<code>form</code> 元素中 <i>阻止隐式提交</i> 的元素是指，
+  <span data-x="form owner">表单 owner</span> 的 <code>form</code> 元素
+  的 <code data-x="attr-input-type">type</code> 属性处于以下状态的 <code>input</code> 元素：
+  <span data-x="attr-input-type-text">Text</span>,
+  <span data-x="attr-input-type-search">Search</span>,
+  <span data-x="attr-input-type-url">URL</span>,
+  <span data-x="attr-input-type-tel">Telephone</span>,
+  <span data-x="attr-input-type-email">E-mail</span>,
+  <span data-x="attr-input-type-password">Password</span>,
+  <span data-x="attr-input-type-date">Date</span>,
+  <span data-x="attr-input-type-month">Month</span>,
+  <span data-x="attr-input-type-week">Week</span>,
+  <span data-x="attr-input-type-time">Time</span>,
+  <span data-x="attr-input-type-datetime-local">Local Date and Time</span>,
+  <span data-x="attr-input-type-number">Number</span>
+  </p>
+
+  </div>
+
+
+  <div w-nodev>
+

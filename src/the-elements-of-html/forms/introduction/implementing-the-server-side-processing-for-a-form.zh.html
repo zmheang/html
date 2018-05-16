@@ -1,0 +1,39 @@
+  <h5 id="implementing-the-server-side-processing-for-a-form">实现服务器端表单处理</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>编写服务器端处理程序的具体的细节超出了本规范的范围。
+  这个概述中我们会假设
+  <code data-x="">https://pizza.example.com/order.cgi</code> 处的脚本已经配置为接受
+  <code data-x="attr-fs-enctype-urlencoded">application/x-www-form-urlencoded</code> 格式的表单提交，
+  而且 HTTP POST 消息体中会包含以下参数：</p>
+
+  <dl>
+
+   <dt><code data-x="">custname</code></dt>
+   <dd>顾客的名字</dd>
+
+   <dt><code data-x="">custtel</code></dt>
+   <dd>顾客的手机号</dd>
+
+   <dt><code data-x="">custemail</code></dt>
+   <dd>顾客的 e-mail 地址</dd>
+
+   <dt><code data-x="">size</code></dt>
+   <dd>Pizza 大小，可以是 <code data-x="">small</code>, <code data-x="">medium</code>
+   或 <code data-x="">large</code></dd>
+
+   <dt><code data-x="">topping</code></dt>
+   <dd>选中的每个配料，允许的值包括
+   <code data-x="">bacon</code>, <code data-x="">cheese</code>, <code data-x="">onion</code>
+   和 <code data-x="">mushroom</code></dd>
+
+   <dt><code data-x="">delivery</code></dt>
+   <dd>配送时间</dd>
+
+   <dt><code data-x="">comments</code></dt>
+   <dd>配送备注</dd>
+
+  </dl>
+
+
