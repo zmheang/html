@@ -77,6 +77,7 @@ interface <dfn>HTMLElement</dfn> : <span>Element</span> {
 <span>HTMLElement</span> includes <span>GlobalEventHandlers</span>;
 <span>HTMLElement</span> includes <span>DocumentAndElementEventHandlers</span>;
 <span>HTMLElement</span> includes <span>ElementContentEditable</span>;
+<span>HTMLElement</span> includes <span>HTMLOrSVGElement</span>;
 
 // Note: <a href="#customized-built-in-element-restrictions">intentionally</a> not [<span>HTMLConstructor</span>]
 [Exposed=Window]
@@ -137,8 +138,6 @@ interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</pre>
   void <span data-x="dom-focus">focus</span>(optional <span>FocusOptions</span> options);
   void <span data-x="dom-blur">blur</span>();
 };
-<span>HTMLElement</span> includes <span>HTMLOrSVGElement</span>;
-<span>SVGElement</span> includes <span>HTMLOrSVGElement</span>;
 </pre>
 
   <div w-nodev>

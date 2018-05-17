@@ -128,103 +128,36 @@
 
   <hr>
 
-  <p>The following create <dfn data-x="control group">control groups</dfn>:
+  <p>One <span>focusable area</span> in each <code>Document</code> is designated the <dfn>focused
+  area of the document</dfn>. Which control is so designated changes over time, based on algorithms
+  in this specification. If a <code>Document</code> has no <span>focusable area</span>, it has no
+  <span data-x="focused area of the document">focused area</span>.</p>
+  <!-- TODO(kochi): update "in a document tree" for shadow trees -->
 
-  <ul class="brief">
-
-   <li><code>Document</code> object that have <span data-x="concept-document-bc">browsing
-   contexts</span>.</li>
-
-   <li><code>dialog</code> elements that have an <code data-x="attr-dialog-open">open</code>
-   attribute specified and that are <span>being rendered</span>.</li>
-
-  </ul>
-
-  <p>The corresponding <code>Document</code> object or <code>dialog</code> element is the created
-  <span>control group</span>'s <dfn data-x="control group owner object">owner object</dfn>. (There
-  is always a 1-to-1 mapping of <span data-x="control group">control groups</span> to <span
-  data-x="control group owner object">control group owner objects</span>.)</p>
-
-  <p>Each <span>focusable area</span> belongs to a single <span>control group</span> as follows. If
-  the <span>DOM anchor</span> of a <span>focusable area</span> is a <span>control group
-  owner object</span>, then that <span>focusable area</span> belongs to that <span>control group
-  owner object</span>'s <span>control group</span>. Otherwise, the <span>focusable area</span>
-  belongs to its <span>DOM anchor</span>'s nearest ancestor <span>control group owner
-  object</span>'s <span>control group</span>.</p>
-
-  <div class="example">
-   <p>Thus:</p>
-
-   <ul>
-    <li><p>A <span>viewport</span> always belongs to the <span>control group</span> of the
-    <code>Document</code> for which the <span>viewport</span> was created.</p></li>
-
-    <li><p>An <code>input</code> control belongs to the <span>control group</span> of its nearest
-    ancestor <code>dialog</code> or <code>Document</code>.</p></li>
-
-    <li><p>An image map's shapes belong to the nearest ancestor <code>dialog</code> or
-    <code>Document</code> of the <code>img</code> elements (not the <code>area</code> elements
-    &mdash; this means one <code>area</code> element might create multiple shapes in different
-    <span data-x="control group">control groups</span>).</p></li>
-   </ul>
-  </div>
-
-  <p class="note">It is possible for a <span>control group</span> to be empty, i.e. for it to have
-  no <span data-x="focusable area">focusable areas</span>.</p>
-
-  <hr>
-
-  <p><span id="expressly-inert-control"></span><span id="expressly-inert-dialog"></span>An element
-  is <dfn>expressly inert</dfn> if it is <span>inert</span> and its nearest ancestor <span>control
-  group owner object</span> is not <span>inert</span>.</p>
-
-  <div class="example">
-   <p>In a page with no <code>dialog</code> elements, all elements that are <span>inert</span> are
-   <span>expressly inert</span>, and vice-versa.</p>
-
-   <p>Inside an <span>inert</span> <code>dialog</code> element, all descendant elements are not
-   <span>expressly inert</span>, even if they are <span>inert</span>.</p>
-
-   <p>A <code>dialog</code> element is <span>expressly inert</span> if it is <span>inert</span> and
-   not nested inside another <span>inert</span> dialog.</p>
-  </div>
-
-  <hr>
-
-  <p>One <span>focusable area</span> in each non-empty <span>control group</span> is designated the
-  <dfn>focused area of the control group</dfn>. Which control is so designated changes over time,
-  based on algorithms in this specification. If a <span>control group</span> is empty, it has no <span
-  data-x="focused area of the control group">focused area</span>.</p>
-
-  <p><span data-x="focusable area">Focusable areas</span> in <span data-x="control group">control groups</span>
+  <p><span data-x="focusable area">Focusable areas</span> in a <code>Document</code>
   are ordered relative to the <span>tree order</span> of their <span data-x="DOM anchor">DOM
-  anchors</span>. <span data-x="focusable area">Focusable areas</span> with the same <span>DOM anchor</span> in a
-  <span>control group</span> are ordered relative to their CSS box's relative positions in a pre-order,
-  depth-first traversal of the box tree. <ref spec=CSS></p>
+  anchors</span>. <span data-x="focusable area">Focusable areas</span> with the same <span>DOM
+  anchor</span> in a <code>Document</code> are ordered relative to their CSS boxes' relative
+  positions in a pre-order, depth-first traversal of the box tree. <ref spec=CSS></p>
 
   <hr>
 
   <p>The <dfn>currently focused area of a top-level browsing context</dfn> at any particular time is
-  the <span>focusable area</span> or <code>dialog</code> returned by this algorithm:</p>
+  the <span>focusable area</span> returned by this algorithm:</p>
 
   <ol>
 
    <li><p>Let <var>candidate</var> be the <code>Document</code> of the <span>top-level
    browsing context</span>.</p></li>
 
-   <li>
+   <li><p>If the designated <span>focused area of the document</span> is a <span>browsing context
+   container</span> with a non-null <span>nested browsing context</span>, then let
+   <var>candidate</var> be the <span>active document</span> of that <span>browsing context
+   container</span>'s <span>nested browsing context</span>, and redo this step.</p></li>
 
-    <p>If <var>candidate</var> has a non-empty <span>control group</span>, and the
-    designated <span>focused area of the control group</span> is a <span>browsing context
-    container</span> with a non-null <span>nested browsing context</span>, then let
-    <var>candidate</var> be the <span>active document</span> of that <span>browsing context
-    container</span>'s <span>nested browsing context</span>, and redo this step.</p>
-
-    <p>Otherwise, if <var>candidate</var> has a non-empty <span>control group</span>, let
-    <var>candidate</var> be the designated <span>focused area of the control
-    group</span>.</p>
-
-   </li>
+   <li><p>If <var>candidate</var> has a <span data-x="focused area of the document">focused
+   area</span>, set <var>candidate</var> to <var>candidate</var>'s <span data-x="focused area of
+   the document">focused area</span>.</p></li>
 
    <li><p>Return <var>candidate</var>.</p></li>
 
@@ -238,8 +171,8 @@
 
   <div w-nodev>
 
-  <p>The <dfn>focus chain</dfn> of a <span>focusable area</span> or <span>control group owner
-  object</span> <var>subject</var> is the ordered list constructed as follows:</p>
+  <p>The <dfn>focus chain</dfn> of a <span>focusable area</span> <var>subject</var> is the ordered
+  list constructed as follows:</p>
 
   <ol>
 
@@ -262,12 +195,7 @@
 
    <li>
 
-    <p>If <var>current object</var> is a <span>focusable area</span>, let <var>current
-    object</var> be that <span>focusable area</span>'s <span>control group</span>'s <span
-    data-x="control group owner object">owner object</span>, and return to the step labeled
-    <i>loop</i>.</p>
-
-    <p>Otherwise, if <var>current object</var> is a <code>Document</code> in a <span>nested browsing
+    <p>If <var>current object</var> is a <code>Document</code> in a <span>nested browsing
     context</span>, let <var>current object</var> be its <span>browsing context container</span>,
     and return to the step labeled <i>loop</i>.</p>
 

@@ -1,8 +1,8 @@
   <h5 id="constructing-form-data-set">Constructing the form data set</h5>
 
   <p>The algorithm to <dfn data-x="constructing the form data set" data-export=""
-  data-lt="constructing the form data set">construct the form data set</dfn> given a form
-  <var>form</var>, an optional submitter <var>submitter</var>, and an optional <var>encoding</var>,
+  data-lt="constructing the form data set">construct the form data set</dfn> given a
+  <var>form</var>, an optional <var>submitter</var>, and an optional <var>encoding</var>,
   is as follows. If not specified otherwise, <var>submitter</var> is null.</p>
 
   <ol>
@@ -10,19 +10,16 @@
    <li><p>Let <var>controls</var> be a list of all the <span
    data-x="category-submit">submittable elements</span> whose <span>form owner</span> is <var>form</var>, in <span>tree order</span>.</p></li>
 
-   <li><p>Let the <var>form data set</var> be a list of name-value-type tuples, initially
-   empty.</p></li>
+   <li><p>Let the <var>form data set</var> be a list of name-value tuples, initially empty.</p></li>
 
    <li>
     <p>For each element <var>field</var> in <var>controls</var>, in <span>tree order</span>:</p>
 
     <ol>
-
      <li>
       <p>If any of the following is true:</p>
 
       <ul>
-
        <li>The <var>field</var> element has a <code>datalist</code> element ancestor.</li>
 
        <li>The <var>field</var> element is <span
@@ -49,15 +46,10 @@
 
        <li>The <var>field</var> element is an <code>object</code> element that is not using
        a <span>plugin</span>.</li>
-
       </ul>
 
       <p>Then continue.</p>
      </li>
-
-     <li><p>Let <var>type</var> be the value of the <code data-x="">type</code> IDL
-     attribute of <var>field</var>.</p></li> <!-- if the field is an <object> element, this
-     will get ignored. -->
 
      <li>
       <p>If the <var>field</var> element is an <code>input</code> element whose <code
@@ -83,10 +75,11 @@
        user, and let <var>y</var> be the <var>y</var>-component of the coordinate
        selected by the user.</p></li>
 
-       <li><p>Append an entry to the <var>form data set</var> with the name <var>name<sub>x</sub></var>, the value <var>x</var>, and the type <var>type</var>.</p></li>
+       <li><p><span data-x="append-an-entry">Append an entry</span> to the <var>form data set</var>
+       with <var>name<sub>x</sub></var> and <var>x</var>.</p></li>
 
-       <li><p>Append an entry to the <var>form data set</var> with the name <var>name<sub>y</sub></var> and the value <var>y</var>, and the type
-       <var>type</var>.</p></li>
+       <li><p><span data-x="append-an-entry">Append an entry</span> to the <var>form data set</var>
+       with <var>name<sub>y</sub></var> and <var>y</var>.</p></li>
 
        <li><p>Continue.</p></li>
       </ol>
@@ -99,50 +92,44 @@
      <code>option</code> element in the <code>select</code> element's <span
      data-x="concept-select-option-list">list of options</span> whose <span
      data-x="concept-option-selectedness">selectedness</span> is true and that is not <span
-     data-x="concept-option-disabled">disabled</span>, append an entry to the <var>form data
-     set</var> with the <var>name</var> as the name, the <span
-     data-x="concept-option-value">value</span> of the <code>option</code> element as the value, and
-     <var>type</var> as the type.</p></li>
+     data-x="concept-option-disabled">disabled</span>,<span data-x="append-an-entry">append an
+     entry</span> to the <var>form data set</var> with <var>name</var> and the <span
+     data-x="concept-option-value">value</span> of the <code>option</code> element.</p></li>
 
      <li>
-
       <p>Otherwise, if the <var>field</var> element is an <code>input</code> element whose
       <code data-x="attr-input-type">type</code> attribute is in the <span
       data-x="attr-input-type-checkbox">Checkbox</span> state or the <span
       data-x="attr-input-type-radio">Radio Button</span> state, then:</p>
 
       <ol>
-
        <li><p>If the <var>field</var> element has a <code
        data-x="attr-input-value">value</code> attribute specified, then let <var>value</var>
        be the value of that attribute; otherwise, let <var>value</var> be the string "<code
        data-x="">on</code>".</p></li>
 
-       <li><p>Append an entry to the <var>form data set</var> with <var>name</var>
-       as the name, <var>value</var> as the value, and <var>type</var> as the
-       type.</p></li>
-
+       <li><p><span data-x="append-an-entry">Append an entry</span> to the <var>form data set</var>
+       with <var>name</var> and <var>value</var>.</p></li>
       </ol>
-
      </li>
 
-     <li><p>Otherwise, if the <var>field</var> element is an <code>input</code> element
-     whose <code data-x="attr-input-type">type</code> attribute is in the <span
+     <li><p>Otherwise, if the <var>field</var> element is an <code>input</code> element whose <code
+     data-x="attr-input-type">type</code> attribute is in the <span
      data-x="attr-input-type-file">File Upload</span> state, then for each file <span
      data-x="concept-input-type-file-selected">selected</span> in the <code>input</code> element,
-     append an entry to the <var>form data set</var> with the <var>name</var> as
-     the name, the file (consisting of the name, the type, and the body) as the value, and <var>type</var> as the type. If there are no <span
-     data-x="concept-input-type-file-selected">selected files</span>, then append an entry to the
-     <var>form data set</var> with the <var>name</var> as the name, the empty
-     string as the value, and <code>application/octet-stream</code> as the type.</p></li> <!--
-     https://bugzilla.mozilla.org/show_bug.cgi?id=529859 -->
+     <span data-x="append-an-entry">append an entry</span> to the <var>form data set</var> with
+     <var>name</var> and the file (consisting of the file's name, type, and body). If there are no
+     <span data-x="concept-input-type-file-selected">selected files</span>, then <span
+     data-x="append-an-entry">append an entry</span> to the <var>form data set</var> with
+     <var>name</var> and a file with an empty name, <code>application/octet-stream</code> as type,
+     and an empty body.</p></li>
+     <!-- https://bugzilla.mozilla.org/show_bug.cgi?id=529859 -->
 
      <li><p>Otherwise, if the <var>field</var> element is an <code>object</code> element:
      try to obtain a form submission value from the <span>plugin</span><!-- using NPAPI's
      NPP_GetValue() entry point with the NPPVformValue variable -->, and if that is successful,
-     append an entry to the <var>form data set</var> with <var>name</var> as the
-     name, the returned form submission value as the value, and the string "<code
-     data-x="">object</code>" as the type.</p></li>
+     <span data-x="append-an-entry">append an entry</span> to the <var>form data set</var> with
+     <var>name</var> and the returned form submission value.</p></li>
 
      <li>
       <p>Otherwise, if the <var>field</var> element is an <code>input</code> element whose <code
@@ -155,31 +142,44 @@
        <var>encoding</var> if <var>encoding</var> is given, and "<code data-x="">UTF-8</code>"
        otherwise.</p></li>
 
-       <li><p>Append an entry to the <var>form data set</var> with <var>name</var> as the name,
-       <var>charset</var> as the value, and <var>type</var> as the type.</p></li>
+       <li><p><span data-x="append-an-entry">Append an entry</span> to the <var>form data set</var>
+       with <var>name</var> and <var>charset</var>.</p></li>
       </ol>
      </li>
 
-     <li><p>Otherwise, append an entry to the <var>form data set</var> with <var>name</var> as the name, the <span data-x="concept-fe-value">value</span> of the <var>field</var> element as the value, and <var>type</var> as the type.</p></li>
+     <li>
+      <p>Otherwise, if the <var>field</var> element is a <code>textarea</code> element,
+      <span data-x="append-an-entry">append an entry</span> to the <var>form data set</var> with
+      <var>name</var> and the <span data-x="concept-fe-value">value</span> of the <var>field</var>
+      element, and the <var>prevent line break normalization flag</var> set.
+      <p>
+
+      <p class="note">In the case of the <span data-x="concept-fe-value">value</span> of
+      <code>textarea</code> elements, the line break normalization is already performed during the
+      conversion of the control's <span data-x="concept-textarea-raw-value">raw value</span> into
+      the control's <span data-x="concept-fe-value">value</span> (which also performs any necessary
+      line wrapping).</p>
+     </li>
+
+     <li><p>Otherwise, <span data-x="append-an-entry">append an entry</span> to the <var>form data
+     set</var> with <var>name</var> and the <span data-x="concept-fe-value">value</span> of the
+     <var>field</var> element.</p></li>
 
      <li>
-
       <p>If the element has a <code data-x="attr-fe-dirname">dirname</code> attribute, and that
       attribute's value is not the empty string, then:</p>
 
       <ol>
-
        <li><p>Let <var>dirname</var> be the value of the element's <code
        data-x="attr-fe-dirname">dirname</code> attribute.</p></li>
 
        <li><p>Let <var>dir</var> be the string "<code data-x="">ltr</code>" if <span>the
        directionality</span> of the element is '<span data-x="concept-ltr">ltr</span>', and "<code
-       data-x="">rtl</code>" otherwise (i.e. when <span>the directionality</span> of the element is
+       data-x="">rtl</code>" otherwise (i.e., when <span>the directionality</span> of the element is
        '<span data-x="concept-rtl">rtl</span>').</p></li>
 
-       <li><p>Append an entry to the <var>form data set</var> with <var>dirname</var> as the name, <var>dir</var> as the value, and the string
-       "<code data-x="">direction</code>" as the type.</p></li>
-
+       <li><p><span data-x="append-an-entry">Append an entry</span> to the <var>form data set</var>
+       with <var>dirname</var> and <var>dir</var>.</p></li>
       </ol>
 
       <p class="note">An element can only have a <code data-x="attr-fe-dirname">dirname</code>
@@ -191,28 +191,37 @@
     </ol>
    </li>
 
-   <li>
-    <p>For the name of each entry in the <var>form data set</var>, and for the value of each entry
-    in the <var>form data set</var> whose type is not "<code data-x="">file</code>" or "<code
-    data-x="">textarea</code>", replace every occurrence of U+000D (CR) not followed by U+000A (LF),
-    and every occurrence of U+000A (LF) not preceded by U+000D (CR), by a string consisting of a
-    U+000D (CR) and U+000A (LF).</p>
+   <li><p>Return the <var>form data set</var>.</p></li>
+  </ol>
 
-    <p class="note">In the case of the <span data-x="concept-fe-value">value</span> of
-    <code>textarea</code> elements, this newline normalization is already performed during the
-    conversion of the control's <span data-x="concept-textarea-raw-value">raw value</span> into the
-    control's <span data-x="concept-fe-value">value</span> (which also performs any necessary line
-    wrapping). In the case of <code>input</code> elements <code data-x="attr-input-type">type</code>
-    attributes in the <span data-x="attr-input-type-file">File Upload</span> state, the value is not
-    normalized.</p>
+  <p>To <dfn data-x="append-an-entry">append an entry</dfn> to <var>form data set</var>, given
+  <var>name</var>, <var>value</var>, and optional <var>prevent line break normalization flag</var>,
+  run these steps:</p>
+
+  <ol>
+   <li><p>For <var>name</var>, replace every occurrence of U+000D (CR) not followed by U+000A (LF),
+   and every occurrence of U+000A (LF) not preceded by U+000D (CR), by a string consisting of a
+   U+000D (CR) and U+000A (LF).</p></li>
+
+   <li><p>Replace <var>name</var> with the result of <span>converting to a sequence of Unicode
+   scalar values</span>.</p></li>
+
+   <li>
+    <p>If <var>value</var> is not a file, then:</p>
+
+    <ol>
+     <li><p>If the <var>prevent line break normalization flag</var> is unset, then replace every
+     occurrence of U+000D (CR) not followed by U+000A (LF), and every occurrence of U+000A (LF) not
+     preceded by U+000D (CR) in <var>value</var>, by a string consisting of a U+000D (CR) and
+     U+000A (LF).</p></li>
+
+     <li><p>Replace <var>value</var> with the result of <span>converting to a sequence of Unicode
+     scalar values</span>.</p></li>
+    </ol>
    </li>
 
-   <li><p>Replace the name of each entry in the <var>form data set</var>, and the value of each
-   entry in the <var>form data set</var> whose type is not "<code data-x="">file</code>", with the
-   results of <span>converting to a sequence of Unicode scalar values</span>.</p></li>
-
-   <li><p>Return the <var>form data set</var>.</p></li>
-
+   <li><p>Create a tuple with <var>name</var> and <var>value</var>, and append it to <var>form data
+   set</var>.</p></li>
   </ol>
 
   </div>

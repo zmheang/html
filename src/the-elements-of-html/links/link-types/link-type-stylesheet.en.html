@@ -8,9 +8,9 @@
   <p>The specified resource is a CSS style sheet that describes how to present the document.</p>
 
   <p>If the <code data-x="rel-alternate">alternate</code> keyword is also specified on the
-  <code>link</code> element, then <dfn>the link is an alternative stylesheet</dfn>; in this case,
-  the <code data-x="attr-title">title</code> attribute must be specified on the <code>link</code>
-  element, with a non-empty value.</p>
+  <code>link</code> element, then <dfn id="the-link-is-an-alternative-stylesheet">the link is an
+  alternative style sheet</dfn>; in this case, the <code data-x="attr-title">title</code> attribute
+  must be specified on the <code>link</code> element, with a non-empty value.</p>
 
   <p>The default type for resources given by the <code data-x="rel-stylesheet">stylesheet</code>
   keyword is <code>text/css</code>.</p>
@@ -52,8 +52,8 @@
    changed.</p></li>
 
    <li><p>When the <span>external resource link</span> that is already <span>browsing-context
-   connected</span> changes from being <span data-x="the link is an alternative stylesheet">an
-   alternative stylesheet</span> to not being one, or vice versa.</p></li>
+   connected</span> changes from being <span data-x="the link is an alternative style sheet">an
+   alternative style sheet</span> to not being one, or vice versa.</p></li>
 
   </ul>
 
@@ -132,7 +132,7 @@
      </dd>
 
      <dt><span data-x="concept-css-style-sheet-alternate-flag">alternate flag</span></dt>
-     <dd><p>Set if <span>the link is an alternative stylesheet</span>; unset otherwise.</p></dd>
+     <dd><p>Set if <span>the link is an alternative style sheet</span>; unset otherwise.</p></dd>
 
      <dt><span data-x="concept-css-style-sheet-origin-clean-flag">origin-clean flag</span></dt>
      <dd><p>Set if the resource is <span>CORS-same-origin</span>; unset otherwise.</p></dd>

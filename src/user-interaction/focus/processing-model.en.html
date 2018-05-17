@@ -12,10 +12,8 @@
 
    <li>
 
-    <p>If <var>new focus target</var> is neither a <code>dialog</code> element that has an
-    <code data-x="attr-dialog-open">open</code> attribute specified and that is <span>being
-    rendered</span> (i.e. that is a <span>control group owner object</span>), nor a <span>focusable
-    area</span>, then run the first matching set of steps from the following list:</p>
+    <p>If <var>new focus target</var> is not a <span>focusable area</span>, then run the first
+    matching set of steps from the following list:</p>
 
     <dl class="switch">
 
@@ -89,21 +87,10 @@
 
    <li>
 
-    <p>If <var>new focus target</var> is a <span>control group owner
-    object</span> that is not a <span>focusable area</span>, and its <span>control group</span> is not empty,
-    then designate <var>new focus target</var> as the <span>focused area of the control
-    group</span>, and redo this step.</p>
-
     <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2818 -->
-    <p>Otherwise, if <var>new focus target</var> is a <span>browsing context container</span> with
+    <p>If <var>new focus target</var> is a <span>browsing context container</span> with
     non-null <span>nested browsing context</span>, then let <var>new focus target</var> be the
     <span>nested browsing context</span>'s <span>active document</span>, and redo this step.</p>
-
-    <p class="note">A <code>dialog</code> element can be both a <span>control group owner
-    object</span> and a <span>focusable area</span>, if it has both an <code
-    data-x="attr-dialog-open">open</code> attribute specified and a <code
-    data-x="attr-tabindex">tabindex</code> attribute specified and is <span>being
-    rendered</span>.</p>
 
    </li>
 
@@ -125,8 +112,8 @@
 
   </ol>
 
-  <p>User agents must <span>immediately</span> run the <span>focusing steps</span> for a <span>focusable area</span>,
-  <code>dialog</code>, or <span>browsing context</span> <var>candidate</var> whenever the
+  <p>User agents must <span>immediately</span> run the <span>focusing steps</span> for a
+  <span>focusable area</span> or <span>browsing context</span> <var>candidate</var> whenever the
   user attempts to move the focus to <var>candidate</var>.</p>
 
   <p>The <dfn>unfocusing steps</dfn> for an object <var>old focus target</var> that is
@@ -159,9 +146,7 @@
    <li>
 
     <p>If <var>old focus target</var> is a <span>focusable area</span>, then let <var>new
-    focus target</var> be the first <span>focusable area</span> of its <span>control group</span>
-    (if the <span>control group owner object</span> is a <code>Document</code>, this will always be
-    a <span>viewport</span>).</p>
+    focus target</var> be its <code>Document</code>'s <span>viewport</span>.</p>
 
     <p>Otherwise, let <var>new focus target</var> be null.</p>
 
@@ -184,33 +169,28 @@
 
   <hr>
 
-  <p>When a <span>focusable area</span> is added to an empty <span>control group</span>, it must be designated
-  the <span>focused area of the control group</span>.</p>
+  <p>When a <span>focusable area</span> is added to an empty <code>Document</code>, it must be
+  designated the <span>focused area of the document</span>.</p>
 
-  <p><dfn>Focus fixup rule</dfn>: When the designated <span data-x="focused area of the control
-  group">focused area of a control group</span> is removed from that <span>control group</span> in
-  some way (e.g. it stops being a <span>focusable area</span>, it is removed from the DOM, it
-  becomes <span>expressly inert</span>, etc), and the <span>control group</span> is still not
-  empty: designate the first non-<span>inert</span> <span>focusable area</span> in that
-  <span>control group</span> to be the new <span>focused area of the control group</span>, if any;
-  if they are all <span>inert</span>, then designate the first <span>focusable area</span> in that
-  <span>control group</span> to be the new <span>focused area of the control group</span> regardless
-  of <span data-x="inert">inertness</span>. If such a removal instead results in the <span>control
-  group</span> being empty, then there is simply no longer a <span>focused area of the control
-  group</span>.</p>
+  <p><dfn>Focus fixup rule</dfn>: When the designated <span data-x="focused area of the
+  document">focused area of the document</span> is removed from that <code>Document</code> in some
+  way (e.g. it stops being a <span>focusable area</span>, it is removed from the DOM, it becomes
+  <span>expressly inert</span>, etc.), and the <code>Document</code> is still not empty: designate
+  the <code>Document</code>'s <span>viewport</span> to be the new <span>focused area of the
+  document</span>. If such a removal instead results in the <code>Document</code> being empty, then
+  there is simply no longer a <span>focused area of the document</span>.</p>
 
   <p class="example">For example, this might happen because an element is removed from its
   <code>Document</code>, or has a <code data-x="attr-hidden">hidden</code> attribute added. It might
   also happen to an <code>input</code> element when the element gets <span
   data-x="concept-fe-disabled">disabled</span>.</p>
 
-  <p class="example">In a <code>Document</code> without <code>dialog</code> elements, whose <span
-  data-x="focused area of the control group">focused area</span> is a <code>button</code> element,
-  removing, disabling, or hiding that button would cause the page's new <span data-x="focused area
-  of the control group">focused area</span> to be the <span>viewport</span> of the
-  <code>Document</code>. This would, in turn, be reflected through the <code
-  data-x="dom-document-activeElement">activeElement</code> API as <span>the body
-  element</span>.</p>
+  <p class="example">In a <code>Document</code> whose <span data-x="focused area of the
+  document">focused area</span> is a <code>button</code> element, removing, disabling, or hiding
+  that button would cause the page's new <span data-x="focused area of the document">focused
+  area</span> to be the <span>viewport</span> of the <code>Document</code>. This would, in turn,
+  be reflected through the <code data-x="dom-document-activeElement">activeElement</code> API as
+  <span>the body element</span>.</p>
 
   <hr>
 
@@ -289,11 +269,7 @@
      <li>
 
       <p>If <var>entry</var> is a <span>focusable area</span>: designate <var>entry</var> as the
-      <span>focused area of the control group</span>.</p>
-
-      <p class="note">It is possible for <var>entry</var> to be both a <code>dialog</code>
-      element and a <span>focusable area</span>, in which case it is its own <span>control group
-      owner object</span>.</p>
+      <span>focused area of the document</span>.</p>
 
      </li>
 
@@ -407,14 +383,14 @@
 
    <li>
 
-    <p>If <var>candidate</var> has a non-empty <span>control group</span>, and the
-    designated <span>focused area of the control group</span> is a <span>browsing context
+    <p>If <var>candidate</var> is non-empty, and the
+    designated <span>focused area of the document</span> is a <span>browsing context
     container</span> with a non-null <span>nested browsing context</span>, and the <span>active
     document</span> of that <span>browsing context container</span>'s <span>nested browsing
     context</span> is <var>target</var>, then return true.</p>
 
-    <p>Otherwise, if <var>candidate</var> has a non-empty <span>control group</span>, and the
-    designated <span>focused area of the control group</span> is a <span>browsing context
+    <p>Otherwise, if <var>candidate</var> is non-empty, and the
+    designated <span>focused area of the document</span> is a <span>browsing context
     container</span> with a non-null <span>nested browsing context</span>, then let
     <var>candidate</var> be the <span>active document</span> of that <span>browsing context
     container</span>'s <span>nested browsing context</span>, and redo this step.</p>
