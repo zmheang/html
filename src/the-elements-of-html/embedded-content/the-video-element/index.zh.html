@@ -258,6 +258,9 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   video, the video will be shown letterboxed or pillarboxed. Areas of the element's playback area
   that do not contain the video represent nothing.</p>
 
+  <p>在没有其他相反的样式规则时，视频内容应当在播放区域中展现完整，并且高宽比保持不变，居中且尽可能的占据空间。
+  这样一来，如果播放区域的高宽比与视频的高宽比并不一致，视频就会以 letterboxed 或 pillarboxed 的形式展现。不被视频内容占据的播放区域就什么都不显示。</p>
+
   <p class="note">In user agents that implement CSS, the above requirement can be implemented by
   using the <a href="#video-object-fit">style rule suggested in the rendering section</a>.</p>
 
@@ -282,9 +285,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <hr>
 
-  <p>User agents should provide controls to enable or disable the display of closed captions, audio
-  description tracks, and other additional data associated with the video stream, though such
-  features should, again, not interfere with the page's normal rendering.</p>
+  <p>浏览器应当提供控制字幕的显隐，音频以及其他视频附加数据的功能，并且这些功能应该不会影响页面的正常渲染。</p>
 
   <p>User agents may allow users to view the video content in manners more suitable to the user,
   such as fullscreen or in an independent resizable window. User agents may even trigger such a
@@ -296,9 +297,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   interfaces visible, even if the <code data-x="attr-media-controls">controls</code> attribute is
   absent.</p>
 
-  <p>User agents may allow video playback to affect system features that could interfere with the
-  user's experience; for example, user agents could disable screensavers while video playback is in
-  progress.</p>
+  <p>在播放视频时，浏览器可以调整某些系统功能来提升用户体验，比如禁用屏幕保护程序。</p>
 
   <hr>
 
