@@ -1,0 +1,100 @@
+  <h5 id="definitions">定义</h5>
+
+  <div w-nodev>
+
+  <p><span data-x="category-submit">可提交元素</span> 都是
+  <dfn data-x="candidate for constraint validation">约束验证候选项</dfn>，
+  除非有条件
+  <dfn data-x="barred from constraint validation">禁止了该元素的约束验证</dfn>。
+  （例如，<code>object</code> 元素就会
+  <span data-x="barred from constraint validation">禁止约束验证</span>。）</p>
+
+  <p>元素可以定义 <dfn data-x="custom validity error message">自定义验证错误信息</dfn>。
+  元素必须把它的 <span data-x="custom validity error message">自定义验证错误信息</span>
+  初始化为空字符串。当它的值不是空字符串时，该元素就
+  <span data-x="suffering from a custom error">处于自定义错误状态</span>。
+  可以使用 <code data-x="dom-cva-setCustomValidity">setCustomValidity()</code> 方法设置它。
+  用户代理应该使用 <span data-x="custom validity error message">自定义验证错误信息</span>
+  把控件的错误提示给用户。</p>
+
+  <p>元素可以有很多种约束方式。下面的 <dfn data-x="validity states">合法性状态</dfn>
+  列表给出了约束验证下表单控件可能的状态。
+  （下面的定义是非规范的；本规范的其他地方更精确地定义了每个状态是否适用。）</p>
+
+  <dl>
+
+   <dt> <dfn data-x="Suffering from being missing">处于缺失状态</dfn> </dt>
+
+   <dd> <p>当一个控件没有 <span data-x="concept-fe-value">值</span> 但设置了 <code
+   data-x="">required</code> 属性时（<code>input</code> <code
+   data-x="attr-input-required">required</code>, <code>textarea</code> <code
+   data-x="attr-textarea-required">required</code>）；
+   另外一种情况是 <code>select</code> 元素和
+   <span data-x="radio button group">单选按钮组</span> 中的控件，
+   规则较复杂，它们的定义请参考相应章节。</p></dd>
+
+   <dt> <dfn data-x="Suffering from a type mismatch">处于类型不匹配状态</dfn> </dt>
+
+   <dd> <p>当允许任意用户输入的控件有 <span
+   data-x="concept-fe-value">值</span> 但值的语法不正确时
+   （<span data-x="attr-input-type-email">E-mail</span>, <span data-x="attr-input-type-url">URL</span>）。
+   </p></dd>
+
+   <dt> <dfn data-x="Suffering from a pattern mismatch">处于模式不匹配状态</dfn> </dt>
+
+   <dd> <p>当控件有 <span data-x="concept-fe-value">值</span> 但值不符合
+   <code data-x="attr-input-pattern">pattern</code> 属性时。</p></dd>
+
+   <dt> <dfn data-x="Suffering from being too long">处于长度超出限制状态</dfn> </dt>
+
+   <dd> <p>当控件有 <span data-x="concept-fe-value">值</span> 但长度超过了
+   <span data-x="attr-fe-maxlength">表单控件的 <code data-x="">maxlength</code> 属性</span>
+   （<code>input</code> <code data-x="attr-input-maxlength">maxlength</code>, <code>textarea</code>
+   <code data-x="attr-textarea-maxlength">maxlength</code>）。 </p></dd>
+
+   <dt> <dfn data-x="Suffering from being too short">处于长度不够状态</dfn> </dt>
+
+   <dd> <p>当控件有 <span data-x="concept-fe-value">值</span> 但长度小于
+   <span data-x="attr-fe-minlength">表单控件 <code data-x="">minlength</code> 属性</span>
+   （<code>input</code> <code data-x="attr-input-minlength">minlength</code>, <code>textarea</code>
+   <code data-x="attr-textarea-minlength">minlength</code>）。 </p></dd>
+
+   <dt> <dfn data-x="Suffering from an underflow">处于下溢出状态</dfn> </dt>
+
+   <dd> <p>当控件有 <span data-x="concept-fe-value">值</span> 且非空字符串，
+   而小于 <code data-x="attr-input-min">min</code> 属性时。</p></dd>
+
+   <dt> <dfn data-x="Suffering from an overflow">处于下溢出状态</dfn> </dt>
+
+   <dd> <p>当控件有 <span data-x="concept-fe-value">值</span> 且非空字符串，
+   而小于 <code data-x="attr-input-max">max</code> 属性时。</p></dd>
+
+   <dt> <dfn data-x="Suffering from a step mismatch">处于步长不匹配状态</dfn> </dt>
+
+   <dd> <p>当控件有 <span data-x="concept-fe-value">值</span> 但不匹配
+   <code data-x="attr-input-step">step</code> 属性给出的规则时。</p></dd>
+
+   <dt> <dfn data-x="Suffering from bad input">处于非法输入状态</dfn> </dt>
+
+   <dd> <p>当控件的输入不完整，且用户代理认为用户不应该以当前状态提交表单时。</p></dd>
+
+   <dt> <dfn data-x="Suffering from a custom error">处于自定义错误状态</dfn> </dt>
+
+   <dd> <p>当控件的 <span data-x="custom validity error message">自定义验证错误信息</span>
+   （通过元素的 <code data-x="dom-cva-setCustomValidity">setCustomValidity()</code> 方法设置）
+   是非空字符串时。</p> </dd>
+
+  </dl>
+
+  <p class="note">即使元素被 <span data-x="concept-fe-disabled">禁用</span>，也可能处于上述状态；
+  因此即使表单提交时的表单验证不向用户指出问题，这些状态也可以表示在 DOM 中。</p>
+
+  <p>如果一个元素没有处于任何上述 <span data-x="validity states">合法性状态</span>，
+  就说这个元素 <dfn data-x="concept-fv-valid">符合它的约束</dfn>。</p>
+
+  </div>
+
+
+
+  <div w-nodev>
+

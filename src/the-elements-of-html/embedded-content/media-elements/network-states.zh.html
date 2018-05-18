@@ -1,0 +1,56 @@
+  <h5 id="network-states">网络状态</h5>
+
+  <dl class="domintro">
+
+   <dt><var>media</var> . <code subdfn data-x="dom-media-networkState">networkState</code></dt>
+
+   <dd>
+
+    <p>从下面的代码列表中，返回该元素网络活动的当前状态。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><span data-x="media element">媒体元素</span> 与网络交互时，它们当前的网络活动由
+  <dfn><code data-x="dom-media-networkState">networkState</code></dfn> 属性表示。
+  读取时，它必须返回该元素的当前网络状态，它的值必须是下面一种：</p>
+
+  </div>
+
+  <dl>
+
+   <dt><dfn><code data-x="dom-media-NETWORK_EMPTY">NETWORK_EMPTY</code></dfn> (数字值 0)</dt>
+
+   <dd>这个元素还没初始化。所有属性都处于初始状态。</dd>
+
+   <dt><dfn><code data-x="dom-media-NETWORK_IDLE">NETWORK_IDLE</code></dfn> (数字值 1)</dt>
+
+   <dd>该元素 <span w-nodev>的 <span data-x="concept-media-load-algorithm">资源选择算法</span>
+   处于活跃状态且</span> 选择了一个 <span data-x="media resource">资源</span>，
+   但它现在还没真正使用网络。</dd>
+
+   <dt><dfn><code data-x="dom-media-NETWORK_LOADING">NETWORK_LOADING</code></dfn> (数字值 2)</dt>
+
+   <dd>用户代理正在尝试下载数据。</dd>
+
+   <dt><dfn><code data-x="dom-media-NETWORK_NO_SOURCE">NETWORK_NO_SOURCE</code></dfn> (数字值 3)</dt>
+
+   <dd>该元素<span w-nodev>的 <span data-x="concept-media-load-algorithm">资源选择算法</span>
+   处于活跃状态但</span> 还没找到要使用的 <span data-x="media resource">资源</span>。</dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>下面定义的 <span data-x="concept-media-load-algorithm">资源选择算法</span> 确切地描述了
+  何时 <code data-x="dom-media-networkState">networkState</code> 属性的值会改变，
+  以及触发什么样的事件来表示这个状态改变。</p>
+
+  </div>
+
+
+
+

@@ -1,0 +1,52 @@
+  <h5 id="Media-resources-with-multiple-media-tracks">多媒体轨道的媒体资源</h5>
+
+  <p><span data-x="media resource">媒体资源</span> 可以内嵌多个音视频轨道。例如，
+  除了主音视频轨道外，<span data-x="media resource">媒体资源</span> 可以有外语配音的对话，
+  导演评论，语音描述，另外的拍摄角度，符号语言，或者手语叠加层。</p>
+
+  <dl class="domintro">
+
+   <dt><var>media</var> . <code subdfn data-x="dom-media-audioTracks">audioTracks</code></dt>
+
+   <dd>
+
+    <p>返回一个表示该 <span data-x="media resource">媒体资源</span> 可用的
+    音频轨道的 <code>AudioTrackList</code> 对象。</p>
+
+   </dd>
+
+   <dt><var>media</var> . <code subdfn data-x="dom-media-videoTracks">videoTracks</code></dt>
+
+   <dd>
+
+    <p>返回一个表示该 <span data-x="media resource">媒体资源</span> 可用的
+    视频轨道的 <code>AudioTrackList</code> 对象。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p>
+  <span data-x="media element">媒体元素</span> 的
+  <dfn><code data-x="dom-media-audioTracks">audioTracks</code></dfn> 属性必须返回
+  <span data-x="live">活的</span> <code>AudioTrackList</code> 对象，表示
+  在 <span data-x="media element">媒体元素</span> 的 <span data-x="media resource">媒体资源</span>
+  中可用的音频轨道。</p>
+
+  <p>
+  <span data-x="media element">媒体元素</span> 的
+  <dfn><code data-x="dom-media-videoTracks">videoTracks</code></dfn> 属性必须返回
+  <span data-x="live">活的</span> <code>VideoTrackList</code> 对象，表示
+  在 <span data-x="media element">媒体元素</span> 的 <span data-x="media resource">媒体资源</span>
+  中可用的视频轨道。</p>
+
+  <p class="note">每个 <span data-x="media element">媒体元素</span> 永远都只有一个
+  <code>AudioTrackList</code> 对象和一个 <code>VideoTrackList</code> 对象，
+  即使元素中加载了另一个 <span data-x="media resource">媒体资源</span>：
+  这两个对象会被复用。（但 <code>AudioTrack</code> 和 <code>VideoTrack</code> 对象不会。）</p>
+
+  </div>
+
+

@@ -1,0 +1,31 @@
+  <h6 id="guidelines-for-exposing-cues-in-various-formats-as-text-track-cues">
+    显示各种格式的 <span data-x="text track cue">字幕提示</span>
+    的 <dfn data-x="Guidelines for exposing cues">指南</dfn>
+  </h6>
+
+  <p>
+  HTML 用户代理如何处理和解释字幕提示取决于特定格式的定义。
+  如果没有这样一个规范，那么本小节提供了一些约束，实现方可以尝试一致地显示这种格式。</p>
+
+  <p>为了支持 HTML 的 <span data-x="text track">字幕</span> 模型，每个计时数据单元都被转化为一个
+  <span data-x="text track cue">字幕提示</span>。
+  在本规范中定义的格式特征与 <span data-x="text track cue">字幕提示</span> 的各方面的映射没有被定义的情况下，
+  实现必须确保映射与上面定义的 <span data-x="text track cue">字幕提示</span> 的各方面的定义一致，并满足以下约束：</p>
+
+  <dl>
+
+   <dt><span data-x="text track cue identifier">字幕提示 ID</span>
+   <dd>
+    <p>如果格式没有为每个字幕提示提供明显的 ID 类似物的话，应该设为空字符串。</p>
+   </dd>
+
+   <dt><span data-x="text track cue pause-on-exit flag">字幕提示 pause-on-exit 标志</span>
+   <dd>
+    <p>应该设为 false。</p>
+   </dd>
+
+  </dl>
+
+  </div>
+
+

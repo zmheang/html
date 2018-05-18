@@ -1,0 +1,29 @@
+  <h5 id="submitting-element-directionality:-the-dirname-attribute">提交元素 element directionality: the <code data-x="attr-fe-dirname">dirname</code> attribute</h5>
+
+  <p>表单控件元素上的 <dfn><code data-x="attr-fe-dirname">dirname</code></dfn> 属性
+  会让元素提交 <span data-x="the directionality">文字方向</span>，
+  并且给出 <span data-x="form submission">表单提交</span> 时包含这个值的字段名。
+  如果指定了这个属性，它的值不得为空字符串。</p>
+
+  <div class="example">
+
+   <p>在这个例子中，表单包含了一个文本控件和一个提交按钮：</p>
+
+   <pre>&lt;form action="addcomment.cgi" method=post>
+ &lt;p>&lt;label>Comment: &lt;input type=text name="comment" dirname="comment.dir" required>&lt;/label>&lt;/p>
+ &lt;p>&lt;button name="mode" type=submit value="add">Post Comment&lt;/button>&lt;/p>
+&lt;/form></pre>
+
+   <p>当用户提交表单时，用户代理包含了 3 个字段，一个叫 "comment",
+   一个叫 "comment.dir", 一个叫 "mode"；所以如果用户键入 "Hello"，提交的消息体可能像这样：</p>
+
+   <pre>comment=Hello&amp;<strong>comment.dir=ltr</strong>&amp;mode=add</pre>
+
+   <p>如果用户手动切换到右到左书写方向，然后输入 "<span data-x=""
+   dir=rtl lang=ar>&#x645;&#x631;&#x62d;&#x628;&#x627;</span>"，提交的消息体可能像这样：</p>
+
+   <pre>comment=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7&amp;<strong>comment.dir=rtl</strong>&amp;mode=add</pre>
+
+  </div>
+
+
