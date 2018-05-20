@@ -42,3 +42,4 @@ jspm_packages
 .*.swp
 .*.swo
 /output
+package-lock.json
