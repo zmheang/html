@@ -9,8 +9,10 @@ script:
   - "npm run build"
   - "echo '/ /html/multipage/' > output/_redirects"
 deploy:
-  provider: script
-  skip_cleanup: true
-  script: "npm run deploy"
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN 
+  keep-history: false
+  local-dir: output
   on:
     branch: master
