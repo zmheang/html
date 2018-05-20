@@ -43,6 +43,7 @@ update-progress:
 # Split subtree before deploy:
 # git subtree split --prefix output/html -b gh-pages
 deploy:
+	git status --porcelain
 	if [ -n "$$(git status --porcelain)" ]; then \
 		echo "there are changes, please commit to master first" && exit 1; \
 	fi
