@@ -176,14 +176,8 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <p>无法渲染 <code>video </code> 标签的用户代理可以展示一个链接用于链接至其他的视频播放程序或者视频资源本身。</p>
 
-  <p>When a <code>video</code> element's <span>media resource</span> has a video channel, the
-  element provides a <span>paint source</span> whose width is the <span>media resource</span>'s
-  <span data-x="concept-video-intrinsic-width">intrinsic width</span>, whose height is the
-  <span>media resource</span>'s <span data-x="concept-video-intrinsic-height">intrinsic
-  height</span>, and whose appearance is the frame of video corresponding to the <span
-  data-x="current playback position">current playback position</span>, if that is available, or else
-  (e.g. when the video is seeking or buffering) its previous appearance, if any, or else (e.g.
-  because the video is still loading the first frame) blackness.</p>
+  <p>当一个 <code>video</code> 元素的 <span data-x="media-resource">媒体资源</span>具有视频通道时, 该元素提供一个<span data-x="paint-source">绘制源(paint source)</span>，<span data-x="paint-source">绘制源</span>的宽度是<span data-x="media-resource">媒体资源</span>的<span data-x="concept-video-intrinsic-width">固有宽度</span>，高度是<span data-x="media-resource">媒体资源</span>的 <span data-x="concept-video-intrinsic-height">固有高度</span>, 外观是<span
+  data-x="current playback position">当前播放位置</span>对应的视频帧，如果当前帧不可用（比如在加载中时），则显示之前帧，如果没有之前的帧可用（比如视频第一帧都没加载完成），则显示黑色背景。</p>
 
   <hr>
 
@@ -214,14 +208,6 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   data-x="dom-media-readyState">readyState</code> 属性是 <code
   data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么两个属性都必须返回 0。</p>
 
-  <p id="dimUpdate">Whenever the <span data-x="concept-video-intrinsic-width">intrinsic width</span>
-  or <span data-x="concept-video-intrinsic-height">intrinsic height</span> of the video changes
-  (including, for example, because the <span data-x="dom-VideoTrack-selected">selected video
-  track</span> was changed), if the element's <code data-x="dom-media-readyState">readyState</code>
-  attribute is not <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>, the user agent must
-  <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
-  data-x="event-media-resize">resize</code> at the <span>media element</span>.</p>
-
   <p id="dimUpdate">无论何时，当视频的 <span data-x="concept-video-intrinsic-width">固有宽度</span>
   或者 <span data-x="concept-video-intrinsic-height">固有高度</span>改变时，
   （比如因为 <span data-x="dom-VideoTrack-selected">selected video
@@ -239,8 +225,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   <p>在没有其他相反的样式规则时，视频内容应当在播放区域中展现完整，并且高宽比保持不变，居中且尽可能的占据空间。
   这样一来，如果播放区域的高宽比与视频的高宽比并不一致，视频就会以 letterboxed 或 pillarboxed 的形式展现。不被视频内容占据的播放区域就什么都不显示。</p>
 
-  <p class="note">In user agents that implement CSS, the above requirement can be implemented by
-  using the <a href="#video-object-fit">style rule suggested in the rendering section</a>.</p>
+  <p class="note">用户代理实现 CSS 样式时，上述要求可以使用<a href="#video-object-fit">渲染 video 时建议的样式</a>来实现。</p>
 
   <p>The <span>intrinsic width</span> of a <code>video</code> element's playback area is the
   <span>intrinsic width</span> of the <span>poster frame</span>, if that is available and the
@@ -254,8 +239,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   data-x="concept-video-intrinsic-height">intrinsic height</span> of the video resource, if that is
   available; otherwise the <span>intrinsic height</span> is missing.</p>
 
-  <p>The <span>default object size</span> is a width of 300 <span data-x="'px'">CSS pixels</span>
-  and a height of 150 <span data-x="'px'">CSS pixels</span>. <ref spec=CSSIMAGES></p>
+  <p>video 元素的<span data-x="default-object-size">默认尺寸大小</span>是宽 300 <span data-x="'px'">像素</span>，高 150 <span data-x="'px'">像素</span>。 <ref spec=CSSIMAGES></p>
 
   <p>A <code>video</code> element is said to <dfn>intersect the viewport</dfn> when it is
   <span>being rendered</span> and its associated CSS layout box intersects the
@@ -274,6 +258,10 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   interface</span>. In such an independent viewing mode, however, user agents may make full user
   interfaces visible, even if the <code data-x="attr-media-controls">controls</code> attribute is
   absent.</p>
+
+  <p>用户代理可以通过一些方式使得用户更加舒服地观看视频，比如全屏或者以一个独立的可改变大小的窗口播放视频。
+  用户代理甚至可以在播放视频时默认触发这种模式，不过当 <code
+  data-x="attr-video-playsinline">playsinline</code> 属性被指定时，他们就不应该这么做了。跟其他的用户界面功能一样，除非显式地展现了切换不同模式时的功能按钮，否则进行模式切换时不应当影响页面的正常渲染。在这种独立的视口模式下，就算 <code data-x="attr-media-controls">controls</code> 属性被省略，用户代理也可以显示完整的控制组件。</p>
 
   <p>在播放视频时，浏览器可以调整某些系统功能来提升用户体验，比如禁用屏幕保护程序。</p>
 
