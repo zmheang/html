@@ -206,9 +206,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   data-x="dom-media-readyState">readyState</code> 属性是 <code
   data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么两个属性都必须返回 0。</p>
 
-  <p id="dimUpdate">无论何时，当视频的<span data-x="concept-video-intrinsic-width">固有宽度</span>
-  或者<span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么浏览器必须<span data-x="queue a task">启动一项任务</span> 来 <span data-x="concept-event-fire">触发</span><span data-x="media-element">媒体元素上的</span> <code
-  data-x="event-media-resize">resize</code> 事件。</p>
+  <p id="dimUpdate">无论何时，当视频的<span data-x="concept-video-intrinsic-width">固有宽度</span>或者<span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么浏览器必须<span data-x="queue a task">启动一项任务</span> 来 <span data-x="concept-event-fire">触发</span><span data-x="media-element">媒体元素上的</span> <code data-x="event-media-resize">resize</code> 事件。</p>
 
   </div>
 
@@ -216,8 +214,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <div w-nodev>
 
-  <p>在没有其他的样式规则时，视频内容应当在播放区域中展现完整，并且高宽比保持不变，居中且尽可能的占据空间。
-  这样一来，如果播放区域的高宽比与视频的高宽比并不一致，视频就会以 letterboxed 或 pillarboxed 的形式展现。不被视频内容占据的播放区域就什么都不显示（显示黑色）。</p>
+  <p>在没有其他的样式规则时，视频内容应当在播放区域中展现完整，并且高宽比保持不变，居中且尽可能的占据空间。这样一来，如果播放区域的高宽比与视频的高宽比并不一致，视频就会以 letterboxed 或 pillarboxed 的形式展现。不被视频内容占据的播放区域就什么都不显示（显示黑色）。</p>
 
   <p class="note">用户代理实现 CSS 样式时，上述要求可以使用<a href="#video-object-fit">渲染 video 时建议的样式</a>来实现。</p>
 
@@ -243,8 +240,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <p>浏览器应当提供控制字幕的显隐，音频以及其他视频附加数据的功能，并且这些功能应该不会影响页面的正常渲染。</p>
 
-  <p>用户代理可以通过一些方式使得用户更加舒服地观看视频，比如全屏或者以一个独立的可改变大小的窗口播放视频。用户代理甚至可以在播放视频时默认触发这种模式，不过当 <code
-  data-x="attr-video-playsinline">playsinline</code> 属性被指定时，他们就不应该这么做了。跟其他的用户界面功能一样，除非显式地展现了切换不同模式时的功能按钮，否则进行模式切换时不应当影响页面的正常渲染。在这种独立的视口模式下，就算 <code data-x="attr-media-controls">controls</code> 属性被省略，用户代理也可以显示完整的控制组件。</p>
+  <p>用户代理可以通过一些方式使得用户更加舒服地观看视频，比如全屏或者以一个独立的可改变大小的窗口播放视频。用户代理甚至可以在播放视频时默认触发这种模式，不过当 <code data-x="attr-video-playsinline">playsinline</code> 属性被指定时，他们就不应该这么做了。跟其他的用户界面功能一样，除非显式地展现了切换不同模式时的功能按钮，否则进行模式切换时不应当影响页面的正常渲染。在这种独立的视口模式下，就算 <code data-x="attr-media-controls">controls</code> 属性被省略，用户代理也可以显示完整的控制组件。</p>
 
   <p>在播放视频时，浏览器可以调整某些系统功能来提升用户体验，比如禁用屏幕保护程序。</p>
 
