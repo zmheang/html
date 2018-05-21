@@ -206,9 +206,8 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   data-x="dom-media-readyState">readyState</code> 属性是 <code
   data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么两个属性都必须返回 0。</p>
 
-  <p id="dimUpdate">无论何时，当视频的 <span data-x="concept-video-intrinsic-width">固有宽度</span>
-  或者 <span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video
-  track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么浏览器必须<span data-x="queue a task">启动一项任务</span> 来 <span data-x="concept-event-fire">触发</span><span data-x="media-element">媒体元素上的</span> <code
+  <p id="dimUpdate">无论何时，当视频的<span data-x="concept-video-intrinsic-width">固有宽度</span>
+  或者<span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么浏览器必须<span data-x="queue a task">启动一项任务</span> 来 <span data-x="concept-event-fire">触发</span><span data-x="media-element">媒体元素上的</span> <code
   data-x="event-media-resize">resize</code> 事件。</p>
 
   </div>
