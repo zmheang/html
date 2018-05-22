@@ -1,0 +1,284 @@
+  <h4 split-filename="media" id="the-video-element"><dfn id="video"><code>video</code></dfn> 元素</h4>
+
+  <dl class="element">
+   <dt><span data-x="concept-element-categories">分类</span>：</dt>
+   <dd><span>Flow content</span>.</dd>
+   <dd><span>Phrasing content</span>.</dd>
+   <dd><span>Embedded content</span>.</dd>
+   <dd>如果有 <code data-x="attr-media-controls">controls</code> 属性: <span>Interactive content</span>.</dd>
+   <dd><span>Palpable content</span>.</dd>
+   <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
+   <dd>Where <span>embedded content</span> is expected.</dd>
+   <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
+   <dd>如果该元素有<code data-x="attr-media-src">src</code> 属性：
+ 后代可以有零个或多个 <code>track</code> 元素，均为<span data-x="transparent">透明的</span>，并且没有<span data-x="media element">媒体元素</span>。</dd>
+   <dd>如果该元素没有 <code data-x="attr-media-src">src</code> 属性： 后代可以有零个或多个 <code>source</code> 元素，零个或多个 <code>track</code> 元素，后代元素均是<span data-x="transparent">透明的</span>，并且没有 <span data-x="media element">媒体元素</span>。</dd>
+   <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
+   <dd><span>Global attributes</span></dd>
+   <dd><code data-x="attr-media-src">src</code></dd>
+   <dd><code data-x="attr-media-crossorigin">crossorigin</code></dd>
+   <dd><code data-x="attr-video-poster">poster</code></dd>
+   <dd><code data-x="attr-media-preload">preload</code></dd>
+   <dd><code data-x="attr-media-autoplay">autoplay</code></dd>
+   <dd><code data-x="attr-video-playsinline">playsinline</code></dd>
+   <dd><code data-x="attr-media-loop">loop</code></dd>
+   <dd><code data-x="attr-media-muted">muted</code></dd>
+   <dd><code data-x="attr-media-controls">controls</code></dd>
+   <dd><code data-x="attr-dim-width">width</code></dd>
+   <dd><code data-x="attr-dim-height">height</code></dd>
+   <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
+   <dd w-nodev>
+    <pre class="idl">[Exposed=Window,
+ <span>HTMLConstructor</span>]
+interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
+  [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-dim-width">width</span>;
+  [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-dim-height">height</span>;
+  readonly attribute unsigned long <span data-x="dom-video-videoWidth">videoWidth</span>;
+  readonly attribute unsigned long <span data-x="dom-video-videoHeight">videoHeight</span>;
+  [<span>CEReactions</span>] attribute USVString <span data-x="dom-video-poster">poster</span>;
+  [<span>CEReactions</span>] attribute boolean <span data-x="dom-video-playsInline">playsInline</span>;
+};</pre>
+   </dd>
+   <dd w-nohtml>Uses <code>HTMLVideoElement</code>.</dd>
+  </dl>
+
+
+  <p><code>video</code> 元素用于播放视频或电影，以及带有字幕的音频文件。</p>
+
+  <p>可以在 <code>video</code> 元素内提供一些文本内容<span w-nodev>。用户代理不应向用户展示这些内容</span>；这些内容是用来提供给那些不支持 <code>video</code>元素的老旧浏览器，这样他们可以尝试替换为以前的视频插件，或者向用户展示这些文字，以便告知用户如何访问视频内容。</p>
+
+  <p class="note">需要注意的是，<code>video</code> 标签内部的文本并不是为了解决可访问性问题。有许多其他特性能帮助弱视、盲人、听力障碍者、聋人以及有其他身体或认知障碍的人获取视频内容。要提供字幕，可以将其直接嵌入到视频中，也可以通过 <code>track</code> 元素外引文件的方式。可以将手语作为额外的视频轨道嵌入到视频流中。音频描述可以直接嵌入到视频流中或者通过 <span data-x="WebVTT file">WebVTT 文件</span> 以文本的形式提供，通过 <code>track</code> 元素引用 <span data-x="WebVTT file">WebVTT 文件</span>时，浏览器会自动将文本合成为语音。WebVTT 同样可以用来提供章节标题。对于那些完全不想看视频的用户，可以在视频附近为他们提供一些链接用于跳转到一些文本内容。 <ref spec=WEBVTT></p>
+
+  <p><code>video</code> 元素表面上只有视频数据，但其中也可能包含一些音频数据。</p>
+
+  <p><code data-x="attr-media-src">src</code>, <code data-x="attr-media-preload">preload</code>,
+  <code data-x="attr-media-autoplay">autoplay</code>, <code data-x="attr-media-loop">loop</code>,
+  <code data-x="attr-media-muted">muted</code>, and <code
+  data-x="attr-media-controls">controls</code> 属性是<span data-x="media element
+  attributes">媒体元素的共有属性</span>。</p>
+
+  <p><dfn><code data-x="attr-video-poster">poster</code></dfn> 属性提供图片文件的 <span>URL</span>，用于在浏览器没有视频数据可用时显示。该属性的值必需是一个<span data-x="valid non-empty URL potentially surrounded by
+  spaces">可能由空格包裹的合法的非空 URL</span>。</p>
+
+  <div w-nodev>
+
+  <p>如果要使用指定的资源，那么在该元素创建时，或者 <code
+  data-x="attr-video-poster">poster</code> 属性被设置，更改或移除时，浏览器必须执行以下步骤以确定该元素的 <dfn>poster frame</dfn>（无论该元素的 <span data-x="show poster flag">封面展示标志位</span>的值如何）：</p> <!-- thus it is unaffected by changes
+  to the base URL. -->
+
+  <ol>
+
+   <li><p>如果 <code>video</code> 元素已经有一个此类型的算法实例在运行，在不改变当前 <span>poster
+   frame</span> 的情况下终止该算法实例。</p></li>
+
+   <li><p>如果 <code data-x="attr-video-poster">poster</code> 属性的值是空字符串或者没有设置该属性，那么便没有 <span>poster frame</span>；返回。</p></li>
+
+   <li><p>以相对于当前<span data-x="node document">节点文档</span>的路径<span data-x="parse a url">解析</span> <code
+   data-x="attr-video-poster">poster</code> 属性的值。如果解析失败，那么便没有 <span>poster frame</span>；返回。</p></li>
+
+   <li><p>新建一个<span data-x="concept-request">请求</span>，其
+   <span data-x="concept-request-url">url</span> 是 <span>resulting URL record</span>，<span data-x="concept-request-client">客户端</span>是元素的<span data-x="node document">节点文档</span>的<code data-x="Window">窗口</code>对象的<span data-x="environment settings object">环境设置对象</span>，<span data-x="concept-request-destination">请求目的</span>是"<code data-x="">image</code>"，<span data-x="concept-request-credentials-mode">凭据模式</span>是 "<code data-x="">include</code>"，并且设置其 <span data-x="use-URL-credentials flag">use-URL-credentials 标志位</span>。
+
+   <!--FETCH--><li><p><span data-x="concept-fetch">获取</span> <var>请求</var>。这个请求应当<span data-x="delay the load event">延迟文档节点的加载事件</span>。</p></li>
+
+   <!-- could define how to sniff for an image here -->
+
+   <li><p>如果成功加载图片，则 <span>poster frame</span> 就是该图片。否则没有 <span>poster frame</span>。</p></li>
+
+  </ol>
+
+  </div>
+
+  <p class="note"><code data-x="attr-video-poster">poster</code> 属性提供的图片（<i data-x="poster frame">poster frame</i>），旨在为用户提供一个该视频的大体印象。</p>
+
+  <p><dfn><code data-x="attr-video-playsinline">playsinline</code></dfn> 属性是一个<span data-x="boolean attribute">布尔属性</span>。如果展现该属性，则表明希望浏览器默认以“内联”的形式播放视频，”内联“是指限制在视频元素所在的区域播放，而不是直接全屏播放或者位于一个独立的可随意调整大小的窗口中。</p>
+
+  <p class="note">没有显式地声明 <code data-x="attr-video-playsinline">playsinline</code> 属性并不意味着视频会默认全屏播放，这完全由浏览器决定。实际上大多数浏览器更倾向于默认以“内联”的形式播放视频，因此在那些浏览器中，加不加 <code
+  data-x="attr-video-playsinline">playsinline</code> 属性都是一样的。</p>
+
+  <div w-nodev>
+
+  <hr>
+
+  <p>A <code>video</code> element represents what is given for the first matching condition in the
+  list below:</p>
+
+  <dl class="switch">
+
+   <dt>When no video data is available (the element's <code
+   data-x="dom-media-readyState">readyState</code> attribute is either <code
+   data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>, or <code
+   data-x="dom-media-HAVE_METADATA">HAVE_METADATA</code> but no video data has yet been obtained at
+   all, or the element's <code data-x="dom-media-readyState">readyState</code> attribute is any
+   subsequent value but the <span>media resource</span> does not have a video channel)</dt>
+
+   <dd>The <code>video</code> element <span>represents</span> its <span>poster frame</span>, if any,
+   or else <span>transparent black</span> with no <span>intrinsic dimensions</span>.</dd>
+
+   <dt>When the <code>video</code> element is <span data-x="dom-media-paused">paused</span>, the <span
+   data-x="current playback position">current playback position</span> is the first frame of video,
+   and the element's <span>show poster flag</span> is set</dt>
+
+   <dd>The <code>video</code> element <span>represents</span> its <span>poster frame</span>, if any,
+   or else the first frame of the video.</dd>
+
+   <dt>When the <code>video</code> element is <span data-x="dom-media-paused">paused</span>, and the
+   frame of video corresponding to the <span data-x="current playback position">current playback
+   position</span> is not available (e.g. because the video is seeking or buffering)</dt>
+
+   <dt>When the <code>video</code> element is neither <span>potentially playing</span> nor <span
+   data-x="dom-media-paused">paused</span> (e.g. when seeking or stalled)</dt>
+
+   <dd>The <code>video</code> element <span>represents</span> the last frame of the video to have
+   been rendered.</dd>
+
+   <dt>When the <code>video</code> element is <span data-x="dom-media-paused">paused</span></dt>
+
+   <dd>The <code>video</code> element <span>represents</span> the frame of video corresponding to
+   the <span data-x="current playback position">current playback position</span>.</dd>
+
+   <dt>Otherwise (the <code>video</code> element has a video channel and is <span>potentially
+   playing</span>)</dt>
+
+   <dd>The <code>video</code> element <span>represents</span> the frame of video at the continuously
+   increasing <span data-x="current playback position">"current" position</span>. When the
+   <span>current playback position</span> changes such that the last frame rendered is no longer the
+   frame corresponding to the <span>current playback position</span> in the video, the new frame
+   must be rendered.</dd>
+
+  </dl>
+
+  <p>Frames of video must be obtained from the video track that was <span
+  data-x="dom-VideoTrack-selected">selected</span> when the <span>event loop</span> last reached
+  <a href="#step1">step 1</a>.</p>
+
+  <p class="note">视频中的每一帧对应哪个播放位置由视频流的格式决定。</p>
+
+  <p>The <code>video</code> element also <span>represents</span> any <span data-x="text track
+  cue">text track cues</span> whose <span>text track cue active flag</span> is set and whose
+  <span>text track</span> is in the <span data-x="text track showing">showing</span> mode, and any
+  audio from the <span>media resource</span>, at the <span>current playback position</span>.</p>
+
+  <p>Any audio associated with the <span>media resource</span> must, if played, be played
+  synchronized with the <span>current playback position</span>, at the element's <span>effective
+  media volume</span>. The user agent must play the audio from audio tracks that were <span
+  data-x="dom-AudioTrack-enabled">enabled</span> when the <span>event loop</span> last reached step
+  1.</p>
+
+  <p>除了上述提到的之外，用户代理可以以文字、图标或其他方式在播放区域为用户提供一些信息（比如缓冲中，未发现视频资源，视频加载出错等）。</p>
+
+  <p>无法渲染 <code>video </code> 标签的用户代理可以展示一个链接用于链接至其他的视频播放程序或者视频资源本身。</p>
+
+  <p>当一个 <code>video</code> 元素的 <span data-x="media resource">媒体资源</span>具有视频通道时, 该元素提供一个<span data-x="paint source">绘制源(paint source)</span>，<span data-x="paint source">绘制源</span>的宽度是<span data-x="media resource">媒体资源</span>的<span data-x="concept-video-intrinsic-width">固有宽度</span>，高度是<span data-x="media resource">媒体资源</span>的 <span data-x="concept-video-intrinsic-height">固有高度</span>，外观是<span data-x="current playback position">当前播放位置</span>对应的视频帧，如果当前帧不可用（比如在加载中时），则显示之前帧，如果没有之前的帧可用（比如视频第一帧都没加载完成），则显示黑色背景。</p>
+
+  <hr>
+
+  </div>
+
+  <dl class="domintro">
+
+   <dt><var>video</var> . <code subdfn data-x="dom-video-videoWidth">videoWidth</code></dt>
+   <dt><var>video</var> . <code subdfn data-x="dom-video-videoHeight">videoHeight</code></dt>
+
+   <dd>
+
+    <p>这些属性返回视频的固有尺寸，如果尺寸未知，则返回零。</p>
+
+   </dd>
+
+  </dl>
+
+  <div w-nodev>
+
+  <p><span data="media-source">媒体资源</span>的<dfn data-x="concept-video-intrinsic-width">固有宽度</dfn> 和 <dfn
+  data-x="concept-video-intrinsic-height">固有高度</dfn>以 <span data-x="'px'">CSS 像素</span>为单位，这些值是在考虑过资源的尺寸、高宽比、净光圈、分辨率以及视频格式后得出的。如果一个有所变化的格式没有定义如何将宽高比作用于视频数据以获得“正确”的视频尺寸，那么浏览器必须通过增加增加某一维度同时使得另一维度保持不变来应用该比例。</p>
+
+  <p><dfn><code data-x="dom-video-videoWidth">videoWidth</code></dfn> IDL 属性必须返回以 <span data-x="'px'">CSS 像素</span>为单位的视频<span data-x="concept-video-intrinsic-width">固有宽度</span>。 <dfn><code data-x="dom-video-videoHeight">videoHeight</code></dfn> IDL 属性必须返回以 <span data-x="'px'">CSS 像素</span>为单位的视频<span data-x="concept-video-intrinsic-height">固有高度</span>。如果一个元素的 <code data-x="dom-media-readyState">readyState</code> 属性是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么两个属性都必须返回 0。</p>
+
+  <p id="dimUpdate">无论何时，当视频的<span data-x="concept-video-intrinsic-width">固有宽度</span>或者<span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么浏览器必须<span data-x="queue a task">启动一项任务</span> 来 <span data-x="concept-event-fire">触发</span><span data-x="media element">媒体元素上的</span> <code data-x="event-media-resize">resize</code> 事件。</p>
+
+  </div>
+
+  <p><code>video</code> 元素支持 <span>dimension attributes</span>.</p>
+
+  <div w-nodev>
+
+  <p>在没有其他的样式规则时，视频内容应当在播放区域中展现完整，并且高宽比保持不变，居中且尽可能的占据空间。这样一来，如果播放区域的高宽比与视频的高宽比并不一致，视频就会以 letterboxed 或 pillarboxed 的形式展现。不被视频内容占据的播放区域就什么都不显示（显示黑色）。</p>
+
+  <p class="note">用户代理实现 CSS 样式时，上述要求可以使用<a href="#video-object-fit">渲染 video 时建议的样式</a>来实现。</p>
+
+  <p>The <span>intrinsic width</span> of a <code>video</code> element's playback area is the
+  <span>intrinsic width</span> of the <span>poster frame</span>, if that is available and the
+  element currently <span>represents</span> its poster frame; otherwise, it is the <span
+  data-x="concept-video-intrinsic-width">intrinsic width</span> of the video resource, if that is
+  available; otherwise the <span>intrinsic width</span> is missing.</p>
+
+  <p>The <span>intrinsic height</span> of a <code>video</code> element's playback area is the
+  <span>intrinsic height</span> of the <span>poster frame</span>, if that is available and the
+  element currently <span>represents</span> its poster frame; otherwise it is the <span
+  data-x="concept-video-intrinsic-height">intrinsic height</span> of the video resource, if that is
+  available; otherwise the <span>intrinsic height</span> is missing.</p>
+
+  <p>video 元素的<span data-x="default object size">默认尺寸大小</span>是宽 300 <span data-x="'px'">像素</span>，高 150 <span data-x="'px'">像素</span>。 <ref spec=CSSIMAGES></p>
+
+  <p>A <code>video</code> element is said to <dfn>intersect the viewport</dfn> when it is
+  <span>being rendered</span> and its associated CSS layout box intersects the
+  <span>viewport</span>.</p>
+
+  <hr>
+
+  <p>浏览器应当提供控制字幕的显隐，音频以及其他视频附加数据的功能，并且这些功能应该不会影响页面的正常渲染。</p>
+
+  <p>用户代理可以通过一些方式使得用户更加舒服地观看视频，比如全屏或者以一个独立的可改变大小的窗口播放视频。用户代理甚至可以在播放视频时默认触发这种模式，不过当 <code data-x="attr-video-playsinline">playsinline</code> 属性被指定时，他们就不应该这么做了。跟其他的用户界面功能一样，除非显式地展现了切换不同模式时的功能按钮，否则进行模式切换时不应当影响页面的正常渲染。在这种独立的视口模式下，就算 <code data-x="attr-media-controls">controls</code> 属性被省略，用户代理也可以显示完整的控制组件。</p>
+
+  <p>在播放视频时，浏览器可以调整某些系统功能来提升用户体验，比如禁用屏幕保护程序。</p>
+
+  <hr>
+
+  <p>The <dfn><code data-x="dom-video-poster">poster</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-video-poster">poster</code> content attribute.</p>
+
+  <p>The <dfn><code data-x="dom-video-playsInline">playsInline</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-video-playsinline">playsinline</code> content
+  attribute.</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>以下示例说明当视频播放失败时如何检测：</p>
+
+   <pre>&lt;script>
+ function failed(e) {
+   // video playback failed - show a message saying why
+   switch (e.target.error.code) {
+     case e.target.error.MEDIA_ERR_ABORTED:
+       alert('You aborted the video playback.');
+       break;
+     case e.target.error.MEDIA_ERR_NETWORK:
+       alert('A network error caused the video download to fail part-way.');
+       break;
+     case e.target.error.MEDIA_ERR_DECODE:
+       alert('The video playback was aborted due to a corruption problem or because the video used features your browser did not support.');
+       break;
+     case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+       alert('The video could not be loaded, either because the server or network failed or because the format is not supported.');
+       break;
+     default:
+       alert('An unknown error occurred.');
+       break;
+   }
+ }
+&lt;/script>
+&lt;p>&lt;video src="tgif.vid" autoplay controls onerror="failed(event)">&lt;/video>&lt;/p>
+&lt;p>&lt;a href="tgif.vid">Download the video file&lt;/a>.&lt;/p></pre>
+
+  </div>
+
+
+
+
+  <!--CODECS
+
+  <div w-nodev>
+
