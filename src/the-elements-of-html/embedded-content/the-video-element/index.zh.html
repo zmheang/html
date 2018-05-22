@@ -12,7 +12,7 @@
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
    <dd>如果该元素有<code data-x="attr-media-src">src</code> 属性：
  后代可以有零个或多个 <code>track</code> 元素，均为<span data-x="transparent">透明的</span>，并且没有<span data-x="media element">媒体元素</span>。</dd>
-   <dd>如果该元素没有 <code data-x="attr-media-src">src</code> 属性： 后代可以有零个或多个 <code>source</code> 元素，零个或多个 <code>track</code> 元素，后代元素均是<span data-x="transparent">透明的</span>，并且没有 <span data-x="media-element">媒体元素</span>。</dd>
+   <dd>如果该元素没有 <code data-x="attr-media-src">src</code> 属性： 后代可以有零个或多个 <code>source</code> 元素，零个或多个 <code>track</code> 元素，后代元素均是<span data-x="transparent">透明的</span>，并且没有 <span data-x="media element">媒体元素</span>。</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-media-src">src</code></dd>
@@ -194,7 +194,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <p><dfn><code data-x="dom-video-videoWidth">videoWidth</code></dfn> IDL 属性必须返回以 <span data-x="px">CSS 像素</span>为单位的视频<span data-x="concept-video-intrinsic-width">固有宽度</span>。 <dfn><code data-x="dom-video-videoHeight">videoHeight</code></dfn> IDL 属性必须返回以 <span data-x="px">CSS 像素</span>为单位的视频<span data-x="concept-video-intrinsic-height">固有高度</span>。如果一个元素的 <code data-x="dom-media-readyState">readyState</code> 属性是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么两个属性都必须返回 0。</p>
 
-  <p id="dimUpdate">无论何时，当视频的<span data-x="concept-video-intrinsic-width">固有宽度</span>或者<span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么浏览器必须<span data-x="queue a task">启动一项任务</span> 来 <span data-x="concept-event-fire">触发</span><span data-x="media-element">媒体元素上的</span> <code data-x="event-media-resize">resize</code> 事件。</p>
+  <p id="dimUpdate">无论何时，当视频的<span data-x="concept-video-intrinsic-width">固有宽度</span>或者<span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么浏览器必须<span data-x="queue a task">启动一项任务</span> 来 <span data-x="concept-event-fire">触发</span><span data-x="media element">媒体元素上的</span> <code data-x="event-media-resize">resize</code> 事件。</p>
 
   </div>
 
