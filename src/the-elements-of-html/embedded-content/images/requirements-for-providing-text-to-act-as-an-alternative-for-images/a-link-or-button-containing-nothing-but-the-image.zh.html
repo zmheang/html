@@ -1,0 +1,42 @@
+  <h6 id="a-link-or-button-containing-nothing-but-the-image">只包含图片的链接或按钮</h6>
+
+  <p>当创建 <span data-x="hyperlink">超链接</span> 的 <span>a</span> 元素或 <code>button</code> 元素
+  没有文本内容只包含一个或更多图片时，<code data-x="attr-img-alt">alt</code>
+  属性必须包含一些文字来传达链接或按钮的用途。</p>
+
+  <div class="example">
+
+   <p>在这个例子中，要求用户从三个颜色中选择一个喜欢的颜色。
+   每个颜色由图片给出，但对于用户代理配置为不显示图片的用户会用颜色名来替代：</p>
+
+   <pre>&lt;h1>Pick your color&lt;/h1>
+&lt;ul>
+ &lt;li>&lt;a href="green.html"><strong>&lt;img src="green.jpeg" alt="Green"></strong>&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="blue.html"><strong>&lt;img src="blue.jpeg" alt="Blue"></strong>&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="red.html"><strong>&lt;img src="red.jpeg" alt="Red"></strong>&lt;/a>&lt;/li>
+&lt;/ul></pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>在这个例子中，每个按钮有很多图片来表示用户想要输出的颜色类型。
+   每种情况都用第一个图片提供替代文本。</p>
+
+   <pre>&lt;button name="rgb"><strong>&lt;img src="red" alt="RGB">&lt;img src="green" alt="">&lt;img src="blue" alt=""></strong>&lt;/button>
+&lt;button name="cmyk"><strong>&lt;img src="cyan" alt="CMYK">&lt;img src="magenta" alt="">&lt;img src="yellow" alt="">&lt;img src="black" alt=""></strong>&lt;/button></pre>
+
+   <p>由于每个图片表示文字的一部分，也可以写成这样：</p>
+
+   <pre>&lt;button name="rgb"><strong>&lt;img src="red" alt="R">&lt;img src="green" alt="G">&lt;img src="blue" alt="B"></strong>&lt;/button>
+&lt;button name="cmyk"><strong>&lt;img src="cyan" alt="C">&lt;img src="magenta" alt="M">&lt;img src="yellow" alt="Y">&lt;img src="black" alt="K"></strong>&lt;/button></pre>
+
+   <p>但是对于其他的替代文本，可能不能这样写，把所有替代文本放到每种情况的一张图片中可能更合理：</p>
+
+   <pre>&lt;button name="rgb"><strong>&lt;img src="red" alt="sRGB profile">&lt;img src="green" alt="">&lt;img src="blue" alt=""></strong>&lt;/button>
+&lt;button name="cmyk"><strong>&lt;img src="cyan" alt="CMYK profile">&lt;img src="magenta" alt="">&lt;img src="yellow" alt="">&lt;img src="black" alt=""></strong>&lt;/button></pre>
+
+  </div>
+
+
+
