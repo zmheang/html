@@ -4,7 +4,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/whatwg-cn/html.svg)](https://github.com/whatwg-cn/html/graphs/contributors)
 
 [HTML 标准][whatwg/html] 的简体中文翻译 <https://whatwg-cn.github.io/html/multipage>，
-当前进度： 37% (401/1071)
+当前进度： 40% (434/1071)
 
 ## 关于本项目
 
@@ -25,6 +25,7 @@
 
 - [harttle](http://harttle.land)
 - [oott123](https://github.com/oott123)
+- [Clovin](https://github.com/Clovin)
 - [dblate](https://github.com/dblate)
 
 [whatwg/html]: https://github.com/whatwg/html

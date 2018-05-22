@@ -1,0 +1,104 @@
+  <h6 id="a-short-phrase-or-label-with-an-alternative-graphical-representation:-icons,-logos">带有替代图形表示的短语或标签：图标，徽标</h6>
+
+  <p>一个文档可以包含图标信息，图标是为了帮助视觉浏览器的用户一目了然地识别功能。</p>
+
+  <p>有些情况下，图标是文本标签的补充，它们传达同样的含义。
+  那些情况下，<code data-x="attr-img-alt">alt</code> 属性必须存在且为空。</p>
+
+  <div class="example">
+
+   <p>下面的图标在文本旁边表达同样的含义，所以它们的 <code data-x="attr-img-alt">alt</code> 属性为空：</p>
+
+   <pre>&lt;nav>
+ &lt;p>&lt;a href="/help/"><strong>&lt;img src="/icons/help.png" alt=""></strong> Help&lt;/a>&lt;/p>
+ &lt;p>&lt;a href="/configure/"><strong>&lt;img src="/icons/configuration.png" alt=""></strong>
+ Configuration Tools&lt;/a>&lt;/p>
+&lt;/nav></pre>
+
+  </div>
+
+  <p>另外一些情况下，图标旁边没有文字来描述它的含义；这样的图标就应该解释自己的含义。
+  那些情况下，同等的文本标签必须通过<code data-x="attr-img-alt">alt</code> 属性给出。</p>
+
+  <div class="example">
+
+   <p>下面是一个新闻站点，每个文章用一个图标来表示对应的话题。</p>
+
+   <pre>&lt;body>
+ &lt;article>
+  &lt;header>
+   &lt;h1>Ratatouille wins &lt;i>Best Movie of the Year&lt;/i> award&lt;/h1>
+   &lt;p><strong>&lt;img src="movies.png" alt="Movies"></strong>&lt;/p>
+  &lt;/header>
+  &lt;p>Pixar has won yet another &lt;i>Best Movie of the Year&lt;/i> award,
+  making this its 8th win in the last 12 years.&lt;/p>
+ &lt;/article>
+ &lt;article>
+  &lt;header>
+   &lt;h1>Latest TWiT episode is online&lt;/h1>
+   &lt;p><strong>&lt;img src="podcasts.png" alt="Podcasts"></strong>&lt;/p>
+  &lt;/header>
+  &lt;p>The latest TWiT episode has been posted, in which we hear
+  several tech news stories as well as learning much more about the
+  iPhone. This week, the panelists compare how reflective their
+  iPhones' Apple logos are.&lt;/p>
+ &lt;/article>
+&lt;/body></pre>
+
+  </div>
+
+  <p>许多页面包含标志（Logo），徽章，旗帜或徽记，代表某个特定实体，如公司，组织，项目，乐队，软件包，国家或某些特定实体。</p>
+
+  <p>如果标志（Logo）被用于表示实体，例如作为页面标题。
+  <code data-x="attr-img-alt">alt</code> 属性必须包含由徽标表示的实体的名称。
+  <code data-x="attr-img-alt">alt</code> 属性 <em>不得</em> 包含类似 “logo” 的文字，因为它传达的不是标志，而是实体本身。</p>
+
+  <p>如果标志（Logo）用在它表示的实体的名字旁边，那这个标志就是补充性的，
+  其 <code data-x="attr-img-alt">alt</code> 属性必须为空。</p>
+
+  <p>如果标志（Logo）仅用作装饰材料（例如品牌标识，或者例如，作为提及徽标所属实体的文章中的配图），那么它适用下文的纯粹装饰性图片的条目。
+  如果实际上讨论的就是标志，那么它就用作了短语或段落（徽标的描述）并且有替代的图形表示（徽标本身），它适用上面的第一个条目。</p>
+
+  <div class="example">
+
+   <p>在下面的代码片段中，上面四种情况都存在。首先这个标志用于表示一个公司：</p>
+
+   <pre>&lt;h1><strong>&lt;img src="XYZ.gif" alt="The XYZ company"></strong>&lt;/h1></pre>
+
+   <p>然后下面的段落中，在公司名旁边使用标志，所以没有替代文本：
+
+   <pre>&lt;article>
+ &lt;h2>News&lt;/h2>
+ &lt;p>We have recently been looking at buying the <strong>&lt;img src="alpha.gif"
+ alt=""> &Alpha;&Beta;&Gamma; company</strong>, a small Greek company
+ specializing in our type of product.&lt;/p></pre>
+
+   <p>在这第三个代码片段中，在边栏中有一个标志，作为一个大的讨论并购的文章的一部分：</p>
+
+<pre> <strong>&lt;aside>&lt;p>&lt;img src="alpha-large.gif" alt="">&lt;/p>&lt;/aside></strong>
+ &lt;p>The &Alpha;&Beta;&Gamma; company has had a good quarter, and our
+ pie chart studies of their accounts suggest a much bigger blue slice
+ than its green and orange slices, which is always a good sign.&lt;/p>
+&lt;/article></pre>
+
+   <p>最后，我们有一个意见部分谈论一个标志，因此在替代文本中细致地描述了这个标志。</p>
+
+   <pre>&lt;p>Consider for a moment their logo:&lt;/p>
+
+<strong>&lt;p>&lt;img src="/images/logo" alt="It consists of a green circle with a
+green question mark centered inside it.">&lt;/p></strong>
+
+&lt;p>How unoriginal can you get? I mean, oooooh, a question mark, how
+&lt;em>revolutionary&lt;/em>, how utterly &lt;em>ground-breaking&lt;/em>, I'm
+sure everyone will rush to adopt those specifications now! They could
+at least have tried for some sort of, I don't know, sequence of
+rounded squares with varying shades of green and bold white outlines,
+at least that would look good on the cover of a blue book.&lt;/p></pre>
+
+   <p>图片 <i data-x="img-available">不可用</i> 时就会使用文本。
+   这个例子展示了替代文本应该怎样写，使得这些文本可以无缝地嵌入周围的文本，
+   就像那里从来没有图片一样。</p>
+
+  </div>
+
+

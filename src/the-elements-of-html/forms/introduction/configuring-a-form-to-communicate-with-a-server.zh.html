@@ -1,0 +1,54 @@
+  <h5 id="configuring-a-form-to-communicate-with-a-server">配置表单与服务器通信</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>表单提交以多种方式暴露给服务器，通常是 HTTP GET 或 POST 请求。
+  在 <code>form</code> 元素上使用 <code data-x="attr-fs-method">method</code> 属性来指定使用哪种方法。
+  这还没有指定表单数据的编码方式，指定编码方式要使用 <code data-x="attr-fs-enctype">enctype</code>
+  属性。你还需要使用 <code data-x="attr-fs-action">action</code> 属性来指定
+  处理提交的数据的服务的 <span>URL</span>。</p>
+
+  <p>每个需要提交的表单控件都要有一个名字来对应提交的数据。
+  我们已经为单选按钮组指定了名字；这个属性（<code data-x="attr-fe-name">name</code>）也指定了提交的名字。
+  单选按钮可以之间可以通过（使用 <code data-x="attr-input-value">value</code> 属性）
+  给它们不同的值来区分。</p>
+
+  <p>多个控件可以有同样的名字；例如我们给所有复选框一样的名字，服务器检查那个名字的哪些值提交了上来。
+  &mdash; 像单选按钮一样，也通过 <code data-x="attr-input-value">value</code> 属性给它们不重复的值。</p>
+
+  <p>鉴于上一小节的设置，表单现在变成了：</p>
+
+  <pre>&lt;form<strong> method="post"
+      enctype="application/x-www-form-urlencoded"
+      action="https://pizza.example.com/order.cgi"</strong>>
+ &lt;p>&lt;label>Customer name: &lt;input<strong> name="custname"</strong>>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Telephone: &lt;input type=tel<strong> name="custtel"</strong>>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>E-mail address: &lt;input type=email<strong> name="custemail"</strong>>&lt;/label>&lt;/p>
+ &lt;fieldset>
+  &lt;legend> Pizza Size &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=radio name=size<strong> value="small"</strong>> Small &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size<strong> value="medium"</strong>> Medium &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=radio name=size<strong> value="large"</strong>> Large &lt;/label>&lt;/p>
+ &lt;/fieldset>
+ &lt;fieldset>
+  &lt;legend> Pizza Toppings &lt;/legend>
+  &lt;p>&lt;label> &lt;input type=checkbox<strong> name="topping" value="bacon"</strong>> Bacon &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox<strong> name="topping" value="cheese"</strong>> Extra Cheese &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox<strong> name="topping" value="onion"</strong>> Onion &lt;/label>&lt;/p>
+  &lt;p>&lt;label> &lt;input type=checkbox<strong> name="topping" value="mushroom"</strong>> Mushroom &lt;/label>&lt;/p>
+ &lt;/fieldset>
+ &lt;p>&lt;label>Preferred delivery time: &lt;input type=time min="11:00" max="21:00" step="900"<strong> name="delivery"</strong>>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Delivery instructions: &lt;textarea<strong> name="comments"</strong>>&lt;/textarea>&lt;/label>&lt;/p>
+ &lt;p>&lt;button>Submit order&lt;/button>&lt;/p>
+&lt;/form></pre>
+
+  <p class="note">有些属性的值用引号包含，有些没有，但这没有特别的含义。
+  HTML 语法允许很多种合法的方式来指定属性，如 <span data-x="syntax-attributes">语法部分</span> 所述。</p>
+
+  <p>例如，如果顾客输入 "Denise Lawrence" 作为名字，"555-321-8642" 作为电话号，没有指定 e-mail 地址，
+  要一个中等大小的 Pizza，选择了 Extra Cheese 和 Mushroom 配料，
+  输入的配送时间是 7pm 并在配送备注部分留空，用户代理会提交下面内容到在线 Web 服务：</p>
+
+  <pre>custname=Denise+Lawrence&amp;custtel=555-321-8642&amp;custemail=&amp;size=medium&amp;topping=cheese&amp;topping=mushroom&amp;delivery=19%3A00&amp;comments=</pre>
+
+

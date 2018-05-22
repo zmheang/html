@@ -1,0 +1,44 @@
+  <h5 id="introduction-5">概述</h5>
+
+  </div>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>提交表单时，表单中的数据会转换为 <span data-x="concept-fs-enctype">enctype</span> 指定的结构，
+  然后使用给定的 <span data-x="concept-fs-method">method</span> 发送到
+  <span data-x="concept-fs-action">action</span> 指定的目的地址。</p>
+
+  <p>例如下面的表单：</p>
+
+  <pre>&lt;form action="/find.cgi" method=get>
+ &lt;input type=text name=t>
+ &lt;input type=search name=q>
+ &lt;input type=submit>
+&lt;/form></pre>
+
+  <p>如果用户在第一个字段输入 "cats"，在第二个字段输入 "fur"，然后点击提交按钮，
+  那么用户代理就会加载 <code data-x="">/find.cgi?t=cats&amp;q=fur</code>。</p>
+
+  <p>另一方面考虑这个表单：</p>
+
+  <pre>&lt;form action="/find.cgi" method=post enctype="multipart/form-data">
+ &lt;input type=text name=t>
+ &lt;input type=search name=q>
+ &lt;input type=submit>
+&lt;/form></pre>
+
+  <p>给同样的用户输入，提交的结果会非常不同：用户代理会发一个
+  HTTP POST 请求到给定的 URL，消息体是像这样的文本：</p>
+
+  <pre>------kYFrd4jNJEgCervE
+Content-Disposition: form-data; name="t"
+
+cats
+------kYFrd4jNJEgCervE
+Content-Disposition: form-data; name="q"
+
+fur
+------kYFrd4jNJEgCervE--</pre>
+
+  <div w-nodev>
+

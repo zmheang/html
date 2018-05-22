@@ -1,0 +1,22 @@
+  <h6 id="selecting-specific-audio-and-video-tracks-declaratively">声明式地选择特定的音频和视频轨道</h6>
+
+  <p><code data-x="dom-media-audioTracks">audioTracks</code> 和 <code
+  data-x="dom-media-videoTracks">videoTracks</code> 属性使得脚本可以选择应该播放哪个轨道，
+  但也可以声明式地选择特定的轨道：
+  在 <span data-x="media resource">媒体资源</span> 的 <span>URL</span> 的
+  <span data-x="concept-url-fragment">fragment</span> 上指定特定的轨道。
+  <span data-x="concept-url-fragment">fragment</span> 的格式取决于
+  <span data-x="media resource">资源</span> 的 <span data-x="mime type">MIME 类型</span>。
+  <ref spec=RFC2046> <ref spec=URL></p>
+
+  <div class="example">
+
+   <p>下面例子中嵌入的这个视频使用了支持 <span data-x="media fragment syntax">媒体片段语法</span>
+   的媒体格式，启用了标注为 "Alternative" 的轨道，而不是默认视频轨道。</p>
+
+   <pre>&lt;video src="myvideo#track=Alternative">&lt;/video></pre>
+
+  </div>
+
+
+

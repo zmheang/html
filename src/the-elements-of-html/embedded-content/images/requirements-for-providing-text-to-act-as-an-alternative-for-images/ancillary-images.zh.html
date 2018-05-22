@@ -1,0 +1,59 @@
+  <h6 id="ancillary-images">辅助性图片</h6>
+
+  <p>有些图片对内容不那么重要，可能是纯粹装饰性图片，也可能与文本完全冗余。
+  这些情况下，<code data-x="attr-img-alt">alt</code> 属性也必须存在，它的值应该是空字符串，
+  或者是一个图片传达的信息的文本表示。如果图片的标题部分给出了图片标题，那么
+  <code data-x="attr-img-alt">alt</code> 属性值不得为空（因为那可能会让非视觉媒体的读者感到困惑）。</p>
+
+  <div class="example">
+
+   <p>考虑一篇关于政治人物的新文章，其中的图片显示了人物的面部，通过样式表浮动到右侧。
+   这张图片就不是纯装饰性的，因为它与故事相关。这张图片也不完全与故事冗余，因为它显示了政客的长相。
+   是否提供替代文本取决于作者，也部分取决于这张图片是否对文章起到润色的作用。</p>
+
+   <p>下面第一个例子中，图片没有上下文也没有替代文本：</p>
+
+   <pre>&lt;p><strong>&lt;img src="alexsalmond.jpeg" alt=""></strong> Ahead of today's referendum,
+the First Minister of Scotland, Alex Salmond, wrote an open letter to all
+registered voters. In it, he admitted that all countries make mistakes.&lt;/p></pre>
+
+   <p>如果图片只是一张脸，可能没有必要描述它。
+   读者完全不关心他的头发是红色还是棕色，白皮肤或黑皮肤，有一个眼睛还是两个眼睛。</p>
+
+   <p>但是如果图片更加动态，比如显示了政客很生气，或者非常开心，或者很颓废，
+   可能就应该加一些替代文本来给文章一个基调。如果没有替代文本可能这个基调就会被读者遗漏。</p>
+
+   <pre>&lt;p><strong>&lt;img src="alexsalmond.jpeg" alt="Alex Salmond is sad."></strong>
+Ahead of today's referendum, the First Minister of Scotland, Alex Salmond,
+wrote an open letter to all registered voters. In it, he admitted that all
+countries make mistakes.&lt;/p></pre>
+
+   <pre>&lt;p><strong>&lt;img src="alexsalmond.jpeg" alt="Alex Salmond is ecstatic!"></strong>
+Ahead of today's referendum, the First Minister of Scotland, Alex Salmond,
+wrote an open letter to all registered voters. In it, he admitted that all
+countries make mistakes.&lt;/p></pre>
+
+   <p>任务是 "伤心" 还是 "高兴" 会影响后续段落的解读：
+   他可能是说由于即将举行的公民投票会对他不利而向民众辞职，
+   也可能是说这次选举出了一些问题，但是接下来的投票率可能使它变得无关紧要。
+   解读因图片内容而异。</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>如果该图片有标题部分，那么包含一段替代文本可以避免让非视觉媒体的用户困惑标题指代的内容。</p>
+
+   <pre>&lt;p>Ahead of today's referendum, the First Minister of Scotland, Alex Salmond,
+wrote an open letter to all registered voters. In it, he admitted that all
+countries make mistakes.&lt;/p>
+<strong>&lt;figure>
+ &lt;img src="alexsalmond.jpeg"
+      alt="A high forehead, cheerful disposition, and dark hair round out Alex Salmond's face.">
+ &lt;figcaption> Alex Salmond, SNP. Photo &copy; 2014 PolitiPhoto. &lt;/figcaption>
+&lt;/figure></strong></pre>
+
+  </div>
+
+
+

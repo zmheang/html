@@ -132,148 +132,37 @@
 
   <hr>
 
-  <p>下面的元素会创建 <dfn data-x="control group">控件组</dfn>：
+  <p>每个 <code>Document</code> 都有一个 <span data-x="focusable area">可聚焦区域</span> 被指定为
+  <dfn data-x="focused area of the document">文档的焦点区域</dfn>。
+  被指定的具体是哪个控件会随时间变化，取决于本规范中的算法。
+  如果 <code>Document</code> 没有 <span data-x="focusable area">可聚焦区域</span>，
+  它就没有 <span data-x="focused area of the document">焦点区域</span>。</p>
+  <!-- TODO(kochi): update "in a document tree" for shadow trees -->
 
-  <ul class="brief">
-
-   <li>有 <span data-x="concept-document-bc">浏览上下文</span> 的 <code>Document</code>。</li>
-
-   <li>设置了<code data-x="attr-dialog-open">open</code> 属性的
-   <span data-x="being rendered">被渲染的</span><code>dialog</code> 元素。</li>
-
-  </ul>
-
-  <p>相应 <code>Document</code> 对象或 <code>dialog</code> 元素是刚创建的
-  <span data-x="control group">控件组</span> 的
-  <dfn data-x="control group owner object">owner 对象</dfn>。
-  （<span data-x="control group">控件组</span> 和 <span
-  data-x="control group owner object">控件组 owner 对象</span> 之间总是存在1对1的映射）</p>
-
-  <p>每个 <span data-x="focusable area">可聚焦区域</span> 都属于下面的一个
-  <span data-x="control group">控件组</span>。如果
-  <span data-x="focusable area">可聚焦区域</span> 的 <span data-x="dom anchor">DOM 锚点</span>
-  是一个 <span data-x="control group owner object">控件组 Owner 对象</span>，
-  那么这个 <span data-x="focusable area">可聚焦区域</span> 就属于那个
-  <span data-x="control group owner object">控件组的 Owner 对象</span> 的
-  <span data-x="control group">控件组</span>。否则，该 <span data-x="focusable area">可聚焦区域</span>
-  属于它的 <span data-x="dom anchor">DOM 锚点</span> 的最近的祖先
-  <span data-x="control group owner object">控件组 Owner 对象</span> 的
-  <span data-x="control group">控件组</span>。</p>
-
-  <div class="example">
-   <p>因此：</p>
-
-   <ul>
-    <li><p><span>viewport</span> 总是属于
-    创建 <span>viewport</span> 的 <code>Document</code> 的
-    <span data-x="control group">控件组</span>。</p></li>
-
-    <li><p><code>input</code> 控件属于它最近的祖先 <code>dialog</code> 或 <code>Document</code>
-    的 <span data-x="control group">控件组</span>。</p></li>
-
-    <li><p>图片 map 的形状属于 <code>img</code> 元素（
-    不是 <code>area</code> 元素 &mdash; 这意味着一个 <code>area</code> 元素可能会在不同的
-    <span data-x="control group">控件组</span> 中创建多个形状）
-    最近的祖先 <code>dialog</code> 或 <code>Document</code>
-    </p></li>
-   </ul>
-  </div>
-
-  <p class="note"><span data-x="control group">控件组</span> 可能是空的，例如
-  它没有 <span data-x="focusable area">可获得焦点区域</span>。</p>
-
-  <hr>
-
-  <p><span id="expressly-inert-control"></span><span id="expressly-inert-dialog"></span>
-  如果一个元素是 <span data-x="inert">不活动的</span> 且它最近的祖先
-  <span data-x="control group owner object">owner 对象</span> 不是 <span data-x="inert">不活动的</span>，
-  那么它就是 <dfn data-x="expressly inert">明确不活跃的</dfn>。
-  </p>
-
-  <div class="example">
-   <p>在一个没有 <code>dialog</code> 元素的页面中，所有 <span data-x="inert">不活动的</span> 元素都是
-   <span data-x="expressly inert">明确不活动的</span>，反之亦然。</p>
-
-   <p>在 <span data-x="inert">不活动的</span> <code>dialog</code> 元素内，所有后代元素都不是
-   <span data-x="expressly inert">明确不活动的</span>，即使它们是 <span data-x="inert">不活动的</span>。</p>
-
-   <p>如果 <code>dialog</code> 元素是 <span data-x="inert">不活动的</span> 且没有嵌套在另一个
-   <span data-x="inert">不活动的</span> 对话框中，
-   那么它就是 <span data-x="expressly inert">明确不活跃的</span>。</p>
-  </div>
-
-  <hr>
-
-  <p>每个 <span data-x="control group owner object">owner 对象</span> 也可以作为
-  <dfn data-x="dialog group">对话框组</dfn> 的
-  <dfn data-x="dialog group manager">对话框组管理者</dfn>。</p>
-
-  <p>每个指定了 <code data-x="attr-dialog-open">open</code> 属性的，以及
-  不是 <span data-x="expressly inert">明确不活跃的</span>
-  <span data-x="being rendered">被渲染</span> 的 <code>dialog</code> 元素
-  （即它是一个 <span data-x="control group owner object">owner 对象</span>）
-  都属于其 <span data-x="dialog group manager">manager</span> 是该 <code>dialog</code> 元素最近祖先
-  <span data-x="control group owner object">owner 对象</span> 的 <span data-x="dialog group">对话框组</span>。</p>
-
-  <p>如果不存在有特定的 <span data-x="control group owner object">owner 对象</span>
-  作为最近祖先 <span data-x="control group owner object">owner 对象</span> 的 <code>dialog</code> 元素，
-  那么那个 <span data-x="control group owner object">owner 对象</span> 就没有 <span data-x="dialog group">对话框组</span>。</p>
-
-  <p>每个 <span data-x="dialog group">对话框组</span> 可以有一个 <code>dialog</code> 指定为
-  <dfn data-x="focused dialog of the dialog group">对话框组的焦点对话框</dfn>。
-  指定的 <code>dialog</code> 会基于本规范中的算法随时间变化。</p>
-
-  <p><span data-x="dialog group">对话框组</span> 中的元素以 <span data-x="tree order">树序</span>
-  排列。</p>
-
-  <hr>
-
-  <p>
-  每个非空 <span data-x="control group">控件组</span> 中
-  有一个 <span data-x="focusable area">可聚焦区域</span>
-  被指定为 <dfn data-x="focused area of the control group">控件组的焦点区域</dfn>。
-  指定的控件会基于本规范中的算法随时间变化。
-  如果一个 <span data-x="control group">控件组</span> 为空，它就没有 <span
-  data-x="focused area of the control group">焦点区域</span>。</p>
-
-  <p>
-  在 <span data-x="control group">控件组</span> 中的
-  <span data-x="focusable area">可获得焦点区域</span>
+  <p><code>Document</code> 中的 <span data-x="focusable area">可聚焦区域</span>
   是相对于他们的 <span data-x="DOM anchor">DOM 锚点</span> 的 <span data-x="tree order">树序</span> 排列的。
-  <span data-x="control group">控件组</span> 中有着同样 <span data-x="dom anchor">DOM 锚点</span> 的
+  <code>Document</code> 中有着同样 <span data-x="dom anchor">DOM 锚点</span> 的
   <span data-x="focusable area">可获得焦点区域</span>
   是按照它们相关的 CSS 盒子的相对位置的树序排列的，是盒子树的深度优先遍历。 <ref spec=CSS></p>
 
   <hr>
 
   <p>任意一刻 <dfn data-x="currently focused area of a top-level browsing context">顶级浏览上下文的当前焦点区域</dfn>
-  都是下列算法返回的 <span data-x="focusable area">可聚焦区域</span> 或 <code>dialog</code>：</p>
+  都是下列算法返回的 <span data-x="focusable area">可聚焦区域</span>：</p>
 
   <ol>
 
-   <li><p>令 <var>candidate</var> 为 <span data-x="top-level browsing context">顶级浏览上下文</span> 的 <code>Document</code>。</p></li>
+   <li><p>Let <var>candidate</var> be the <code>Document</code> of the <span>top-level
+   browsing context</span>.</p></li>
 
-   <li>
+   <li><p>If the designated <span>focused area of the document</span> is a <span>browsing context
+   container</span> with a non-null <span>nested browsing context</span>, then let
+   <var>candidate</var> be the <span>active document</span> of that <span>browsing context
+   container</span>'s <span>nested browsing context</span>, and redo this step.</p></li>
 
-    <p>如果 <var>candidate</var> 有一个指定了
-    <span data-x="focused dialog of the dialog group">对话框组的焦点对话框</span> 的
-    <span data-x="dialog group">对话框组</span>，那么令
-    <var>candidate</var> 为指定的
-    <span data-x="focused dialog of the dialog group">对话框组的焦点对话框</span>，并重新执行这一步。</p>
-
-    <p>否则如果 <var>candidate</var> 有一个非空的 <span data-x="control group">控件组</span>，
-    且指定的 <span data-x="focused area of the control group">控件组的焦点区域</span> 是一个有着非 null
-    <span data-x="nested browsing context">嵌套浏览上下文</span> 的
-    <span data-x="browsing context container">浏览上下文容器</span>，
-    那么令 <var>candidate</var> 为那个
-    <span data-x="browsing context container">浏览上下文容器</span> 的
-    <span data-x="nested browsing context">嵌套浏览上下文</span> 的
-    <span data-x="active document">活动文档</span>，然后重新执行这一步。</p>
-
-    <p>否则，如果 <var>candidate</var> 有一个非空 <span data-x="control group">控件组</span>，
-    令 <var>candidate</var> 为指定的 <span data-x="focused area of the control group">控件组的焦点区域</span>。</p>
-
-   </li>
+   <li><p>If <var>candidate</var> has a <span data-x="focused area of the document">focused
+   area</span>, set <var>candidate</var> to <var>candidate</var>'s <span data-x="focused area of
+   the document">focused area</span>.</p></li>
 
    <li><p>返回 <var>candidate</var>。</p></li>
 
@@ -292,7 +181,7 @@
   <div w-nodev>
 
   <p>
-  <span data-x="focusable area">可聚焦区域</span> 或 <span data-x="control group owner object">owner 对象</span>
+  <span data-x="focusable area">可聚焦区域</span>
   <var>subject</var> 的 <dfn data-x="focus chain">焦点链</dfn> 是这样构造的有序列表：</p>
 
   <ol>
@@ -316,16 +205,7 @@
 
    <li>
 
-    <p>如果 <var>current object</var> 是一个 <span data-x="dialog group">对话框组</span> 中的
-    <code>dialog</code> 对象，令 <var>current object</var> 为那个 <span data-x="dialog group">对话框组</span> 的
-    <span data-x="dialog group manager">manager</span>，然后返回到标记为 <i>loop</i> 的步骤。</p>
-
-    <p>否则，如果 <var>current object</var> 是一个 <span data-x="focusable area">可聚焦区域</span>，
-    令 <var>current object</var> 为那个 <span data-x="focusable area">可聚焦区域</span> 的
-    <span data-x="control group">控件组</span> 的 <span data-x="control group owner object">owner 对象</span>，
-    并返回到标记为 <i>loop</i> 的步骤。</p>
-
-    <p>否则，如果 <var>current object</var> 是一个
+    <p>如果 <var>current object</var> 是一个
     <span data-x="nested browsing context">嵌套浏览上下文</span> 中的
     <code>Document</code>，令 <var>current object</var> 为它的
     <span data-x="browsing context container">浏览上下文容器</span>，

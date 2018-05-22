@@ -25,6 +25,10 @@
   <span>nested browsing context</span>'s <span>active document</span>, and all nodes in that
   <code>Document</code>, must be marked as <span>inert</span>.</p>
 
+  <p><span id="expressly-inert-control"></span><span id="expressly-inert-dialog"></span>An element
+  is <dfn>expressly inert</dfn> if it is <span>inert</span> and its <span>node document</span> is
+  not <span>inert</span>.</p>
+
   <p>A <code>Document</code> <var>document</var> is <dfn>blocked by a modal dialog</dfn>
   <var>subject</var> if <var>subject</var> is the topmost <code>dialog</code> element in
   <var>document</var>'s <span>top layer</span>. While <var>document</var> is so blocked, every node

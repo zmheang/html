@@ -1,11 +1,12 @@
   <h4><dfn>Sequential focus navigation</dfn></h4>
 
-  <p>Each <span>control group</span> has a <dfn>sequential focus navigation order</dfn>, which orders some
-  or all of the <span data-x="focusable area">focusable areas</span> in the <span>control group</span>
+  <p>Each <code>Document</code> has a <dfn>sequential focus navigation order</dfn>, which orders some
+  or all of the <span data-x="focusable area">focusable areas</span> in the <code>Document</code>
   relative to each other. The order in the <span>sequential focus navigation order</span> does not
-  have to be related to the order in the <span>control group</span> itself. If a <span>focusable area</span> is
-  omitted from the <span>sequential focus navigation order</span> of its <span>control group</span>, then
-  it is unreachable via <span>sequential focus navigation</span>.</p>
+  have to be related to the <span>tree order</span> in the <code>Document</code> itself. If a
+  <span>focusable area</span> is omitted from the <span>sequential focus navigation order</span>
+  of its <code>Document</code>, then it is unreachable via <span>sequential focus
+  navigation</span>.</p>
 
   <p>There can also be a <dfn>sequential focus navigation starting point</dfn>. It is initially
   unset. The user agent may set it when the user indicates that it should be moved.</p>
@@ -44,9 +45,9 @@
 
     <p><i>Loop</i>: Let <var>selection mechanism</var> be <i>sequential</i> if the <var>starting
     point</var> is a <span>browsing context</span> or if <var>starting point</var> is in its
-    <span>control group</span>'s <span>sequential focus navigation order</span>.</p>
+    <code>Document</code>'s <span>sequential focus navigation order</span>.</p>
 
-    <p>Otherwise, <var>starting point</var> is not in its <span>control group</span>'s
+    <p>Otherwise, <var>starting point</var> is not in its <code>Document</code>'s
     <span>sequential focus navigation order</span>; let <var>selection mechanism</var> be
     <i>DOM</i>.</p>
 
@@ -119,12 +120,16 @@
      <tbody>
       <tr>
        <th><var>starting point</var> is a <span>browsing context</span>
-       <td>Let <var>candidate</var> be the first <span>suitable sequentially focusable area</span> in <var>starting point</var>'s <span>active document</span>'s <span>control group</span>, if any; or else null
-       <td>Let <var>candidate</var> be the last <span>suitable sequentially focusable area</span> in <var>starting point</var>'s <span>active document</span>'s <span>control group</span>, if any; or else null
+       <td>Let <var>candidate</var> be the first <span>suitable sequentially focusable area</span>
+       in <var>starting point</var>'s <span>active document</span>, if any; or else null
+       <td>Let <var>candidate</var> be the last <span>suitable sequentially focusable area</span>
+       in <var>starting point</var>'s <span>active document</span>, if any; or else null
       <tr>
        <th><var>selection mechanism</var> is <i>DOM</i>
-       <td>Let <var>candidate</var> be the first <span>suitable sequentially focusable area</span> in the <span>home control group</span> following <var>starting point</var>, if any; or else null
-       <td>Let <var>candidate</var> be the last <span>suitable sequentially focusable area</span> in the <span>home control group</span> preceding <var>starting point</var>, if any; or else null
+       <td>Let <var>candidate</var> be the first <span>suitable sequentially focusable area</span>
+       in the <span>home document</span> following <var>starting point</var>, if any; or else null
+       <td>Let <var>candidate</var> be the last <span>suitable sequentially focusable area</span>
+       in the <span>home document</span> preceding <var>starting point</var>, if any; or else null
       <tr>
        <th><var>selection mechanism</var> is <i>sequential</i>
        <td>Let <var>candidate</var> be the first <span>suitable sequentially focusable area</span> in the <span>home sequential focus navigation order</span> following <var>starting point</var>, if any; or else null
@@ -132,17 +137,18 @@
 
     </table>
 
-    <p>A <dfn>suitable sequentially focusable area</dfn> is a <span>focusable area</span> whose <span>DOM
-    anchor</span> is not <span>inert</span> and that is in its <span>control group</span>'s <span>sequential
-    focus navigation order</span>.</p>
+    <p>A <dfn>suitable sequentially focusable area</dfn> is a <span>focusable area</span> whose
+    <span>DOM anchor</span> is not <span>inert</span> and that is in its <code>Document</code>'s
+    <span>sequential focus navigation order</span>.</p>
 
-    <p>The <dfn>home control group</dfn> is the <span>control group</span> to which <var>starting point</var> belongs.</p>
+    <p>The <dfn>home document</dfn> is the <code>Document</code> to which <var>starting point</var>
+    belongs.</p>
 
     <p>The <dfn>home sequential focus navigation order</dfn> is the <span>sequential focus
     navigation order</span> to which <var>starting point</var> belongs.</p>
 
     <p class="note">The <span>home sequential focus navigation order</span> is the <span>home
-    control group</span>'s <span>sequential focus navigation order</span>, but is only used when the
+    document</span>'s <span>sequential focus navigation order</span>, but is only used when the
     <var>starting point</var> is in that <span>sequential focus navigation order</span>
     (when it's not, <var>selection mechanism</var> will be <i>DOM</i>).</p>
 

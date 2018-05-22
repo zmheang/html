@@ -1,0 +1,38 @@
+  <h6 id="guidance-for-conformance-checkers">规范检查工具指引</h6>
+
+  <p>规范检查工具必须把缺少 <code data-x="attr-img-alt">alt</code> 属性报告为错误，
+  符合以下条件之一的情形除外：</p>
+
+  <ul>
+
+   <!-- when editing this list, search for the two other occurrences of 'critical-no-alt' -->
+
+   <li><p>该 <code>img</code> 元素在一个 <code>figure</code> 元素中，
+   这个 <code>figure</code> 元素满足 <a href="#figcaption-as-alt-condition">上述条件</a>。</p></li>
+
+   <li><p>该 <code>img</code> 元素有一个 <code data-x="attr-title">title</code> 属性，
+   其值不是空字符串（<a href="#unknown-images">描述如上</a>）。</p></li>
+
+   <!-- the following are additional entries not included in the aforementioned list, as they apply
+   only to conformance checkers -->
+
+   <li><p>规范检查工具的配置中声明了，该文档是一封邮件，或该文档的受众是特定的肯定可以查看图片的人。</p></li>
+
+   <li><p><code>img</code> 元素有一个 (不合规范的)
+   <code data-x="attr-img-generator-unable-to-provide-required-alt">generator-unable-to-provide-required-alt</code>
+   属性其值为非空字符串。规范检查工具如果不把缺失
+   <code data-x="attr-img-alt">alt</code> 属性报告为错误，也必须不把空的
+   <code data-x="attr-img-generator-unable-to-provide-required-alt">generator-unable-to-provide-required-alt</code>
+   属性报告为错误。
+   （该情况并不代表文档符合规范，只是说生成器不能够确定合适的替代文本 &mdash;
+   所以不要求验证器在这种情况下显示错误。因为这会鼓励标签生成器为了禁用检查工具报错而引入假的替代文本。
+   正常情况下，规范检查工具 <em>可以</em> 把缺失 <code data-x="attr-img-alt">alt</code> 属性报告为错误，
+   即使指定了 <code data-x="attr-img-generator-unable-to-provide-required-alt">generator-unable-to-provide-required-alt</code>
+   属性；例如可能有一个用户选项是报告 <em>所有</em> 规范错误，
+   即使这些错误可能是使用标记生成器或多或少不可避免的。）</p></li>
+
+  </ul>
+
+  </div>
+
+

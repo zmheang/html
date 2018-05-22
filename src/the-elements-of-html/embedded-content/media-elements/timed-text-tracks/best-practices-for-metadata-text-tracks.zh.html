@@ -1,0 +1,64 @@
+  <h6 id="best-practices-for-metadata-text-tracks">元数据字幕的最佳实践</h6>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>字幕可用于存储与多媒体数据相关的数据，用来做交互式的，增强的视图。</p>
+
+  <p>例如，一个显示体育播报的页面可能会包含当前分数信息。
+  假设正在直播一个机器人比赛。图片上可能会覆盖上分数，像这样：</p>
+
+  <p><iframe src="data:text/html;charset=utf-8,%3C!DOCTYPE%20html%3E%0A%3Cstyle%3E%0A%20body%2C%20html%20%7B%20margin%3A%200%3B%20padding%3A%200%3B%20overflow%3A%20hidden%3B%20%7D%0A%20div%20%7B%20width%3A%20600px%3B%20height%3A%20400px%3B%20position%3A%20relative%3B%20%7D%0A%20p%20%7B%20position%3A%20absolute%3B%20top%3A%200%3B%20margin%3A%200.25em%3B%20font%3A%20small-caps%20900%202em%20sans-serif%3B%20text-shadow%3A%20white%200%200%204px%3B%20%7D%0A%20span%20%7B%20display%3A%20block%3B%20%7D%0A%20.left%20%7B%20color%3A%20red%3B%20left%3A%200%3B%20text-align%3A%20left%3B%20%7D%0A%20.right%20%7B%20color%3A%20blue%3B%20right%3A%200%3B%20text-align%3A%20right%3B%20%7D%0A%20.middle%20%7B%20color%3A%20white%3B%20top%3A%20auto%3B%20bottom%3A%200%3B%20left%3A%200%3B%20right%3A%200%3B%20text-align%3A%20center%3B%20text-shadow%3A%20black%200%200%204px%3B%20%7D%0A%20.middle%20span%20%7B%20display%3A%20inline-block%3B%20margin%3A%200%201em%3B%20font-size%3A%200.75em%3B%20text-transform%3A%20uppercase%3B%20%7D%0A%3C%2Fstyle%3E%0A%3Cdiv%3E%0A%20%3Cimg%20src%3D%22https%3A%2F%2Fhtml.spec.whatwg.org%2Fimages%2Frobots.jpeg%22%3E%0A%20%3Cp%20class%3D%22score%20left%22%3E%3Cspan%3ERed%20Alliance%3C%2Fspan%3E%20%3Cspan%3E78%3C%2Fspan%3E%3C%2Fp%3E%0A%20%3Cp%20class%3D%22score%20right%22%3E%3Cspan%3EBlue%20Alliance%3C%2Fspan%3E%20%3Cspan%3E66%3C%2Fspan%3E%3C%2Fp%3E%0A%20%3Cp%20class%3D%22score%20middle%22%3E%3Cspan%3EQual%20Match%2037%3C%2Fspan%3E%20%3Cspan%3EFriday%2014%3A21%3C%2Fspan%3E%0A%3C%2Fdiv%3E" width="600" height="400"></iframe>
+
+  <p>为了让用户回放到视频任意位置时分数都能正确地呈现，元数据字幕提示需要达到那个分数适用的长度。
+  例如在上面这一帧，显示比赛序号的字幕提示可能持续整场比赛，显示蓝队分数的字幕提示持续到蓝队得分变化，
+  显示红队分数的字幕提示持续到红队得分变化。如果这个视频只是事件的直播流，
+  右下角的时间可能会自动从当前视频时间得出，而不是通过字幕提示显示。
+  但如果视频只是精彩回放，那么它可能也会通过字幕给出。</p>
+
+  <p>在 WebVTT 文件中，这些字幕提示的片段可能像这样：</p>
+
+  <pre>WEBVTT
+
+...
+
+05:10:00.000 --> 05:12:15.000
+matchtype:qual
+matchnumber:37
+
+...
+
+05:11:02.251 --> 05:11:17.198
+red:78
+
+05:11:03.672 --> 05:11:54.198
+blue:66
+
+05:11:17.198 --> 05:11:25.912
+red:80
+
+05:11:25.912 --> 05:11:26.522
+red:83
+
+05:11:26.522 --> 05:11:26.982
+red:86
+
+05:11:26.982 --> 05:11:27.499
+red:89
+
+...</pre>
+
+  <p>这里的关键在于字幕提示给出的信息覆盖了相关事件的时间长度。
+  如果得分变化时得分以 0 长度（或非常短的，近乎 0 的长度）的字幕给出，
+  比如在 05:11:17.198 时 "red+2"，在 05:11:25.912 时 "red+3"，问题就会出现：
+  回放寻找会很难实现，因为脚本必须遍历整个字幕提示列表来确保没有错过任何通知；
+  但同时，如果字幕提示很短，脚本也可能永远不会看到它们被激活，除非脚本明确地监听了它。</p>
+
+  <p>当这样使用字幕时，鼓励作者使用 <code
+  data-x="event-media-cuechange">cuechange</code> 事件来更新当前提示。
+  （典型地，使用 <code data-x="event-media-timeupdate">timeupdate</code> 事件不太合适，
+  因为即使字幕提示没变也要进行计算，更重要的是这会在元数据字幕提示激活与显示更新之间引入更高的延迟，
+  因为 <code data-x="event-media-timeupdate">timeupdate</code> 事件是限制速率的。）
+  </p>
+
+
+

@@ -1,0 +1,17 @@
+  <h5 id="best-practices-for-authors-using-media-elements">作者使用媒体元素的最佳实践</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>在机顶盒和手机的小型设备上播放音视频资源经常会受到有限的硬件资源的限制，
+  比如一个机器可能只支持同时播放三个视频。
+  因此好的实践是在 <span data-x="media element">媒体元素</span> 播放完后立即释放资源。
+  做法可以是移除所有对这个元素的引用让它被垃圾回收，或者更好的方式是，
+  移除元素的的 <code data-x="attr-media-src">src</code> 属性和所有后代
+  <code>source</code> 元素，然后调用元素的 <code
+  data-x="dom-media-load">load()</code> 方法。</p>
+
+  <p>类似地，当回放速率不是 1.0 时，软硬件和格式限制会造成视频丢帧或音频卡顿和静音。</p>
+
+
+  <div w-nodev>
+

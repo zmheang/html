@@ -166,17 +166,16 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   <ol>
 
-   <li><p>If for some reason <var>subject</var> is not a <span>control group owner object</span>
-   at this point, or if it is <span>inert</span>, return.</p></li>
+   <li><p>If <var>subject</var> is <span>inert</span>, return.</p></li>
 
    <li>
 
-    <p>Let <var>control</var> be the first non-<span>inert</span> <span>focusable area</span> in
-    <var>subject</var>'s <span>control group</span> whose <span>DOM anchor</span> has an <code
+    <p>Let <var>control</var> be the first descendant element of <var>subject</var>, in <span>tree
+    order</span>, that is not <span>inert</span> and has the <code
     data-x="attr-fe-autofocus">autofocus</code> attribute specified.</p>
 
     <p>If there isn't one, then let <var>control</var> be the first non-<span>inert</span>
-    <span>focusable area</span> in <var>subject</var>'s <span>control group</span>.</p>
+    descendant element of <var>subject</var>, in tree order.
 
     <p>If there isn't one of those either, then let <var>control</var> be <var>subject</var>.</p>
 
