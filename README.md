@@ -26,6 +26,7 @@
 - [harttle](http://harttle.land)
 - [oott123](https://github.com/oott123)
 - [Clovin](https://github.com/Clovin)
+- [dblate](https://github.com/dblate)
 
 [whatwg/html]: https://github.com/whatwg/html
 [whatwg-cn/html]: https://github.com/whatwg-cn/html

@@ -12,7 +12,7 @@
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
    <dd>如果该元素有<code data-x="attr-media-src">src</code> 属性：
  后代可以有零个或多个 <code>track</code> 元素，均为<span data-x="transparent">透明的</span>，并且没有<span data-x="media element">媒体元素</span>。</dd>
-   <dd>如果该元素没有 <code data-x="attr-media-src">src</code> 属性： 后代可以有零个或多个 <code>source</code> 元素，零个或多个 <code>track</code> 元素，后代元素均是<span data-x="transparent">透明的</span>，并且没有 <span data-x="media element">媒体元素</span>。</dd>
+   <dd>如果该元素没有 <code data-x="attr-media-src">src</code> 属性： 后代可以有零个或多个 <code>source</code> 元素，零个或多个 <code>track</code> 元素，后代元素均是<span data-x="transparent">透明的</span>，并且没有<span data-x="media element">媒体元素</span>。</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-media-src">src</code></dd>
@@ -47,13 +47,13 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <p>可以在 <code>video</code> 元素内提供一些文本内容<span w-nodev>。用户代理不应向用户展示这些内容</span>；这些内容是用来提供给那些不支持 <code>video</code>元素的老旧浏览器，这样他们可以尝试替换为以前的视频插件，或者向用户展示这些文字，以便告知用户如何访问视频内容。</p>
 
-  <p class="note">需要注意的是，<code>video</code> 标签内部的文本并不是为了解决可访问性问题。有许多其他特性能帮助弱视、盲人、听力障碍者、聋人以及有其他身体或认知障碍的人获取视频内容。要提供字幕，可以将其直接嵌入到视频中，也可以通过 <code>track</code> 元素外引文件的方式。可以将手语作为额外的视频轨道嵌入到视频流中。音频描述可以直接嵌入到视频流中或者通过 <span data-x="WebVTT file">WebVTT 文件</span> 以文本的形式提供，通过 <code>track</code> 元素引用 <span data-x="WebVTT file">WebVTT 文件</span>时，浏览器会自动将文本合成为语音。WebVTT 同样可以用来提供章节标题。对于那些完全不想看视频的用户，可以在视频附近为他们提供一些链接用于跳转到一些文本内容。 <ref spec=WEBVTT></p>
+  <p class="note">需要注意的是，<code>video</code> 标签内部的文本并不是为了解决可访问性问题。有许多其他特性能帮助弱视、盲人、听力障碍者、聋人以及有其他身体或认知障碍的人获取视频内容。要提供字幕，可以将其直接嵌入到视频中，也可以通过 <code>track</code> 元素外引文件的方式。可以将手语作为额外的视频轨道嵌入到视频流中。音频描述可以直接嵌入到视频流中或者通过 <span data-x="WebVTT file">WebVTT 文件</span>以文本的形式提供，通过 <code>track</code> 元素引用 <span data-x="WebVTT file">WebVTT 文件</span>时，浏览器会自动将文本合成为语音。WebVTT 同样可以用来提供章节标题。对于那些完全不想看视频的用户，可以在视频附近为他们提供一些链接用于跳转到一些文本内容。 <ref spec=WEBVTT></p>
 
   <p><code>video</code> 元素表面上只有视频数据，但其中也可能包含一些音频数据。</p>
 
-  <p><code data-x="attr-media-src">src</code>, <code data-x="attr-media-preload">preload</code>,
-  <code data-x="attr-media-autoplay">autoplay</code>, <code data-x="attr-media-loop">loop</code>,
-  <code data-x="attr-media-muted">muted</code>, and <code
+  <p><code data-x="attr-media-src">src</code>，<code data-x="attr-media-preload">preload</code>，
+  <code data-x="attr-media-autoplay">autoplay</code>，<code data-x="attr-media-loop">loop</code>，
+  <code data-x="attr-media-muted">muted</code>，以及 <code
   data-x="attr-media-controls">controls</code> 属性是<span data-x="media element
   attributes">媒体元素的共有属性</span>。</p>
 
@@ -63,7 +63,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   <div w-nodev>
 
   <p>如果要使用指定的资源，那么在该元素创建时，或者 <code
-  data-x="attr-video-poster">poster</code> 属性被设置，更改或移除时，浏览器必须执行以下步骤以确定该元素的 <dfn>poster frame</dfn>（无论该元素的 <span data-x="show poster flag">封面展示标志位</span>的值如何）：</p> <!-- thus it is unaffected by changes
+  data-x="attr-video-poster">poster</code> 属性被设置，更改或移除时，浏览器必须执行以下步骤以确定该元素的 <dfn>poster frame</dfn>（无论该元素的<span data-x="show poster flag">封面展示标志位</span>的值如何）：</p> <!-- thus it is unaffected by changes
   to the base URL. -->
 
   <ol>
@@ -79,7 +79,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
    <li><p>新建一个<span data-x="concept-request">请求</span>，其
    <span data-x="concept-request-url">url</span> 是 <span>resulting URL record</span>，<span data-x="concept-request-client">客户端</span>是元素的<span data-x="node document">节点文档</span>的<code data-x="Window">窗口</code>对象的<span data-x="environment settings object">环境设置对象</span>，<span data-x="concept-request-destination">请求目的</span>是"<code data-x="">image</code>"，<span data-x="concept-request-credentials-mode">凭据模式</span>是 "<code data-x="">include</code>"，并且设置其 <span data-x="use-URL-credentials flag">use-URL-credentials 标志位</span>。
 
-   <!--FETCH--><li><p><span data-x="concept-fetch">获取</span> <var>请求</var>。这个请求应当<span data-x="delay the load event">延迟文档节点的加载事件</span>。</p></li>
+   <!--FETCH--><li><p><span data-x="concept-fetch">获取</span><var>请求</var>。这个请求应当<span data-x="delay the load event">延迟文档节点的加载事件</span>。</p></li>
 
    <!-- could define how to sniff for an image here -->
 
@@ -167,9 +167,9 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <p>除了上述提到的之外，用户代理可以以文字、图标或其他方式在播放区域为用户提供一些信息（比如缓冲中，未发现视频资源，视频加载出错等）。</p>
 
-  <p>无法渲染 <code>video </code> 标签的用户代理可以展示一个链接用于链接至其他的视频播放程序或者视频资源本身。</p>
+  <p>无法渲染 <code>video</code> 标签的用户代理可以展示一个链接用于链接至其他的视频播放程序或者视频资源本身。</p>
 
-  <p>当一个 <code>video</code> 元素的 <span data-x="media resource">媒体资源</span>具有视频通道时, 该元素提供一个<span data-x="paint source">绘制源(paint source)</span>，<span data-x="paint source">绘制源</span>的宽度是<span data-x="media resource">媒体资源</span>的<span data-x="concept-video-intrinsic-width">固有宽度</span>，高度是<span data-x="media resource">媒体资源</span>的 <span data-x="concept-video-intrinsic-height">固有高度</span>，外观是<span data-x="current playback position">当前播放位置</span>对应的视频帧，如果当前帧不可用（比如在加载中时），则显示之前帧，如果没有之前的帧可用（比如视频第一帧都没加载完成），则显示黑色背景。</p>
+  <p>当一个 <code>video</code> 元素的<span data-x="media resource">媒体资源</span>具有视频通道时, 该元素提供一个<span data-x="paint source">绘制源(paint source)</span>，<span data-x="paint source">绘制源</span>的宽度是<span data-x="media resource">媒体资源</span>的<span data-x="concept-video-intrinsic-width">固有宽度</span>，高度是<span data-x="media resource">媒体资源</span>的<span data-x="concept-video-intrinsic-height">固有高度</span>，外观是<span data-x="current playback position">当前播放位置</span>对应的视频帧，如果当前帧不可用（比如在加载中时），则显示之前帧，如果没有之前的帧可用（比如视频第一帧都没加载完成），则显示黑色背景。</p>
 
   <hr>
 
@@ -195,7 +195,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <p><dfn><code data-x="dom-video-videoWidth">videoWidth</code></dfn> IDL 属性必须返回以 <span data-x="'px'">CSS 像素</span>为单位的视频<span data-x="concept-video-intrinsic-width">固有宽度</span>。 <dfn><code data-x="dom-video-videoHeight">videoHeight</code></dfn> IDL 属性必须返回以 <span data-x="'px'">CSS 像素</span>为单位的视频<span data-x="concept-video-intrinsic-height">固有高度</span>。如果一个元素的 <code data-x="dom-media-readyState">readyState</code> 属性是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么两个属性都必须返回 0。</p>
 
-  <p id="dimUpdate">无论何时，当视频的<span data-x="concept-video-intrinsic-width">固有宽度</span>或者<span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么浏览器必须<span data-x="queue a task">启动一项任务</span> 来 <span data-x="concept-event-fire">触发</span><span data-x="media element">媒体元素上的</span> <code data-x="event-media-resize">resize</code> 事件。</p>
+  <p id="dimUpdate">无论何时，当视频的<span data-x="concept-video-intrinsic-width">固有宽度</span>或者<span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么浏览器必须<span data-x="queue a task">启动一项任务</span>来<span data-x="concept-event-fire">触发</span><span data-x="media element">媒体元素上的</span> <code data-x="event-media-resize">resize</code> 事件。</p>
 
   </div>
 
