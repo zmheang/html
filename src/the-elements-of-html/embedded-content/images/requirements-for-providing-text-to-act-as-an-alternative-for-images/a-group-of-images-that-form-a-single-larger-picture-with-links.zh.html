@@ -1,0 +1,24 @@
+  <h6 id="a-group-of-images-that-form-a-single-larger-picture-with-links">组成单个有链接的大图的图片组</h6>
+
+  <p>通常带连接的图片应该使用 <span data-x="image map">图片映射</span> 而不是切分图片。</p>
+
+  <p>但是，如果图片确实已经被切分了，而且切分后的部分是链接的唯一内容，
+  那么每个链接必须有一个图片必须把它的 <code data-x="attr-img-alt">alt</code>
+  属性设置为表示链接用途的替代文本。</p>
+
+  <div class="example">
+
+   <p>下面的例子是一张表示飞行面条怪物徽章的图片，左右两侧的面条状物是单独的两张图片，
+   这样用户就可以在探险中选择左右两侧的图片了。</p>
+
+   <pre>&lt;h1>The Church&lt;/h1>
+&lt;p>You come across a flying spaghetti monster. Which side of His
+Noodliness do you wish to reach out for?&lt;/p>
+<strong>&lt;p>&lt;a href="?go=left" >&lt;img src="fsm-left.png"  alt="Left side. ">&lt;/a
+  >&lt;img src="fsm-middle.png" alt=""
+  >&lt;a href="?go=right">&lt;img src="fsm-right.png" alt="Right side.">&lt;/a>&lt;/p></strong></pre>
+
+  </div>
+
+
+

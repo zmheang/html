@@ -1,0 +1,265 @@
+  <h6 id="a-key-part-of-the-content">内容的关键部分</h6>
+
+  <p>有些情况下，图片是内容的关键部分。比如照片库页面中的图片就是这样的情况。
+  这时图片就是包含它的页面的重点。</p>
+
+  <p>如何为内容关键的图片提供替代文本取决于图片的出处。</p>
+
+  <dl>
+
+   <dt>通常情况</dt>
+
+   <dd>
+
+    <p>如果可以提供详细的替代文本，如果图像是杂志评论中的一系列截图的一部分，或者是连环漫画的一部分，
+    或者是关于该照片的博客文章中的那个照片，则必须通过 <code data-x="attr-img-alt">alt</code>
+    属性给出替代图片的文字。</p>
+
+    <div class="example">
+
+     <p>新操作系统的屏幕截图，其中包含一些替代文字：</p>
+
+     <pre>&lt;figure>
+ <strong>&lt;img src="KDE%20Light%20desktop.png"
+      alt="The desktop is blue, with icons along the left hand side in
+           two columns, reading System, Home, K-Mail, etc. A window is
+           open showing that menus wrap to a second line if they
+           cannot fit in the window. The window has a list of icons
+           along the top, with an address bar below it, a list of
+           icons for tabs along the left edge, a status bar on the
+           bottom, and two panes in the middle. The desktop has a bar
+           at the bottom of the screen with a few buttons, a pager, a
+           list of open applications, and a clock."></strong>
+ &lt;figcaption>Screenshot of a KDE desktop.&lt;/figcaption>
+&lt;/figure></pre>
+
+    </div>
+
+    <div class="example">
+
+     <p>财务报告中的图表：</p>
+
+     <pre><strong>&lt;img src="sales.gif"
+     title="Sales graph"
+     alt="From 1998 to 2005, sales increased by the following percentages
+     with each year: 624%, 75%, 138%, 40%, 35%, 9%, 21%"></strong></pre>
+
+     <p>请注意，“销售图”对于销售图而言是不充分的替代文本。
+     做 <em>标题</em> 很好的文本通常不适合做替代文本。</p>
+
+    </div>
+
+   </dd>
+
+
+   <dt>难以提供完整描述的图片</dt>
+
+   <dd>
+
+    <p>有些情况下图片的特性决定了提供完整的替代文本不现实。
+    例如，图像可能模糊不清，或者可能是复杂的分形，或者可能是详细的地形图。</p>
+
+    <p>这些情况下 <code data-x="attr-img-alt">alt</code> 属性也必须包含一些适当的替代文本，
+    但可以比较简短。</p>
+
+    <div class="example">
+
+     <p>有时候根本无法用文字对图片做出正确的描述。例如对罗夏墨迹测验就无法提供有用的描述。
+     但是，即使是一个简单的描述也比什么都没有要好：</p>
+
+     <pre>&lt;figure>
+ <strong>&lt;img src="/commons/a/a7/Rorschach1.jpg" alt="A shape with left-right
+ symmetry with indistinct edges, with a small gap in the center, two
+ larger gaps offset slightly from the center, with two similar gaps
+ under them. The outline is wider in the top half than the bottom
+ half, with the sides extending upwards higher than the center, and
+ the center extending below the sides."></strong>
+ &lt;figcaption>A black outline of the first of the ten cards
+ in the Rorschach inkblot test.&lt;/figcaption>
+&lt;/figure></pre>
+
+     <p>注意下面是一个替代文本的非常糟糕的使用方式：</p>
+
+     <pre class="bad">&lt;!-- This example is wrong. Do not copy it. -->
+&lt;figure>
+ &lt;img src="/commons/a/a7/Rorschach1.jpg" alt="A black outline
+ of the first of the ten cards in the Rorschach inkblot test.">
+ &lt;figcaption>A black outline of the first of the ten cards
+ in the Rorschach inkblot test.&lt;/figcaption>
+&lt;/figure></pre>
+
+     <p>这样把标题放到替代文字中根本没用，因为对于没有图片的用户它只是重复了标题，
+     相比于只读到或听到一次标题，再来重复一次根本不会有任何帮助。</p>
+
+    </div>
+
+    <div class="example">
+
+     <p>无法描述的图片的另一个例子是分型，根据定义它的细节是无限的。</p>
+
+     <p>下面的例子展示了为曼德博集合提供替代文字的一种可能的方式。</p>
+
+     <pre><strong>&lt;img src="ms1.jpeg" alt="The Mandelbrot set appears as a cardioid with
+its cusp on the real axis in the positive direction, with a smaller
+bulb aligned along the same center line, touching it in the negative
+direction, and with these two shapes being surrounded by smaller bulbs
+of various sizes."></strong></pre>
+
+    </div>
+
+    <div class="example">
+
+     <p>类似地，在生物学中人脸的照片也是内容的关键部分，也很难完全用文字替代：</p>
+
+     <pre>&lt;section class="bio">
+ &lt;h1>A Biography of Isaac Asimov&lt;/h1>
+ &lt;p>Born &lt;b>Isaak Yudovich Ozimov&lt;/b> in 1920, Isaac was a prolific author.&lt;/p>
+ &lt;p>&lt;img src="headpics/asimov.jpeg" alt="Isaac Asimov had dark hair, a tall forehead, and wore glasses.
+ Later in life, he wore long white sideburns.">
+ &lt;p>Asimov was born in Russia, and moved to the US when he was three years old.&lt;/p>
+ &lt;p>...
+&lt;/section></pre>
+
+     <p>在这样的情况下，在替代文本中引述图片本身是不必要的（并且实际上不鼓励），
+     因为这样的文本与浏览器自身的图片报告是冗余的。
+     例如，如果替代文本是“Isaac Asimov的照片”，那么标准的用户代理可能将其读作
+     “（Image）Isaac Asimov 的照片” 而不是（更有用）
+     “（Image）Isaac Asimov 是黑发 ，额头很高，戴着眼镜......”。</p>
+
+    </div>
+
+   </dd>
+
+
+   <dt id="unknown-images">未知内容的图片</dt>
+
+   <dd>
+
+    <p>有些情况比较不幸，根本没有替代文字。可能是因为图片是动态获取的且没有关联的替代文本
+    （比如 Web 摄像头），也可能因为页面是由用户提供的图片通过脚本生成的，
+    而用户并没有提供合适的可用替代文本（例如照片分享站点），
+    也可能是因为作者自己不知道图片表示着什么（比如一个盲人摄影师在博客上分享了一张图片）。</p>
+
+    <p>这种情况下，<code data-x="attr-img-alt">alt</code> 属性可以忽略，但必须符合以下条件之一：</p>
+
+    <ul>
+
+     <!-- when editing this list, search for the two other occurrences of 'critical-no-alt' -->
+
+     <!-- NOTE: the order of these steps is important; it's intended to encourage using <figcaption>
+     rather than data-x="" -->
+
+     <li id="figcaption-as-alt-condition"><p><code>img</code> 元素在
+     包含 <code>figcaption</code> 的 <code>figure</code> 元素中，
+     且这个 <code>figcaption</code> 元素包含除
+     <span data-x="inter-element whitespace">元素间空白</span> 的内容，
+     而且忽略 <code>figcaption</code> 元素及其后代节点后， <code>figure</code> 元素没有其他
+     <span data-x="flow content">流式内容</span> 后代，
+     <span data-x="inter-element whitespace">元素间空白</span> 和 <code>img</code> 元素除外。</p></li>
+
+     <li>
+
+      <p><code data-x="attr-title">title</code> 属性存在且值非空。</p>
+
+      <!-- search for title-warning if modifying this paragraph -->
+      <p class="note">目前不推荐依赖 <code data-x="attr-title">title</code> 属性，
+      因为很多用户代理不会按照标准把这个属性暴露给用户
+      （例如用户代理会要求比如鼠标这样的指点设备才能显示提示内容，
+      这排除了纯键盘用户和触摸设备用户，比如任何拥有现代手机和平板的用户。）</p>
+
+     </li>
+
+    </ul>
+
+    <p class="note">这种情况应该保持在最低限度。只要作者有能力提供真正的替代文本，
+    那么忽略 <code data-x="attr-img-alt">alt</code> 属性就是不可接受的。</p>
+
+    <div class="example">
+
+     <p>如果一个照片分享网站收到图片时除了标题没有其他任何元数据，
+     这个照片可以这样标记：</p>
+
+     <pre>&lt;figure>
+ <strong>&lt;img src="1100670787_6a7c664aef.jpg"></strong>
+ &lt;figcaption>Bubbles traveled everywhere with us.&lt;/figcaption>
+&lt;/figure></pre>
+
+     <p>当然如果能详细描述图片的重要部分，并通过替代文本提供出来会更好。</p>
+
+    </div>
+
+    <div class="example">
+
+     <p>一个盲人的博客中，显示了一张用户拍的照片。刚开始用户可能不知道他们拍的照片上有什么：</p>
+
+     <pre>&lt;article>
+ &lt;h1>I took a photo&lt;/h1>
+ &lt;p>I went out today and took a photo!&lt;/p>
+ &lt;figure>
+  <strong>&lt;img src="photo2.jpeg"></strong>
+  &lt;figcaption>A photograph taken blindly from my front porch.&lt;/figcaption>
+ &lt;/figure>
+&lt;/article></pre>
+
+     <p>最后如果用户从他们的朋友那里得到了图片的描述，他们就可以包含一些替代文本：</p>
+
+     <pre>&lt;article>
+ &lt;h1>I took a photo&lt;/h1>
+ &lt;p>I went out today and took a photo!&lt;/p>
+ &lt;figure>
+  <strong>&lt;img src="photo2.jpeg" alt="The photograph shows my squirrel
+  feeder hanging from the edge of my roof. It is half full, but there
+  are no squirrels around. In the background, out-of-focus trees fill the
+  shot. The feeder is made of wood with a metal grate, and it contains
+  peanuts. The edge of the roof is wooden too, and is painted white
+  with light blue streaks."></strong>
+  &lt;figcaption>A photograph taken blindly from my front porch.&lt;/figcaption>
+ &lt;/figure>
+&lt;/article></pre>
+
+    </div>
+
+    <div class="example">
+
+     <p>有时图片的整个意义就是没有文本描述，要用户为它提供描述。
+     例如，CAPTCHA 图片的目的就是看用户能否从用文字描述图形。
+     下面是标记 CAPTCHA 的一种方式（注意 <code data-x="attr-title">title</code> 属性）：</p>
+
+     <pre>&lt;p>&lt;label>What does this image say?
+<strong>&lt;img src="captcha.cgi?id=8934" title="CAPTCHA"></strong>
+&lt;input type=text name=captcha>&lt;/label>
+(If you cannot see the image, you can use an &lt;a
+href="?audio">audio&lt;/a> test instead.)&lt;/p></pre>
+
+     <p>另一个例子是显示图片并询问替代文本的软件，这些文本之后会被写入到页面中。
+     这样的页面可能会有一个图片表格，像这样：</p>
+
+     <pre>&lt;table>
+ &lt;thead>
+  &lt;tr> &lt;th> Image &lt;th> Description
+ &lt;tbody>
+  &lt;tr>
+   &lt;td> <strong>&lt;img src="2421.png" title="Image 640 by 100, filename 'banner.gif'"></strong>
+   &lt;td> &lt;input name="alt2421">
+  &lt;tr>
+   &lt;td> <strong>&lt;img src="2422.png" title="Image 200 by 480, filename 'ad3.gif'"></strong>
+   &lt;td> &lt;input name="alt2422">
+&lt;/table></pre>
+
+     <p>注意即使在这个例子中，在 <code data-x="attr-title">title</code>
+     属性中还是提供了尽可能多的有用信息。</p>
+
+    </div>
+
+    <p class="note">因为有些用户根本不能使用照片
+    （比如因为他们的网络很慢，或因为他们在使用文本浏览器，或者因为他们正在听汽车的语音 Web
+    浏览器阅读页面内容，或者只是因为他们是盲人），
+    只在没有可用的替代文本而且没人可以提供时，才允许忽略 <code data-x="attr-img-alt">alt</code> 属性。
+    作者没有付出努力不是一个可以接受的理由。</p>
+
+   </dd>
+
+  </dl>
+
+
+

@@ -1,0 +1,49 @@
+  <h6 id="normalizing-the-source-densities">源像素密度规范化</h6>
+
+  <p><span>image source</span> 除 URL 之外可以有一个
+  <span data-x="pixel density descriptor">像素密度描述符</span>, 一个
+  <span data-x="width descriptor">宽度描述符</span> 或者什么描述符都没有。
+  <span>source set</span> 规范化后会给每个 <span>image source</span> 一个
+  <span data-x="pixel density descriptor">像素密度描述符</span>。</p>
+
+  <p>当要求 <!--en-GB--><dfn id="normalise-the-source-densities" data-x="normalize the source densities">
+  规范化</dfn> <span>source set</span> <var>source set</var> 的源像素密度时，
+  用户代理必须执行以下操作：</p>
+
+  <ol>
+
+   <li><p>令 <var>source size</var> 为 <var>source set</var> 的 <span>source size</span>。</p></li>
+
+   <li>
+
+    <p>对 <var>source set</var> 中的每个 <span>image source</span>：</p>
+
+    <ol>
+
+     <li><p>如果 <span>image source</span> 有一个 <span data-x="pixel density descriptor">像素密度描述符</span>，
+       继续下一个 <span>image source</span>。</p></li>
+
+     <li>
+
+      <p>否则，如果 <span>image source</span> 有一个 <span data-x="width descriptor">宽度描述符</span>，
+      把 <span data-x="width descriptor">宽度描述符</span> 替换为
+      <span data-x="pixel density descriptor">像素密度描述符</span>，其
+      <span data-x="pixel density descriptor value">值</span> 为
+      <span data-x="width descriptor value">宽度描述符的值</span> 除以
+      <span data-x="source size">源大小</span>，单位是 <code data-x="">x</code>。</p>
+
+      <p class="note">如果 <span data-x="source size">源大小</span> 是零，像素密度会是无穷大，
+      这会导致 <span data-x="intrinsic dimensions">固有尺寸</span> 为 0 乘以 0。</p>
+
+     </li>
+
+     <li><p>否则，给出 <span>image source</span> 的 <span data-x="pixel density descriptor">像素密度描述符</span>
+     为 <code data-x="">1x</code>。</p></li>
+
+    </ol>
+
+   </li>
+
+  </ol>
+
+

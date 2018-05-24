@@ -1,0 +1,30 @@
+  <h6 id="a-purely-decorative-image-that-doesn't-add-any-information">不提供任何信息的纯装饰性图片</h6>
+
+  <p>如果图片是装饰性的而且不是页面特定的 &mdash; 比如这个图片作为站点设计的一部分。
+  &mdash; 那么这个图片应该通过站点 CSS 来指定，而不是写在文档标记中。</p>
+
+  <p>但是如果一张图片没有在周围的文字中加以讨论，但仍然有些关联，也可以使用
+  <code>img</code> 元素把它包含在页面中。这样的图片的 <code data-x="attr-img-alt">alt</code>
+  属性必须存在而且值必须是空字符串。</p>
+
+  <div class="example">
+
+   <p>有些关联的纯装饰性图片的例子比如，一篇介绍在 Burning Man 发生的事件的博文会引入一张
+   Black Rock City 景色的照片，或者在显示诗歌的页面上引入一张受这首诗启发的绘画作品。
+   下面的代码片段是第二种情况的例子（代码中只引入了诗歌的第一小节）：</p>
+
+   <pre>&lt;h1>The Lady of Shalott&lt;/h1>
+<strong>&lt;p>&lt;img src="shalott.jpeg" alt="">&lt;/p></strong>
+&lt;p>On either side the river lie&lt;br>
+Long fields of barley and of rye,&lt;br>
+That clothe the wold and meet the sky;&lt;br>
+And through the field the road run by&lt;br>
+To many-tower'd Camelot;&lt;br>
+And up and down the people go,&lt;br>
+Gazing where the lilies blow&lt;br>
+Round an island there below,&lt;br>
+The island of Shalott.&lt;/p></pre>
+
+  </div>
+
+

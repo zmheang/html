@@ -1,0 +1,37 @@
+  <h6 id="reacting-to-dom-mutations">响应 DOM 变化</h6>
+
+  <p><code>img</code> 元素 <dfn data-x="relevant mutations">相关的变化</dfn> 包括：</p>
+
+  <ul>
+
+   <li><p>该元素的 <code data-x="attr-img-src">src</code>， <code
+   data-x="attr-img-srcset">srcset</code>， <code data-x="attr-dim-width">width</code> 或 <code
+   data-x="attr-img-sizes">sizes</code> 属性的设置、改变或移除。</p></li>
+
+   <li><p>该元素的 <code data-x="attr-img-src">src</code> 属性设置为与之前的值一样的值。
+   这时必须为 <span data-x="update the image data">更新图片数据</span> 算法设置
+   <i>restart animation</i> 标志。</p></li>
+
+   <li><p>该元素的 <code data-x="attr-img-crossorigin">crossorigin</code> 属性状态变化。</p></li>
+
+   <li><p>在 <code>picture</code> 父元素 <span data-x="nodes are inserted">插入</span> 或
+   <span data-x="nodes are removed">移除</span> 元素。</p></li>
+
+   <li><p>该元素的父元素是 <code>picture</code> 元素且
+   <span data-x="nodes are inserted">插入了</span> <code>source</code> 元素作为前驱节点。</p></li>
+
+   <li><p>该元素的父元素是 <code>picture</code> 元素且
+   是前驱节点的 <code>source</code> 元素被 <span data-x="nodes are removed">移除</span>。</p></li>
+
+   <li><p>该元素的父元素是 <code>picture</code> 元素且
+   是前驱节点的 <code>source</code> 元素的 <code data-x="attr-source-srcset">srcset</code>, <code
+   data-x="attr-source-sizes">sizes</code>, <code data-x="attr-source-media">media</code> 或 <code
+   data-x="attr-source-type">type</code> 属性被设置、改变和移除。</p></li>
+
+   <li><p>执行了该元素的 <span data-x="concept-node-adopt-ext">adopting steps</span>。</p></li>
+
+   <!-- NOT when the base URL changes (except for when adopted into a new doc) -->
+
+  </ul>
+
+

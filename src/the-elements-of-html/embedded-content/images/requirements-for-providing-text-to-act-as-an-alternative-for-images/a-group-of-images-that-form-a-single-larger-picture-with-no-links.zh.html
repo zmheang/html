@@ -1,0 +1,30 @@
+  <h6 id="a-group-of-images-that-form-a-single-larger-picture-with-no-links">组成但个没有链接的大图的图片组</h6>
+
+  <p>当一张图片被切分为若干个小图片文件，用来拼装成原来的大图时，这些图片中要有一个的
+  <code data-x="attr-img-alt">alt</code> 属性按照相关规则设置为大图的替代文本。
+  然后其他所有剩余图片必须把 <code data-x="attr-img-alt">alt</code> 属性设为空字符串。</p>
+
+  <div class="example">
+
+   <p>下面的例子中，表示 <span data-x="">XYZ Corp</span> 公司 Logo 的图片被分为两部分，
+   第一个包含字母 "XYZ" 第二个包含单词 "Corp"。
+   都包含在了第一个图片的替代文本（"XYZ Corp"）中。</p>
+
+   <pre>&lt;h1><strong>&lt;img src="logo1.png" alt="XYZ Corp">&lt;img src="logo2.png" alt=""></strong>&lt;/h1></pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>下面的例子中，评分显示为三颗星星和两颗空星。
+   虽然替代文本可以是 "&#x2605;&#x2605;&#x2605;&#x2606;&#x2606;"，但作者决定提供更有帮助的评分格式比如
+   "3 / 5"。它设置为第一个图片的替代文本。其他图片的替代文本为空。</p>
+
+   <pre>&lt;p>Rating: &lt;meter max=5 value=3><strong>&lt;img src="1" alt="3 out of 5"
+  >&lt;img src="1" alt="">&lt;img src="1" alt="">&lt;img src="0" alt=""
+  >&lt;img src="0" alt=""></strong>&lt;/meter>&lt;/p></pre>
+
+  </div>
+
+
+
