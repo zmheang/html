@@ -1,0 +1,104 @@
+  <h6 id="adaptive images">自适应图片</h6>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>可以使用 CSS 和媒体查询来构造动态适应用户环境的页面布局，
+  特别是对不同的 <span data-x="viewport">视口</span> 宽高和像素密度。
+  但 CSS 无法操作内容；这时可以使用 <code>img</code> 元素的
+  <code data-x="attr-img-srcset">srcset</code> 属性和 <code>picture</code> 元素。
+  本节将介绍一个示例案例，演示如何使用这些功能。</p>
+
+  <p>考虑一个场景，在宽屏（宽于 600 <span data-x="'px'">CSS 像素</span>）上要使用一个
+  300&times;150 的图片 <code data-x="">a-rectangle.png</code>，
+  但在小一点的屏幕上（不大于 600 <span data-x="'px'">CSS 像素</span>）要使用一个
+  100&times;100 的图片 <code data-x="">a-square.png</code>。这样的标记可能像这样：</p>
+
+  <pre>&lt;figure>
+ &lt;picture>
+  &lt;source srcset="a-square.png" media="(max-width: 600px)">
+  &lt;img src="a-rectangle.png" alt="Barney Frank wears a suit and glasses.">
+ &lt;/picture>
+ &lt;figcaption>Barney Frank, 2011&lt;/figcaption>
+&lt;/figure></pre>
+
+  <p class="note">在 <code data-x="attr-img-alt">alt</code> 属性中放什么内容，参考
+  <a href="#alt">图片替代文本的要求</a> 一节。</p>
+
+  <p>问题在于用户代理在图片加载时不知道使用什么样的宽高。
+  为了避免页面加载中布局被重排很多次，可以使用 CSS 和 CSS 媒体查询来提供宽高：</p>
+
+  <pre>&lt;style>
+ #a { width: 300px; height: 150px; }
+ @media (max-width: 600px) { #a { width: 100px; height: 100px; } }
+&lt;/style>
+&lt;figure>
+ &lt;picture>
+  &lt;source srcset="a-square.png" media="(max-width: 600px)">
+  &lt;img src="a-rectangle.png" alt="Barney Frank wears a suit and glasses." id="a">
+ &lt;/picture>
+ &lt;figcaption>Barney Frank, 2011&lt;/figcaption>
+&lt;/figure></pre>
+
+  <p>也可以使用 <code data-x="attr-dim-width">width</code> 和 <code
+  data-x="attr-dim-height">height</code> 使用来为提供旧的用户代理提供宽高，
+  CSS 只用于支持 <code>picture</code> 的用户代理：</p>
+
+  <pre>&lt;style media="(max-width: 600px)">
+ #a { width: 100px; height: 100px; }
+&lt;/style>
+&lt;figure>
+ &lt;picture>
+  &lt;source srcset="a-square.png" media="(max-width: 600px)">
+  &lt;img src="a-rectangle.png" width="300" height="150"
+  alt="Barney Frank wears a suit and glasses." id="a">
+ &lt;/picture>
+ &lt;figcaption>Barney Frank, 2011&lt;/figcaption>
+&lt;/figure></pre>
+
+  <hr>
+
+  <p><code>img</code> 元素指定了 <code data-x="attr-img-src">src</code> 属性，
+  它为不支持 <code>picture</code> 的旧的用户代理给出了图片的 URL。
+  这就要讨论 <code data-x="attr-img-src">src</code> 属性应该提供哪个图片的问题了。</p>
+
+  <p>如果作者在旧的用户代理中想要最大的图片，标记可以这样写：</p>
+
+  <pre>&lt;picture>
+ &lt;source srcset="pear-mobile.jpeg" media="(max-width: 720px)">
+ &lt;source srcset="pear-tablet.jpeg" media="(max-width: 1280px)">
+ &lt;img src="pear-desktop.jpeg" alt="The pear is juicy.">
+&lt;/picture></pre>
+
+  <p>但如果旧的用户代理更重要，就可以把所有三个图片都列在
+  <code>source</code> 元素中，完全重写掉 <code data-x="attr-img-src">src</code> 属性。</p>
+
+  <pre>&lt;picture>
+ &lt;source srcset="pear-mobile.jpeg" media="(max-width: 720px)">
+ &lt;source srcset="pear-tablet.jpeg" media="(max-width: 1280px)">
+ &lt;source srcset="pear-desktop.jpeg">
+ &lt;img src="pear-mobile.jpeg" alt="The pear is juicy.">
+&lt;/picture></pre>
+
+  <p>因为在这里 <code data-x="attr-img-src">src</code> 属性在支持 <code>picture</code>
+  的用户代理下会被完全忽略，<code data-x="attr-img-src">src</code> 属性可以默认写成任何图片，
+  包括既不是最大的也不是最小的那个：</p>
+
+  <pre>&lt;picture>
+ &lt;source srcset="pear-mobile.jpeg" media="(max-width: 720px)">
+ &lt;source srcset="pear-tablet.jpeg" media="(max-width: 1280px)">
+ &lt;source srcset="pear-desktop.jpeg">
+ &lt;img src="pear-tablet.jpeg" alt="The pear is juicy.">
+&lt;/picture></pre>
+
+  <hr>
+
+  <p>上面用到了 <code data-x="">max-width</code> 媒体特性，给出了该图片适用的最大
+  （<span data-x="viewport">视口</span>）大小。也可以使用 <code data-x="">min-width</code>。</p>
+
+  <pre>&lt;picture>
+ &lt;source srcset="pear-desktop.jpeg" media="(min-width: 1281px)">
+ &lt;source srcset="pear-tablet.jpeg" media="(min-width: 721px)">
+ &lt;img src="pear-mobile.jpeg" alt="The pear is juicy.">
+&lt;/picture></pre>
+
+

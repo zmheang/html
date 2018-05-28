@@ -1,0 +1,38 @@
+  <h5 id="authoring">编写</h5>
+
+  </div>
+
+  <p><dfn data-x="image map">图片映射</dfn> 可以让图片的几何区域与 <span
+  data-x="hyperlink">超链接</span> 相关联。</p>
+
+  <p><code>img</code> 元素或 <code>object</code> 元素表示的图片可以通过在该元素上指定一个
+  <dfn><code data-x="attr-hyperlink-usemap">usemap</code></dfn> 属性来与一个图片映射相关联
+  （以 <code>map</code> 元素的形式）。如果指定了 <code data-x="attr-hyperlink-usemap">usemap</code>
+  属性，它必须是一个对 <code>map</code> 元素的 <span data-x="valid hash-name reference">合法的哈希名引用</span>。</p>
+
+  <div class="example">
+
+   <p>考虑下面这样的图片：</p>
+
+   <p><img src="/images/sample-usemap.png" width="600" height="150" alt="A line with four shapes in it, equally spaced: a red hollow box, a green circle, a blue triangle, and a yellow four-pointed star."></p>
+
+   <p>我们想只让有颜色的区域可点，可以这样做：</p>
+
+   <pre>&lt;p>
+ Please select a shape:
+ &lt;img src="shapes.png" usemap="#shapes"
+      alt="Four shapes are available: a red hollow box, a green circle, a blue triangle, and a yellow four-pointed star.">
+ &lt;map name="shapes">
+  &lt;area shape=rect coords="50,50,100,100"> &lt;!-- the hole in the red box -->
+  &lt;area shape=rect coords="25,25,125,125" href="red.html" alt="Red box.">
+  &lt;area shape=circle coords="200,75,50" href="green.html" alt="Green circle.">
+  &lt;area shape=poly coords="325,25,262,125,388,125" href="blue.html" alt="Blue triangle.">
+  &lt;area shape=poly coords="450,25,435,60,400,75,435,90,450,125,465,90,500,75,465,60"
+        href="yellow.html" alt="Yellow star.">
+ &lt;/map>
+&lt;/p></pre>
+
+  </div>
+
+  <div w-nodev>
+

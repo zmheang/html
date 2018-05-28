@@ -1,17 +1,16 @@
-  <h4>Edits and tables</h4>
+  <h4 id="edits and tables">编辑与表格</h4>
 
   <!-- NON-NORMATIVE SECTION -->
 
-  <p>The elements that form part of the table model have complicated content model requirements that do not allow for the <code>ins</code> and <code>del</code> elements, so indicating edits to a
-  table can be difficult.</p>
+  <p>组成表格模型的元素有着复杂的内容模型要求，不允许使用 <code>ins</code> 和 <code>del</code> 元素，
+  所以很难表示对图片的编辑。</p>
 
-  <p>To indicate that an entire row or an entire column has been added or removed, the entire
-  contents of each cell in that row or column can be wrapped in <code>ins</code> or <code>del</code>
-  elements (respectively).</p>
+  <p>为了表示整行的添加和移除，可以（分别）用 <code>ins</code> 或 <code>del</code>
+  元素包含该行的每个单元格的整个内容。</p>
 
   <div class="example">
 
-   <p>Here, a table's row has been added:</p>
+   <p>这个表格中有一整行的添加：</p>
 
    <pre>&lt;table>
  &lt;thead>
@@ -22,8 +21,7 @@
 <strong>  &lt;tr> &lt;td> &lt;ins>Portal 2&lt;/ins> &lt;td> &lt;ins>Valve&lt;/ins> &lt;td> &lt;ins>10/10&lt;/ins></strong>
 &lt;/table></pre>
 
-   <p>Here, a column has been removed (the time at which it was removed is given also, as is a link
-   to the page explaining why):</p>
+   <p>这里有一列被移除（移除时间也给出了，还给了一个页面的链接来解释原因）：</p>
 
    <pre>&lt;table>
  &lt;thead>
@@ -36,8 +34,7 @@
 
   </div>
 
-  <p>Generally speaking, there is no good way to indicate more complicated edits (e.g. that a cell
-  was removed, moving all subsequent cells up or to the left).</p>
+  <p>通常不应该表示更复杂的编辑（例如删除了一个单元格，把后续所有单元格上移或左移）。</p>
 
 
 
