@@ -1,0 +1,50 @@
+  <h4 id="edits and paragraphs">编辑与段落</h4>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>由于 <code>ins</code> 和 <code>del</code> 元素不影响 <span
+  data-x="paragraph">分段</span>，在一些情况下段落可能是 <span data-x="paragraph">隐式的</span>
+  （没有显式的 <code>p</code> 元素），这样 <code>ins</code> 或 <code>del</code>
+  元素就可以跨越一整个段落和其他非 <span data-x="phrasing content">短语内容</span> 元素，
+  以及另一个段落的一部分。例如：</p>
+
+  <pre>&lt;section>
+ &lt;ins>
+  &lt;p>
+   This is a paragraph that was inserted.
+  &lt;/p>
+  This is another paragraph whose first sentence was inserted
+  at the same time as the paragraph above.
+ &lt;/ins>
+ This is a second sentence, which was there all along.
+&lt;/section></pre>
+
+  <p>通过只包含 <code>p</code> 元素的一部分内容，还可以把一个段落的尾部，加一整个段落，再加第三个段落的开始，
+  包含到同一个 <code>ins</code> 或 <code>del</code> 元素中（但这很费解，也不是最佳实践）：</p>
+
+  <pre class="bad">&lt;section>
+ This is the first paragraph. &lt;ins>This sentence was
+ inserted.
+ &lt;p>This second paragraph was inserted.&lt;/p>
+ This sentence was inserted too.&lt;/ins> This is the
+ third paragraph in this example.
+ &lt;!-- (don't do this) -->
+&lt;/section></pre>
+
+  <p>但是根据 <span data-x="paragraph">隐式段落</span> 的定义，
+  不可能用同一个 <code>ins</code> 或 <code>del</code> 元素包含一个段落尾加紧接着的段落开始部分。
+  你必须使用一个（或两个）<code>p</code> 元素和两个 <code>ins</code> 或 <code>del</code> 元素，
+  例如：</p>
+
+  <pre>&lt;section>
+ &lt;p>This is the first paragraph. &lt;del>This sentence was
+ deleted.&lt;/del>&lt;/p>
+ &lt;p>&lt;del>This sentence was deleted too.&lt;/del> That
+ sentence needed a separate &amp;lt;del&amp;gt; element.&lt;/p>
+&lt;/section></pre>
+
+  <p>由于上面提到的困惑，强烈建议作者总是把所有段落标记为 <code>p</code> 元素，
+  而不是让 <code>ins</code> 或 <code>del</code> 元素穿越
+  <span data-x="paragraph">隐式段落</span> 的边界。</p>
+
+

@@ -1,0 +1,45 @@
+  <h4 id="tag-clouds">标签云</h4>
+
+  <p id="tag-cloud">本规范没有定义任何专门标记一组页面的关键字列表（也称为 <i>tag clouds</i>）的标记。
+  通常，鼓励作者使用 <code>ul</code> 元素来标记这些列表。
+  其中写好计数并隐藏，再用样式表或 SVG 把它的效果呈现出来。</p>
+
+  <div class="example">
+
+   <p>这是一个只有三个标签的标签云：</p>
+
+   <pre>&lt;style>
+.tag-cloud > li > span { display: none; }
+.tag-cloud > li { display: inline; }
+.tag-cloud-1 { font-size: 0.7em; }
+.tag-cloud-2 { font-size: 0.9em; }
+.tag-cloud-3 { font-size: 1.1em; }
+.tag-cloud-4 { font-size: 1.3em; }
+.tag-cloud-5 { font-size: 1.5em; }
+
+@media speech {
+  .tag-cloud > li > span { display:inline }
+}
+&lt;/style>
+...
+&lt;ul class="tag-cloud">
+ &lt;li class="tag-cloud-4">&lt;a title="28 instances" href="/t/apple">apple&lt;/a> &lt;span>(popular)&lt;/span>
+ &lt;li class="tag-cloud-2">&lt;a title="6 instances"  href="/t/kiwi">kiwi&lt;/a> &lt;span>(rare)&lt;/span>
+ &lt;li class="tag-cloud-5">&lt;a title="41 instances" href="/t/pear">pear&lt;/a> &lt;span>(very popular)&lt;/span>
+&lt;/ul></pre>
+
+   <p>每个标签实际的频率使用 <code data-x="attr-title">title</code> 属性给出。
+   提供了一个 CSS 样式表来把标记转化成一个不同大小的词的云，
+   但不支持 CSS 的或非视觉的用户代理中，包含类似 "(popular)" 或 "(rare)" 字样的标记也会把不同频率的标签分离开，
+   这样所有用户都可以得到这个信息。</p>
+
+   <p>使用 <code>ul</code> 元素（而不是 <code>ol</code>）是因为顺序并不重要：
+   虽然列表实际上是按字母顺序排列的，但如果按标签的长度排序，它将传达相同的信息。</p>
+
+   <p><code data-x="rel-tag">tag</code> <code data-x="attr-hyperlink-rel">rel</code>
+   关键字 <em>没有</em> 用在这些 <code>a</code> 元素上，
+   因为它们表示的标签不适用于当前页面自己；它们只是列出标签本身的索引的一部分。</p>
+
+  </div>
+
+

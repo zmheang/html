@@ -1,0 +1,51 @@
+  <h4 id="edits-and-lists">编辑与列表</h4>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p><code>ol</code> 和 <code>ul</code> 元素的内容模型不允许
+  <code>ins</code> 和 <code>del</code> 元素作为子节点。
+  列表总是表示它的所有列表项，包括应该被标记为删除的列表项。</p>
+
+  <p>为了表示一项被插入或删除，可以用 <code>ins</code> 或 <code>del</code>
+  元素包含 <code>li</code> 元素的内容。为了表示一个元素被替换，
+  一个 <code>li</code> 元素可以有一个或更多的 <code>del</code> 元素，
+  再加一个或更多的 <code>ins</code> 元素。</p>
+
+  <div class="example">
+
+   <p>在以下示例中，开始为空的列表随着时间的推移添加或删除了项目。
+   示例中强调了列表中属于“当前”状态的部分。尽管如此，列表项目编号并未考虑编辑。</p>
+
+   <pre>&lt;h1>Stop-ship bugs&lt;/h1>
+&lt;ol>
+ &lt;li>&lt;ins datetime="2008-02-12T15:20Z"><em>Bug 225:
+ Rain detector doesn't work in snow</em>&lt;/ins>&lt;/li>
+ &lt;li>&lt;del datetime="2008-03-01T20:22Z">&lt;ins datetime="2008-02-14T12:02Z">Bug 228:
+ Water buffer overflows in April&lt;/ins>&lt;/del>&lt;/li>
+ &lt;li>&lt;ins datetime="2008-02-16T13:50Z"><em>Bug 230:
+ Water heater doesn't use renewable fuels</em>&lt;/ins>&lt;/li>
+ &lt;li>&lt;del datetime="2008-02-20T21:15Z">&lt;ins datetime="2008-02-16T14:25Z">Bug 232:
+ Carbon dioxide emissions detected after startup&lt;/ins>&lt;/del>&lt;/li>
+&lt;/ol></pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>下面的示例中，一个开始只包含水果的列表被替换为只包含颜色的列表。</p>
+
+   <pre>&lt;h1>List of &lt;del>fruits&lt;/del>&lt;ins>colors&lt;/ins>&lt;/h1>
+&lt;ul>
+ &lt;li>&lt;del>Lime&lt;/del>&lt;ins>Green&lt;/ins>&lt;/li>
+ &lt;li>&lt;del>Apple&lt;/del>&lt;/li>
+ &lt;li>Orange&lt;/li>
+ &lt;li>&lt;del>Pear&lt;/del>&lt;/li>
+ &lt;li>&lt;ins>Teal&lt;/ins>&lt;/li>
+ &lt;li>&lt;del>Lemon&lt;/del>&lt;ins>Yellow&lt;/ins>&lt;/li>
+ &lt;li>Olive&lt;/li>
+ &lt;li>&lt;ins>Purple&lt;/ins>&lt;/li>
+&lt;/ul></pre>
+
+  </div>
+
+

@@ -1,0 +1,150 @@
+  <h4 id="the-main-part-of-the-content">内容的主要部分</h4>
+
+  <p>页面的主要内容 &mdash; 不包括头部和底部，导航链接，侧边栏，广告等 &mdash;
+  可以有很多种写法，取决于作者的需要。</p>
+
+  <p>最简单的解决方案是根本不标记主要内容，让它隐式地生成标签。
+  也可以看作是 <code>body</code> 元素标记了页面主要内容，
+  通过使用更复杂的元素比如 <code>aside</code> 和 <code>nav</code>
+  来排除掉不是页面主要的部分。</p>
+
+  <div class="example">
+
+   <p>这是一个很短的网页，是按照这个简约思想派来标记的。
+   我们高亮了主要内容。注意我们是如何使用标记来区分
+   <code>body</code> 中的 <em>其他</em> 内容的。
+   在这个例子中包括 <code>header</code>, <code>nav</code> 和 <code>footer</code>。</p>
+
+   <pre>&lt;!DOCTYPE HTML>
+&lt;html lang="en">
+ &lt;head>
+  &lt;title> My Toys &lt;/title>
+ &lt;/head>
+ &lt;body>
+  &lt;header>
+   &lt;h1>My toys&lt;/h1>
+  &lt;/header>
+  &lt;nav>
+   &lt;p>&lt;a href="/">Home&lt;/a>&lt;/p>
+   &lt;p>&lt;a href="/contact">Contact&lt;/a>&lt;/p>
+  &lt;/nav>
+<strong>  &lt;p>I really like my chained book and my telephone. I'm not such a
+  fan of my big ball.&lt;/p>
+  &lt;p>Another toy I like is my mirror.&lt;/p></strong>
+  &lt;footer>
+   &lt;p>&copy; copyright 2010 by the boy&lt;/p>
+  &lt;/footer>
+ &lt;/body>
+&lt;/html></pre>
+
+  </div>
+
+  <p>如果主要内容是一个独立的内容单元，那么使用
+  <code>article</code> 元素来标记文档的主要内容比较合适。</p>
+
+  <div class="example">
+
+   <p>上一个例子中的文档这里重新改写为一个博客文章：</p>
+
+   <pre>&lt;!DOCTYPE HTML>
+&lt;html lang="en">
+ &lt;head>
+  &lt;title> The Boy Blog: My Toys &lt;/title>
+ &lt;/head>
+ &lt;body>
+  &lt;header>
+   &lt;h1>The Boy Blog&lt;/h1>
+  &lt;/header>
+  &lt;nav>
+   &lt;p>&lt;a href="/">Home&lt;/a>&lt;/p>
+   &lt;p>&lt;a href="/contact">Contact&lt;/a>&lt;/p>
+  &lt;/nav>
+<strong>  &lt;article>
+   &lt;header>
+    &lt;h1>My toys&lt;/h1>
+    &lt;p>Published August 4th&lt;/p>
+   &lt;/header>
+   &lt;p>I really like my chained book and my telephone. I'm not such a
+   fan of my big ball.&lt;/p>
+   &lt;p>Another toy I like is my mirror.&lt;/p>
+  &lt;/article></strong>
+  &lt;footer>
+   &lt;p>&copy; copyright 2010 by the boy&lt;/p>
+  &lt;/footer>
+ &lt;/body>
+&lt;/html></pre>
+
+  </div>
+
+  <p>主要内容不是独立的内容单元，而是一部分较大的作品中的一章，那么使用
+  <code>section</code> 元素来标记文档的主要内容比较合适。</p>
+
+  <div class="example">
+
+   <p>这是同一个文档，但作为一个在线书籍的一章：</p>
+
+   <pre>&lt;!DOCTYPE HTML>
+&lt;html lang="en">
+ &lt;head>
+  &lt;title> Chapter 2: My Toys &mdash; The Book of the Boy &lt;/title>
+ &lt;/head>
+ &lt;body>
+  &lt;header>
+   &lt;hgroup>
+    &lt;h1>The Book of the Boy&lt;/h1>
+    &lt;h2>A book about boy stuff&lt;/h2>
+   &lt;/hgroup>
+  &lt;/header>
+  &lt;nav>
+   &lt;p>&lt;a href="/">Front Page&lt;/a>&lt;/p>
+   &lt;p>&lt;a href="/toc">Table of Contents&lt;/a>&lt;/p>
+   &lt;p>&lt;a href="/c1">Chapter 1&lt;/a> &mdash; &lt;a href="/c3">Chapter 3&lt;/a>&lt;/p>
+  &lt;/nav>
+<strong>  &lt;section>
+   &lt;h1>Chapter 2: My Toys&lt;/h1>
+   &lt;p>I really like my chained book and my telephone. I'm not such a
+   fan of my big ball.&lt;/p>
+   &lt;p>Another toy I like is my mirror.&lt;/p>
+  &lt;/section></strong>
+ &lt;/body>
+&lt;/html></pre>
+
+  </div>
+
+  <p>如果 <code>article</code> 或 <code>section</code> 都不合适，但主要内容仍然需要显式的元素，
+  比如为了加样式，那么可以使用 <code>main</code> 元素。</p>
+
+  <div class="example">
+
+   <p>这与原示例相同，但使用了 <code>main</code> 来标记主要内容，而不是把它交给隐式标签：</p>
+
+   <pre>&lt;!DOCTYPE HTML>
+&lt;html lang="en">
+ &lt;head>
+  &lt;title> My Toys &lt;/title>
+  &lt;style>
+   body > main { background: navy; color: yellow; }
+  &lt;/style>
+ &lt;/head>
+ &lt;body>
+  &lt;header>
+   &lt;h1>My toys&lt;/h1>
+  &lt;/header>
+  &lt;nav>
+   &lt;p>&lt;a href="/">Home&lt;/a>&lt;/p>
+   &lt;p>&lt;a href="/contact">Contact&lt;/a>&lt;/p>
+  &lt;/nav>
+<strong>  &lt;main>
+   &lt;p>I really like my chained book and my telephone. I'm not such a
+   fan of my big ball.&lt;/p>
+   &lt;p>Another toy I like is my mirror.&lt;/p>
+  &lt;/main></strong>
+  &lt;footer>
+   &lt;p>&copy; copyright 2010 by the boy&lt;/p>
+  &lt;/footer>
+ &lt;/body>
+&lt;/html></pre>
+
+  </div>
+
+
