@@ -1,0 +1,126 @@
+  <h4 id="footnotes">脚注</h4>
+
+  <p>HTML 没有标记脚注的专门机制。以下是建议的替代方案。</p>
+
+  <hr>
+
+  <p>对于较短的行内注释，可以使用 <code data-x="attr-title">title</code> 属性。<!-- SHOULD, modulo title-warning -->。</p>
+
+  <div class="example">
+
+   <p>在这个例子中，对话框中有两部分是通过 <code data-x="attr-title">title</code> 属性，
+   使用类似脚注的内容注释的。</p>
+
+   <pre>&lt;p> &lt;b>Customer&lt;/b>: Hello! I wish to register a complaint. Hello. Miss?
+&lt;p> &lt;b>Shopkeeper&lt;/b>: <strong>&lt;span title="Colloquial pronunciation of 'What do you'"</strong>
+>Watcha&lt;/span> mean, miss?
+&lt;p> &lt;b>Customer&lt;/b>: Uh, I'm sorry, I have a cold. I wish to make a complaint.
+&lt;p> &lt;b>Shopkeeper&lt;/b>: Sorry, &lt;span <strong>title="This is, of course, a lie."</strong>>we're
+closing for lunch&lt;/span>.</pre>
+
+  </div>
+
+  <!-- search for title-warning if modifying this paragraph -->
+  <p class="note">不幸的是，很多用户代理目前不鼓励依赖 <code data-x="attr-title">title</code> 属性，
+  它们没有按照本规范的要求把该属性以可访问的方式暴露出来。
+  （例如，需要类似鼠标的指点设备才能让提示显示出来，这就排除了纯键盘用户和触摸设备用户，
+  这里面包括任何一个使用现代手机和平板的用户）。</p>
+
+  <p class="note">如果使用 <code data-x="attr-title">title</code> 属性，可以使用 CSS 来吸引读者注意
+  这个有 <code data-x="attr-title">title</code> 属性的元素。</p>
+
+  <div class="example">
+
+   <p>例如，下面的 CSS 在有 <code data-x="attr-title">title</code> 属性的元素下面画了一条虚线。</p>
+
+   <pre>[title] { border-bottom: thin dashed; }</pre>
+
+  </div>
+
+  <hr>
+
+  <p>对于更长的注释，应该使用 <code>a</code> 元素，指向文档后面的一个元素。
+  根据惯例，这个超链接的内容是一个方括号中的数字。</p>
+
+  <div class="example">
+
+   <p>在这个例子中，对话框中的脚注链接到了对话框下面的一个段落。
+   然后这个段落又链接回对话框，让用户可以返回脚注的位置。</p>
+
+   <pre>&lt;p> Announcer: Number 16: The &lt;i>hand&lt;/i>.
+&lt;p> Interviewer: Good evening. I have with me in the studio tonight
+Mr Norman St John Polevaulter, who for the past few years has been
+contradicting people. Mr Polevaulter, why &lt;em>do&lt;/em> you
+contradict people?
+&lt;p> Norman: I don't. &lt;sup>&lt;a href="#fn1" id="r1">[1]&lt;/a>&lt;/sup>
+&lt;p> Interviewer: You told me you did!
+<em>...</em>
+&lt;section>
+ &lt;p id="fn1">&lt;a href="#r1">[1]&lt;/a> This is, naturally, a lie,
+ but paradoxically if it were true he could not say so without
+ contradicting the interviewer and thus making it false.&lt;/p>
+&lt;/section></pre>
+
+  </div>
+
+  <hr>
+
+  <p>对于适用于整个章节的文本（而非特定的词和句子）的更长的边栏笔记，
+  应该使用 <code>aside</code> 元素。</p>
+
+  <div class="example">
+
+   <p>在这个例子中，对话框后给出了一个边栏，里面给出了一些上下文。</p>
+
+   <pre>&lt;p> &lt;span class="speaker">Customer&lt;/span>: I will not buy this record, it is scratched.
+&lt;p> &lt;span class="speaker">Shopkeeper&lt;/span>: I'm sorry?
+&lt;p> &lt;span class="speaker">Customer&lt;/span>: I will not buy this record, it is scratched.
+&lt;p> &lt;span class="speaker">Shopkeeper&lt;/span>: No no no, this's'a tobacconist's.
+&lt;aside>
+ &lt;p>In 1970, the British Empire lay in ruins, and foreign
+ nationalists frequented the streets &mdash; many of them Hungarians
+ (not the streets &mdash; the foreign nationals). Sadly, Alexander
+ Yalt has been publishing incompetently-written phrase books.
+&lt;/aside></pre>
+
+  </div>
+
+  <hr>
+
+  <p>对图表而言，脚注可以包含在相关的 <code>figcaption</code> 或 <code>caption</code> 元素中，
+  或者周围的文章中。</p>
+
+  <div class="example">
+
+   <p>在这个例子中，<!-- round --> 表格的单元格中有一些来自文章脚注。
+   使用了一个 <code>figure</code> 元素为表格和脚注一起给出了一个图例。</p>
+
+   <pre>&lt;figure>
+ &lt;figcaption>Table 1. Alternative activities for knights.&lt;/figcaption>
+ &lt;table>
+  &lt;tr>
+   &lt;th> Activity
+   &lt;th> Location
+   &lt;th> Cost
+  &lt;tr>
+   &lt;td> Dance
+   &lt;td> Wherever possible
+   &lt;td> &#x00A3;0&lt;sup>&lt;a href="#fn1">1&lt;/a>&lt;/sup>
+  &lt;tr>
+   &lt;td> Routines, chorus scenes&lt;sup>&lt;a href="#fn2">2&lt;/a>&lt;/sup>
+   &lt;td> Undisclosed
+   &lt;td> Undisclosed
+  &lt;tr>
+   &lt;td> Dining&lt;sup>&lt;a href="#fn3">3&lt;/a>&lt;/sup>
+   &lt;td> Camelot
+   &lt;td> Cost of ham, jam, and spam&lt;sup>&lt;a href="#fn4">4&lt;/a>&lt;/sup>
+ &lt;/table>
+ &lt;p id="fn1">1. Assumed.&lt;/p>
+ &lt;p id="fn2">2. Footwork impeccable.&lt;/p>
+ &lt;p id="fn3">3. Quality described as "well".&lt;/p>
+ &lt;p id="fn4">4. A lot.&lt;/p>
+&lt;/figure></pre>
+
+  </div>
+
+

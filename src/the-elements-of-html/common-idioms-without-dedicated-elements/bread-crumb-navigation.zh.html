@@ -1,0 +1,31 @@
+  <h4 id="rel-up">面包屑导航</h4>
+
+  <p>本规范没有提供机器可读的方式来描述面包屑导航彩蛋。
+  鼓励作者只是在段落中使用一些超链接。可以使用 <code>nav</code>
+  元素来标记包含这些段落的部分形成导航块。</p>
+
+  <!-- If there was implementation interest, we could go back to rel="up", rel="up up", rel="up up
+  top" to programmatically indicate the actual breadcrumb structure. However, UAs and ATs don't seem
+  interested in exposing this in a useful way to users. So... -->
+
+  <div class="example">
+
+   <p>在下面的例子中，当前页面可以通过两种路径到达。</p>
+
+   <pre>&lt;nav>
+ &lt;p>
+  &lt;a href="/">Main&lt;/a> &#x25B8;
+  &lt;a href="/products/">Products&lt;/a> &#x25B8;
+  &lt;a href="/products/dishwashers/">Dishwashers&lt;/a> &#x25B8;
+  &lt;a>Second hand&lt;/a>
+ &lt;/p>
+ &lt;p>
+  &lt;a href="/">Main&lt;/a> &#x25B8;
+  &lt;a href="/second-hand/">Second hand&lt;/a> &#x25B8;
+  &lt;a>Dishwashers&lt;/a>
+ &lt;/p>
+&lt;/nav></pre>
+
+  </div>
+
+
