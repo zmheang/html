@@ -1,0 +1,28 @@
+  <h4 id="the-details-and-summary-elements"><code>details</code> 和 <code>summary</code> 元素</h4>
+
+  <pre class="css">@namespace url(http://www.w3.org/1999/xhtml);
+
+summary {
+  display: list-item;
+  counter-increment: list-item 0;
+  list-style: disclosure-closed inside;
+}
+details[open] > summary {
+  list-style-type: disclosure-open;
+}</pre>
+
+  <p><code>details</code> 元素应该被渲染成 <span>block box</span>。该元素的 Shadow 树应该获取元素的第一个
+  <code>summary</code> 子元素（如果有），并放入第一个 <span>block box</span> 容器中，然后将其它的后代（如果有）
+  放入第二个 <span>block box</span> 容器中。</p>
+
+  <p>第一个容器应该允许用户请求显示或者隐藏详情。</p>
+
+  <p>在 <code>details</code> 元素没有 <code data-x="attr-details-open">open</code> 属性时，第二个容器
+  应当在渲染时被移除。</p>
+
+  <!-- https://mail.gnome.org/archives/usability/2006-June/msg00015.html -->
+
+  </div>
+
+  <div w-nodev>
+
