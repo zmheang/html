@@ -22,7 +22,7 @@
    <dd><code data-x="attr-hyperlink-referrerpolicy">referrerpolicy</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-target">target</span>;
@@ -37,9 +37,9 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
 
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-referrerPolicy">referrerPolicy</span>;
 };
-<span>HTMLAnchorElement</span> includes <span>HTMLHyperlinkElementUtils</span>;</pre>
+<span>HTMLAnchorElement</span> includes <span>HTMLHyperlinkElementUtils</span>;</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLAnchorElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLAnchorElement</code>.</dd>
   </dl>
 
   <p>If the <code>a</code> element has an <code data-x="attr-hyperlink-href">href</code> attribute,
@@ -69,14 +69,14 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
    <p>If a site uses a consistent navigation toolbar on every page, then the link that would
    normally link to the page itself could be marked up using an <code>a</code> element:</p>
 
-   <pre>&lt;nav>
+   <pre><code class="html" data-x="">&lt;nav>
  &lt;ul>
   &lt;li> &lt;a href="/">Home&lt;/a> &lt;/li>
   &lt;li> &lt;a href="/news">News&lt;/a> &lt;/li>
   &lt;li> &lt;a>Examples&lt;/a> &lt;/li>
   &lt;li> &lt;a href="/legal">Legal&lt;/a> &lt;/li>
  &lt;/ul>
-&lt;/nav></pre>
+&lt;/nav></code></pre>
 
   </div>
 
@@ -178,7 +178,7 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
    other links). This example shows how this can be used to make an entire advertising block into a
    link:</p>
 
-   <pre>&lt;aside class="advertising">
+   <pre><code class="html" data-x="">&lt;aside class="advertising">
  &lt;h1>Advertising&lt;/h1>
  &lt;a href="https://ad.example.com/?adid=1929&amp;amp;pubid=1422">
   &lt;section>
@@ -194,7 +194,7 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
    &lt;p>No other browser goes faster!&lt;/p>
   &lt;/section>
  &lt;/a>
-&lt;/aside></pre>
+&lt;/aside></code></pre>
 
   </div>
 

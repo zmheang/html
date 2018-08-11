@@ -1,6 +1,6 @@
   <h4 id="worker-locations">The <code subdfn>WorkerLocation</code> interface</h4>
 
-  <pre class="idl">[Exposed=Worker]
+  <pre><code class="idl" data-x="">[Exposed=Worker]
 interface <dfn>WorkerLocation</dfn> {
   stringifier readonly attribute USVString <span data-x="dom-WorkerLocation-href">href</span>;
   readonly attribute USVString <span data-x="dom-WorkerLocation-origin">origin</span>;
@@ -11,9 +11,9 @@ interface <dfn>WorkerLocation</dfn> {
   readonly attribute USVString <span data-x="dom-WorkerLocation-pathname">pathname</span>;
   readonly attribute USVString <span data-x="dom-WorkerLocation-search">search</span>;
   readonly attribute USVString <span data-x="dom-WorkerLocation-hash">hash</span>;
-};</pre>
+};</code></pre>
 
-  <p w-nohtml>The <code>WorkerLocation</code> interface is like the <code>Location</code> interface,
+  <p w-dev>The <code>WorkerLocation</code> interface is like the <code>Location</code> interface,
   but lacks the <code data-x="dom-Location-assign">assign()</code>, <code
   data-x="dom-Location-replace">replace()</code>, <code data-x="dom-Location-reload">reload()</code>,
   and <code data-x="dom-Location-ancestorOrigins">ancestorOrigins</code> members.</p>

@@ -9,18 +9,18 @@
 
   <p>The main page is as follows, it just reports the result:</p>
 
-  <pre>EXAMPLE workers/multicore/page.html</pre>
+  <pre><code class="html" data-x="">EXAMPLE workers/multicore/page.html</code></pre>
 
   <p>The worker itself is as follows:</p>
 
-  <pre>EXAMPLE workers/multicore/worker.js</pre>
+  <pre><code class="js" data-x="">EXAMPLE workers/multicore/worker.js</code></pre>
 
   <p>It consists of a loop to start the subworkers, and then a handler
   that waits for all the subworkers to respond.</p>
 
   <p>The subworkers are implemented as follows:</p>
 
-  <pre>EXAMPLE workers/multicore/core.js</pre>
+  <pre><code class="js" data-x="">EXAMPLE workers/multicore/core.js</code></pre>
 
   <p>They receive two numbers in two events, perform the computation for the range of numbers thus
   specified, and then report the result back to the parent.</p>

@@ -34,28 +34,24 @@
    <li><p>If <var>host</var> is failure, then return false.</p></li>
 
    <li>
-    <p>If <var>host</var> is <em>not</em> <span data-x="host equals">equal</span> to
-    <var>originalHost</var>, then run these substeps:</p>
+    <p>If <var>host</var> does not <span data-x="host equals">equal</span> <var>originalHost</var>,
+    then:</p>
 
     <ol>
      <li>
       <p>If <var>host</var> or <var>originalHost</var> is not a <span
       data-x="concept-domain">domain</span>, then return false.</p>
 
-      <p class="note">This is meant to exclude <span data-x="concept-host">hosts</span> that are an
-      <span>IPv4 address</span> or an <span>IPv6 address</span>.</p>
+      <p class="note">This excludes <span data-x="concept-host">hosts</span> that are an <span>IPv4
+      address</span> or an <span>IPv6 address</span>.</p>
      </li>
 
      <li><p>If <var>host</var>, prefixed by a U+002E FULL STOP (.), does not exactly match the end
      of <var>originalHost</var>, then return false.</p></li>
+     <!-- This seems okay, but does pretend hosts are strings which URL does not. -->
 
-     <li>
-      <p>If <var>host</var> matches a suffix in the Public Suffix List, or, if <var>host</var>,
-      prefixed by a U+002E FULL STOP (.), matches the end of a suffix in the Public Suffix List,
-      then return false. <ref spec=PSL></p>
-
-      <p>Suffixes must be compared after applying the <span>host parser</span> algorithm.</p>
-     </li>
+     <li><p>If <var>host</var> <span data-x="host equals">equals</span> <var>host</var>'s
+     <span>public suffix</span>, then return false. <ref spec=URL></p></li>
     </ol>
    </li>
 
@@ -66,11 +62,8 @@
   these steps:</p>
 
   <ol>
-   <li><p>If this <code>Document</code> object does not have a <span
-   data-x="concept-document-bc">browsing context</span>, then return the empty string.
-
-   <li><p>Let <var>effectiveDomain</var> be this <code>Document</code>'s <span>origin</span>'s <span
-   data-x="concept-origin-effective-domain">effective domain</span>.
+   <li><p>Let <var>effectiveDomain</var> be this <code>Document</code> object's
+   <span>origin</span>'s <span data-x="concept-origin-effective-domain">effective domain</span>.
 
    <li><p>If <var>effectiveDomain</var> is null, then return the empty string.</p></li>
 
@@ -91,8 +84,8 @@
    flag</span> set, then throw a <span>"<code>SecurityError</code>"</span>
    <code>DOMException</code>.</p></li>
 
-   <li><p>Let <var>effectiveDomain</var> be this <code>Document</code>'s <span>origin</span>'s <span
-   data-x="concept-origin-effective-domain">effective domain</span>.
+   <li><p>Let <var>effectiveDomain</var> be this <code>Document</code> object's
+   <span>origin</span>'s <span data-x="concept-origin-effective-domain">effective domain</span>.
 
    <li><p>If <var>effectiveDomain</var> is null, then throw a
    <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>

@@ -1,6 +1,6 @@
   <h4>The <code>WebSocket</code> interface</h4>
 
-  <pre class="idl">enum <dfn>BinaryType</dfn> { "<span data-x="dom-BinaryType-blob">blob</span>", "<span data-x="dom-BinaryType-arraybuffer">arraybuffer</span>" };
+  <pre><code class="idl" data-x="">enum <dfn>BinaryType</dfn> { "<span data-x="dom-BinaryType-blob">blob</span>", "<span data-x="dom-BinaryType-arraybuffer">arraybuffer</span>" };
 [<span data-x="dom-WebSocket">Constructor</span>(USVString url, optional (DOMString or sequence&lt;DOMString&gt;) protocols = []), Exposed=(Window,Worker)]
 interface <dfn>WebSocket</dfn> : <span>EventTarget</span> {
   readonly attribute USVString <span data-x="dom-WebSocket-url">url</span>;
@@ -28,7 +28,7 @@ interface <dfn>WebSocket</dfn> : <span>EventTarget</span> {
   void <span data-x="dom-WebSocket-send">send</span>(<span>Blob</span> data);
   void <span data-x="dom-WebSocket-send">send</span>(<span data-x="idl-ArrayBuffer">ArrayBuffer</span> data);
   void <span data-x="dom-WebSocket-send">send</span>(<span data-x="idl-ArrayBufferView">ArrayBufferView</span> data);
-};</pre>
+};</code></pre>
 
   <p w-nodev>Each <code>WebSocket</code> object has an associated <dfn
   data-x="concept-websocket-url">url</dfn> (a <span>URL record</span>).
@@ -198,7 +198,7 @@ interface <dfn>WebSocket</dfn> : <span>EventTarget</span> {
 
   </div>
 
-  <p w-nohtml>The <code data-x="dom-WebSocket-readyState">readyState</code> attribute can have the
+  <p w-dev>The <code data-x="dom-WebSocket-readyState">readyState</code> attribute can have the
   following values:</p>
 
   <dl>
@@ -373,13 +373,13 @@ interface <dfn>WebSocket</dfn> : <span>EventTarget</span> {
    the network can handle that rate, or at whatever rate the network <em>can</em> handle, if that is
    too fast.</p>
 
-   <pre>var socket = new WebSocket('ws://game.example.com:12010/updates');
+   <pre><code class="js" data-x="">var socket = new WebSocket('ws://game.example.com:12010/updates');
 socket.onopen = function () {
   setInterval(function() {
     if (socket.bufferedAmount == 0)
       socket.send(getUpdateData());
   }, 50);
-};</pre>
+};</code></pre>
 
    <p>The <code data-x="dom-WebSocket-bufferedAmount">bufferedAmount</code> attribute can also be
    used to saturate the network without sending the data at a higher rate than the network can

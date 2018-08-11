@@ -6,8 +6,8 @@
 
   <!-- NOTE: This algorithm is also used by the XHR spec -->
 
-  <p>The <dfn data-export=""><code>multipart/form-data</code> encoding algorithm</dfn>, given a
-  <var>form data set</var> and <var>encoding</var>, is as follows:</p>
+  <p>The <dfn data-export=""><code>multipart/form-data</code> encoding algorithm</dfn>, given an
+  <var>entry list</var> and <var>encoding</var>, is as follows:</p>
 
   <ol>
 
@@ -17,7 +17,7 @@
 
    <li>
 
-    <p>For each entry in the <var>form data set</var>:</p>
+    <p>For each <span data-x="formdata-entry">entry</span> in <var>entry list</var>:</p>
 
     <ol>
 
@@ -39,15 +39,15 @@
 
    <li>
 
-    <p>Encode the (now mutated) <var>form data set</var> using the rules described by RFC 7578,
+    <p>Encode the (now mutated) <var>entry list</var> using the rules described by RFC 7578,
     <cite>Returning Values from Forms: <code data-x="">multipart/form-data</code></cite>, and return
     the resulting byte stream. <ref spec=RFC7578></p>
 
-    <p>Each entry in the <var>form data set</var> is a <i>field</i>, the name of the entry is the
-    <i>field name</i> and the value of the entry is the <i>field value</i>.</p>
+    <p>Each entry in <var>entry list</var> is a <i>field</i>, the name of the entry is the <i>field
+    name</i> and the value of the entry is the <i>field value</i>.</p>
 
-    <p>The order of parts must be the same as the order of fields in the <var>form data set</var>.
-    Multiple entries with the same name must be treated as distinct fields.</p>
+    <p>The order of parts must be the same as the order of fields in <var>entry list</var>. Multiple
+    entries with the same name must be treated as distinct fields.</p>
 
     <p>The parts of the generated <code>multipart/form-data</code> resource that correspond to
     non-file fields must not have a `<code>Content-Type</code>` header specified. Their names and

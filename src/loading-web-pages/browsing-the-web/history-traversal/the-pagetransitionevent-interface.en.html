@@ -1,6 +1,6 @@
   <h5>The <code>PageTransitionEvent</code> interface</h5>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  Constructor(DOMString type, optional <span>PageTransitionEventInit</span> eventInitDict)]
 interface <dfn>PageTransitionEvent</dfn> : <span>Event</span> {
   readonly attribute boolean <span data-x="dom-PageTransitionEvent-persisted">persisted</span>;
@@ -8,7 +8,7 @@ interface <dfn>PageTransitionEvent</dfn> : <span>Event</span> {
 
 dictionary <dfn>PageTransitionEventInit</dfn> : <span>EventInit</span> {
   boolean persisted = false;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 
@@ -28,7 +28,7 @@ dictionary <dfn>PageTransitionEventInit</dfn> : <span>EventInit</span> {
     <p>Things that can cause the page to be unsalvageable include:</p>
 
     <ul class="brief">
-     <li><code data-x="dom-document-open">document.open()</code>
+     <li><code data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code>
      <li>Listening for <code data-x="event-beforeunload">beforeunload</code> events
      <li>Listening for <code data-x="event-unload">unload</code> events
      <li>Having <code>iframe</code>s that are not salvageable

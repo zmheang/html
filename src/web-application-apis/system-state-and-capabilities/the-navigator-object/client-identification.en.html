@@ -1,6 +1,6 @@
   <h5>Client identification</h5>
 
-  <pre class="idl">interface mixin <dfn>NavigatorID</dfn> {
+  <pre><code class="idl" data-x="">interface mixin <dfn>NavigatorID</dfn> {
   readonly attribute DOMString <span data-x="dom-navigator-appCodeName">appCodeName</span>; // constant "Mozilla"
   readonly attribute DOMString <span data-x="dom-navigator-appName">appName</span>; // constant "Netscape"
   readonly attribute DOMString <span data-x="dom-navigator-appVersion">appVersion</span>;
@@ -10,7 +10,7 @@
   readonly attribute DOMString <span data-x="dom-navigator-userAgent">userAgent</span>;
   [Exposed=Window] readonly attribute DOMString <span data-x="dom-navigator-vendor">vendor</span>;
   [Exposed=Window] readonly attribute DOMString <span data-x="dom-navigator-vendorSub">vendorSub</span>; // constant ""
-};</pre>
+};</code></pre>
 
   <p>In certain cases, despite the best efforts of the entire industry, Web browsers have bugs and
   limitations that Web authors are forced to work around.</p>
@@ -159,10 +159,10 @@
   <p>If the <span data-x="concept-navigator-compatibility-mode">navigator compatibility mode</span>
   is <i>Gecko</i>, then the user agent must also support the following partial interface:</p>
 
-  <pre class="idl">partial interface <span id="NavigatorID-partial">NavigatorID</span> {
+  <pre><code class="idl" data-x="">partial interface <span id="NavigatorID-partial">NavigatorID</span> {
   [Exposed=Window] boolean <span data-x="dom-navigator-taintEnabled">taintEnabled</span>(); // constant false
   [Exposed=Window] readonly attribute DOMString <span data-x="dom-navigator-oscpu">oscpu</span>;
-};</pre>
+};</code></pre>
 
   <p>The <dfn><code data-x="dom-navigator-taintEnabled">taintEnabled()</code></dfn> method must
   return false.</p>

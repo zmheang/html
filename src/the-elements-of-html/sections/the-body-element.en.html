@@ -27,13 +27,13 @@
    <dd><code data-x="handler-window-onunload">onunload</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLBodyElement</dfn> : <span>HTMLElement</span> {};
 
-<span>HTMLBodyElement</span> includes <span>WindowEventHandlers</span>;</pre>
+<span>HTMLBodyElement</span> includes <span>WindowEventHandlers</span>;</code></pre>
 </dd>
-   <dd w-nohtml>Uses <code>HTMLBodyElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLBodyElement</code>.</dd>
   </dl>
 
   <p>The <code>body</code> element <span>represents</span> the contents of the document.</p>
@@ -79,7 +79,7 @@ interface <dfn>HTMLBodyElement</dfn> : <span>HTMLElement</span> {};
 
    <p>This page updates an indicator to show whether or not the user is online:</p>
 
-   <pre>&lt;!DOCTYPE HTML>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
  &lt;head>
   &lt;title>Online or offline?&lt;/title>
@@ -95,7 +95,7 @@ interface <dfn>HTMLBodyElement</dfn> : <span>HTMLElement</span> {};
        onload="update(navigator.onLine)">
   &lt;p>You are: &lt;span id="status">(Unknown)&lt;/span>&lt;/p>
  &lt;/body>
-&lt;/html></pre>
+&lt;/html></code></pre>
 
   </div>
 

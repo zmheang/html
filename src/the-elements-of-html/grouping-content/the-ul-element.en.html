@@ -12,11 +12,11 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
-interface <dfn>HTMLUListElement</dfn> : <span>HTMLElement</span> {};</pre>
+interface <dfn>HTMLUListElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLUListElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLUListElement</code>.</dd>
   </dl>
 
   <p>The <code>ul</code> element <span>represents</span> a list of items, where the order of the
@@ -33,26 +33,26 @@ interface <dfn>HTMLUListElement</dfn> : <span>HTMLElement</span> {};</pre>
    <code>ol</code> section to see an example of the same items using the <code>ol</code>
    element.</p>
 
-   <pre>&lt;p>I have lived in the following countries:&lt;/p>
+   <pre><code class="html" data-x="">&lt;p>I have lived in the following countries:&lt;/p>
 &lt;ul>
  &lt;li>Norway
  &lt;li>Switzerland
  &lt;li>United Kingdom
  &lt;li>United States
-&lt;/ul></pre>
+&lt;/ul></code></pre>
 
    <p>Note that changing the order of the list does not change the meaning of the document. The
    items in the snippet above are given in alphabetical order, but in the snippet below they are
    given in order of the size of their current account balance in 2007, without changing the meaning
    of the document whatsoever:</p>
 
-   <pre>&lt;p>I have lived in the following countries:&lt;/p>
+   <pre><code class="html" data-x="">&lt;p>I have lived in the following countries:&lt;/p>
 &lt;ul>
  &lt;li>Switzerland
  &lt;li>Norway
  &lt;li>United Kingdom
  &lt;li>United States
-&lt;/ul></pre>
+&lt;/ul></code></pre>
 
   </div>
 

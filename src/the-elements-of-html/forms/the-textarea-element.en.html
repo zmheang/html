@@ -29,7 +29,7 @@
    <dd><code data-x="attr-textarea-wrap">wrap</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-fe-autocomplete">autocomplete</span>;
@@ -68,9 +68,9 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   void <span data-x="dom-textarea/input-setRangeText">setRangeText</span>(DOMString replacement);
   void <span data-x="dom-textarea/input-setRangeText">setRangeText</span>(DOMString replacement, unsigned long start, unsigned long end, optional <span>SelectionMode</span> selectionMode = "preserve");
   void <span data-x="dom-textarea/input-setSelectionRange">setSelectionRange</span>(unsigned long start, unsigned long end, optional DOMString direction);
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLTextAreaElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLTextAreaElement</code>.</dd>
   </dl>
 
   <p>The <code>textarea</code> element <span>represents</span> a multiline plain text edit
@@ -96,7 +96,7 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, a text control is marked read-only because it represents a read-only
    file:</p>
 
-   <pre>Filename: &lt;code>/etc/bash.bashrc&lt;/code>
+   <pre><code class="html" data-x="">Filename: &lt;code>/etc/bash.bashrc&lt;/code>
 &lt;textarea name="buffer" readonly>
 # System-wide .bashrc file for interactive bash(1) shells.
 
@@ -106,7 +106,7 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
 # If not running interactively, don't do anything
 [ -z "$PS1" ] &amp;amp;&amp;amp; return
 
-...&lt;/textarea></pre>
+...&lt;/textarea></code></pre>
 
   </div>
 
@@ -461,22 +461,22 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
    <p>Here is an example of a <code>textarea</code> being used for unrestricted free-form text input
    in a form:</p>
 
-   <pre>&lt;p>If you have any comments, please let us know: &lt;textarea cols=80 name=comments>&lt;/textarea>&lt;/p></pre>
+   <pre><code class="html" data-x="">&lt;p>If you have any comments, please let us know: &lt;textarea cols=80 name=comments>&lt;/textarea>&lt;/p></code></pre>
 
    <p>To specify a maximum length for the comments, one can use the <code
    data-x="attr-textarea-maxlength">maxlength</code> attribute:</p>
 
-   <pre>&lt;p>If you have any short comments, please let us know: &lt;textarea cols=80 name=comments maxlength=200>&lt;/textarea>&lt;/p></pre>
+   <pre><code class="html" data-x="">&lt;p>If you have any short comments, please let us know: &lt;textarea cols=80 name=comments maxlength=200>&lt;/textarea>&lt;/p></code></pre>
 
    <p>To give a default value, text can be included inside the element:</p>
 
-   <pre>&lt;p>If you have any comments, please let us know: &lt;textarea cols=80 name=comments>You rock!&lt;/textarea>&lt;/p></pre>
+   <pre><code class="html" data-x="">&lt;p>If you have any comments, please let us know: &lt;textarea cols=80 name=comments>You rock!&lt;/textarea>&lt;/p></code></pre>
 
    <p>You can also give a minimum length. Here, a letter needs to be filled out by the user; a
    template (which is shorter than the minimum length) is provided, but is insufficient to submit
    the form:</p>
 
-   <pre>&lt;textarea required minlength="500">Dear Madam Speaker,
+   <pre><code class="html" data-x="">&lt;textarea required minlength="500">Dear Madam Speaker,
 
 Regarding your letter dated ...
 
@@ -484,24 +484,24 @@ Regarding your letter dated ...
 
 Yours Sincerely,
 
-...&lt;/textarea></pre>
+...&lt;/textarea></code></pre>
 
    <p>A placeholder can be given as well, to suggest the basic form to the user, without providing
    an explicit template:</p>
 
-   <pre>&lt;textarea placeholder="Dear Francine,
+   <pre><code class="html" data-x="">&lt;textarea placeholder="Dear Francine,
 
 They closed the parks this week, so we won't be able to
 meet your there. Should we just have dinner?
 
 Love,
-Daddy">&lt;/textarea></pre>
+Daddy">&lt;/textarea></code></pre>
 
    <p>To have the browser submit <span>the directionality</span> of the element along with the
    value, the <code data-x="attr-fe-dirname">dirname</code> attribute can be specified:</p>
 
-   <pre>&lt;p>If you have any comments, please let us know (you may use either English or Hebrew for your comments):
-&lt;textarea cols=80 name=comments dirname=comments.dir>&lt;/textarea>&lt;/p></pre>
+   <pre><code class="html" data-x="">&lt;p>If you have any comments, please let us know (you may use either English or Hebrew for your comments):
+&lt;textarea cols=80 name=comments dirname=comments.dir>&lt;/textarea>&lt;/p></code></pre>
 
   </div>
 

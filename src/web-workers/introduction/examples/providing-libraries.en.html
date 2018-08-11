@@ -27,32 +27,32 @@
 
   <p>The library itself is as follows:</p>
 
-  <pre>EXAMPLE workers/crypto/libcrypto-v1.js</pre>
+  <pre><code class="js" data-x="">EXAMPLE workers/crypto/libcrypto-v1.js</code></pre>
 
   <p>Note that the crypto functions here are just stubs and don't do real cryptography.</p>
 
   <p>This library could be used as follows:</p>
 
-  <pre>EXAMPLE workers/crypto/page.html</pre>
+  <pre><code class="html" data-x="">EXAMPLE workers/crypto/page.html</code></pre>
 
   <p>A later version of the API, though, might want to offload all the crypto work onto subworkers.
   This could be done as follows:</p>
 
-  <pre>EXAMPLE workers/crypto/libcrypto-v2.js</pre>
+  <pre><code class="js" data-x="">EXAMPLE workers/crypto/libcrypto-v2.js</code></pre>
 
   <p>The little subworkers would then be as follows.</p>
 
   <p>For generating key pairs:</p>
 
-  <pre>EXAMPLE workers/crypto/libcrypto-v2-generator.js</pre>
+  <pre><code class="js" data-x="">EXAMPLE workers/crypto/libcrypto-v2-generator.js</code></pre>
 
   <p>For encrypting:</p>
 
-  <pre>EXAMPLE workers/crypto/libcrypto-v2-encryptor.js</pre>
+  <pre><code class="js" data-x="">EXAMPLE workers/crypto/libcrypto-v2-encryptor.js</code></pre>
 
   <p>For decrypting:</p>
 
-  <pre>EXAMPLE workers/crypto/libcrypto-v2-decryptor.js</pre>
+  <pre><code class="js" data-x="">EXAMPLE workers/crypto/libcrypto-v2-decryptor.js</code></pre>
 
   <p>Notice how the users of the API don't have to even know that this is happening &mdash; the API
   hasn't changed; the library can delegate to subworkers without changing its API, even though it is

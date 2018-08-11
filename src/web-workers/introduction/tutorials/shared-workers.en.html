@@ -13,27 +13,27 @@
   constructor. This constructor takes the URL to the script to use for its first argument, and the
   name of the worker, if any, as the second argument.</p>
 
-  <pre>var worker = new SharedWorker('service.js');</pre>
+  <pre><code class="js" data-x="">var worker = new SharedWorker('service.js');</code></pre>
 
   <p>Communicating with shared workers is done with explicit <code>MessagePort</code> objects. The
   object returned by the <code data-x="dom-SharedWorker">SharedWorker()</code> constructor holds a
   reference to the port on its <code data-x="dom-SharedWorker-port">port</code> attribute.</p>
 
-  <pre>worker.port.onmessage = function (event) { ... };
+  <pre><code class="js" data-x="">worker.port.onmessage = function (event) { ... };
 worker.port.postMessage('some message');
-worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']});</pre>
+worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']});</code></pre>
 
   <p>Inside the shared worker, new clients of the worker are announced using the <code
   data-x="event-WorkerGlobalScope-connect">connect</code> event. The port for the new client is
   given by the event object's <code data-x="dom-messageevent-source">source</code> attribute.</p>
 
-  <pre>onconnect = function (event) {
+  <pre><code class="js" data-x="">onconnect = function (event) {
   var newPort = event.source;
   // set up a listener
   newPort.onmessage = function (event) { ... };
   // send a message back to the port
   newPort.postMessage('ready!'); // can also send structured data, of course
-};</pre>
+};</code></pre>
 
 
 

@@ -109,11 +109,11 @@
   <div class="example">
    <p>Consider the following very simple example:</p>
 
-   <pre>&lt;!DOCTYPE html>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
 &lt;iframe>&lt;/iframe>
 &lt;script>
   new frames[0].MessageChannel();
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>When the <code data-x="dom-MessageChannel">MessageChannel()</code> constructor looks up the
    <span>incumbent settings object</span> to use as the <span
@@ -135,12 +135,12 @@
   <div class="example">
    <p>Consider the following more complicated example:</p>
 
-   <pre>&lt;!DOCTYPE html>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
 &lt;iframe>&lt;/iframe>
 &lt;script>
   const bound = frames[0].postMessage.bind(frames[0], "some data", "*");
   window.setTimeout(bound);
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>There are two interesting <span data-x="environment settings object">environment settings
    objects</span> here: that of <code data-x="">window</code>, and that of <code
@@ -192,7 +192,7 @@
   <div class="example">
    <p>Consider this final, even more convoluted example:</p>
 
-   <pre>&lt;!-- a.html -->
+   <pre><code class="html" data-x="">&lt;!-- a.html -->
 &lt;!DOCTYPE html>
 &lt;button>click me&lt;/button>
 &lt;iframe>&lt;/iframe>
@@ -209,7 +209,7 @@ document.querySelector("button").addEventListener("click", bound);
   iframe.onload = function onLoad() {
     iframe.contentWindow.document.querySelector("button").click();
   };
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>Again there are two interesting <span data-x="environment settings object">environment
    settings objects</span> in play: that of <code data-x="">a.html</code>, and that of <code

@@ -17,12 +17,12 @@
    which contains phrasing content that is not a paragraph. Note how the comments and
    <span>inter-element whitespace</span> do not form paragraphs.</p>
 
-   <pre>&lt;section>
+   <pre><code class="html" data-x="">&lt;section>
   &lt;h1>Example of paragraphs&lt;/h1>
   This is the &lt;em>first&lt;/em> paragraph in this example.
   &lt;p>This is the second.&lt;/p>
   &lt;!-- This is not a paragraph. -->
-&lt;/section></pre>
+&lt;/section></code></pre>
 
   </div>
 
@@ -43,12 +43,12 @@
    &mdash; the <code>ins</code> element straddles the heading and the first paragraph, and the
    <code>del</code> element straddles the boundary between the two paragraphs.</p>
 
-   <pre>&lt;section>
+   <pre><code class="html" data-x="">&lt;section>
   &lt;ins>&lt;h1>Example of paragraphs&lt;/h1>
   This is the &lt;em>first&lt;/em> paragraph in&lt;/ins> this example&lt;del>.
   &lt;p>This is the second.&lt;/p>&lt;/del>
   &lt;!-- This is not a paragraph. -->
-&lt;/section></pre>
+&lt;/section></code></pre>
 
   </div>
 
@@ -86,7 +86,7 @@
    separating the two paragraphs, and half of the second paragraph. It straddles the paragraphs and
    the heading.</p>
 
-   <pre>&lt;header>
+   <pre><code class="html" data-x="">&lt;header>
  Welcome!
  &lt;a href="about.html">
   This is home of...
@@ -94,18 +94,18 @@
   The Lockheed Martin multirole jet fighter aircraft!
  &lt;/a>
  This page discusses the F-16 Fighting Falcon's innermost secrets.
-&lt;/header></pre>
+&lt;/header></code></pre>
 
    <p>Here is another way of marking this up, this time showing the paragraphs explicitly, and
    splitting the one link element into three:</p>
 
-   <pre>&lt;header>
+   <pre><code class="html" data-x="">&lt;header>
  &lt;p>Welcome! &lt;a href="about.html">This is home of...&lt;/a>&lt;/p>
  &lt;h1>&lt;a href="about.html">The Falcons!&lt;/a>&lt;/h1>
  &lt;p>&lt;a href="about.html">The Lockheed Martin multirole jet
  fighter aircraft!&lt;/a> This page discusses the F-16 Fighting
  Falcon's innermost secrets.&lt;/p>
-&lt;/header></pre>
+&lt;/header></code></pre>
 
   </div>
 
@@ -116,7 +116,7 @@
    <p>It is possible for paragraphs to overlap when using certain elements that define fallback
    content. For example, in the following section:</p>
 
-   <pre>&lt;section>
+   <pre><code class="html" data-x="">&lt;section>
  &lt;h1>My Cats&lt;/h1>
  You can play with my cat simulator.
  &lt;object data="cats.sim">
@@ -128,7 +128,7 @@
   Alternatively, upgrade to the Mellblom Browser.
  &lt;/object>
  I'm quite proud of it.
-&lt;/section></pre>
+&lt;/section></code></pre>
 
    <p>There are five paragraphs:</p>
 
@@ -156,7 +156,7 @@
    <p>To avoid this confusion, explicit <code>p</code> elements can be used. For example:</p>
 
    <!-- My Fish -->
-   <pre>&lt;section>
+   <pre><code class="html" data-x="">&lt;section>
  &lt;h1>My Cats&lt;/h1>
  &lt;p>You can play with my cat simulator.&lt;/p>
  &lt;object data="cats.sim">
@@ -168,7 +168,7 @@
   &lt;p>Alternatively, upgrade to the Mellblom Browser.&lt;/p>
  &lt;/object>
  &lt;p>I'm quite proud of it.&lt;/p>
-&lt;/section></pre>
+&lt;/section></code></pre>
 
   </div>
 

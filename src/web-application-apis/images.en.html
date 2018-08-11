@@ -1,6 +1,6 @@
   <h3 split-filename="imagebitmap-and-animations">Images</h3>
 
-  <pre class="idl">[Exposed=(Window,Worker), <span>Serializable</span>, <span>Transferable</span>]
+  <pre><code class="idl" data-x="">[Exposed=(Window,Worker), <span>Serializable</span>, <span>Transferable</span>]
 interface <dfn>ImageBitmap</dfn> {
   readonly attribute unsigned long <span data-x="dom-ImageBitmap-width">width</span>;
   readonly attribute unsigned long <span data-x="dom-ImageBitmap-height">height</span>;
@@ -23,7 +23,7 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
   [EnforceRange] unsigned long <span data-x="dom-ImageBitmapOptions-resizeWidth">resizeWidth</span>;
   [EnforceRange] unsigned long <span data-x="dom-ImageBitmapOptions-resizeHeight">resizeHeight</span>;
   <span>ResizeQuality</span> <span data-x="dom-ImageBitmapOptions-resizeQuality">resizeQuality</span> = "<span data-x="dom-ResizeQuality-low">low</span>";
-};</pre>
+};</code></pre>
 
   <p>An <code>ImageBitmap</code> object represents a bitmap image that can be painted to a canvas
   without undue latency.</p>
@@ -601,7 +601,7 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
 
    <p>Using this API, a sprite sheet can be precut and prepared:</p>
 
-   <pre>var sprites = {};
+   <pre><code class="js" data-x="">var sprites = {};
 function loadMySprites() {
   var image = new Image();
   image.src = 'mysprites.png';
@@ -627,7 +627,7 @@ function runDemo() {
   context.drawImage(sprites.snake, 70, 10);
 }
 
-loadMySprites().then(runDemo);</pre>
+loadMySprites().then(runDemo);</code></pre>
 
   </div>
 

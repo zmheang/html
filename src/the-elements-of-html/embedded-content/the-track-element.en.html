@@ -16,7 +16,7 @@
    <dd><code data-x="attr-track-default">default</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-track-kind">kind</span>;
@@ -32,9 +32,9 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
   readonly attribute unsigned short <span data-x="dom-track-readyState">readyState</span>;
 
   readonly attribute <span>TextTrack</span> <span data-x="dom-track-track">track</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLTrackElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLTrackElement</code>.</dd>
   </dl>
 
   <p>The <code>track</code> element allows authors to specify explicit external timed <span
@@ -233,12 +233,12 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
 
    <p>This video has subtitles in several languages:</p>
 
-   <pre>&lt;video src="brave.webm">
+   <pre><code class="html" data-x="">&lt;video src="brave.webm">
  &lt;track kind=subtitles src=brave.en.vtt srclang=en label="English">
  &lt;track kind=captions src=brave.en.hoh.vtt srclang=en label="English for the Hard of Hearing">
  &lt;track kind=subtitles src=brave.fr.vtt srclang=fr lang=fr label="Fran&ccedil;ais">
  &lt;track kind=subtitles src=brave.de.vtt srclang=de lang=de label="Deutsch">
-&lt;/video></pre>
+&lt;/video></code></pre>
 
    <p>(The <code data-x="attr-lang">lang</code> attributes on the last two describe the language of
    the <code data-x="attr-track-label">label</code> attribute, not the language of the subtitles

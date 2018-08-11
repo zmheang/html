@@ -1,11 +1,11 @@
   <h5>Shared workers and the <code subdfn>SharedWorker</code> interface</h5>
 
-  <pre class="idl">[<span data-x="dom-SharedWorker">Constructor</span>(USVString scriptURL, optional (DOMString or <span>WorkerOptions</span>) options),
+  <pre><code class="idl" data-x="">[<span data-x="dom-SharedWorker">Constructor</span>(USVString scriptURL, optional (DOMString or <span>WorkerOptions</span>) options),
  Exposed=(Window,Worker)]
 interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
   readonly attribute <span>MessagePort</span> <span data-x="dom-SharedWorker-port">port</span>;
 };
-<span>SharedWorker</span> includes <span>AbstractWorker</span>;</pre>
+<span>SharedWorker</span> includes <span>AbstractWorker</span>;</code></pre>
 
   <dl class="domintro">
    <dt><var>sharedWorker</var> = new <code subdfn data-x="dom-SharedWorker">SharedWorker</code>(<var>scriptURL</var> [, <var>name</var> ])</dt>

@@ -3,7 +3,7 @@
   <p>Each <code>DataTransferItem</code> object is associated with a <code>DataTransfer</code>
   object.</p>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>DataTransferItem</dfn> {
   readonly attribute DOMString <span data-x="dom-DataTransferItem-kind">kind</span>;
   readonly attribute DOMString <span data-x="dom-DataTransferItem-type">type</span>;
@@ -16,7 +16,7 @@ DND-v4:  void <span data-x="dom-DataTransferItem-getAsObject">getAsObject</span>
 callback <dfn>FunctionStringCallback</dfn> = void (DOMString data);<!--
 
 // DND-v4:
-callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></pre>
+callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></code></pre>
 
   <dl class="domintro">
 

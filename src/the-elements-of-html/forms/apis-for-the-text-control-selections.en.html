@@ -118,12 +118,12 @@
    data-x="concept-textarea-raw-value">raw value</span> for <code>textarea</code> elements means
    that U+000D (CR) characters are normalized away. For example,
 
-   <pre>&lt;textarea id="demo">&lt;/textarea>
+   <pre><code class="html" data-x="">&lt;textarea id="demo">&lt;/textarea>
 &lt;script>
  demo.value = "A\r\nB";
  demo.setRangeText("replaced", 0, 2);
  assert(demo.value === "replacedB");
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>If we had operated on the <span data-x="concept-textarea-raw-value">raw value</span> of "<code
    data-x="">A\r\nB</code>", then we would have replaced the characters "<code
@@ -518,17 +518,16 @@
   </ol>
 
   <p>The <code data-x="dom-textarea/input-setRangeText">setRangeText()</code> method uses the
-  following enumeration:<span w-nohtml> "<span data-x="dom-SelectionMode-select">select</span>",
-  "<span data-x="dom-SelectionMode-start">start</span>",
-  "<span data-x="dom-SelectionMode-end">end</span>",
+  following enumeration:<span w-dev> "<span data-x="dom-SelectionMode-select">select</span>", "<span
+  data-x="dom-SelectionMode-start">start</span>", "<span data-x="dom-SelectionMode-end">end</span>",
   "<span data-x="dom-SelectionMode-preserve">preserve</span>" (default).</span></p>
 
-  <pre class="idl">enum <dfn>SelectionMode</dfn> {
+  <pre><code class="idl" data-x="">enum <dfn>SelectionMode</dfn> {
   "<span data-x="dom-SelectionMode-select">select</span>",
   "<span data-x="dom-SelectionMode-start">start</span>",
   "<span data-x="dom-SelectionMode-end">end</span>",
   "<span data-x="dom-SelectionMode-preserve">preserve</span>" // default
-};</pre>
+};</code></pre>
 
   <hr>
 
@@ -538,7 +537,7 @@
 
    <p>To obtain the currently selected text, the following JavaScript suffices:</p>
 
-   <pre>var selectionText = control.value.substring(control.selectionStart, control.selectionEnd);</pre>
+   <pre><code class="js" data-x="">var selectionText = control.value.substring(control.selectionStart, control.selectionEnd);</code></pre>
 
    <p>...where <var>control</var> is the <code>input</code> or <code>textarea</code>
    element.</p>
@@ -550,12 +549,12 @@
    <p>To add some text at the start of a text control, while maintaining the text selection, the
    three attributes must be preserved:</p>
 
-   <pre>var oldStart = control.selectionStart;
+   <pre><code class="js" data-x="">var oldStart = control.selectionStart;
 var oldEnd = control.selectionEnd;
 var oldDirection = control.selectionDirection;
 var prefix = "http://";
 control.value = prefix + control.value;
-control.setSelectionRange(oldStart + prefix.length, oldEnd + prefix.length, oldDirection);</pre>
+control.setSelectionRange(oldStart + prefix.length, oldEnd + prefix.length, oldDirection);</code></pre>
 
    <p>...where <var>control</var> is the <code>input</code> or <code>textarea</code>
    element.</p>

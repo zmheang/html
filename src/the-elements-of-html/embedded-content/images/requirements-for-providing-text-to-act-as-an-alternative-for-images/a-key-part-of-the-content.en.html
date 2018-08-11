@@ -22,7 +22,7 @@
 
      <p>A screenshot in a gallery of screenshots for a new OS, with some alternative text:</p>
 
-     <pre>&lt;figure>
+     <pre><code class="html" data-x="">&lt;figure>
  <strong>&lt;img src="KDE%20Light%20desktop.png"
       alt="The desktop is blue, with icons along the left hand side in
            two columns, reading System, Home, K-Mail, etc. A window is
@@ -34,7 +34,7 @@
            at the bottom of the screen with a few buttons, a pager, a
            list of open applications, and a clock."></strong>
  &lt;figcaption>Screenshot of a KDE desktop.&lt;/figcaption>
-&lt;/figure></pre>
+&lt;/figure></code></pre>
 
     </div>
 
@@ -42,10 +42,10 @@
 
      <p>A graph in a financial report:</p>
 
-     <pre><strong>&lt;img src="sales.gif"
+     <pre><code class="html" data-x=""><strong>&lt;img src="sales.gif"
      title="Sales graph"
      alt="From 1998 to 2005, sales increased by the following percentages
-     with each year: 624%, 75%, 138%, 40%, 35%, 9%, 21%"></strong></pre>
+     with each year: 624%, 75%, 138%, 40%, 35%, 9%, 21%"></strong></code></pre>
 
      <p>Note that "sales graph" would be inadequate alternative text for a sales graph. Text that
      would be a good <em>caption</em> is not generally suitable as replacement text.</p>
@@ -72,7 +72,7 @@
      little that can be said to usefully describe a Rorschach inkblot test. However, a description,
      even if brief, is still better than nothing:</p>
 
-     <pre>&lt;figure>
+     <pre><code class="html" data-x="">&lt;figure>
  <strong>&lt;img src="/commons/a/a7/Rorschach1.jpg" alt="A shape with left-right
  symmetry with indistinct edges, with a small gap in the center, two
  larger gaps offset slightly from the center, with two similar gaps
@@ -81,17 +81,17 @@
  the center extending below the sides."></strong>
  &lt;figcaption>A black outline of the first of the ten cards
  in the Rorschach inkblot test.&lt;/figcaption>
-&lt;/figure></pre>
+&lt;/figure></code></pre>
 
      <p>Note that the following would be a very bad use of alternative text:</p>
 
-     <pre class="bad">&lt;!-- This example is wrong. Do not copy it. -->
+     <pre class="bad"><code class="html" data-x="">&lt;!-- This example is wrong. Do not copy it. -->
 &lt;figure>
  &lt;img src="/commons/a/a7/Rorschach1.jpg" alt="A black outline
  of the first of the ten cards in the Rorschach inkblot test.">
  &lt;figcaption>A black outline of the first of the ten cards
  in the Rorschach inkblot test.&lt;/figcaption>
-&lt;/figure></pre>
+&lt;/figure></code></pre>
 
      <p>Including the caption in the alternative text like this isn't useful because it effectively
      duplicates the caption for users who don't have images, taunting them twice yet not helping
@@ -107,11 +107,11 @@
      <p>The following example shows one possible way of providing alternative text for the full view
      of an image of the Mandelbrot set.</p>
 
-     <pre><strong>&lt;img src="ms1.jpeg" alt="The Mandelbrot set appears as a cardioid with
+     <pre><code class="html" data-x=""><strong>&lt;img src="ms1.jpeg" alt="The Mandelbrot set appears as a cardioid with
 its cusp on the real axis in the positive direction, with a smaller
 bulb aligned along the same center line, touching it in the negative
 direction, and with these two shapes being surrounded by smaller bulbs
-of various sizes."></strong></pre>
+of various sizes."></strong></code></pre>
 
     </div>
 
@@ -120,14 +120,14 @@ of various sizes."></strong></pre>
      <p>Similarly, a photograph of a person's face, for example in a biography, can be considered
      quite relevant and key to the content, but it can be hard to fully substitute text for:</p>
 
-     <pre>&lt;section class="bio">
+     <pre><code class="html" data-x="">&lt;section class="bio">
  &lt;h1>A Biography of Isaac Asimov&lt;/h1>
  &lt;p>Born &lt;b>Isaak Yudovich Ozimov&lt;/b> in 1920, Isaac was a prolific author.&lt;/p>
  &lt;p>&lt;img src="headpics/asimov.jpeg" alt="Isaac Asimov had dark hair, a tall forehead, and wore glasses.
  Later in life, he wore long white sideburns.">
  &lt;p>Asimov was born in Russia, and moved to the US when he was three years old.&lt;/p>
  &lt;p>...
-&lt;/section></pre>
+&lt;/section></code></pre>
 
      <p>In such cases it is unnecessary (and indeed discouraged) to include a reference to the
      presence of the image itself in the alternative text, since such text would be redundant with
@@ -194,10 +194,10 @@ of various sizes."></strong></pre>
      <p>A photo on a photo-sharing site, if the site received the image with no metadata other than
      the caption, could be marked up as follows:</p>
 
-     <pre>&lt;figure>
+     <pre><code class="html" data-x="">&lt;figure>
  <strong>&lt;img src="1100670787_6a7c664aef.jpg"></strong>
  &lt;figcaption>Bubbles traveled everywhere with us.&lt;/figcaption>
-&lt;/figure></pre>
+&lt;/figure></code></pre>
 
      <p>It would be better, however, if a detailed description of the important parts of the image
      obtained from the user and included on the page.</p>
@@ -209,19 +209,19 @@ of various sizes."></strong></pre>
      <p>A blind user's blog in which a photo taken by the user is shown. Initially, the user might
      not have any idea what the photo they took shows:</p>
 
-     <pre>&lt;article>
+     <pre><code class="html" data-x="">&lt;article>
  &lt;h1>I took a photo&lt;/h1>
  &lt;p>I went out today and took a photo!&lt;/p>
  &lt;figure>
   <strong>&lt;img src="photo2.jpeg"></strong>
   &lt;figcaption>A photograph taken blindly from my front porch.&lt;/figcaption>
  &lt;/figure>
-&lt;/article></pre>
+&lt;/article></code></pre>
 
      <p>Eventually though, the user might obtain a description of the image from their friends and
      could then include alternative text:</p>
 
-     <pre>&lt;article>
+     <pre><code class="html" data-x="">&lt;article>
  &lt;h1>I took a photo&lt;/h1>
  &lt;p>I went out today and took a photo!&lt;/p>
  &lt;figure>
@@ -233,7 +233,7 @@ of various sizes."></strong></pre>
   with light blue streaks."></strong>
   &lt;figcaption>A photograph taken blindly from my front porch.&lt;/figcaption>
  &lt;/figure>
-&lt;/article></pre>
+&lt;/article></code></pre>
 
     </div>
 
@@ -244,17 +244,17 @@ of various sizes."></strong></pre>
      the user can literally read the graphic. Here is one way to mark up a CAPTCHA (note the <code
      data-x="attr-title">title</code> attribute):</p>
 
-     <pre>&lt;p>&lt;label>What does this image say?
+     <pre><code class="html" data-x="">&lt;p>&lt;label>What does this image say?
 <strong>&lt;img src="captcha.cgi?id=8934" title="CAPTCHA"></strong>
 &lt;input type=text name=captcha>&lt;/label>
 (If you cannot see the image, you can use an &lt;a
-href="?audio">audio&lt;/a> test instead.)&lt;/p></pre>
+href="?audio">audio&lt;/a> test instead.)&lt;/p></code></pre>
 
      <p>Another example would be software that displays images and asks for alternative text
      precisely for the purpose of then writing a page with correct alternative text. Such a page
      could have a table of images, like this:</p>
 
-     <pre>&lt;table>
+     <pre><code class="html" data-x="">&lt;table>
  &lt;thead>
   &lt;tr> &lt;th> Image &lt;th> Description
  &lt;tbody>
@@ -264,7 +264,7 @@ href="?audio">audio&lt;/a> test instead.)&lt;/p></pre>
   &lt;tr>
    &lt;td> <strong>&lt;img src="2422.png" title="Image 200 by 480, filename 'ad3.gif'"></strong>
    &lt;td> &lt;input name="alt2422">
-&lt;/table></pre>
+&lt;/table></code></pre>
 
      <p>Notice that even in this example, as much useful information as possible is still included
      in the <code data-x="attr-title">title</code> attribute.</p>

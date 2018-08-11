@@ -14,14 +14,14 @@
    <dd>Also, the <code data-x="attr-style-title">title</code> attribute <span data-x="attr-style-title">has special semantics</span> on this element.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-style-media">media</span>;
 };
-<span>HTMLStyleElement</span> includes <span>LinkStyle</span>;</pre>
+<span>HTMLStyleElement</span> includes <span>LinkStyle</span>;</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLStyleElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLStyleElement</code>.</dd>
   </dl>
 
   <p>The <code>style</code> element allows authors to embed CSS style sheets in their documents.
@@ -222,7 +222,7 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
    text, while leaving titles of works and Latin words in their default italics. It shows how using
    appropriate elements enables easier restyling of documents.</p>
 
-   <pre>&lt;!DOCTYPE html>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
 &lt;html lang="en-US">
  &lt;head>
   &lt;title>My favorite book&lt;/title>
@@ -236,7 +236,7 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
   &lt;cite>A Cat's Life&lt;/cite>. It is a book by P. Rahmel that talks
   about the &lt;i lang="la">Felis Catus&lt;/i> in modern human society.&lt;/p>
  &lt;/body>
-&lt;/html></pre>
+&lt;/html></code></pre>
 
   </div>
 

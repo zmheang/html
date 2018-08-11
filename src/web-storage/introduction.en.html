@@ -24,15 +24,15 @@
    <p>For example, a page could have a checkbox that the user ticks to
    indicate that they want insurance:</p>
 
-   <pre>&lt;label>
+   <pre><code class="html" data-x="">&lt;label>
  &lt;input type="checkbox" onchange="sessionStorage.insurance = checked ? 'true' : ''">
   I want insurance on this trip.
-&lt;/label></pre>
+&lt;/label></code></pre>
 
    <p>A later page could then check, from script, whether the user had checked the checkbox or
    not:</p>
 
-   <pre>if (sessionStorage.insurance) { ... }</pre>
+   <pre><code class="js" data-x="">if (sessionStorage.insurance) { ... }</code></pre>
 
    <p>If the user had multiple windows opened on the site, each one would have its own individual
    copy of the session storage object.</p>
@@ -70,7 +70,7 @@
    <p>The site at example.com can display a count of how many times the user has loaded its page by
    putting the following at the bottom of its page:</p>
 
-   <pre>&lt;p>
+   <pre><code class="html" data-x="">&lt;p>
   You have viewed this page
   &lt;span id="count">an untold number of&lt;/span>
   time(s).
@@ -80,7 +80,7 @@
     localStorage.pageLoadCount = 0;
   localStorage.pageLoadCount = parseInt(localStorage.pageLoadCount) + 1;
   document.getElementById('count').textContent = localStorage.pageLoadCount;
-&lt;/script></pre>
+&lt;/script></code></pre>
 
   </div>
 

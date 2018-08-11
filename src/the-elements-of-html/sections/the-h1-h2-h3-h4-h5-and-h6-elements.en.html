@@ -17,11 +17,11 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
-interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {};</pre>
+interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLHeadingElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLHeadingElement</code>.</dd>
   </dl>
 
   <p>These elements <span data-x="represents">represent</span> headings for their sections.</p>
@@ -38,16 +38,16 @@ interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {};</pre>
    <p>As far as their respective document outlines (their heading and section structures) are
    concerned, these two snippets are semantically equivalent:</p>
 
-   <pre>&lt;body>
+   <pre><code class="html" data-x="">&lt;body>
 &lt;h1>Let's call it a draw(ing surface)&lt;/h1>
 &lt;h2>Diving in&lt;/h2>
 &lt;h2>Simple shapes&lt;/h2>
 &lt;h2>Canvas coordinates&lt;/h2>
 &lt;h3>Canvas coordinates diagram&lt;/h3>
 &lt;h2>Paths&lt;/h2>
-&lt;/body></pre>
+&lt;/body></code></pre>
 
-   <pre>&lt;body>
+   <pre><code class="html" data-x="">&lt;body>
  &lt;h1>Let's call it a draw(ing surface)&lt;/h1>
  &lt;section>
   &lt;h1>Diving in&lt;/h1>
@@ -64,7 +64,7 @@ interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {};</pre>
  &lt;section>
   &lt;h1>Paths&lt;/h1>
  &lt;/section>
-&lt;/body></pre>
+&lt;/body></code></pre>
 
    <p>Authors might prefer the former style for its terseness, or the latter style for its
    convenience in the face of heavy editing; which is best is purely an issue of preferred authoring
@@ -74,7 +74,7 @@ interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {};</pre>
    future-proofing for when that compatibility is no longer needed. This third snippet again has the
    same outline as the previous two:</p>
 
-   <pre>&lt;body>
+   <pre><code class="html" data-x="">&lt;body>
  &lt;h1>Let's call it a draw(ing surface)&lt;/h1>
  &lt;section>
   &lt;h2>Diving in&lt;/h2>
@@ -91,7 +91,7 @@ interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {};</pre>
  &lt;section>
   &lt;h2>Paths&lt;/h2>
  &lt;/section>
-&lt;/body></pre>
+&lt;/body></code></pre>
 
   </div>
 

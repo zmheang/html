@@ -16,16 +16,16 @@
    <dd><code data-x="attr-progress-max">max</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLProgressElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute double <span data-x="dom-progress-value">value</span>;
   [<span>CEReactions</span>] attribute double <span data-x="dom-progress-max">max</span>;
   readonly attribute double <span data-x="dom-progress-position">position</span>;
   readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLProgressElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLProgressElement</code>.</dd>
   </dl>
 
   <p>The <code>progress</code> element <span>represents</span> the completion progress of a task.
@@ -53,7 +53,7 @@ interface <dfn>HTMLProgressElement</dfn> : <span>HTMLElement</span> {
 
    <p>Here is a snippet of a Web application that shows the progress of some automated task:</p>
 
-   <pre>&lt;section>
+   <pre><code class="html" data-x="">&lt;section>
  &lt;h2>Task Progress&lt;/h2>
  &lt;p>Progress: &lt;progress id="p" max=100>&lt;span>0&lt;/span>%&lt;/progress>&lt;/p>
  &lt;script>
@@ -63,7 +63,7 @@ interface <dfn>HTMLProgressElement</dfn> : <span>HTMLElement</span> {
     progressBar.getElementsByTagName('span')[0].textContent = newValue;
   }
  &lt;/script>
-&lt;/section></pre>
+&lt;/section></code></pre>
 
    <p>(The <code data-x="">updateProgress()</code> method in this example would be called by some
    other code on the page to update the actual progress bar as the task progressed.)</p>

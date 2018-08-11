@@ -4,7 +4,7 @@
   <span data-x="concept-collection">collections</span> of <span data-x="category-listed">listed
   elements</span> in <code>form</code> elements.</p>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>HTMLFormControlsCollection</dfn> : <span>HTMLCollection</span> {
   // inherits <span data-x="dom-HTMLCollection-length">length</span> and <span data-x="dom-HTMLCollection-item">item</span>()
   getter (<span>RadioNodeList</span> or <span>Element</span>)? <span data-x="dom-HTMLFormControlsCollection-namedItem">namedItem</span>(DOMString name); // shadows inherited <span data-x="dom-HTMLCollection-namedItem">namedItem()</span>
@@ -13,7 +13,7 @@ interface <dfn>HTMLFormControlsCollection</dfn> : <span>HTMLCollection</span> {
 [Exposed=Window]
 interface <dfn>RadioNodeList</dfn> : <span>NodeList</span> {
   attribute DOMString <span data-x="dom-RadioNodeList-value">value</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 

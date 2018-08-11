@@ -1,8 +1,5 @@
   <h4>Opening the input stream</h4>
 
-  <p>The <dfn><code data-x="dom-document-open">open()</code></dfn> method comes in several variants
-  with different numbers of arguments.</p>
-
   <dl class="domintro">
    <dt><var>document</var> = <var>document</var> . <code subdfn data-x="dom-document-open">open</code>( [ <var>type</var> [, <var>replace</var> ] ] )</dt>
    <dd>
@@ -26,15 +23,16 @@
     parser is currently executing a <span>custom element constructor</span>.</p>
    </dd>
 
-   <dt><var>window</var> = <var>document</var> . <code data-x="dom-document-open">open</code>( <var>url</var>, <var>name</var>, <var>features</var> )</dt>
+   <dt><var>window</var> = <var>document</var> . <code data-x="dom-document-open-window">open</code>( <var>url</var>, <var>name</var>, <var>features</var> )</dt>
    <dd><p>Works like the <code data-x="dom-open">window.open()</code> method.</p></dd>
   </dl>
 
   <div w-nodev>
 
   <p><code>Document</code> objects have an <dfn>ignore-opens-during-unload counter</dfn>, which is
-  used to prevent scripts from invoking the <code data-x="dom-document-open">document.open()</code>
-  method (directly or indirectly) while the document is <span data-x="unload a document">being
+  used to prevent scripts from invoking the <code
+  data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> method
+  (directly or indirectly) while the document is <span data-x="unload a document">being
   unloaded</span>. Initially, the counter must be set to zero.</p> <!--
   https://www.hixie.ch/tests/adhoc/dom/level0/document/open/unload/ -->
 
@@ -61,17 +59,19 @@
     <p>If <var>document</var> has an <span>active parser</span> whose <span>script nesting
     level</span> is greater than 0, then return <var>document</var>.</p>
 
-    <p class="note">This basically causes <code data-x="dom-document-open">document.open()</code> to
-    be ignored when it's called in an inline script found during parsing, while still letting it
-    have an effect when called from a non-parser task such as a timer callback or event handler.</p>
+    <p class="note">This basically causes <code
+    data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> to be
+    ignored when it's called in an inline script found during parsing, while still letting it have
+    an effect when called from a non-parser task such as a timer callback or event handler.</p>
    </li>
 
    <li>
     <p>Similarly, if <var>document</var>'s <span>ignore-opens-during-unload counter</span> is
     greater than 0, then return <var>document</var>.</p>
 
-    <p class="note">This basically causes <code data-x="dom-document-open">document.open()</code> to
-    be ignored when it's called from a <code data-x="event-beforeunload">beforeunload</code>, <code
+    <p class="note">This basically causes <code
+    data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> to be
+    ignored when it's called from a <code data-x="event-beforeunload">beforeunload</code>, <code
     data-x="event-pagehide">pagehide</code>, or <code data-x="event-unload">unload</code> event
     handler while the <code>Document</code> is being unloaded.</p>
    </li>
@@ -87,8 +87,9 @@
     <code>about:blank</code> <code>Document</code> created when <var>document</var>'s <span>browsing
     context</span> was <span data-x="creating a new browsing context">created</span>, and that
     <code>Document</code> object has never had the <span>unload a document</span> algorithm invoked
-    on it (e.g., by a previous call to <code data-x="dom-document-open">document.open()</code>),
-    then set <var>replace</var> to true.</p>
+    on it (e.g., by a previous call to <code
+    data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code>), then set
+    <var>replace</var> to true.</p>
    </li>
 
    <li><p>Set <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state
@@ -114,28 +115,19 @@
    <var>document</var>, without firing any mutation events.</p></li>
 
    <li>
-    <p>Call the JavaScript <span
-    data-x="js-InitializeHostDefinedRealm">InitializeHostDefinedRealm()</span> abstract operation
-    with the following customizations:</p>
+    <p>Let <var>realm execution context</var> be the result of <span>creating a new JavaScript
+    realm</span> with the following customizations:</p>
 
     <ul>
      <li><p>For the global object, create a new <code>Window</code> object
      <var>window</var>.</p></li>
 
-     <li><p>For the global <b>this</b> value, use <var>document</var>'s <span>browsing
+     <li><p>For the global <b>this</b> binding, use <var>document</var>'s <span>browsing
      context</span>'s associated <code>WindowProxy</code>.</p></li>
     </ul>
 
     <p class="&#x0058;&#x0058;&#x0058;">This is not universally implemented and can perhaps be
     removed; see <a href="https://github.com/whatwg/html/issues/1698">issue #1698</a>.</p>
-   </li>
-
-   <li>
-    <p>Let <var>realm execution context</var> be the <span>running JavaScript execution
-    context</span>.</p>
-
-    <p class="note">This is the <span>JavaScript execution context</span> created in the previous
-    step.</p>
    </li>
 
    <li><p><span>Set up a window environment settings object</span> with <var>realm execution
@@ -173,7 +165,7 @@
 
    <li><p>Create a new <span>HTML parser</span> and associate it with <var>document</var>. This is a
    <dfn>script-created parser</dfn> (meaning that it can be closed by the <code
-   data-x="dom-document-open">document.open()</code> and <code
+   data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> and <code
    data-x="dom-document-close">document.close()</code> methods, and that the tokenizer will wait for
    an explicit call to <code data-x="dom-document-close">document.close()</code> before emitting an
    end-of-file token). The encoding <span data-x="concept-encoding-confidence">confidence</span> is
@@ -202,9 +194,9 @@
    and associate with the new entry the text that was parsed by the previous parser associated with
    <var>document</var>, as well as the state of <var>document</var> at the start of these steps.
    This allows the user to step backwards in the session history to see the page before it was blown
-   away by the <code data-x="dom-document-open">document.open()</code> call. This new entry does not
-   have a <code>Document</code> object, so a new one will be created if the session history is
-   traversed to that entry.</p></li>
+   away by the <code data-x="dom-document-open">document.open(<var>type</var>,
+   <var>replace</var>)</code> call. This new entry does not have a <code>Document</code> object, so
+   a new one will be created if the session history is traversed to that entry.</p></li>
 
    <li><p>Set <var>document</var>'s <span>fired unload</span> flag to false. (It could have been set
    to true during the <span data-x="unload a document">unload</span> step above.)</p></li>
@@ -215,18 +207,17 @@
    <li><p>Return <var>document</var>.</p></li>
   </ol>
 
-  <p>When invoked with two arguments or fewer, the <code
-  data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> method must
-  return the result of running the <span>document open steps</span> with this <code>Document</code>
-  object and <var>replace</var>.
+  <p>The <dfn data-x="dom-document-open"><code>open(<var>type</var>,
+  <var>replace</var>)</code></dfn> method must return the result of running the <span>document open
+  steps</span> with this <code>Document</code> object and <var>replace</var>.
 
   <p class="note">The <var>type</var> argument is ignored. Also, the <code
-  data-x="dom-document-open">document.open()</code> method does not affect whether a
-  <code>Document</code> is <span>ready for post-load tasks</span> or <span>completely
-  loaded</span>.</p>
+  data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> method does
+  not affect whether a <code>Document</code> is <span>ready for post-load tasks</span> or
+  <span>completely loaded</span>.</p>
 
-  <p>When invoked with three arguments, the <code data-x="dom-document-open">open(<var>url</var>,
-  <var>name</var>, <var>features</var>)</code> method must run these steps:</p>
+  <p>The <dfn data-x="dom-document-open-window"><code>open(<var>url</var>, <var>name</var>,
+  <var>features</var>)</code></dfn> method must run these steps:</p>
 
   <ol>
    <li><p>If this <code>Document</code> object is not an <span>active document</span>, then throw an

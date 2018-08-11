@@ -2,9 +2,10 @@
 
   <div w-nodev>
 
-  <p>When a user agent is required to <dfn>traverse the history</dfn> to a <span>session history
-  entry</span> <var>entry</var>, optionally with <span>replacement enabled</span>, and optionally
-  with the <i>non-blocking events</i> flag set, the user agent must act as follows.</p>
+  <p>To <dfn>traverse the history</dfn> to a <span>session history entry</span> <var>entry</var>,
+  optionally with <dfn data-export="">replacement enabled</dfn>, optionally with the
+  <dfn>non-blocking events flag</dfn> set, and optionally with the <dfn>history-navigation
+  flag</dfn> set:</p>
 
   <p class="note">This algorithm is not just invoked when <span data-x="traverse the history by a
   delta">explicitly going back or forwards in the session history</span> &mdash; it is also invoked
@@ -19,6 +20,10 @@
     <ol>
      <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
      <span data-x="concept-request-url">url</span> is <var>entry</var>'s <span>URL</span>.</p></li>
+
+     <li><p>If the <i data-x="history-navigation flag">history-navigation flag</i> is set, then set
+     <var>request</var>'s <span data-x="concept-request-history-navigation-flag">history-navigation
+     flag</span>.</p></li>
 
      <li>
       <p><span>Navigate</span><!--DONAV history traversal after eviction--> the <span>browsing
@@ -162,8 +167,8 @@
    <var>old URL</var> be the <span>current entry</span>'s <span>URL</span> and <var>new URL</var> be
    <var>entry</var>'s <span>URL</span>. Otherwise, let <var>hash changed</var> be false.</p></li>
 
-   <li><p>If the traversal was initiated with <dfn data-export="">replacement enabled</dfn>, remove
-   the entry immediately before the <var>specified entry</var> in the session history.</p></li>
+   <li><p>If the traversal was initiated with <span>replacement enabled</span>, remove the entry
+   immediately before the <var>specified entry</var> in the session history.</p></li>
 
    <li><p>If <var>entry</var> is not <span>an entry with persisted user state</span>, but its
    <span>URL</span>'s <span data-x="concept-url-fragment">fragment</span> is non-null, then
@@ -176,7 +181,7 @@
    <li><p>If <var>entry</var> has <span>serialized state</span>, then let <var>state</var> be
    <span>StructuredDeserialize</span>(<var>entry</var>'s <span>serialized state</span>,
    <var>targetRealm</var>). If this throws an exception, catch it, ignore the exception, and let
-   <var>state</var>be null.</p></li>
+   <var>state</var> be null.</p></li>
 
    <li><p>Otherwise, let <var>state</var> be null.</p></li>
 
@@ -191,17 +196,18 @@
 
    <li>
 
-    <p>If the <i>non-blocking events</i> flag is not set, then run the following substeps
-    <span>immediately</span>. Otherwise, the <i>non-blocking events</i> flag is set; <span>queue a
-    task</span> to run the following substeps instead.</p>
+    <p>If the <i data-x="non-blocking events flag">non-blocking events flag</i> is not set, then run
+    the following substeps <span>immediately</span>. Otherwise, the <i data-x="non-blocking events
+    flag">non-blocking events flag</i> flag is set; <span>queue a task</span> to run the following
+    substeps instead.</p>
 
     <ol>
 
      <li><p>If <var>state changed</var> is true, then <span data-x="concept-event-fire">fire an
      event</span> named <code data-x="event-popstate">popstate</code> at the <code>Document</code>
      object's <code>Window</code> object, using <code>PopStateEvent</code>, with the <code
-     data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true and the <code
-     data-x="dom-PopStateEvent-state">state</code> attribute initialized <var>state</var>.</p></li>
+     data-x="dom-PopStateEvent-state">state</code> attribute initialized to
+     <var>state</var>.</p></li>
 
      <li><p>If <var>entry</var> is <span>an entry with persisted user state</span>, then the user
      agent may <span>restore persisted user state</span> and update aspects of the document and its
@@ -209,11 +215,10 @@
 
      <li><p>If <var>hash changed</var> is true, then <span data-x="concept-event-fire">fire an
      event</span> named <code data-x="event-hashchange">hashchange</code> at the <span>browsing
-     context</span>'s <code>Window</code> object, using <code>HashChangeEvent</code>, with the <code
-     data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, the <code
-     data-x="dom-HashChangeEvent-oldURL">oldURL</code> attribute initialized to <var>old URL</var>,
-     and the <code data-x="dom-HashChangeEvent-newURL">newURL</code> attribute initialized to
-     <var>new URL</var>.</p></li>
+     context</span>'s <code>Window</code> object, using <code>HashChangeEvent</code>, with the
+     <code data-x="dom-HashChangeEvent-oldURL">oldURL</code> attribute initialized to <var>old
+     URL</var> and the <code data-x="dom-HashChangeEvent-newURL">newURL</code> attribute
+     initialized to <var>new URL</var>.</p></li>
 
     </ol>
 

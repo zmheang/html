@@ -25,7 +25,7 @@
   effects added whenever you click on it. We start by defining a class, just like before, although
   this time we extend <code>HTMLButtonElement</code> instead of <code>HTMLElement</code>:</p>
 
-  <pre>class PlasticButton extends HTMLButtonElement {
+  <pre><code class="js" data-x="">class PlasticButton extends HTMLButtonElement {
   constructor() {
     super();
 
@@ -33,12 +33,12 @@
       // Draw some fancy animation effects!
     });
   }
-}</pre>
+}</code></pre>
 
   <p>When defining our custom element, we have to also specify the <code data-x="">extends</code>
   option:</p>
 
-  <pre>customElements.define("plastic-button", PlasticButton, { extends: "button" });</pre>
+  <pre><code class="js" data-x="">customElements.define("plastic-button", PlasticButton, { extends: "button" });</code></pre>
 
   <p>In general, the name of the element being extended cannot be determined simply by looking at
   what element interface it extends, as many elements share the same interface (such as
@@ -47,7 +47,7 @@
   <p>To construct our <span>customized built-in element</span> from parsed HTML source text, we use
   the <code data-x="attr-is">is</code> attribute on a <code>button</code> element:</p>
 
-  <pre>&lt;button is="plastic-button">Click Me!&lt;/button></pre>
+  <pre><code class="html" data-x="">&lt;button is="plastic-button">Click Me!&lt;/button></code></pre>
 
   <p>Trying to use a <span>customized built-in element</span> as an <span>autonomous custom
   element</span> will <em>not</em> work; that is, <code data-x="">&lt;plastic-button>Click
@@ -57,23 +57,23 @@
   <p>If you need to create a customized built-in element programmatically, you can use the following
   form of <code data-x="dom-Document-createElement">createElement()</code>:</p>
 
-  <pre>const plasticButton = document.createElement("button", { is: "plastic-button" });
-plasticButton.textContent = "Click me!";</pre>
+  <pre><code class="js" data-x="">const plasticButton = document.createElement("button", { is: "plastic-button" });
+plasticButton.textContent = "Click me!";</code></pre>
 
   <p>And as before, the constructor will also work:</p>
 
-  <pre>const plasticButton2 = new PlasticButton();
+  <pre><code class="js" data-x="">const plasticButton2 = new PlasticButton();
 console.log(plasticButton2.localName);  // will output "button"
 console.assert(plasticButton2 instanceof PlasticButton);
-console.assert(plasticButton2 instanceof HTMLButtonElement);</pre>
+console.assert(plasticButton2 instanceof HTMLButtonElement);</code></pre>
 
   <p>Note that when creating a customized built-in element programmatically, the <code
   data-x="attr-is">is</code> attribute will not be present in the DOM, since it was not explicitly
   set. However, <a href="#attr-is-during-serialization">it will be added to the output when
   serializing</a>:</p>
 
-  <pre>console.assert(!plasticButton.hasAttribute("is"));
-console.log(plasticButton.outerHTML); // will output '&lt;button is="plastic-button">&lt;/button>'</pre>
+  <pre><code class="js" data-x="">console.assert(!plasticButton.hasAttribute("is"));
+console.log(plasticButton.outerHTML); // will output '&lt;button is="plastic-button">&lt;/button>'</code></pre>
 
   <p>Regardless of how it is created, all the of the ways in which <code>button</code> is special
   apply to such "plastic buttons" as well: their focus behavior, ability to participate in <span

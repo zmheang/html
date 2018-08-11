@@ -17,13 +17,13 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
   readonly attribute <span>DocumentFragment</span> <span data-x="dom-template-content">content</span>;
-};</pre>
+};</code></pre>
 </dd>
-   <dd w-nohtml>Uses <code>HTMLTemplateElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLTemplateElement</code>.</dd>
   </dl>
 
   <p>The <code>template</code> element is used to declare fragments of HTML that can be cloned and
@@ -45,7 +45,7 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
 
    <!-- https://www.quora.com/Homework-Question-How-do-I-write-a-program-that-produces-the-following-output-1 -->
 
-   <pre>&lt;!doctype html>
+   <pre><code class="html" data-x="">&lt;!doctype html>
 &lt;html lang="en">
  &lt;head>
   &lt;title>Homework&lt;/title>
@@ -60,7 +60,7 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
    }
    document.body.appendChild(fragment);
   &lt;/script>
-&lt;/html></pre>
+&lt;/html></code></pre>
 
    <p>The <code>p</code> element in the <code>template</code> is <em>not</em> a child of the
    <code>template</code> in the DOM; it is a child of the <code>DocumentFragment</code> returned by
@@ -213,7 +213,7 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
    a <code>template</code> to provide the element structure instead of manually generating the
    structure from markup.</p>
 
-   <pre>&lt;!DOCTYPE html>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
 &lt;html lang='en'>
 &lt;title>Cat data&lt;/title>
 &lt;script>
@@ -244,7 +244,7 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
    cells[3].textContent = cat.legs;
    template.parentNode.appendChild(clone);
  }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>This example uses <code data-x="dom-node-cloneNode">cloneNode()</code> on the
    <code>template</code>'s contents; it could equivalently have used <code

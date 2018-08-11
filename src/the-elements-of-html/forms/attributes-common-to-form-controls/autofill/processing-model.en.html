@@ -486,8 +486,8 @@
 
      <p>Banks frequently do not want UAs to prefill login information:</p>
 
-     <pre>&lt;p>&lt;label>Account: &lt;input type="text" name="ac" autocomplete="off">&lt;/label>&lt;/p>
-&lt;p>&lt;label>PIN: &lt;input type="password" name="pin" autocomplete="off">&lt;/label>&lt;/p></pre>
+     <pre><code class="html" data-x="">&lt;p>&lt;label>Account: &lt;input type="text" name="ac" autocomplete="off">&lt;/label>&lt;/p>
+&lt;p>&lt;label>PIN: &lt;input type="password" name="pin" autocomplete="off">&lt;/label>&lt;/p></code></pre>
 
     </div>
 
@@ -499,7 +499,7 @@
 
      <p>For example, suppose a user visits a page with this control:</p>
 
-     <pre>&lt;select name="country">
+     <pre><code class="html" data-x="">&lt;select name="country">
  &lt;option>Afghanistan
  &lt;option>Albania
  &lt;option>Algeria
@@ -512,7 +512,7 @@
  &lt;option>Yemen
  &lt;option>Zambia
  &lt;option>Zimbabwe
-&lt;/select></pre>
+&lt;/select></code></pre>
 
      <p>This might render as follows:</p>
 
@@ -591,10 +591,10 @@
    <p>This requirement interacts with the <span>autofill anchor mantle</span> also. Consider the
    following markup snippet:</p>
 
-   <pre>&lt;form>
+   <pre><code class="html" data-x="">&lt;form>
  &lt;input type=hidden autocomplete="nickname" value="TreePlate">
  &lt;input type=text autocomplete="nickname">
-&lt;/form></pre>
+&lt;/form></code></pre>
 
    <p>The only value that a conforming user agent could suggest in the text control is "TreePlate",
    the value given by the hidden <code>input</code> element.</p>
@@ -645,7 +645,7 @@
    <p>For example, if the user agent knows that the user's middle name is "Ines", and attempts to
    prefill a form control that looks like this:</p>
 
-   <pre>&lt;input name=middle-initial maxlength=1 autocomplete="additional-name"></pre>
+   <pre><code class="html" data-x="">&lt;input name=middle-initial maxlength=1 autocomplete="additional-name"></code></pre>
 
    <p>...then the user agent could convert "Ines" to "I" and prefill it that way.</p>
 
@@ -660,7 +660,7 @@
    <table>
     <tr>
      <td>
-      <pre>&lt;input name=b type=month autocomplete="bday"></pre>
+      <pre><code class="html" data-x="">&lt;input name=b type=month autocomplete="bday"></code></pre>
      <td>
       2012-07
      <td>
@@ -671,14 +671,14 @@
       <span data-x="attr-input-type-month">Month</span> state.)
     <tr>
      <td>
-      <pre>&lt;select name=c autocomplete="bday">
+      <pre><code class="html" data-x="">&lt;select name=c autocomplete="bday">
  &lt;option>Jan
  &lt;option>Feb
  <em>...</em>
  &lt;option>Jul
  &lt;option>Aug
  <em>...</em>
-&lt;/select></pre>
+&lt;/select></code></pre>
      <td>
       July
      <td>
@@ -688,21 +688,21 @@
       the user agent's supported languages, or through some other similar mechanism.
     <tr>
      <td>
-      <pre>&lt;input name=a type=number min=1 max=12 autocomplete="bday-month"></pre>
+      <pre><code class="html" data-x="">&lt;input name=a type=number min=1 max=12 autocomplete="bday-month"></code></pre>
      <td>
       7
      <td>
       User agent converts "July" to a month number in the range 1..12, like the field.
     <tr>
      <td>
-      <pre>&lt;input name=a type=number min=0 max=11 autocomplete="bday-month"></pre>
+      <pre><code class="html" data-x="">&lt;input name=a type=number min=0 max=11 autocomplete="bday-month"></code></pre>
      <td>
       6
      <td>
       User agent converts "July" to a month number in the range 0..11, like the field.
     <tr>
      <td>
-      <pre>&lt;input name=a type=number min=1 max=11 autocomplete="bday-month"></pre>
+      <pre><code class="html" data-x="">&lt;input name=a type=number min=1 max=11 autocomplete="bday-month"></code></pre>
      <td>
      <td>
       User agent doesn't fill in the field, since it can't make a good guess as to what the form expects.

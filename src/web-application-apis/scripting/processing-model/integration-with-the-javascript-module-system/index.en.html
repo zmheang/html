@@ -23,9 +23,9 @@
    create three separate entries in the <span>module map</span>, since it results in three different
    URLs:</p>
 
-   <pre>import "https://example.com/module.js";
-import "https://example.com/module.js#map-buster";
-import "https://example.com/module.js?debug=true";</pre>
+   <pre><code class="js" data-x="">import "https://example.com/module.mjs";
+import "https://example.com/module.mjs#map-buster";
+import "https://example.com/module.mjs?debug=true";</code></pre>
 
    <p>That is, URL <span data-x="concept-url-query">queries</span> and <span
    data-x="concept-url-fragment">fragments</span> can be varied to create distinct entries in the
@@ -36,10 +36,10 @@ import "https://example.com/module.js?debug=true";</pre>
    map</span>, since after applying the <span>URL parser</span> to these inputs, the resulting <span
    data-x="URL record">URL records</span> are equal:</p>
 
-   <pre>import "https://example.com/module2.js";
-import "https:example.com/module2.js";
-import "https://///example.com\\module2.js";
-import "https://example.com/foo/../module2.js";</pre>
+   <pre><code class="js" data-x="">import "https://example.com/module2.mjs";
+import "https:example.com/module2.mjs";
+import "https://///example.com\\module2.mjs";
+import "https://example.com/foo/../module2.mjs";</code></pre>
 
    <p>So in this second example, only one fetch and one module evaluation will occur.</p>
 
@@ -48,7 +48,7 @@ import "https://example.com/foo/../module2.js";</pre>
    data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor url</span>.</p>
   </div>
 
-  <p>To <dfn>resolve a module specifier</dfn> given a <span>script</span> <var>script</var> and a
+  <p>To <dfn>resolve a module specifier</dfn> given a <span>URL</span> <var>base URL</var> and a
   <span>JavaScript string</span> <var>specifier</var>, perform the following steps. It will return
   either a <span>URL record</span> or failure.</p>
 
@@ -69,22 +69,21 @@ import "https://example.com/foo/../module2.js";</pre>
    </li>
 
    <li><p>Return the result of applying the <span>URL parser</span> to <var>specifier</var> with
-   <var>script</var>'s <span data-x="concept-script-base-url">base URL</span> as the base
-   URL.</p></li>
+   <var>base URL</var> as the base URL.</p></li>
   </ol>
 
   <div class="example" id="module-specifier-examples">
    <p>The following are valid module specifiers according to the above algorithm:</p>
 
    <ul class="brief">
-    <li><code data-x="">https://example.com/apples.js</code></li>
+    <li><code data-x="">https://example.com/apples.mjs</code></li>
 
-    <li><code data-x="">http:example.com\pears.mjs</code> (becomes <code
-    data-x="">http://example.com/pears.mjs</code> as step 1 parses with no base URL)</li>
+    <li><code data-x="">http:example.com\pears.js</code> (becomes <code
+    data-x="">http://example.com/pears.js</code> as step 1 parses with no base URL)</li>
 
     <li><code data-x="">//example.com/bananas</code></li>
 
-    <li><code data-x="">./strawberries.js.cgi</code></li>
+    <li><code data-x="">./strawberries.mjs.cgi</code></li>
 
     <li><code data-x="">../lychees</code></li>
 
@@ -118,7 +117,7 @@ import "https://example.com/foo/../module2.js";</pre>
 
     <li><code data-x="">.tomato</code></li>
 
-    <li><code data-x="">..zucchini.js</code></li>
+    <li><code data-x="">..zucchini.mjs</code></li>
 
     <li><code data-x="">.\yam.es</code></li>
    </ul>

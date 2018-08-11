@@ -17,7 +17,7 @@
    <dd><code data-x="attr-fe-name">name</code> <!-- variant --> </dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-output-htmlFor">htmlFor</span>;
@@ -36,9 +36,9 @@ interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
   void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
 
   readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLOutputElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLOutputElement</code>.</dd>
   </dl>
 
   <p>The <code>output</code> element <span>represents</span> the result of a calculation performed
@@ -168,11 +168,11 @@ interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
 
    <p>A simple calculator could use <code>output</code> for its display of calculated results:</p>
 
-   <pre>&lt;form onsubmit="return false" oninput="o.value = a.valueAsNumber + b.valueAsNumber">
+   <pre><code class="html" data-x="">&lt;form onsubmit="return false" oninput="o.value = a.valueAsNumber + b.valueAsNumber">
  &lt;input id=a type=number step=any> +
  &lt;input id=b type=number step=any> =
  &lt;output id=o for="a b">&lt;/output>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   </div>
 
@@ -181,13 +181,13 @@ interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, an <code>output</code> element is used to report the results of a calculation performed by a remote
    server, as they come in:</p>
 
-   <pre>&lt;output id="result">&lt;/output>
+   <pre><code class="html" data-x="">&lt;output id="result">&lt;/output>
 &lt;script>
  var primeSource = new WebSocket('ws://primes.example.net/');
  primeSource.onmessage = function (event) {
    document.getElementById('result').value = event.data;
  }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
   </div>
 

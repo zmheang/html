@@ -99,14 +99,14 @@
 
    <p>For instance, consider the following HTML fragment:</p>
 
-   <pre>&lt;p>
+   <pre><code class="html" data-x="">&lt;p>
  &lt;svg>
   &lt;metadata>
    &lt;!-- this is invalid -->
    &lt;cdr:license xmlns:cdr="https://www.example.com/cdr/metadata" name="MIT"/>
   &lt;/metadata>
  &lt;/svg>
-&lt;/p></pre>
+&lt;/p></code></pre>
 
    <p>The innermost element, <code data-x="">cdr:license</code>, is actually in the SVG namespace, as
    the "<code data-x="">xmlns:cdr</code>" attribute has no effect (unlike in XML). In fact, as the

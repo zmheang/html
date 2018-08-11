@@ -40,11 +40,11 @@
      <p>For example, suppose a page looked at its URL's query string to determine what to display,
      and the site then redirected the user to that page to display a message, as in:</p>
 
-     <pre>&lt;ul>
+     <pre><code class="html" data-x="">&lt;ul>
  &lt;li>&lt;a href="message.cgi?say=Hello">Say Hello&lt;/a>
  &lt;li>&lt;a href="message.cgi?say=Welcome">Say Welcome&lt;/a>
  &lt;li>&lt;a href="message.cgi?say=Kittens">Say Kittens&lt;/a>
-&lt;/ul></pre>
+&lt;/ul></code></pre>
 
      <p>If the message was just displayed to the user without escaping, a hostile attacker could
      then craft a URL that contained a script element:</p>

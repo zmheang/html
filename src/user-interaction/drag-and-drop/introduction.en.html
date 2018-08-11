@@ -12,7 +12,7 @@
 
   <p>For example:</p>
 
-  <pre>&lt;p>What fruits do you like?&lt;/p>
+  <pre><code class="html" data-x="">&lt;p>What fruits do you like?&lt;/p>
 &lt;ol ondragstart="dragStartHandler(event)">
  &lt;li draggable="true" data-value="fruit-apple">Apples&lt;/li>
  &lt;li draggable="true" data-value="fruit-orange">Oranges&lt;/li>
@@ -29,7 +29,7 @@
       event.preventDefault(); // don't allow selection to be dragged
     }
   }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
   <hr>
 
@@ -56,7 +56,7 @@
 
   <p>For example:</p>
 
-  <pre>&lt;p>Drop your favorite fruits below:&lt;/p>
+  <pre><code class="html" data-x="">&lt;p>Drop your favorite fruits below:&lt;/p>
 &lt;ol ondragenter="dragEnterHandler(event)" ondragover="dragOverHandler(event)"
     ondrop="dropHandler(event)">
 &lt;/ol>
@@ -90,7 +90,7 @@
     }
     event.target.appendChild(li);
   }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
   <hr>
 
@@ -99,7 +99,7 @@
 
   <p>For our example here, that means updating the original markup to handle that event:</p>
 
-  <pre>&lt;p>What fruits do you like?&lt;/p>
+  <pre><code class="html" data-x="">&lt;p>What fruits do you like?&lt;/p>
 &lt;ol ondragstart="dragStartHandler(event)" ondragend="dragEndHandler(event)">
  <em>...as before...</em>
 &lt;/ol>
@@ -113,7 +113,7 @@
       event.target.parentNode.removeChild(event.target);
     }
   }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
 
 

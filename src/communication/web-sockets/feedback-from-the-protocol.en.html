@@ -96,13 +96,13 @@
    <p>Here is an example of how to define a handler for the <code
    data-x="event-message">message</code> event in the case of text frames:</p>
 
-   <pre>mysocket.onmessage = function (event) {
+   <pre><code class="js" data-x="">mysocket.onmessage = function (event) {
   if (event.data == 'on') {
     turnLampOn();
   } else if (event.data == 'off') {
     turnLampOff();
   }
-};</pre>
+};</code></pre>
 
    <p>The protocol here is a trivial one, with the server just sending "on" or "off" messages.</p>
 

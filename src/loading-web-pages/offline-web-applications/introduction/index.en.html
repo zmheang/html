@@ -14,9 +14,9 @@
 
   <p>Before adding the manifest, these three files might look like this:</p>
 
-  <pre>EXAMPLE offline/clock/clock1.html</pre>
-  <pre>EXAMPLE offline/clock/clock.css</pre>
-  <pre>EXAMPLE offline/clock/clock.js</pre>
+  <pre><code class="html" data-x="">EXAMPLE offline/clock/clock1.html</code></pre>
+  <pre><code class="css" data-x="">EXAMPLE offline/clock/clock.css</code></pre>
+  <pre><code class="js" data-x="">EXAMPLE offline/clock/clock.js</code></pre>
 
   <p>If the user tries to open the "<code data-x="">clock1.html</code>" page while offline, though,
   the user agent (unless it happens to have it still in the local cache) will fail with an
@@ -30,7 +30,7 @@
   <p>With a small change to the HTML file, the manifest (served as <code>text/cache-manifest</code>)
   is linked to the application:</p>
 
-  <pre>EXAMPLE offline/clock/clock2.html</pre>
+  <pre><code class="html" data-x="">EXAMPLE offline/clock/clock2.html</code></pre>
 
   <p>Now, if the user goes to the page, the browser will cache the files and make them available
   even when the user is offline.</p>

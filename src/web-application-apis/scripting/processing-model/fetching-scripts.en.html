@@ -343,7 +343,7 @@
   a script">preparing a script</span>, and should not be used directly by other specifications.</p>
 
   <p>To perform the <dfn>internal module script graph fetching procedure</dfn> given a
-  <var>url</var>, a <var>fetch client settings object</var>, a <var>destination</var>, a some
+  <var>url</var>, a <var>fetch client settings object</var>, a <var>destination</var>, some
   <var>options</var>, a <var>module map settings object</var>, a <var>visited set</var>, a
   <var>referrer</var>, and a <var>top-level module fetch</var> flag, perform these steps. The
   algorithm will asynchronously complete with either null (on failure) or a <span>module
@@ -369,9 +369,9 @@
 
    <li><p>If the <var>top-level module fetch</var> flag is set, <span data-x="fetch the descendants
    of and instantiate a module script">fetch the descendants of and instantiate</span>
-   <var>result</var> given <var>destination</var> and <var>visited set</var>. Otherwise,
-   <span data-x="fetch the descendants of a module script">fetch the descendants of</span>
-   <var>result</var> given the same arguments.</p></li>
+   <var>result</var> given <var>fetch client settings object</var>, <var>destination</var>, and
+   <var>visited set</var>. Otherwise, <span data-x="fetch the descendants of a module script">fetch
+   the descendants of</span> <var>result</var> given the same arguments.</p></li>
 
    <li><p>When the appropriate algorithm asynchronously completes with <var>final result</var>,
    asynchronously complete this algorithm with <var>final result</var>.</p></li>
@@ -469,9 +469,9 @@
   </ol>
 
   <p>To <dfn>fetch the descendants of a module script</dfn> <var>module script</var>, given a
-  <var>destination</var> and a <var>visited set</var>, run these steps. The algorithm will
-  asynchronously complete with either null (on failure) or with <var>module script</var> (on
-  success).</p>
+  <var>fetch client settings object</var>, a <var>destination</var>, and a <var>visited set</var>,
+  run these steps. The algorithm will asynchronously complete with either null (on failure) or
+  with <var>module script</var> (on success).</p>
 
   <ol>
    <li><p>If <var>module script</var>'s <span data-x="concept-script-record">record</span> is null,
@@ -492,7 +492,8 @@
 
     <ol>
      <li><p>Let <var>url</var> be the result of <span data-x="resolve a module specifier">resolving
-     a module specifier</span> given <var>module script</var> and <var>requested</var>.</p></li>
+     a module specifier</span> given <var>module script</var>'s <span
+     data-x="concept-script-base-url">base URL</span> and <var>requested</var>.</p></li>
 
      <li><p>Assert: <var>url</var> is never failure, because <span data-x="resolve a module
      specifier">resolving a module specifier</span> must have been <a
@@ -519,11 +520,10 @@
    <li>
     <p><span data-x="list iterate">For each</span> <var>url</var> in <var>urls</var>, perform the
     <span>internal module script graph fetching procedure</span> given <var>url</var>,
-    <var>module script</var>'s <span>settings object</span>, <var>destination</var>,
-    <var>options</var>, <var>module script</var>'s <span>settings object</span>,
-    <var>visited set</var>, <var>module script</var>'s <span
-    data-x="concept-script-base-url">base URL</span>, and with the <var>top-level module fetch</var>
-    flag unset. If the caller of this algorithm specified custom <span
+    <var>fetch client settings object</var>, <var>destination</var>, <var>options</var>, <var>module
+    script</var>'s <span>settings object</span>, <var>visited set</var>, <var>module script</var>'s
+    <span data-x="concept-script-base-url">base URL</span>, and with the <var>top-level module
+    fetch</var> flag unset. If the caller of this algorithm specified custom <span
     data-x="fetching-scripts-perform-fetch">perform the fetch</span> steps, pass those along
     while performing the <span>internal module script graph fetching procedure</span>.</p>
 
@@ -541,15 +541,16 @@
   </ol>
 
   <p>To <dfn>fetch the descendants of and instantiate a module script</dfn> <var>module
-  script</var>, given a <var>destination</var> and an optional <var>visited set</var>, run these
-  steps. The algorithm will asynchronously complete with either null (on failure) or with
-  <var>module script</var> (on success).</p>
+  script</var>, given a <var>fetch client settings object</var>, a <var>destination</var>, and an
+  optional <var>visited set</var>, run these steps. The algorithm will asynchronously complete with
+  either null (on failure) or with <var>module script</var> (on success).</p>
 
   <ol>
    <li><p>If <var>visited set</var> was not given, let it be an empty <span>set</span>.</p></li>
 
    <li><p><span data-x="fetch the descendants of a module script">Fetch the descendants of</span>
-   <var>module script</var>, given <var>destination</var> and <var>visited set</var>.</p></li>
+   <var>module script</var>, given <var>fetch client settings object</var>, <var>destination</var>,
+   and <var>visited set</var>.</p></li>
 
    <li><p>Return from this algorithm, and run the following steps when <span data-x="fetch the
    descendants of a module script">fetching the descendants of a module script</span> asynchronously
@@ -610,10 +611,11 @@
    <li><p>Let <var>childSpecifiers</var> be the value of <var>moduleScript</var>'s <span
    data-x="concept-script-record">record</span>'s [[RequestedModules]] internal slot.</p></li>
 
-   <li><p>Let <var>childURLs</var> be the <span>list</span> obtained by calling <span>resolve a
-   module specifier</span> once for each item of <var>childSpecifiers</var>,
-   given <var>moduleScript</var> and that item. (None of these will ever fail, as otherwise
-   <var>moduleScript</var> would have been marked as itself having a parse error.)</p></li>
+   <li><p>Let <var>childURLs</var> be the <span>list</span> obtained by calling
+   <span>resolve a module specifier</span> once for each item of <var>childSpecifiers</var>, given
+   <var>moduleScript</var>'s <span data-x="concept-script-base-url">base URL</span> and that item.
+   (None of these will ever fail, as otherwise <var>moduleScript</var> would have been marked as
+   itself having a parse error.)</p></li>
 
    <li><p>Let <var>childModules</var> be the <span>list</span> obtained by <span
    data-x="map get">getting each value</span> in <var>moduleMap</var> whose key is given by an

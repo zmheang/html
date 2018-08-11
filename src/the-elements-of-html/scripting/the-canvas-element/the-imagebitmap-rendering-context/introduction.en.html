@@ -17,7 +17,7 @@
    <p>Using <code>ImageBitmapRenderingContext</code>, here is how to transcode an image to the JPEG
    format in a memory- and CPU-efficient way:</p>
 
-   <pre>createImageBitmap(inputImageBlob).then(image => {
+   <pre><code class="js" data-x="">createImageBitmap(inputImageBlob).then(image => {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('bitmaprenderer');
   context.transferFromImageBitmap(image);
@@ -25,6 +25,6 @@
   canvas.toBlob(outputJPEGBlob => {
     // Do something with outputJPEGBlob.
   }, 'image/jpeg');
-});</pre>
+});</code></pre>
   </div>
 

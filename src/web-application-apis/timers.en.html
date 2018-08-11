@@ -281,13 +281,13 @@
      <p>So for example, the following rather silly code will result in the log containing "<code
      data-x="">ONE&nbsp;TWO&nbsp;</code>":</p>
 
-     <pre>var log = '';
+     <pre><code class="js" data-x="">var log = '';
 function logger(s) { log += s + ' '; }
 
 setTimeout({ toString: function () {
   setTimeout("logger('ONE')", 100);
   return "logger('TWO')";
-} }, 100);</pre>
+} }, 100);</code></pre>
 
     </div>
 
@@ -329,7 +329,7 @@ setTimeout({ toString: function () {
    to the browser to avoid starving the user interface (and to avoid the browser killing the script
    for hogging the CPU), simply queue the next timer before performing work:</p>
 
-   <pre>function doExpensiveWork() {
+   <pre><code class="js" data-x="">function doExpensiveWork() {
   var done = false;
   // ...
   // this part of the function takes up to five milliseconds
@@ -348,7 +348,7 @@ function scheduleWork() {
   setTimeout(rescheduleWork, 0);
 }
 
-scheduleWork(); // queues a task to do lots of work</pre>
+scheduleWork(); // queues a task to do lots of work</code></pre>
 
   </div>
 

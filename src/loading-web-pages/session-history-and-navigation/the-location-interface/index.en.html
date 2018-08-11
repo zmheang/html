@@ -80,7 +80,7 @@
   <span>current entry</span> of the <span>browsing context</span>'s session history to be changed,
   by adding or replacing entries in the <code data-x="dom-history">history</code> object.</p>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface">additional creation steps</a> and <a href="#location-internal-methods">overridden internal methods</a>
   [Unforgeable] stringifier attribute USVString <span data-x="dom-location-href">href</span>;
   [Unforgeable] readonly attribute USVString <span data-x="dom-location-origin">origin</span>;
@@ -97,7 +97,7 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   [Unforgeable] void <span data-x="dom-location-reload">reload</span>();
 
   [Unforgeable, SameObject] readonly attribute <span>DOMStringList</span> <span data-x="dom-location-ancestorOrigins">ancestorOrigins</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
    <dt><var>location</var> . <code data-x="">toString()</code></dt>

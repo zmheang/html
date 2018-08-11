@@ -13,14 +13,14 @@
    <dd><code data-x="attr-param-value">value</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLParamElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-param-name">name</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-param-value">value</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLParamElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLParamElement</code>.</dd>
   </dl>
 
   <p>The <code>param</code> element defines parameters for plugins invoked by <code>object</code>
@@ -58,7 +58,7 @@ interface <dfn>HTMLParamElement</dfn> : <span>HTMLElement</span> {
    <p>The following example shows how the <code>param</code> element can be used to pass a parameter
    to a plugin, in this case the O3D plugin.</p>
 
-   <pre>&lt;!DOCTYPE HTML>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
   &lt;head>
    &lt;title>O3D Utah Teapot&lt;/title>
@@ -80,7 +80,7 @@ interface <dfn>HTMLParamElement</dfn> : <span>HTMLElement</span> {
     &lt;script src="o3d-teapot.js">&lt;/script>
    &lt;/p>
   &lt;/body>
-&lt;/html></pre>
+&lt;/html></code></pre>
 
   </div>
 

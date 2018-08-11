@@ -28,9 +28,9 @@
    lang="ja">&#28450;&#23383;</span> is annotated with its phonetic reading, could be expanded to
    use <code>rp</code> so that in legacy user agents the readings are in parentheses:</p>
 
-   <pre lang="ja">...
+   <pre lang="ja"><code class="html" data-x="">...
 &lt;ruby>漢&lt;rp>（&lt;/rp>&lt;rt>かん&lt;/rt>&lt;rp>）&lt;/rp>字&lt;rp>（&lt;/rp>&lt;rt>じ&lt;/rt>&lt;rp>）&lt;/rp>&lt;/ruby>
-...</pre>
+...</code></pre>
 
    <p>In conforming user agents the rendering would be as above, but in user agents that do not
    support ruby, the rendering would be:</p>
@@ -46,11 +46,11 @@
    symbols with names given in English and French, but this time with <code>rp</code> elements as
    well:
 
-   <pre>&lt;ruby>
+   <pre><code class="html" data-x="">&lt;ruby>
 &#x2665;&lt;rp>: &lt;/rp>&lt;rt>Heart&lt;/rt>&lt;rp>, &lt;/rp>&lt;rt lang=fr>C&oelig;ur&lt;/rt>&lt;rp>.&lt;/rp>
 &#x2618;&lt;rp>: &lt;/rp>&lt;rt>Shamrock&lt;/rt>&lt;rp>, &lt;/rp>&lt;rt lang=fr>Tr&egrave;fle&lt;/rt>&lt;rp>.&lt;/rp>
 &#x2736;&lt;rp>: &lt;/rp>&lt;rt>Star&lt;/rt>&lt;rp>, &lt;/rp>&lt;rt lang=fr>&Eacute;toile&lt;/rt>&lt;rp>.&lt;/rp>
-&lt;/ruby></pre>
+&lt;/ruby></code></pre>
 
    <p>This would make the example render as follows in non-ruby-capable user agents:
 

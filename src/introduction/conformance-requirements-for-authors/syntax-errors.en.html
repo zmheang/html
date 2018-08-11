@@ -18,7 +18,7 @@
      <p>For example, the following markup fragment results in a DOM with an <code>hr</code> element
      that is an <em>earlier</em> sibling of the corresponding <code>table</code> element:</p>
 
-     <pre class="bad">&lt;table>&lt;hr>...</pre>
+     <pre class="bad"><code class="html" data-x="">&lt;table>&lt;hr>...</code></pre>
 
     </div>
 
@@ -76,10 +76,10 @@
      <code>i</code> elements have to be reconstructed in each paragraph, resulting in progressively
      more elements in each paragraph:</p>
 
-     <pre class="bad">&lt;p>&lt;i>She dreamt.
+     <pre class="bad"><code class="html" data-x="">&lt;p>&lt;i>She dreamt.
 &lt;p>&lt;i>She dreamt that she ate breakfast.
 &lt;p>&lt;i>Then lunch.
-&lt;p>&lt;i>And finally dinner.</pre>
+&lt;p>&lt;i>And finally dinner.</code></pre>
 
      <p>The resulting DOM for this fragment would be:</p>
 
@@ -108,7 +108,7 @@
 
      <p>In this fragment, the attribute's value is "<code data-x="">?bill&amp;ted</code>":</p>
 
-     <pre class="bad">&lt;a href="?bill&amp;ted">Bill and Ted&lt;/a></pre>
+     <pre class="bad"><code class="html" data-x="">&lt;a href="?bill&amp;ted">Bill and Ted&lt;/a></code></pre>
 
      <p>In the following fragment, however, the attribute's value is actually "<code
      data-x="">?art&copy;</code>", <em>not</em> the intended "<code data-x="">?art&amp;copy</code>",
@@ -116,7 +116,7 @@
      as "<code data-x="">&amp;copy;</code>" and thus gets interpreted as "<code
      data-x="">&copy;</code>":</p>
 
-     <pre class="bad">&lt;a href="?art&amp;copy">Art and Copy&lt;/a></pre>
+     <pre class="bad"><code class="html" data-x="">&lt;a href="?art&amp;copy">Art and Copy&lt;/a></code></pre>
 
      <p>To avoid this problem, all named character references are required to end with a semicolon,
      and uses of named character references without a semicolon are flagged as errors.</p>
@@ -124,8 +124,8 @@
      <p>Thus, the correct way to express the above cases is as
      follows:</p>
 
-     <pre>&lt;a href="?bill&amp;ted">Bill and Ted&lt;/a> &lt;!-- &amp;ted is ok, since it's not a named character reference --></pre>
-     <pre>&lt;a href="?art&amp;amp;copy">Art and Copy&lt;/a> &lt;!-- the &amp; has to be escaped, since &amp;copy <em>is</em> a named character reference --></pre>
+     <pre><code class="html" data-x="">&lt;a href="?bill&amp;ted">Bill and Ted&lt;/a> &lt;!-- &amp;ted is ok, since it's not a named character reference --></code></pre>
+     <pre><code class="html" data-x="">&lt;a href="?art&amp;amp;copy">Art and Copy&lt;/a> &lt;!-- the &amp; has to be escaped, since &amp;copy <em>is</em> a named character reference --></code></pre>
 
     </div>
 
@@ -188,7 +188,7 @@
      <p>For example, it is unclear whether the author intended the following to be an
      <code>h1</code> heading or an <code>h2</code> heading:</p>
 
-     <pre class="bad">&lt;h1>Contact details&lt;/h2></pre>
+     <pre class="bad"><code class="html" data-x="">&lt;h1>Contact details&lt;/h2></code></pre>
 
     </div>
 

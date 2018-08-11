@@ -3,7 +3,7 @@
   <p><code>DataTransfer</code> objects are used to expose the <span>drag data store</span> that
   underlies a drag-and-drop operation.</p>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  <span data-x="dom-DataTransfer">Constructor</span>]
 interface <dfn>DataTransfer</dfn> {
   attribute DOMString <span data-x="dom-DataTransfer-dropEffect">dropEffect</span>;
@@ -19,7 +19,7 @@ interface <dfn>DataTransfer</dfn> {
   void <span data-x="dom-DataTransfer-setData">setData</span>(DOMString format, DOMString data);
   void <span data-x="dom-DataTransfer-clearData">clearData</span>(optional DOMString format);
   [SameObject] readonly attribute <span>FileList</span> <span data-x="dom-DataTransfer-files">files</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 

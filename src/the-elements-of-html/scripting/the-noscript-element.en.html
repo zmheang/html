@@ -116,7 +116,7 @@
    <p>In the following example, a <code>noscript</code> element is
    used to provide fallback for a script.</p>
 
-   <pre>&lt;form action="calcSquare.php">
+   <pre><code class="html" data-x="">&lt;form action="calcSquare.php">
  &lt;p>
   &lt;label for=x>Number&lt;/label>:
   &lt;input id="x" name="x" type="number">
@@ -135,7 +135,7 @@
  &lt;noscript>
   &lt;input type=submit value="Calculate Square">
  &lt;/noscript>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
    <p>When script is disabled, a button appears to do the calculation on the server side. When
    script is enabled, the value is computed on-the-fly instead.</p>
@@ -145,7 +145,7 @@
    using <code>noscript</code>, and to instead design the script to change the page from being a
    scriptless page to a scripted page on the fly, as in the next example:</p>
 
-   <pre>&lt;form action="calcSquare.php">
+   <pre><code class="html" data-x="">&lt;form action="calcSquare.php">
  &lt;p>
   &lt;label for=x>Number&lt;/label>:
   &lt;input id="x" name="x" type="number">
@@ -164,7 +164,7 @@
 <strong>  var submit = document.getElementById('submit');
   submit.parentNode.removeChild(submit);</strong>
  &lt;/script>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
    <p>The above technique is also useful in <span>XML documents</span>, since <code>noscript</code>
    is not allowed there.</p>

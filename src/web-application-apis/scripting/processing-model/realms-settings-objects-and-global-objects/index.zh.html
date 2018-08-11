@@ -6,7 +6,7 @@
   <p class="note">本规范中，所有 <span data-x="JavaScript realm">JavaScript
   realm</span> 都是使用 <code>Window</code> 或 <code>WorkerGlobalScope</code>
   <span data-x="global object">全局对象</span> 来
-  <span data-x="js-InitializeHostDefinedRealm">初始化</span> 的。</p>
+  <span data-x="creating a new JavaScript realm">初始化</span> 的。</p>
 
   <p>
   在 <span data-x="JavaScript realm">JavaScript Realm</span>，
@@ -27,7 +27,7 @@
    都是在对应的 <span>JavaScript realm</span>
    （称为 <dfn data-x="concept-global-object-realm" data-export="" data-lt="Realm"
    data-dfn-for="global object">全局对象的 Realm</dfn>）
-   <span data-x="js-InitializeHostDefinedRealm">初始化</span>
+   <span data-x="creating a new JavaScript realm">初始化</span>
    期间创建的。</p></li>
 
    <li id="relevant-settings-object-for-a-global-object"><p>本规范中每个
@@ -46,6 +46,26 @@
    data-x="concept-settings-object-global" data-lt="global object" data-dfn-for="environment
    settings object">这个环境设置对象的全局对象</dfn>。</p></li>
   </ul>
+
+  <p><dfn data-x="creating a new JavaScript realm">创建新的 JavaScript realm</dfn>，
+  可能同时还有创建全局对象或全局 <b>this</b> 绑定（或者两个都创建）的指示，需要执行以下步骤：</p>
+
+  <ol>
+   <li><p>用提供的创建全局对象和全局 <b>this</b> 绑定的自定义参数执行 <span data-x="js-InitializeHostDefinedRealm">InitializeHostDefinedRealm</span>()。</p></li>
+
+   <li>
+    <p>令 <var>realm execution context</var> 为 <span data-x="running JavaScript execution context">
+    执行 JavaScript 执行上下文</span>。</p>
+
+    <p class="note">这是指前面的步骤创建的
+    <span data-x="JavaScript execution context">JavaScript 执行上下文</span>。</p>
+   </li>
+
+   <li><p>从 <span data-x="JavaScript execution context stack">JavaScript 执行上下文栈</span>
+   移除 <var>realm execution context</var>。</p></li>
+
+   <li><p>返回 <var>realm execution context</var>。</p></li>
+  </ol>
 
   <hr>
 

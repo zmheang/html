@@ -14,11 +14,11 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
-interface <dfn>HTMLDivElement</dfn> : <span>HTMLElement</span> {};</pre>
+interface <dfn>HTMLDivElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLDivElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLDivElement</code>.</dd>
   </dl>
 
   <p>The <code>div</code> element has no special meaning at all. It <span>represents</span> its
@@ -43,7 +43,7 @@ interface <dfn>HTMLDivElement</dfn> : <span>HTMLElement</span> {};</pre>
    following example, we see <code>div</code> elements used as a way to set the language of two
    paragraphs at once, instead of setting the language on the two paragraph elements separately:</p>
 
-   <pre>&lt;article lang="en-US">
+   <pre><code class="html" data-x="">&lt;article lang="en-US">
  &lt;h1>My use of language and my cats&lt;/h1>
  &lt;p>My cat's behavior hasn't changed much since her absence, except
  that she plays her new physique to the neighbors regularly, in an
@@ -58,7 +58,7 @@ interface <dfn>HTMLDivElement</dfn> : <span>HTMLElement</span> {};</pre>
   shouldn't say "pavement" or "flat" or <!--en-GB-->"colour"...&lt;/p>
  &lt;/div>
  &lt;p>I should say "sidewalk" and "apartment" and "color"!&lt;/p>
-&lt;/article></pre>
+&lt;/article></code></pre>
 
   </div>
 

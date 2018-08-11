@@ -23,7 +23,7 @@
    <dd><code data-x="attr-select-size">size</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLSelectElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-fe-autocomplete">autocomplete</span>;
@@ -58,9 +58,9 @@ interface <dfn>HTMLSelectElement</dfn> : <span>HTMLElement</span> {
   void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
 
   readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLSelectElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLSelectElement</code>.</dd>
   </dl>
   <!-- Proposals for v2:
        * <select value=""> as an alternative to <option selected>
@@ -483,7 +483,7 @@ interface <dfn>HTMLSelectElement</dfn> : <span>HTMLElement</span> {
    with a set of options from which the user can select a single option. The default option is
    preselected.</p>
 
-   <pre>&lt;p>
+   <pre><code class="html" data-x="">&lt;p>
  &lt;label for="unittype">Select unit type:&lt;/label>
  &lt;select id="unittype" name="unittype">
   &lt;option value="1"> Miner &lt;/option>
@@ -492,18 +492,18 @@ interface <dfn>HTMLSelectElement</dfn> : <span>HTMLElement</span> {
   &lt;option value="4"> Max &lt;/option>
   &lt;option value="5"> Firebot &lt;/option>
  &lt;/select>
-&lt;/p></pre>
+&lt;/p></code></pre>
 
    <p>When there is no default option, a placeholder can be used instead:</p>
 
-   <pre>&lt;select name="unittype" <strong>required</strong>>
+   <pre><code class="html" data-x="">&lt;select name="unittype" <strong>required</strong>>
  <strong>&lt;option value=""> Select unit type &lt;/option></strong>
  &lt;option value="1"> Miner &lt;/option>
  &lt;option value="2"> Puffer &lt;/option>
  &lt;option value="3"> Snipey &lt;/option>
  &lt;option value="4"> Max &lt;/option>
  &lt;option value="5"> Firebot &lt;/option>
-&lt;/select></pre>
+&lt;/select></code></pre>
 
   </div>
 
@@ -512,7 +512,7 @@ interface <dfn>HTMLSelectElement</dfn> : <span>HTMLElement</span> {
    <p>Here, the user is offered a set of options from which they can select any number. By default,
    all five options are selected.</p>
 
-   <pre>&lt;p>
+   <pre><code class="html" data-x="">&lt;p>
  &lt;label for="allowedunits">Select unit types to enable on this map:&lt;/label>
  &lt;select id="allowedunits" name="allowedunits" multiple>
   &lt;option value="1" selected> Miner &lt;/option>
@@ -521,7 +521,7 @@ interface <dfn>HTMLSelectElement</dfn> : <span>HTMLElement</span> {
   &lt;option value="4" selected> Max &lt;/option>
   &lt;option value="5" selected> Firebot &lt;/option>
  &lt;/select>
-&lt;/p></pre>
+&lt;/p></code></pre>
 
   </div>
 
@@ -529,7 +529,7 @@ interface <dfn>HTMLSelectElement</dfn> : <span>HTMLElement</span> {
 
    <p>Sometimes, a user has to select one or more items. This example shows such an interface.</p>
 
-   <pre>&lt;label>
+   <pre><code class="html" data-x="">&lt;label>
  Select the songs from that you would like on your Act II Mix Tape:
  &lt;select multiple required name="act2">
   &lt;option value="s1">It Sucks to Be Me (Reprise)
@@ -544,7 +544,7 @@ interface <dfn>HTMLSelectElement</dfn> : <span>HTMLElement</span> {
   &lt;option value="s10">What Do You Do With a B.A. in English? (Reprise)
   &lt;option value="s11">For Now
  &lt;/select>
-&lt;/label></pre>
+&lt;/label></code></pre>
 
   </div>
 

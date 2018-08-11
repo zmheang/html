@@ -1,6 +1,6 @@
   <h4>Tables</h4>
 
-  <pre class="css">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
 
 table { display: table; }<!-- see also unicode-bidi:isolate rules -->
 caption { display: table-caption; }<!-- see also unicode-bidi:isolate rules -->
@@ -10,10 +10,10 @@ thead, thead[hidden] { display: table-header-group; }<!-- see also unicode-bidi:
 tbody, tbody[hidden] { display: table-row-group; }<!-- see also unicode-bidi:isolate rules -->
 tfoot, tfoot[hidden] { display: table-footer-group; }<!-- see also unicode-bidi:isolate rules -->
 tr, tr[hidden] { display: table-row; }<!-- see also unicode-bidi:isolate rules -->
-td, th, td[hidden], th[hidden] { display: table-cell; }<!-- see also unicode-bidi:isolate rules -->
+td, th { display: table-cell; }<!-- see also unicode-bidi:isolate rules -->
 
 colgroup[hidden], col[hidden], thead[hidden], tbody[hidden],
-tfoot[hidden], tr[hidden], td[hidden], th[hidden] {
+tfoot[hidden], tr[hidden] {
   visibility: collapse;
 }
 
@@ -58,11 +58,11 @@ table[rules=rows i] > tfoot > tr > td, table[rules=rows i] > tfoot > tr > th,
 table[rules=cols i] > tfoot > tr > td, table[rules=cols i] > tfoot > tr > th,
 table[rules=all i] > tfoot > tr > td, table[rules=all i] > tfoot > tr > th {
   border-color: black;
-}</pre>
+}</code></pre>
 
   <p>The following rules are also expected to apply, as <span>presentational hints</span>:</p>
 
-  <pre class="css">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
 
 table[align=left i] { float: left; }
 table[align=right i] { float: right; }
@@ -185,7 +185,7 @@ table[rules=rows i] > tbody > tr, table[rules=rows i] > tfoot > tr {
   border-block-start-style: solid;
   border-block-end-width: 1px;
   border-block-end-style: solid;
-}</pre>
+}</code></pre>
 
 <!--
  Demos that the above (and prose below) must explain:
@@ -203,7 +203,7 @@ table[rules=rows i] > tbody > tr, table[rules=rows i] > tfoot > tr {
 
   <p>In <span>quirks mode</span>, the following rules are also expected to apply:</p>
 
-  <pre class="css">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
 
 table {
   font-weight: initial;
@@ -213,7 +213,7 @@ table {
   line-height: initial;
   white-space: initial;
   text-align: initial;
-}</pre>
+}</code></pre>
 
   <hr>
 
@@ -233,9 +233,9 @@ table {
 
   <p>In <span>HTML documents</span>, the following rules are also expected to apply:</p>
 
-  <pre class="css">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
 
-:matches(table, thead, tbody, tfoot, tr) > form { display: none !important; }</pre>
+:matches(table, thead, tbody, tfoot, tr) > form { display: none !important; }</code></pre>
 
   <hr>
 

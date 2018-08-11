@@ -21,14 +21,14 @@
    in image form, with text in the <code data-x="attr-img-alt">alt</code> attribute rephrasing the
    flowchart in prose form:</p>
 
-   <pre>&lt;p>In the common case, the data handled by the tokenization stage
+   <pre><code class="html" data-x="">&lt;p>In the common case, the data handled by the tokenization stage
 comes from the network, but it can also come from script.&lt;/p>
 &lt;p><strong>&lt;img src="images/parsing-model-overview.svg" alt="The Network
 passes data to the Input Stream Preprocessor, which passes it to the
 Tokenizer, which passes it to the Tree Construction stage. From there,
 data goes to both the DOM and to Script Execution. Script Execution is
 linked to the DOM, and, using document.write(), passes data to the
-Tokenizer."></strong>&lt;/p></pre>
+Tokenizer."></strong>&lt;/p></code></pre>
 
   </div>
 
@@ -40,23 +40,23 @@ Tokenizer."></strong>&lt;/p></pre>
    <p>First, here's the good solution. This sample shows how the alternative text should just be
    what you would have put in the prose if the image had never existed.</p>
 
-   <pre>&lt;!-- This is the correct way to do things. -->
+   <pre><code class="html" data-x="">&lt;!-- This is the correct way to do things. -->
 &lt;p>
  You are standing in an open field west of a house.
  <strong>&lt;img src="house.jpeg" alt="The house is white, with a boarded front door."></strong>
  There is a small mailbox here.
-&lt;/p></pre>
+&lt;/p></code></pre>
 
    <p>Second, here's the bad solution. In this incorrect way of doing things, the alternative text
    is simply a description of the image, instead of a textual replacement for the image. It's bad
    because when the image isn't shown, the text doesn't flow as well as in the first example.</p>
 
-   <pre class="bad">&lt;!-- <em>This is the wrong way to do things.</em> -->
+   <pre class="bad"><code class="html" data-x="">&lt;!-- <em>This is the wrong way to do things.</em> -->
 &lt;p>
  You are standing in an open field west of a house.
  &lt;img src="house.jpeg" alt="A white house, with a boarded front door.">
  There is a small mailbox here.
-&lt;/p></pre>
+&lt;/p></code></pre>
 
    <p>Text such as "Photo of white house with boarded door" would be equally bad alternative text
    (though it could be suitable for the <code data-x="attr-title">title</code> attribute or in the

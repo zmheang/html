@@ -3,7 +3,7 @@
   <p>Each <code>DataTransfer</code> object is associated with a <code>DataTransferItemList</code>
   object.</p>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>DataTransferItemList</dfn> {
   readonly attribute unsigned long <span data-x="dom-DataTransferItemList-length">length</span>;
   <a href="#dom-datatransferitemlist-item">getter</a> <span>DataTransferItem</span> (unsigned long index);
@@ -14,7 +14,7 @@ DND-v4:  <span>DataTransferItem</span>? <span data-x="dom-DataTransferItemList-a
 DND-v5:  <span>DataTransferItem</span>? <span data-x="dom-DataTransferItemList-add">add</span>(<span>DataTransferPromise</span> data);-->
   void <span data-x="dom-DataTransferItemList-remove">remove</span>(unsigned long index);
   void <span data-x="dom-DataTransferItemList-clear">clear</span>();
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 

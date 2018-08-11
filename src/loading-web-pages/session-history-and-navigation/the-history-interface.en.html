@@ -1,6 +1,6 @@
   <h4>The <code>History</code> interface</h4>
 
-  <pre class="idl">enum <dfn>ScrollRestoration</dfn> { "<span data-x="dom-ScrollRestoration-auto">auto</span>", "<span data-x="dom-ScrollRestoration-manual">manual</span>" };
+  <pre><code class="idl" data-x="">enum <dfn>ScrollRestoration</dfn> { "<span data-x="dom-ScrollRestoration-auto">auto</span>", "<span data-x="dom-ScrollRestoration-manual">manual</span>" };
 
 [Exposed=Window]
 interface <dfn>History</dfn> {
@@ -12,7 +12,7 @@ interface <dfn>History</dfn> {
   void <span data-x="dom-history-forward">forward</span>();
   void <span data-x="dom-history-pushState">pushState</span>(any data, DOMString title, optional USVString? url = null);
   void <span data-x="dom-history-replaceState">replaceState</span>(any data, DOMString title, optional USVString? url = null);
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 
@@ -252,7 +252,8 @@ interface <dfn>History</dfn> {
      </li>
 
      <li><p><span>Traverse the history</span> of the <var>specified browsing context</var> to
-     the <var>specified entry</var>.</p>
+     the <var>specified entry</var> with the <i data-x="history-navigation flag">history-navigation
+     flag</i> set.</p>
 
     </ol>
 
@@ -419,7 +420,7 @@ interface <dfn>History</dfn> {
 
    <p>A static page implementing the x=5 position in such a game could look like the following:</p>
 
-   <pre>&lt;!DOCTYPE HTML>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
 &lt;!-- this is https://example.com/line?x=5 -->
 &lt;html lang="en">
 &lt;title>Line Game - 5&lt;/title>
@@ -427,12 +428,12 @@ interface <dfn>History</dfn> {
 &lt;p>
  &lt;a href="?x=6">Advance to 6&lt;/a> or
  &lt;a href="?x=4">retreat to 4&lt;/a>?
-&lt;/p></pre>
+&lt;/p></code></pre>
 
    <p>The problem with such a system is that each time the user clicks, the whole page has to be
    reloaded. Here instead is another way of doing it, using script:</p>
 
-   <pre>&lt;!DOCTYPE HTML>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
 &lt;!-- this starts off as https://example.com/line?x=5 -->
 &lt;html lang="en">
 &lt;title>Line Game - 5&lt;/title>
@@ -459,7 +460,7 @@ interface <dfn>History</dfn> {
    document.links[1].href = '?x=' + (currentPage-1);
    document.links[1].textContent = 'retreat to ' + (currentPage-1);
  }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>In systems without script, this still works like the previous example. However, users that
    <em>do</em> have script support can now navigate much faster, since there is no network access
@@ -481,7 +482,7 @@ interface <dfn>History</dfn> {
    a previous state the user does not go back in time, and therefore it would be inappropriate to
    put the time in the session history title.</p>
 
-   <pre>&lt;!DOCTYPE HTML>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
 &lt;HTML LANG=EN>
 &lt;TITLE>Line&lt;/TITLE>
 &lt;SCRIPT>
@@ -499,7 +500,7 @@ interface <dfn>History</dfn> {
 &lt;BODY ONPOPSTATE="set(event.state)">
 &lt;FORM NAME=F>
 State: &lt;OUTPUT NAME=I>1&lt;/OUTPUT> &lt;INPUT VALUE="Increment" TYPE=BUTTON ONCLICK="inc()">
-&lt;/FORM></pre>
+&lt;/FORM></code></pre>
 
   </div>
 
@@ -510,13 +511,13 @@ State: &lt;OUTPUT NAME=I>1&lt;/OUTPUT> &lt;INPUT VALUE="Increment" TYPE=BUTTON O
    (e.g., in the first <code>script</code> element in the document's <code>head</code> element) to
    ensure that any entry added to the history session gets the desired scroll restoration mode.</p>
 
-   <pre>&lt;head&gt;
+   <pre><code class="html" data-x="">&lt;head&gt;
   &lt;script&gt;
        if ('scrollRestoration' in history)
             history.scrollRestoration = 'manual';
   &lt;/script&gt;
 &lt;/head&gt;
-   </pre>
+   </code></pre>
   </div>
 
 

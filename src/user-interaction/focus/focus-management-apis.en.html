@@ -1,8 +1,8 @@
   <h4>Focus management APIs</h4>
 
-  <pre class="idl">dictionary <dfn>FocusOptions</dfn> {
+  <pre><code class="idl" data-x="">dictionary <dfn>FocusOptions</dfn> {
   boolean <span data-x="dom-focusoptions-preventscroll">preventScroll</span> = false;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 
@@ -92,7 +92,7 @@
      <p>For example, to hide the outline from links and instead use a yellow background to indicate
      focus, you could use:</p>
 
-     <pre>:link:focus, :visited:focus { outline: none; background: yellow; color: black; }</pre>
+     <pre><code class="css" data-x="">:link:focus, :visited:focus { outline: none; background: yellow; color: black; }</code></pre>
 
     </div>
 
@@ -106,13 +106,8 @@
   getter must run these steps:</p>
 
   <ol>
-   <li><p>Let <var>candidate</var> be this <code>Document</code> object.</p></li>
-
-   <li><p>If <var>candidate</var> is not empty, then set <var>candidate</var> to the designated
-   <span>focused area of the document</span>.</p></li>
-
-   <li><p>If <var>candidate</var> is a <span>focusable area</span>, then set <var>candidate</var> to
-   <var>candidate</var>'s <span>DOM anchor</span>.</p></li>
+   <li><p>Let <var>candidate</var> be the <span>DOM anchor</span> of the <span data-x="focused area
+   of the document">focused area</span> of this <code>Document</code> object.</p></li>
 
    <li><p>If <var>candidate</var> is not a <code>Document</code> object, then return
    <var>candidate</var>.</p></li>

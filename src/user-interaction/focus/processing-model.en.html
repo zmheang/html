@@ -169,16 +169,11 @@
 
   <hr>
 
-  <p>When a <span>focusable area</span> is added to an empty <code>Document</code>, it must be
-  designated the <span>focused area of the document</span>.</p>
-
   <p><dfn>Focus fixup rule</dfn>: When the designated <span data-x="focused area of the
   document">focused area of the document</span> is removed from that <code>Document</code> in some
   way (e.g. it stops being a <span>focusable area</span>, it is removed from the DOM, it becomes
-  <span>expressly inert</span>, etc.), and the <code>Document</code> is still not empty: designate
-  the <code>Document</code>'s <span>viewport</span> to be the new <span>focused area of the
-  document</span>. If such a removal instead results in the <code>Document</code> being empty, then
-  there is simply no longer a <span>focused area of the document</span>.</p>
+  <span>expressly inert</span>, etc.), designate the <code>Document</code>'s <span>viewport</span>
+  to be the new <span>focused area of the document</span>.</p>
 
   <p class="example">For example, this might happen because an element is removed from its
   <code>Document</code>, or has a <code data-x="attr-hidden">hidden</code> attribute added. It might
@@ -375,30 +370,23 @@
   <var>target</var>, are as follows:</p>
 
   <ol>
-
    <li><p>Let <var>candidate</var> be the <code>Document</code> of the <span>top-level browsing
    context</span>.</p></li>
 
-   <li><p>If <var>candidate</var> is <var>target</var>, return true.</p></li>
-
    <li>
+    <p>While true:</p>
 
-    <p>If <var>candidate</var> is non-empty, and the
-    designated <span>focused area of the document</span> is a <span>browsing context
-    container</span> with a non-null <span>nested browsing context</span>, and the <span>active
-    document</span> of that <span>browsing context container</span>'s <span>nested browsing
-    context</span> is <var>target</var>, then return true.</p>
+    <ol>
+     <li><p>If <var>candidate</var> is <var>target</var>, then return true.</p></li>
 
-    <p>Otherwise, if <var>candidate</var> is non-empty, and the
-    designated <span>focused area of the document</span> is a <span>browsing context
-    container</span> with a non-null <span>nested browsing context</span>, then let
-    <var>candidate</var> be the <span>active document</span> of that <span>browsing context
-    container</span>'s <span>nested browsing context</span>, and redo this step.</p>
+     <li><p>If the <span data-x="focused area of the document">focused area</span> of
+     <var>candidate</var> is a <span>browsing context container</span> with a non-null <span>nested
+     browsing context</span>, then set <var>candidate</var> to the <span>active document</span> of
+     that <span>browsing context container</span>'s <span>nested browsing context</span>.</p></li>
 
-    <p>Otherwise, return false.</p>
-
+     <li><p>Otherwise, return false.</p></li>
+    </ol>
    </li>
-
   </ol>
 
 

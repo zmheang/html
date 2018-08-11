@@ -13,7 +13,7 @@
      <p>This can occur due to reentrant invocation of this algorithm, as in the following
      example:</p>
 
-     <pre>&lt;!DOCTYPE html>
+     <pre><code class="html" data-x="">&lt;!DOCTYPE html>
 &lt;x-foo id="a">&lt;/x-foo>
 &lt;x-foo id="b">&lt;/x-foo>
 
@@ -33,7 +33,7 @@ customElements.define("x-foo", class extends HTMLElement {
     document.body.appendChild(b);
   }
 })
-&lt;/script></pre>
+&lt;/script></code></pre>
 
      <p>This step will thus bail out the algorithm early when <span
      data-x="concept-upgrade-an-element">upgrade an element</span> is invoked

@@ -17,7 +17,7 @@
    <dd><code data-x="attr-fe-name">name</code> <!-- variant --> </dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLFieldSetElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-fieldset-disabled">disabled</span>;
@@ -34,9 +34,9 @@ interface <dfn>HTMLFieldSetElement</dfn> : <span>HTMLElement</span> {
   boolean <span data-x="dom-cva-checkValidity">checkValidity</span>();
   boolean <span data-x="dom-cva-reportValidity">reportValidity</span>();
   void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLFieldSetElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLFieldSetElement</code>.</dd>
   </dl>
 
   <p>The <code>fieldset</code> element <span>represents</span> a set of form controls optionally
@@ -116,7 +116,7 @@ interface <dfn>HTMLFieldSetElement</dfn> : <span>HTMLElement</span> {
    <p>This example shows a <code>fieldset</code> element being used to group a set of related
    controls:</p>
 
-   <pre>&lt;fieldset>
+   <pre><code class="html" data-x="">&lt;fieldset>
  &lt;legend>Display&lt;/legend>
  &lt;p>&lt;label>&lt;input type=radio name=c value=0 checked> Black on White&lt;/label>
  &lt;p>&lt;label>&lt;input type=radio name=c value=1> White on Black&lt;/label>
@@ -126,7 +126,7 @@ interface <dfn>HTMLFieldSetElement</dfn> : <span>HTMLElement</span> {
   &lt;option label=Normal value=0>
   &lt;option label=Maximum value=100>
  &lt;/datalist>
-&lt;/fieldset></pre>
+&lt;/fieldset></code></pre>
 
   </div>
 
@@ -136,7 +136,7 @@ interface <dfn>HTMLFieldSetElement</dfn> : <span>HTMLElement</span> {
    not the fieldset is enabled. The contents of the fieldset consist of two required text controls
    and an optional year/month control.</p>
 
-   <pre>&lt;fieldset name="clubfields" disabled>
+   <pre><code class="html" data-x="">&lt;fieldset name="clubfields" disabled>
  &lt;legend> &lt;label>
   &lt;input type=checkbox name=club onchange="form.clubfields.disabled = !checked">
   Use Club Card
@@ -144,7 +144,7 @@ interface <dfn>HTMLFieldSetElement</dfn> : <span>HTMLElement</span> {
  &lt;p>&lt;label>Name on card: &lt;input name=clubname required>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Card number: &lt;input name=clubnum required pattern="[-0-9]+">&lt;/label>&lt;/p>
  &lt;p>&lt;label>Expiry date: &lt;input name=clubexp type=month>&lt;/label>&lt;/p>
-&lt;/fieldset></pre>
+&lt;/fieldset></code></pre>
 
   </div>
 
@@ -153,7 +153,7 @@ interface <dfn>HTMLFieldSetElement</dfn> : <span>HTMLElement</span> {
    <p>You can also nest <code>fieldset</code> elements. Here is an example expanding on the previous
    one that does so:</p>
 
-   <pre>&lt;fieldset name="clubfields" disabled>
+   <pre><code class="html" data-x="">&lt;fieldset name="clubfields" disabled>
  &lt;legend> &lt;label>
   &lt;input type=checkbox name=club onchange="form.clubfields.disabled = !checked">
   Use Club Card
@@ -173,7 +173,7 @@ interface <dfn>HTMLFieldSetElement</dfn> : <span>HTMLElement</span> {
   &lt;/label> &lt;/legend>
   &lt;p>&lt;label>Card code: &lt;input name=clublet required pattern="[A-Za-z]+">&lt;/label>&lt;/p>
  &lt;/fieldset>
-&lt;/fieldset></pre>
+&lt;/fieldset></code></pre>
 
    <p>In this example, if the outer "Use Club Card" checkbox is not checked, everything inside the
    outer <code>fieldset</code>, including the two radio buttons in the legends of the two nested

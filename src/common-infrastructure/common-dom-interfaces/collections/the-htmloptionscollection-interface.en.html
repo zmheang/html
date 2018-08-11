@@ -5,7 +5,7 @@
   rooted on a <code>select</code> element and has attributes and methods that manipulate that
   element's descendants.</p>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>HTMLOptionsCollection</dfn> : <span>HTMLCollection</span> {
   // inherits <span data-x="dom-HTMLCollection-item">item</span>(), <span data-x="dom-HTMLCollection-namedItem">namedItem</span>()
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-HTMLOptionsCollection-length">length</span>; // shadows inherited <span data-x="dom-HTMLCollection-length">length</span>
@@ -13,7 +13,7 @@ interface <dfn>HTMLOptionsCollection</dfn> : <span>HTMLCollection</span> {
   [<span>CEReactions</span>] void <span data-x="dom-HTMLOptionsCollection-add">add</span>((<span>HTMLOptionElement</span> or <span>HTMLOptGroupElement</span>) element, optional (<span>HTMLElement</span> or long)? before = null);
   [<span>CEReactions</span>] void <span data-x="dom-HTMLOptionsCollection-remove">remove</span>(long index);
   attribute long <span data-x="dom-HTMLOptionsCollection-selectedIndex">selectedIndex</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 

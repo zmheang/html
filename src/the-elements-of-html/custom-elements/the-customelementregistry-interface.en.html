@@ -15,17 +15,19 @@
   of the <code>Window</code> interface must return the <code>CustomElementRegistry</code> object for
   that <code>Window</code> object.</p>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>CustomElementRegistry</dfn> {
-  [<span>CEReactions</span>] void <span data-x="dom-CustomElementRegistry-define">define</span>(DOMString name, Function constructor, optional ElementDefinitionOptions options);
+  [<span>CEReactions</span>] void <span data-x="dom-CustomElementRegistry-define">define</span>(DOMString name, <span>CustomElementConstructor</span> constructor, optional <span>ElementDefinitionOptions</span> options);
   any <span data-x="dom-CustomElementRegistry-get">get</span>(DOMString name);
   Promise&lt;void&gt; <span data-x="dom-CustomElementRegistry-whenDefined">whenDefined</span>(DOMString name);
   [<span>CEReactions</span>] void <span data-x="dom-CustomElementRegistry-upgrade">upgrade</span>(<span>Node</span> root);
 };
 
+callback <dfn>CustomElementConstructor</dfn> = any ();
+
 dictionary <dfn>ElementDefinitionOptions</dfn> {
   DOMString extends;
-};</pre>
+};</code></pre>
 
   <p>Every <code>CustomElementRegistry</code> has a set of <span data-x="custom element
   definition">custom element definitions</span>, initially empty. In general, algorithms in this
@@ -293,7 +295,7 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
    dynamically-loaded article's contents until we're sure that all of the <span data-x="autonomous
    custom element">autonomous custom elements</span> it uses are defined.</p>
 
-   <pre>articleContainer.hidden = true;
+   <pre><code class="js" data-x="">articleContainer.hidden = true;
 
 fetch(articleURL)
   .then(response => response.text())
@@ -307,7 +309,7 @@ fetch(articleURL)
   })
   .then(() => {
     articleContainer.hidden = false;
-  });</pre>
+  });</code></pre>
   </div>
 
   <div w-nodev>
@@ -333,7 +335,7 @@ fetch(articleURL)
    <span>connected</span>, but this method can be used if you need to upgrade before you're ready to
    connect the element.</p>
 
-   <pre>const el = document.createElement("spider-man");
+   <pre><code class="js" data-x="">const el = document.createElement("spider-man");
 
 class SpiderMan extends HTMLElement {}
 customElements.define("spider-man", SpiderMan);
@@ -341,7 +343,7 @@ customElements.define("spider-man", SpiderMan);
 console.assert(!(el instanceof SpiderMan)); // not yet upgraded
 
 customElements.upgrade(el);
-console.assert(el instanceof SpiderMan);    // upgraded!</pre>
+console.assert(el instanceof SpiderMan);    // upgraded!</code></pre>
   </div>
 
   <div w-nodev>

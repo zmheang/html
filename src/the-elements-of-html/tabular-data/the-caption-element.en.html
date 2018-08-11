@@ -11,11 +11,11 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
-interface <dfn>HTMLTableCaptionElement</dfn> : <span>HTMLElement</span> {};</pre>
+interface <dfn>HTMLTableCaptionElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLTableCaptionElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLTableCaptionElement</code>.</dd>
   </dl>
 
   <p>The <code>caption</code> element <span>represents</span> the title of the <code>table</code>
@@ -51,13 +51,13 @@ interface <dfn>HTMLTableCaptionElement</dfn> : <span>HTMLElement</span> {};</pre
    (for <span data-x="referenced">reference</span> in the main prose) and explaining its use, it
    makes more sense:</p>
 
-   <pre>&lt;caption>
+   <pre><code class="html" data-x="">&lt;caption>
 &lt;p>Table 1.
 &lt;p>This table shows the total score obtained from rolling two
 six-sided dice. The first row represents the value of the first die,
 the first column the value of the second die. The total is given in
 the cell that corresponds to the values of the two dice.
-&lt;/caption></pre>
+&lt;/caption></code></pre>
 
    <p>This provides the user with more context:</p>
 

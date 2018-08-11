@@ -9,7 +9,7 @@
   <p>The <code>marquee</code> element must implement the <code>HTMLMarqueeElement</code>
   interface.</p>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLMarqueeElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-marquee-behavior">behavior</span>;
@@ -30,7 +30,7 @@ interface <dfn>HTMLMarqueeElement</dfn> : <span>HTMLElement</span> {
 
   void <span data-x="dom-marquee-start">start</span>();
   void <span data-x="dom-marquee-stop">stop</span>();
-};</pre>
+};</code></pre>
 
   <p>A <code>marquee</code> element can be <dfn data-x="concept-marquee-on">turned on</dfn> or <dfn
   data-x="concept-marquee-off">turned off</dfn>. When it is created, it is <span

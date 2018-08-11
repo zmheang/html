@@ -26,9 +26,9 @@
    unset.</p></li>
 
    <li><p><span>Traverse the history</span> to the new entry, with <span>replacement enabled</span>
-   if this was invoked with <span>replacement enabled</span>, and with the <i>non-blocking
-   events</i> flag set. This will <span>scroll to the fragment</span> given in what is now the
-   document's <span data-x="concept-document-url">URL</span>.</p></li>
+   if this was invoked with <span>replacement enabled</span>, and with the <i data-x="non-blocking
+   events flag">non-blocking events flag</i> set. This will <span>scroll to the fragment</span>
+   given in what is now the document's <span data-x="concept-document-url">URL</span>.</p></li>
   </ol>
 
   <p class="note">If the scrolling fails because the relevant <span data-x="concept-id">ID</span> has
@@ -72,14 +72,15 @@
      <li><p>Set the <code>Document</code>'s <span>target element</span> to
      <var>target</var>.</p></li>
 
-     <li><p>Use the <span>scroll an element into view</span> algorithm to scroll <var>target</var>
-     into view, with the <var>align to top flag</var> set. <ref spec=CSSOMVIEW></p></li>
+     <li><p><span data-x="scroll an element into view">Scroll <var>target</var> into view</span>,
+     with <var>behavior</var> set to "auto", <var>block</var> set to "start", and <var>inline</var>
+     set to "nearest". <ref spec=CSSOMVIEW></p></li>
 
      <li><p>Run the <span>focusing steps</span> for <var>target</var>, with the
      <code>Document</code>'s <span>viewport</span> as the <i>fallback target</i>.</p></li>
 
      <li><p>Move the <span>sequential focus navigation starting point</span> to
-     <var>target</var>.</p>
+     <var>target</var>.</p></li>
     </ol>
    </li>
   </ol>
@@ -108,17 +109,17 @@
    document</span> is the top of the document; return.</p></li>
 
    <li><p>If <span>find a potential indicated element</span> with <var>fragment</var> returns
-   non-null, than the return value is <span>the indicated part of the document</span>;
+   non-null, then the return value is <span>the indicated part of the document</span>;
    return.</p></li>
 
-   <li><p>Let <var>fragmentBytes</var> be the result of <span data-x="percent
-   decode">percent-decoding</span> <var>fragment</var>.</p></li>
+   <li><p>Let <var>fragmentBytes</var> be the result of <span data-x="string percent decode">string
+   percent decoding</span> <var>fragment</var>.</p></li>
 
-   <li><p>Let <var>decodedFragment</var> be the result of running <span>UTF-8 decode without BOM or
-   fail</span> on <var>fragmentBytes</var>.</p></li>
+   <li><p>Let <var>decodedFragment</var> be the result of running <span>UTF-8 decode without
+   BOM</span> on <var>fragmentBytes</var>.</p></li>
 
    <li><p>If <span>find a potential indicated element</span> with <var>decodedFragment</var> returns
-   non-null, than the return value is <span>the indicated part of the document</span>;
+   non-null, then the return value is <span>the indicated part of the document</span>;
    return.</p></li>
 
    <li><p>If <var>decodedFragment</var> is an <span>ASCII case-insensitive</span> match for the

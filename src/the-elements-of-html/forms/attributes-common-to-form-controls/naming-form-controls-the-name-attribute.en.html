@@ -34,14 +34,13 @@
    <p>In this example, the <code>input</code> element overrides the built-in <code
    data-x="attr-fs-method">method</code> property:</p>
 
-   <pre>let form = document.createElement("form");
+   <pre><code class="js" data-x="">let form = document.createElement("form");
 let input = document.createElement("input");
 form.appendChild(input);
 
 form.method;           // => "get"
 input.name = "method"; // DOM clobbering occurs here
-form.method === input; // => true
-</pre>
+form.method === input; // => true</code></pre>
 
    <p>Since the input name takes precedence over built-in form properties, the JavaScript reference
    <code data-x="">form.method</code> will point to the <code>input</code> element named "method"

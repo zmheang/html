@@ -3,7 +3,7 @@
   <p>The <code>AudioTrackList</code> and <code>VideoTrackList</code> interfaces are used by
   attributes defined in the previous section.</p>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>AudioTrackList</dfn> : <span>EventTarget</span> {
   readonly attribute unsigned long <span data-x="dom-AudioTrackList-length">length</span>;
   <a href="#dom-tracklist-item">getter</a> <span>AudioTrack</span> (unsigned long index);
@@ -42,7 +42,7 @@ interface <dfn>VideoTrack</dfn> {
   readonly attribute DOMString <span data-x="dom-VideoTrack-label">label</span>;
   readonly attribute DOMString <span data-x="dom-VideoTrack-language">language</span>;
   attribute boolean <span data-x="dom-VideoTrack-selected">selected</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 

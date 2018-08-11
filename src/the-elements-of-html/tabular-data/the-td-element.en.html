@@ -15,7 +15,7 @@
    <!-- v2 char, to specify the decimal character used in numeric cells -->
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLTableCellElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-tdth-colSpan">colSpan</span>;
@@ -25,9 +25,9 @@ interface <dfn>HTMLTableCellElement</dfn> : <span>HTMLElement</span> {
 
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-th-scope">scope</span>; // only conforming for th elements
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-th-abbr">abbr</span>;  // only conforming for th elements
-};</pre>
+};</code></pre>
 
-    <p><span w-nohtml>Uses <code>HTMLTableCellElement</code>. </span>The
+    <p><span w-dev>Uses <code>HTMLTableCellElement</code>. </span>The
     <code>HTMLTableCellElement</code> interface is also used for <code>th</code> elements.</p>
    </dd>
   </dl>
@@ -59,7 +59,7 @@ interface <dfn>HTMLTableCellElement</dfn> : <span>HTMLElement</span> {
    <code>td</code> elements. A script would attach event handlers to these elements to maintain the
    total.</p>
 
-   <pre>&lt;table>
+   <pre><code class="html" data-x="">&lt;table>
  &lt;tr>
   &lt;th>&lt;input value="Name">
   &lt;th>&lt;input value="Paid ($)">
@@ -87,7 +87,7 @@ interface <dfn>HTMLTableCellElement</dfn> : <span>HTMLElement</span> {
  &lt;tr>
   &lt;th>&lt;input value="Total">
   &lt;td>&lt;output value="1060">
-&lt;/table></pre>
+&lt;/table></code></pre>
 
   </div>
 

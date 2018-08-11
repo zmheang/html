@@ -11,9 +11,9 @@
   <span>paragraph</span>, and is typically separated from other parts using <code>p</code> elements.
   Putting this together, here is how one might ask for the customer's name:</p>
 
-  <pre><strong>&lt;form>
+  <pre><code class="html" data-x=""><strong>&lt;form>
  &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
-&lt;/form></strong></pre>
+&lt;/form></strong></code></pre>
 
   <p>To let the user select the size of the pizza, we can use a set of radio buttons. Radio buttons
   also use the <code>input</code> element, this time with a <code
@@ -24,7 +24,7 @@
   <code>fieldset</code> element. The title of such a group of controls is given by the first element
   in the <code>fieldset</code>, which has to be a <code>legend</code> element.</p>
 
-  <pre>&lt;form>
+  <pre><code class="html" data-x="">&lt;form>
  &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
 <strong> &lt;fieldset>
   &lt;legend> Pizza Size &lt;/legend>
@@ -32,7 +32,7 @@
   &lt;p>&lt;label> &lt;input type=radio name=size> Medium &lt;/label>&lt;/p>
   &lt;p>&lt;label> &lt;input type=radio name=size> Large &lt;/label>&lt;/p>
  &lt;/fieldset></strong>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   <p class="note">Changes from the previous step are highlighted.</p>
 
@@ -40,7 +40,7 @@
   data-x="attr-input-type">type</code> attribute with the value <code
   data-x="attr-input-type-checkbox">checkbox</code>:</p>
 
-  <pre>&lt;form>
+  <pre><code class="html" data-x="">&lt;form>
  &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
  &lt;fieldset>
   &lt;legend> Pizza Size &lt;/legend>
@@ -55,7 +55,7 @@
   &lt;p>&lt;label> &lt;input type=checkbox> Onion &lt;/label>&lt;/p>
   &lt;p>&lt;label> &lt;input type=checkbox> Mushroom &lt;/label>&lt;/p>
  &lt;/fieldset></strong>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   <p>The pizzeria for which this form is being written is always making mistakes, so it needs a way
   to contact the customer. For this purpose, we can use form controls specifically for telephone
@@ -64,7 +64,7 @@
   (<code>input</code> elements with their <code data-x="attr-input-type">type</code> attribute set to
   <code data-x="attr-input-type-email">email</code>):</p>
 
-  <pre>&lt;form>
+  <pre><code class="html" data-x="">&lt;form>
  &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
 <strong> &lt;p>&lt;label>Telephone: &lt;input type=tel>&lt;/label>&lt;/p>
  &lt;p>&lt;label>E-mail address: &lt;input type=email>&lt;/label>&lt;/p></strong>
@@ -81,7 +81,7 @@
   &lt;p>&lt;label> &lt;input type=checkbox> Onion &lt;/label>&lt;/p>
   &lt;p>&lt;label> &lt;input type=checkbox> Mushroom &lt;/label>&lt;/p>
  &lt;/fieldset>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   <p>We can use an <code>input</code> element with its <code data-x="attr-input-type">type</code>
   attribute set to <code data-x="attr-input-type-time">time</code> to ask for a delivery time. Many
@@ -92,7 +92,7 @@
   pizzeria only delivers between 11am and 9pm, and doesn't promise anything better than 15 minute
   increments, which we can mark up as follows:</p>
 
-  <pre>&lt;form>
+  <pre><code class="html" data-x="">&lt;form>
  &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Telephone: &lt;input type=tel>&lt;/label>&lt;/p>
  &lt;p>&lt;label>E-mail address: &lt;input type=email>&lt;/label>&lt;/p>
@@ -110,13 +110,13 @@
   &lt;p>&lt;label> &lt;input type=checkbox> Mushroom &lt;/label>&lt;/p>
  &lt;/fieldset>
 <strong> &lt;p>&lt;label>Preferred delivery time: &lt;input type=time min="11:00" max="21:00" step="900">&lt;/label>&lt;/p></strong>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   <p>The <code>textarea</code> element can be used to provide a multiline text control. In this
   instance, we are going to use it to provide a space for the customer to give delivery
   instructions:</p>
 
-  <pre>&lt;form>
+  <pre><code class="html" data-x="">&lt;form>
  &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Telephone: &lt;input type=tel>&lt;/label>&lt;/p>
  &lt;p>&lt;label>E-mail address: &lt;input type=email>&lt;/label>&lt;/p>
@@ -135,11 +135,11 @@
  &lt;/fieldset>
  &lt;p>&lt;label>Preferred delivery time: &lt;input type=time min="11:00" max="21:00" step="900">&lt;/label>&lt;/p>
 <strong> &lt;p>&lt;label>Delivery instructions: &lt;textarea>&lt;/textarea>&lt;/label>&lt;/p></strong>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   <p>Finally, to make the form submittable we use the <code>button</code> element:</p>
 
-  <pre>&lt;form>
+  <pre><code class="html" data-x="">&lt;form>
  &lt;p>&lt;label>Customer name: &lt;input>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Telephone: &lt;input type=tel>&lt;/label>&lt;/p>
  &lt;p>&lt;label>E-mail address: &lt;input type=email>&lt;/label>&lt;/p>
@@ -159,6 +159,6 @@
  &lt;p>&lt;label>Preferred delivery time: &lt;input type=time min="11:00" max="21:00" step="900">&lt;/label>&lt;/p>
  &lt;p>&lt;label>Delivery instructions: &lt;textarea>&lt;/textarea>&lt;/label>&lt;/p>
 <strong> &lt;p>&lt;button>Submit order&lt;/button>&lt;/p></strong>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
 

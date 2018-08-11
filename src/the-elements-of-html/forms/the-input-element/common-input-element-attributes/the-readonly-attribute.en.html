@@ -20,9 +20,9 @@
    spelled out in more detail elsewhere in this specification with normative requirements that refer
    to the <span data-x="concept-fe-disabled">disabled</span> concept (for example, the element's
    <span>activation behavior</span>, whether or not it is a <span>focusable area</span>, or when
-   <span>constructing the form data set</span>). Any other behavior related to user interaction with
+   <span>constructing the entry list</span>). Any other behavior related to user interaction with
    disabled controls, such as whether text can be selected or copied, is not defined in this
-   specification.</p>
+   standard.</p>
 
    <p>Only text controls can be made read-only, since for other controls (such as checkboxes and
    buttons) there is no useful distinction between being read-only and being disabled, so the
@@ -36,7 +36,7 @@
    still displayed as part of the form, for consistency with the row representing a new product
    (where the identifier is not yet filled in).</p>
 
-   <pre>&lt;form action="products.cgi" method="post" enctype="multipart/form-data">
+   <pre><code class="html" data-x="">&lt;form action="products.cgi" method="post" enctype="multipart/form-data">
  &lt;table>
   &lt;tr> &lt;th> Product ID &lt;th> Product name &lt;th> Price &lt;th> Action
   &lt;tr>
@@ -57,7 +57,7 @@
  &lt;/table>
  &lt;p> &lt;button formnovalidate="formnovalidate" name="action" value="add">Add&lt;/button> &lt;/p>
  &lt;p> &lt;button name="action" value="update">Save&lt;/button> &lt;/p>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   </div>
 

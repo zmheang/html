@@ -22,7 +22,7 @@
    It also has a third field that is only considered valid if the user types the same password in
    the password field and this third field.</p>
 
-   <pre>&lt;h1>Create new account&lt;/h1>
+   <pre><code class="html" data-x="">&lt;h1>Create new account&lt;/h1>
 &lt;form action="/newaccount" method=post
       oninput="up2.setCustomValidity(up2.value != up.value ? 'Passwords do not match.' : '')">
  &lt;p>
@@ -36,7 +36,7 @@
   &lt;input id="password2" type=password name=up2>
  &lt;p>
   &lt;input type=submit value="Create account">
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   </div>
 
@@ -47,14 +47,14 @@
    selected. Thus, in the following example, any of the radio buttons can be checked, not just the
    one marked as required:</p>
 
-   <pre>&lt;fieldset>
+   <pre><code class="html" data-x="">&lt;fieldset>
  &lt;legend>Did the movie pass the Bechdel test?&lt;/legend>
  &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="no-characters"> No, there are not even two female characters in the movie. &lt;/label>
  &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="no-names"> No, the female characters never talk to each other. &lt;/label>
  &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="no-topic"> No, when female characters talk to each other it's always about a male character. &lt;/label>
  &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="yes" <strong>required</strong>> Yes. &lt;/label>
  &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="unknown"> I don't know. &lt;/label>
-&lt;/fieldset></pre>
+&lt;/fieldset></code></pre>
 
    <p>To avoid confusion as to whether a <span>radio button group</span> is required or not, authors
    are encouraged to specify the attribute on all the radio buttons in a group. Indeed, in general,

@@ -13,7 +13,7 @@
    <p>As a simple example, consider a Web page written by an author who only considered desktop
    computer Web browsers:</p>
 
-   <pre>&lt;!DOCTYPE HTML>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
  &lt;head>
   &lt;title>My Page&lt;/title>
@@ -24,7 +24,7 @@
   &lt;h2>Where I live&lt;/h2>
   &lt;p>I live in a small hut on a mountain!&lt;/p>
  &lt;/body>
-&lt;/html></pre>
+&lt;/html></code></pre>
 
    <p>Because HTML conveys <em>meaning</em>, rather than presentation, the same
    page can also be used by a small browser on a mobile phone, without any change to the page.
@@ -63,19 +63,19 @@
    be a heading of a subsection, but merely a subheading or subtitle (a
    subordinate heading for the same section).</p>
 
-   <pre class="bad">&lt;body&gt;
+   <pre class="bad"><code class="html" data-x="">&lt;body&gt;
  &lt;h1&gt;ACME Corporation&lt;/h1&gt;
  &lt;h2&gt;The leaders in arbitrary fast delivery since 1920&lt;/h2&gt;
- ...</pre>
+ ...</code></pre>
 
    <p>The <code>hgroup</code> element is intended for these kinds of situations:</p>
 
-   <pre>&lt;body&gt;
+   <pre><code class="html" data-x="">&lt;body&gt;
  &lt;hgroup&gt;
   &lt;h1&gt;ACME Corporation&lt;/h1&gt;
   &lt;h2&gt;The leaders in arbitrary fast delivery since 1920&lt;/h2&gt;
  &lt;/hgroup&gt;
- ...</pre>
+ ...</code></pre>
 
   </div>
 
@@ -85,7 +85,7 @@
    being syntactically correct, because the data placed in the cells is clearly
    not tabular data, and the <code>cite</code> element mis-used:</p>
 
-   <pre class="bad" lang="en-GB">&lt;!DOCTYPE HTML&gt;
+   <pre class="bad" lang="en-GB"><code class="html" data-x="">&lt;!DOCTYPE HTML&gt;
 &lt;html lang="en-GB"&gt;
  &lt;head&gt; &lt;title&gt; Demonstration &lt;/title&gt; &lt;/head&gt;
  &lt;body&gt;
@@ -99,7 +99,7 @@
    &lt;/tr&gt;
   &lt;/table&gt;
  &lt;/body&gt;
-&lt;/html&gt;</pre>
+&lt;/html&gt;</code></pre>
 
    <p>This would make software that relies on these semantics fail: for example,
    a speech browser that allowed a blind user to navigate tables in the document
@@ -109,7 +109,7 @@
 
    <p>A corrected version of this document might be:</p>
 
-   <pre lang="en-GB">&lt;!DOCTYPE HTML&gt;
+   <pre lang="en-GB"><code class="html" data-x="">&lt;!DOCTYPE HTML&gt;
 &lt;html lang="en-GB"&gt;
  &lt;head&gt; &lt;title&gt; Demonstration &lt;/title&gt; &lt;/head&gt;
  &lt;body&gt;
@@ -121,7 +121,7 @@
    in an essay from 1992
   &lt;/p&gt;
  &lt;/body&gt;
-&lt;/html&gt;</pre>
+&lt;/html&gt;</code></pre>
 
   </div>
 
@@ -134,11 +134,11 @@
    <p>In the next example, there is a non-conforming attribute value ("carpet") and a non-conforming
    attribute ("texture"), which is not permitted by this specification:</p>
 
-   <pre class="bad">&lt;label&gt;Carpet: &lt;input type="carpet" name="c" texture="deep pile"&gt;&lt;/label&gt;</pre>
+   <pre class="bad"><code class="html" data-x="">&lt;label&gt;Carpet: &lt;input type="carpet" name="c" texture="deep pile"&gt;&lt;/label&gt;</code></pre>
 
    <p>Here would be an alternative and correct way to mark this up:</p>
 
-   <pre>&lt;label&gt;Carpet: &lt;input type="text" class="carpet" name="c" data-texture="deep pile"&gt;&lt;/label&gt;</pre>
+   <pre><code class="html" data-x="">&lt;label&gt;Carpet: &lt;input type="text" class="carpet" name="c" data-texture="deep pile"&gt;&lt;/label&gt;</code></pre>
 
   </div>
 
@@ -156,12 +156,12 @@
    contents</span>. In this example an <code>img</code> element has attribute values that are
    placeholders that would be invalid outside a <code>template</code> element.</p>
 
-   <pre>&lt;template>
+   <pre><code class="html" data-x="">&lt;template>
  &lt;article>
   &lt;img <mark>src="{{src}}" alt="{{alt}}"</mark>>
   &lt;h1>&lt;/h1>
  &lt;/article>
-&lt;/template></pre>
+&lt;/template></code></pre>
 
    <p>However, if the above markup were to omit the <code data-x="">&lt;/h1></code> end tag, that
    would be a violation of the <a href="#writing">HTML syntax</a>, and would thus be flagged as an

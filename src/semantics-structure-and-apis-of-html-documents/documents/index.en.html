@@ -30,10 +30,11 @@
   value is the empty string.</p>
 
   <p>Each <code>Document</code> object has a <dfn>reload override flag</dfn> that is originally
-  unset. The flag is set by the <code data-x="dom-document-open">document.open()</code> and <code
-  data-x="dom-document-open">document.write()</code> methods in certain situations. When the flag is
-  set, the <code>Document</code> also has a <dfn>reload override buffer</dfn> which is a Unicode
-  string that is used as the source of the document when it is reloaded.</p>
+  unset. The flag is set by the <code data-x="dom-document-open">document.open(<var>type</var>,
+  <var>replace</var>)</code> and <code data-x="dom-document-write">document.write()</code> methods
+  in certain situations. When the flag is set, the <code>Document</code> also has a <dfn>reload
+  override buffer</dfn> which is a Unicode string that is used as the source of the document when it
+  is reloaded.</p>
 
   <p>When the user agent is to perform <dfn>an overridden reload</dfn>, given a <span>source
   browsing context</span>, it must act as follows:</p>

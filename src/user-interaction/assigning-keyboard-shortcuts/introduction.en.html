@@ -26,8 +26,8 @@
    support full keyboards, the author has provided "C" as a possible key. To support devices
    equipped only with numeric keypads, the author has provided "1" as another possibly key.</p>
 
-   <pre>&lt;input type=button value=Collect onclick="collect()"
-       <strong>accesskey="C 1"</strong> id=c></pre>
+   <pre><code class="html" data-x="">&lt;input type=button value=Collect onclick="collect()"
+       <strong>accesskey="C 1"</strong> id=c></code></pre>
 
   </div>
 
@@ -36,11 +36,11 @@
    <p>To tell the user what the shortcut key is, the author has this script here opted to explicitly
    add the key combination to the button's label:</p>
 
-   <pre>function addShortcutKeyLabel(button) {
+   <pre><code class="js" data-x="">function addShortcutKeyLabel(button) {
 <strong>  if (button.accessKeyLabel != '')
     button.value += ' (' + button.accessKeyLabel + ')';</strong>
 }
-addShortcutKeyLabel(document.getElementById('c'));</pre>
+addShortcutKeyLabel(document.getElementById('c'));</code></pre>
 
    <p>Browsers on different platforms will show different labels, even for the same key combination,
    based on the convention prevalent on that platform. For example, if the key combination is the

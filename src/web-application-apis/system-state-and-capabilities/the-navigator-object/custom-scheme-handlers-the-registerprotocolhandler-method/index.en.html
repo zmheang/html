@@ -1,9 +1,9 @@
   <h5 id="custom-handlers">Custom scheme handlers: the <code data-x="dom-navigator-registerProtocolHandler">registerProtocolHandler()</code> method</h5>
 
-  <pre class="idl">interface mixin <dfn>NavigatorContentUtils</dfn> {
+  <pre><code class="idl" data-x="">interface mixin <dfn>NavigatorContentUtils</dfn> {
   void <span data-x="dom-navigator-registerProtocolHandler">registerProtocolHandler</span>(DOMString scheme, USVString url, DOMString title);
   void <span data-x="dom-navigator-unregisterProtocolHandler">unregisterProtocolHandler</span>(DOMString scheme, USVString url);
-};</pre>
+};</code></pre>
 
   <p>The <dfn><code
   data-x="dom-navigator-registerProtocolHandler">registerProtocolHandler()</code></dfn> method
@@ -153,12 +153,12 @@
      <p>If the user had visited a site at <code data-x="">https://example.com/</code> that made the
      following call:</p>
 
-     <pre>navigator.registerProtocolHandler('web+soup', 'soup?url=%s', 'SoupWeb&trade;')</pre>
+     <pre><code class="js" data-x="">navigator.registerProtocolHandler('web+soup', 'soup?url=%s', 'SoupWeb&trade;')</code></pre>
 
      <p>...and then, much later, while visiting <code data-x="">https://www.example.net/</code>,
      clicked on a link such as:</p>
 
-     <pre>&lt;a href="web+soup:chicken-k&#xEF;wi">Download our Chicken K&#xEF;wi soup!&lt;/a></pre>
+     <pre><code class="html" data-x="">&lt;a href="web+soup:chicken-k&#xEF;wi">Download our Chicken K&#xEF;wi soup!&lt;/a></code></pre>
 
      <p>...then the UA might navigate to the following URL:</p>
 

@@ -1,6 +1,6 @@
   <h5>Dedicated workers and the <code subdfn>DedicatedWorkerGlobalScope</code> interface</h5>
 
-  <pre class="idl">[Global=(Worker,DedicatedWorker),Exposed=DedicatedWorker]
+  <pre><code class="idl" data-x="">[Global=(Worker,DedicatedWorker),Exposed=DedicatedWorker]
 interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   [Replaceable] readonly attribute DOMString <span data-x="dom-DedicatedWorkerGlobalScope-name">name</span>;
 
@@ -10,7 +10,7 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
 
   attribute <span>EventHandler</span> <span data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</span>;
   attribute <span>EventHandler</span> <span data-x="handler-DedicatedWorkerGlobalScope-onmessageerror">onmessageerror</span>;
-};</pre>
+};</code></pre>
 
   <p><code>DedicatedWorkerGlobalScope</code> objects act as if they had an implicit
   <code>MessagePort</code> associated with them. This port is part of a channel that is set up when

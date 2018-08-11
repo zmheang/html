@@ -138,7 +138,7 @@
    this example is clicked by the user, the page will show four alerts, with the text "ONE", "TWO",
    "THREE", and "FOUR" respectively.</p>
 
-   <pre>&lt;button id="test">Start Demo&lt;/button>
+   <pre><code class="html" data-x="">&lt;button id="test">Start Demo&lt;/button>
 &lt;script>
  var button = document.getElementById('test');
  button.addEventListener('click', function () { alert('ONE') }, false);
@@ -146,7 +146,7 @@
  button.addEventListener('click', function () { alert('THREE') }, false);
  button.onclick = function () { alert('TWO'); };
  button.addEventListener('click', function () { alert('FOUR') }, false);
-&lt;/script></pre>
+&lt;/script></code></pre>
 
   </div>
 
@@ -280,9 +280,9 @@
   <p>The <code>EventHandler</code> callback function type represents a callback used for event
   handlers.<span w-nodev> It is represented in Web IDL as follows:</span></p>
 
-  <pre class="idl">[TreatNonObjectAsNull]
+  <pre><code class="idl" data-x="">[TreatNonObjectAsNull]
 callback <dfn>EventHandlerNonNull</dfn> = any (<span>Event</span> event);
-typedef <span>EventHandlerNonNull</span>? <dfn>EventHandler</dfn>;</pre>
+typedef <span>EventHandlerNonNull</span>? <dfn>EventHandler</dfn>;</code></pre>
 
   <p class="note">In JavaScript, any <code data-x="idl-Function">Function</code> object implements
   this interface.</p>
@@ -291,7 +291,7 @@ typedef <span>EventHandlerNonNull</span>? <dfn>EventHandler</dfn>;</pre>
 
    <p>For example, the following document fragment:</p>
 
-   <pre>&lt;body onload="alert(this)" onclick="alert(this)"></pre>
+   <pre><code class="html" data-x="">&lt;body onload="alert(this)" onclick="alert(this)"></code></pre>
 
    <p>...leads to an alert saying "<code data-x="">[object&nbsp;Window]</code>" when the document is
    loaded, and an alert saying "<code data-x="">[object&nbsp;HTMLBodyElement]</code>" whenever the
@@ -317,20 +317,20 @@ typedef <span>EventHandlerNonNull</span>? <dfn>EventHandler</dfn>;</pre>
   <p>For historical reasons, the <code data-x="handler-onerror">onerror</code> handler has different
   arguments:</p>
 
-  <pre class="idl">[TreatNonObjectAsNull]
+  <pre><code class="idl" data-x="">[TreatNonObjectAsNull]
 callback <dfn>OnErrorEventHandlerNonNull</dfn> = any ((<span>Event</span> or DOMString) event, optional DOMString source, optional unsigned long lineno, optional unsigned long colno, optional any error);
-typedef <span>OnErrorEventHandlerNonNull</span>? <dfn>OnErrorEventHandler</dfn>;</pre>
+typedef <span>OnErrorEventHandlerNonNull</span>? <dfn>OnErrorEventHandler</dfn>;</code></pre>
 
   <div class="example">
-   <pre>window.onerror = (message, source, lineno, colno, error) => { &hellip; };</pre>
+   <pre><code class="js" data-x="">window.onerror = (message, source, lineno, colno, error) => { &hellip; };</code></pre>
   </div>
 
   <p>Similarly, the <code data-x="handler-window-onbeforeunload">onbeforeunload</code> handler has a
-  different return value:<span w-nohtml> it will be cast to a string.</span></p>
+  different return value:<span w-dev> it will be cast to a string.</span></p>
 
-  <pre class="idl">[TreatNonObjectAsNull]
+  <pre><code class="idl" data-x="">[TreatNonObjectAsNull]
 callback <dfn>OnBeforeUnloadEventHandlerNonNull</dfn> = DOMString? (<span>Event</span> event);
-typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEventHandler</dfn>;</pre>
+typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEventHandler</dfn>;</code></pre>
 
   <!-- onreadystatechange is also defined specially, using [LenientThis]; see IDL -->
 

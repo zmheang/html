@@ -188,17 +188,17 @@
    <p>The element with ID "a" in the following example would be the one used to determine if the
    word "Hello" is checked for spelling errors. In this example, it would not be.</p>
 
-   <pre>&lt;div contenteditable="true">
+   <pre><code class="html" data-x="">&lt;div contenteditable="true">
  &lt;span spellcheck="false" id="a">Hell&lt;/span>&lt;em>o!&lt;/em>
-&lt;/div></pre>
+&lt;/div></code></pre>
 
    <p>The element with ID "b" in the following example would have checking enabled (the leading
    space character in the attribute's value on the <code>input</code> element causes the attribute
    to be ignored, so the ancestor's value is used instead, regardless of the default).</p>
 
-   <pre class="bad">&lt;p spellcheck="true">
+   <pre class="bad"><code class="html" data-x="">&lt;p spellcheck="true">
  &lt;label>Name: &lt;input spellcheck=" false" id="b">&lt;/label>
-&lt;/p></pre>
+&lt;/p></code></pre>
 
   </div>
 

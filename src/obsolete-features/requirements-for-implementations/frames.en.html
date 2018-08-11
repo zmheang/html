@@ -6,13 +6,13 @@
   <p>The <code>frameset</code> element must implement the <code>HTMLFrameSetElement</code>
   interface.</p>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLFrameSetElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frameset-cols">cols</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frameset-rows">rows</span>;
 };
-<span>HTMLFrameSetElement</span> includes <span>WindowEventHandlers</span>;</pre>
+<span>HTMLFrameSetElement</span> includes <span>WindowEventHandlers</span>;</code></pre>
 
   <p>The <dfn><code data-x="dom-frameset-cols">cols</code></dfn> and <dfn><code data-x="dom-frameset-rows">rows</code></dfn> IDL attributes of the <code>frameset</code>
   element must <span>reflect</span> the respective content attributes of the same name.</p>
@@ -119,7 +119,7 @@ interface <dfn>HTMLFrameSetElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <code>frame</code> element must implement the <code>HTMLFrameElement</code> interface.</p>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLFrameElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frame-name">name</span>;
@@ -133,7 +133,7 @@ interface <dfn>HTMLFrameElement</dfn> : <span>HTMLElement</span> {
 
   [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-frame-marginHeight">marginHeight</span>;
   [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-frame-marginWidth">marginWidth</span>;
-};</pre>
+};</code></pre>
 
   <p>The <dfn><code data-x="dom-frame-name">name</code></dfn>, <dfn><code data-x="dom-frame-scrolling">scrolling</code></dfn>, and <dfn><code data-x="dom-frame-src">src</code></dfn> IDL attributes of the <code>frame</code> element must
   <span>reflect</span> the respective content attributes of the same name. For the purposes of

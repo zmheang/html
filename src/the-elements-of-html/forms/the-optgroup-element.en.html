@@ -13,14 +13,14 @@
    <dd><code data-x="attr-optgroup-label">label</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLOptGroupElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-optgroup-disabled">disabled</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-optgroup-label">label</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLOptGroupElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLOptGroupElement</code>.</dd>
   </dl>
 
   <p>The <code>optgroup</code> element <span>represents</span> a group of <code>option</code>
@@ -63,7 +63,7 @@ interface <dfn>HTMLOptGroupElement</dfn> : <span>HTMLElement</span> {
    <p>The following snippet shows how a set of lessons from three courses could be offered in a
    <code>select</code> drop-down widget:</p>
 
-   <pre>&lt;form action="courseselector.dll" method="get">
+   <pre><code class="html" data-x="">&lt;form action="courseselector.dll" method="get">
  &lt;p>Which course would you like to watch today?
  &lt;p>&lt;label>Course:
   &lt;select name="c">
@@ -82,7 +82,7 @@ interface <dfn>HTMLOptGroupElement</dfn> : <span>HTMLElement</span> {
   &lt;/select>
  &lt;/label>
  &lt;p>&lt;input type=submit value="&#x25B6; Play">
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   </div>
 

@@ -24,7 +24,7 @@
    <dd><code data-x="attr-dim-height">height</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-object-data">data</span>;
@@ -45,14 +45,14 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
   boolean <span data-x="dom-cva-checkValidity">checkValidity</span>();
   boolean <span data-x="dom-cva-reportValidity">reportValidity</span>();
   void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
-};</pre>
+};</code></pre>
     <div w-nodev>
     <p>Depending on the type of content instantiated by the
     <code>object</code> element, the node also supports other
     interfaces.</p>
     </div>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLObjectElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLObjectElement</code>.</dd>
   </dl>
 
   <p>The <code>object</code> element can represent an external resource, which, depending on the
@@ -755,10 +755,10 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, an HTML page is embedded in another using the <code>object</code>
    element.</p>
 
-   <pre>&lt;figure>
+   <pre><code class="html" data-x="">&lt;figure>
  &lt;object data="clock.html">&lt;/object>
  &lt;figcaption>My HTML Clock&lt;/figcaption>
-&lt;/figure></pre>
+&lt;/figure></code></pre>
 
   </div>
 
@@ -770,7 +770,7 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
    <code>video</code>, and finally providing a link to the video for those who have neither Flash
    nor a <code>video</code>-capable browser.</p>
 
-   <pre>&lt;p>Look at my video:
+   <pre><code class="html" data-x="">&lt;p>Look at my video:
  &lt;object type="application/x-shockwave-flash">
   &lt;param name=movie value="https://video.example.com/library/watch.swf">
   &lt;param name=allowfullscreen value=true>
@@ -779,7 +779,7 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
    &lt;a href="https://video.example.com/vids/315981">View video&lt;/a>.
   &lt;/video>
  &lt;/object>
-&lt;/p></pre>
+&lt;/p></code></pre>
 
   </div>
 

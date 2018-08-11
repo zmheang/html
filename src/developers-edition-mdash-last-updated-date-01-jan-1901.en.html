@@ -1,6 +1,6 @@
     <h2 class="no-num no-toc" id="dev-edition-h2">Developer's Edition &mdash; Last Updated <span class="pubdate">[DATE: 01 Jan 1901]</span></h2>
    </hgroup>
-   <nav w-nosplit w-nodev>
+   <nav w-nosplit w-nodev w-noreview>
     <div>
      <a href="/"><span data-x=""><strong>One-Page Version</strong> <code data-x="">html.spec.whatwg.org</code></span></a>
      <a href="/multipage/" id="multipage-link"><span data-x=""><strong>Multipage Version</strong> <code data-x="">/multipage</code></span></a>
@@ -29,11 +29,43 @@
     </div>
    </nav>
 
-   <div id="search" w-nohtml>
+   <div id="search" w-dev>
     <input name="query" type="search" placeholder="Search. Press '/'" autocomplete="off" id="query">
     <ol id="results"></ol>
    </div>
   </header>
+
+  <details w-nohtml w-nodev w-noreview class="annoying-warning" open="">
+   <summary>This is a Commit Snapshot of the standard</summary>
+
+   <p>This document contains the contents of the standard as of the <a class="sha-link"></a>, and
+   should only be used as a historical reference. This commit may not even have been merged into
+   master.</p>
+
+   <p>Do not attempt to implement this version of the standard. Do not reference this version as
+   authoritative in any way. Instead, see <a
+   href="https://html.spec.whatwg.org/">https://html.spec.whatwg.org/</a> for the living
+   standard.</p>
+  </details>
+
+  <details w-nohtml w-nodev w-nosnap class="annoying-warning" open>
+   <summary>This is a Review Draft of the standard</summary>
+
+   <p>This is a Review Draft. It is published primarily for purposes of patent review by Workstream
+   Participants; it mirrors the <a href="https://html.spec.whatwg.org/">Living Standard</a> closely,
+   redacting only text that is identified as "Objection Pending" or "Confirmation Pending".
+   Developers should refer to the <a href="https://html.spec.whatwg.org/">Living Standard</a> for
+   the most current error corrections and other developments.</p>
+
+   <p>For information regarding patent commitments, please see the <a
+   href="https://whatwg.org/ipr-policy">IPR Policy</a> and <a
+   href="https://github.com/whatwg/html/labels/exclusion%20notices">exclusion notices</a>.</p>
+
+   <p>Do not attempt to implement this version of the standard. Do not reference this version as
+   authoritative in any way. Instead, see <a
+   href="https://html.spec.whatwg.org/">https://html.spec.whatwg.org/</a> for the Living
+   Standard.</p>
+  </details>
 
   <hr w-nodev w-nosplit>
 

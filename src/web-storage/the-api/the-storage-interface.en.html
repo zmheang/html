@@ -1,6 +1,6 @@
   <h4>The <code>Storage</code> interface</h4>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>Storage</dfn> {
   readonly attribute unsigned long <span data-x="dom-Storage-length">length</span>;
   DOMString? <span data-x="dom-Storage-key">key</span>(unsigned long index);
@@ -8,7 +8,7 @@ interface <dfn>Storage</dfn> {
   setter void <span data-x="dom-Storage-setItem">setItem</span>(DOMString key, DOMString value);
   deleter void <span data-x="dom-Storage-removeItem">removeItem</span>(DOMString key);
   void <span data-x="dom-Storage-clear">clear</span>();
-};</pre>
+};</code></pre>
 
   <!-- v2 ideas:
     a getInfo() method that returns an object that tells you:

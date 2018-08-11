@@ -72,10 +72,10 @@
    the default value, "<code data-x="attr-fs-method-GET-keyword">get</code>", so that the search
    query is submitted in the URL:</p>
 
-   <pre>&lt;form method="get" action="/search.cgi">
+   <pre><code class="html" data-x="">&lt;form method="get" action="/search.cgi">
  &lt;p>&lt;label>Search terms: &lt;input type=search name=q>&lt;/label>&lt;/p>
  &lt;p>&lt;input type=submit>&lt;/p>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   </div>
 
@@ -85,10 +85,10 @@
    specify the value "<code data-x="attr-fs-method-POST-keyword">post</code>", so that the user's
    message is submitted in the HTTP request's body:</p>
 
-   <pre>&lt;form method="post" action="/post-message.cgi">
+   <pre><code class="html" data-x="">&lt;form method="post" action="/post-message.cgi">
  &lt;p>&lt;label>Message: &lt;input type=text name=m>&lt;/label>&lt;/p>
  &lt;p>&lt;input type=submit value="Submit message">&lt;/p>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   </div>
 
@@ -99,7 +99,7 @@
    data-x="attr-fs-method-dialog-keyword">dialog</code>" keyword is used to have the dialog
    automatically close when the form is submitted.</p>
 
-   <pre lang="en-GB">&lt;dialog id="ship">
+   <pre lang="en-GB"><code class="html" data-x="">&lt;dialog id="ship">
  &lt;form method=dialog>
   &lt;p>A ship has arrived in the harbour.&lt;/p>
   &lt;button type=submit value="board">Board the ship&lt;/button>
@@ -116,7 +116,7 @@
      // ...
    }
  };
-&lt;/script></pre>
+&lt;/script></code></pre>
 
   </div>
 
@@ -135,8 +135,7 @@
   <p>The <i data-x="invalid value default">invalid value default</i> for these attributes is the <code
   data-x="attr-fs-enctype-urlencoded">application/x-www-form-urlencoded</code> state. The <i data-x="missing value default">missing value default</i> for the <code data-x="attr-fs-enctype">enctype</code> attribute is also the <code
   data-x="attr-fs-enctype-urlencoded">application/x-www-form-urlencoded</code> state. (There is no
-  <i data-x="missing value default">missing value default</i> or <i
-  data-x="invalid value default">invalid value default</i> for the <code
+  <i data-x="missing value default">missing value default</i> for the <code
   data-x="attr-fs-formenctype">formenctype</code> attribute.)</p>
 
   <p>The <dfn data-x="concept-fs-enctype">enctype</dfn> of an element is one of those three states.
@@ -172,13 +171,13 @@
    buttons: one to submit the form, which requires both fields to be filled in; one to save the form
    so that the user can come back and fill it in later; and one to cancel the form altogether.</p>
 
-   <pre>&lt;form action="editor.cgi" method="post">
+   <pre><code class="html" data-x="">&lt;form action="editor.cgi" method="post">
  &lt;p>&lt;label>Name: &lt;input required name=fn>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Essay: &lt;textarea required name=essay>&lt;/textarea>&lt;/label>&lt;/p>
  &lt;p>&lt;input type=submit name=submit value="Submit essay">&lt;/p>
  &lt;p>&lt;input type=submit formnovalidate name=save value="Save essay">&lt;/p>
  &lt;p>&lt;input type=submit formnovalidate name=cancel value="Cancel">&lt;/p>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   </div>
 

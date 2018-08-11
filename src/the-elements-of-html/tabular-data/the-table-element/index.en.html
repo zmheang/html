@@ -16,7 +16,7 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute <span>HTMLTableCaptionElement</span>? <span data-x="dom-table-caption">caption</span>;
@@ -37,9 +37,9 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-table-rows">rows</span>;
   <span>HTMLTableRowElement</span> <span data-x="dom-table-insertRow">insertRow</span>(optional long index = -1);
   [<span>CEReactions</span>] void <span data-x="dom-table-deleteRow">deleteRow</span>(long index);
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLTableElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLTableElement</code>.</dd>
   </dl>
 
   <p>The <code>table</code> element <span>represents</span> data with more than one dimension, in
@@ -409,7 +409,7 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
    <p>Here is an example of a table being used to mark up a Sudoku puzzle. Observe the lack of
    headers, which are not necessary in such a table.</p>
 
-   <pre>&lt;style>
+   <pre><code class="html" data-x="">&lt;style>
  #sudoku { border-collapse: collapse; border: solid thick; }
  #sudoku colgroup, table#sudoku tbody { border: solid medium; }
  #sudoku td { border: solid thin; height: 1.4em; width: 1.4em; text-align: center; padding: 0; }
@@ -431,8 +431,7 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
   &lt;tr> &lt;td> 6 &lt;td>   &lt;td>   &lt;td>   &lt;td> 5 &lt;td>   &lt;td>   &lt;td>   &lt;td> 2
   &lt;tr> &lt;td>   &lt;td>   &lt;td>   &lt;td>   &lt;td> 7 &lt;td>   &lt;td>   &lt;td>   &lt;td>
   &lt;tr> &lt;td> 9 &lt;td>   &lt;td>   &lt;td> 8 &lt;td>   &lt;td> 2 &lt;td>   &lt;td>   &lt;td> 5
-&lt;/table>
-</pre>
+&lt;/table></code></pre>
 
   </div>
 

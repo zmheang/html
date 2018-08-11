@@ -1,6 +1,6 @@
   <h4 id="bidi-rendering">Bidirectional text</h4>
 
-  <pre class="css">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
 
 [dir]:dir(ltr), bdi:dir(ltr), input[type=tel i]:dir(ltr) { direction: ltr; }
 [dir]:dir(rtl), bdi:dir(rtl) { direction: rtl; }
@@ -21,7 +21,7 @@ input[dir=auto i]:matches([type=search i], [type=tel i], [type=url i],
 }
 /* see prose for input elements whose type attribute is in the Text state */
 
-/* the <a href="#br-wbr-content">rules setting the 'content' property</a> on <code>br</code> and <code>wbr</code> elements also has bidi implications */</pre>
+/* the <a href="#br-wbr-content">rules setting the 'content' property</a> on <code>br</code> and <code>wbr</code> elements also has bidi implications */</code></pre>
 
   <p>When an <code>input</code> element's <code data-x="attr-dir">dir</code> attribute is in the
   <span data-x="attr-dir-auto">auto</span> state and its <code data-x="attr-input-type">type</code>
@@ -40,7 +40,7 @@ input[dir=auto i]:matches([type=search i], [type=tel i], [type=url i],
   <p>When the document's character encoding is <span>ISO-8859-8</span>, the following rules are
   additionally expected to apply, following those above: <ref spec=ENCODING></p>
 
-  <pre class="css">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
 
 address, blockquote, center, div, figure, figcaption, footer, form, header, hr,
 legend, listing, main, p, plaintext, pre, summary, xmp, article, aside, h1, h2,
@@ -52,6 +52,6 @@ tbody, tfoot, tr, td, th, dir, dd, dl, dt, menu, ol, ul, li, [dir=ltr i],
 input:not([type=submit i]):not([type=reset i]):not([type=button i]),
 textarea {
   unicode-bidi: normal;
-}</pre>
+}</code></pre>
 
 

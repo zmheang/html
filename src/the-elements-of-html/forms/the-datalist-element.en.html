@@ -13,13 +13,13 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLDataListElement</dfn> : <span>HTMLElement</span> {
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-datalist-options">options</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLDataListElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLDataListElement</code>.</dd>
   </dl>
 
   <p>The <code>datalist</code> element represents a set of <code>option</code> elements that
@@ -32,14 +32,14 @@ interface <dfn>HTMLDataListElement</dfn> : <span>HTMLElement</span> {
 
   <div class="example">
 
-   <pre>&lt;label>
+   <pre><code class="html" data-x="">&lt;label>
  Sex:
  &lt;input name=sex list=sexes>
  &lt;datalist id=sexes>
   &lt;option value="Female">
   &lt;option value="Male">
  &lt;/datalist>
-&lt;/label></pre>
+&lt;/label></code></pre>
 
   </div>
 
@@ -50,7 +50,7 @@ interface <dfn>HTMLDataListElement</dfn> : <span>HTMLElement</span> {
 
   <div class="example">
 
-   <pre>&lt;label>
+   <pre><code class="html" data-x="">&lt;label>
  Sex:
  &lt;input name=sex list=sexes>
 &lt;/label>
@@ -63,7 +63,7 @@ interface <dfn>HTMLDataListElement</dfn> : <span>HTMLElement</span> {
    &lt;option>Male
   &lt;/select>
  &lt;/label>
-&lt;/datalist></pre>
+&lt;/datalist></code></pre>
 
   </div>
 

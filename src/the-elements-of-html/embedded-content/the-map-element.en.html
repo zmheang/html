@@ -14,14 +14,14 @@
    <dd><code data-x="attr-map-name">name</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLMapElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-map-name">name</span>;
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-map-areas">areas</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLMapElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLMapElement</code>.</dd>
   </dl>
 
   <p>The <code>map</code> element, in conjunction with an <code>img</code> element and any
@@ -66,7 +66,7 @@ interface <dfn>HTMLMapElement</dfn> : <span>HTMLElement</span> {
    This example is of a page with an image map at the top of the page and a corresponding set of
    text links at the bottom.</p>
 
-   <pre>&lt;!DOCTYPE HTML>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
 &lt;HTML LANG="EN">
 &lt;TITLE>Babies&trade;: Toys&lt;/TITLE>
 &lt;HEADER>
@@ -89,7 +89,7 @@ interface <dfn>HTMLMapElement</dfn> : <span>HTMLElement</span> {
    &lt;AREA ALT="Books" COORDS="300,0,400,50" HREF="/books/">
   &lt;/P>
  &lt;/MAP>
-&lt;/FOOTER></pre>
+&lt;/FOOTER></code></pre>
 
   </div>
 

@@ -11,13 +11,13 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLTitleElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-title-text">text</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLTitleElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLTitleElement</code>.</dd>
   </dl>
 
   <p>The <code>title</code> element <span>represents</span> the document's title or name. Authors
@@ -59,19 +59,19 @@ interface <dfn>HTMLTitleElement</dfn> : <span>HTMLElement</span> {
    <p>Here are some examples of appropriate titles, contrasted with the top-level headings that
    might be used on those same pages.</p>
 
-   <pre>  &lt;title>Introduction to The Mating Rituals of Bees&lt;/title>
+   <pre><code class="html" data-x="">  &lt;title>Introduction to The Mating Rituals of Bees&lt;/title>
     ...
   &lt;h1>Introduction&lt;/h1>
   &lt;p>This companion guide to the highly successful
-  &lt;cite>Introduction to Medieval Bee-Keeping&lt;/cite> book is...</pre>
+  &lt;cite>Introduction to Medieval Bee-Keeping&lt;/cite> book is...</code></pre>
 
    <p>The next page might be a part of the same site. Note how the title describes the subject
    matter unambiguously, while the first heading assumes the reader knows what the context is and
    therefore won't wonder if the dances are Salsa or Waltz:</p>
 
-   <pre>  &lt;title>Dances used during bee mating rituals&lt;/title>
+   <pre><code class="html" data-x="">  &lt;title>Dances used during bee mating rituals&lt;/title>
     ...
-  &lt;h1>The Dances&lt;/h1></pre>
+  &lt;h1>The Dances&lt;/h1></code></pre>
 
   </div>
 

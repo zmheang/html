@@ -10,8 +10,8 @@
   <p><code>Document</code> objects have a <dfn>throw-on-dynamic-markup-insertion counter</dfn>,
   which is used in conjunction with the <span>create an element for the token</span> algorithm to
   prevent <span data-x="custom element constructor">custom element constructors</span> from being
-  able to use <code data-x="dom-document-open">document.open()</code>, <code
-  data-x="dom-document-close">document.close()</code>, and <code
+  able to use <code data-x="dom-document-open">document.open(<var>type</var>,
+  <var>replace</var>)</code>, <code data-x="dom-document-close">document.close()</code>, and <code
   data-x="dom-document-write">document.write()</code> when they are invoked by the parser.
   Initially, the counter must be set to zero.</p>
 

@@ -6,11 +6,11 @@
   collected and continue to be applied even as the elements they are contained in are closed, but
   that excessive duplicates are thrown away.</p>
 
-  <pre>&lt;!DOCTYPE html>
+  <pre><code class="html" data-x="">&lt;!DOCTYPE html>
 &lt;p>&lt;b class=x>&lt;b class=x>&lt;b>&lt;b class=x>&lt;b class=x>&lt;b>X
 &lt;p>X
 &lt;p>&lt;b>&lt;b class=x>&lt;b>X
-&lt;p>&lt;/b>&lt;/b>&lt;/b>&lt;/b>&lt;/b>&lt;/b>X</pre>
+&lt;p>&lt;/b>&lt;/b>&lt;/b>&lt;/b>&lt;/b>&lt;/b>X</code></pre>
 
   <p>The resulting DOM tree is as follows:</p>
 

@@ -3,7 +3,7 @@
   <p>Each channel has two message ports. Data sent through one port is received by the other port,
   and vice versa.</p>
 
-  <pre class="idl">[Exposed=(Window,Worker,AudioWorklet), <span>Transferable</span>]
+  <pre><code class="idl" data-x="">[Exposed=(Window,Worker,AudioWorklet), <span>Transferable</span>]
 interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
   void <span data-x="dom-MessagePort-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
   void <span data-x="dom-MessagePort-start">start</span>();
@@ -12,7 +12,7 @@ interface <dfn>MessagePort</dfn> : <span>EventTarget</span> {
   // event handlers
   attribute <span>EventHandler</span> <span data-x="handler-MessagePort-onmessage">onmessage</span>;
   attribute <span>EventHandler</span> <span data-x="handler-MessagePort-onmessageerror">onmessageerror</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
    <dt><var>port</var> . <code subdfn data-x="dom-MessagePort-postMessage">postMessage</code>(<var>message</var> [, <var>transfer</var>] )</dt>

@@ -187,8 +187,8 @@
        <li><p>Remove the leading "<code data-x="">javascript:</code>" string from
        <var>urlString</var>.</p></li>
 
-       <li><p>Let <var>script source</var> be the result of applying the <span>percent decode</span>
-       algorithm to <var>urlString</var>.</p></li>
+       <li><p>Let <var>script source</var> be the result of <span data-x="string percent
+       decode">string percent decoding</span> <var>urlString</var>.</p></li>
 
        <li><p>Replace <var>script source</var> with the result of applying the <span>UTF-8
        decode</span> algorithm to <var>script source</var>.</p></li>
@@ -484,7 +484,9 @@
     <p>If any of the following are true, then <span data-x="navigate-ua-inline">display the inline
     content with an appropriate error shown to the user</span>, with the newly created
     <code>Document</code> object's <span>origin</span> set to a new <span
-    data-x="concept-origin-opaque">opaque origin</span>, and return.</p>
+    data-x="concept-origin-opaque">opaque origin</span>, run the <span data-x="environment
+    discarding steps">environment discarding steps</span> for <var>reservedEnvironment</var>, and
+    return.</p>
 
     <ul>
      <li><p><var>response</var> is a network error.</p></li>
@@ -608,24 +610,15 @@
 
       <ol>
        <li>
-        <p>Call the JavaScript <span
-        data-x="js-InitializeHostDefinedRealm">InitializeHostDefinedRealm()</span> abstract operation
-        with the following customizations:</p>
+        <p>Let <var>realm execution context</var> be the result of <span>creating a new JavaScript
+        realm</span> with the following customizations:</p>
 
         <ul>
          <li><p>For the global object, create a new <code>Window</code> object.</p></li>
 
-         <li><p>For the global <b>this</b> value, use <var>browsingContext</var>'s
+         <li><p>For the global <b>this</b> binding, use <var>browsingContext</var>'s
          <code>WindowProxy</code> object.</p></li>
         </ul>
-       </li>
-
-       <li>
-        <p>Let <var>realm execution context</var> be the <span>running JavaScript execution
-        context</span>.</p>
-
-        <p class="note">This is the <span>JavaScript execution context</span> created in the previous
-        step.</p>
        </li>
 
        <li><p><span>Set up a window environment settings object</span> with <var>realm execution
@@ -661,7 +654,64 @@
 
      <li><p><span>Implement the sandboxing</span> for the <code>Document</code>.</p></li>
 
-     <li><p><span>Set the allow* flags</span> for the <code>Document</code>.</p></li>
+     <li>
+       <p>Execute the <span>Initialize document’s Feature Policy from response</span>
+       algorithm on the <code>Document</code> object and the <span
+       data-x="concept-response">response</span> used to generate the document.  <ref
+       spec="FEATUREPOLICY"></p>
+
+       <p class="note">The <span>Initialize document’s Feature Policy from response</span> algorithm
+       makes use of the <code>Document</code>'s <span>origin</span>. If <code
+       data-x="dom-document-domain">document.domain</code> has been used for the <span>browsing
+       context container</span>'s <span>node document</span>, then its <span>origin</span> cannot be
+       <span>same origin-domain</span> with <var>document</var>'s <span>origin</span>, because these
+       steps run when <var>document</var> is initialized, so it cannot itself yet have used <code
+       data-x="dom-document-domain">document.domain</code>. Note that this means that Feature Policy
+       checks are less permissive compared to doing a <span>same origin</span> check instead.</p>
+
+       <div class="example">
+         <p>In this example, the child document is not allowed to use <code>PaymentRequest</code>,
+         despite being <span>same origin-domain</span> at the time the child document tries to use
+	 it. At the time the child document is initialized, only the parent document has set <code
+         data-x="dom-document-domain">document.domain</code>, and the child document has not.</p>
+
+         <pre><code class="html" data-x="">&lt;!-- https://foo.example.com/a.html -->
+&lt;!doctype html>
+&lt;script>
+ document.domain = 'example.com';
+&lt;/script>
+&lt;iframe src=b.html>&lt;/iframe></code></pre>
+
+      <pre><code class="html" data-x="">&lt;!-- https://bar.example.com/b.html -->
+&lt;!doctype html>
+&lt;script>
+ document.domain = 'example.com'; // This happens after the document is initialized
+ new PaymentRequest(&hellip;); // Not allowed to use
+&lt;/script></code></pre>
+       </div>
+
+       <div class="example">
+         <p>In this example, the child document <em>is</em> allowed to use
+	 <code>PaymentRequest</code>, despite not being <span>same origin-domain</span> at the time
+	 the child document tries to use it. At the time the child document is initialized, none of
+	 the documents have set <code data-x="dom-document-domain">document.domain</code> yet so
+	 <span>same origin-domain</span> falls back to a normal <span>same origin</span> check.</p>
+
+         <pre><code class="html" data-x="">&lt;!-- https://example.com/a.html -->
+&lt;!doctype html>
+&lt;iframe src=b.html>&lt;/iframe>
+&lt;!-- The child document is now initialized, before the script below is run. -->
+&lt;script>
+ document.domain = 'example.com';
+&lt;/script></code></pre>
+
+         <pre><code class="html" data-x="">&lt;!-- https://example.com/b.html -->
+&lt;!doctype html>
+&lt;script>
+ new PaymentRequest(&hellip;); // Allowed to use
+&lt;/script></code></pre>
+       </div>
+     </li>
 
      <li>
       <p>If <var>response</var> has a `<code data-x="http-refresh">Refresh</code>` header, then:</p>

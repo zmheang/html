@@ -30,9 +30,8 @@
    nested worker), then set <var>parent worker global scope</var> to <var>owner</var>.</p></li>
 
    <li>
-    <p>Call the JavaScript <span
-    data-x="js-InitializeHostDefinedRealm">InitializeHostDefinedRealm()</span> abstract
-    operation with the following customizations:</p>
+    <p>Let <var>realm execution context</var> be the result of <span>creating a new JavaScript
+    realm</span> with the following customizations:</p>
 
     <ul>
      <li><p>For the global object, if <var>is shared</var> is true, create a new
@@ -42,20 +41,11 @@
    </li>
 
    <li>
-    <p>Let <var>realm execution context</var> be the <span>running JavaScript execution
-    context</span>.</p>
-
-    <p class="note">This is the <span>JavaScript execution context</span> created in the previous
-    step.</p>
-   </li>
-
-   <li>
     <p>Let <var>worker global scope</var> be the <span data-x="concept-realm-global">global
     object</span> of <var>realm execution context</var>'s Realm component.
 
     <p class="note">This is the <code>DedicatedWorkerGlobalScope</code> or
-    <code>SharedWorkerGlobalScope</code> object created when calling <span
-    data-x="js-InitializeHostDefinedRealm">InitializeHostDefinedRealm</span>.</p>
+    <code>SharedWorkerGlobalScope</code> object created in the previous step.</p>
    </li>
 
    <li><p><span>Set up a worker environment settings object</span> with <var>realm execution
@@ -131,11 +121,17 @@
      fetch</span> steps with <var>response</var>.</p></li>
     </ol>
 
-    <p>If the algorithm asynchronously completes with null, <span>queue a task</span> to <span
-    data-x="concept-event-fire">fire an event</span> named <code data-x="event-error">error</code>
-    at <var>worker</var>, and return. Otherwise, continue the rest of these steps after
-    the algorithm's asynchronous completion, with <var>script</var> being the asynchronous
-    completion value.</p>
+    <p>If the algorithm asynchronously completes with null, then:</p>
+    <ol>
+    <li><p><span>Queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
+    <code data-x="event-error">error</code> at <var>worker</var>.</p></li>
+    <li><p>Run the <span data-x="environment discarding steps">environment discarding steps</span>
+    for <var>inside settings</var>.</p></li>
+    <li><p>Return.</p></li>
+    </ol>
+
+    <p>Otherwise, continue the rest of these steps after the algorithm's asynchronous completion,
+    with <var>script</var> being the asynchronous completion value.</p>
    </li>
 
    <li><p>Associate <var>worker</var> with <var>worker global scope</var>.</p></li>

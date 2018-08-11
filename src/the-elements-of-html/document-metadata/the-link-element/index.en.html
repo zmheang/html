@@ -27,7 +27,7 @@
    <dd>Also, the <code data-x="attr-link-title">title</code> attribute <span data-x="attr-link-title">has special semantics</span> on this element.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-href">href</span>;
@@ -42,9 +42,9 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-sizes">sizes</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-referrerPolicy">referrerPolicy</span>;
 };
-<span>HTMLLinkElement</span> includes <span>LinkStyle</span>;</pre>
+<span>HTMLLinkElement</span> includes <span>LinkStyle</span>;</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLLinkElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLLinkElement</code>.</dd>
   </dl>
 
   <p>The <code>link</code> element allows authors to link their document to other resources.</p>
@@ -139,7 +139,7 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
    <p>For example, the following <code>link</code> element creates two <span
    data-x="hyperlink">hyperlinks</span> (to the same page):</p>
 
-   <pre>&lt;link rel="author license" href="/about"></pre>
+   <pre><code class="html" data-x="">&lt;link rel="author license" href="/about"></code></pre>
 
    <p>The two links created by this element are one whose semantic is that the target page has
    information about the current page's author, and one whose semantic is that the target page has

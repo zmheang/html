@@ -12,11 +12,11 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
-interface <dfn>HTMLHeadElement</dfn> : <span>HTMLElement</span> {};</pre>
+interface <dfn>HTMLHeadElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLHeadElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLHeadElement</code>.</dd>
   </dl>
 
   <p>The <code>head</code> element <span>represents</span> a collection of metadata for the
@@ -27,17 +27,17 @@ interface <dfn>HTMLHeadElement</dfn> : <span>HTMLElement</span> {};</pre>
    <p>The collection of metadata in a <code>head</code> element can be large or small. Here is an
    example of a very short one:</p>
 
-   <pre>&lt;!doctype html>
+   <pre><code class="html" data-x="">&lt;!doctype html>
 &lt;html lang=en>
  &lt;head>
   &lt;title>A document with a short head&lt;/title>
  &lt;/head>
  &lt;body>
- ...</pre>
+ ...</code></pre>
 
    <p>Here is an example of a longer one:</p>
 
-   <pre>&lt;!DOCTYPE HTML>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
 &lt;HTML LANG="EN">
  &lt;HEAD>
   &lt;META CHARSET="UTF-8">
@@ -49,7 +49,7 @@ interface <dfn>HTMLHeadElement</dfn> : <span>HTMLElement</span> {};</pre>
   &lt;META NAME="APPLICATION-NAME" CONTENT="Long headed application">
  &lt;/HEAD>
  &lt;BODY>
- ...</pre>
+ ...</code></pre>
 
   </div>
 

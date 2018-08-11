@@ -26,7 +26,7 @@
    <dd><code data-x="attr-canvas-height">height</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">typedef (<span>CanvasRenderingContext2D</span> or <span>ImageBitmapRenderingContext</span> or <span>WebGLRenderingContext</span>) <dfn>RenderingContext</dfn>;
+    <pre><code class="idl" data-x="">typedef (<span>CanvasRenderingContext2D</span> or <span>ImageBitmapRenderingContext</span> or <span>WebGLRenderingContext</span>) <dfn>RenderingContext</dfn>;
 
 [Exposed=Window,
  <span>HTMLConstructor</span>]
@@ -41,9 +41,9 @@ interface <dfn>HTMLCanvasElement</dfn> : <span>HTMLElement</span> {
   <span>OffscreenCanvas</span> <span data-x="dom-canvas-transferControlToOffscreen">transferControlToOffscreen</span>();
 };
 
-callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</pre>
+callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLCanvasElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLCanvasElement</code>.</dd>
   </dl>
 
   <p>The <code>canvas</code> element provides scripts with a resolution-dependent bitmap canvas,

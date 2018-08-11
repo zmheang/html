@@ -1,6 +1,6 @@
   <h5>The <code>StorageEvent</code> interface</h5>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  Constructor(DOMString type, optional <span>StorageEventInit</span> eventInitDict)]
 interface <dfn>StorageEvent</dfn> : <span>Event</span> {
   readonly attribute DOMString? <span data-x="dom-StorageEvent-key">key</span>;
@@ -16,7 +16,7 @@ dictionary <dfn>StorageEventInit</dfn> : <span>EventInit</span> {
   DOMString? newValue = null;
   USVString url = "";
   <span>Storage</span>? storageArea = null;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 

@@ -37,6 +37,11 @@
      <td> <span>URL</span> to use for <span>form submission</span>
      <td> <span>Valid non-empty URL potentially surrounded by spaces</span>
     <tr>
+     <th> <code data-x="">allow</code>
+     <td> <code data-x="attr-iframe-allow">iframe</code>
+     <td> <span data-x="concept-feature-policy">Feature policy</span> to be applied to the <code>iframe</code>'s contents
+     <td> <span data-x="concept-serialized-feature-policy">Serialized feature policy</span>
+    <tr>
      <th> <code data-x="">allowfullscreen</code>
      <td> <code data-x="attr-iframe-allowfullscreen">iframe</code>
      <td> Whether to allow the <code>iframe</code>'s contents to use <code data-x="dom-element-requestFullscreen">requestFullscreen()</code>
@@ -256,7 +261,7 @@
     <tr>
      <th> <code data-x="">enctype</code>
      <td> <code data-x="attr-fs-enctype">form</code>
-     <td> Form data set encoding type to use for <span>form submission</span>
+     <td> Entry list encoding type to use for <span>form submission</span>
      <td> "<code data-x="attr-fs-enctype-urlencoded">application/x-www-form-urlencoded</code>"; "<code data-x="attr-fs-enctype-formdata">multipart/form-data</code>"; "<code data-x="attr-fs-enctype-text">text/plain</code>"
     <tr>
      <th> <code data-x="">for</code>
@@ -289,7 +294,7 @@
      <th> <code data-x="">formenctype</code>
      <td> <code data-x="attr-fs-formenctype">button</code>;
           <code data-x="attr-fs-formenctype">input</code>
-     <td> Form data set encoding type to use for <span>form submission</span>
+     <td> Entry list encoding type to use for <span>form submission</span>
      <td> "<code data-x="attr-fs-enctype-urlencoded">application/x-www-form-urlencoded</code>"; "<code data-x="attr-fs-enctype-formdata">multipart/form-data</code>"; "<code data-x="attr-fs-enctype-text">text/plain</code>"
     <tr>
      <th> <code data-x="">formmethod</code>
@@ -646,7 +651,8 @@
           <code data-x="attr-hyperlink-referrerpolicy">area</code>;
           <code data-x="attr-iframe-referrerpolicy">iframe</code>;
           <code data-x="attr-img-referrerpolicy">img</code>;
-          <code data-x="attr-link-referrerpolicy">link</code>
+          <code data-x="attr-link-referrerpolicy">link</code>;
+          <code data-x="attr-script-referrerpolicy">script</code>
      <td> <span>Referrer policy</span> for <span data-x="concept-fetch">fetches</span> initiated by the element
      <td> <span>Referrer policy</span>
     <tr>

@@ -13,14 +13,14 @@
    <dd><code data-x="attr-base-target">target</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-base-href">href</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-base-target">target</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLBaseElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLBaseElement</code>.</dd>
   </dl>
 
   <p>The <code>base</code> element allows authors to specify the <span>document base URL</span> for
@@ -157,7 +157,7 @@ interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, a <code>base</code> element is used to set the <span>document base
    URL</span>:</p>
 
-   <pre>&lt;!DOCTYPE html>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
 &lt;html lang="en">
     &lt;head>
         &lt;title>This is an example for the &amp;lt;base&amp;gt; element&lt;/title>
@@ -166,7 +166,7 @@ interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
     &lt;body>
         &lt;p>Visit the &lt;a href="archives.html">archives&lt;/a>.&lt;/p>
     &lt;/body>
-&lt;/html></pre>
+&lt;/html></code></pre>
 
    <p>The link in the above example would be a link to "<code
    data-x="">https://www.example.com/news/archives.html</code>".</p>

@@ -196,15 +196,15 @@ data: 10</pre>
    data-x="">YHOO\n+2\n10</code>" (where "<code data-x="">\n</code>" represents a newline).</p>
 
    <p>This could be used as follows:
-   <pre>var stocks = new EventSource("https://stocks.example.com/ticker.php");
+   <pre><code class="js" data-x="">var stocks = new EventSource("https://stocks.example.com/ticker.php");
 stocks.onmessage = function (event) {
   var data = event.data.split('\n');
   updateStocks(data[0], data[1], data[2]);
-};</pre>
+};</code></pre>
 
    <p>...where <code data-x="">updateStocks()</code> is a function defined as:</p>
 
-   <pre>function updateStocks(symbol, delta, value) { ... }</pre>
+   <pre><code class="js" data-x="">function updateStocks(symbol, delta, value) { ... }</code></pre>
 
    <p>...or some such.</p>
 

@@ -13,7 +13,8 @@
    this</code>).</p></li>
 
    <li><p>The constructor must not use the <code data-x="dom-document-write">document.write()</code>
-   or <code data-x="dom-document-open">document.open()</code> methods.</p></li>
+   or <code data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code>
+   methods.</p></li>
 
    <li><p>The element's attributes and children must not be inspected, as in the non-<span
    data-x="custom-element-upgrades">upgrade</span> case none will be present, and relying on

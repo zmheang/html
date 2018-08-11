@@ -28,8 +28,8 @@
   <span>browsing context</span> is <span data-x="navigate">navigated</span> from the initial
   <code>about:blank</code> <code>Document</code> to another, with <span>replacement enabled</span>.
   Second, a <code>Document</code> can end up being reused for several <code>Window</code> objects
-  when the <code data-x="dom-document-open">document.open()</code> method is used, such that the
-  mapping is then many-to-1.</p>
+  when the <code data-x="dom-document-open">document.open(<var>type</var>,
+  <var>replace</var>)</code> method is used, such that the mapping is then many-to-1.</p>
 
   <p class="note">A <code>Document</code> does not necessarily have a <span
   data-x="concept-document-bc">browsing context</span> associated with it. In particular, data
@@ -106,25 +106,15 @@
    <li><p>Let <var>browsingContext</var> be a new <span>browsing context</span>.</p></li>
 
    <li>
-    <p>Call the JavaScript <span
-    data-x="js-InitializeHostDefinedRealm">InitializeHostDefinedRealm()</span> abstract operation
-    with the following customizations:</p>
+    <p>Let <var>realm execution context</var> be the result of <span>creating a new JavaScript
+    realm</span> with the following customizations:</p>
 
     <ul>
-     <li><p>For the global object, create a new <code>Window</code> object
-     <var>window</var>.</p></li>
+     <li><p>For the global object, create a new <code>Window</code> object.</p></li>
 
-     <li><p>For the global <b>this</b> value, use <var>browsingContext</var>'s
+     <li><p>For the global <b>this</b> binding, use <var>browsingContext</var>'s
      <code>WindowProxy</code> object.</li>
     </ul>
-   </li>
-
-   <li>
-    <p>Let <var>realm execution context</var> be the <span>running JavaScript execution
-    context</span>.</p>
-
-    <p class="note">This is the <span>JavaScript execution context</span> created in the previous
-    step.</p>
    </li>
 
    <li><p><span>Set up a window environment settings object</span> with <var>realm execution
@@ -164,7 +154,8 @@
 
    <li><p><span>Implement the sandboxing</span> for <var>document</var>.</p></li>
 
-   <li><p><span>Set the allow* flags</span> for <var>document</var>.</p></li>
+   <li><p>Execute the <span>Initialize document’s Feature Policy</span> algorithm on
+   <var>document</var>. <ref spec="FEATUREPOLICY"></p></li>
 
    <li><p>Add <var>document</var> to <var>browsingContext</var>'s <span>session
    history</span>.</p></li>

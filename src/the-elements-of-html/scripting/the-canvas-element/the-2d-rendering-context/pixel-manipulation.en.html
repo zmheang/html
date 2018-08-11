@@ -339,7 +339,7 @@
    <p>In the following example, the script generates an <code>ImageData</code> object so that it can
    draw onto it.</p>
 
-   <pre>// canvas is a reference to a &lt;canvas> element
+   <pre><code class="js" data-x="">// canvas is a reference to a &lt;canvas> element
 var context = canvas.getContext('2d');
 
 // create a blank slate
@@ -356,7 +356,7 @@ context.putImageData(data, 0, 0);
 
 // support methods
 function FillPlasma(data, color) { ... }
-function AddCloud(data, x, y) { ... }</pre>
+function AddCloud(data, x, y) { ... }</code></pre>
 
   </div>
 
@@ -367,7 +367,7 @@ function AddCloud(data, x, y) { ... }</pre>
    data-x="dom-context-2d-putImageData">putImageData()</code> to implement an edge detection
    filter.</p>
 
-   <pre>&lt;!DOCTYPE HTML>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
  &lt;head>
   &lt;title>Edge detection demo&lt;/title>
@@ -419,7 +419,7 @@ function AddCloud(data, x, y) { ... }</pre>
  &lt;body onload="init()">
   &lt;canvas>&lt;/canvas>
  &lt;/body>
-&lt;/html></pre>
+&lt;/html></code></pre>
 
   </div>
 

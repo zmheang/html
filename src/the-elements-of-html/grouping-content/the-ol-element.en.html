@@ -15,15 +15,15 @@
    <dd><code data-x="attr-ol-type">type</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[Exposed=Window,
+<pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLOListElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-ol-reversed">reversed</span>;
   [<span>CEReactions</span>] attribute long <span data-x="dom-ol-start">start</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-ol-type">type</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLOListElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLOListElement</code>.</dd>
   </dl>
 
   <p>The <code>ol</code> element <span>represents</span> a list of items, where the items have been
@@ -156,27 +156,27 @@ interface <dfn>HTMLOListElement</dfn> : <span>HTMLElement</span> {
    element is therefore appropriate. Compare this list to the equivalent list in the <code>ul</code>
    section to see an example of the same items using the <code>ul</code> element.</p>
 
-   <pre>&lt;p>I have lived in the following countries (given in the order of when
+   <pre><code class="html" data-x="">&lt;p>I have lived in the following countries (given in the order of when
 I first lived there):&lt;/p>
 &lt;ol>
  &lt;li>Switzerland
  &lt;li>United Kingdom
  &lt;li>United States
  &lt;li>Norway
-&lt;/ol></pre>
+&lt;/ol></code></pre>
 
    <p>Note how changing the order of the list changes the meaning of the document. In the following
    example, changing the relative order of the first two items has changed the birthplace of the
    author:</p>
 
-   <pre>&lt;p>I have lived in the following countries (given in the order of when
+   <pre><code class="html" data-x="">&lt;p>I have lived in the following countries (given in the order of when
 I first lived there):&lt;/p>
 &lt;ol>
  &lt;li>United Kingdom
  &lt;li>Switzerland
  &lt;li>United States
  &lt;li>Norway
-&lt;/ol></pre>
+&lt;/ol></code></pre>
 
   </div>
 

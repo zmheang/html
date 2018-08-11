@@ -14,13 +14,13 @@
    <dd><code data-x="attr-data-value">value</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLDataElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-data-value">value</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLDataElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLDataElement</code>.</dd>
   </dl>
 
   <p>The <code>data</code> element <span>represents</span> its contents, along with a
@@ -60,14 +60,14 @@ interface <dfn>HTMLDataElement</dfn> : <span>HTMLElement</span> {
    despite the numbers being presented in textual form in one column and in a decomposed form in
    another.</p>
 
-   <pre>&lt;script src="sortable.js">&lt;/script>
+   <pre><code class="html" data-x="">&lt;script src="sortable.js">&lt;/script>
 &lt;table class="sortable">
  &lt;thead> &lt;tr> &lt;th> Game &lt;th> Corporations &lt;th> Map Size
  &lt;tbody>
   &lt;tr> &lt;td> 1830 &lt;td> &lt;data value="8">Eight&lt;/data> &lt;td> &lt;data value="93">19+74 hexes (93 total)&lt;/data>
   &lt;tr> &lt;td> 1856 &lt;td> &lt;data value="11">Eleven&lt;/data> &lt;td> &lt;data value="99">12+87 hexes (99 total)&lt;/data>
   &lt;tr> &lt;td> 1870 &lt;td> &lt;data value="10">Ten&lt;/data> &lt;td> &lt;data value="149">4+145 hexes (149 total)&lt;/data>
-&lt;/table></pre>
+&lt;/table></code></pre>
 
   </div>
 

@@ -11,22 +11,22 @@
 
   <p>For example, take the following form:</p>
 
-  <pre>&lt;form action="/find.cgi" method=get>
+  <pre><code class="html" data-x="">&lt;form action="/find.cgi" method=get>
  &lt;input type=text name=t>
  &lt;input type=search name=q>
  &lt;input type=submit>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   <p>If the user types in "cats" in the first field and "fur" in the second, and then hits the
   submit button, then the user agent will load <code data-x="">/find.cgi?t=cats&amp;q=fur</code>.</p>
 
   <p>On the other hand, consider this form:</p>
 
-  <pre>&lt;form action="/find.cgi" method=post enctype="multipart/form-data">
+  <pre><code class="html" data-x="">&lt;form action="/find.cgi" method=post enctype="multipart/form-data">
  &lt;input type=text name=t>
  &lt;input type=search name=q>
  &lt;input type=submit>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   <p>Given the same user input, the result on submission is quite different: the user agent instead
   does an HTTP POST to the given URL, with as the entity body something like the following text:</p>

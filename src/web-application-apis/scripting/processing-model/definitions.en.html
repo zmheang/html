@@ -115,6 +115,13 @@
    unset.</p></dd>
   </dl>
 
+  <p>Specifications may define <dfn data-export="">environment discarding steps</dfn> for
+  environments. The steps take an <span>environment</span> as input.</p>
+
+  <p class="note">The <span data-x="environment discarding steps">environment discarding
+  steps</span> are run for only a select few environments: the ones that will
+  never become execution ready because, for example, they failed to load.</p>
+
   <p>An <dfn data-export="">environment settings object</dfn> is an <span>environment</span> that
   additionally specifies algorithms for:</p>
 
@@ -180,7 +187,8 @@
     <p class="example">For example, the <span data-x="concept-document-url">URL</span> of the
     <span>responsible document</span> is used to set the <span
     data-x="concept-document-url">URL</span> of the <code>Document</code> after it has been reset
-    using <code data-x="dom-document-open">document.open()</code>.</p>
+    using <code data-x="dom-document-open">document.open(<var>type</var>,
+    <var>replace</var>)</code>.</p>
 
     <p>If the <span>responsible event loop</span> is not a <span>browsing context</span> <span>event loop</span>,
     then the <span>environment settings object</span> has no <span>responsible document</span>.</p>

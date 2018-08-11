@@ -44,9 +44,9 @@
 
    <p>If a document contains style sheet links labeled as follows:</p>
 
-   <pre>&lt;link rel="stylesheet" href="A" type="text/plain"&gt;
+   <pre><code class="html" data-x="">&lt;link rel="stylesheet" href="A" type="text/plain"&gt;
 &lt;link rel="stylesheet" href="B" type="text/css"&gt;
-&lt;link rel="stylesheet" href="C"&gt;</pre>
+&lt;link rel="stylesheet" href="C"&gt;</code></pre>
 
    <p>...then a compliant UA that supported only CSS style sheets would fetch the B and C files, and
    skip the A file (since <code>text/plain</code> is not the <span>MIME type</span> for CSS style

@@ -34,8 +34,8 @@
      <p>In the fragments below, for example, the semantics are nonsensical: a separator cannot
      simultaneously be a cell, nor can a radio button be a progress bar.</p>
 
-     <pre class="bad">&lt;hr role="cell"></pre>
-     <pre class="bad">&lt;input type=radio role=progressbar></pre>
+     <pre class="bad"><code class="html" data-x="">&lt;hr role="cell"></code></pre>
+     <pre class="bad"><code class="html" data-x="">&lt;input type=radio role=progressbar></code></pre>
 
     </div>
 
@@ -121,11 +121,11 @@
      <code>p</code> element's end tag. Thus, the following markup results in two <span
      data-x="paragraph">paragraphs</span>, not one:</p>
 
-     <pre>&lt;p>Welcome. &lt;form>&lt;label>Name:&lt;/label> &lt;input>&lt;/form></pre>
+     <pre><code class="html" data-x="">&lt;p>Welcome. &lt;form>&lt;label>Name:&lt;/label> &lt;input>&lt;/form></code></pre>
 
      <p>It is parsed exactly like the following:</p>
 
-     <pre>&lt;p>Welcome. &lt;/p>&lt;form>&lt;label>Name:&lt;/label> &lt;input>&lt;/form></pre>
+     <pre><code class="html" data-x="">&lt;p>Welcome. &lt;/p>&lt;form>&lt;label>Name:&lt;/label> &lt;input>&lt;/form></code></pre>
 
     </div>
 

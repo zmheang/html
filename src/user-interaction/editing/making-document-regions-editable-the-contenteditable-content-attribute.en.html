@@ -1,11 +1,11 @@
   <h4 id="contenteditable">Making document regions editable: The <code
   data-x="attr-contenteditable">contenteditable</code> content attribute</h4>
 
-  <pre class="idl">interface mixin <dfn>ElementContentEditable</dfn> {
+  <pre><code class="idl" data-x="">interface mixin <dfn>ElementContentEditable</dfn> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-contentEditable">contentEditable</span>;
   readonly attribute boolean <span data-x="dom-isContentEditable">isContentEditable</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-inputMode">inputMode</span>;
-};</pre>
+};</code></pre>
 
   <p>The <dfn><code data-x="attr-contenteditable">contenteditable</code></dfn> content attribute is an
   <span>enumerated attribute</span> whose keywords are the empty string, <code data-x="">true</code>,
@@ -23,19 +23,19 @@
    <p>For example, consider a page that has a <code>form</code> and a <code>textarea</code> to
    publish a new article, where the user is expected to write the article using HTML:</p>
 
-   <pre>&lt;form method=POST>
+   <pre><code class="html" data-x="">&lt;form method=POST>
  &lt;fieldset>
   &lt;legend>New article&lt;/legend>
   &lt;textarea name=article>&amp;lt;p>Hello world.&amp;lt;/p>&lt;/textarea>
  &lt;/fieldset>
  &lt;p>&lt;button>Publish&lt;/button>&lt;/p>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
    <p>When scripting is enabled, the <code>textarea</code> element could be replaced with a rich
    text control instead, using the <code data-x="attr-contenteditable">contenteditable</code>
    attribute:</p>
 
-   <pre>&lt;form method=POST>
+   <pre><code class="html" data-x="">&lt;form method=POST>
  &lt;fieldset>
   &lt;legend>New article&lt;/legend>
   &lt;textarea id=textarea name=article>&amp;lt;p>Hello world.&amp;lt;/p>&lt;/textarea>
@@ -52,7 +52,7 @@
   &lt;/script>
  &lt;/fieldset>
  &lt;p>&lt;button>Publish&lt;/button>&lt;/p>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
    <p>Features to enable, e.g., inserting links, can be implemented using the <code
    data-x="dom-document-execCommand">document.execCommand()</code> API, or using
@@ -64,14 +64,14 @@
    <p>The <code data-x="attr-contenteditable">contenteditable</code> attribute can also be used to
    great effect:</p>
 
-   <pre>&lt;!doctype html>
+   <pre><code class="html" data-x="">&lt;!doctype html>
 &lt;html lang=en>
 &lt;title>Live CSS editing!&lt;/title>
 &lt;style style=white-space:pre contenteditable>
 html { margin:.2em; font-size:2em; color:lime; background:purple }
 head, title, style { display:block }
 body { display:none }
-&lt;/style></pre>
+&lt;/style></code></pre>
   </div>
 
   <dl class="domintro">

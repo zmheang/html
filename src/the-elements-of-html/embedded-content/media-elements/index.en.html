@@ -3,7 +3,7 @@
   <p><span>HTMLMediaElement</span> objects (<code>audio</code> and <code>video</code>, in this
   specification) are simply known as <dfn data-x="media element">media elements</dfn>.</p>
 
-  <pre class="idl">enum <dfn>CanPlayTypeResult</dfn> { "" /* <span data-x="dom-CanPlayTypeResult-nil">empty string</span> */, "<span data-x="dom-CanPlayTypeResult-maybe">maybe</span>", "<span data-x="dom-CanPlayTypeResult-probably">probably</span>" };
+  <pre><code class="idl" data-x="">enum <dfn>CanPlayTypeResult</dfn> { "" /* <span data-x="dom-CanPlayTypeResult-nil">empty string</span> */, "<span data-x="dom-CanPlayTypeResult-maybe">maybe</span>", "<span data-x="dom-CanPlayTypeResult-probably">probably</span>" };
 typedef (<span>MediaStream</span> or <span>MediaSource</span> or <span>Blob</span>) <dfn>MediaProvider</dfn>;
 
 [Exposed=Window]
@@ -65,7 +65,7 @@ interface <dfn>HTMLMediaElement</dfn> : <span>HTMLElement</span> {
   [SameObject] readonly attribute <span>VideoTrackList</span> <span data-x="dom-media-videoTracks">videoTracks</span>;
   [SameObject] readonly attribute <span>TextTrackList</span> <span data-x="dom-media-textTracks">textTracks</span>;
   <span>TextTrack</span> <span data-x="dom-media-addTextTrack">addTextTrack</span>(<span>TextTrackKind</span> kind, optional DOMString label = "", optional DOMString language = "");
-};</pre>
+};</code></pre>
 
   <p>The <dfn>media element attributes</dfn>, <code data-x="attr-media-src">src</code>, <code
   data-x="attr-media-crossorigin">crossorigin</code>, <code

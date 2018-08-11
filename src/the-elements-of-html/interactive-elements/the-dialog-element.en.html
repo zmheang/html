@@ -13,7 +13,7 @@
    <dd><code data-x="attr-dialog-open">open</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-dialog-open">open</span>;
@@ -21,9 +21,9 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] void <span data-x="dom-dialog-show">show</span>();
   [<span>CEReactions</span>] void <span data-x="dom-dialog-showModal">showModal</span>();
   [<span>CEReactions</span>] void <span data-x="dom-dialog-close">close</span>(optional DOMString returnValue);
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLDialogElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLDialogElement</code>.</dd>
   </dl>
 
   <p>The <code>dialog</code> element represents a part of an application that a user interacts with
@@ -298,14 +298,14 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
    <p>This dialog box has some small print. The <code>strong</code> element is used to draw the
    user's attention to the more important part.</p>
 
-   <pre>&lt;dialog>
+   <pre><code class="html" data-x="">&lt;dialog>
  &lt;h1>Add to Wallet&lt;/h1>
  &lt;p>&lt;strong>&lt;label for=amt>How many gold coins do you want to add to your wallet?&lt;/label>&lt;/strong>&lt;/p>
  &lt;p>&lt;input id=amt name=amt type=number min=0 step=0.01 value=100>&lt;/p>
  &lt;p>&lt;small>You add coins at your own risk.&lt;/small>&lt;/p>
  &lt;p>&lt;label>&lt;input name=round type=checkbox> Only add perfectly round coins &lt;/label>&lt;/p>
  &lt;p>&lt;input type=button onclick="submit()" value="Add Coins">&lt;/p>
-&lt;/dialog></pre>
+&lt;/dialog></code></pre>
 
   </div>
 

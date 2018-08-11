@@ -13,7 +13,7 @@
   delivery time fields, we allow the user agent to notify the user when the user submits the form
   without filling in those fields:</p>
 
-  <pre>&lt;form method="post"
+  <pre><code class="html" data-x="">&lt;form method="post"
       enctype="application/x-www-form-urlencoded"
       action="https://pizza.example.com/order.cgi">
  &lt;p>&lt;label>Customer name: &lt;input name="custname"<strong> required</strong>>&lt;/label>&lt;/p>
@@ -35,14 +35,14 @@
  &lt;p>&lt;label>Preferred delivery time: &lt;input type=time min="11:00" max="21:00" step="900" name="delivery"<strong> required</strong>>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Delivery instructions: &lt;textarea name="comments">&lt;/textarea>&lt;/label>&lt;/p>
  &lt;p>&lt;button>Submit order&lt;/button>&lt;/p>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   <p>It is also possible to limit the length of the input, using the <code
   data-x="attr-fe-maxlength">maxlength</code> attribute. By adding this to the <code>textarea</code>
   element, we can limit users to 1000 characters, preventing them from writing huge essays to the
   busy delivery drivers instead of staying focused and to the point:</p>
 
-  <pre>&lt;form method="post"
+  <pre><code class="html" data-x="">&lt;form method="post"
       enctype="application/x-www-form-urlencoded"
       action="https://pizza.example.com/order.cgi">
  &lt;p>&lt;label>Customer name: &lt;input name="custname" required>&lt;/label>&lt;/p>
@@ -64,7 +64,7 @@
  &lt;p>&lt;label>Preferred delivery time: &lt;input type=time min="11:00" max="21:00" step="900" name="delivery" required>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Delivery instructions: &lt;textarea name="comments"<strong> maxlength=1000</strong>>&lt;/textarea>&lt;/label>&lt;/p>
  &lt;p>&lt;button>Submit order&lt;/button>&lt;/p>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   <p class="note">When a form is submitted, <code data-x="event-invalid">invalid</code> events are
   fired at each form control that is invalid, and then at the <code>form</code> element itself. This

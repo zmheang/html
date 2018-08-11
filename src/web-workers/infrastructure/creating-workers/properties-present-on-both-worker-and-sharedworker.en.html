@@ -1,13 +1,13 @@
-  <h5 w-nohtml>Properties present on both <code>Worker</code> and <code>SharedWorker</code></h5>
+  <h5 w-dev>Properties present on both <code>Worker</code> and <code>SharedWorker</code></h5>
 
-  <pre class="idl">interface mixin <dfn>AbstractWorker</dfn> {
+  <pre><code class="idl" data-x="">interface mixin <dfn>AbstractWorker</dfn> {
   attribute <span>EventHandler</span> <span data-x="handler-AbstractWorker-onerror">onerror</span>;
-};</pre>
+};</code></pre>
 
   <p>The following are the <span>event handlers</span> (and their corresponding <span data-x="event
   handler event type">event handler event types</span>) <span w-nodev>that must be</span> supported,
   as <span>event handler IDL attributes</span>, by <span w-nodev>objects implementing the
-  <code>AbstractWorker</code> interface</span><span w-nohtml><code>Worker</code> and
+  <code>AbstractWorker</code> interface</span><span w-dev><code>Worker</code> and
   <code>SharedWorker</code> objects</span>:</p>
 
   <table>

@@ -13,7 +13,7 @@
    <p>In the following example, a variety of links are given with access keys so that keyboard users
    familiar with the site can more quickly navigate to the relevant pages:</p>
 
-   <pre>&lt;nav>
+   <pre><code class="html" data-x="">&lt;nav>
  &lt;p>
   &lt;a title="Consortium Activities" accesskey="A" href="/Consortium/activities">Activities&lt;/a> |
   &lt;a title="Technical Reports and Recommendations" accesskey="T" href="/TR/">Technical Reports&lt;/a> |
@@ -21,7 +21,7 @@
   &lt;a title="About This Site" accesskey="B" href="/Consortium/">About Consortium&lt;/a> |
   &lt;a title="Contact Consortium" accesskey="C" href="/Consortium/contact">Contact&lt;/a>
  &lt;/p>
-&lt;/nav></pre>
+&lt;/nav></code></pre>
 
   </div>
 
@@ -33,10 +33,10 @@
    while a user agent on a small device with just a numeric keypad might pick just the plain
    unadorned key <kbd><kbd>0</kbd></kbd>:</p>
 
-   <pre>&lt;form action="/search">
+   <pre><code class="html" data-x="">&lt;form action="/search">
  &lt;label>Search: &lt;input type="search" name="q" accesskey="s 0">&lt;/label>
  &lt;input type="submit">
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   </div>
 
@@ -45,7 +45,7 @@
    <p>In the following example, a button has possible access keys described. A script then tries to
    update the button's label to advertise the key combination the user agent selected.</p>
 
-   <pre>&lt;input type=submit accesskey="N @ 1" value="Compose">
+   <pre><code class="html" data-x="">&lt;input type=submit accesskey="N @ 1" value="Compose">
 ...
 &lt;script>
  function labelButton(button) {
@@ -57,7 +57,7 @@
    if (inputs[i].type == "submit")
      labelButton(inputs[i]);
  }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>On one user agent, the button's label might become "<samp>Compose (&#x2318;N)</samp>". On
    another, it might become "<samp>Compose (Alt+&#x21E7;+1)</samp>". If the user agent doesn't

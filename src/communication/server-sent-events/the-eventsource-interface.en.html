@@ -1,6 +1,6 @@
   <h4>The <code>EventSource</code> interface</h4>
 
-  <pre class="idl">[<span data-x="dom-EventSource">Constructor</span>(USVString url, optional <span>EventSourceInit</span> eventSourceInitDict), Exposed=(Window,Worker)]
+  <pre><code class="idl" data-x="">[<span data-x="dom-EventSource">Constructor</span>(USVString url, optional <span>EventSourceInit</span> eventSourceInitDict), Exposed=(Window,Worker)]
 interface <dfn>EventSource</dfn> : <span>EventTarget</span> {
   readonly attribute USVString <span data-x="dom-EventSource-url">url</span>;
   readonly attribute boolean <span data-x="dom-EventSource-withCredentials">withCredentials</span>;
@@ -20,7 +20,7 @@ interface <dfn>EventSource</dfn> : <span>EventTarget</span> {
 
 dictionary <dfn>EventSourceInit</dfn> {
   boolean <dfn data-x="dom-EventSourceInit-withCredentials">withCredentials</dfn> = false;
-};</pre>
+};</code></pre>
 
   <div w-nodev>
 

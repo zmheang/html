@@ -5,7 +5,7 @@
   <code>MessageEvent</code> interface for their <code data-x="event-message">message</code>
   events:</p>
 
-  <pre class="idl">[Constructor(DOMString type, optional <span>MessageEventInit</span> eventInitDict), Exposed=(Window,Worker,AudioWorklet)]
+  <pre><code class="idl" data-x="">[Constructor(DOMString type, optional <span>MessageEventInit</span> eventInitDict), Exposed=(Window,Worker,AudioWorklet)]
 interface <dfn>MessageEvent</dfn> : <span>Event</span> {
   readonly attribute any <span data-x="dom-MessageEvent-data">data</span>;
   readonly attribute USVString <span data-x="dom-MessageEvent-origin">origin</span>;
@@ -24,7 +24,7 @@ dictionary <dfn>MessageEventInit</dfn> : <span>EventInit</span> {
   sequence&lt;<span>MessagePort</span>&gt; ports = [];
 };
 
-typedef (<span>WindowProxy</span> or <span>MessagePort</span> or <span>ServiceWorker</span>) <dfn>MessageEventSource</dfn>;</pre>
+typedef (<span>WindowProxy</span> or <span>MessagePort</span> or <span>ServiceWorker</span>) <dfn>MessageEventSource</dfn>;</code></pre>
 
   <dl class="domintro">
 

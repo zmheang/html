@@ -18,6 +18,7 @@
    <dd><code data-x="attr-iframe-srcdoc">srcdoc</code></dd>
    <dd><code data-x="attr-iframe-name">name</code></dd>
    <dd><code data-x="attr-iframe-sandbox">sandbox</code></dd>
+   <dd><code data-x="attr-iframe-allow">allow</code></dd>
    <dd><code data-x="attr-iframe-allowfullscreen">allowfullscreen</code></dd>
    <dd><code data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code></dd>
    <dd><code data-x="attr-iframe-allowusermedia">allowusermedia</code></dd>
@@ -26,13 +27,14 @@
    <dd><code data-x="attr-iframe-referrerpolicy">referrerpolicy</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-iframe-src">src</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-srcdoc">srcdoc</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-name">name</span>;
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-iframe-sandbox">sandbox</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-allow">allow</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-iframe-allowFullscreen">allowFullscreen</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-iframe-allowPaymentRequest">allowPaymentRequest</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-iframe-allowUserMedia">allowUserMedia</span>;
@@ -42,9 +44,9 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   readonly attribute <span>Document</span>? <span data-x="dom-iframe-contentDocument">contentDocument</span>;
   readonly attribute <span>WindowProxy</span>? <span data-x="dom-iframe-contentWindow">contentWindow</span>;
   <span>Document</span>? <span data-x="dom-media-getSVGDocument">getSVGDocument</span>();
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLIFrameElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLIFrameElement</code>.</dd>
   </dl>
 
   <!-- INTRO -->
@@ -98,7 +100,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    users of user agents that support this feature with an extra layer of protection from script
    injection in the blog post comments:</p>
 
-   <pre>&lt;article>
+   <pre><code class="html" data-x="">&lt;article>
  &lt;h1>I got my own magazine!&lt;/h1>
  &lt;p>After much effort, I've finally found a publisher, and so now I
  have my own magazine! Isn't that awesome?! The first issue will come
@@ -119,7 +121,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   &lt;footer> Five minutes ago, &lt;a href="/users/ch">ch&lt;/a> wrote: &lt;/footer>
   &lt;iframe sandbox srcdoc="&lt;p>hey that's earl's table.
 &lt;p>you should get earl&amp;amp;amp;me on the next cover.">&lt;/iframe>
- &lt;/article></pre>
+ &lt;/article></code></pre>
 
    <p>Notice the way that quotes have to be escaped (otherwise the <code
    data-x="attr-iframe-srcdoc">srcdoc</code> attribute would end prematurely), and the way raw
@@ -479,8 +481,8 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    forms disabled, and it cannot navigate any frames or windows other than itself (or any frames or
    windows it itself embeds).</p>
 
-   <pre>&lt;p>We're not scared of you! Here is your content, unedited:&lt;/p>
-&lt;iframe sandbox src="https://usercontent.example.net/getusercontent.cgi?id=12193">&lt;/iframe></pre>
+   <pre><code class="html" data-x="">&lt;p>We're not scared of you! Here is your content, unedited:&lt;/p>
+&lt;iframe sandbox src="https://usercontent.example.net/getusercontent.cgi?id=12193">&lt;/iframe></code></pre>
 
    <p class="warning">It is important to use a separate domain so that if the attacker convinces the
    user to visit that page directly, the page doesn't run in the context of the site's origin, which
@@ -495,8 +497,8 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    its originating server. The sandbox is still useful, however, as it disables plugins and popups,
    thus reducing the risk of the user being exposed to malware and other annoyances.</p>
 
-   <pre>&lt;iframe sandbox="allow-same-origin allow-forms allow-scripts"
-        src="https://maps.example.com/embedded.html">&lt;/iframe></pre>
+   <pre><code class="html" data-x="">&lt;iframe sandbox="allow-same-origin allow-forms allow-scripts"
+        src="https://maps.example.com/embedded.html">&lt;/iframe></code></pre>
 
   </div>
 
@@ -504,15 +506,15 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
    <p>Suppose a file A contained the following fragment:</p>
 
-   <pre>&lt;iframe sandbox="allow-same-origin allow-forms" src=B>&lt;/iframe></pre>
+   <pre><code class="html" data-x="">&lt;iframe sandbox="allow-same-origin allow-forms" src=B>&lt;/iframe></code></pre>
 
    <p>Suppose that file B contained an iframe also:</p>
 
-   <pre>&lt;iframe sandbox="allow-scripts" src=C>&lt;/iframe></pre>
+   <pre><code class="html" data-x="">&lt;iframe sandbox="allow-scripts" src=C>&lt;/iframe></code></pre>
 
    <p>Further, suppose that file C contained a link:</p>
 
-   <pre>&lt;a href=D>Link&lt;/a></pre>
+   <pre><code class="html" data-x="">&lt;a href=D>Link&lt;/a></code></pre>
 
    <p>For this example, suppose all the files were served as <code>text/html</code>.</p>
 
@@ -539,13 +541,30 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   </div>
 
 
-  <hr> <!-- ALLOW FULLSCREEN / USER MEDIA -->
+  <hr> <!-- FEATURE POLICY ATTRIBUTES: ALLOW; ALLOW FULLSCREEN / PAYMENT REQUEST / USER MEDIA -->
+
+  <p>The <dfn><code data-x="attr-iframe-allow">allow</code></dfn> attribute, when specified,
+  determines the <span data-x="concept-container-policy">container policy</span> that will be used
+  when the <span data-x="concept-document-feature-policy">feature policy</span> for a
+  <span>Document</span> in the <code>iframe</code>'s <span>nested browsing context</span> is
+  initialized. Its value must be a <span data-x="concept-serialized-feature-policy">serialized
+  feature policy</span>. <ref spec="FEATUREPOLICY">
+
+  <div class="example">
+   <p>In this example, an <code>iframe</code> is used to embed a map from an online navigation
+   service. The <code data-x="attr-iframe-allow">allow</code> attribute is used to enable the
+   Geolocation API within the nested context.</p>
+
+   <pre><code class="html" data-x="">&lt;iframe src="https://maps.example.com/" allow="geolocation">&lt;/iframe></code></pre>
+  </div>
 
   <p>The <dfn><code data-x="attr-iframe-allowfullscreen">allowfullscreen</code></dfn> attribute is a
   <span>boolean attribute</span>. When specified, it indicates that <code>Document</code> objects in
-  the <code>iframe</code> element's <span>browsing context</span> are to be allowed to use <code
-  data-x="dom-element-requestFullscreen">requestFullscreen()</code> (if it's not blocked for other
-  reasons, e.g. there is another ancestor <code>iframe</code> without this attribute set).</p>
+  the <code>iframe</code> element's <span>browsing context</span> will be initialized with a
+  <span data-x="concept-document-feature-policy">feature policy</span> which allows the "<code
+  data-x="">fullscreen</code>" feature to be used from any <span>origin</span>. This is enforced by
+  the <span data-x="process-feature-policy-attributes">Process feature policy attributes</span>
+  algorithm. <ref spec="FEATUREPOLICY">
 
   <div class="example">
 
@@ -553,32 +572,46 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    data-x="attr-iframe-allowfullscreen">allowfullscreen</code> attribute is needed to enable the
    player to show its video fullscreen.</p>
 
-   <pre>&lt;article>
+   <pre><code class="html" data-x="">&lt;article>
  &lt;header>
   &lt;p>&lt;img src="/usericons/1627591962735"> &lt;b>Fred Flintstone&lt;/b>&lt;/p>
   &lt;p>&lt;a href="/posts/3095182851" rel=bookmark>12:44&lt;/a> &mdash; &lt;a href="#acl-3095182851">Private Post&lt;/a>&lt;/p>
  &lt;/header>
  &lt;p>Check out my new ride!&lt;/p>
  <strong>&lt;iframe src="https://video.example.com/embed?id=92469812" allowfullscreen>&lt;/iframe></strong>
-&lt;/article></pre>
+&lt;/article></code></pre>
 
   </div>
 
   <p>The <dfn><code data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code></dfn>
   attribute is a <span>boolean attribute</span>. When specified, it indicates that
   <code>Document</code> objects in the <code>iframe</code> element's <span>browsing context</span>
-  are to be allowed to use the <code>PaymentRequest</code> interface to make payment requests.</p>
+  will be initialized with a <span data-x="concept-document-feature-policy">feature policy</span>
+  which allows the "<code data-x="">payment</code>" feature to be used to make payment requests from
+  any <span>origin</span>. This is enforced by the <span
+  data-x="process-feature-policy-attributes">Process feature policy attributes</span> algorithm.
+  <ref spec="FEATUREPOLICY">
 
   <p>The <dfn><code data-x="attr-iframe-allowusermedia">allowusermedia</code></dfn> attribute is a
   <span>boolean attribute</span>. When specified, it indicates that <code>Document</code> objects in
-  the <code>iframe</code> element's <span>browsing context</span> are to be allowed to use <code
-  data-x="dom-MediaDevices-getUserMedia">getUserMedia()</code> (if it's not blocked for other
-  reasons, e.g. there is another ancestor <code>iframe</code> without this attribute set).</p>
+  the <code>iframe</code> element's <span>browsing context</span> will be initialized with a <span
+  data-x="concept-document-feature-policy">feature policy</span> which allows the "<code
+  data-x="">camera</code>" and "<code data-x="">microphone</code>" features to be used to call
+  <code data-x="dom-MediaDevices-getUserMedia">getUserMedia()</code> from any <span>origin</span>.
+  This is enforced by the <span data-x="process-feature-policy-attributes">Process feature policy
+  attributes</span> algorithm. <ref spec="FEATUREPOLICY">
+
+  <p class="note">None of these attributes, <code data-x="attr-iframe-allow">allow</code>,
+  <code data-x="attr-iframe-allowfullscreen">allowfullscreen</code>, <code
+  data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code> or <code
+  data-x="attr-iframe-allowusermedia">allowusermedia</code>, can grant access to a feature in a
+  <span>nested browsing context</span> if the <code>iframe</code> element's <span>node
+  document</span> is not already allowed to use that feature.</p>
 
   <div w-nodev>
    <p id="fullscreen-logic">To determine whether a <code>Document</code> object <var>document</var>
-   is <dfn data-export="">allowed to use</dfn> the feature indicated by attribute name
-   <var>allowattribute</var>, run these steps:</p>
+   is <dfn data-export="">allowed to use</dfn> the policy-controlled-feature <var>feature</var>,
+   run these steps:</p>
 
    <ol>
     <li><p>If <var>document</var> has no <span data-x="concept-document-bc">browsing context</span>,
@@ -587,117 +620,24 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
     <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span>'s
     <span>active document</span> is not <var>document</var>, then return false.</p></li>
 
-    <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> is a
-    <span>top-level browsing context</span>, then return true.</p></li>
-
-    <li>
-     <p>If <var>allowattribute</var> is <code
-     data-x="attr-iframe-allowfullscreen">allowfullscreen</code>, then:</p>
-
-     <ol>
-      <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has
-      a <span>browsing context container</span> that is an <code>iframe</code> element with an
-      <var>allowattribute</var> attribute specified, and whose <span>node document</span> is
-      <span>allowed to use</span> the feature indicated by <var>allowattribute</var>, then return
-      true.</p></li>
-     </ol>
-
-     <p class="big-issue">This step is legacy behavior for the <code
-     data-x="attr-iframe-allowfullscreen">allowfullscreen</code> attribute that should not be used
-     for new features. If possible this will be removed, see <a
-     href="https://github.com/whatwg/html/issues/2143#issuecomment-265514585">issue 2143</a>.</p>
-    </li>
-
-    <li>
-     <p>Otherwise:</p>
-
-     <ol>
-      <li><p>If <var>document</var> has the <var><var>allowattribute</var> flag</var> set, and
-      <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has a
-      <span>browsing context container</span> that is an <code>iframe</code> element whose
-      <span>node document</span> is <span>allowed to use</span> the feature indicated by
-      <var>allowattribute</var>, then return true.</p></li>
-     </ol>
-    </li>
+    <li><p>If the result of running <span data-x="is-feature-enabled">Is feature enabled in document
+    for origin</span> on <var>feature</var>, <var>document</var>, and <var>document</var>'s
+    <span>origin</span> is "<code data-x="">Enabled</code>", then return true.</p></li>
 
     <li><p>Return false.</p></li>
    </ol>
-
-   <p>To <dfn>set the allow* flags</dfn> for a <code>Document</code> <var>document</var> means to
-   run these steps:</p>
-
-   <ol>
-    <li>
-     <p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has a
-     <span>browsing context container</span> whose <span>node document</span>'s <span>origin</span>
-     is <span>same origin-domain</span> with <var>document</var>'s <span>origin</span>, then set the
-     <var>allowpaymentrequest flag</var> and the <var>allowusermedia flag</var> on
-     <var>document</var>, and return.</p>
-
-     <p class="note">If <code data-x="dom-document-domain">document.domain</code> has been used for
-     the <span>browsing context container</span>'s <span>node document</span>, then its
-     <span>origin</span> cannot be <span>same origin-domain</span> with <var>document</var>'s
-     <span>origin</span>, because these steps run when <var>document</var> is initialized so it
-     cannot itself yet have used <code data-x="dom-document-domain">document.domain</code>. Note
-     that this is less permissive compared to doing a <span>same origin</span> check instead.</p>
-
-     <div class="example">
-      <p>In this example, the child document is not allowed to use <code>PaymentRequest</code>,
-      despite being <span>same origin-domain</span> at the time the child document tries to use it.
-      At the time the child document is initialized, only the parent document has set <code
-      data-x="dom-document-domain">document.domain</code>, and the child document has not.</p>
-
-      <pre>&lt;!-- https://foo.example.com/a.html -->
-&lt;!doctype html>
-&lt;script>
- document.domain = 'example.com';
-&lt;/script>
-&lt;iframe src=b.html>&lt;/iframe></pre>
-
-      <pre>&lt;!-- https://bar.example.com/b.html -->
-&lt;!doctype html>
-&lt;script>
- document.domain = 'example.com'; // This happens after the document is initialized
- new PaymentRequest(&hellip;); // Not allowed to use
-&lt;/script></pre>
-     </div>
-
-     <div class="example">
-      <p>In this example, the child document <em>is</em> allowed to use <code>PaymentRequest</code>,
-      despite not being <span>same origin-domain</span> at the time the child document tries to use
-      it. At the time the child document is initialized, none of the documents have set <code
-      data-x="dom-document-domain">document.domain</code> yet so <span>same origin-domain</span>
-      falls back to a normal <span>same origin</span> check.</p>
-
-      <pre>&lt;!-- https://example.com/a.html -->
-&lt;!doctype html>
-&lt;iframe src=b.html>&lt;/iframe>
-&lt;!-- The child document is now initialized, before the script below is run. -->
-&lt;script>
- document.domain = 'example.com';
-&lt;/script></pre>
-
-      <pre>&lt;!-- https://example.com/b.html -->
-&lt;!doctype html>
-&lt;script>
- new PaymentRequest(&hellip;); // Allowed to use
-&lt;/script></pre>
-     </div>
-    </li>
-
-    <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> has a
-    <span>browsing context container</span> that is an <code>iframe</code> element, let
-    <var>iframe</var> be that element. Otherwise, return.</p></li>
-
-    <li><p>If <var>iframe</var> has an <code
-    data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code> attribute specified, then
-    set the <var>allowpaymentrequest flag</var> on <var>document</var>.</p></li>
-
-    <li><p>If <var>iframe</var> has an <code
-    data-x="attr-iframe-allowusermedia">allowusermedia</code> attribute specified, then set the
-    <var>allowusermedia flag</var> on <var>document</var>.</p></li>
-   </ol>
   </div>
+
+  <p class="warning">Because they only influence the <span
+  data-x="concept-document-feature-policy">feature policy</span> of the <span>nested browsing
+  context</span>'s <span>active document</span>, the <code data-x="attr-iframe-allow">allow</code>,
+  <code data-x="attr-iframe-allowfullscreen">allowfullscreen</code>, <code
+  data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code> and <code
+  data-x="attr-iframe-allowusermedia">allowusermedia</code> attributes only take effect when the
+  <span>nested browsing context</span> of the <code>iframe</code> is <span
+  data-x="navigate">navigated</span>. Adding or removing them has no effect on an already-loaded
+  document.</p>
+
 
   <hr> <!-- DIM ATTRIBUTES -->
 
@@ -731,8 +671,9 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
   <p>The IDL attributes <dfn><code data-x="dom-iframe-src">src</code></dfn>, <dfn><code
   data-x="dom-iframe-srcdoc">srcdoc</code></dfn>, <dfn><code
-  data-x="dom-iframe-name">name</code></dfn>,and <dfn><code
-  data-x="dom-iframe-sandbox">sandbox</code></dfn> must <span>reflect</span> the respective content
+  data-x="dom-iframe-name">name</code></dfn>, <dfn><code
+  data-x="dom-iframe-sandbox">sandbox</code></dfn>, and <dfn><code
+  data-x="dom-iframe-allow">allow</code></dfn> must <span>reflect</span> the respective content
   attributes of the same name.</p>
 
   <p>The <span data-x="concept-supported-tokens">supported tokens</span> for <code
@@ -772,8 +713,8 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    <p>Here is an example of a page using an <code>iframe</code> to include advertising from an
    advertising broker:</p>
 
-   <pre>&lt;iframe src="https://ads.example.com/?customerid=923513721&amp;amp;format=banner"
-        width="468" height="60">&lt;/iframe></pre>
+   <pre><code class="html" data-x="">&lt;iframe src="https://ads.example.com/?customerid=923513721&amp;amp;format=banner"
+        width="468" height="60">&lt;/iframe></code></pre>
 
   </div>
 

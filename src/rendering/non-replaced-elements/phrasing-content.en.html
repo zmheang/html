@@ -1,6 +1,6 @@
   <h4>Phrasing content</h4>
 
-  <pre class="css">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
 
 cite, dfn, em, i, var { font-style: italic; }
 b, strong { font-weight: bolder; }
@@ -36,16 +36,16 @@ q::after { content: close-quote; }
 <span data-x="" id="br-wbr-content">br { display-outside: newline; } /* <a href="#bidi-rendering">this also has bidi implications</a> */
 nobr { white-space: nowrap; }
 wbr { display-outside: break-opportunity; } /* <a href="#bidi-rendering">this also has bidi implications</a> */
-nobr wbr { white-space: normal; }</span></pre>
+nobr wbr { white-space: normal; }</span></code></pre>
 
   <p>The following rules are also expected to apply, as
   <span>presentational hints</span>:</p>
 
-  <pre class="css">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
 
 br[clear=left i] { clear: left; }
 br[clear=right i] { clear: right; }
-br[clear=all i], br[clear=both i] { clear: both; }</pre>
+br[clear=all i], br[clear=both i] { clear: both; }</code></pre>
 
   <p>For the purposes of the CSS ruby model, runs of children of <code>ruby</code> elements that are
   not <code>rt</code> or <code>rp</code> elements are expected to be wrapped in anonymous boxes

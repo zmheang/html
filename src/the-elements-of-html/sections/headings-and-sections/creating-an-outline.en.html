@@ -28,7 +28,7 @@
 
    <p>The following markup fragment:</p>
 
-   <pre>&lt;body>
+   <pre><code class="html" data-x="">&lt;body>
   &lt;hgroup id="document-title">
     &lt;h1>HTML&lt;/h1>
     &lt;h2>Living Standard — Last Updated 12 August 2016&lt;/h2>
@@ -38,7 +38,7 @@
   &lt;ol id=toc>...&lt;/ol>
   &lt;h2>First section&lt;/h2>
   &lt;p>Some intro to the first section.&lt;/p>
-&lt;/body></pre>
+&lt;/body></code></pre>
 
    <p>...results in the following outline being created for the <code>body</code> node (and thus the
    entire document):</p>
@@ -381,7 +381,7 @@
 
    <p>Consider the following snippet:</p>
 
-   <pre>&lt;body>
+   <pre><code class="html" data-x="">&lt;body>
  &lt;nav>
   &lt;p>&lt;a href="/">Home&lt;/a>&lt;/p>
  &lt;/nav>
@@ -389,7 +389,7 @@
  &lt;aside>
   &lt;p>My cat is cute.&lt;/p>
  &lt;/aside>
-&lt;/body></pre>
+&lt;/body></code></pre>
 
    <p>Although it contains no headings, this snippet has three sections: a document (the
    <code>body</code>) with two subsections (a <code>nav</code> and an <code>aside</code>). A user
@@ -416,7 +416,7 @@
    content</span> element or a <span>sectioning root</span> element), and the <var>enter</var> and <var>exit</var> arguments are callbacks that are called with
    the nodes as they are entered and exited. <ref spec=JAVASCRIPT></p>
 
-   <pre>function (root, enter, exit) {
+   <pre><code class="js" data-x="">function (root, enter, exit) {
   var node = root;
   start: while (node) {
     enter(node);
@@ -436,7 +436,7 @@
       }
     }
   }
-}</pre>
+}</code></pre>
 
   </div>
 

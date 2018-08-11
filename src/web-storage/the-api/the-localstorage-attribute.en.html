@@ -1,9 +1,9 @@
   <h4>The <code data-x="dom-localStorage">localStorage</code> attribute</h4>
 
-  <pre class="idl">interface mixin <dfn>WindowLocalStorage</dfn> {
+  <pre><code class="idl" data-x="">interface mixin <dfn>WindowLocalStorage</dfn> {
   readonly attribute <span>Storage</span> <span data-x="dom-localStorage">localStorage</span>;
 };
-<span>Window</span> includes <span>WindowLocalStorage</span>;</pre>
+<span>Window</span> includes <span>WindowLocalStorage</span>;</code></pre>
 
   <p>The <dfn><code data-x="dom-localStorage">localStorage</code></dfn> object provides a
   <code>Storage</code> object for an <span>origin</span>.
@@ -66,7 +66,7 @@
   exception or "do nothing" as defined above, then for every <code>Document</code> object whose
   <code>Window</code> object's <code data-x="dom-localStorage">localStorage</code> attribute's
   <code>Storage</code> object is associated with the same storage area, other than <var>x</var>,
-  <span w-nohtml>user agents</span> <span>send a storage notification</span>.
+  <span w-dev>user agents</span> <span>send a storage notification</span>.
 
   <p class="warning">The <code data-x="dom-localStorage">localStorage</code> attribute provides
   access to shared state. This specification does not define the interaction with other browsing

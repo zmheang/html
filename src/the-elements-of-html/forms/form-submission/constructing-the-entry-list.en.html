@@ -1,16 +1,16 @@
-  <h5 id="constructing-form-data-set">Constructing the form data set</h5>
+  <h5 id="constructing-form-data-set">Constructing the entry list</h5>
 
-  <p>The algorithm to <dfn data-x="constructing the form data set" data-export=""
-  data-lt="constructing the form data set">construct the form data set</dfn> given a
-  <var>form</var>, an optional <var>submitter</var>, and an optional <var>encoding</var>,
-  is as follows. If not specified otherwise, <var>submitter</var> is null.</p>
+  <p>The algorithm to <dfn id="constructing-the-form-data-set" data-export="" data-lt="constructing
+  the entry list" data-x="constructing the entry list">construct the entry list</dfn> given a
+  <var>form</var>, an optional <var>submitter</var>, and an optional <var>encoding</var>, is as
+  follows. If not specified otherwise, <var>submitter</var> is null.</p>
 
   <ol>
-
    <li><p>Let <var>controls</var> be a list of all the <span
    data-x="category-submit">submittable elements</span> whose <span>form owner</span> is <var>form</var>, in <span>tree order</span>.</p></li>
 
-   <li><p>Let the <var>form data set</var> be a list of name-value tuples, initially empty.</p></li>
+   <li><p>Let <var>entry list</var> be a new empty <span>list</span> of <span
+   data-x="formdata-entry">entries</span>.</p></li>
 
    <li>
     <p>For each element <var>field</var> in <var>controls</var>, in <span>tree order</span>:</p>
@@ -75,11 +75,11 @@
        user, and let <var>y</var> be the <var>y</var>-component of the coordinate
        selected by the user.</p></li>
 
-       <li><p><span data-x="append-an-entry">Append an entry</span> to the <var>form data set</var>
-       with <var>name<sub>x</sub></var> and <var>x</var>.</p></li>
+       <li><p><span>Append an entry</span> to <var>entry list</var> with <var>name<sub>x</sub></var>
+       and <var>x</var>.</p></li>
 
-       <li><p><span data-x="append-an-entry">Append an entry</span> to the <var>form data set</var>
-       with <var>name<sub>y</sub></var> and <var>y</var>.</p></li>
+       <li><p><span>Append an entry</span> to <var>entry list</var> with <var>name<sub>y</sub></var>
+       and <var>y</var>.</p></li>
 
        <li><p>Continue.</p></li>
       </ol>
@@ -92,9 +92,9 @@
      <code>option</code> element in the <code>select</code> element's <span
      data-x="concept-select-option-list">list of options</span> whose <span
      data-x="concept-option-selectedness">selectedness</span> is true and that is not <span
-     data-x="concept-option-disabled">disabled</span>,<span data-x="append-an-entry">append an
-     entry</span> to the <var>form data set</var> with <var>name</var> and the <span
-     data-x="concept-option-value">value</span> of the <code>option</code> element.</p></li>
+     data-x="concept-option-disabled">disabled</span>, <span>append an entry</span> to <var>entry
+     list</var> with <var>name</var> and the <span data-x="concept-option-value">value</span> of the
+     <code>option</code> element.</p></li>
 
      <li>
       <p>Otherwise, if the <var>field</var> element is an <code>input</code> element whose
@@ -108,28 +108,34 @@
        be the value of that attribute; otherwise, let <var>value</var> be the string "<code
        data-x="">on</code>".</p></li>
 
-       <li><p><span data-x="append-an-entry">Append an entry</span> to the <var>form data set</var>
-       with <var>name</var> and <var>value</var>.</p></li>
+       <li><p><span>Append an entry</span> to <var>entry list</var> with <var>name</var> and
+       <var>value</var>.</p></li>
       </ol>
      </li>
 
-     <li><p>Otherwise, if the <var>field</var> element is an <code>input</code> element whose <code
-     data-x="attr-input-type">type</code> attribute is in the <span
-     data-x="attr-input-type-file">File Upload</span> state, then for each file <span
-     data-x="concept-input-type-file-selected">selected</span> in the <code>input</code> element,
-     <span data-x="append-an-entry">append an entry</span> to the <var>form data set</var> with
-     <var>name</var> and the file (consisting of the file's name, type, and body). If there are no
-     <span data-x="concept-input-type-file-selected">selected files</span>, then <span
-     data-x="append-an-entry">append an entry</span> to the <var>form data set</var> with
-     <var>name</var> and a file with an empty name, <code>application/octet-stream</code> as type,
-     and an empty body.</p></li>
-     <!-- https://bugzilla.mozilla.org/show_bug.cgi?id=529859 -->
+     <li>
+      <p>Otherwise, if the <var>field</var> element is an <code>input</code> element whose <code
+      data-x="attr-input-type">type</code> attribute is in the <span
+      data-x="attr-input-type-file">File Upload</span> state, then:</p>
+
+      <ol>
+       <li><p>If there are no <span data-x="concept-input-type-file-selected">selected files</span>,
+       then <span>append an entry</span> to <var>entry list</var> with <var>name</var> and a new
+       <code>File</code> object with an empty name, <code>application/octet-stream</code> as type,
+       and an empty body.</p>
+       <!-- https://bugzilla.mozilla.org/show_bug.cgi?id=529859 -->
+
+       <li><p>Otherwise, for each file in <span data-x="concept-input-type-file-selected">selected
+       files</span>, <span>append an entry</span> to <var>entry list</var> with <var>name</var> and
+       a <code>File</code> object representing the file.</p>
+      </ol>
+     </li>
 
      <li><p>Otherwise, if the <var>field</var> element is an <code>object</code> element:
      try to obtain a form submission value from the <span>plugin</span><!-- using NPAPI's
      NPP_GetValue() entry point with the NPPVformValue variable -->, and if that is successful,
-     <span data-x="append-an-entry">append an entry</span> to the <var>form data set</var> with
-     <var>name</var> and the returned form submission value.</p></li>
+     <span>append an entry</span> to <var>entry list</var> with <var>name</var> and the returned
+     form submission value.</p></li>
 
      <li>
       <p>Otherwise, if the <var>field</var> element is an <code>input</code> element whose <code
@@ -142,17 +148,16 @@
        <var>encoding</var> if <var>encoding</var> is given, and "<code data-x="">UTF-8</code>"
        otherwise.</p></li>
 
-       <li><p><span data-x="append-an-entry">Append an entry</span> to the <var>form data set</var>
-       with <var>name</var> and <var>charset</var>.</p></li>
+       <li><p><span>Append an entry</span> to <var>entry list</var> with <var>name</var> and
+       <var>charset</var>.</p></li>
       </ol>
      </li>
 
      <li>
-      <p>Otherwise, if the <var>field</var> element is a <code>textarea</code> element,
-      <span data-x="append-an-entry">append an entry</span> to the <var>form data set</var> with
-      <var>name</var> and the <span data-x="concept-fe-value">value</span> of the <var>field</var>
-      element, and the <var>prevent line break normalization flag</var> set.
-      <p>
+      <p>Otherwise, if the <var>field</var> element is a <code>textarea</code> element, <span>append
+      an entry</span> to <var>entry list</var> with <var>name</var> and the <span
+      data-x="concept-fe-value">value</span> of the <var>field</var> element, and the <var>prevent
+      line break normalization flag</var> set.</p>
 
       <p class="note">In the case of the <span data-x="concept-fe-value">value</span> of
       <code>textarea</code> elements, the line break normalization is already performed during the
@@ -161,9 +166,8 @@
       line wrapping).</p>
      </li>
 
-     <li><p>Otherwise, <span data-x="append-an-entry">append an entry</span> to the <var>form data
-     set</var> with <var>name</var> and the <span data-x="concept-fe-value">value</span> of the
-     <var>field</var> element.</p></li>
+     <li><p>Otherwise, <span>append an entry</span> to <var>entry list</var> with <var>name</var>
+     and the <span data-x="concept-fe-value">value</span> of the <var>field</var> element.</p></li>
 
      <li>
       <p>If the element has a <code data-x="attr-fe-dirname">dirname</code> attribute, and that
@@ -178,8 +182,8 @@
        data-x="">rtl</code>" otherwise (i.e., when <span>the directionality</span> of the element is
        '<span data-x="concept-rtl">rtl</span>').</p></li>
 
-       <li><p><span data-x="append-an-entry">Append an entry</span> to the <var>form data set</var>
-       with <var>dirname</var> and <var>dir</var>.</p></li>
+       <li><p><span>Append an entry</span> to <var>entry list</var> with <var>dirname</var> and
+       <var>dir</var>.</p></li>
       </ol>
 
       <p class="note">An element can only have a <code data-x="attr-fe-dirname">dirname</code>
@@ -191,12 +195,12 @@
     </ol>
    </li>
 
-   <li><p>Return the <var>form data set</var>.</p></li>
+   <li><p>Return <var>entry list</var>.</p></li>
   </ol>
 
-  <p>To <dfn data-x="append-an-entry">append an entry</dfn> to <var>form data set</var>, given
-  <var>name</var>, <var>value</var>, and optional <var>prevent line break normalization flag</var>,
-  run these steps:</p>
+  <p>To <dfn>append an entry</dfn> to <var>entry list</var>, given <var>name</var>,
+  <var>value</var>, and optional <var>prevent line break normalization flag</var>, run these
+  steps:</p>
 
   <ol>
    <li><p>For <var>name</var>, replace every occurrence of U+000D (CR) not followed by U+000A (LF),
@@ -207,7 +211,7 @@
    scalar values</span>.</p></li>
 
    <li>
-    <p>If <var>value</var> is not a file, then:</p>
+    <p>If <var>value</var> is not a <code>File</code> object, then:</p>
 
     <ol>
      <li><p>If the <var>prevent line break normalization flag</var> is unset, then replace every
@@ -220,8 +224,8 @@
     </ol>
    </li>
 
-   <li><p>Create a tuple with <var>name</var> and <var>value</var>, and append it to <var>form data
-   set</var>.</p></li>
+   <li><p><span>Create an entry</span> with <var>name</var> and <var>value</var>, and <span
+   data-x="list append">append</span> it to <var>entry list</var>.</p></li>
   </ol>
 
   </div>

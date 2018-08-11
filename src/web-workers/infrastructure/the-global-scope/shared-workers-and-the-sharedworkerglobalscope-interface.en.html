@@ -1,13 +1,13 @@
   <h5>Shared workers and the <code subdfn>SharedWorkerGlobalScope</code> interface</h5>
 
-  <pre class="idl">[Global=(Worker,SharedWorker),Exposed=SharedWorker]
+  <pre><code class="idl" data-x="">[Global=(Worker,SharedWorker),Exposed=SharedWorker]
 interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   [Replaceable] readonly attribute DOMString <span data-x="dom-SharedWorkerGlobalScope-name">name</span>;
 
   void <span data-x="dom-SharedWorkerGlobalScope-close">close</span>();
 
   attribute <span>EventHandler</span> <span data-x="handler-SharedWorkerGlobalScope-onconnect">onconnect</span>;
-};</pre>
+};</code></pre>
 
   <div w-nodev>
 

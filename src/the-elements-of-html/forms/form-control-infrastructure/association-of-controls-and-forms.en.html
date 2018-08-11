@@ -119,7 +119,7 @@
 
    <p>In the following non-conforming snippet:</p>
 
-   <pre class="bad">...
+   <pre class="bad"><code class="html" data-x="">...
  &lt;form id="a">
   &lt;div id="b">&lt;/div>
  &lt;/form>
@@ -128,7 +128,7 @@
      '&lt;table>&lt;tr>&lt;td>&lt;/form>&lt;form id="c">&lt;input id="d">&lt;/table>' +
      '&lt;input id="e">';
  &lt;/script>
-...</pre>
+...</code></pre>
 
    <p>The <span>form owner</span> of "d" would be the inner nested form "c", while the <span>form
    owner</span> of "e" would be the outer form "a".</p>

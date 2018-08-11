@@ -1,6 +1,6 @@
   <h5>The <code>PopStateEvent</code> interface</h5>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  Constructor(DOMString type, optional <span>PopStateEventInit</span> eventInitDict)]
 interface <dfn>PopStateEvent</dfn> : <span>Event</span> {
   readonly attribute any <span data-x="dom-PopStateEvent-state">state</span>;
@@ -8,7 +8,7 @@ interface <dfn>PopStateEvent</dfn> : <span>Event</span> {
 
 dictionary <dfn>PopStateEventInit</dfn> : <span>EventInit</span> {
   any state = null;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 

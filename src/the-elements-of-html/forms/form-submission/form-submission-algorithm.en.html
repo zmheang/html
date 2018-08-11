@@ -55,8 +55,8 @@
    <li><p>Let <var>encoding</var> be the result of <span>picking an encoding for the
    form</span>.</p>
 
-   <li><p>Let <var>form data set</var> be the result of <span>constructing the form data
-   set</span> with <var>form</var>, <var>submitter</var>, and <var>encoding</var>.</p></li>
+   <li><p>Let <var>entry list</var> be the result of <span>constructing the entry list</span> with
+   <var>form</var>, <var>submitter</var>, and <var>encoding</var>.</p></li>
 
    <li><p>Let <var>action</var> be the <var>submitter</var> element's <span
    data-x="concept-fs-action">action</span>.</p></li>
@@ -204,8 +204,8 @@
      <dd>
 
       <p>Let <var>query</var> be the result of running the
-      <span><code>application/x-www-form-urlencoded</code> serializer</span> with <var>form data
-      set</var> and <var>encoding</var>.</p>
+      <span><code>application/x-www-form-urlencoded</code> serializer</span> with <var>entry
+      list</var> and <var>encoding</var>.</p>
 
       <p>Set <var>parsed action</var>'s <span data-x="concept-url-query">query</span>
       component to <var>query</var>.</p>
@@ -223,8 +223,8 @@
 
        <dd>
         <p>Let <var>body</var> be the result of running the
-        <span><code>application/x-www-form-urlencoded</code> serializer</span> with <var>form
-        data set</var> and <var>encoding</var>.</p>
+        <span><code>application/x-www-form-urlencoded</code> serializer</span> with <var>entry
+        list</var> and <var>encoding</var>.</p>
 
         <p>Set <var>body</var> to the result of <span data-x="UTF-8 encode">encoding</span>
         <var>body</var>.</p>
@@ -236,7 +236,7 @@
 
        <dd>
         <p>Let <var>body</var> be the result of running the <span><code
-        data-x="">multipart/form-data</code> encoding algorithm</span> with <var>form data set</var>
+        data-x="">multipart/form-data</code> encoding algorithm</span> with <var>entry list</var>
         and <var>encoding</var>.</p>
 
         <p>Let <var>MIME type</var> be the concatenation of the string "<code
@@ -250,7 +250,7 @@
 
        <dd>
         <p>Let <var>body</var> be the result of running the <span><code data-x="">text/plain</code>
-        encoding algorithm</span> with <var>form data set</var>.</p>
+        encoding algorithm</span> with <var>entry list</var>.</p>
 
         <p>Set <var>body</var> to the result of <span data-x="encode">encoding</span>
         <var>body</var> using <var>encoding</var>.</p>
@@ -273,15 +273,15 @@
 
       <p><span>Plan to navigate</span> to <var>parsed action</var>.</p>
 
-      <p class="note">The <var>form data set</var> is discarded.</p>
+      <p class="note"><var>entry list</var> is discarded.</p>
 
      </dd>
 
      <dt><dfn data-x="submit-mailto-headers">Mail with headers</dfn>
      <dd>
       <p>Let <var>headers</var> be the result of running the
-      <span><code>application/x-www-form-urlencoded</code> serializer</span> with <var>form data
-      set</var> and <var>encoding</var>.</p>
+      <span><code>application/x-www-form-urlencoded</code> serializer</span> with <var>entry
+      list</var> and <var>encoding</var>.</p>
 
       <p>Replace occurrences of U+002B PLUS SIGN characters (+) in <var>headers</var> with
       the string "<code data-x="">%20</code>".</p>
@@ -301,7 +301,7 @@
 
        <dd>
         <p>Let <var>body</var> be the result of running the <span><code data-x="">text/plain</code>
-        encoding algorithm</span> with <var>form data set</var>.</p>
+        encoding algorithm</span> with <var>entry list</var>.</p>
 
         <p>Set <var>body</var> to the result of concatenating the result of <span data-x="UTF-8
         percent encode">UTF-8 percent encoding</span> each code point in <var>body</var>, using the
@@ -311,8 +311,8 @@
        <dt>Otherwise</dt>
 
        <dd><p>Let <var>body</var> be the result of running the
-       <span><code>application/x-www-form-urlencoded</code> serializer</span> with <var>form data
-       set</var> and <var>encoding</var>.</p></dd>
+       <span><code>application/x-www-form-urlencoded</code> serializer</span> with <var>entry
+       list</var> and <var>encoding</var>.</p></dd>
       </dl>
 
       <p>If <var>parsed action</var>'s <span data-x="concept-url-query">query</span> is null, then

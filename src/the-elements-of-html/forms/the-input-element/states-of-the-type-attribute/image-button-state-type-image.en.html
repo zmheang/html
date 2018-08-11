@@ -13,11 +13,10 @@
   the form. The element is a <span data-x="concept-button">button</span>, specifically a <span
   data-x="concept-submit-button">submit button</span>.</p>
 
-  <p class="note">The coordinate is sent to the server <span data-x="constructing the form data
-  set">during form submission</span> by sending two entries for the element, derived from the name
-  of the control but with "<code data-x="">.x</code>" and "<code data-x="">.y</code>" appended to the
-  name with the <var>x</var> and <var>y</var> components of the coordinate
-  respectively.</p>
+  <p class="note">The coordinate is sent to the server <span data-x="constructing the entry
+  list">during form submission</span> by sending two entries for the element, derived from the name
+  of the control but with "<code data-x="">.x</code>" and "<code data-x="">.y</code>" appended to
+  the name with the <var>x</var> and <var>y</var> components of the coordinate respectively.</p>
 
   <hr>
 
@@ -257,9 +256,9 @@
 
    <p>Take the following form:</p>
 
-   <pre>&lt;form action="process.cgi">
+   <pre><code class="html" data-x="">&lt;form action="process.cgi">
  &lt;input type=image src=map.png name=where alt="Show location list">
-&lt;/form></pre>
+&lt;/form></code></pre>
 
    <p>If the user clicked on the image at coordinate (127,40) then the URL used to submit the form
    would be "<code data-x="">process.cgi?where.x=127&amp;where.y=40</code>".</p>

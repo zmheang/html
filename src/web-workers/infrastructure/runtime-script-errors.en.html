@@ -2,7 +2,7 @@
 
   <p>Whenever an uncaught runtime script error occurs in one of the worker's scripts, if the error
   did not occur while handling a previous script error, the user agent <span w-nodev>must</span>
-  <span w-nohtml>will</span> <span>report the error</span> for that <span
+  <span w-dev>will</span> <span>report the error</span> for that <span
   data-x="concept-script">script</span>, with the position (line number and column number) where the
   error occurred, using the <code>WorkerGlobalScope</code> object as the target.</p>
 
@@ -10,10 +10,10 @@
   afterwards, the error may be reported to a developer console.</p>
 
   <p>For dedicated workers, if the error is still <i data-x="concept-error-nothandled">not
-  handled</i> afterwards, <span w-nohtml>the error report propagates to the <code>Worker</code>
-  object, then to any containing workers in the same fashion, eventually reaching the
-  <code>Window</code> if it was never handled along the way.</span><span w-nodev>the user agent must
-  <span>queue a task</span> to run these steps:</span></p>
+  handled</i> afterwards, <span w-dev>the error report propagates to the <code>Worker</code> object,
+  then to any containing workers in the same fashion, eventually reaching the <code>Window</code> if
+  it was never handled along the way.</span><span w-nodev>the user agent must <span>queue a
+  task</span> to run these steps:</span></p>
 
   <div w-nodev>
 
@@ -41,8 +41,8 @@
 
   </div>
 
-  <p class="note"><span w-nodev>Thus, error</span><span w-nohtml>Error</span> reports propagate up
-  to the chain of dedicated workers up to the original <code>Document</code>, even if some of the
+  <p class="note"><span w-nodev>Thus, error</span><span w-dev>Error</span> reports propagate up to
+  the chain of dedicated workers up to the original <code>Document</code>, even if some of the
   workers along this chain have been terminated and garbage collected.</p>
 
   <p w-nodev>The <span>task source</span> for the task mentioned above is the <span>DOM manipulation

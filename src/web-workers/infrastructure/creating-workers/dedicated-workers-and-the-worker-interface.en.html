@@ -1,6 +1,6 @@
   <h5>Dedicated workers and the <code subdfn>Worker</code> interface</h5>
 
-  <pre class="idl">[<span data-x="dom-Worker">Constructor</span>(USVString scriptURL, optional <span>WorkerOptions</span> options), Exposed=(Window,Worker)]
+  <pre><code class="idl" data-x="">[<span data-x="dom-Worker">Constructor</span>(USVString scriptURL, optional <span>WorkerOptions</span> options), Exposed=(Window,Worker)]
 interface <dfn>Worker</dfn> : <span>EventTarget</span> {
   void <span data-x="dom-Worker-terminate">terminate</span>();
 
@@ -17,7 +17,7 @@ dictionary <dfn>WorkerOptions</dfn> {
 
 enum <dfn>WorkerType</dfn> { "classic", "module" };
 
-<span>Worker</span> includes <span>AbstractWorker</span>;</pre>
+<span>Worker</span> includes <span>AbstractWorker</span>;</code></pre>
 
   <dl class="domintro">
    <dt><var>worker</var> = new <code subdfn data-x="dom-Worker">Worker</code>(<var>scriptURL</var> [, <var>options</var> ])</dt>
@@ -64,7 +64,7 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
    <p>The <code data-x="dom-Worker-postMessage">postMessage()</code>
    method's first argument can be structured data:</p>
 
-   <pre>worker.postMessage({opcode: 'activate', device: 1938, parameters: [23, 102]});</pre>
+   <pre><code class="js" data-x="">worker.postMessage({opcode: 'activate', device: 1938, parameters: [23, 102]});</code></pre>
 
   </div>
 

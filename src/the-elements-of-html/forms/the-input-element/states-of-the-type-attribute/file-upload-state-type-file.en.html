@@ -141,7 +141,7 @@
    Format files. Since Microsoft Word documents are described with a wide variety of MIME types and
    extensions, the site can list several, as follows:</p>
 
-   <pre>&lt;input type="file" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></pre>
+   <pre><code class="html" data-x="">&lt;input type="file" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></code></pre>
 
    <p>On platforms that only use file extensions to describe file types, the extensions listed here
    can be used to filter the allowed documents, while the MIME types can be used with the system's
@@ -171,7 +171,7 @@
    backwards-compatible way is non-trivial. The following function extracts the file name in a
    suitably compatible manner:</p>
 
-   <pre>function extractFilename(path) {
+   <pre><code class="js" data-x="">function extractFilename(path) {
   if (path.substr(0, 12) == "C:\\fakepath\\")
     return path.substr(12); // modern browser
   var x;
@@ -182,18 +182,18 @@
   if (x >= 0) // Windows-based path
     return path.substr(x+1);
   return path; // just the file name
-}</pre>
+}</code></pre>
 
    <p>This can be used as follows:</p>
 
-   <pre>&lt;p>&lt;input type=file name=image onchange="updateFilename(this.value)">&lt;/p>
+   <pre><code class="html" data-x="">&lt;p>&lt;input type=file name=image onchange="updateFilename(this.value)">&lt;/p>
 &lt;p>The name of the file you picked is: &lt;span id="filename">(none)&lt;/span>&lt;/p>
 &lt;script>
  function updateFilename(path) {
    var name = extractFilename(path);
    document.getElementById('filename').textContent = name;
  }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <!-- How useful this actually is... is unclear. -->
 

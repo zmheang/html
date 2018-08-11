@@ -14,13 +14,13 @@
    <dd>If the element is not a child of an <code>ul</code> or <code>menu</code> element: <code data-x="attr-li-value">value</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[Exposed=Window,
+<pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute long <span data-x="dom-li-value">value</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLLIElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLLIElement</code>.</dd>
   </dl>
 
   <p>The <code>li</code> element <span>represents</span> a list item. If its parent element is an
@@ -108,11 +108,11 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
    correspond to its <span>ordinal value</span>; it simply <span data-x="reflect">reflects</span>
    the content attribute. For example, given this list:
 
-   <pre>&lt;ol>
+   <pre><code class="html" data-x="">&lt;ol>
  &lt;li>Item 1
  &lt;li value="3">Item 3
  &lt;li>Item 4
-&lt;/ol></pre>
+&lt;/ol></code></pre>
 
    <p>The <span data-x="ordinal value">ordinal values</span> are 1, 3, and 4, whereas the <code
    data-x="dom-li-value">value</code> IDL attributes return 0, 3, 0 on getting.</p>
@@ -126,7 +126,7 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
    is given a title by using a <code>figure</code> element and its <code>figcaption</code>
    element.</p>
 
-   <pre>&lt;figure>
+   <pre><code class="html" data-x="">&lt;figure>
  &lt;figcaption>The top 10 movies of all time&lt;/figcaption>
  &lt;ol>
   &lt;li value="10">&lt;cite>Josie and the Pussycats&lt;/cite>, 2001&lt;/li>
@@ -140,12 +140,12 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
   &lt;li value="2">&lt;cite>The Incredibles&lt;/cite>, 2004&lt;/li>
   &lt;li value="1">&lt;cite>Ratatouille&lt;/cite>, 2007&lt;/li>
  &lt;/ol>
-&lt;/figure></pre>
+&lt;/figure></code></pre>
 
    <p>The markup could also be written as follows, using the <code
    data-x="attr-ol-reversed">reversed</code> attribute on the <code>ol</code> element:</p>
 
-   <pre>&lt;figure>
+   <pre><code class="html" data-x="">&lt;figure>
  &lt;figcaption>The top 10 movies of all time&lt;/figcaption>
  &lt;ol reversed>
   &lt;li>&lt;cite>Josie and the Pussycats&lt;/cite>, 2001&lt;/li>
@@ -159,7 +159,7 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
   &lt;li>&lt;cite>The Incredibles&lt;/cite>, 2004&lt;/li>
   &lt;li>&lt;cite>Ratatouille&lt;/cite>, 2007&lt;/li>
  &lt;/ol>
-&lt;/figure></pre>
+&lt;/figure></code></pre>
   </div>
 
   <p class="note">While it is conforming to include heading elements (e.g. <code>h1</code>) inside

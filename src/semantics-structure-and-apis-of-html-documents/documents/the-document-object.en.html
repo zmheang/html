@@ -3,7 +3,7 @@
   <p>The WHATWG DOM standard defines a <code data-x="DOM Document">Document</code> interface, which
   this specification extends significantly.</p>
 
-  <pre class="idl">enum <dfn>DocumentReadyState</dfn> { "loading", "interactive", "complete" };
+  <pre><code class="idl" data-x="">enum <dfn>DocumentReadyState</dfn> { "loading", "interactive", "complete" };
 typedef (<span>HTMLScriptElement</span> or <span>SVGScriptElement</span>) <dfn>HTMLOrSVGScriptElement</dfn>;
 
 [OverrideBuiltins]
@@ -33,7 +33,7 @@ partial interface <dfn id="document" data-lt="">Document</dfn> {
 
   // <span>dynamic markup insertion</span>
   [<span>CEReactions</span>] <span>Document</span> <span data-x="dom-document-open">open</span>(optional DOMString type, optional DOMString replace = ""); // type is ignored
-  <span>WindowProxy</span> <span data-x="dom-document-open">open</span>(USVString url, DOMString name, DOMString features);
+  <span>WindowProxy</span> <span data-x="dom-document-open-window">open</span>(USVString url, DOMString name, DOMString features);
   [<span>CEReactions</span>] void <span data-x="dom-document-close">close</span>();
   [<span>CEReactions</span>] void <span data-x="dom-document-write">write</span>(DOMString... text);
   [<span>CEReactions</span>] void <span data-x="dom-document-writeln">writeln</span>(DOMString... text);
@@ -54,7 +54,7 @@ partial interface <dfn id="document" data-lt="">Document</dfn> {
   [LenientThis] attribute <span>EventHandler</span> <span data-x="handler-onreadystatechange">onreadystatechange</span>;
 };
 <span>Document</span> includes <span>GlobalEventHandlers</span>;
-<span>Document</span> includes <span>DocumentAndElementEventHandlers</span>;</pre>
+<span>Document</span> includes <span>DocumentAndElementEventHandlers</span>;</code></pre>
 
   <p>The <code>Document</code> has an <dfn data-x="concept-document-https-state" data-export=""
   data-dfn-for="Document">HTTPS state</dfn> (an <span>HTTPS state value</span>), initially "<code
@@ -70,6 +70,10 @@ partial interface <dfn id="document" data-lt="">Document</dfn> {
   data-dfn-for="Document">CSP list</dfn>, which is a <span data-x="concept-csp-list">CSP list</span>
   containing all of the <span>Content Security Policy</span> objects active for the document. The
   list is empty unless otherwise specified.</p>
+
+  <p>The <code>Document</code> has a <dfn data-x="concept-document-feature-policy" data-export=""
+  data-dfn-for="Document">feature policy</dfn>, which is a <span
+  data-x="concept-feature-policy">feature policy</span>, which is initially empty.</p>
 
   <p>The <code>Document</code> has a <dfn data-dfn-for="Document"
   data-x="concept-document-module-map">module map</dfn>, which is a <span>module map</span>,

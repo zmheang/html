@@ -86,20 +86,20 @@
 
   <ol>
 
-   <li><p>Let <var>the specified rectangle</var> be the rectangle of the bounding box of
-   the intended path.</p></li>
+   <li><p>Let <var>specifiedRectangle</var> be the rectangle of the bounding box of the intended
+   path.</p></li>
 
-   <li><p>Let <var>notional child</var> be a hypothetical element that is a rendered child
-   of the <code>canvas</code> element whose dimensions are those of <var>the specified
-   rectangle</var>.</p></li>
+   <li><p>Let <var>notionalChild</var> be a hypothetical element that is a rendered child of the
+   <code>canvas</code> element whose dimensions are those of <var>specifiedRectangle</var>.</p></li>
 
-   <li><p><span data-x="scroll an element into view">Scroll <var>notional child</var> into
-   view</span> with the <var>align to top flag</var> set.</p>
+   <li><p><span data-x="scroll an element into view">Scroll <var>notionalChild</var> into
+   view</span> with <var>behavior</var> set to "auto", <var>block</var> set to "start", and
+   <var>inline</var> set to "nearest".</p>
 
    <li><p>Optionally, <a href="#inform">inform the user</a> that the caret or selection (or both)
-   cover <var>the specified rectangle</var> of the canvas. The user agent may wait until the next
-   time the <span>event loop</span> reaches its <span>update the rendering</span> step to
-   optionally inform the user.</p></li>
+   cover <var>specifiedRectangle</var> of the canvas. The user agent may wait until the next time
+   the <span>event loop</span> reaches its <span>update the rendering</span> step to optionally
+   inform the user.</p></li>
 
   </ol>
 

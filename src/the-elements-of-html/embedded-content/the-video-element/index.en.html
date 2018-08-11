@@ -31,7 +31,7 @@
    <dd><code data-x="attr-dim-height">height</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-dim-width">width</span>;
@@ -40,9 +40,9 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   readonly attribute unsigned long <span data-x="dom-video-videoHeight">videoHeight</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-video-poster">poster</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-video-playsInline">playsInline</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLVideoElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLVideoElement</code>.</dd>
   </dl>
 
   <p>A <code>video</code> element is used for playing videos or movies, and audio files with
@@ -337,7 +337,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
    <p>This example shows how to detect when a video has failed to play correctly:</p>
 
-   <pre>&lt;script>
+   <pre><code class="html" data-x="">&lt;script>
  function failed(e) {
    // video playback failed - show a message saying why
    switch (e.target.error.code) {
@@ -360,7 +360,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
  }
 &lt;/script>
 &lt;p>&lt;video src="tgif.vid" autoplay controls onerror="failed(event)">&lt;/video>&lt;/p>
-&lt;p>&lt;a href="tgif.vid">Download the video file&lt;/a>.&lt;/p></pre>
+&lt;p>&lt;a href="tgif.vid">Download the video file&lt;/a>.&lt;/p></code></pre>
 
   </div>
 

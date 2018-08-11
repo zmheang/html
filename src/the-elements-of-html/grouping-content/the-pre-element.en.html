@@ -12,11 +12,11 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
-interface <dfn>HTMLPreElement</dfn> : <span>HTMLElement</span> {};</pre>
+interface <dfn>HTMLPreElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLPreElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLPreElement</code>.</dd>
   </dl>
 
   <p>The <code>pre</code> element <span>represents</span> a block of preformatted text, in which
@@ -60,12 +60,12 @@ interface <dfn>HTMLPreElement</dfn> : <span>HTMLElement</span> {};</pre>
 
    <p>In the following snippet, a sample of computer code is presented.</p>
 
-   <pre>&lt;p>This is the &lt;code>Panel&lt;/code> constructor:&lt;/p>
+   <pre><code class="html" data-x="">&lt;p>This is the &lt;code>Panel&lt;/code> constructor:&lt;/p>
 &lt;pre>&lt;code>function Panel(element, canClose, closeHandler) {
   this.element = element;
   this.canClose = canClose;
   this.closeHandler = function () { if (closeHandler) closeHandler() };
-}&lt;/code>&lt;/pre></pre>
+}&lt;/code>&lt;/pre></code></pre>
 
   </div>
 
@@ -74,7 +74,7 @@ interface <dfn>HTMLPreElement</dfn> : <span>HTMLElement</span> {};</pre>
    <p>In the following snippet, <code>samp</code> and <code>kbd</code> elements are mixed in the
    contents of a <code>pre</code> element to show a session of Zork I.</p>
 
-   <pre>&lt;pre>&lt;samp>You are in an open field west of a big white house with a boarded
+   <pre><code class="html" data-x="">&lt;pre>&lt;samp>You are in an open field west of a big white house with a boarded
 front door.
 There is a small mailbox here.
 
@@ -83,7 +83,7 @@ There is a small mailbox here.
 &lt;samp>Opening the mailbox reveals:
 A leaflet.
 
->&lt;/samp>&lt;/pre></pre>
+>&lt;/samp>&lt;/pre></code></pre>
 
   </div>
 
@@ -92,7 +92,7 @@ A leaflet.
    <p>The following shows a contemporary poem that uses the <code>pre</code> element to preserve its
    unusual formatting, which forms an intrinsic part of the poem itself.</p>
 
-   <pre>&lt;pre>                maxling
+   <pre><code class="html" data-x="">&lt;pre>                maxling
 
 it is with a          heart
                heavy
@@ -104,7 +104,7 @@ a friend lost to the
         unknown
                                 (night)
 
-~cdr 11dec07&lt;/pre></pre>
+~cdr 11dec07&lt;/pre></code></pre>
 
   </div>
 

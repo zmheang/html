@@ -49,7 +49,7 @@
    <dd>Also, the <code data-x="attr-input-title">title</code> attribute <span data-x="attr-input-title">has special semantics</span> on this element.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-input-accept">accept</span>;
@@ -109,9 +109,9 @@ interface <dfn>HTMLInputElement</dfn> : <span>HTMLElement</span> {
   void <span data-x="dom-textarea/input-setRangeText">setRangeText</span>(DOMString replacement);
   void <span data-x="dom-textarea/input-setRangeText">setRangeText</span>(DOMString replacement, unsigned long start, unsigned long end, optional <span>SelectionMode</span> selectionMode = "preserve");
   void <span data-x="dom-textarea/input-setSelectionRange">setSelectionRange</span>(unsigned long start, unsigned long end, optional DOMString direction);
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLInputElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLInputElement</code>.</dd>
   </dl>
 
   <p>The <code>input</code> element <span>represents</span> a typed data field, usually with a form

@@ -1,17 +1,24 @@
   <h5>Integration with the JavaScript agent formalism</h5>
 
-  <p>JavaScript defines the concept of an <span>agent</span>. Until such a time that this standard
-  has a better handle on lifetimes, we define five types of <span data-x="agent">agents</span> that
-  user agents must allocate at the appropriate time.</p>
-
-  <p class="note">In the future, when this specification has a better handle on lifetimes, we hope
-  to define exactly when <span data-x="agent">agents</span> and <span data-x="agent cluster">agent
-  clusters</span> are created.</p>
+  <p>JavaScript defines the concept of an <span>agent</span>. This section gives the mapping of that
+  language-level concept on to the web platform.</p>
 
   <p class="&#x0058;&#x0058;&#x0058;">JavaScript is expected to define <span
   data-x="agent">agents</span> in more detail; in particular that they hold a set of <span
   data-x="concept-global-object-realm">realms</span>: <a
   href="https://github.com/tc39/ecma262/issues/882">tc39/ecma262 issue #882</a>.</p>
+
+  <p class="note">Conceptually, the <span>agent</span> concept is an architecture-independent,
+  idealized "thread" in which JavaScript code runs. Such code can involve multiple globals/<span
+  data-x="concept-global-object-realm">realms</span> that can synchronously access each other, and
+  thus need to run in a single execution thread.</p>
+
+  <p>Until such a time that this standard has a better handle on lifetimes, it defines five types of
+  <span data-x="agent">agents</span> that user agents must allocate at the appropriate time.</p>
+
+  <p class="note">In the future, this standard hopes to define exactly when <span
+  data-x="agent">agents</span> and <span data-x="agent cluster">agent clusters</span> are
+  created.</p>
 
   <dl>
    <dt><dfn data-export="">Similar-origin window agent</dfn></dt>
@@ -49,8 +56,8 @@
     data-x="JavaScript realm">realms</span> consists of a single <code>WorkletGlobalScope</code>
     object's <span data-x="concept-global-object-realm">Realm</span>.</p>
 
-    <p class="note">While conceptually it might be cleaner for worklets that end up with multiple
-    realms to put all those in the same agent, it is not observable in practice.</p>
+    <p class="note">Although a given worklet can have multiple realms, each such realm needs its own
+    agent, as each realm can be executing code independently and at the same time as the others.</p>
    </dd>
   </dl>
 

@@ -2,7 +2,7 @@
 
   <!-- v2: we're on v5. suggestions for subsequent versions are marked v6, v7, v8. -->
 
-  <pre class="idl">typedef (<span>HTMLImageElement</span> or
+  <pre><code class="idl" data-x="">typedef (<span>HTMLImageElement</span> or
          <span>SVGImageElement</span>) <dfn>HTMLOrSVGImageElement</dfn>;
 
 typedef (<span>HTMLOrSVGImageElement</span> or
@@ -128,7 +128,6 @@ interface mixin <dfn>CanvasDrawPath</dfn> {
   void <span data-x="dom-context-2d-stroke">stroke</span>(<span>Path2D</span> path);
   void <span data-x="dom-context-2d-clip">clip</span>(optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
   void <span data-x="dom-context-2d-clip">clip</span>(<span>Path2D</span> path, optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
-  void <span data-x="dom-context-2d-resetClip">resetClip</span>();
   boolean <span data-x="dom-context-2d-isPointInPath">isPointInPath</span>(unrestricted double x, unrestricted double y, optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
   boolean <span data-x="dom-context-2d-isPointInPath">isPointInPath</span>(<span>Path2D</span> path, unrestricted double x, unrestricted double y, optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
   boolean <span data-x="dom-context-2d-isPointInStroke">isPointInStroke</span>(unrestricted double x, unrestricted double y);
@@ -253,7 +252,7 @@ interface <dfn>ImageData</dfn> {
 interface <dfn>Path2D</dfn> {
   void <span data-x="dom-Path2D-addPath">addPath</span>(<span>Path2D</span> path, optional <span>DOMMatrix2DInit</span> transform);
 };
-<span>Path2D</span> includes <span>CanvasPath</span>;</pre>
+<span>Path2D</span> includes <span>CanvasPath</span>;</code></pre>
 
  <!-- ARC-ORDER note (see above):
       some demos rely on the precise order of the arc() and arcTo()
@@ -348,7 +347,7 @@ interface <dfn>Path2D</dfn> {
    unit for ease of integration with CSS) and is rendered as 100x100 <span data-x="'px'">CSS
    pixels</span>:
 
-   <pre>&lt;canvas width=200 height=200 style=width:100px;height:100px></pre>
+   <pre><code class="html" data-x="">&lt;canvas width=200 height=200 style=width:100px;height:100px></code></pre>
   </div>
 
   <hr>
@@ -418,13 +417,13 @@ interface <dfn>Path2D</dfn> {
 
   <div class="example">
    <p>Only one square appears to be drawn in the following example:</p>
-   <pre>// canvas is a reference to a &lt;canvas> element
+   <pre><code class="js" data-x="">// canvas is a reference to a &lt;canvas> element
 var context = canvas.getContext('2d');
 context.fillRect(0,0,50,50);
 canvas.setAttribute('width', '300'); // clears the canvas
 context.fillRect(0,100,50,50);
 canvas.width = canvas.width; // clears the canvas
-context.fillRect(100,0,50,50); // only this square remains</pre>
+context.fillRect(100,0,50,50); // only this square remains</code></pre>
   </div>
 
   <hr>

@@ -1,6 +1,6 @@
   <h5>The <code subdfn>WorkerGlobalScope</code> common interface</h5>
 
-  <pre class="idl">[Exposed=Worker]
+  <pre><code class="idl" data-x="">[Exposed=Worker]
 interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   readonly attribute <span>WorkerGlobalScope</span> <span data-x="dom-WorkerGlobalScope-self">self</span>;
   readonly attribute <span>WorkerLocation</span> <span data-x="dom-WorkerGlobalScope-location">location</span>;
@@ -13,7 +13,7 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-ononline">ononline</span>;
   attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onrejectionhandled">onrejectionhandled</span>;
   attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onunhandledrejection">onunhandledrejection</span>;
-};</pre>
+};</code></pre>
 
   <p><code>WorkerGlobalScope</code> serves as the base class for specific types of worker global
   scope objects, including <code>DedicatedWorkerGlobalScope</code>,

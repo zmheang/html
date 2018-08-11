@@ -15,14 +15,14 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLTableSectionElement</dfn> : <span>HTMLElement</span> {
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-tbody-rows">rows</span>;
   <span>HTMLTableRowElement</span> <span data-x="dom-tbody-insertRow">insertRow</span>(optional long index = -1);
   [<span>CEReactions</span>] void <span data-x="dom-tbody-deleteRow">deleteRow</span>(long index);
-};</pre>
-    <p><span w-nohtml>Uses <code>HTMLTableSectionElement</code>. </span>The
+};</code></pre>
+    <p><span w-dev>Uses <code>HTMLTableSectionElement</code>. </span>The
     <code>HTMLTableSectionElement</code> interface is also used for <code>thead</code> and
     <code>tfoot</code> elements.</p>
    </dd>

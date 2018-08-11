@@ -52,11 +52,11 @@
       <p>In the following example, the <code>area</code> element creates two shapes, one on each
       image. The <span>DOM anchor</span> of the first shape is the first <code>img</code> element, and the
       <span>DOM anchor</span> of the second shape is the second <code>img</code> element.</p>
-      <pre>&lt;map id=wallmap>&lt;area alt="Enter Door" coords="10,10,100,200" href="door.html">&lt;/map>
+      <pre><code class="html" data-x="">&lt;map id=wallmap>&lt;area alt="Enter Door" coords="10,10,100,200" href="door.html">&lt;/map>
 ...
 &lt;img src="images/innerwall.jpeg" alt="There is a white wall here, with a door." usemap="#wallmap">
 ...
-&lt;img src="images/outerwall.jpeg" alt="There is a red wall here, with a door." usemap="#wallmap"></pre>
+&lt;img src="images/outerwall.jpeg" alt="There is a red wall here, with a door." usemap="#wallmap"></code></pre>
      </div>
 
    <tbody>
@@ -130,8 +130,7 @@
 
   <p>One <span>focusable area</span> in each <code>Document</code> is designated the <dfn>focused
   area of the document</dfn>. Which control is so designated changes over time, based on algorithms
-  in this specification. If a <code>Document</code> has no <span>focusable area</span>, it has no
-  <span data-x="focused area of the document">focused area</span>.</p>
+  in this specification.</p>
   <!-- TODO(kochi): update "in a document tree" for shadow trees -->
 
   <p><span data-x="focusable area">Focusable areas</span> in a <code>Document</code>

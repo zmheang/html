@@ -211,12 +211,12 @@
    <code>svg</code></span>). However the getter will return null because the document element is not
    <code>html</code>.</p>
 
-   <pre>&lt;svg xmlns="http://www.w3.org/2000/svg">
+   <pre><code class="html" data-x="">&lt;svg xmlns="http://www.w3.org/2000/svg">
  &lt;script>
   document.body = document.createElementNS("http://www.w3.org/1999/xhtml", "body");
   console.assert(document.body === null);
  &lt;/script>
-&lt;/svg></pre>
+&lt;/svg></code></pre>
   </div>
 
   </div>

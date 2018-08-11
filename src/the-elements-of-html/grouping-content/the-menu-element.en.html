@@ -12,12 +12,12 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre class="idl">[Exposed=Window,
+<pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLMenuElement</dfn> : <span>HTMLElement</span> {
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLMenuElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLMenuElement</code>.</dd>
   </dl>
 
   <p>The <code>menu</code> element <span>represents</span> a toolbar consisting of its contents, in
@@ -31,11 +31,11 @@ interface <dfn>HTMLMenuElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, a text-editing application uses a <code>menu</code> element to provide a
    series of editing commands:</p>
 
-   <pre>&lt;menu>
+   <pre><code class="html" data-x="">&lt;menu>
  &lt;li>&lt;button onclick="copy()">&lt;img src="copy.svg" alt="Copy">&lt;/button>&lt;/li>
  &lt;li>&lt;button onclick="cut()">&lt;img src="cut.svg" alt="Cut">&lt;/button>&lt;/li>
  &lt;li>&lt;button onclick="paste()">&lt;img src="paste.svg" alt="Paste">&lt;/button>&lt;/li>
-&lt;/menu></pre>
+&lt;/menu></code></pre>
 
    <p>Note that the styling to make this look like a conventional toolbar menu is up to the
    application.</p>

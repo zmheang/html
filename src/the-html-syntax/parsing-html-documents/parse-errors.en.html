@@ -196,7 +196,7 @@
       <div class="example">
        <p>For example, consider the following markup:</p>
 
-       <pre>&lt;42>&lt;/42></pre>
+       <pre><code class="html" data-x="">&lt;42>&lt;/42></code></pre>
 
        <p>This will be parsed into:</p>
 
@@ -339,7 +339,7 @@
       <div class="example">
        <p>For example, consider the following markup:</p>
 
-       <pre>&lt;div/>&lt;span>&lt;/span>&lt;span>&lt;/span></pre>
+       <pre><code class="html" data-x="">&lt;div/>&lt;span>&lt;/span>&lt;span>&lt;/span></code></pre>
 
        <p>This will be parsed into:</p>
 
@@ -394,7 +394,7 @@
       <div class="example">
        <p>For example, consider the following markup:</p>
 
-       <pre>&lt;div foo&lt;div></pre>
+       <pre><code class="html" data-x="">&lt;div foo&lt;div></code></pre>
 
        <p>Due to a forgotten U+003E (>) code point after <code data-x="">foo</code> the parser
        treats this markup as a single <code>div</code> element with a "<code
@@ -402,7 +402,7 @@
 
        <p>As another example of this error, consider the following markup:</p>
 
-       <pre>&lt;div id'bar'></pre>
+       <pre><code class="html" data-x="">&lt;div id'bar'></code></pre>
 
        <p>Due to a forgotten U+003D (=) code point between an attribute name and value the parser
        treats this markup as a <code>div</code> element with the attribute "<code
@@ -426,7 +426,7 @@
       <div class="example">
        <p>For example, consider the following markup:</p>
 
-       <pre>&lt;div foo=b'ar'></pre>
+       <pre><code class="html" data-x="">&lt;div foo=b'ar'></code></pre>
 
        <p>Due to a misplaced U+0027 (') code point the parser sets the value of the "<code
        data-x="">foo</code>" attribute to "<code data-x="">b'ar'</code>".</p>
@@ -444,7 +444,7 @@
       <div class="example">
        <p>For example, consider the following markup:</p>
 
-       <pre>&lt;div foo="bar" ="baz"></pre>
+       <pre><code class="html" data-x="">&lt;div foo="bar" ="baz"></code></pre>
 
        <p>Due to a forgotten attribute name the parser treats this markup as a <code>div</code>
        element with two attributes: a "<code data-x="">foo</code>" attribute with a "<code
@@ -469,7 +469,7 @@
       <div class="example">
        <p>For example, consider the following markup:</p>
 
-       <pre>&lt;?xml-stylesheet type="text/css" href="style.css"?></pre>
+       <pre><code class="html" data-x="">&lt;?xml-stylesheet type="text/css" href="style.css"?></code></pre>
 
        <p>This will be parsed into:</p>
 

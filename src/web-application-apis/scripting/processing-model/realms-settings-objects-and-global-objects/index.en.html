@@ -4,7 +4,7 @@
   field of a <span>JavaScript realm</span>.</p>
 
   <p class="note">In this specification, all <span data-x="JavaScript realm">JavaScript
-  realms</span> are <span data-x="js-InitializeHostDefinedRealm">initialized</span> with <span
+  realms</span> are <span data-x="creating a new JavaScript realm">created</span> with <span
   data-x="global object">global objects</span> that are either <code>Window</code> or
   <code>WorkerGlobalScope</code> objects.</p>
 
@@ -22,7 +22,7 @@
    Realm's global object</dfn>.</p></li>
 
    <li><p>Each <span>global object</span> in this specification is created during the <span
-   data-x="js-InitializeHostDefinedRealm">initialization</span> of a corresponding <span>JavaScript
+   data-x="creating a new JavaScript realm">creation</span> of a corresponding <span>JavaScript
    realm</span>, known as <dfn data-x="concept-global-object-realm" data-export="" data-lt="Realm"
    data-dfn-for="global object">the global object's Realm</dfn>.</p></li>
 
@@ -40,6 +40,29 @@
    data-x="concept-settings-object-global" data-lt="global object" data-dfn-for="environment
    settings object">the environment settings object's global object</dfn>.</p></li>
   </ul>
+
+  <p>To <dfn data-x="creating a new JavaScript realm">create a new JavaScript realm</dfn>,
+  optionally with instructions to create a global object or a global <b>this</b> binding (or both),
+  the following steps are taken:</p>
+
+  <ol>
+   <li><p>Perform <span data-x="js-InitializeHostDefinedRealm">InitializeHostDefinedRealm</span>()
+   with the provided customizations for creating the global object and the global <b>this</b>
+   binding.</p></li>
+
+   <li>
+    <p>Let <var>realm execution context</var> be the <span>running JavaScript execution
+    context</span>.</p>
+
+    <p class="note">This is the <span>JavaScript execution context</span> created in the previous
+    step.</p>
+   </li>
+
+   <li><p>Remove <var>realm execution context</var> from the <span>JavaScript execution context
+   stack</span>.</p></li>
+
+   <li><p>Return <var>realm execution context</var>.</p></li>
+  </ol>
 
   <hr>
 
@@ -85,7 +108,7 @@
    data-x="">c.html</code> and <code data-x="">d.html</code> omitted (they can simply be empty
    documents):</p>
 
-   <pre>&lt;!-- a.html -->
+   <pre><code class="html" data-x="">&lt;!-- a.html -->
 &lt;!DOCTYPE html>
 &lt;html lang="en">
 &lt;title>Entry page&lt;/title>
@@ -108,7 +131,7 @@
   window.hello = () => {
     c.print.call(d);
   };
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>Each page has its own <span>browsing context</span>, and thus its own <span>JavaScript
    realm</span>, <span>global object</span>, and <span>environment settings object</span>.</p>
@@ -160,7 +183,7 @@
    <span data-x="concept-relevant-realm">relevant Realm</span> for the <code>Navigator</code> object
    on which it is invoked. This has the following impact: <ref spec=BATTERY>
 
-   <pre>&lt;!-- outer.html -->
+   <pre><code class="html" data-x="">&lt;!-- outer.html -->
 &lt;!DOCTYPE html>
 &lt;html lang="en">
 &lt;title>Relevant Realm demo: outer page&lt;/title>
@@ -187,7 +210,7 @@
     console.log(promise instanceof Promise);        // logs true
     console.log(promise instanceof parent.Promise); // logs false
   }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>If the algorithm for the <code data-x="dom-navigator-getBattery">getBattery()</code> method
    had instead used the <span data-x="current Realm Record">current Realm</span>, all the results

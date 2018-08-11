@@ -14,7 +14,8 @@
 
     <ol>
      <li><p>Let <var>url</var> be the result of <span data-x="resolve a module specifier">resolving a
-     module specifier</span> given <var>referencing script</var> and <var>specifier</var>.</p></li>
+     module specifier</span> given <var>referencing script</var>'s <span
+     data-x="concept-script-base-url">base URL</span> and <var>specifier</var>.</p></li>
 
      <li>
       <p>If <var>url</var> is failure, then:</p>
@@ -34,9 +35,10 @@
      <var>referencing script</var>'s <span data-x="concept-script-script-fetch-options">fetch
      options</span>.</p></li>
 
-     <li><p><span>Fetch a module script graph</span> given <var>url</var>, <var>settings
-     object</var>, "<code data-x="">script</code>", and <var>options</var>. Wait until the algorithm
-     asynchronously completes with <var>result</var>.</p></li>
+     <li><p><span>Fetch a module script graph</span> given <var>url</var>, <var>referencing
+     script</var>'s <span>settings object</span>, "<code data-x="">script</code>", and
+     <var>options</var>. Wait until the algorithm asynchronously completes with
+     <var>result</var>.</p></li>
 
      <li>
       <p>If <var>result</var> is null, then:</p>

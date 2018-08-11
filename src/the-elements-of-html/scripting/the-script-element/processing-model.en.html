@@ -299,25 +299,21 @@
 
    </li>
 
+   <li><p>Let <var>referrer policy</var> be the current state of the element's <code
+   data-x="attr-script-referrerpolicy">referrerpolicy</code> content attribute.</p></li>
+
    <li><p>Let <var>parser metadata</var> be "<code data-x="">parser-inserted</code>" if the
    <code>script</code> element has been flagged as <span>"parser-inserted"</span>, and
    "<code data-x="">not-parser-inserted</code>" otherwise.</p></li>
 
-   <li>
-    <p>Let <var>options</var> be a <span>script fetch options</span> whose <span
-    data-x="concept-script-fetch-options-nonce">cryptographic nonce</span> is <var>cryptographic
-    nonce</var>, <span data-x="concept-script-fetch-options-integrity">integrity metadata</span> is
-    <var>integrity metadata</var>, <span data-x="concept-script-fetch-options-parser">parser
-    metadata</span> is <var>parser metadata</var>, <span
-    data-x="concept-script-fetch-options-credentials">credentials mode</span> is <var>module script
-    credentials mode</var>, and <span data-x="concept-script-fetch-options-referrer-policy">referrer
-    policy</span> is the empty string.</p>
-
-    <p class="note">See <a
-    href="https://github.com/w3c/webappsec-referrer-policy/issues/96">w3c/webappsec-referrer-policy#96</a>
-    for future plans to add a <code data-x="">referrerpolicy</code> attribute to <code>script</code>
-    elements.
-   </p>
+   <li><p>Let <var>options</var> be a <span>script fetch options</span> whose <span
+   data-x="concept-script-fetch-options-nonce">cryptographic nonce</span> is <var>cryptographic
+   nonce</var>, <span data-x="concept-script-fetch-options-integrity">integrity metadata</span> is
+   <var>integrity metadata</var>, <span data-x="concept-script-fetch-options-parser">parser
+   metadata</span> is <var>parser metadata</var>, <span
+   data-x="concept-script-fetch-options-credentials">credentials mode</span> is <var>module script
+   credentials mode</var>, and <span data-x="concept-script-fetch-options-referrer-policy">referrer
+   policy</span> is <var>referrer policy</var>.</p></li>
 
    <li><p>Let <var>settings object</var> be the element's <span>node document</span>'s
    <code>Window</code> object's <span>environment settings object</span>.</p></li>
@@ -424,10 +420,10 @@
          script</span> to null and return; <span>the script is ready</span>.</p></li>
 
          <li><p><span data-x="fetch the descendants of and instantiate a module script">Fetch the
-         descendants of and instantiate</span> <var>script</var>, given the destination "<code
-         data-x="">script</code>". When this asynchronously completes, set <span
-         data-x="concept-script-script">the script's script</span> to the result. At that time,
-         <span>the script is ready</span>.</p></li>
+         descendants of and instantiate</span> <var>script</var>, given <var>settings object</var>
+         and the destination "<code data-x="">script</code>". When this asynchronously completes,
+         set <span data-x="concept-script-script">the script's script</span> to the result. At
+         that time, <span>the script is ready</span>.</p></li>
         </ol>
        </dd>
       </dl>

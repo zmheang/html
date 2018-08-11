@@ -13,11 +13,11 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
-interface <dfn>HTMLDListElement</dfn> : <span>HTMLElement</span> {};</pre>
+interface <dfn>HTMLDListElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLDListElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLDListElement</code>.</dd>
   </dl>
 
   <p>The <code>dl</code> element <span>represents</span> an association list consisting of zero or
@@ -131,26 +131,26 @@ interface <dfn>HTMLDListElement</dfn> : <span>HTMLElement</span> {};</pre>
    <p>In the following example, one entry ("Authors") is linked to two values ("John" and
    "Luke").</p>
 
-   <pre>&lt;dl&gt;
+   <pre><code class="html" data-x="">&lt;dl&gt;
  &lt;dt&gt; Authors
  &lt;dd&gt; John
  &lt;dd&gt; Luke
  &lt;dt&gt; Editor
  &lt;dd&gt; Frank
-&lt;/dl&gt;</pre>
+&lt;/dl&gt;</code></pre>
   </div>
 
   <div class="example">
 
    <p>In the following example, one definition is linked to two terms.</p>
 
-   <pre>&lt;dl&gt;
+   <pre><code class="html" data-x="">&lt;dl&gt;
  &lt;dt lang="en-US"&gt; &lt;dfn>color&lt;/dfn> &lt;/dt&gt;
  <span lang="en-GB">&lt;dt lang="en-GB"&gt; &lt;dfn>colour&lt;/dfn> &lt;/dt&gt;</span>
  &lt;dd&gt; A sensation which (in humans) derives from the ability of
  the fine structure of the eye to distinguish three differently
  filtered analyses of a view. &lt;/dd&gt;
-&lt;/dl&gt;</pre>
+&lt;/dl&gt;</code></pre>
   </div>
 
   <div class="example">
@@ -161,7 +161,7 @@ interface <dfn>HTMLDListElement</dfn> : <span>HTMLElement</span> {};</pre>
    <code>div</code> element around the groups of <code>dt</code> and <code>dd</code> element, to aid
    with styling.</p>
 
-   <pre>&lt;dl>
+   <pre><code class="html" data-x="">&lt;dl>
  &lt;div>
   &lt;dt> Last modified time &lt;/dt>
   &lt;dd> 2004-12-23T23:33Z &lt;/dd>
@@ -176,7 +176,7 @@ interface <dfn>HTMLDListElement</dfn> : <span>HTMLElement</span> {};</pre>
   &lt;dd> Robert Rothman &lt;/dd>
   &lt;dd> Daniel Jackson &lt;/dd>
  &lt;/div>
-&lt;/dl></pre>
+&lt;/dl></code></pre>
   </div>
 
   <div class="example">
@@ -185,7 +185,7 @@ interface <dfn>HTMLDListElement</dfn> : <span>HTMLElement</span> {};</pre>
    The order of the instructions here is important (in the other examples, the order of the blocks
    was not important).</p>
 
-   <pre>&lt;p&gt;Determine the victory points as follows (use the
+   <pre><code class="html" data-x="">&lt;p&gt;Determine the victory points as follows (use the
 first matching case):&lt;/p&gt;
 &lt;dl&gt;
  &lt;dt&gt; If you have exactly five gold coins &lt;/dt&gt;
@@ -196,7 +196,7 @@ first matching case):&lt;/p&gt;
  &lt;dd&gt; You get one victory point &lt;/dd&gt;
  &lt;dt&gt; Otherwise &lt;/dt&gt;
  &lt;dd&gt; You get no victory points &lt;/dd&gt;
-&lt;/dl&gt;</pre>
+&lt;/dl&gt;</code></pre>
   </div>
 
   <div class="example">
@@ -204,7 +204,7 @@ first matching case):&lt;/p&gt;
    <p>The following snippet shows a <code>dl</code> element being used as a glossary. Note the use
    of <code>dfn</code> to indicate the word being defined.</p>
 
-   <pre>&lt;dl>
+   <pre><code class="html" data-x="">&lt;dl>
  &lt;dt>&lt;dfn>Apartment&lt;/dfn>, n.&lt;/dt>
  &lt;dd>An execution context grouping one or more threads with one or
  more COM objects.&lt;/dd>
@@ -212,7 +212,7 @@ first matching case):&lt;/p&gt;
  &lt;dd>A deflated tire.&lt;/dd>
  &lt;dt>&lt;dfn>Home&lt;/dfn>, n.&lt;/dt>
  &lt;dd>The user's login directory.&lt;/dd>
-&lt;/dl></pre>
+&lt;/dl></code></pre>
   </div>
 
   <div class="example">
@@ -221,7 +221,7 @@ first matching case):&lt;/p&gt;
    with the <code>div</code> element, to annotate the ice cream desserts at a French restaurant.</p>
    <!-- https://commons.wikimedia.org/wiki/File:Carte_des_desserts_2012_des_cafétérias_Toquenelle_(1).jpg -->
 
-   <pre lang="fr">&lt;dl>
+   <pre lang="fr"><code class="html" data-x="">&lt;dl>
  &lt;div itemscope itemtype="http://schema.org/Product">
   &lt;dt itemprop="name">Café ou Chocolat Liégeois
   &lt;dd itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -239,13 +239,13 @@ first matching case):&lt;/p&gt;
   &lt;dd itemprop="description">
    1 boule Crème brûlée, 1 boule Vanille, 1 boule Caramel, chantilly
  &lt;/div>
-&lt;/dl></pre>
+&lt;/dl></code></pre>
 
    <p>Without the <code>div</code> element the markup would need to use the <code
    data-x="attr-itemref">itemref</code> attribute to link the data in the <code>dd</code> elements
    with the item, as follows.</p>
 
-   <pre lang="fr">&lt;dl>
+   <pre lang="fr"><code class="html" data-x="">&lt;dl>
  &lt;dt itemscope itemtype="http://schema.org/Product" itemref="1-offer 1-description">
   &lt;span itemprop="name">Café ou Chocolat Liégeois&lt;/span>
  &lt;dd id="1-offer" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -261,7 +261,7 @@ first matching case):&lt;/p&gt;
   &lt;data itemprop="priceCurrency" value="EUR">€&lt;/data>
  &lt;dd id="2-description" itemprop="description">
   1 boule Crème brûlée, 1 boule Vanille, 1 boule Caramel, chantilly
-&lt;/dl></pre>
+&lt;/dl></code></pre>
 
   </div>
 

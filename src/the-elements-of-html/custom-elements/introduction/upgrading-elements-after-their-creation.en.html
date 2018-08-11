@@ -15,7 +15,7 @@
   document the element definition for <code data-x="">img-viewer</code> is loaded
   asynchronously:</p>
 
-  <pre>&lt;!DOCTYPE html>
+  <pre><code class="html" data-x="">&lt;!DOCTYPE html>
 &lt;html lang="en">
 &lt;title>Image viewer example&lt;/title>
 
@@ -23,7 +23,7 @@
   &lt;img src="images/tree.jpg" alt="A beautiful tree towering over an empty savannah">
 &lt;/img-viewer>
 
-&lt;script src="js/elements/img-viewer.js" async>&lt;/script></pre>
+&lt;script src="js/elements/img-viewer.js" async>&lt;/script></code></pre>
 
   <p>The definition for the <code data-x="">img-viewer</code> element here is loaded using a
   <code>script</code> element marked with the <code data-x="attr-script-async">async</code>
@@ -41,7 +41,7 @@
   document tree. (Formally, elements that are <span>connected</span>.) An element that is not
   inserted into a document will stay un-upgraded. An example illustrates this point:</p>
 
-  <pre>&lt;!DOCTYPE html>
+  <pre><code class="html" data-x="">&lt;!DOCTYPE html>
 &lt;html lang="en">
 &lt;title>Upgrade edge-cases example&lt;/title>
 
@@ -68,5 +68,5 @@
 
   // Now that we've moved the element into the document, it too was upgraded:
   console.assert(outOfDocument instanceof ExampleElement);
-&lt;/script></pre>
+&lt;/script></code></pre>
 

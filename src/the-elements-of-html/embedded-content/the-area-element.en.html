@@ -21,7 +21,7 @@
    <dd><code data-x="attr-hyperlink-referrerpolicy">referrerpolicy</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-alt">alt</span>;
@@ -34,9 +34,9 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-area-relList">relList</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-referrerPolicy">referrerPolicy</span>;
 };
-<span>HTMLAreaElement</span> includes <span>HTMLHyperlinkElementUtils</span>;</pre>
+<span>HTMLAreaElement</span> includes <span>HTMLHyperlinkElementUtils</span>;</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLAreaElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLAreaElement</code>.</dd>
   </dl>
 
   <p>The <code>area</code> element <span>represents</span> either a hyperlink with some text and a
@@ -78,7 +78,7 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
    <tbody>
     <tr>
      <td w-nodev rowspan=2><span data-x="attr-area-shape-circle">Circle state</span>
-     <td w-nohtml><span data-x="attr-area-shape-circle">Circle state</span>
+     <td w-dev><span data-x="attr-area-shape-circle">Circle state</span>
      <td><dfn><code data-x="attr-area-shape-keyword-circle">circle</code></dfn>
      <td w-nodev>
     <tr w-nodev>
@@ -90,7 +90,7 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
      <td w-nodev>
     <tr>
      <td w-nodev rowspan=2><span data-x="attr-area-shape-poly">Polygon state</span>
-     <td w-nohtml><span data-x="attr-area-shape-poly">Polygon state</span>
+     <td w-dev><span data-x="attr-area-shape-poly">Polygon state</span>
      <td><dfn><code data-x="attr-area-shape-keyword-poly">poly</code></dfn>
      <td w-nodev>
     <tr w-nodev>
@@ -98,7 +98,7 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
      <td>Non-conforming
     <tr>
      <td w-nodev rowspan=2><span data-x="attr-area-shape-rect">Rectangle state</span>
-     <td w-nohtml><span data-x="attr-area-shape-rect">Rectangle state</span>
+     <td w-dev><span data-x="attr-area-shape-rect">Rectangle state</span>
      <td><dfn><code data-x="attr-area-shape-keyword-rect">rect</code></dfn>
      <td w-nodev>
     <tr w-nodev>

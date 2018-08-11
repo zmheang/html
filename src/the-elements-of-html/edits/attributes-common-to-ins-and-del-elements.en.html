@@ -42,12 +42,12 @@
   <p>The <code>ins</code> and <code>del</code> elements must implement the
   <code>HTMLModElement</code> interface:</p>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLModElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-mod-cite">cite</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-mod-dateTime">dateTime</span>;
-};</pre>
+};</code></pre>
 
   <p>The <dfn><code data-x="dom-mod-cite">cite</code></dfn> IDL attribute must <span>reflect</span>
   the element's <code data-x="attr-mod-cite">cite</code> content attribute. The <dfn><code

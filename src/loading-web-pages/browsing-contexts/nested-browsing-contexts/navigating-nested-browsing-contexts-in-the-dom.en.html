@@ -100,7 +100,7 @@
   <div class="example">
    <p>An example of when these IDL attributes can return null is as follows:</p>
 
-   <pre>&lt;!DOCTYPE html>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
 &lt;iframe>&lt;/iframe>
 
 &lt;script>
@@ -112,7 +112,7 @@ element.remove();
 console.assert(iframeWindow.top === null);
 console.assert(iframeWindow.parent === null);
 console.assert(iframeWindow.frameElement === null);
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>Here the <span>browsing context</span> corresponding to <code data-x="">iframeWindow</code>
    was <span data-x="a browsing context is discarded">discarded</span> when <code

@@ -20,7 +20,7 @@
    <dd><code data-x="attr-fs-target">target</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  OverrideBuiltins,
  LegacyUnenumerableNamedProperties,
  <span>HTMLConstructor</span>]
@@ -44,9 +44,9 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] void <span data-x="dom-form-reset">reset</span>();
   boolean <span data-x="dom-form-checkValidity">checkValidity</span>();
   boolean <span data-x="dom-form-reportValidity">reportValidity</span>();
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLFormElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLFormElement</code>.</dd>
   </dl>
 
   <p>The <code>form</code> element <span>represents</span> a collection of <span
@@ -396,12 +396,12 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
 
    <p>This example shows two search forms:</p>
 
-   <pre>&lt;form action="https://www.google.com/search" method="get">
+   <pre><code class="html" data-x="">&lt;form action="https://www.google.com/search" method="get">
  &lt;label>Google: &lt;input type="search" name="q">&lt;/label> &lt;input type="submit" value="Search...">
 &lt;/form>
 &lt;form action="https://www.bing.com/search" method="get">
  &lt;label>Bing: &lt;input type="search" name="q">&lt;/label> &lt;input type="submit" value="Search...">
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   </div>
 

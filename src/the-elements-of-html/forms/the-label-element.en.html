@@ -15,15 +15,15 @@
    <dd><code data-x="attr-label-for">for</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLLabelElement</dfn> : <span>HTMLElement</span> {
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-label-form">form</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-label-htmlFor">htmlFor</span>;
   readonly attribute <span>HTMLElement</span>? <span data-x="dom-label-control">control</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLLabelElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLLabelElement</code>.</dd>
   </dl>
 
   <p>The <code>label</code> element <span>represents</span> a caption in a user interface. The
@@ -74,7 +74,7 @@ interface <dfn>HTMLLabelElement</dfn> : <span>HTMLElement</span> {
    data-x="event-click">click</code> event</span> at the <code>input</code> element, as if the
    element itself had been triggered by the user:</p>
 
-   <pre>&lt;label>&lt;input type=checkbox name=lost> Lost&lt;/label></pre>
+   <pre><code class="html" data-x="">&lt;label>&lt;input type=checkbox name=lost> Lost&lt;/label></code></pre>
 
    <p>On other platforms, the behavior might be just to focus the control, or do nothing.</p>
 
@@ -87,9 +87,9 @@ interface <dfn>HTMLLabelElement</dfn> : <span>HTMLElement</span> {
    <p>The following example shows three form controls each with a label, two of which have small
    text showing the right format for users to use.</p>
 
-   <pre>&lt;p>&lt;label>Full name: &lt;input name=fn> &lt;small>Format: First Last&lt;/small>&lt;/label>&lt;/p>
+   <pre><code class="html" data-x="">&lt;p>&lt;label>Full name: &lt;input name=fn> &lt;small>Format: First Last&lt;/small>&lt;/label>&lt;/p>
 &lt;p>&lt;label>Age: &lt;input name=age type=number min=0>&lt;/label>&lt;/p>
-&lt;p>&lt;label>Post code: &lt;input name=pc> &lt;small>Format: AB12 3CD&lt;/small>&lt;/label>&lt;/p></pre>
+&lt;p>&lt;label>Post code: &lt;input name=pc> &lt;small>Format: AB12 3CD&lt;/small>&lt;/label>&lt;/p></code></pre>
 
   </div>
 
@@ -179,7 +179,7 @@ interface <dfn>HTMLLabelElement</dfn> : <span>HTMLElement</span> {
    data-x="dom-lfe-labels">labels</code> returns when an <code>input</code> element has its <code
    data-x="attr-input-type">type</code> attribute changed.</p>
 
-   <pre>&lt;!doctype html>
+   <pre><code class="html" data-x="">&lt;!doctype html>
 &lt;p>&lt;label>&lt;input>&lt;/label>&lt;/p>
 &lt;script>
  const input = document.querySelector('input');
@@ -193,7 +193,7 @@ interface <dfn>HTMLLabelElement</dfn> : <span>HTMLElement</span> {
  input.type = 'checkbox';
  console.assert(labels.length === 1); // the input is once again the label's <span>labeled control</span>
  console.assert(input.labels === labels); // same value as returned originally
-&lt;/script></pre>
+&lt;/script></code></pre>
   </div>
 
   </div>

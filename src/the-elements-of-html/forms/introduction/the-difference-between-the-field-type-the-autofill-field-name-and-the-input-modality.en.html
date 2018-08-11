@@ -30,17 +30,17 @@
   expects international phone numbers (with the country code prefix), this could thus look like
   this:</p>
 
-  <pre>&lt;p>&lt;label>Your phone number: &lt;input type=tel name=custtel autocomplete="billing tel">&lt;/label>
+  <pre><code class="html" data-x="">&lt;p>&lt;label>Your phone number: &lt;input type=tel name=custtel autocomplete="billing tel">&lt;/label>
 &lt;p>&lt;label>Recipient's phone number: &lt;input type=tel name=shiptel autocomplete="shipping tel">&lt;/label>
-&lt;p>Please enter complete phone numbers including the country code prefix, as in "+1 555 123 4567".</pre>
+&lt;p>Please enter complete phone numbers including the country code prefix, as in "+1 555 123 4567".</code></pre>
 
   <p>But if the site only supports British customers and recipients, it might instead look like this
   (notice the use of <code data-x="attr-fe-autocomplete-tel-national">tel-national</code> rather than
   <code data-x="attr-fe-autocomplete-tel">tel</code>):</p>
 
-  <pre>&lt;p>&lt;label>Your phone number: &lt;input type=tel name=custtel autocomplete="billing tel-national">&lt;/label>
+  <pre><code class="html" data-x="">&lt;p>&lt;label>Your phone number: &lt;input type=tel name=custtel autocomplete="billing tel-national">&lt;/label>
 &lt;p>&lt;label>Recipient's phone number: &lt;input type=tel name=shiptel autocomplete="shipping tel-national">&lt;/label>
-&lt;p>Please enter complete UK phone numbers, as in "(01632) 960 123".</pre>
+&lt;p>Please enter complete UK phone numbers, as in "(01632) 960 123".</code></pre>
 
   <p>Now, consider a person's preferred languages. The right <code
   data-x="attr-fe-autocomplete">autocomplete</code> value is <code
@@ -55,8 +55,8 @@
   user's full name, then the relevant <code data-x="attr-fe-autocomplete">autocomplete</code> value
   is <code data-x="attr-fe-autocomplete-name">name</code>.
 
-  <pre>&lt;p>&lt;label>Japanese name: &lt;input name="j" type="text" autocomplete="section-jp name">&lt;/label>
-&lt;label>Romanized name: &lt;input name="e" type="text" autocomplete="section-en name">&lt;/label></pre>
+  <pre><code class="html" data-x="">&lt;p>&lt;label>Japanese name: &lt;input name="j" type="text" autocomplete="section-jp name">&lt;/label>
+&lt;label>Romanized name: &lt;input name="e" type="text" autocomplete="section-en name">&lt;/label></code></pre>
 
   <p>In this example, the "<code data-x="attr-fe-autocomplete-section">section-*</code>" keywords in
   the <code data-x="attr-fe-autocomplete">autocomplete</code> attributes' values tell the user agent
@@ -80,9 +80,9 @@
   numeric input modality anyway (e.g., a virtual keyboard displaying only digits), the page would
   use</p>
 
-  <pre>&lt;p>&lt;label>Credit card number:
+  <pre><code class="html" data-x="">&lt;p>&lt;label>Credit card number:
                 &lt;input name="cc" type="text" inputmode="numeric" pattern="[0-9]{8,19}" autocomplete="cc-number">
-&lt;/label>&lt;/p></pre>
+&lt;/label>&lt;/p></code></pre>
 
 
 

@@ -234,7 +234,7 @@
 
    <p>For example, consider the following markup:</p>
 
-   <pre>&lt;form id="outer">&lt;div>&lt;/form>&lt;form id="inner">&lt;input></pre>
+   <pre><code class="html" data-x="">&lt;form id="outer">&lt;div>&lt;/form>&lt;form id="inner">&lt;input></code></pre>
 
    <p>This will be parsed into:</p>
 
@@ -245,7 +245,7 @@
    id="inner"></code> start tag will be ignored, and so the <code>input</code> element will be
    associated with the outer <code>form</code> element instead.</p>
 
-   <pre>&lt;html>&lt;head>&lt;/head>&lt;body>&lt;form id="outer">&lt;div><mark>&lt;form id="inner"></mark>&lt;input>&lt;/form>&lt;/div>&lt;/form>&lt;/body>&lt;/html></pre>
+   <pre><code class="html" data-x="">&lt;html>&lt;head>&lt;/head>&lt;body>&lt;form id="outer">&lt;div><mark>&lt;form id="inner"></mark>&lt;input>&lt;/form>&lt;/div>&lt;/form>&lt;/body>&lt;/html></code></pre>
 
    <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>form</code> <span class="t2" data-x=""><code class="attribute name" data-x="attr-id">id</code>="<code class="attribute value" data-x="">outer</code>"</span><ul><li class="t1"><code>div</code><ul><li class="t1"><code>input</code></li></ul></li></ul></li></ul></li></ul></li></ul>
 
@@ -255,7 +255,7 @@
 
    <p>As another example, consider the following markup:</p>
 
-   <pre>&lt;a>&lt;table>&lt;a></pre>
+   <pre><code class="html" data-x="">&lt;a>&lt;table>&lt;a></code></pre>
 
    <p>This will be parsed into:</p>
 
@@ -267,7 +267,7 @@
    second <code data-x="">&lt;a></code> start tag implicitly closes the first <code>a</code>
    element.</p>
 
-   <pre>&lt;html>&lt;head>&lt;/head>&lt;body>&lt;a><mark>&lt;a></mark>&lt;/a>&lt;table>&lt;/table>&lt;/a>&lt;/body>&lt;/html></pre>
+   <pre><code class="html" data-x="">&lt;html>&lt;head>&lt;/head>&lt;body>&lt;a><mark>&lt;a></mark>&lt;/a>&lt;table>&lt;/table>&lt;/a>&lt;/body>&lt;/html></code></pre>
 
    <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>a</code></li><li class="t1"><code>a</code></li><li class="t1"><code>table</code></li></ul></li></ul></li></ul>
 
@@ -283,9 +283,9 @@
   <div class="example">
    <p>For example, consider the following markup:</p>
 
-   <pre>&lt;pre>
+   <pre><code class="html" data-x="">&lt;pre>
 
-Hello.&lt;/pre></pre>
+Hello.&lt;/pre></code></pre>
 
    <p>When this document is first parsed, the <code>pre</code> element's <span>child text
    content</span> starts with a single newline character. After a serialize-reparse roundtrip, the
@@ -305,7 +305,7 @@ Hello.&lt;/pre></pre>
    <p>When creating a <span>customized built-in element</span> via the parser, a developer uses the <code
    data-x="attr-is">is</code> attribute directly; in such cases serialize-parse roundtrips work fine.</p>
 
-   <pre>&lt;script>
+   <pre><code class="html" data-x="">&lt;script>
 window.SuperP = class extends HTMLParagraphElement {};
 customElements.define("super-p", SuperP, { extends: "p" });
 &lt;/script>
@@ -317,7 +317,7 @@ console.log(container.innerHTML); // &lt;p is="super-p">
 container.innerHTML = container.innerHTML;
 console.log(container.innerHTML); // &lt;p is="super-p">
 console.assert(container.firstChild instanceof SuperP);
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>But when creating a customized built-in element via its <span data-x="custom element
    constructor">constructor</span> or via <code
@@ -326,7 +326,7 @@ console.assert(container.firstChild instanceof SuperP);
    data-x="">is</code> value</span> (which is what the custom elements machinery uses) is set
    without intermediating through an attribute.</p>
 
-   <pre>&lt;script>
+   <pre><code class="html" data-x="">&lt;script>
 container.innerHTML = "";
 const p = document.createElement("p", { is: "super-p" });
 container.appendChild(p);
@@ -336,18 +336,18 @@ console.assert(!p.hasAttribute("is"));
 
 // But the element is still a super-p:
 console.assert(p instanceof SuperP);
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>To ensure that serialize-parse roundtrips still work, the serialization process explicitly
    writes out the element's <span data-x="concept-element-is-value"><code data-x="">is</code>
    value</span> as an <code data-x="attr-is">is</code> attribute:</p>
 
-   <pre>&lt;script>
+   <pre><code class="html" data-x="">&lt;script>
 console.log(container.innerHTML); // &lt;p is="super-p">
 container.innerHTML = container.innerHTML;
 console.log(container.innerHTML); // &lt;p is="super-p">
 console.assert(container.firstChild instanceof SuperP);
-&lt;/script></pre>
+&lt;/script></code></pre>
   </div>
 
   <p><dfn id="escapingString">Escaping a string</dfn> (for the purposes of the algorithm above)

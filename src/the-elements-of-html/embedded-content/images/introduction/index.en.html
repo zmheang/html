@@ -7,10 +7,10 @@
 
   <div class="example">
 
-<pre>&lt;h2>From today's featured article&lt;/h2>
+<pre><code class="html" data-x="">&lt;h2>From today's featured article&lt;/h2>
 <strong>&lt;img src="/uploads/100-marie-lloyd.jpg" alt="" width="100" height="150"></strong>
 &lt;p>&lt;b>&lt;a href="/wiki/Marie_Lloyd">Marie Lloyd&lt;/a>&lt;/b> (1870&ndash;1922)
-was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</pre>
+was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code></pre>
 
   </div>
 
@@ -306,12 +306,12 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</pre>
 
     <div class="example">
 
-<pre>&lt;h2>From today's featured article&lt;/h2>
+<pre><code class="html" data-x="">&lt;h2>From today's featured article&lt;/h2>
 &lt;img <strong>src="/uploads/100-marie-lloyd.jpg"</strong>
      <strong>srcset="/uploads/150-marie-lloyd.jpg 1.5x, /uploads/200-marie-lloyd.jpg 2x"</strong>
      alt="" width="100" height="150">
 &lt;p>&lt;b>&lt;a href="/wiki/Marie_Lloyd">Marie Lloyd&lt;/a>&lt;/b> (1870&ndash;1922)
-was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</pre>
+was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code></pre>
 
      <p>The user agent can choose any of the given resources depending on the user's screen's pixel
      density, zoom level, and possibly other factors such as the user's network conditions.</p>
@@ -346,8 +346,8 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</pre>
      <p>In this example, a banner image takes up the entire <span>viewport</span> width (using
      appropriate CSS).</p>
 
-<pre>&lt;h1>&lt;img <strong>sizes="100vw" srcset="wolf-400.jpg 400w, wolf-800.jpg 800w, wolf-1600.jpg 1600w"</strong>
-     src="wolf-400.jpg" alt="The rad wolf">&lt;/h1></pre>
+<pre><code class="html" data-x="">&lt;h1>&lt;img <strong>sizes="100vw" srcset="wolf-400.jpg 400w, wolf-800.jpg 800w, wolf-1600.jpg 1600w"</strong>
+     src="wolf-400.jpg" alt="The rad wolf">&lt;/h1></code></pre>
 
      <p>The user agent will calculate the effective pixel density of each image from the specified
      <code data-x="">w</code> descriptors and the specified rendered size in the <code
@@ -380,9 +380,9 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</pre>
      each image is about 33%). It breaks between these layouts when the <span>viewport</span> is
      <code data-x="">30em</code> wide and <code data-x="">50em</code> wide, respectively.</p>
 
-<pre>&lt;img <strong>sizes="(max-width: 30em) 100vw, (max-width: 50em) 50vw, calc(33vw - 100px)"</strong>
+<pre><code class="html" data-x="">&lt;img <strong>sizes="(max-width: 30em) 100vw, (max-width: 50em) 50vw, calc(33vw - 100px)"</strong>
      <strong>srcset="swing-200.jpg 200w, swing-400.jpg 400w, swing-800.jpg 800w, swing-1600.jpg 1600w"</strong>
-     src="swing-400.jpg" alt="Kettlebell Swing"></pre>
+     src="swing-400.jpg" alt="Kettlebell Swing"></code></pre>
 
      <p>The <code data-x="attr-img-sizes">sizes</code> attribute sets up the layout breakpoints at
      <code data-x="">30em</code> and <code data-x="">50em</code>, and declares the image sizes
@@ -424,11 +424,11 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</pre>
 
     <div class="example">
 
-<pre>&lt;picture>
+<pre><code class="html" data-x="">&lt;picture>
   &lt;source <strong>media="(min-width: 45em)"</strong> srcset="large.jpg">
   &lt;source <strong>media="(min-width: 32em)"</strong> srcset="med.jpg">
   &lt;img src="small.jpg" alt="The wolf runs through the snow.">
-&lt;/picture></pre>
+&lt;/picture></code></pre>
 
      <p>The user agent will choose the first <code>source</code> element for which the media query
      in the <code data-x="attr-source-media">media</code> attribute matches, and then choose an
@@ -437,9 +437,9 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</pre>
      <p>The rendered size of the image varies depending on which resource is chosen. To specify
      dimensions that the user agent can use before having downloaded the image, CSS can be used.</p>
 
-<pre class="css">img { width: 300px; height: 300px }
+<pre><code class="css" data-x="">img { width: 300px; height: 300px }
 @media (min-width: 32em) { img { width: 500px; height:300px } }
-@media (min-width: 45em) { img { width: 700px; height:400px } }</pre>
+@media (min-width: 45em) { img { width: 700px; height:400px } }</code></pre>
 
     </div>
 
@@ -449,12 +449,12 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</pre>
      selection. A banner that takes half the <span>viewport</span> is provided in two versions,
      one for wide screens and one for narrow screens.</p>
 
-<pre>&lt;h1>
+<pre><code class="html" data-x="">&lt;h1>
  &lt;picture>
   &lt;source media="(max-width: 500px)" srcset="banner-phone.jpeg, banner-phone-HD.jpeg 2x">
   &lt;img src="banner.jpeg" srcset="banner-HD.jpeg 2x" alt="The Breakfast Combo">
  &lt;/picture>
-&lt;/h1></pre>
+&lt;/h1></code></pre>
 
     </div>
 
@@ -469,14 +469,14 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</pre>
 
     <div class="example">
 
-<pre>&lt;h2>From today's featured article&lt;/h2>
+<pre><code class="html" data-x="">&lt;h2>From today's featured article&lt;/h2>
 &lt;picture>
  &lt;source srcset="/uploads/100-marie-lloyd.webp" <strong>type="image/webp"</strong>>
  &lt;source srcset="/uploads/100-marie-lloyd.jxr" <strong>type="image/vnd.ms-photo"</strong>>
  &lt;img src="/uploads/100-marie-lloyd.jpg" alt="" width="100" height="150">
 &lt;/picture>
 &lt;p>&lt;b>&lt;a href="/wiki/Marie_Lloyd">Marie Lloyd&lt;/a>&lt;/b> (1870&ndash;1922)
-was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</pre>
+was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code></pre>
 
      <p>In this example, the user agent will choose the first source that has a <code
      data-x="attr-source-type">type</code> attribute with a supported MIME type. If the user agent

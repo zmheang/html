@@ -22,7 +22,7 @@
 
   <p>Given the settings in the previous section, this all becomes:</p>
 
-  <pre>&lt;form<strong> method="post"
+  <pre><code class="html" data-x="">&lt;form<strong> method="post"
       enctype="application/x-www-form-urlencoded"
       action="https://pizza.example.com/order.cgi"</strong>>
  &lt;p>&lt;label>Customer name: &lt;input<strong> name="custname"</strong>>&lt;/label>&lt;/p>
@@ -44,7 +44,7 @@
  &lt;p>&lt;label>Preferred delivery time: &lt;input type=time min="11:00" max="21:00" step="900"<strong> name="delivery"</strong>>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Delivery instructions: &lt;textarea<strong> name="comments"</strong>>&lt;/textarea>&lt;/label>&lt;/p>
  &lt;p>&lt;button>Submit order&lt;/button>&lt;/p>
-&lt;/form></pre>
+&lt;/form></code></pre>
 
   <p class="note">There is no particular significance to the way some of the attributes have their
   values quoted and others don't. The HTML syntax allows a variety of equally valid ways to specify
@@ -56,6 +56,6 @@
   instructions text control blank, the user agent would submit the following to the online Web
   service:</p>
 
-  <pre>custname=Denise+Lawrence&amp;custtel=555-321-8642&amp;custemail=&amp;size=medium&amp;topping=cheese&amp;topping=mushroom&amp;delivery=19%3A00&amp;comments=</pre>
+  <pre><code class="html" data-x="">custname=Denise+Lawrence&amp;custtel=555-321-8642&amp;custemail=&amp;size=medium&amp;topping=cheese&amp;topping=mushroom&amp;delivery=19%3A00&amp;comments=</code></pre>
 
 

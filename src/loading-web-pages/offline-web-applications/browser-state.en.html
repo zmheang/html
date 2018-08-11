@@ -1,8 +1,8 @@
   <h4 id="navigator.online"><span id="browser-state">Browser state</span></h4>
 
-  <pre class="idl">interface mixin <dfn>NavigatorOnLine</dfn> {
+  <pre><code class="idl" data-x="">interface mixin <dfn>NavigatorOnLine</dfn> {
   readonly attribute boolean <span data-x="dom-navigator-onLine">onLine</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
    <dt><var>self</var> . <code data-x="dom-navigator">navigator</code> . <code subdfn
@@ -50,7 +50,7 @@
 
    <p>In this example, an indicator is updated as the browser goes online and offline.</p>
 
-   <pre>&lt;!DOCTYPE HTML>
+   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
  &lt;head>
   &lt;title>Online status&lt;/title>
@@ -63,7 +63,7 @@
  &lt;body onload="updateIndicator()" ononline="updateIndicator()" onoffline="updateIndicator()">
   &lt;p>The network is: &lt;span id="indicator">(state unknown)&lt;/span>
  &lt;/body>
-&lt;/html></pre>
+&lt;/html></code></pre>
 
   </div>
 

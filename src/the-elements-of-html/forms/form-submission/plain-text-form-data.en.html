@@ -2,17 +2,18 @@
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="">text/plain</code> encoding algorithm</dfn>, given a <var>form data
-  set</var>, is as follows:</p>
+  <p>The <dfn><code data-x="">text/plain</code> encoding algorithm</dfn>, given an <var>entry
+  list</var>, is as follows:</p>
 
   <ol>
    <li><p>Let <var>result</var> be the empty string.</p></li>
 
    <li>
-    <p>For each entry in the <var>form data set</var>:</p>
+    <p>For each <span data-x="formdata-entry">entry</span> in <var>entry list</var>:</p>
 
     <ol>
-     <li><p>If the entry's value is a file, then set its value to the file's name.</p></li>
+     <li><p>If the entry's value is a <code>File</code> object, then set its value to the
+     <code>File</code> object's <code data-x="dom-file-name">name</code>.</p></li>
 
      <li><p>Append the entry's name to <var>result</var>.</p></li>
 

@@ -13,14 +13,14 @@
   <p>For simple cases, though, where a shared worker would be an unreasonable overhead, authors can
   use the simple channel-based broadcast mechanism described in this section.</p>
 
-  <pre class="idl">[<span data-x="dom-BroadcastChannel">Constructor</span>(DOMString name), Exposed=(Window,Worker)]
+  <pre><code class="idl" data-x="">[<span data-x="dom-BroadcastChannel">Constructor</span>(DOMString name), Exposed=(Window,Worker)]
 interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
   readonly attribute DOMString <span data-x="dom-BroadcastChannel-name">name</span>;
   void <span data-x="dom-BroadcastChannel-postMessage">postMessage</span>(any message);
   void <span data-x="dom-BroadcastChannel-close">close</span>();
   attribute <span>EventHandler</span> <span data-x="handler-BroadcastChannel-onmessage">onmessage</span>;
   attribute <span>EventHandler</span> <span data-x="handler-BroadcastChannel-onmessageerror">onmessageerror</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 
@@ -214,7 +214,7 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
    <p>Suppose a page wants to know when the user logs out, even when the user does so from another
    tab at the same site:</p>
 
-   <pre>var authChannel = new BroadcastChannel('auth');
+   <pre><code class="js" data-x="">var authChannel = new BroadcastChannel('auth');
 authChannel.onmessage = function (event) {
   if (event.data == 'logout')
     showLogout();
@@ -235,7 +235,7 @@ function doLogout() {
 function showLogout() {
   // update the UI to indicate we're logged out
   // ...
-}</pre>
+}</code></pre>
 
   </div>
 

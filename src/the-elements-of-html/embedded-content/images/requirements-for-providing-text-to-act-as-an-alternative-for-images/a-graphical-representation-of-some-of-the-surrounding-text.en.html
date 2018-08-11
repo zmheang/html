@@ -12,12 +12,12 @@
 
    <p>A flowchart that repeats the previous paragraph in graphical form:</p>
 
-   <pre>&lt;p>The Network passes data to the Input Stream Preprocessor, which
+   <pre><code class="html" data-x="">&lt;p>The Network passes data to the Input Stream Preprocessor, which
 passes it to the Tokenizer, which passes it to the Tree Construction
 stage. From there, data goes to both the DOM and to Script Execution.
 Script Execution is linked to the DOM, and, using document.write(),
 passes data to the Tokenizer.&lt;/p>
-<strong>&lt;p>&lt;img src="images/parsing-model-overview.svg" alt="">&lt;/p></strong></pre>
+<strong>&lt;p>&lt;img src="images/parsing-model-overview.svg" alt="">&lt;/p></strong></code></pre>
 
    <p>In these cases, it would be wrong to include alternative text that consists of just a caption.
    If a caption is to be included, then either the <code data-x="attr-title">title</code> attribute
@@ -25,16 +25,16 @@ passes data to the Tokenizer.&lt;/p>
    latter case, the image would in fact be a phrase or paragraph with an alternative graphical
    representation, and would thus require alternative text.</p>
 
-   <pre>&lt;!-- Using the title="" attribute -->
+   <pre><code class="html" data-x="">&lt;!-- Using the title="" attribute -->
 &lt;p>The Network passes data to the Input Stream Preprocessor, which
 passes it to the Tokenizer, which passes it to the Tree Construction
 stage. From there, data goes to both the DOM and to Script Execution.
 Script Execution is linked to the DOM, and, using document.write(),
 passes data to the Tokenizer.&lt;/p>
 &lt;p><strong>&lt;img src="images/parsing-model-overview.svg" alt=""
-        title="Flowchart representation of the parsing model."></strong>&lt;/p></pre>
+        title="Flowchart representation of the parsing model."></strong>&lt;/p></code></pre>
 
-   <pre>&lt;!-- Using &lt;figure> and &lt;figcaption> -->
+   <pre><code class="html" data-x="">&lt;!-- Using &lt;figure> and &lt;figcaption> -->
 &lt;p>The Network passes data to the Input Stream Preprocessor, which
 passes it to the Tokenizer, which passes it to the Tree Construction
 stage. From there, data goes to both the DOM and to Script Execution.
@@ -49,9 +49,9 @@ passes data to the Tokenizer.&lt;/p>
  Tree Construction leads is the DOM. The DOM is related to the Script
  Execution."></strong>
  &lt;figcaption>Flowchart representation of the parsing model.&lt;/figcaption>
-&lt;/figure></pre>
+&lt;/figure></code></pre>
 
-   <pre class="bad">&lt;!-- This is WRONG. Do not do this. Instead, do what the above examples do. -->
+   <pre class="bad"><code class="html" data-x="">&lt;!-- This is WRONG. Do not do this. Instead, do what the above examples do. -->
 &lt;p>The Network passes data to the Input Stream Preprocessor, which
 passes it to the Tokenizer, which passes it to the Tree Construction
 stage. From there, data goes to both the DOM and to Script Execution.
@@ -59,7 +59,7 @@ Script Execution is linked to the DOM, and, using document.write(),
 passes data to the Tokenizer.&lt;/p>
 &lt;p>&lt;img src="images/parsing-model-overview.svg"
         alt="Flowchart representation of the parsing model.">&lt;/p>
-&lt;!-- Never put the image's caption in the alt="" attribute! --></pre>
+&lt;!-- Never put the image's caption in the alt="" attribute! --></code></pre>
 
   </div>
 
@@ -67,11 +67,11 @@ passes data to the Tokenizer.&lt;/p>
 
    <p>A graph that repeats the previous paragraph in graphical form:</p>
 
-   <pre>&lt;p>According to a study covering several billion pages,
+   <pre><code class="html" data-x="">&lt;p>According to a study covering several billion pages,
 about 62% of documents on the Web in 2007 triggered the Quirks
 rendering mode of Web browsers, about 30% triggered the Almost
 Standards mode, and about 9% triggered the Standards mode.&lt;/p>
-<strong>&lt;p>&lt;img src="rendering-mode-pie-chart.png" alt="">&lt;/p></strong></pre>
+<strong>&lt;p>&lt;img src="rendering-mode-pie-chart.png" alt="">&lt;/p></strong></code></pre>
 
   </div>
 

@@ -1,6 +1,6 @@
   <h6>The offscreen 2D rendering context</h6>
 
-  <pre class="idl">[Exposed=(Window,Worker)]
+  <pre><code class="idl" data-x="">[Exposed=(Window,Worker)]
 interface <dfn>OffscreenCanvasRenderingContext2D</dfn> {
   void <span data-x="offscreencontext2d-commit">commit</span>();
   readonly attribute <span>OffscreenCanvas</span> <span data-x="offscreencontext2d-canvas">canvas</span>;
@@ -18,8 +18,7 @@ interface <dfn>OffscreenCanvasRenderingContext2D</dfn> {
 <span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasDrawImage</span>;
 <span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasImageData</span>;
 <span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasPathDrawingStyles</span>;
-<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasPath</span>;
-</pre>
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasPath</span>;</code></pre>
 
   <p>The <code>OffscreenCanvasRenderingContext2D</code> object is a rendering context for drawing to
   the <span data-x="offscreencanvas-bitmap">bitmap</span> of an <code>OffscreenCanvas</code> object.

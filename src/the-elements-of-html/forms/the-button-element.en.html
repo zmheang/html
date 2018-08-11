@@ -26,7 +26,7 @@
    <dd><code data-x="attr-button-value">value</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-fe-autofocus">autofocus</span>;
@@ -49,9 +49,9 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
 
   readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLButtonElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLButtonElement</code>.</dd>
   </dl>
 
   <p>The <code>button</code> element <span>represents</span> a button labeled by its contents.</p>
@@ -186,10 +186,10 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
 
    <p>The following button is labeled "Show hint" and pops up a dialog box when activated:</p>
 
-   <pre>&lt;button type=button
+   <pre><code class="html" data-x="">&lt;button type=button
         onclick="alert('This 15-20 minute piece was composed by George Gershwin.')">
  Show hint
-&lt;/button></pre>
+&lt;/button></code></pre>
 
   </div>
 

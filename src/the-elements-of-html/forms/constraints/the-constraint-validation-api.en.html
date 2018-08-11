@@ -163,7 +163,7 @@
    data-x="dom-cva-setCustomValidity">setCustomValidity()</code> method to set an appropriate
    message.</p>
 
-   <pre>&lt;label>Feeling: &lt;input name=f type="text" oninput="check(this)">&lt;/label>
+   <pre><code class="html" data-x="">&lt;label>Feeling: &lt;input name=f type="text" oninput="check(this)">&lt;/label>
 &lt;script>
  function check(input) {
    if (input.value == "good" ||
@@ -177,7 +177,7 @@
      input.setCustomValidity('');
    }
  }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
   </div>
 
@@ -187,7 +187,7 @@
   <code>ValidityState</code> object that represents the <span>validity states</span> of this
   element. This object is <span>live</span>.</p>
 
-<pre class="idl">[Exposed=Window]
+<pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>ValidityState</dfn> {
   readonly attribute boolean <span data-x="dom-ValidityState-valueMissing">valueMissing</span>;
   readonly attribute boolean <span data-x="dom-ValidityState-typeMismatch">typeMismatch</span>;
@@ -200,7 +200,7 @@ interface <dfn>ValidityState</dfn> {
   readonly attribute boolean <span data-x="dom-ValidityState-badInput">badInput</span>;
   readonly attribute boolean <span data-x="dom-ValidityState-customError">customError</span>;
   readonly attribute boolean <span data-x="dom-ValidityState-valid">valid</span>;
-};</pre>
+};</code></pre>
 
   <p>A <code>ValidityState</code> object has the following attributes. On getting, they must return
   true if the corresponding condition given in the following list is true, and false otherwise.</p>

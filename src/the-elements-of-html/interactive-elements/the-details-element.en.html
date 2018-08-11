@@ -15,13 +15,13 @@
    <dd><code data-x="attr-details-open">open</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLDetailsElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-details-open">open</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLDetailsElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLDetailsElement</code>.</dd>
   </dl>
 
   <p>The <code>details</code> element <span>represents</span> a disclosure widget from which the
@@ -100,7 +100,7 @@ interface <dfn>HTMLDetailsElement</dfn> : <span>HTMLElement</span> {
    <p>The following example shows the <code>details</code> element being used to hide technical
    details in a progress report.</p>
 
-   <pre>&lt;section class="progress window">
+   <pre><code class="html" data-x="">&lt;section class="progress window">
  &lt;h1>Copying "Really Achieving Your Childhood Dreams"&lt;/h1>
  &lt;details>
   &lt;summary>Copying... &lt;progress max="375505392" value="97543282">&lt;/progress> 25%&lt;/summary>
@@ -113,7 +113,7 @@ interface <dfn>HTMLDetailsElement</dfn> : <span>HTMLElement</span> {
    &lt;dt>Dimensions:&lt;/dt> &lt;dd>320&times;240&lt;/dd>
   &lt;/dl>
  &lt;/details>
-&lt;/section></pre>
+&lt;/section></code></pre>
 
   </div>
 
@@ -122,11 +122,11 @@ interface <dfn>HTMLDetailsElement</dfn> : <span>HTMLElement</span> {
    <p>The following shows how a <code>details</code> element can be used to hide some controls by
    default:</p>
 
-   <pre>&lt;details>
+   <pre><code class="html" data-x="">&lt;details>
  &lt;summary>&lt;label for=fn>Name &amp; Extension:&lt;/label>&lt;/summary>
  &lt;p>&lt;input type=text id=fn name=fn value="Pillar Magazine.pdf">
  &lt;p>&lt;label>&lt;input type=checkbox name=ext checked> Hide extension&lt;/label>
-&lt;/details></pre>
+&lt;/details></code></pre>
 
    <p>One could use this in conjunction with other <code>details</code> in a list to allow the user
    to collapse a set of fields down to a small set of headings, with the ability to open each
@@ -146,7 +146,7 @@ interface <dfn>HTMLDetailsElement</dfn> : <span>HTMLElement</span> {
    differently based on its state. Here, a style sheet is used to animate the color of the summary
    when the element is opened or closed:</p>
 
-   <pre>&lt;style>
+   <pre><code class="html" data-x="">&lt;style>
  details > summary { transition: color 1s; color: black; }
  details[open] > summary { color: red; }
 &lt;/style>
@@ -154,7 +154,7 @@ interface <dfn>HTMLDetailsElement</dfn> : <span>HTMLElement</span> {
  &lt;summary>Automated Status: Operational&lt;/summary>
  &lt;p>Velocity: 12m/s&lt;/p>
  &lt;p>Direction: North&lt;/p>
-&lt;/details></pre>
+&lt;/details></code></pre>
 
   </div>
 

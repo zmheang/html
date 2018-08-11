@@ -13,11 +13,11 @@
    <dd><span>Global attributes</span></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
-interface <dfn>HTMLSpanElement</dfn> : <span>HTMLElement</span> {};</pre>
+interface <dfn>HTMLSpanElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLSpanElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLSpanElement</code>.</dd>
   </dl>
 
   <p>The <code>span</code> element doesn't mean anything on its own, but can be useful when used
@@ -33,12 +33,12 @@ interface <dfn>HTMLSpanElement</dfn> : <span>HTMLElement</span> {};</pre>
 
    <!-- extract from https://www.cs.cmu.edu/~dst/DeCSS/Gallery/vlc-dvd_css-c.txt -->
 
-   <pre>&lt;pre>&lt;code class="lang-c">&lt;span class="keyword">for&lt;/span> (&lt;span class="ident">j&lt;/span> = 0; &lt;span class="ident">j&lt;/span> &amp;lt; 256; &lt;span class="ident">j&lt;/span>++) {
+   <pre><code class="html" data-x="">&lt;pre>&lt;code class="lang-c">&lt;span class="keyword">for&lt;/span> (&lt;span class="ident">j&lt;/span> = 0; &lt;span class="ident">j&lt;/span> &amp;lt; 256; &lt;span class="ident">j&lt;/span>++) {
   &lt;span class="ident">i_t3&lt;/span> = (&lt;span class="ident">i_t3&lt;/span> & 0x1ffff) | (&lt;span class="ident">j&lt;/span> &amp;lt;&amp;lt; 17);
   &lt;span class="ident">i_t6&lt;/span> = (((((((&lt;span class="ident">i_t3&lt;/span> >> 3) ^ &lt;span class="ident">i_t3&lt;/span>) >> 1) ^ &lt;span class="ident">i_t3&lt;/span>) >> 8) ^ &lt;span class="ident">i_t3&lt;/span>) >> 5) & 0xff;
   &lt;span class="keyword">if&lt;/span> (&lt;span class="ident">i_t6&lt;/span> == &lt;span class="ident">i_t1&lt;/span>)
     &lt;span class="keyword">break&lt;/span>;
-}&lt;/code>&lt;/pre></pre>
+}&lt;/code>&lt;/pre></code></pre>
 
   </div>
 

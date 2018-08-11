@@ -408,32 +408,32 @@
       <th>Input <th>Number of <code>Text</code> nodes
     <tbody>
      <tr>
-      <td><pre>A&lt;script>
+      <td><pre><code class="html" data-x="">A&lt;script>
 var&nbsp;script&nbsp;=&nbsp;document.getElementsByTagName('script')[0];
 document.body.removeChild(script);
-&lt;/script>B</pre>
+&lt;/script>B</code></pre>
       <td>One <code>Text</code> node in the document, containing "AB".
      <tr>
-      <td><pre>A&lt;script>
+      <td><pre><code class="html" data-x="">A&lt;script>
 var&nbsp;text&nbsp;=&nbsp;document.createTextNode('B');
 document.body.appendChild(text);
-&lt;/script>C</pre>
+&lt;/script>C</code></pre>
       <td>Three <code>Text</code> nodes; "A" before the script, the script's contents, and "BC" after the script (the parser appends to the <code>Text</code> node created by the script).
      <tr>
-      <td><pre>A&lt;script>
+      <td><pre><code class="html" data-x="">A&lt;script>
 var&nbsp;text&nbsp;=&nbsp;document.getElementsByTagName('script')[0].firstChild;
 text.data&nbsp;=&nbsp;'B';
 document.body.appendChild(text);
-&lt;/script>C</pre>
+&lt;/script>C</code></pre>
       <td>Two adjacent <code>Text</code> nodes in the document, containing "A" and "BC".
      <tr>
-      <td><pre>A&lt;table>B&lt;tr>C&lt;/tr>D&lt;/table></pre>
+      <td><pre><code class="html" data-x="">A&lt;table>B&lt;tr>C&lt;/tr>D&lt;/table></code></pre>
       <td>One <code>Text</code> node before the table, containing "ABCD". (This is caused by <span data-x="foster parent">foster parenting</span>.)
      <tr>
-      <td><pre>A&lt;table>&lt;tr>&nbsp;B&lt;/tr>&nbsp;C&lt;/table></pre>
+      <td><pre><code class="html" data-x="">A&lt;table>&lt;tr>&nbsp;B&lt;/tr>&nbsp;C&lt;/table></code></pre>
       <td>One <code>Text</code> node before the table, containing "A&nbsp;B&nbsp;C" (A-space-B-space-C). (This is caused by <span data-x="foster parent">foster parenting</span>.)
      <tr>
-      <td><pre>A&lt;table>&lt;tr>&nbsp;B&lt;/tr>&nbsp;&lt;/em>C&lt;/table></pre>
+      <td><pre><code class="html" data-x="">A&lt;table>&lt;tr>&nbsp;B&lt;/tr>&nbsp;&lt;/em>C&lt;/table></code></pre>
       <td>One <code>Text</code> node before the table, containing "A&nbsp;BC" (A-space-B-C), and one <code>Text</code> node inside the table (as a child of a <code>tbody</code>) with a single space character. (Space characters separated from non-space characters by non-character tokens are not affected by <span data-x="foster parent">foster parenting</span>, even if those other tokens then get ignored.)
    </table>
 

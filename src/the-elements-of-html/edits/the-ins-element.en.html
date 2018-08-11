@@ -23,23 +23,23 @@
 
    <p>The following represents the addition of a single paragraph:</p>
 
-   <pre>&lt;aside>
+   <pre><code class="html" data-x="">&lt;aside>
  &lt;ins>
   &lt;p> I like fruit. &lt;/p>
  &lt;/ins>
-&lt;/aside></pre>
+&lt;/aside></code></pre>
 
    <p>As does the following, because everything in the <code>aside</code> element here counts as
    <span>phrasing content</span> and therefore there is just one <span>paragraph</span>:</p>
 
-   <pre>&lt;aside>
+   <pre><code class="html" data-x="">&lt;aside>
  &lt;ins>
   Apples are &lt;em>tasty&lt;/em>.
  &lt;/ins>
  &lt;ins>
   So are pears.
  &lt;/ins>
-&lt;/aside></pre>
+&lt;/aside></code></pre>
 
   </div>
 
@@ -52,7 +52,7 @@
    inserted in two parts. The first <code>ins</code> element in this example thus crosses a
    paragraph boundary, which is considered poor form.</p>
 
-   <pre class="bad">&lt;aside>
+   <pre class="bad"><code class="html" data-x="">&lt;aside>
  &lt;!-- don't do this -->
  &lt;ins datetime="2005-03-16 00:00Z">
   &lt;p> I like fruit. &lt;/p>
@@ -61,12 +61,12 @@
  &lt;ins datetime="2007-12-19 00:00Z">
   So are pears.
  &lt;/ins>
-&lt;/aside></pre>
+&lt;/aside></code></pre>
 
    <p>Here is a better way of marking this up. It uses more elements, but none of the elements cross
    implied paragraph boundaries.</p>
 
-   <pre>&lt;aside>
+   <pre><code class="html" data-x="">&lt;aside>
  &lt;ins datetime="2005-03-16 00:00Z">
   &lt;p> I like fruit. &lt;/p>
  &lt;/ins>
@@ -76,7 +76,7 @@
  &lt;ins datetime="2007-12-19 00:00Z">
   So are pears.
  &lt;/ins>
-&lt;/aside></pre>
+&lt;/aside></code></pre>
 
    <!-- Those dates aren't random. They're the start and end of something. Can you guess what? -->
 

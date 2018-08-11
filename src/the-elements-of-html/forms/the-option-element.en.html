@@ -23,7 +23,7 @@
    <dd><code data-x="attr-option-value">value</code></dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
+    <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>,
  NamedConstructor=<span data-x="dom-option">Option</span>(optional DOMString text = "", optional DOMString value, optional boolean defaultSelected = false, optional boolean selected = false)]
 interface <dfn>HTMLOptionElement</dfn> : <span>HTMLElement</span> {
@@ -36,9 +36,9 @@ interface <dfn>HTMLOptionElement</dfn> : <span>HTMLElement</span> {
 
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-option-text">text</span>;
   readonly attribute long <span data-x="dom-option-index">index</span>;
-};</pre>
+};</code></pre>
    </dd>
-   <dd w-nohtml>Uses <code>HTMLOptionElement</code>.</dd>
+   <dd w-dev>Uses <code>HTMLOptionElement</code>.</dd>
   </dl>
 
   <p>The <code>option</code> element <span>represents</span> an option in a <code>select</code>

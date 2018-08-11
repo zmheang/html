@@ -22,17 +22,17 @@
    <p>Consider the following <code>figure</code> element, which is given an <code
    data-x="attr-id">id</code> attribute:</p>
 
-   <pre>&lt;figure id="module-script-graph">
+   <pre><code class="html" data-x="">&lt;figure id="module-script-graph">
   &lt;img src="module-script-graph.svg"
        alt="Module A depends on module B, which depends
             on modules C and D.">
   &lt;figcaption>Figure 27: a simple module graph&lt;/figcaption>
-&lt;/figure></pre>
+&lt;/figure></code></pre>
 
    <p>A <span>hyperlink</span>-based <span data-x="referenced">reference</span> could be created
    using the <code>a</code> element, like so:</p>
 
-   <pre>As we can see in &lt;a href="#module-script-graph">figure 27&lt;/a>, ...</pre>
+   <pre><code class="html" data-x="">As we can see in &lt;a href="#module-script-graph">figure 27&lt;/a>, ...</code></pre>
 
    <p>However, there are many other ways of <span data-x="referenced">referencing</span> the
    <code>figure</code> element, such as:</p>
@@ -53,7 +53,7 @@
   w-nodev>and which must be used by elements that have no additional requirements,</span> is
   the <code>HTMLElement</code> interface.</p>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  <span>HTMLConstructor</span>]
 interface <dfn>HTMLElement</dfn> : <span>Element</span> {
   // metadata attributes
@@ -81,7 +81,7 @@ interface <dfn>HTMLElement</dfn> : <span>Element</span> {
 
 // Note: <a href="#customized-built-in-element-restrictions">intentionally</a> not [<span>HTMLConstructor</span>]
 [Exposed=Window]
-interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</pre>
+interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</code></pre>
 
   <p>The <code>HTMLElement</code> interface holds methods and attributes related to a number of
   disparate features, and the members of this interface are therefore described in various different
@@ -130,15 +130,14 @@ interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</pre>
   <p>Features shared between HTML and SVG elements use the <code>HTMLOrSVGElement</code> interface
   mixin: <ref spec=SVG></p>
 
-  <pre class="idl">interface mixin <dfn>HTMLOrSVGElement</dfn> {
+  <pre><code class="idl" data-x="">interface mixin <dfn>HTMLOrSVGElement</dfn> {
   [SameObject] readonly attribute <span>DOMStringMap</span> <span data-x="dom-dataset">dataset</span>;
   attribute DOMString <span data-x="dom-HTMLOrSVGElement-nonce">nonce</span>;
 
   [<span>CEReactions</span>] attribute long <span data-x="dom-tabindex">tabIndex</span>;
   void <span data-x="dom-focus">focus</span>(optional <span>FocusOptions</span> options);
   void <span data-x="dom-blur">blur</span>();
-};
-</pre>
+};</code></pre>
 
   <div w-nodev>
 

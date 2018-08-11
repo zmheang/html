@@ -1,6 +1,6 @@
   <h5>The <code>TrackEvent</code> interface</h5>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  Constructor(DOMString type, optional <span>TrackEventInit</span> eventInitDict)]
 interface <dfn>TrackEvent</dfn> : <span>Event</span> {
   readonly attribute (<span>VideoTrack</span> or <span>AudioTrack</span> or <span>TextTrack</span>)? <span data-x="dom-TrackEvent-track">track</span>;
@@ -8,7 +8,7 @@ interface <dfn>TrackEvent</dfn> : <span>Event</span> {
 
 dictionary <dfn>TrackEventInit</dfn> : <span>EventInit</span> {
   (<span>VideoTrack</span> or <span>AudioTrack</span> or <span>TextTrack</span>)? track = null;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 

@@ -1,6 +1,6 @@
   <h5>The <code>OffscreenCanvas</code> interface</h5>
 
-  <pre class="idl">typedef (<span>OffscreenCanvasRenderingContext2D</span> or
+  <pre><code class="idl" data-x="">typedef (<span>OffscreenCanvasRenderingContext2D</span> or
         <span>WebGLRenderingContext</span>) <dfn>OffscreenRenderingContext</dfn>;
 
 dictionary <dfn>ImageEncodeOptions</dfn> {
@@ -18,8 +18,7 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
   <span>OffscreenRenderingContext</span>? <span data-x="dom-OffscreenCanvas-getContext">getContext</span>(<span>OffscreenRenderingContextId</span> contextId, optional any options = null);
   <span>ImageBitmap</span> <span data-x="dom-OffscreenCanvas-transferToImageBitmap">transferToImageBitmap</span>();
   Promise&lt;<span>Blob</span>> <span data-x="dom-OffscreenCanvas-convertToBlob">convertToBlob</span>(optional <span>ImageEncodeOptions</span> options);
-};
-</pre>
+};</code></pre>
 
   <p class="note"><code>OffscreenCanvas</code> is an <code>EventTarget</code> so that WebGL can
   fire <code data-x="">webglcontextlost</code> and <code data-x="">webglcontextrestored</code>

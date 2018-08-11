@@ -25,10 +25,10 @@
    used by the site itself to allow the user to sort the list by track length, or to filter the list
    for tracks of certain lengths.</p>
 
-   <pre>&lt;ol>
+   <pre><code class="html" data-x="">&lt;ol>
  &lt;li data-length="2m11s">Beyond The Sea&lt;/li>
  ...
-&lt;/ol></pre>
+&lt;/ol></code></pre>
 
    <p>It would be inappropriate, however, for the user to use generic software not associated with
    that music site to search for tracks of a certain length by looking at this data.</p>
@@ -43,8 +43,8 @@
    <p>Similarly, a page author could write markup that provides information for a translation tool
    that they are intending to use:</p>
 
-   <pre>&lt;p>The third &lt;span data-mytrans-de="Anspruch">claim&lt;/span> covers the case of &lt;span
-translate="no">HTML&lt;/span> markup.&lt;/p></pre>
+   <pre><code class="html" data-x="">&lt;p>The third &lt;span data-mytrans-de="Anspruch">claim&lt;/span> covers the case of &lt;span
+translate="no">HTML&lt;/span> markup.&lt;/p></code></pre>
 
    <p>In this example, the "<code data-x="">data-mytrans-de</code>" attribute gives specific text
    for the MyTrans product to use when translating the phrase "claim" to German. However, the
@@ -60,11 +60,11 @@ translate="no">HTML&lt;/span> markup.&lt;/p></pre>
    for <code>PaymentRequest</code>, which could be used in CSS to style a checkout page
    differently.</p>
 
-   <pre>&lt;script>
+   <pre><code class="html" data-x="">&lt;script>
  if ('PaymentRequest' in window) {
    document.documentElement.dataset.hasPaymentRequest = '';
  }
-&lt;/script></pre>
+&lt;/script></code></pre>
 
    <p>Here, the <code data-x="">data-has-payment-request</code> attribute is effectively being used
    as a <span>boolean attribute</span>; it is enough to check the presence of the attribute.
@@ -136,13 +136,13 @@ translate="no">HTML&lt;/span> markup.&lt;/p></pre>
   data-x="dom-dataset">dataset</code> attribute. Each <code>DOMStringMap</code> has an <dfn
   data-x="concept-DOMStringMap-element">associated element</dfn>.</p>
 
-  <pre class="idl">[Exposed=Window,
+  <pre><code class="idl" data-x="">[Exposed=Window,
  OverrideBuiltins]
 interface <dfn>DOMStringMap</dfn> {
   <a href="#dom-domstringmap-nameditem">getter</a> DOMString (DOMString name);
   [<span>CEReactions</span>] <a href="#dom-domstringmap-setitem">setter</a> void (DOMString name, DOMString value);
   [<span>CEReactions</span>] <a href="#dom-domstringmap-removeitem">deleter</a> void (DOMString name);
-};</pre>
+};</code></pre>
 
   <div w-nodev>
 
@@ -236,14 +236,14 @@ interface <dfn>DOMStringMap</dfn> {
    have to use the <code data-x="attr-class">class</code> attribute along with <code
    data-x="attr-data-*">data-*</code> attributes:</p>
 
-   <pre>&lt;div class="spaceship" data-ship-id="92432"
+   <pre><code class="html" data-x="">&lt;div class="spaceship" data-ship-id="92432"
      data-weapons="laser 2" data-shields="50%"
      data-<!---->x="30" data-y="10" data-z="90">
  &lt;button class="fire"
          onclick="spaceships[this.parentNode.dataset.shipId].fire()">
   Fire
  &lt;/button>
-&lt;/div></pre>
+&lt;/div></code></pre>
 
    <p>Notice how the hyphenated attribute name becomes camel-cased in the API.</p>
 
@@ -253,15 +253,15 @@ interface <dfn>DOMStringMap</dfn> {
 
    <p>Given the following fragment and elements with similar constructions:</p>
 
-   <pre>&lt;img class="tower" id="tower5" data-<!---->x="12" data-y="5"
+   <pre><code class="html" data-x="">&lt;img class="tower" id="tower5" data-<!---->x="12" data-y="5"
      data-ai="robotarget" data-hp="46" data-ability="flames"
-     src="towers/rocket.png" alt="Rocket Tower"></pre>
+     src="towers/rocket.png" alt="Rocket Tower"></code></pre>
 
    <p>...one could imagine a function <code
    data-x="">splashDamage()</code> that takes some arguments, the first
    of which is the element to process:</p>
 
-   <pre>function splashDamage(node, x, y, damage) {
+   <pre><code class="js" data-x="">function splashDamage(node, x, y, damage) {
   if (node.classList.contains('tower') && // checking the 'class' attribute
       node.dataset.x == x && // reading the 'data-x' attribute
       node.dataset.y == y) { // reading the 'data-y' attribute
@@ -274,7 +274,7 @@ interface <dfn>DOMStringMap</dfn> {
     }
     node.dataset.hp = hp; // setting the 'data-hp' attribute
   }
-}</pre>
+}</code></pre>
 
   </div>
 

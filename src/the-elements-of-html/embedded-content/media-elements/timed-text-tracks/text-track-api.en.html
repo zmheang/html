@@ -1,6 +1,6 @@
   <h6>Text track API</h6>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>TextTrackList</dfn> : <span>EventTarget</span> {
   readonly attribute unsigned long <span data-x="dom-TextTrackList-length">length</span>;
   <a href="#dom-texttracklist-item">getter</a> <span>TextTrack</span> (unsigned long index);
@@ -9,7 +9,7 @@ interface <dfn>TextTrackList</dfn> : <span>EventTarget</span> {
   attribute <span>EventHandler</span> <span data-x="handler-TextTrackList-onchange">onchange</span>;
   attribute <span>EventHandler</span> <span data-x="handler-TextTrackList-onaddtrack">onaddtrack</span>;
   attribute <span>EventHandler</span> <span data-x="handler-TextTrackList-onremovetrack">onremovetrack</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 
@@ -68,7 +68,7 @@ interface <dfn>TextTrackList</dfn> : <span>EventTarget</span> {
 
   <hr>
 
-  <pre class="idl">enum <dfn>TextTrackMode</dfn> {<!--
+  <pre><code class="idl" data-x="">enum <dfn>TextTrackMode</dfn> {<!--
    --> "<span data-x="dom-TextTrack-disabled">disabled</span>", <!--
    --> "<span data-x="dom-TextTrack-hidden">hidden</span>", <!--
    --> "<span data-x="dom-TextTrack-showing">showing</span>" };
@@ -97,7 +97,7 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
   void <span data-x="dom-TextTrack-removeCue">removeCue</span>(<span>TextTrackCue</span> cue);
 
   attribute <span>EventHandler</span> <span data-x="handler-TextTrack-oncuechange">oncuechange</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 
@@ -404,7 +404,7 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
    relied on script to pause the audio, then the start of the next clip might be heard if the
    browser was not able to run the script at the exact time specified.</p>
 
-   <pre>var sfx = new Audio('sfx.wav');
+   <pre><code class="js" data-x="">var sfx = new Audio('sfx.wav');
 var sounds = sfx.addTextTrack('metadata');
 
 // add sounds we care about
@@ -431,18 +431,18 @@ sfx.oncanplaythrough = function () {
 window.onbeforeunload = function (e) {
   playSound('kitten mew');
   e.preventDefault();
-}</pre>
+}</code></pre>
 
   </div>
 
   <hr>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>TextTrackCueList</dfn> {
   readonly attribute unsigned long <span data-x="dom-TextTrackCueList-length">length</span>;
   <a href="#dom-texttrackcuelist-item">getter</a> <span>TextTrackCue</span> (unsigned long index);
   <span>TextTrackCue</span>? <span data-x="dom-TextTrackCueList-getCueById">getCueById</span>(DOMString id);
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 
@@ -492,7 +492,7 @@ interface <dfn>TextTrackCueList</dfn> {
 
   <hr>
 
-  <pre class="idl">[Exposed=Window]
+  <pre><code class="idl" data-x="">[Exposed=Window]
 interface <dfn>TextTrackCue</dfn> : <span>EventTarget</span> {
   readonly attribute <span>TextTrack</span>? <span data-x="dom-TextTrackCue-track">track</span>;
 
@@ -503,7 +503,7 @@ interface <dfn>TextTrackCue</dfn> : <span>EventTarget</span> {
 
   attribute <span>EventHandler</span> <span data-x="handler-TextTrackCue-onenter">onenter</span>;
   attribute <span>EventHandler</span> <span data-x="handler-TextTrackCue-onexit">onexit</span>;
-};</pre>
+};</code></pre>
 
   <dl class="domintro">
 

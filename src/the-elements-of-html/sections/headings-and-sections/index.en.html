@@ -36,7 +36,7 @@
 
   <div class="example">
    <p>For the following fragment:</p>
-   <pre>&lt;body&gt;
+   <pre><code class="html" data-x="">&lt;body&gt;
  &lt;h1&gt;Foo&lt;/h1&gt;
  &lt;h2&gt;Bar&lt;/h2&gt;
  &lt;blockquote&gt;
@@ -48,7 +48,7 @@
   &lt;h3&gt;Thud&lt;/h3&gt;
  &lt;/section&gt;
  &lt;p&gt;Grunt&lt;/p&gt;
-&lt;/body&gt;</pre>
+&lt;/body&gt;</code></pre>
    <p>...the structure would be:</p>
    <ol>
     <li>
@@ -81,7 +81,7 @@
   <div class="example">
    <p>For example, the following is correct:</p>
 
-   <pre>&lt;body&gt;
+   <pre><code class="html" data-x="">&lt;body&gt;
  &lt;h4&gt;Apples&lt;/h4&gt;
  &lt;p&gt;Apples are fruit.&lt;/p&gt;
  &lt;section&gt;
@@ -92,11 +92,11 @@
   &lt;h1&gt;Color&lt;/h1&gt;
   &lt;p&gt;Apples come in various colors.&lt;/p&gt;
  &lt;/section&gt;
-&lt;/body&gt;</pre>
+&lt;/body&gt;</code></pre>
 
    <p>However, the same document would be more clearly expressed as:</p>
 
-   <pre>&lt;body&gt;
+   <pre><code class="html" data-x="">&lt;body&gt;
  &lt;h1&gt;Apples&lt;/h1&gt;
  &lt;p&gt;Apples are fruit.&lt;/p&gt;
  &lt;section&gt;
@@ -111,7 +111,7 @@
   &lt;h2&gt;Color&lt;/h2&gt;
   &lt;p&gt;Apples come in various colors.&lt;/p&gt;
  &lt;/section&gt;
-&lt;/body&gt;</pre>
+&lt;/body&gt;</code></pre>
 
    <p>Both of the documents above are semantically identical and would produce the same outline in
    compliant user agents.</p>
@@ -119,7 +119,7 @@
    <p>This third example is also semantically identical, and might be easier to maintain (e.g. if
    sections are often moved around in editing):</p>
 
-   <pre>&lt;body&gt;
+   <pre><code class="html" data-x="">&lt;body&gt;
  &lt;h1&gt;Apples&lt;/h1&gt;
  &lt;p&gt;Apples are fruit.&lt;/p&gt;
  &lt;section&gt;
@@ -134,7 +134,7 @@
   &lt;h1&gt;Color&lt;/h1&gt;
   &lt;p&gt;Apples come in various colors.&lt;/p&gt;
  &lt;/section&gt;
-&lt;/body&gt;</pre>
+&lt;/body&gt;</code></pre>
 
    <p>This final example would need explicit style rules to be rendered well in legacy browsers.
    Legacy browsers without CSS support would render all the headings as top-level headings.</p>

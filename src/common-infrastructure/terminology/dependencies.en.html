@@ -113,11 +113,6 @@
      decode without BOM</dfn> algorithm which is identical to <span>UTF-8 decode</span> except that
      it does not strip one leading UTF-8 Byte Order Mark (BOM)</li>
 
-     <li>The <dfn
-     data-x-href="https://encoding.spec.whatwg.org/#utf-8-decode-without-bom-or-fail">UTF-8 decode
-     without BOM or fail</dfn> algorithm which is identical to <span>UTF-8 decode without BOM</span>
-     except that it returns failure upon encountering an error</li>
-
      <li>The <dfn data-x-href="https://encoding.spec.whatwg.org/#encode">encode</dfn> algorithm
      which takes a character stream and an encoding and returns a byte stream</li>
 
@@ -176,6 +171,7 @@
 
     <ul class="brief">
      <li><dfn data-x="concept-host" data-x-href="https://url.spec.whatwg.org/#concept-host">host</dfn></li>
+     <li><dfn data-x-href="https://url.spec.whatwg.org/#host-public-suffix">public suffix</dfn></li>
      <li><dfn data-x="concept-domain" data-x-href="https://url.spec.whatwg.org/#concept-domain">domain</dfn></li>
      <li><dfn data-x-href="https://url.spec.whatwg.org/#concept-ipv4">IPv4 address</dfn></li>
      <li><dfn data-x-href="https://url.spec.whatwg.org/#concept-ipv6">IPv6 address</dfn></li>
@@ -222,7 +218,7 @@
      <li><dfn data-x="serialize an integer" data-x-href="https://url.spec.whatwg.org/#serialize-an-integer">serialize an integer</dfn></li>
      <li><dfn data-x-href="https://url.spec.whatwg.org/#default-encode-set">Default encode set</dfn></li>
      <li><dfn data-x-href="https://url.spec.whatwg.org/#utf-8-percent-encode">UTF-8 percent encode</dfn></li>
-     <li><dfn data-x-href="https://url.spec.whatwg.org/#percent-decode">Percent decode</dfn></li>
+     <li><dfn data-x-href="https://url.spec.whatwg.org/#string-percent-decode">String percent decode</dfn></li>
      <li><dfn data-x-href="https://url.spec.whatwg.org/#set-the-username">set the username</dfn></li>
      <li><dfn data-x-href="https://url.spec.whatwg.org/#set-the-password">set the password</dfn></li>
      <li>The <dfn data-x-href="https://url.spec.whatwg.org/#concept-urlencoded"><code>application/x-www-form-urlencoded</code></dfn> format</li>
@@ -368,6 +364,7 @@
        <li><dfn data-x="concept-request-integrity-metadata" data-x-href="https://fetch.spec.whatwg.org/#concept-request-integrity-metadata">integrity metadata</dfn></li>
        <li><dfn data-x="concept-request-parser-metadata" data-x-href="https://fetch.spec.whatwg.org/#concept-request-parser-metadata">parser metadata</dfn></li>
        <li><dfn data-x="concept-request-reload-navigation-flag" data-x-href="https://fetch.spec.whatwg.org/#concept-request-reload-navigation-flag">reload-navigation flag</dfn></li>
+       <li><dfn data-x="concept-request-history-navigation-flag" data-x-href="https://fetch.spec.whatwg.org/#concept-request-history-navigation-flag">history-navigation flag</dfn></li>
       </ul>
      </li>
     </ul>
@@ -545,6 +542,7 @@
      <li>The <dfn data-x="js-prod-Script" data-x-href="https://tc39.github.io/ecma262/#prod-Script"><i>Script</i></dfn> production</li>
 
      <li>The <dfn data-x="js-Type" data-x-href="https://tc39.github.io/ecma262/#sec-ecmascript-data-types-and-values">Type</dfn> notation</li>
+     <li>The <dfn data-x="abrupt completion" data-x-href="https://tc39.github.io/ecma262/#sec-completion-record-specification-type">Completion Record</dfn> specification type</li>
      <li>The <dfn data-x="js-List" data-x-href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">List</dfn> and
              <dfn data-x-href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">Record</dfn> specification types</li>
      <li>The <dfn data-x="PropertyDescriptor" data-x-href="https://tc39.github.io/ecma262/#sec-property-descriptor-specification-type">Property Descriptor</dfn> specification type</li>
@@ -850,12 +848,10 @@
     </ul>
 
     <p>The <cite>High Resolution Time</cite> specification provides the <dfn
+    data-x-href="https://w3c.github.io/hr-time/#dfn-current-high-resolution-time">current high
+    resolution time</dfn> and the <dfn
     data-x-href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp"><code>DOMHighResTimeStamp</code></dfn>
-    typedef and the <dfn
-    data-x-href="https://w3c.github.io/hr-time/#the-performance-interface"><code>Performance</code></dfn>
-    interface's <dfn data-x="dom-Performance-now"
-    data-x-href="https://w3c.github.io/hr-time/#dom-performance-now()"><code>now()</code></dfn>
-    method. <ref spec=HRT></p>
+    typedef. <ref spec=HRT></p>
 
    </dd>
 
@@ -926,9 +922,8 @@
 
    <dd>
 
-    <p>This specification references the XMLHttpRequest specification to describe how the two
-    specifications interact and to use its <code>ProgressEvent</code> features. The following
-    features and terms are defined in the XMLHttpRequest specification: <ref spec=XHR></p>
+    <p>The following features and terms are defined in the XMLHttpRequest specification:
+    <ref spec=XHR></p>
 
     <ul class="brief">
      <li><dfn data-x-href="https://xhr.spec.whatwg.org/#xmlhttprequest"><code>XMLHttpRequest</code></dfn> interface</li>
@@ -938,6 +933,8 @@
      <li><dfn data-x="dom-ProgressEvent-loaded" data-x-href="https://xhr.spec.whatwg.org/#dom-progressevent-loaded"><code>ProgressEvent.loaded</code></dfn> attribute</li>
      <li><dfn data-x="dom-ProgressEvent-total" data-x-href="https://xhr.spec.whatwg.org/#dom-progressevent-total"><code>ProgressEvent.total</code></dfn> attribute</li>
      <li><dfn data-x="fire a progress event" data-x-href="https://xhr.spec.whatwg.org/#concept-event-fire-progress">Fire a progress event named <var>e</var></dfn></li>
+     <li>The concept of <dfn data-x="formdata-entry" data-x-href="https://xhr.spec.whatwg.org/#concept-formdata-entry">entry</dfn></li>
+     <li><dfn data-x-href="https://xhr.spec.whatwg.org/#create-an-entry">create an entry</dfn></li>
     </ul>
 
    </dd>
@@ -1519,6 +1516,22 @@
 
     <ul class="brief">
      <li><dfn data-x-href="https://w3c.github.io/webappsec-secure-contexts/#settings-object">Is environment settings object a secure context?</dfn></li>
+    </ul>
+   </dd>
+
+   <dt>Feature Policy</dt>
+
+   <dd>
+    <p>The following terms are defined in <cite>Feature Policy</cite>: <ref spec="FEATUREPOLICY"></p>
+
+    <ul class="brief">
+     <li><dfn data-x="concept-feature-policy" data-x-href="https://wicg.github.io/feature-policy/#feature-policy">feature policy</dfn></li>
+     <li><dfn data-x="concept-container-policy" data-x-href="https://wicg.github.io/feature-policy/#container-policy">container policy</dfn></li>
+     <li><dfn data-x="concept-serialized-feature-policy" data-x-href="https://wicg.github.io/feature-policy/#serialized-feature-policy">serialized feature policy</dfn></li>
+     <li>The <dfn data-x-href="https://wicg.github.io/feature-policy/#initialize-for-document">Initialize document’s feature policy</dfn> algorithm</li>
+     <li>The <dfn data-x-href="https://wicg.github.io/feature-policy/#initialize-from-response">Initialize document’s feature policy from response</dfn> algorithm</li>
+     <li>The <dfn data-x="is-feature-enabled" data-x-href="https://wicg.github.io/feature-policy/#is-feature-enabled">Is feature enabled by policy for origin</dfn> algorithm</li>
+     <li>The <dfn data-x="process-feature-policy-attributes" data-x-href="https://wicg.github.io/feature-policy/#process-feature-policy-attributes">Process feature policy attributes</dfn> algorithm</li>
     </ul>
    </dd>
 

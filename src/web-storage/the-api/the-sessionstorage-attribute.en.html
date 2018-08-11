@@ -1,9 +1,9 @@
   <h4>The <code data-x="dom-sessionStorage">sessionStorage</code> attribute</h4>
 
-  <pre class="idl">interface mixin <dfn>WindowSessionStorage</dfn> {
+  <pre><code class="idl" data-x="">interface mixin <dfn>WindowSessionStorage</dfn> {
   readonly attribute <span>Storage</span> <span data-x="dom-sessionStorage">sessionStorage</span>;
 };
-<span>Window</span> includes <span>WindowSessionStorage</span>;</pre>
+<span>Window</span> includes <span>WindowSessionStorage</span>;</code></pre>
 
   <p>The <dfn><code data-x="dom-sessionStorage">sessionStorage</code></dfn> attribute represents the
   set of storage areas specific to the current <span>top-level browsing context</span>.</p>
@@ -59,6 +59,6 @@
   exception or "do nothing" as defined above, then for every <code>Document</code> object whose
   <code>Window</code> object's <code data-x="dom-sessionStorage">sessionStorage</code> attribute's
   <code>Storage</code> object is associated with the same storage area, other than <var>x</var>,
-  <span w-nohtml>user agents</span> <span>send a storage notification</span>.</p>
+  <span w-dev>user agents</span> <span>send a storage notification</span>.</p>
 
 
