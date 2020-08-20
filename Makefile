@@ -5,7 +5,11 @@ RESULTS=$(HTMLS) $(OUTPUT)/*.js
 build: update-progress html
 	node ./bin/merge.js > html/source
 	[ -d html-build ] || git clone https://github.com/whatwg-cn/html-build.git --depth=1
-	HTML_OUTPUT=$(OUTPUT) bash html-build/build.sh -n
+	[ -d wattsi ] || (git clone https://github.com/whatwg/wattsi.git --depth=1 && cd wattsi && make)
+	export SHA_OVERRIDE=ffffff; \
+	export PATH=$$PATH:`pwd`/wattsi/bin; \
+	export HTML_OUTPUT=$(OUTPUT); \
+	bash html-build/build.sh --no-lint -n --no-highlight
 	sed -i \
 		-e 's/"\/\?multipage/"\/html\/multipage/g' \
 		-e "s/'\/\?multipage/'\/html\/multipage/g" \
@@ -27,6 +31,7 @@ build: update-progress html
 
 html:
 	git clone https://github.com/whatwg/html.git --depth=1
+	rm -rf html/.git
 
 update-en: html
 	cd html && git fetch && git reset --hard origin/master && cd ..

@@ -38,8 +38,8 @@ jspm_packages
 
 /html
 /html-build
+/wattsi
 /source
 .*.swp
 .*.swo
 /output
-package-lock.json
