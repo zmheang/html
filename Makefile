@@ -34,7 +34,6 @@ html:
 	rm -rf html/.git
 
 update-en: html
-	cd html && git fetch && git reset --hard origin/master && cd ..
 	mv html/source source
 	rm -rf src/SUMMARY.en.md
 	find src/ -name "*.en.html" -delete

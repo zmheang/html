@@ -37,5 +37,8 @@
     "mkpath": "^1.0.0",
     "moment": "^2.20.1",
     "parse5": "^4.0.0"
+  },
+  "devDependencies": {
+    "all-contributors-cli": "^6.17.2"
   }
 }

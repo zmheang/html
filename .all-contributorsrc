@@ -1,0 +1,78 @@
+{
+  "projectName": "html",
+  "projectOwner": "harttle",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "Clovin",
+      "name": "Clovin",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/16433817?v=4",
+      "profile": "https://github.com/Clovin",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "WLyKan",
+      "name": "KingxBeta",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2155093?v=4",
+      "profile": "http://vikibeta.com/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "dblate",
+      "name": "yuhui",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/5365637?v=4",
+      "profile": "https://github.com/dblate",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "flowfire",
+      "name": "flowfire",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/6639067?v=4",
+      "profile": "https://github.com/flowfire",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "harttle",
+      "name": "Jun Yang",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4427974?v=4",
+      "profile": "https://harttle.land/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "oott123",
+      "name": "三三",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/905663?v=4",
+      "profile": "https://oott123.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "wangfpp",
+      "name": "wangfpp",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/35289556?v=4",
+      "profile": "https://github.com/wangfpp",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
