@@ -9,9 +9,8 @@
 
   <p><span data-x="platform object">平台对象</span> 可以是
   <span data-x="transferable objects">可传输对象</span>，
-  只要它们实现了以 <dfn data-export=""
-  data-dfn-type="extended-attribute" data-lt="Transferable"
-  data-x="Transferable"><code>[Transferable]</code></dfn> IDL
+  只要它们实现了以 <dfn extended-attribute
+  data-lt="Transferable" data-x="Transferable"><code>[Transferable]</code></dfn> IDL
   <span data-x="extended attribute">扩展属性</span> 注解的接口。
   这样的接口必须定义下列算法：</p>
 
@@ -50,7 +49,7 @@
 
   <p>是 <span data-x="transferable objects">可传输对象</span>
   的 <span data-x="platform object">平台对象</span> 有一个
-  <dfn data-export="" data-dfn-for="platform object" data-dfn-type="attribute">[[Detached]]</dfn> 内部槽。
+  <dfn for="platform object" attribute>[[Detached]]</dfn> 内部槽。
   用于确保一旦平台对象已经被传输，它不能被再次传输。</p>
 
   <p>JavaScript 标准中定义的对象直接交由 <span>StructuredSerializeWithTransfer</span> 抽象操作处理。</p>

@@ -10,7 +10,7 @@
   data-x="handler-worker-onmessage">onmessage</code> <span data-x="event handler IDL attributes">event
   handler IDL attribute</span> on the <code>Worker</code> object:</p>
 
-  <pre><code class="js" data-x="">worker.onmessage = function (event) { ... };</code></pre>
+  <pre><code class="js">worker.onmessage = function (event) { ... };</code></pre>
 
   <p>You can also use the <code data-x="dom-EventTarget-addEventListener">addEventListener()</code>
   method.</p>
@@ -26,7 +26,7 @@
   efficiently (by transferring them rather than cloning them), list them in an array in the second
   argument.</p>
 
-  <pre><code class="js" data-x="">worker.postMessage({
+  <pre><code class="js">worker.postMessage({
   operation: 'find-edges',
   input: buffer, // an ArrayBuffer object
   threshold: 0.6,
@@ -36,7 +36,7 @@
   data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</code> <span data-x="event handler
   IDL attributes">event handler IDL attribute</span> is used.</p>
 
-  <pre><code class="js" data-x="">onmessage = function (event) { ... };</code></pre>
+  <pre><code class="js">onmessage = function (event) { ... };</code></pre>
 
   <p>You can again also use the <code
   data-x="dom-EventTarget-addEventListener">addEventListener()</code> method.</p>
@@ -48,6 +48,6 @@
   data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage()</code>. It supports the
   structured data in the same manner.</p>
 
-  <pre><code class="js" data-x="">postMessage(event.data.input, [event.data.input]); // transfer the buffer back</code></pre>
+  <pre><code class="js">postMessage(event.data.input, [event.data.input]); // transfer the buffer back</code></pre>
 
 

@@ -7,7 +7,6 @@
 
    <dt>An end tag whose tag name is "caption"</dt>
    <dd>
-
     <p>If the <span>stack of open elements</span> does not <span data-x="has an element in table
     scope">have a <code>caption</code> element in table scope</span>, this is a <span>parse
     error</span>; ignore the token. (<span>fragment case</span>)</p>
@@ -26,13 +25,11 @@
 
     <p>Switch the <span>insertion mode</span> to "<span data-x="insertion mode: in table">in
     table</span>".</p>
-
    </dd>
 
    <dt>A start tag whose tag name is one of: "caption", "col", "colgroup", "tbody", "td", "tfoot",
    "th", "thead", "tr"</dt> <dt>An end tag whose tag name is "table"</dt>
    <dd>
-
     <p>If the <span>stack of open elements</span> does not <span data-x="has an element in table
     scope">have a <code>caption</code> element in table scope</span>, this is a <span>parse
     error</span>; ignore the token. (<span>fragment case</span>)</p>
@@ -55,7 +52,6 @@
     <!-- end of fake </caption> -->
 
     <p>Reprocess the token.</p>
-
    </dd>
 
    <dt>An end tag whose tag name is one of: "body", "col", "colgroup", "html", "tbody", "td",
@@ -66,12 +62,9 @@
 
    <dt>Anything else</dt>
    <dd>
-
     <p>Process the token <span>using the rules for</span> the "<span data-x="insertion mode: in
     body">in body</span>" <span>insertion mode</span>.</p>
-
    </dd>
-
   </dl>
 
 

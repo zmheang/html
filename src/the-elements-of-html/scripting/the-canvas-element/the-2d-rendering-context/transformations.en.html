@@ -26,80 +26,63 @@
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-scale">scale</code>(<var>x</var>, <var>y</var>)</dt>
 
    <dd>
-
     <p>Changes the <span>current transformation matrix</span> to apply a scaling transformation
     with the given characteristics.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-rotate">rotate</code>(<var>angle</var>)</dt>
 
    <dd>
-
     <p>Changes the <span>current transformation matrix</span> to apply a rotation transformation
     with the given characteristics. The angle is in radians.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-translate">translate</code>(<var>x</var>, <var>y</var>)</dt>
 
    <dd>
-
     <p>Changes the <span>current transformation matrix</span> to apply a translation transformation
     with the given characteristics.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-transform">transform</code>(<var>a</var>, <var>b</var>, <var>c</var>, <var>d</var>, <var>e</var>, <var>f</var>)</dt>
 
    <dd>
-
     <p>Changes the <span>current transformation matrix</span> to apply the matrix given by the
     arguments as described below.</p>
-
    </dd>
 
    <dt><var>matrix</var> = <var>context</var> . <code subdfn data-x="dom-context-2d-getTransform">getTransform</code>()</dt>
 
    <dd>
-
     <p>Returns a copy of the <span>current transformation matrix</span>, as a newly created
     <code>DOMMatrix</code> object.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-setTransform">setTransform</code>(<var>a</var>, <var>b</var>, <var>c</var>, <var>d</var>, <var>e</var>, <var>f</var>)</dt>
 
    <dd>
-
     <p>Changes the <span>current transformation matrix</span> <em>to</em> the matrix given by the
     arguments as described below.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-setTransform-matrix">setTransform</code>(<var>transform</var>)</dt>
 
    <dd>
-
     <p>Changes the <span>current transformation matrix</span> <em>to</em> the matrix represented by
     the passed <code>DOMMatrix2DInit</code> dictionary.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-resetTransform">resetTransform</code>()</dt>
 
    <dd>
-
     <p>Changes the <span>current transformation matrix</span> to the identity matrix.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-context-2d-scale">scale(<var>x</var>, <var>y</var>)</code></dfn>
-  method, when invoked, must run these steps:</p>
+  <p>The <dfn method for="CanvasTransform"><code data-x="dom-context-2d-scale">scale(<var>x</var>,
+  <var>y</var>)</code></dfn> method, when invoked, must run these steps:</p>
 
   <ol>
    <li><p>If either of the arguments are infinite or NaN, then return.</p></li>
@@ -110,8 +93,9 @@
    direction. The factors are multiples.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-context-2d-rotate">rotate(<var>angle</var>)</code></dfn> method,
-  when invoked, must run these steps:</p>
+  <p>The <dfn method for="CanvasTransform"><code
+  data-x="dom-context-2d-rotate">rotate(<var>angle</var>)</code></dfn> method, when invoked, must
+  run these steps:</p>
 
   <ol>
    <li><p>If <var>angle</var> is infinite or NaN, then return.</p></li>
@@ -121,8 +105,9 @@
    expressed in radians.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-context-2d-translate">translate(<var>x</var>,
-  <var>y</var>)</code></dfn> method, when invoked, must run these steps:</p>
+  <p>The <dfn method for="CanvasTransform"><code
+  data-x="dom-context-2d-translate">translate(<var>x</var>, <var>y</var>)</code></dfn> method, when
+  invoked, must run these steps:</p>
 
   <ol>
    <li><p>If either of the arguments are infinite or NaN, then return.</p></li>
@@ -133,9 +118,10 @@
    vertical direction. The arguments are in coordinate space units.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-context-2d-transform">transform(<var>a</var>, <var>b</var>,
-  <var>c</var>, <var>d</var>, <var>e</var>, <var>f</var>)</code></dfn> method, when invoked, must
-  run these steps:</p>
+  <p>The <dfn method for="CanvasTransform"><code
+  data-x="dom-context-2d-transform">transform(<var>a</var>, <var>b</var>, <var>c</var>,
+  <var>d</var>, <var>e</var>, <var>f</var>)</code></dfn> method, when invoked, must run these
+  steps:</p>
 
   <ol>
    <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
@@ -216,6 +202,37 @@
   when invoked, must reset the <span>current transformation matrix</span> to the identity
   matrix.</p>
 
+  </div>
+
+  <div class="note">
+   <p>Given a matrix of the form created by the <code
+   data-x="dom-context-2d-transform">transform()</code> and <code
+   data-x="dom-context-2d-setTransform">setTransform()</code> methods, i.e.,</p>
+
+   <table class="matrix">
+    <tr>
+     <td><var>a</var></td>
+     <td><var>c</var></td>
+     <td><var>e</var></td>
+    </tr>
+    <tr>
+     <td><var>b</var></td>
+     <td><var>d</var></td>
+     <td><var>f</var></td>
+    </tr>
+    <tr>
+     <td>0</td>
+     <td>0</td>
+     <td>1</td>
+    </tr>
+   </table>
+
+   <p>the resulting transformed coordinates after transform matrix multiplication will be</p>
+
+   <p class="equations">
+    <var>x</var><sub>new</sub> = <var>a</var> <var>x</var> + <var>c</var> <var>y</var> + <var>e</var><br>
+    <var>y</var><sub>new</sub> = <var>b</var> <var>x</var> + <var>d</var> <var>y</var> + <var>f</var>
+   </p>
   </div>
 
 

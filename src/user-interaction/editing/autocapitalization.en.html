@@ -27,7 +27,7 @@
   autocapitalization to be enabled for <code>input</code> elements whose <code
   data-x="attr-input-type">type</code> attribute is in one of the <span
   data-x="attr-input-type-url">URL</span>, <span
-  data-x="attr-input-type-email">E-mail</span>, or <span
+  data-x="attr-input-type-email">Email</span>, or <span
   data-x="attr-input-type-password">Password</span> states.<span w-nodev> (This behavior is included
   in the <span data-x="used autocapitalization hint">used autocapitalization hint</span> algorithm
   below.)</span></p>
@@ -56,8 +56,9 @@
    <dd><p>All letters should default to uppercase.</p></dd>
   </dl>
 
-  <p>The <dfn><code data-x="attr-autocapitalize">autocapitalize</code></dfn> attribute is an
-  <span>enumerated attribute</span> whose states are the possible <span data-x="autocapitalization
+  <p>The <dfn element-attr for="html-global"><code
+  data-x="attr-autocapitalize">autocapitalize</code></dfn> attribute is an <span>enumerated
+  attribute</span> whose states are the possible <span data-x="autocapitalization
   hint">autocapitalization hints</span>. The <span>autocapitalization hint</span> specified by the
   attribute's state combines with other considerations to form the <span>used autocapitalization
   hint</span>, which informs the behavior of the user agent. The keywords for this attribute and
@@ -70,20 +71,30 @@
      <th> State
    <tbody>
     <tr>
-     <td><dfn><code data-x="attr-autocapitalize-off">off</code></dfn>
+     <td><dfn attr-value for="html-global/autocapitalize"><code
+     data-x="attr-autocapitalize-off">off</code></dfn>
+
      <td rowspan="2"><span data-x="autocap-hint-none">none</span>
     <tr>
-     <td><dfn><code data-x="attr-autocapitalize-none">none</code></dfn>
+     <td><dfn attr-value for="html-global/autocapitalize"><code
+     data-x="attr-autocapitalize-none">none</code></dfn>
     <tr>
-     <td><dfn><code data-x="attr-autocapitalize-on">on</code></dfn>
+     <td><dfn attr-value for="html-global/autocapitalize"><code
+     data-x="attr-autocapitalize-on">on</code></dfn>
+
      <td rowspan="2"><span data-x="autocap-hint-sentences">sentences</span>
     <tr>
-     <td><dfn><code data-x="attr-autocapitalize-sentences">sentences</code></dfn>
+     <td><dfn attr-value for="html-global/autocapitalize"><code
+     data-x="attr-autocapitalize-sentences">sentences</code></dfn>
     <tr>
-     <td><dfn><code data-x="attr-autocapitalize-words">words</code></dfn>
+     <td><dfn attr-value for="html-global/autocapitalize"><code
+     data-x="attr-autocapitalize-words">words</code></dfn>
+
      <td><span data-x="autocap-hint-words">words</span>
     <tr>
-     <td><dfn><code data-x="attr-autocapitalize-characters">characters</code></dfn>
+     <td><dfn attr-value for="html-global/autocapitalize"><code
+     data-x="attr-autocapitalize-characters">characters</code></dfn>
+
      <td><span data-x="autocap-hint-characters">characters</span>
   </table>
 
@@ -126,11 +137,27 @@
    <li><p>Return <span data-x="autocap-hint-default">default</span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-autocapitalize">autocapitalize</code></dfn> IDL attribute, on
-  getting, must return the string value corresponding to <span>own autocapitalization hint</span> of
-  the element, with the exception that the <span data-x="autocap-hint-default">default</span> state
-  maps to the empty string. On setting, it must set the <code
-  data-x="attr-autocapitalize">autocapitalize</code> content attribute to the given new value.</p>
+  <p>The <dfn attribute for="HTMLElement"><code
+  data-x="dom-autocapitalize">autocapitalize</code></dfn> getter steps are to:</p>
+
+  <ol>
+   <li><p>Let <var>state</var> be the <span>own autocapitalization hint</span> of
+   <span>this</span>.</p></li>
+
+   <li><p>If <var>state</var> is <span data-x="autocap-hint-default">default</span>, then return the
+   empty string.</p></li>
+
+   <li><p>If <var>state</var> is <span data-x="autocap-hint-none">none</span>, then return "<code
+   data-x="attr-autocapitalize-none">none</code>".</p></li>
+
+   <li><p>If <var>state</var> is <span data-x="autocap-hint-sentences">sentences</span>, then return
+   "<code data-x="attr-autocapitalize-sentences">sentences</code>".</p></li>
+
+   <li><p>Return the keyword value corresponding to <var>state</var>.</p></li>
+  </ol>
+
+  <p>The <code data-x="dom-autocapitalize">autocapitalize</code> setter steps are to set the <code
+  data-x="attr-autocapitalize">autocapitalize</code> content attribute to the given value.</p>
 
   <hr>
 
@@ -149,7 +176,7 @@
   <ol>
    <li><p>If <var>element</var> is an <code>input</code> element whose <code
    data-x="attr-input-type">type</code> attribute is in one of the <span
-   data-x="attr-input-type-url">URL</span>, <span data-x="attr-input-type-email">E-mail</span>, or
+   data-x="attr-input-type-url">URL</span>, <span data-x="attr-input-type-email">Email</span>, or
    <span data-x="attr-input-type-password">Password</span> states, then return <span
    data-x="autocap-hint-default">default</span>.</p></li>
 

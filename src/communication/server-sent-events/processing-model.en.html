@@ -6,7 +6,7 @@
   <p>As data is received, the <span data-x="concept-task">tasks</span> queued by the <span>networking
   task source</span> to handle the data must act as follows.</p>
 
-  <p>HTTP 200 OK responses with a `<span>Content-Type</span>` header specifying the type
+  <p>HTTP 200 OK responses with a `<code>Content-Type</code>` header specifying the type
   `<code>text/event-stream</code>`, ignoring any <span>MIME type</span> parameters, must be
   processed line by line <a href="#event-stream-interpretation">as described below</a>.</p>
 
@@ -61,13 +61,10 @@
   and not themselves <span>in parallel</span>.)</p>
 
   <ol>
-
    <li>
-
     <p><span>Queue a task</span> to run the following steps:</p>
 
     <ol>
-
      <li><p>If the <code data-x="dom-EventSource-readyState">readyState</code> attribute is set to
      <code data-x="dom-EventSource-CLOSED">CLOSED</code>, abort the task.</p></li>
 
@@ -76,9 +73,7 @@
 
      <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
      data-x="event-error">error</code> at the <code>EventSource</code> object.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>Wait a delay equal to the reconnection time of the event source.</li>
@@ -92,11 +87,9 @@
    <li><p>Wait until the aforementioned task has run, if it has not yet run.</p></li>
 
    <li>
-
     <p><span>Queue a task</span> to run the following steps:</p>
 
     <ol>
-
      <li><p>If the <code>EventSource</code> object's <code
      data-x="dom-EventSource-readyState">readyState</code> attribute is not set to <code
      data-x="dom-EventSource-CONNECTING">CONNECTING</code>, return.</p></li>
@@ -114,11 +107,8 @@
 
      <!--FETCH--><li><p><span data-x="concept-fetch">Fetch</span> <var>request</var> and process the
      response obtained in this fashion, if any, as described earlier in this section.</p></li>
-
     </ol>
-
    </li>
-
   </ol>
 
   <p>When a user agent is to <dfn>fail the connection</dfn>, the user agent must <span>queue a

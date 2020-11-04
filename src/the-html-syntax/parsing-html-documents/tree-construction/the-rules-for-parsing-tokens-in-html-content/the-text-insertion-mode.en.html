@@ -8,17 +8,14 @@
 
    <dt>A character token</dt>
    <dd>
-
     <p><span data-x="insert a character">Insert the token's character</span>.</p>
 
     <p class="note">This can never be a U+0000 NULL character; the tokenizer converts those to
     U+FFFD REPLACEMENT CHARACTER characters.</p>
-
    </dd>
 
    <dt>An end-of-file token</dt>
    <dd>
-
     <!-- can't be the fragment case -->
     <p><span>Parse error</span>.</p>
 
@@ -29,12 +26,10 @@
 
     <p>Switch the <span>insertion mode</span> to the <span>original insertion mode</span> and
     reprocess the token.</p>
-
    </dd>
 
    <dt id="scriptEndTag">An end tag whose tag name is "script"</dt>
    <dd>
-
     <p>If the <span>JavaScript execution context stack</span> is empty, <span>perform a microtask
     checkpoint</span>.</p>
 
@@ -71,7 +66,6 @@
      <dt>If the <span>script nesting level</span> is not zero:</dt>
 
      <dd>
-
       <p>Set the <span>parser pause flag</span> to true, and abort the processing of any nested
       invocations of the tokenizer, yielding control back to the caller. (Tokenization will resume
       when the caller returns to the "outer" tree construction stage.)</p>
@@ -79,18 +73,15 @@
       <p class="note">The tree construction stage of this particular parser is <a
       href="#nestedParsing">being called reentrantly</a>, say from a call to <code
       data-x="dom-document-write">document.write()</code>.</p>
-
      </dd>
 
 
      <dt>Otherwise:</dt>
 
      <dd>
-
       <p>Run these steps:</p>
 
       <ol>
-
        <li><p>Let <var>the script</var> be the <span>pending parsing-blocking
        script</span>. There is no longer a <span>pending parsing-blocking script</span>.</p></li>
 
@@ -106,15 +97,13 @@
        <span>"ready to be parser-executed"</span> flag is set.</p></li>
 
        <li>
-
         <p>If this <span data-x="abort a parser">parser has been aborted</span> in the meantime,
         return.</p>
 
         <p class="note">This could happen if, e.g., while the <span>spin the event loop</span>
         algorithm is running, the <span>browsing context</span> gets closed, or the <code
-        data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> method
-        gets invoked on the <code>Document</code>.</p>
-
+        data-x="dom-document-open">document.open()</code> method gets invoked on the
+        <code>Document</code>.</p>
        </li>
 
        <li><p>Unblock the <span data-x="tokenization">tokenizer</span> for this instance of the
@@ -138,24 +127,17 @@
 
        <li><p>If there is once again a <span>pending parsing-blocking script</span>, then repeat
        these steps from step 1.</p></li>
-
       </ol>
-
      </dd>
-
     </dl>
-
    </dd>
 
    <dt>Any other end tag</dt>
    <dd>
-
     <p>Pop the <span>current node</span> off the <span>stack of open elements</span>.</p>
 
     <p>Switch the <span>insertion mode</span> to the <span>original insertion mode</span>.</p>
-
    </dd>
-
   </dl>
 
 

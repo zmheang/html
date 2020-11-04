@@ -1,9 +1,8 @@
   <h5><dfn>Named character reference state</dfn></h5>
 
-  <p>Consume the maximum number of characters possible, with the consumed characters matching one
-  of the identifiers in the first column of the <span>named character references</span> table (in
-  a <span>case-sensitive</span> manner). Append each character to the <var data-x="temporary
-  buffer">temporary buffer</var> when it's consumed.</p>
+  <p>Consume the maximum number of characters possible, where the consumed characters are one of the
+  identifiers in the first column of the <span>named character references</span> table. Append each
+  character to the <var data-x="temporary buffer">temporary buffer</var> when it's consumed.</p>
 
   <dl class="switch">
 
@@ -40,7 +39,6 @@
 
    <dd><span>Flush code points consumed as a character reference</span>. Switch to the
    <span>ambiguous ampersand state</span>.</dd>
-
   </dl>
 
   <div class="example">

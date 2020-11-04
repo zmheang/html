@@ -1,8 +1,46 @@
   <h4 id="wai-aria">Requirements related to ARIA and to platform accessibility APIs</h4>
 
   <p>User agent requirements for implementing Accessibility API semantics on <span>HTML
-  elements</span> are defined in <cite>HTML Accessibility API Mappings</cite>. <ref
-  spec=HTMLAAM></p>
+  elements</span> are defined in <cite>HTML Accessibility API Mappings</cite>. In addition to the
+  rules there, for a <span>custom element</span> <var>element</var>, the default ARIA role
+  semantics are determined as follows: <ref spec=HTMLAAM></p>
+
+  <ol>
+   <li><p>Let <var>map</var> be <var>element</var>'s <span>native accessibility semantics
+   map</span>.</p></li>
+
+   <li><p>If <var>map</var>["<code data-x="">role</code>"] <span data-x="map exists">exists</span>,
+   then return it.</p></li>
+
+   <li><p>Return no role.</p></li>
+  </ol>
+
+  <p>Similarly, for a <span>custom element</span> <var>element</var>, the default ARIA state and
+  property semantics, for a state or property named <var>stateOrProperty</var>, are determined as
+  follows:</p>
+
+  <ol>
+   <li><p>Let <var>map</var> be <var>element</var>'s <span>native accessibility semantics
+   map</span>.</p></li>
+
+   <li><p>If <var>map</var>[<var>stateOrProperty</var>] <span data-x="map exists">exists</span>,
+   then return it.</p></li>
+
+   <li><p>Return the default value for <var>stateOrProperty</var>.</p></li>
+  </ol>
+
+  <p class="note">The "default semantics" referred to here are sometimes also called "native",
+  "implicit", or "host language" semantics in <cite>ARIA</cite>. <ref spec=ARIA></p>
+
+  <p class="note">One implication of these definitions is that the default semantics can change over
+  time. This allows custom elements the same expressivity as built-in elements; e.g., compare to how
+  the default ARIA role semantics of an <code>a</code> element change as the <code
+  data-x="attr-hyperlink-href">href</code> attribute is added or removed.</p>
+
+  <p>For an example of this in action, see <a href="#custom-elements-accessibility-example">the
+  custom elements section</a>.</p>
+
+  <hr>
 
   <p>Conformance checker requirements for checking use of ARIA <code
   data-x="attr-aria-role">role</code> and <code data-x="attr-aria-*">aria-*</code> attributes on

@@ -3,11 +3,10 @@
   <div w-nodev>
 
   <p>When a user agent is to create <!--en-GB--><dfn id="a-serialisation-of-the-bitmap-as-a-file">a
-  serialization of the bitmap as a file</dfn>, given an optional <var>type</var> and
-  <var>quality</var>, it must create an image file in the format given by <var>type</var>, or if
-  <var>type</var> was not supplied, in the PNG format. If an error occurs during the creation of
-  the image file (e.g. an internal encoder error), then the result of the serialization is null.
-  <ref spec=PNG></p>
+  serialization of the bitmap as a file</dfn>, given a <var>type</var> and an optional
+  <var>quality</var>, it must create an image file in the format given by <var>type</var>. If an
+  error occurs during the creation of the image file (e.g. an internal encoder error), then the
+  result of the serialization is null. <ref spec=PNG></p>
 
   <p>The image file's pixel data must be the bitmap's pixel data scaled to one image pixel per
   coordinate space unit, and if the file format used supports encoding resolution metadata, the
@@ -34,15 +33,19 @@
   image composited onto an <span>opaque black</span> background using the source-over operator.</p>
 
   <p>If <var>type</var> is an image format that supports variable quality (such as
-  "<code>image/jpeg</code>") and <var>quality</var> is given, then, if <span
-  data-x="js-Type">Type</span>(<var>quality</var>) is Number, and <var>quality</var> is in the range
-  0.0 to 1.0 inclusive, the user agent must treat <var>quality</var> as the desired quality level.
-  If <span data-x="js-Type">Type</span>(<var>quality</var>) is not Number, or if <var>quality</var>
-  is outside that range, the user agent must use its default quality value, as if the
-  <var>quality</var> argument had not been given.</p>
+  "<code>image/jpeg</code>"), <var>quality</var> is given, and <var>type</var> is not
+  "<code>image/png</code>", then, if <span data-x="js-Type">Type</span>(<var>quality</var>) is
+  Number, and <var>quality</var> is in the range 0.0 to 1.0 inclusive, the user agent must treat
+  <var>quality</var> as the desired quality level. Otherwise, the user agent must use its default
+  quality value, as if the <var>quality</var> argument had not been given.</p>
 
   <p class="note">The use of type-testing here, instead of simply declaring <var>quality</var> as
   a Web IDL <code data-x="">double</code>, is a historical artifact.</p>
+
+  <p class="note">Different implementations can have slightly different interpretations of
+  "quality". When the quality is not specified, an implementation-specific default is used that
+  represents a reasonable compromise between compression ratio, image quality, and encoding
+  time.</p>
 
   </div>
 

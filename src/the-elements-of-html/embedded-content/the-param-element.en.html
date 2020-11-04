@@ -11,13 +11,20 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-param-name">name</code></dd>
    <dd><code data-x="attr-param-value">value</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-param">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-param">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLParamElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-param-name">name</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-param-value">value</span>;
+
+  // <a href="#HTMLParamElement-partial">also has obsolete members</a>
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLParamElement</code>.</dd>
@@ -26,11 +33,11 @@ interface <dfn>HTMLParamElement</dfn> : <span>HTMLElement</span> {
   <p>The <code>param</code> element defines parameters for plugins invoked by <code>object</code>
   elements. It does not <span data-x="represents">represent</span> anything on its own.</p>
 
-  <p>The <dfn><code data-x="attr-param-name">name</code></dfn> attribute gives the name of the
-  parameter.</p>
+  <p>The <dfn element-attr for="param"><code data-x="attr-param-name">name</code></dfn> attribute
+  gives the name of the parameter.</p>
 
-  <p>The <dfn><code data-x="attr-param-value">value</code></dfn> attribute gives the value of the
-  parameter.</p>
+  <p>The <dfn element-attr for="param"><code data-x="attr-param-value">value</code></dfn> attribute
+  gives the value of the parameter.</p>
 
   <p>Both attributes must be present. They may have any value.</p>
 
@@ -48,8 +55,10 @@ interface <dfn>HTMLParamElement</dfn> : <span>HTMLElement</span> {
   data-x="concept-param-parameter">parameter</span> so changes, then the user agent must
   appropriately exercise that ability to notify the <span>plugin</span> of the change.</p>
 
-  <p>The IDL attributes <dfn><code data-x="dom-param-name">name</code></dfn> and <dfn><code data-x="dom-param-value">value</code></dfn> must both <span>reflect</span> the respective
-  content attributes of the same name.</p>
+  <p>The IDL attributes <dfn attribute for="HTMLParamElement"><code
+  data-x="dom-param-name">name</code></dfn> and <dfn attribute for="HTMLParamElement"><code
+  data-x="dom-param-value">value</code></dfn> must both <span>reflect</span> the respective content
+  attributes of the same name.</p>
 
   </div>
 
@@ -58,7 +67,7 @@ interface <dfn>HTMLParamElement</dfn> : <span>HTMLElement</span> {
    <p>The following example shows how the <code>param</code> element can be used to pass a parameter
    to a plugin, in this case the O3D plugin.</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
   &lt;head>
    &lt;title>O3D Utah Teapot&lt;/title>

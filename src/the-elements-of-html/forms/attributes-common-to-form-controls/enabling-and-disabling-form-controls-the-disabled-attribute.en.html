@@ -1,7 +1,8 @@
   <h5>Enabling and disabling form controls: the <code data-x="attr-fe-disabled">disabled</code> attribute</h5>
 
-  <p>The <dfn><code data-x="attr-fe-disabled">disabled</code></dfn> content attribute is a
-  <span>boolean attribute</span>.</p>
+  <p>The <dfn element-attr for="button,fieldset,input,object,output,select,textarea"><code
+  data-x="attr-fe-disabled">disabled</code></dfn> content attribute is a <span>boolean
+  attribute</span>.</p>
 
   <p class="note">The <code data-x="attr-option-disabled">disabled</code> attribute for
   <code>option</code> elements and the <code data-x="attr-optgroup-disabled">disabled</code>
@@ -11,16 +12,15 @@
   conditions are met:</p>
 
   <ol>
-
-   <li>The element is a <code>button</code>, <code>input</code>, <code>select</code>, or
-   <code>textarea</code> element, and the <code data-x="attr-fe-disabled">disabled</code> attribute
-   is specified on this element (regardless of its value).</li>
+   <li>The element is a <code>button</code>, <code>input</code>, <code>select</code>,
+   <code>textarea</code>, or <span>form-associated custom element</span>, and the <code
+   data-x="attr-fe-disabled">disabled</code> attribute is specified on this element (regardless of
+   its value).</li>
 
    <li>The element is a descendant of a <code>fieldset</code> element whose <code
    data-x="attr-fieldset-disabled">disabled</code> attribute is specified, and is <em>not</em> a
    descendant of that <code>fieldset</code> element's first <code>legend</code> element child, if
    any.</li>
-
   </ol>
 
   <div w-nodev>
@@ -33,8 +33,10 @@
   data-x="concept-fe-disabled">disabled</span>, it is <span>barred from constraint
   validation</span>.</p>
 
-  <p>The <dfn><code data-x="dom-fe-disabled">disabled</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-fe-disabled">disabled</code> content attribute.</p>
+  <p>The <dfn attribute
+  for="HTMLInputElement,HTMLButtonElement,HTMLSelectElement,HTMLTextAreaElement"><code
+  data-x="dom-fe-disabled">disabled</code></dfn> IDL attribute must <span>reflect</span> the <code
+  data-x="attr-fe-disabled">disabled</code> content attribute.</p>
 
   </div>
 

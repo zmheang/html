@@ -1,12 +1,35 @@
   <h5>Link type "<dfn><code data-x="rel-noopener">noopener</code></dfn>"</h5>
 
-  <p>The <code data-x="rel-noopener">noopener</code> keyword may be used with <code>a</code> and
-  <code>area</code> elements. This keyword does not create a <span>hyperlink</span>, but <span
-  data-x="hyperlink annotation">annotates</span> any other hyperlinks created by the element (the
-  implied hyperlink, if no other keywords create one).</p>
+  <p>The <code data-x="rel-noopener">noopener</code> keyword may be used with <code>a</code>,
+  <code>area</code>, and <code>form</code> elements. This keyword does not create a
+  <span>hyperlink</span>, but <span data-x="hyperlink annotation">annotates</span> any other
+  hyperlinks created by the element (the implied hyperlink, if no other keywords create one).</p>
 
-  <p>The keyword indicates that any newly created <span>browsing context</span> which results from
-  following the <span>hyperlink</span> will be <span>disowned</span>, which means that its <code
-  data-x="dom-opener">window.opener</code> attribute will be null.</p>
+  <p>The keyword indicates that any newly created <span>top-level browsing context</span> which
+  results from following the <span>hyperlink</span> will not be an <span>auxiliary browsing
+  context</span>. E.g., its <code data-x="dom-opener">window.opener</code> attribute will be
+  null.</p>
+
+  <p w-nodev class="note">See also the <a href="#noopener">processing model</a> where the branching
+  between an <span>auxiliary browsing context</span> and a <span>top-level browsing context</span>
+  is defined.</p>
+
+  <div class="example">
+   <p>This typically creates an <span>auxiliary browsing context</span> (assuming there is no
+   existing <span>browsing context</span> whose <span>browsing context name</span> is
+   "<code data-x="">example</code>"):</p>
+
+   <pre><code class="html">&lt;a href=help.html target=example>Help!&lt;/a></code></pre>
+
+   <p>This creates a <span>top-level browsing context</span> that is not an <span>auxiliary browsing
+   context</span> (assuming the same thing):</p>
+
+   <pre><code class="html">&lt;a href=help.html target=example rel=noopener>Help!&lt;/a></code></pre>
+
+   <p>These are equivalent and only navigate the <span>parent browsing context</span>:</p>
+
+   <pre><code class="html">&lt;a href=index.html target=_parent>Home&lt;/a></code></pre>
+   <pre><code class="html">&lt;a href=index.html target=_parent rel=noopener>Home&lt;/a></code></pre>
+  </div>
 
 

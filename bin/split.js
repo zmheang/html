@@ -17,7 +17,7 @@ root.preOrderTraversal(function computePath(section, parents) {
     var slug = parents.concat(section).map(section => section.slug).join('/');
     var file = section.children.length ? `${slug}/index` : `${slug}`;
     section.path = file + '.en.html';
-    skeleton = skeleton.replace(`<file src="${section.id}">`, `<file src="${file}">`);
+    skeleton = skeleton.replace(`<file src="${section.id}">`, `<file src="${file}">\n`);
 });
 
 root.preOrderTraversal(function generateTOC(section, parents, idx) {

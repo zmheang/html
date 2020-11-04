@@ -11,6 +11,15 @@
    descendants.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd>If the nearest ancestor <span>sectioning content</span> or <span>sectioning root</span>
+   element is <span>the body element</span>: <a
+   href="https://w3c.github.io/html-aria/#el-footer">for authors</a>; <a
+   href="https://w3c.github.io/html-aam/#el-footer-ancestorbody">for implementers</a>.</dd>
+   <dd>Otherwise: <a
+   href="https://w3c.github.io/html-aria/#el-footer">for authors</a>; <a
+   href="https://w3c.github.io/html-aam/#el-footer">for implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -45,7 +54,7 @@
    <p>Here is a page with two footers, one at the top and one at the bottom, with the same
    content:</p>
 
-   <pre><code class="html" data-x="">&lt;body>
+   <pre><code class="html">&lt;body>
  &lt;footer>&lt;a href="../">Back to index...&lt;/a>&lt;/footer>
  &lt;hgroup>
   &lt;h1>Lorem ipsum&lt;/h1>
@@ -68,7 +77,7 @@
    <p>Here is an example which shows the <code>footer</code> element being used both for a site-wide
    footer and for a section footer.</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;HTML LANG="en">&lt;HEAD>
 &lt;TITLE>The Ramblings of a Scientist&lt;/TITLE>
 &lt;BODY>
@@ -112,7 +121,7 @@
 
    <p>This fragment shows the bottom of a page on a site with a "fat footer":</p>
 
-   <pre><code class="html" data-x="">...
+   <pre><code class="html">...
  &lt;footer>
   &lt;nav>
    &lt;section>

@@ -3,8 +3,10 @@
   <p><code>WebSocket</code> objects use the <code>CloseEvent</code> interface for their <code
   data-x="event-close">close</code> events:</p>
 
-  <pre><code class="idl" data-x="">[Constructor(DOMString type, optional <span>CloseEventInit</span> eventInitDict), Exposed=(Window,Worker)]
+  <pre><code class="idl">[Exposed=(Window,Worker)]
 interface <dfn>CloseEvent</dfn> : <span>Event</span> {
+  <span data-x="dom-Event-constructor">constructor</span>(DOMString type, optional <span>CloseEventInit</span> eventInitDict = {});
+
   readonly attribute boolean <span data-x="dom-CloseEvent-wasClean">wasClean</span>;
   readonly attribute unsigned short <span data-x="dom-CloseEvent-code">code</span>;
   readonly attribute USVString <span data-x="dom-CloseEvent-reason">reason</span>;
@@ -32,7 +34,6 @@ dictionary <dfn>CloseEventInit</dfn> : <span>EventInit</span> {
    <dd>
     <p>Returns the WebSocket connection close reason provided by the server.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>

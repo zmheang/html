@@ -2,7 +2,7 @@
 
   <!-- del, ins, and map are inline. -->
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 address, blockquote, center, dialog, div, figure, figcaption, footer, form,
 header, hr, legend, listing, main, p, plaintext, pre, xmp {
@@ -23,7 +23,7 @@ listing, plaintext, pre, xmp {
 dialog:not([open]) { display: none; }
 dialog {
   position: absolute;
-  offset-inline-start: 0; offset-inline-end: 0;
+  inset-inline-start: 0; inset-inline-end: 0;
   width: fit-content;
   height: fit-content;
   margin: auto;
@@ -42,13 +42,13 @@ slot {
 
   <p>The following rules are also expected to apply, as <span>presentational hints</span>:</p>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 pre[wrap] { white-space: pre-wrap; }</code></pre>
 
   <p>In <span>quirks mode</span>, the following rules are also expected to apply:</p>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 form { margin-block-end: 1em; }</code></pre>
 
@@ -79,5 +79,15 @@ form { margin-block-end: 1em; }</code></pre>
   <span>'text-align'</span> property set to 'justify' in a <span data-x="presentational
   hints">presentational hint</span>, and to <span>align descendants</span> to the left.</p>
 
+  <p>The <code>dialog</code> element, when its <span>is modal</span> flag is true, is expected to
+  act as if it had a user-agent-level style sheet rule setting the following properties:</p>
 
+  <ul>
+   <li><span>'position'</span> property to 'fixed'</li>
+   <li><span>'overflow'</span> property to 'auto'</li>
+   <li><span>'inset-block-start'</span> property to '0'</li>
+   <li><span>'inset-block-end'</span> property to '0'</li>
+   <li><span>'max-width'</span> property to 'calc(100% - 6px - 2em)'</li>
+   <li><span>'max-height'</span> property to 'calc(100% - 6px - 2em)'</li>
+  </ul>
 

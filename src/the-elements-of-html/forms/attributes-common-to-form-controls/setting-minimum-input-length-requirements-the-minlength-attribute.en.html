@@ -3,8 +3,8 @@
   <p>A <dfn data-x="attr-fe-minlength">form control <code data-x="">minlength</code>
   attribute</dfn>, controlled by the <span data-x="concept-fe-dirty">dirty value flag</span>,
   declares a lower bound on the number of characters a user can input. The "number of characters" is
-  measured using <span>JavaScript string length</span> and, in the case of <code>textarea</code>
-  elements, with all newlines normalized to a single character (as opposed to CRLF pairs).</p>
+  measured using <span>length</span> and, in the case of <code>textarea</code> elements, with all
+  newlines normalized to a single character (as opposed to CRLF pairs).</p>
 
   <p class="note">The <code data-x="attr-fe-minlength">minlength</code> attribute does not imply the
   <code data-x="">required</code> attribute. If the form control has no <code
@@ -30,9 +30,9 @@
   length</span>, its <span data-x="concept-fe-dirty">dirty value flag</span> is true, its <span
   data-x="concept-fe-value">value</span> was last changed by a user edit (as opposed to a change
   made by a script), its <span data-x="concept-fe-value">value</span> is not the empty string, and
-  the <span>JavaScript string length</span> of the element's <span data-x="concept-fe-api-value">API
-  value</span> is less than the element's <span>minimum allowed value length</span>, then the
-  element is <span>suffering from being too short</span>.</p>
+  the <span>length</span> of the element's <span data-x="concept-fe-api-value">API value</span> is
+  less than the element's <span>minimum allowed value length</span>, then the element is
+  <span>suffering from being too short</span>.</p>
 
   </div>
 
@@ -42,7 +42,7 @@
    characters long. The other three are optional, but if the user fills one in, the user has to
    enter at least 10 characters.</p>
 
-   <pre><code class="html" data-x="">&lt;form action="/events/menu.cgi" method="post">
+   <pre><code class="html">&lt;form action="/events/menu.cgi" method="post">
  &lt;p>&lt;label>Name of Event: &lt;input required minlength=5 maxlength=50 name=event>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Describe what you would like for breakfast, if anything:
     &lt;textarea name="breakfast" minlength="10">&lt;/textarea>&lt;/label>&lt;/p>

@@ -1,5 +1,5 @@
-  <h5 id="event-loop-processing-model" data-lt="event loop processing model" data-dfn-type="dfn"
-  data-export=""><span id="processing-model-8"></span>Processing model</h5>
+  <h5 id="event-loop-processing-model" data-lt="event loop processing model" dfn><span
+  id="processing-model-8"></span>Processing model</h5>
   <!-- EVENT LOOP -->
 
   <p>An <span>event loop</span> must continually run through the following steps for as long as it
@@ -7,52 +7,84 @@
 
   <ol>
    <!-- lots of places in the spec refer to "step 1" -->
-   <li id="step1"><p>Let <var>oldestTask</var> be the oldest <span data-x="concept-task">task</span>
-   on one of the <span>event loop</span>'s <span data-x="task queue">task queues</span>, if any,
-   ignoring, in the case of a <span>browsing context</span> <span>event loop</span>, tasks whose
-   associated <code>Document</code>s are not <span>fully active</span>. The user agent may pick any
-   <span>task queue</span>. If there is no task to select, then jump to the <i>microtasks</i> step
-   below.</p></li>
+   <li id="step1">
+    <p>Let <var>taskQueue</var> be one of the <span>event loop</span>'s <span data-x="task
+    queue">task queues</span>, chosen in an <span>implementation-defined</span> manner, with the
+    constraint that the chosen task queue must contain at least one <span
+    data-x="concept-task-runnable">runnable</span> <span data-x="concept-task">task</span>. If there
+    is no such task queue, then jump to the <i>microtasks</i> step below.</p>
+
+    <p class="note">Remember that the <span>microtask queue</span> is not a <span>task queue</span>,
+    so it will not be chosen in this step. However, a <span>task queue</span> to which the
+    <span>microtask task source</span> is associated might be chosen in this step. In that case, the
+    <span data-x="concept-task">task</span> chosen in the next step was originally a
+    <span>microtask</span>, but it got moved as part of <span data-x="spin the event loop">spinning
+    the event loop</span>.</p>
+   </li>
+
+   <li><p>Let <var>oldestTask</var> be the first <span
+   data-x="concept-task-runnable">runnable</span> <span data-x="concept-task">task</span> in
+   <var>taskQueue</var>, and <span data-x="list remove">remove</span> it from
+   <var>taskQueue</var>.</p></li>
 
    <li><p>Set the <span>event loop</span>'s <span>currently running task</span> to
    <var>oldestTask</var>.</p></li>
 
-   <li><p>Run <var>oldestTask</var>.</p></li>
+   <li><p>Let <var>taskStartTime</var> be the <span>current high resolution time</span>.</p></li>
+
+   <li><p>Perform <var>oldestTask</var>'s <span data-x="concept-task-steps">steps</span>.</p></li>
 
    <li><p>Set the <span>event loop</span>'s <span>currently running task</span> back to
    null.</p></li>
 
-   <li><p>Remove <var>oldestTask</var> from its <span>task queue</span>.</p></li>
-
    <li><p><i>Microtasks</i>: <span>Perform a microtask checkpoint</span>.</p></li>
 
+   <li><p>Let <var>hasARenderingOpportunity</var> be false.</p></li>
+
+   <li><p>Let <var>now</var> be the <span>current high resolution time</span>. <ref
+   spec=HRT></p></li>
+
    <li>
-    <p><dfn data-export="">Update the rendering</dfn>: If this <span>event loop</span> is a
-    <span>browsing context</span> <span>event loop</span> (as opposed to a <a
-    href="#workers">worker</a> <span>event loop</span>), then run the following substeps.</p>
+    <p>Report the <span data-x="concept-task">task</span>'s duration by performing the following
+    steps:</p>
 
     <ol>
-     <li><p>Let <var>now</var> be the <span>current high resolution time</span>. <ref
-     spec=HRT></p></li>
+     <li><p>Let <var>top-level browsing contexts</var> be an empty <span>set</span>.</p></li>
 
+     <li><p>For each <span>environment settings object</span> <var>settings</var> of
+     <var>oldestTask</var>'s <span>script evaluation environment settings object set</span>, <span
+     data-x="set append">append</span> <var>setting</var>'s <span>top-level browsing context</span>
+     to <var>top-level browsing contexts</var>.</p></li>
+
+     <li><p><span>Report long tasks</span>, passing in <var>taskStartTime</var>, <var>now</var> (the
+     end time of the task), <var>top-level browsing contexts</var>, and <var>oldestTask</var>.
+     </p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p><dfn export>Update the rendering</dfn>: if this is a <span>window event loop</span>,
+    then:</p>
+
+    <ol>
      <li>
-      <p>Let <var>docs</var> be the list of <code>Document</code> objects associated with the
-      <span>event loop</span> in question, sorted arbitrarily except that the following conditions
-      must be met:</p>
+      <p>Let <var>docs</var> be all <code>Document</code> objects whose <span>relevant
+      agent</span>'s <span data-x="concept-agent-event-loop">event loop</span> is this event loop,
+      sorted arbitrarily except that the following conditions must be met:</p>
 
       <ul>
-       <li><p>Any <code>Document</code> <var>B</var> that is <span data-x="browsing context nested
-       through">nested through</span> a <code>Document</code> <var>A</var> must be listed after
+       <li><p>Any <code>Document</code> <var>B</var> whose <span
+       data-x="concept-document-bc">browsing context</span>'s <span
+       data-x="bc-container-document">container document</span> is <var>A</var> must be listed after
        <var>A</var> in the list.</p></li>
 
        <li><p>If there are two documents <var>A</var> and <var>B</var> whose <span
-       data-x="concept-document-bc">browsing contexts</span> are both <span data-x="nested browsing
-       context">nested browsing contexts</span> and their <span data-x="browsing context
-       container">browsing context containers</span> are both elements in the same
-       <code>Document</code> <var>C</var>, then the order of <var>A</var> and <var>B</var> in the
-       list must match the relative <span>tree order</span> of their respective <span
-       data-x="browsing context container">browsing context containers</span> in
-       <var>C</var>.</p></li>
+       data-x="concept-document-bc">browsing contexts</span> are both <span data-x="child browsing
+       context">child browsing contexts</span> whose <span data-x="bc-container-document">container
+       documents</span> are another <code>Document</code> <var>C</var>, then the order of
+       <var>A</var> and <var>B</var> in the list must match the <span>shadow-including tree
+       order</span> of their respective <span data-x="browsing context container">browsing context
+       containers</span> in <var>C</var>'s <span>node tree</span>.</p></li>
       </ul>
 
       <p>In the steps below that iterate over <var>docs</var>, each <code>Document</code> must be
@@ -60,66 +92,90 @@
      </li>
 
      <li>
-      <p>If there are <span data-x="top-level browsing context">top-level browsing contexts</span>
-      <var>B</var> that the user agent believes would not benefit from having their rendering
-      updated at this time, then remove from <var>docs</var> all <code>Document</code> objects whose
-      <span data-x="concept-document-bc">browsing context</span>'s <span>top-level browsing
-      context</span> is in <var>B</var>.</p>
+      <p><i>Rendering opportunities</i>: Remove from <var>docs</var> all <code>Document</code>
+      objects whose <span data-x="concept-document-bc">browsing context</span> do not have a
+      <span>rendering opportunity</span>.</p>
 
-      <div class="note">
-       <p>Whether a <span>top-level browsing context</span> would benefit from having its rendering
-       updated depends on various factors, such as the update frequency. For example, if the browser
-       is attempting to achieve a 60Hz refresh rate, then these steps are only necessary every 60th
-       of a second (about 16.7ms). If the browser finds that a <span>top-level browsing
-       context</span> is not able to sustain this rate, it might drop to a more sustainable 30Hz for
-       that set of <code>Document</code>s, rather than occasionally dropping frames. (This
-       specification does not mandate any particular model for when to update the rendering.)
-       Similarly, if a <span>top-level browsing context</span> is in the background, the user agent
-       might decide to drop that page to a much slower 4Hz, or even less.</p>
+      <p>A <span>browsing context</span> has a <dfn>rendering opportunity</dfn> if the user agent is
+      currently able to present the contents of the <span>browsing context</span> to the user,
+      accounting for hardware refresh rate constraints and user agent throttling for performance
+      reasons, but considering content presentable even if it's outside the viewport.</p>
 
-       <p>Another example of why a browser might skip updating the rendering is to ensure certain
-       <span data-x="concept-task">tasks</span> are executed immediately after each other, with only
-       <span data-x="perform a microtask checkpoint">microtask checkpoints</span> interleaved (and
-       without, e.g., <span data-x="run the animation frame callbacks">animation frame
-       callbacks</span> interleaved). For example, a user agent might wish to coalesce timer
-       callbacks together, with no intermediate rendering updates.</p>
-      </div>
+      <p><span>Browsing context</span> <span data-x="rendering opportunity">rendering
+      opportunities</span> are determined based on hardware constraints such as display refresh
+      rates and other factors such as page performance or whether the page is in the background.
+      Rendering opportunities typically occur at regular intervals.</p>
+
+      <p class="note">This specification does not mandate any particular model for selecting
+      rendering opportunities. But for example, if the browser is attempting to achieve a 60Hz
+      refresh rate, then rendering opportunities occur at a maximum of every 60th of a second (about
+      16.7ms). If the browser finds that a <span>browsing context</span> is not able to sustain this
+      rate, it might drop to a more sustainable 30 rendering opportunities per second for that
+      <span>browsing context</span>, rather than occasionally dropping frames. Similarly, if a
+      <span>browsing context</span> is not visible, the user agent might decide to drop that page to
+      a much slower 4 rendering opportunities per second, or even less.</p>
+     </li>
+
+     <li><p>If <var>docs</var> is not empty, then set <var>hasARenderingOpportunity</var> to
+     true.</p></li>
+
+     <li>
+      <p><i>Unnecessary rendering</i>: Remove from <var>docs</var> all <code>Document</code> objects
+      which meet both of the following conditions:</p>
+
+      <ul class="brief">
+       <li>The user agent believes that updating the rendering of the <code>Document</code>'s <span
+       data-x="concept-document-bc">browsing context</span> would have no visible effect, and</li>
+       <li>The <code>Document</code>'s <span>map of animation frame callbacks</span> is empty.</li>
+      </ul>
      </li>
 
      <li>
-      <p>If there are a <span data-x="nested browsing context">nested browsing contexts</span>
-      <var>B</var> that the user agent believes would not benefit from having their rendering
-      updated at this time, then remove from <var>docs</var> all <code>Document</code> objects whose
-      <span data-x="concept-document-bc">browsing context</span> is in <var>B</var>.</p>
+      <p>Remove from <var>docs</var> all <code>Document</code> objects for which the user agent
+      believes that it's preferrable to skip updating the rendering for other reasons.</p>
 
-      <p class="note">As with <span data-x="top-level browsing context">top-level browsing
-      contexts</span>, a variety of factors can influence whether it is profitable for a browser to
-      update the rendering of <span data-x="nested browsing context">nested browsing
-      contexts</span>. For example, a user agent might wish to spend less resources rendering
-      third-party content, especially if it is not currently visible to the user or if resources are
-      constrained. In such cases, the browser could decide to update the rendering for such content
-      infrequently or never.</p>
+      <div class="note">
+       <p>The step labeled <i>Rendering opportunities</i> prevents the user agent from updating the
+       rendering when it is unable to present new content to the user (there's no <span>rendering
+       opportunity</span>).</p>
+
+       <p>The step labeled <i>Unnecessary rendering</i> prevents the user agent from updating the
+       rendering when there's no new content to draw.</p>
+
+       <p>This step enables the user agent to prevent the steps below from running for other
+       reasons, for example, to ensure certain <span data-x="concept-task">tasks</span> are executed
+       immediately after each other, with only <span data-x="perform a microtask
+       checkpoint">microtask checkpoints</span> interleaved (and without, e.g., <span data-x="run
+       the animation frame callbacks">animation frame callbacks</span> interleaved). Concretely, a
+       user agent might wish to coalesce timer callbacks together, with no intermediate rendering
+       updates.</p>
+      </div>
      </li>
+
+     <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>, <span>flush
+     autofocus candidates</span> for that <code>Document</code> if its
+     <span data-x="concept-document-bc">browsing context</span> is a
+     <span>top-level browsing context</span>.</p></li>
 
      <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>, <span>run
      the resize steps</span> for that <code>Document</code>, passing in <var>now</var> as the
-     timestamp. <ref spec="CSSOMVIEW"></p></li>
+     timestamp. <ref spec=CSSOMVIEW></p></li>
 
      <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>, <span>run
      the scroll steps</span> for that <code>Document</code>, passing in <var>now</var> as the
-     timestamp. <ref spec="CSSOMVIEW"></p></li>
+     timestamp. <ref spec=CSSOMVIEW></p></li>
 
      <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>,
      <span>evaluate media queries and report changes</span> for that <code>Document</code>, passing
-     in <var>now</var> as the timestamp. <ref spec="CSSOMVIEW"></p></li>
+     in <var>now</var> as the timestamp. <ref spec=CSSOMVIEW></p></li>
 
      <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>,
      <span>update animations and send events</span> for that <code>Document</code>, passing in
-     <var>now</var> as the timestamp. <ref spec="WEBANIMATIONS"></p></li>
+     <var>now</var> as the timestamp. <ref spec=WEBANIMATIONS></p></li>
 
      <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>, <span>run
      the fullscreen steps</span> for that <code>Document</code>, passing in <var>now</var> as the
-     timestamp. <ref spec="FULLSCREEN"></p></li>
+     timestamp. <ref spec=FULLSCREEN></p></li>
 
      <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>, <span>run
      the animation frame callbacks</span> for that <code>Document</code>, passing in <var>now</var>
@@ -127,7 +183,10 @@
 
      <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>, <span>run
      the update intersection observations steps</span> for that <code>Document</code>, passing in
-     <var>now</var> as the timestamp. <ref spec="INTERSECTIONOBSERVER"></p></li>
+     <var>now</var> as the timestamp. <ref spec=INTERSECTIONOBSERVER></p></li>
+
+     <li><p>Invoke the <span>mark paint timing</span> algorithm for each <code>Document</code>
+     object in <var>docs</var>.</p></li>
 
      <li><p>For each <span>fully active</span> <code>Document</code> in <var>docs</var>, update the
      rendering or user interface of that <code>Document</code> and its <span
@@ -135,55 +194,81 @@
     </ol>
    </li>
 
-   <li><p>If this is a <a href="#workers">worker</a> <span>event loop</span> (i.e. one running for a
-   <code>WorkerGlobalScope</code>), but there are no <span data-x="concept-task">tasks</span> in the
-   <span>event loop</span>'s <span data-x="task queue">task queues</span> and the
-   <code>WorkerGlobalScope</code> object's <span
-   data-x="dom-WorkerGlobalScope-closing">closing</span> flag is true, then destroy the <span>event
-   loop</span>, aborting these steps, resuming the <span>run a worker</span> steps described in the
-   <a href="#workers">Web workers</a> section below.</p></li>
+   <li>
+    <p>If all of the following are true
+
+    <ul class="brief">
+     <li>this is a <span>window event loop</span></li>
+     <li>there is no <span data-x="concept-task">task</span> in this <span>event loop</span>'s
+     <span data-x="task queue">task queues</span> whose <span
+     data-x="concept-task-document">document</span> is <span>fully active</span></li>
+     <li>this <span>event loop</span>'s <span>microtask queue</span> is <span data-x="list is
+     empty">empty</span></li>
+     <li><var>hasARenderingOpportunity</var> is false</li>
+    </ul>
+
+    <p>then for each <code>Window</code> object whose whose <span>relevant agent</span>'s
+    <span data-x="concept-agent-event-loop">event loop</span> is this event loop, run the
+    <span>start an idle period algorithm</span>, passing the <code>Window</code>. <ref
+    spec="REQUESTIDLECALLBACK"></p>
+   </li>
+
+   <li>
+    <p>If this is a <span>worker event loop</span>, then:</p>
+
+    <ol>
+     <li>
+      <p>If this <span>event loop</span>'s <span>agent</span>'s single <span data-x="JavaScript
+      realm">realm</span>'s <span data-x="concept-realm-global">global object</span> is a <span
+      data-x="concept-AnimationFrameProvider-supported">supported</span>
+      <code>DedicatedWorkerGlobalScope</code> and the user agent believes that it would benefit from
+      having its rendering updated at this time, then:</p>
+      <!-- TODO: grab the Realm from the task. https://github.com/whatwg/html/issues/4342 -->
+
+      <ol>
+       <li><p>Let <var>now</var> be the <span>current high resolution time</span>. <ref
+       spec=HRT></p></li>
+
+       <li><p><span>Run the animation frame callbacks</span> for that
+       <code>DedicatedWorkerGlobalScope</code>, passing in <var>now</var> as the
+       timestamp.</p></li>
+
+       <li><p>Update the rendering of that dedicated worker to reflect the current state.</p></li>
+      </ol>
+
+      <p class="note">Similar to the notes for <span data-x="update the rendering">updating the
+      rendering</span> in a <span>window event loop</span>, a user agent can determine the rate of
+      rendering in the dedicated worker.</p>
+     </li>
+
+     <li><p>If there are no <span data-x="concept-task">tasks</span> in the <span>event
+     loop</span>'s <span data-x="task queue">task queues</span> and the
+     <code>WorkerGlobalScope</code> object's <span
+     data-x="dom-WorkerGlobalScope-closing">closing</span> flag is true, then destroy the
+     <span>event loop</span>, aborting these steps, resuming the <span>run a worker</span> steps
+     described in the <a href="#workers">Web workers</a> section below.</p></li>
+    </ol>
+   </li>
   </ol>
 
   <hr>
 
-  <p>Each <span>event loop</span> has a <dfn>microtask queue</dfn>. A <dfn
-  data-export="">microtask</dfn> is a <span data-x="concept-task">task</span> that is originally to
-  be queued on the <span>microtask queue</span> rather than a <span>task queue</span>. There are two
-  kinds of <span data-x="microtask">microtasks</span>: <dfn data-x="solitary callback
-  microtask" data-lt="solitary callback microtask" data-export="">solitary callback
-  microtasks</dfn>, and <dfn data-x="compound microtask" data-lt="compound microtask"
-  data-export="">compound microtasks</dfn>.</p>
-
-  <p class="note">This specification only has <span data-x="solitary callback microtask">solitary
-  callback microtasks</span>. Specifications that use <span data-x="compound microtask">compound
-  microtasks</span> have to take extra care to <span data-x="execute a compound microtask
-  subtask">wrap callbacks</span> to handle <span data-x="spin the event loop">spinning the event
-  loop</span>.</p>
-
-  <p>When an algorithm requires a <span>microtask</span> to be <dfn data-x="queue a
-  microtask" data-lt="queue a microtask" data-export="">queued</dfn>, it must be appended to the
-  relevant <span>event loop</span>'s <span>microtask queue</span>; the <span>task source</span> of
-  such a <span>microtask</span> is the <dfn>microtask task source</dfn>.</p>
-
-  <p class="note">It is possible for a <span>microtask</span> to be moved to a regular <span>task
-  queue</span>, if, during its initial execution, it <span data-x="spin the event loop">spins the
-  event loop</span>. In that case, the <span>microtask task source</span> is the <span>task
-  source</span> used. Normally, the <span>task source</span> of a <span>microtask</span> is
-  irrelevant.</p>
-
-  <p>When a user agent is to <dfn data-export="">perform a microtask checkpoint</dfn>, if the
-  <span>performing a microtask checkpoint</span> flag is false, then the user agent must run the
-  following steps:</p>
+  <p>When a user agent is to <dfn export>perform a microtask checkpoint</dfn>:</p>
 
   <ol>
-   <li><p>Set the <span>performing a microtask checkpoint</span> flag to true.</p></li>
+   <li><p>If the <span>event loop</span>'s <span>performing a microtask checkpoint</span> is true,
+   then return.</p></li>
+
+   <li><p>Set the <span>event loop</span>'s <span>performing a microtask checkpoint</span> to
+   true.</p></li>
 
    <li>
-    <p>While the <span>event loop</span>'s <span>microtask queue</span> is not empty:</p>
+    <p>While the <span>event loop</span>'s <span>microtask queue</span> is not <span data-x="list is
+    empty">empty</span>:</p>
 
     <ol>
-     <li><p>Let <var>oldestMicrotask</var> be the oldest <span>microtask</span> on the <span>event
-     loop</span>'s <span>microtask queue</span>.</p></li>
+     <li><p>Let <var>oldestMicrotask</var> be the result of <span data-x="dequeue">dequeuing</span>
+     from the <span>event loop</span>'s <span>microtask queue</span>.</p></li>
 
      <li><p>Set the <span>event loop</span>'s <span>currently running task</span> to
      <var>oldestMicrotask</var>.</p></li>
@@ -199,8 +284,6 @@
 
      <li><p>Set the <span>event loop</span>'s <span>currently running task</span> back to
      null.</p></li>
-
-     <li><p>Remove <var>oldestMicrotask</var> from the <span>microtask queue</span>.</p></li>
     </ol>
    </li>
 
@@ -210,29 +293,8 @@
 
    <li><p><span>Cleanup Indexed Database transactions</span>.</p></li>
 
-   <li><p>Set the <span>performing a microtask checkpoint</span> flag to false.</p></li>
-  </ol>
-
-  <p>If, while a <span>compound microtask</span> is running, the user agent is required to
-  <dfn data-export="">execute a compound microtask subtask</dfn> to run a series of steps, the user
-  agent must run the following steps:</p>
-
-  <ol>
-
-   <li><p>Let <var>parent</var> be the <span>event loop</span>'s <span>currently running
-   task</span> (the currently running <span>compound microtask</span>).</p></li>
-
-   <li><p>Let <var>subtask</var> be a new <span data-x="concept-task">task</span> that
-   consists of running the given series of steps. The <span>task source</span> of such a
-   <span>microtask</span> is the <span>microtask task source</span>. This is a <dfn>compound
-   microtask subtask</dfn>.</p></li>
-
-   <li><p>Set the <span>event loop</span>'s <span>currently running task</span> to <var>subtask</var>.</p></li>
-
-   <li><p>Run <var>subtask</var>.</p></li>
-
-   <li><p>Set the <span>event loop</span>'s <span>currently running task</span> back to <var>parent</var>.</p></li>
-
+   <li><p>Set the <span>event loop</span>'s <span>performing a microtask checkpoint</span> to
+   false.</p></li>
   </ol>
 
   <hr>
@@ -243,12 +305,10 @@
   following steps):</p>
 
   <ol>
-
    <li><p>Run the algorithm's <dfn>synchronous section</dfn>.</p></li>
 
    <li><p>Resumes execution of the algorithm <span>in parallel</span>, if appropriate, as described
    in the algorithm's steps.</p></li>
-
   </ol>
 
   <p class="note">Steps in <span data-x="synchronous section">synchronous sections</span> are marked
@@ -256,56 +316,188 @@
 
   <hr>
 
-  <p>When an algorithm says to <dfn>spin the event loop</dfn> until a condition <var>goal</var> is met, the user agent must run the following steps:</p>
+  <p>Algorithm steps that say to <dfn>spin the event loop</dfn> until a condition <var>goal</var> is
+  met are equivalent to substituting in the following algorithm steps:</p>
 
   <ol>
-
    <li>
-
     <p>Let <var>task</var> be the <span>event loop</span>'s <span>currently running
     task</span>.</p>
 
-    <p class="note">This might be a <span>microtask</span>, in which case it is a <span>solitary
-    callback microtask</span>. It could also be a <span>compound microtask subtask</span>, or a
-    regular <span data-x="concept-task">task</span> that is not a <span>microtask</span>. It will
-    <em>not</em> be a <span>compound microtask</span>.</p> <!-- well, not unless we messed up in the
-    speccing, anyway... -->
-
+    <p class="note"><var>task</var> could be a <span>microtask</span>.</p>
    </li>
 
-   <li><p>Let <var>task source</var> be <var>task</var>'s <span>task
-   source</span>.</p></li>
+   <li><p>Let <var>task source</var> be <var>task</var>'s <span
+   data-x="concept-task-source">source</span>.</p></li>
 
    <li><p>Let <var>old stack</var> be a copy of the <span>JavaScript execution context
    stack</span>.</p></li>
 
    <li><p>Empty the <span>JavaScript execution context stack</span>.</p></li>
 
-   <li><p><span>Perform a microtask checkpoint</span>.</p></li>
-
    <li>
+    <p><span>Perform a microtask checkpoint</span>.</p>
 
-    <p>Stop <var>task</var>, allowing whatever algorithm that invoked it to resume, but
-    continue these steps <span>in parallel</span>.</p>
-
-    <p class="note">This causes one of the following algorithms to continue: the <span>event
-    loop</span>'s main set of steps, the <span>perform a microtask checkpoint</span> algorithm, or
-    the <span>execute a compound microtask subtask</span> algorithm.</p>
-
+    <p class="note">If <var>task</var> is a <span>microtask</span> this step will be a no-op due to
+    <span>performing a microtask checkpoint</span> being true.</p>
    </li>
 
-   <li><p>Wait until the condition <var>goal</var> is met.</p></li>
+   <li>
+    <p><span>In parallel</span>:</p>
 
-   <li><p><span>Queue a task</span> to continue running these steps, using the <span>task
-   source</span> <var>task source</var>. Wait until this new task runs before continuing
-   these steps.</p></li>
+    <ol>
+     <li><p>Wait until the condition <var>goal</var> is met.</p></li>
 
-   <li><p>Replace the <span>JavaScript execution context stack</span> with the <var>old
-   stack</var>.</p></li>
+     <li>
+      <p><span>Queue a task</span> on <var>task source</var> to:</p>
 
-   <li><p>Return to the caller.</p></li>
+      <ol>
+       <li><p>Replace the <span>JavaScript execution context stack</span> with <var>old
+       stack</var>.</p></li>
 
+       <li>
+        <p>Perform any steps that appear after this <span>spin the event loop</span> instance in the
+        original algorithm.</p>
+
+        <p class="note">This resumes <var>task</var>.</p>
+       </li>
+      </ol>
+     </li>
+    </ol>
+   </li>
+
+   <li>
+    <p>Stop <var>task</var>, allowing whatever algorithm that invoked it to resume.</p>
+
+    <p class="note">This causes the <span>event loop</span>'s main set of steps or the <span>perform
+    a microtask checkpoint</span> algorithm to continue.</p>
+   </li>
   </ol>
+
+  <p class="note">Unlike other algorithms in this and other specifications, which behave similar to
+  programming-language function calls, <span>spin the event loop</span> is more like a macro, which
+  saves typing and indentation at the usage site by expanding into a series of steps and
+  operations.</p>
+
+  <div class="example">
+   <p>An algorithm whose steps are:</p>
+
+   <ol>
+    <li><p>Do something.</p></li>
+
+    <li><p><span>Spin the event loop</span> until awesomeness happens.</p></li>
+
+    <li><p>Do something else.</p></li>
+   </ol>
+
+   <p>is a shorthand which, after "macro expansion", becomes</p>
+
+   <ol>
+    <li><p>Do something.</p></li>
+
+    <li><p>Let <var>old stack</var> be a copy of the <span>JavaScript execution context
+    stack</span>.</p></li>
+
+    <li><p>Empty the <span>JavaScript execution context stack</span>.</p></li>
+
+    <li><p><span>Perform a microtask checkpoint</span>.</p></li>
+
+    <li>
+     <p><span>In parallel</span>:</p>
+
+     <ol>
+      <li><p>Wait until awesomeness happens.</p></li>
+
+      <li>
+       <p><span>Queue a task</span> on the task source in which "do something" was done to:</p>
+
+       <ol>
+        <li><p>Replace the <span>JavaScript execution context stack</span> with <var>old
+        stack</var>.</p></li>
+
+        <li><p>Do something else.</p></li>
+       </ol>
+      </li>
+     </ol>
+    </li>
+   </ol>
+  </div>
+
+  <div class="example">
+   <p>Here is a more full example of the substitution, where the event loop is spun from inside a
+   task that is queued from work in parallel. The version using <span>spin the event loop</span>:</p>
+
+   <ol>
+    <li>
+     <p><span>In parallel</span>:</p>
+
+     <ol>
+      <li><p>Do parallel thing 1.</p></li>
+
+      <li>
+       <p><span>Queue a task</span> on the <span class="no-backref">DOM manipulation task
+       source</span> to:</p>
+
+       <ol>
+        <li><p>Do task thing 1.</p></li>
+
+        <li><p><span>Spin the event loop</span> until awesomeness happens.</p></li>
+
+        <li><p>Do task thing 2.</p></li>
+       </ol>
+      </li>
+
+      <li><p>Do parallel thing 2.</p></li>
+     </ol>
+    </li>
+   </ol>
+
+   <p>The fully expanded version:</p>
+
+   <ol>
+    <li>
+     <p><span>In parallel</span>:</p>
+
+     <ol>
+      <li><p>Do parallel thing 1.</p></li>
+
+      <li><p>Let <var>old stack</var> be null.</p></li>
+
+      <li>
+       <p><span>Queue a task</span> on the <span class="no-backref">DOM manipulation task
+       source</span> to:</p>
+
+       <ol>
+        <li><p>Do task thing 1.</p></li>
+
+        <li><p>Set <var>old stack</var> to a copy of the <span>JavaScript execution context
+        stack</span>.</p></li>
+
+        <li><p>Empty the <span>JavaScript execution context stack</span>.</p></li>
+
+        <li><p><span>Perform a microtask checkpoint</span>.</p></li>
+       </ol>
+      </li>
+
+      <li><p>Wait until awesomeness happens.</p></li>
+
+      <li>
+       <p><span>Queue a task</span> on the <span class="no-backref">DOM manipulation task
+       source</span> to:</p>
+
+       <ol>
+        <li><p>Replace the <span>JavaScript execution context stack</span> with <var>old
+        stack</var>.</p></li>
+
+        <li><p>Do task thing 2.</p></li>
+       </ol>
+      </li>
+
+      <li><p>Do parallel thing 2.</p></li>
+     </ol>
+    </li>
+   </ol>
+  </div>
 
   <hr>
 
@@ -313,7 +505,6 @@
   <dfn>pause</dfn> while running a <span data-x="concept-task">task</span> until a condition <var>goal</var> is met. This means running the following steps:</p>
 
   <ol>
-
    <li><p>If necessary, update the rendering or user interface of any <code>Document</code> or
    <span>browsing context</span> to reflect the current state.</p></li>
 
@@ -323,7 +514,6 @@
    data-x="concept-task">task</span> must block. User agents should remain responsive to user input
    while paused, however, albeit in a reduced capacity since the <span>event loop</span> will not be
    doing anything.</p></li>
-
   </ol>
 
   <div class="warning">

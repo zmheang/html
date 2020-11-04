@@ -11,6 +11,10 @@
    <dd><span>Phrasing content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-strong">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-strong">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -45,20 +49,20 @@
    <p>Here, the word "chapter" and the actual chapter number are mere boilerplate, and the actual
    name of the chapter is marked up with <code>strong</code>:</p>
 
-   <pre><code class="html" data-x="">&lt;h1>Chapter 1: &lt;strong>The Praxis&lt;/strong>&lt;/h1></code></pre>
+   <pre><code class="html">&lt;h1>Chapter 1: &lt;strong>The Praxis&lt;/strong>&lt;/h1></code></pre>
 
    <p>In the following example, the name of the diagram in the caption is marked up with
    <code>strong</code>, to distinguish it from boilerplate text (before) and the description
    (after):</p>
 
-   <pre><code class="html" data-x="">&lt;figcaption>Figure 1. &lt;strong>Ant colony dynamics&lt;/strong>. The ants in this colony are
+   <pre><code class="html">&lt;figcaption>Figure 1. &lt;strong>Ant colony dynamics&lt;/strong>. The ants in this colony are
 affected by the heat source (upper left) and the food source (lower right).&lt;/figcaption></code></pre>
 
    <p>In this example, the heading is really "Flowers, Bees, and Honey", but the author has added a
    light-hearted addition to the heading. The <code>strong</code> element is thus used to mark up
    the first part to distinguish it from the latter part.</p>
 
-   <pre><code class="html" data-x="">&lt;h1>&lt;strong>Flowers, Bees, and Honey&lt;/strong> and other things I don't understand&lt;/h1></code></pre>
+   <pre><code class="html">&lt;h1>&lt;strong>Flowers, Bees, and Honey&lt;/strong> and other things I don't understand&lt;/h1></code></pre>
 
   </div>
 
@@ -66,7 +70,7 @@ affected by the heat source (upper left) and the food source (lower right).&lt;/
    <p>Here is an example of a warning notice in a game, with the
    various parts marked up according to how important they are:</p>
    <!-- DO NOT REFLOW THIS EXAMPLE it has been carefully balanced -->
-   <pre><code class="html" data-x="">&lt;p>&lt;strong>Warning.&lt;/strong> This dungeon is dangerous.
+   <pre><code class="html">&lt;p>&lt;strong>Warning.&lt;/strong> This dungeon is dangerous.
 &lt;strong>Avoid the ducks.&lt;/strong> Take any gold you find.
 &lt;strong>&lt;strong>Do not take any of the diamonds&lt;/strong>,
 they are explosive and &lt;strong>will destroy anything within
@@ -78,7 +82,7 @@ ten meters.&lt;/strong>&lt;/strong> You have been warned.&lt;/p></code></pre>
    <p>In this example, the <code>strong</code> element is used to denote the part of the text that
    the user is intended to read first.</p>
 
-   <pre><code class="html" data-x="">&lt;p>Welcome to Remy, the reminder system.&lt;/p>
+   <pre><code class="html">&lt;p>Welcome to Remy, the reminder system.&lt;/p>
 &lt;p>Your tasks for today:&lt;/p>
 &lt;ul>
  &lt;li>&lt;p>&lt;strong>Turn off the oven.&lt;/strong>&lt;/p>&lt;/li>

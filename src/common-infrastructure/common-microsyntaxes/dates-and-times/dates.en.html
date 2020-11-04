@@ -8,7 +8,6 @@
   components in the given order:</p>
 
   <ol>
-
    <li>A <span>valid month string</span>, representing <var>year</var> and <var>month</var></li>
 
    <li>A U+002D HYPHEN-MINUS character (-)</li>
@@ -16,7 +15,6 @@
    <li>Two <span>ASCII digits</span>, representing <var>day</var>, in the range
    1&nbsp;&le;&nbsp;<var>day</var>&nbsp;&le;&nbsp;<var>maxday</var> where <var>maxday</var> is the <span data-x="number of days in month month of year year">number of
    days in the month <var>month</var> and year <var>year</var></span></li>
-
   </ol>
 
   <div w-nodev>
@@ -26,7 +24,6 @@
   point and returns nothing.</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the string being parsed.</p></li>
 
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially
@@ -39,7 +36,6 @@
    <li><p>Let <var>date</var> be the date with year <var>year</var>, month <var>month</var>, and day <var>day</var>.</p></li>
 
    <li><p>Return <var>date</var>.</p></li>
-
   </ol>
 
   <p>The rules to <dfn>parse a date component</dfn>, given an <var>input</var> string and a
@@ -48,7 +44,6 @@
   that point and returns nothing.</p>
 
   <ol>
-
    <li><p><span>Parse a month component</span> to obtain <var>year</var> and <var>month</var>. If this returns nothing, then fail.</li>
 
    <li><p>Let <var>maxday</var> be the <span>number of days in month <var>month</var> of year <var>year</var></span>.</p></li>
@@ -65,7 +60,6 @@
    <li><p>If <var>day</var> is not a number in the range 1&nbsp;&le;&nbsp;<var>day</var>&nbsp;&le;&nbsp;<var>maxday</var>, then fail.</li>
 
    <li><p>Return <var>year</var>, <var>month</var>, and <var>day</var>.</p></li>
-
   </ol>
 
   </div>

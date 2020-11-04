@@ -29,7 +29,6 @@
   order:</p>
 
   <ol>
-
    <li>Four or more <span>ASCII digits</span>, representing <var>year</var>, where <var>year</var>&nbsp;&gt;&nbsp;0</li>
 
    <li>A U+002D HYPHEN-MINUS character (-)</li>
@@ -38,7 +37,6 @@
 
    <li>Two <span>ASCII digits</span>, representing the week <var>week</var>, in the range
    1&nbsp;&le;&nbsp;<var>week</var>&nbsp;&le;&nbsp;<var>maxweek</var>, where <var>maxweek</var> is the <span>week number of the last day</span> of week-year <var>year</var></li>
-
   </ol>
 
   <div w-nodev>
@@ -48,7 +46,6 @@
   that it is aborted at that point and returns nothing.</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the string being parsed.</p></li>
 
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially
@@ -82,7 +79,6 @@
    <li><p>If <var>position</var> is <em>not</em> beyond the end of <var>input</var>, then fail.</p></li>
 
    <li><p>Return the week-year number <var>year</var> and the week number <var>week</var>.</p></li>
-
   </ol>
 
   </div>

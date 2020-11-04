@@ -1,4 +1,4 @@
-  <h4 data-dfn-type="element" data-lt="object">The <dfn><code>object</code></dfn> element</h4>
+  <h4 element data-lt="object">The <dfn><code>object</code></dfn> element</h4>
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
@@ -16,20 +16,23 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-object-data">data</code></dd>
    <dd><code data-x="attr-object-type">type</code></dd>
-   <dd><code data-x="attr-object-typemustmatch">typemustmatch</code></dd>
    <dd><code data-x="attr-object-name">name</code></dd>
    <dd><code data-x="attr-hyperlink-usemap">usemap</code></dd>
    <dd><code data-x="attr-fae-form">form</code></dd>
    <dd><code data-x="attr-dim-width">width</code></dd>
    <dd><code data-x="attr-dim-height">height</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-object">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-object">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-object-data">data</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-type">type</span>;
-  [<span>CEReactions</span>] attribute boolean <span data-x="dom-object-typeMustMatch">typeMustMatch</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-name">name</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-useMap">useMap</span>;
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-fae-form">form</span>;
@@ -44,7 +47,9 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
   readonly attribute DOMString <span data-x="dom-cva-validationMessage">validationMessage</span>;
   boolean <span data-x="dom-cva-checkValidity">checkValidity</span>();
   boolean <span data-x="dom-cva-reportValidity">reportValidity</span>();
-  void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
+  undefined <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
+
+  // <a href="#HTMLObjectElement-partial">also has obsolete members</a>
 };</code></pre>
     <div w-nodev>
     <p>Depending on the type of content instantiated by the
@@ -56,24 +61,22 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
   </dl>
 
   <p>The <code>object</code> element can represent an external resource, which, depending on the
-  type of the resource, will either be treated as an image, as a <span>nested browsing
+  type of the resource, will either be treated as an image, as a <span>child browsing
   context</span>, or as an external resource to be processed by a <span>plugin</span>.</p>
 
-  <p>The <dfn><code data-x="attr-object-data">data</code></dfn> attribute, if present, specifies the
-  <span>URL</span> of the resource. If present, the attribute must be a <span>valid non-empty URL
-  potentially surrounded by spaces</span>.</p>
+  <p>The <dfn element-attr for="object"><code data-x="attr-object-data">data</code></dfn> attribute,
+  if present, specifies the <span>URL</span> of the resource. If present, the attribute must be a
+  <span>valid non-empty URL potentially surrounded by spaces</span>.</p>
 
-  <p class="warning">Authors who reference resources from other <span data-x="origin">origins</span>
-  that they do not trust are urged to use the <code
-  data-x="attr-object-typemustmatch">typemustmatch</code> attribute defined below. Without that
-  attribute, it is possible in certain cases for an attacker on the remote host to use the plugin
-  mechanism to run arbitrary scripts, even if the author has used features such as the Flash
+  <p class="warning">Authors should avoid referencing untrusted resources, as such a resource can be
+  used to instantiate plugins or run scripts, even if the author has used features such as the Flash
   "allowScriptAccess" parameter.</p> <!-- for example, if the user doesn't have flash installed but
   does have java installed, and the remote site unexpectedly returns java instead of flash, then
   java will run, and it will ignore the allowScriptAccess thing -->
 
-  <p>The <dfn><code data-x="attr-object-type">type</code></dfn> attribute, if present, specifies the
-  type of the resource. If present, the attribute must be a <span>valid MIME type string</span>.</p>
+  <p>The <dfn element-attr for="object"><code data-x="attr-object-type">type</code></dfn> attribute,
+  if present, specifies the type of the resource. If present, the attribute must be a <span>valid
+  MIME type string</span>.</p>
 
   <p>At least one of either the <code data-x="attr-object-data">data</code> attribute or the <code
   data-x="attr-object-type">type</code> attribute must be present.</p>
@@ -81,19 +84,10 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
   <p>If the <code data-x="attr-itemprop">itemprop</code> attribute is specified on an <code>object</code>
   element, then the <code data-x="attr-object-data">data</code> attribute must also be specified.</p>
 
-  <p>The <dfn><code data-x="attr-object-typemustmatch">typemustmatch</code></dfn> attribute is a
-  <span>boolean attribute</span> whose presence indicates that the resource specified by the <code
-  data-x="attr-object-data">data</code> attribute is only to be used if the value of the <code
-  data-x="attr-object-type">type</code> attribute and the <span>Content-Type</span> of the
-  aforementioned resource match.</p>
-
-  <p>The <code data-x="attr-object-typemustmatch">typemustmatch</code> attribute must not be
-  specified unless both the <code data-x="attr-object-data">data</code> attribute and the <code
-  data-x="attr-object-type">type</code> attribute are present.</p>
-
-  <p>The <dfn><code data-x="attr-object-name">name</code></dfn> attribute, if present, must be a
-  <span>valid browsing context name</span>. The given value is used to name the <span>nested
-  browsing context</span>, if applicable.</p>
+  <p>The <dfn element-attr for="object"><code data-x="attr-object-name">name</code></dfn> attribute,
+  if present, must be a <span>valid browsing context name</span>. The given value is used to name
+  the element's <span>nested browsing context</span>, if applicable, and if present when the
+  element's <span>nested browsing context</span> is created.</p>
 
   <div w-nodev>
 
@@ -130,44 +124,39 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
 
   </ul> <!-- Changing the base URL doesn't trigger this. -->
 
-  <p>...the user agent must <span>queue a task</span> to run the following steps to (re)determine
+  <p>...the user agent must <span>queue an element task</span> on the <span>DOM manipulation task
+  source</span> given the <code>object</code> element to run the following steps to (re)determine
   what the <code>object</code> element represents. This <span data-x="concept-task">task</span>
   being <span data-x="queue a task">queued</span> or actively running must <span>delay the load
-  event</span> of the element's <span>node document</span>. <!--As described in the algorithm, once the algorithm
-  starts fetching a resource, the fetch is what starts delaying the load event. But to tide us over
-  from when the parser finds the <object> element and the fetching begins, we have to block the load
-  event like this, lest the parse end before this task gets run.--></p>
+  event</span> of the element's <span>node document</span>. <!--As described in the algorithm, once
+  the algorithm starts fetching a resource, the fetch is what starts delaying the load event. But to
+  tide us over from when the parser finds the <object> element and the fetching begins, we have to
+  block the load event like this, lest the parse end before this task gets run.--></p>
 
   <ol>
-
    <li>
-
     <p>If the user has indicated a preference that this <code>object</code> element's <span>fallback
     content</span> be shown instead of the element's usual behavior, then jump to the step below
     labeled <i>fallback</i>.</p>
 
     <p class="note">For example, a user could ask for the element's <span>fallback content</span> to
     be shown because that content uses a format that the user finds more accessible.</p>
-
    </li>
 
    <li>
-
     <p>If the element has an ancestor <span>media element</span>, or has an ancestor
     <code>object</code> element that is <em>not</em> showing its <span>fallback content</span>, or
-    if the element is not <span>in a document</span> that has a <span
-    data-x="concept-document-bc">browsing context</span>, or if the element's <span>node
+    if the element is not <span>in a document</span> whose <span
+    data-x="concept-document-bc">browsing context</span> is non-null, or if the element's <span>node
     document</span> is not <span>fully active</span>, or if the element is still in the <span>stack
     of open elements</span> of an <span>HTML parser</span> or <span>XML parser</span>, or if the
-    element is not <span>being rendered</span>, or if the <span>Should element be blocked
+    element is not <span>being rendered</span>, or if the <span>Should plugin element be blocked
     <i lang="la">a priori</i> by Content Security Policy?</span> algorithm returns "<code
     data-x="">Blocked</code>" when executed on the element, then jump to the step below labeled
-    <i>fallback</i>. <ref spec="CSP"></p>
-
+    <i>fallback</i>. <ref spec=CSP></p>
    </li>
 
    <li>
-
     <!-- what if it's not in the document? if that should prevent plugin instantiation, then here
     just skip to the last step -->
 
@@ -191,7 +180,6 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
       starts with "java:"                             -> application/x-java-vm
       starts with "clsid:"                            -> application/x-oleobject
     -->
-
    </li>
 
    <!-- (v2?)
@@ -213,7 +201,6 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
    not the empty string, then:</p>
 
     <ol>
-
      <li><p>If the <code data-x="attr-object-type">type</code> attribute is present and its value is
      not a type that the user agent supports, and is not a type that the user agent can find a
      <span>plugin</span> for, then the user agent may jump to the step below labeled <i>fallback</i>
@@ -231,14 +218,13 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
      <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
      <span data-x="concept-request-url">url</span> is the <span>resulting URL record</span>,
      <span data-x="concept-request-client">client</span> is the element's <span>node
-     document</span>'s <code>Window</code> object's <span>environment settings object</span>,
-     <span data-x="concept-request-destination">destination</span> is "<code
-     data-x="">object</code>", <span data-x="concept-request-credentials-mode">credentials
-     mode</span> is "<code data-x="">include</code>", and whose <span>use-URL-credentials
-     flag</span> is set.</p></li>
+     document</span>'s <span>relevant settings object</span>, <span
+     data-x="concept-request-destination">destination</span> is "<code data-x="">object</code>",
+     <span data-x="concept-request-credentials-mode">credentials mode</span> is "<code
+     data-x="">include</code>", <span data-x="concept-request-mode">mode</span> is "<code
+     data-x="">navigate</code>", and whose <span>use-URL-credentials flag</span> is set.</p></li>
 
      <li>
-
       <!--FETCH--><p><span data-x="concept-fetch">Fetch</span> <var>request</var>.</p>
 
       <!-- similar text in various places -->
@@ -250,7 +236,6 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
       <p>For the purposes of the <span>application cache</span> networking model, this fetch
       operation is not for a <span>child browsing context</span> (though it might end up being used
       for one after all, as defined below).</p>
-
      </li>
 
      <li><p>If the resource is not yet available (e.g. because the resource was not available in the
@@ -322,38 +307,11 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
 -->
 
       <ol>
-
        <li>
-
         <p>Let the <var>resource type</var> be unknown.</p>
-
        </li>
 
        <li>
-
-        <p>If the <code>object</code> element has a <code data-x="attr-object-type">type</code>
-        attribute and a <code data-x="attr-object-typemustmatch">typemustmatch</code> attribute, and
-        the resource has <span data-x="Content-Type">associated Content-Type metadata</span>, and the
-        type specified in <span data-x="Content-Type">the resource's Content-Type metadata</span> is
-        an <span>ASCII case-insensitive</span> match for the value of the element's <code
-        data-x="attr-object-type">type</code> attribute, then let <var>resource type</var>
-        be that type and jump to the step below labeled <i>handler</i>.</p>
-
-        <!-- do we need to <span>strip leading and trailing ASCII whitespace</span> from anything
-        here? collapse sequences of spaces? drop parameters? -->
-
-       </li>
-
-       <li>
-
-        <p>If the <code>object</code> element has a <code
-        data-x="attr-object-typemustmatch">typemustmatch</code> attribute, jump to the step below
-        labeled <i>handler</i>.</p>
-
-       </li>
-
-       <li>
-
         <!-- by request: https://www.w3.org/Bugs/Public/show_bug.cgi?id=8479 -->
 
         <p>If the user agent is configured to strictly obey Content-Type headers for this resource,
@@ -368,21 +326,17 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
         security characteristics. <!-- e.g. the example given above, where the site is expecting
         Flash with allowScriptAccess=never, and instead gets back Java with its unrestricted DOM
         access --></p>
-
        </li>
 
        <li>
-
         <p>If there is a <code data-x="attr-object-type">type</code> attribute present on the
         <code>object</code> element, and that attribute's value is not a type that the user agent
         supports, but it <em>is</em> a type that a <span>plugin</span> supports, then let the <var>resource type</var> be the type specified in that <code
         data-x="attr-object-type">type</code> attribute, and jump to the step below labeled
         <i>handler</i>.</p>
-
        </li>
 
        <li>
-
         <p>Run the appropriate set of steps from the following
         list:</p>
 
@@ -392,108 +346,77 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
          metadata</span></dt>
 
          <dd>
-
           <ol>
-
            <li>
-
             <p>Let <var>binary</var> be false.</p>
-
            </li>
 
            <li>
-
             <p>If the type specified in <span data-x="Content-Type">the resource's Content-Type
             metadata</span> is "<code>text/plain</code>", and the result of applying the <span
             data-x="Content-Type sniffing: text or binary">rules for distinguishing if a resource is
             text or binary</span> to the resource is that the resource is not
             <code>text/plain</code>, then set <var>binary</var> to true.</p>
-
            </li>
 
            <li>
-
             <p>If the type specified in <span data-x="Content-Type">the resource's Content-Type
             metadata</span> is "<code>application/octet-stream</code>", then set <var>binary</var> to true.</p>
-
            </li>
 
            <li>
-
             <p>If <var>binary</var> is false, then let the <var>resource
             type</var> be the type specified in <span data-x="Content-Type">the resource's
             Content-Type metadata</span>, and jump to the step below labeled <i>handler</i>.</p>
-
            </li>
 
            <li>
-
             <p>If there is a <code data-x="attr-object-type">type</code> attribute present on the
             <code>object</code> element, and its value is not <code>application/octet-stream</code>,
             then run the following steps:</p>
 
             <ol>
-
              <li>
-
               <p>If the attribute's value is a type that a <span>plugin</span> supports, or the
      attribute's value is a type that starts with "<code data-x="">image/</code>" that is
               not also an <span>XML MIME type</span>, then let the <var>resource type</var> be the
               type specified in that <code data-x="attr-object-type">type</code> attribute.</p>
-
              </li>
 
              <li>
-
               <p>Jump to the step below labeled <i>handler</i>.</p>
-
              </li>
-
             </ol>
-
            </li>
-
           </ol>
-
          </dd>
 
          <dt>Otherwise, if the resource does not have <span data-x="Content-Type">associated
          Content-Type metadata</span></dt>
 
          <dd>
-
           <ol>
-
            <li>
-
             <p>If there is a <code data-x="attr-object-type">type</code> attribute present on the
             <code>object</code> element, then let the <var>tentative type</var> be the type
             specified in that <code data-x="attr-object-type">type</code> attribute.</p>
 
             <p>Otherwise, let <var>tentative type</var> be the <span data-x="content-type
             sniffing">computed type of the resource</span>.</p>
-
            </li>
 
            <li>
-
             <p>If <var>tentative type</var> is <em>not</em>
             <code>application/octet-stream</code>, then let <var>resource type</var> be
             <var>tentative type</var> and jump to the step below labeled
             <i>handler</i>.</p>
-
            </li>
-
           </ol>
-
          </dd>
-
         </dl>
-
        </li>
 
        <li>
-
         <!-- if we get to this point we know we can successfully parsed the URL, since this
         algorithm is only used after fetching the resource in the steps above -->
 
@@ -509,15 +432,12 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
 
         <!-- it's sad that we have to do extension sniffing. sigh. -->
         <!-- see also <embed> which has a similar step -->
-
        </li>
-
       </ol>
 
       <p class="note">It is possible for this step to finish, or for one of the substeps above to
       jump straight to the next step, with <var>resource type</var> still being unknown. In
       both cases, the next step will trigger fallback.</p>
-
      </li>
 
      <li><p><i>Handler</i>: Handle the content as given by the first of the following cases that
@@ -529,7 +449,6 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
        it <em>is</em> a type that a <span>plugin</span> supports</dt>
 
        <dd>
-
         <p>If the <code>object</code> element's <span>nested browsing context</span> is non-null,
         then it must be <span data-x="a browsing context is discarded">discarded</span> and then set
         to null.</p>
@@ -542,7 +461,6 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
         <var>resource type</var></a> and pass the content of the resource to that
         <span>plugin</span>. If the <span>plugin</span> reports an error, then jump to the step
         below labeled <i>fallback</i>.</p>
-
        </dd>
 
 
@@ -551,37 +469,20 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
        does not start with "<code data-x="">image/</code>"</dt>
 
        <dd>
+        <p>If the <code>object</code> element's <span>nested browsing context</span> is null, then
+        <span>create a new nested browsing context</span> for the element.</p>
 
-        <p>If the <code>object</code> element's <span>nested browsing context</span> is null, set
-        the element's <span>nested browsing context</span> to a <span data-x="creating a new
-        browsing context">newly-created browsing context</span>.</p>
+        <p>If the <span>URL</span> of the given resource is not <code>about:blank</code>, then
+        <span>navigate</span><!-- DONAV object --> the element's <span>nested browsing
+        context</span> to that resource, with <var data-x="navigation-hh">historyHandling</var> set
+        to "<code data-x="hh-replace">replace</code>" and the <span>source browsing context</span>
+        set to the <code>object</code> element's <span>node document</span>'s <span
+        data-x="concept-document-bc">browsing context</span>. (The <code
+        data-x="attr-object-data">data</code> attribute of the <code>object</code> element doesn't
+        get updated if the browsing context gets further navigated to other locations.)</p>
 
-        <p>The <code>object</code> element must be associated with a newly created <span>nested
-        browsing context</span>, if it does not already have one.</p>
-
-        <p>If the <span>URL</span> of the given resource is not <code>about:blank</code>, the
-        element's <span>nested browsing context</span> must then be <span
-        data-x="navigate">navigated</span><!--DONAV object--> to that resource, with
-        <span>replacement enabled</span>, and with the <code>object</code> element's <span>node
-        document</span>'s <span data-x="concept-document-bc">browsing context</span> as the
-        <span>source browsing context</span>. (The <code data-x="attr-object-data">data</code>
-        attribute of the <code>object</code> element doesn't get updated if the browsing context
-        gets further navigated to other locations.)</p>
-
-        <p>If the <span>URL</span> of the given resource <em>is</em> <code>about:blank</code>, then,
-        instead, the user agent must <span>queue a task</span> to <span
-        data-x="concept-event-fire">fire an event</span> named <code data-x="event-load">load</code>
-        at the <code>object</code> element. <span class="note">No <code
-        data-x="event-load">load</code> event is fired at the <code>about:blank</code> document
-        itself.</span></p>
-
-        <p>The <code>object</code> element <span>represents</span> the <span>nested browsing
+        <p>The <code>object</code> element <span>represents</span> its <span>nested browsing
         context</span>.</p>
-
-        <p>If the <code data-x="attr-object-name">name</code> attribute is present, the
-        <code>object</code> element's <span>nested browsing context</span>'s <span>browsing context
-        name</span> must be set to the value of this attribute; otherwise, the <span>browsing
-        context name</span> must be set to the empty string.</p>
 
         <p class="note">In certain situations, e.g., if the resource was fetched from an
         <span>application cache</span> but it is an HTML file with a <code
@@ -590,11 +491,10 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
         data-x="navigate">navigation</span> of the <span>browsing context</span> will be restarted
         so as to load the resource afresh from the network or a different <span>application
         cache</span>. Even if the resource is then found to have a different type, it is still used
-        as part of a <span>nested browsing context</span>: only the <span>navigate</span> algorithm
-        is restarted, not this <code>object</code> algorithm.</p>
+        as part of a <span>browsing context</span>: only the <span>navigate</span> algorithm is
+        restarted, not this <code>object</code> algorithm.</p>
 
         <!-- note that malformed XML files don't cause fallback -->
-
        </dd>
 
 
@@ -602,7 +502,6 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
        for images has not been disabled</dt>
 
        <dd>
-
         <p>If the <code>object</code> element's <span>nested browsing context</span> is non-null,
         then it must be <span data-x="a browsing context is discarded">discarded</span> and then set
         to null.</p>
@@ -614,39 +513,38 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
 
         <p>If the image cannot be rendered, e.g. because it is malformed or in an unsupported
         format, jump to the step below labeled <i>fallback</i>.</p>
-
        </dd>
 
 
        <dt>Otherwise</dt>
 
        <dd>
-
         <p>The given <var>resource type</var> is not supported. Jump to the step below
         labeled <i>fallback</i>.</p>
 
         <p class="note">If the previous step ended with the <var>resource type</var> being
         unknown, this is the case that is triggered.</p>
-
        </dd>
-
       </dl>
-
      </li>
 
      <li><p>The element's contents are not part of what the <code>object</code> element
      represents.</p>
 
      <li>
-
-      <p>Return. Once the resource is completely loaded, <span>queue a task</span> to
-      <span data-x="concept-event-fire">fire an event</span> named <code
+      <p>If the <code>object</code> element does not represent its <span>nested browsing
+      context</span>, then once the resource is completely loaded, <span>queue an element
+      task</span> on the <span>DOM manipulation task source</span> given the <code>object</code>
+      element to <span data-x="concept-event-fire">fire an event</span> named <code
       data-x="event-load">load</code> at the element.</p>
 
+      <p class="note">If the element <em>does</em> represent its <span>nested browsing
+      context</span>, then an analogous task will be queued when the created <code>Document</code>
+      is <span data-x="completely finish loading">completely finished loading</span>.</p>
      </li>
 
+     <li><p>Return.</p></li>
     </ol>
-
    </li>
 
    <li><p>If the <code data-x="attr-object-data">data</code> attribute is absent but the <code
@@ -657,7 +555,8 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
    <span data-x="concept-plugin-secure">secured</span>, then that <span>plugin</span> <a
    href="#object-plugin">should be used</a>. If these conditions cannot be met, or if the
    <span>plugin</span> reports an error, jump to the step below labeled <i>fallback</i>. Otherwise
-   return; once the plugin is completely loaded, <span>queue a task</span> to <span
+   return; once the plugin is completely loaded, <span>queue an element task</span> on the
+   <span>DOM manipulation task source</span> given the <code>object</code> element to <span
    data-x="concept-event-fire">fire an event</span> named <code data-x="event-load">load</code> at
    the element.</p></li>
 
@@ -666,7 +565,6 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
    <span>fallback content</span>. If the element has an instantiated <span>plugin</span>, then
    unload it. If the element's <span>nested browsing context</span> is non-null, then it must be
    <span data-x="a browsing context is discarded">discarded</span> and then set to null.</p></li>
-
   </ol>
 
   <p id="object-plugin">When the algorithm above instantiates a <span>plugin</span>, the user agent
@@ -691,17 +589,7 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
   targeting multiple user agents with different capabilities, with the user agent picking the first
   one it supports.</p>
 
-  <p>When an <code>object</code> element's <span>nested browsing context</span> is non-null: if the
-  <code>object</code> element's <span>nested browsing context</span>'s <span>active document</span>
-  is not <span>ready for post-load tasks</span>, and when anything is <span data-x="delay the load
-  event">delaying the load event</span> of the <code>object</code> element's <span>browsing
-  context</span>'s <span>active document</span>, and when the <code>object</code> element's
-  <span>browsing context</span> is in the <span>delaying <code data-x="event-load">load</code>
-  events mode</span>, the <code>object</code> must <span>delay the load event</span> of its
-  document.</p>
-
-  <p>The <span>task source</span> for the <span data-x="concept-task">tasks</span> mentioned in this
-  section is the <span>DOM manipulation task source</span>.</p>
+  <p>The <code>object</code> element <span>potentially delays the load event</span>.</p>
 
   </div>
 
@@ -724,11 +612,12 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
 
   <div w-nodev>
 
-  <p>The IDL attributes <dfn><code data-x="dom-object-data">data</code></dfn>, <dfn><code data-x="dom-object-type">type</code></dfn> and <dfn><code data-x="dom-object-name">name</code></dfn> each must <span>reflect</span> the respective
-  content attributes of the same name. The <dfn><code data-x="dom-object-typeMustMatch">typeMustMatch</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-object-typemustmatch">typemustmatch</code> content
-  attribute. The <dfn><code data-x="dom-object-useMap">useMap</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-hyperlink-usemap">usemap</code> content attribute.</p>
+  <p>The IDL attributes <dfn attribute for="HTMLObjectElement"><code
+  data-x="dom-object-data">data</code></dfn>, <dfn><code data-x="dom-object-type">type</code></dfn>
+  and <dfn><code data-x="dom-object-name">name</code></dfn> each must <span>reflect</span> the
+  respective content attributes of the same name. The <dfn><code
+  data-x="dom-object-useMap">useMap</code></dfn> IDL attribute must <span>reflect</span> the <code
+  data-x="attr-hyperlink-usemap">usemap</code> content attribute.</p>
 
   <p>The <dfn><code data-x="dom-object-contentDocument">contentDocument</code></dfn> IDL attribute,
   on getting, must return the <code>object</code> element's <span
@@ -755,7 +644,7 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, an HTML page is embedded in another using the <code>object</code>
    element.</p>
 
-   <pre><code class="html" data-x="">&lt;figure>
+   <pre><code class="html">&lt;figure>
  &lt;object data="clock.html">&lt;/object>
  &lt;figcaption>My HTML Clock&lt;/figcaption>
 &lt;/figure></code></pre>
@@ -770,7 +659,7 @@ interface <dfn>HTMLObjectElement</dfn> : <span>HTMLElement</span> {
    <code>video</code>, and finally providing a link to the video for those who have neither Flash
    nor a <code>video</code>-capable browser.</p>
 
-   <pre><code class="html" data-x="">&lt;p>Look at my video:
+   <pre><code class="html">&lt;p>Look at my video:
  &lt;object type="application/x-shockwave-flash">
   &lt;param name=movie value="https://video.example.com/library/watch.swf">
   &lt;param name=allowfullscreen value=true>

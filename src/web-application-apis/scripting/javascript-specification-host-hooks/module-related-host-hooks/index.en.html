@@ -1,0 +1,162 @@
+  <h5 id="integration-with-the-javascript-module-system">Module-related host hooks</h5>
+
+  <p>The JavaScript specification defines a syntax for modules, as well as some host-agnostic parts
+  of their processing model. This specification defines the rest of their processing model: how the
+  module system is bootstrapped, via the <code>script</code> element with <code
+  data-x="attr-script-type">type</code> attribute set to "<code data-x="">module</code>", and how
+  modules are fetched, resolved, and executed. <ref spec="JAVASCRIPT"></p>
+
+  <p class="note">Although the JavaScript specification speaks in terms of "scripts" versus
+  "modules", in general this specification speaks in terms of <span data-x="classic script">classic
+  scripts</span> versus <span data-x="module script">module scripts</span>, since both of them use
+  the <code>script</code> element.</p>
+
+  <dl class="domintro">
+   <dt><var>modulePromise</var> = <code data-x="import()">import(<var>specifier</var>)</code></dt>
+
+   <dd>
+    <p>Returns a promise for the module namespace object for the <span>module script</span>
+    identified by <var>specifier</var>. This allows dynamic importing of module scripts at runtime,
+    instead of statically using the <code data-x="">import</code> statement form. The specifier will
+    be <span data-x="resolve a module specifier">resolved</span> relative to the <span>active
+    script</span>'s <span data-x="concept-script-base-url">base URL</span>.</p>
+
+    <p>The returned promise will be rejected if an invalid specifier is given, or if a failure is
+    encountered while <span data-x="fetch an import() module script graph">fetching</span> or <span
+    data-x="run a module script">evaluating</span> the resulting module graph.</p>
+
+    <p>This syntax can be used inside both <span data-x="classic script">classic</span> and <span
+    data-x="module script">module scripts</span>. It thus provides a bridge into the module-script
+    world, from the classic-script world.</p>
+   </dd>
+
+   <dt><var>url</var> = <code data-x="import.meta">import . meta </code><code data-x=""> . url</code></dt>
+
+   <dd>
+    <p>Returns the <span data-x="active script">active module script</span>'s <span
+    data-x="concept-script-base-url">base URL</span>.</p>
+
+    <p>This syntax can only be used inside <span data-x="module script">module scripts</span>.</p>
+   </dd>
+  </dl>
+
+  <p><span w-nodev>A <dfn>module map</dfn> is a <span data-x="ordered map">map</span> of <span
+  data-x="URL record">URL records</span> to values that are either a <span>module script</span>,
+  null (used to represent failed fetches), or a placeholder value "<code
+  data-x="">fetching</code>". </span><span data-x="module map">Module maps</span> are used to ensure
+  that imported JavaScript modules are only fetched, parsed, and evaluated once per
+  <code>Document</code> or <a href="#workers">worker</a>.</p>
+
+  <div class="example">
+   <p>Since <span data-x="module map">module maps</span> are keyed by URL, the following code will
+   create three separate entries in the <span>module map</span>, since it results in three different
+   URLs:</p>
+
+   <pre><code class="js">import "https://example.com/module.mjs";
+import "https://example.com/module.mjs#map-buster";
+import "https://example.com/module.mjs?debug=true";</code></pre>
+
+   <p>That is, URL <span data-x="concept-url-query">queries</span> and <span
+   data-x="concept-url-fragment">fragments</span> can be varied to create distinct entries in the
+   <span>module map</span>; they are not ignored. Thus, three separate fetches and three separate
+   module evaluations will be performed.</p>
+
+   <p>In contrast, the following code would only create a single entry in the <span>module
+   map</span>, since after applying the <span>URL parser</span> to these inputs, the resulting <span
+   data-x="URL record">URL records</span> are equal:</p>
+
+   <pre><code class="js">import "https://example.com/module2.mjs";
+import "https:example.com/module2.mjs";
+import "https://///example.com\\module2.mjs";
+import "https://example.com/foo/../module2.mjs";</code></pre>
+
+   <p>So in this second example, only one fetch and one module evaluation will occur.</p>
+
+   <p>Note that this behavior is the same as how <span
+   data-x="SharedWorker">shared workers</span> are keyed by their parsed <span
+   data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor url</span>.</p>
+  </div>
+
+  <div w-nodev>
+
+  <p>To <dfn>resolve a module specifier</dfn> given a <span>URL</span> <var>base URL</var> and a
+  <span>string</span> <var>specifier</var>, perform the following steps. It will return either a
+  <span>URL record</span> or failure.</p>
+
+  <ol>
+   <li><p>Apply the <span>URL parser</span> to <var>specifier</var>. If the result is not failure,
+   return the result.</p></li>
+
+   <li>
+    <p>If <var>specifier</var> does not start with the character U+002F SOLIDUS (<code
+    data-x="">/</code>), the two-character sequence U+002E FULL STOP, U+002F SOLIDUS (<code
+    data-x="">./</code>), or the three-character sequence U+002E FULL STOP, U+002E FULL STOP,
+    U+002F SOLIDUS (<code data-x="">../</code>), return failure.</p>
+
+    <p class="note">This restriction is in place so that in the future we can allow custom module
+    loaders to give special meaning to "bare" import specifiers, like <code
+    data-x="">import "jquery"</code> or <code data-x="">import "web/crypto"</code>. For now any
+    such imports will fail, instead of being treated as relative URLs.</p>
+   </li>
+
+   <li><p>Return the result of applying the <span>URL parser</span> to <var>specifier</var> with
+   <var>base URL</var> as the base URL.</p></li>
+  </ol>
+
+  </div>
+
+  <div class="example" id="module-specifier-examples">
+   <p>The following are valid module specifiers<span w-nodev> according to the above
+   algorithm</span>:</p>
+
+   <ul class="brief">
+    <li><code data-x="">https://example.com/apples.mjs</code></li>
+
+    <li><code data-x="">http:example.com\pears.js</code> (becomes <code
+    data-x="">http://example.com/pears.js</code><span w-nodev> as step 1 parses with no base
+    URL</span>)</li>
+
+    <li><code data-x="">//example.com/bananas</code></li>
+
+    <li><code data-x="">./strawberries.mjs.cgi</code></li>
+
+    <li><code data-x="">../lychees</code></li>
+
+    <li><code data-x="">/limes.jsx</code></li>
+
+    <li><code data-x="">data:text/javascript,export default 'grapes';</code></li>
+
+    <li><code data-x="">blob:https://whatwg.org/d0360e2f-caee-469f-9a2f-87d5b0456f6f</code></li>
+   </ul>
+
+   <p>The following are valid module specifiers according to the above algorithm, but will
+   invariably cause failures when they are <span data-x="fetch a single module
+   script">fetched</span>:</p>
+
+   <ul class="brief">
+    <li><code data-x="">javascript:export default 'artichokes';</code></li>
+
+    <li><code data-x="">data:text/plain,export default 'kale';</code></li>
+
+    <li><code data-x="">about:legumes</code></li>
+
+    <li><code data-x="">wss://example.com/celery</code></li>
+   </ul>
+
+   <p>The following are not valid module specifiers according to the above algorithm:</p>
+
+   <ul class="brief">
+    <li><code data-x="">https://eggplant:b/c</code></li>
+
+    <li><code data-x="">pumpkins.js</code></li>
+
+    <li><code data-x="">.tomato</code></li>
+
+    <li><code data-x="">..zucchini.mjs</code></li>
+
+    <li><code data-x="">.\yam.es</code></li>
+   </ul>
+  </div>
+
+  <div w-nodev>
+

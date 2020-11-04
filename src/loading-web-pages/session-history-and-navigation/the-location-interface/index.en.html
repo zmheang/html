@@ -16,8 +16,12 @@
    <li><p>Let <var>location</var> be a new <code>Location</code> <span>platform
    object</span>.</p></li>
 
+   <li><p>Let <var>valueOf</var> be <var>location</var>'s <span
+   data-x="concept-relevant-realm">relevant
+   Realm</span>.[[Intrinsics]].[[<span>%Object.prototype.valueOf%</span>]].</p></li>
+
    <li><p>Perform ! <var>location</var>.[[DefineOwnProperty]]("<code data-x="">valueOf</code>", {
-   [[Value]]: <span>%ObjProto_valueOf%</span>,
+   [[Value]]: <var>valueOf</var>,
    [[Writable]]: false,
    [[Enumerable]]: false,
    [[Configurable]]: false }).</p></li>
@@ -36,12 +40,12 @@
 
   <p class="note">The addition of <code data-x="">valueOf</code> and <span>@@toPrimitive</span> own
   data properties, as well as the fact that all of <code>Location</code>'s IDL attributes are marked
-  <code data-x="">[Unforgeable]</code>, is required by legacy code that consulted the
-  <code>Location</code> interface, or stringified it, to determine the <span
+  <code data-x="">[<span>LegacyUnforgeable</span>]</code>, is required by legacy code that consulted
+  the <code>Location</code> interface, or stringified it, to determine the <span
   data-x="concept-document-url">document URL</span>, and then used it in a security-sensitive way.
   In particular, the <code data-x="">valueOf</code>, <span>@@toPrimitive</span>, and <code
-  data-x="">[Unforgeable]</code> stringifier mitigations ensure that code such as <code
-  data-x="">foo[location] = bar</code> or <code data-x="">location + ""</code> cannot be
+  data-x="">[<span>LegacyUnforgeable</span>]</code> stringifier mitigations ensure that code such as
+  <code data-x="">foo[location] = bar</code> or <code data-x="">location + ""</code> cannot be
   misdirected.</p>
 
   </div>
@@ -52,25 +56,22 @@
    <dt><var>window</var> . <code subdfn data-x="dom-location">location</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns a <code>Location</code> object with the current page's location.</p>
 
     <p>Can be set, to navigate to another page.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
   <p>The <code>Document</code> object's <dfn><code
   data-x="dom-document-location">location</code></dfn> attribute's getter must return this
-  <code>Document</code> object's <span data-x="concept-relevant-global">relevant global
-  object</span>'s <code>Location</code> object, if this <code>Document</code> object is <span>fully
-  active</span>, and null otherwise.</p>
+  <code>Document</code> object's <span>relevant global object</span>'s <code>Location</code> object,
+  if this <code>Document</code> object is <span>fully active</span>, and null otherwise.</p>
 
-  <p>The <code>Window</code> object's <dfn><code data-x="dom-location">location</code></dfn>
-  attribute's getter must return this <code>Window</code> object's <code>Location</code> object.</p>
+  <p>The <code>Window</code> object's <dfn attribute for="Window"><code
+  data-x="dom-location">location</code></dfn> attribute's getter must return this
+  <code>Window</code> object's <code>Location</code> object.</p>
 
   </div>
 
@@ -80,23 +81,23 @@
   <span>current entry</span> of the <span>browsing context</span>'s session history to be changed,
   by adding or replacing entries in the <code data-x="dom-history">history</code> object.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface">additional creation steps</a> and <a href="#location-internal-methods">overridden internal methods</a>
-  [Unforgeable] stringifier attribute USVString <span data-x="dom-location-href">href</span>;
-  [Unforgeable] readonly attribute USVString <span data-x="dom-location-origin">origin</span>;
-  [Unforgeable] attribute USVString <span data-x="dom-location-protocol">protocol</span>;
-  [Unforgeable] attribute USVString <span data-x="dom-location-host">host</span>;
-  [Unforgeable] attribute USVString <span data-x="dom-location-hostname">hostname</span>;
-  [Unforgeable] attribute USVString <span data-x="dom-location-port">port</span>;
-  [Unforgeable] attribute USVString <span data-x="dom-location-pathname">pathname</span>;
-  [Unforgeable] attribute USVString <span data-x="dom-location-search">search</span>;
-  [Unforgeable] attribute USVString <span data-x="dom-location-hash">hash</span>;
+  [<span>LegacyUnforgeable</span>] stringifier attribute USVString <span data-x="dom-location-href">href</span>;
+  [<span>LegacyUnforgeable</span>] readonly attribute USVString <span data-x="dom-location-origin">origin</span>;
+  [<span>LegacyUnforgeable</span>] attribute USVString <span data-x="dom-location-protocol">protocol</span>;
+  [<span>LegacyUnforgeable</span>] attribute USVString <span data-x="dom-location-host">host</span>;
+  [<span>LegacyUnforgeable</span>] attribute USVString <span data-x="dom-location-hostname">hostname</span>;
+  [<span>LegacyUnforgeable</span>] attribute USVString <span data-x="dom-location-port">port</span>;
+  [<span>LegacyUnforgeable</span>] attribute USVString <span data-x="dom-location-pathname">pathname</span>;
+  [<span>LegacyUnforgeable</span>] attribute USVString <span data-x="dom-location-search">search</span>;
+  [<span>LegacyUnforgeable</span>] attribute USVString <span data-x="dom-location-hash">hash</span>;
 
-  [Unforgeable] void <span data-x="dom-location-assign">assign</span>(USVString url);
-  [Unforgeable] void <span data-x="dom-location-replace">replace</span>(USVString url);
-  [Unforgeable] void <span data-x="dom-location-reload">reload</span>();
+  [<span>LegacyUnforgeable</span>] undefined <span data-x="dom-location-assign">assign</span>(USVString url);
+  [<span>LegacyUnforgeable</span>] undefined <span data-x="dom-location-replace">replace</span>(USVString url);
+  [<span>LegacyUnforgeable</span>] undefined <span data-x="dom-location-reload">reload</span>();
 
-  [Unforgeable, SameObject] readonly attribute <span>DOMStringList</span> <span data-x="dom-location-ancestorOrigins">ancestorOrigins</span>;
+  [<span>LegacyUnforgeable</span>, SameObject] readonly attribute <span>DOMStringList</span> <span data-x="dom-location-ancestorOrigins">ancestorOrigins</span>;
 };</code></pre>
 
   <dl class="domintro">
@@ -186,12 +187,15 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   <div w-nodev>
 
   <p>A <code>Location</code> object has an associated <dfn>relevant <code>Document</code></dfn>,
-  which is this <code>Location</code> object's associated <code>Document</code> object's <span
-  data-x="concept-document-bc">browsing context</span>'s <span>active document</span>.</p>
+  which is this <code>Location</code> object's <span>relevant global object</span>'s <span
+  data-x="window bc">browsing context</span>'s <span>active document</span>, if this
+  <code>Location</code> object's <span>relevant global object</span>'s <span data-x="window
+  bc">browsing context</span> is non-null, and null otherwise.</p>
 
   <p>A <code>Location</code> object has an associated <dfn data-x="concept-location-url">url</dfn>,
   which is this <code>Location</code> object's <span>relevant <code>Document</code></span>'s <span
-  data-x="concept-document-url">URL</span>.</p>
+  data-x="concept-document-url">URL</span>, if this <code>Location</code> object's <span>relevant
+  <code>Document</code></span> is non-null, and <code>about:blank</code> otherwise.</p>
 
   <p>A <code>Location</code> object has an associated <dfn
   data-x="concept-location-ancestor-origins-list">ancestor origins list</dfn>. When a
@@ -225,9 +229,11 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   navigate</dfn> algorithm, which given a <var>url</var>, runs these steps:</p>
 
   <ol>
+   <li><p>Let <var>historyHandling</var> be "<code data-x="hh-replace">replace</code>".</p></li>
+
    <li>
-    <p>If any of the following conditions are met, let <var>replacement flag</var> be unset;
-    otherwise, let it be set:</p>
+    <p>If any of the following conditions are met, then set <var>historyHandling</var> to "<code
+    data-x="hh-default">default</code>":</p>
 
     <ul class="brief">
      <li>This <code>Location</code> object's <span>relevant <code>Document</code></span> has
@@ -245,39 +251,39 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
    </li>
 
    <li><p><span><code>Location</code>-object navigate</span>, given <var>url</var> and
-   <var>replacement flag</var>.</p></li>
+   <var>historyHandling</var>.</p></li>
   </ol>
 
   <p>To <dfn><code>Location</code>-object navigate</dfn>, given a <var>url</var> and
-  <var>replacement flag</var>, run these steps:</p>
+  <var>historyHandling</var>:</p>
 
   <ol>
-   <li><p>The <span>source browsing context</span> is the <span>responsible browsing context</span>
-   specified by the <span>incumbent settings object</span>.</p></li>
+   <li><p>Let <var>browsingContext</var> be the <span>current global object</span>'s <span
+   data-x="window bc">browsing context</span>.</p></li>
 
-   <li>
-    <p><span>Navigate</span><!--DONAV location--> the <span>browsing context</span> to
-    <var>url</var>, with the <var><span>exceptions enabled flag</span></var> set. Rethrow any
-    exceptions.</p>
+   <li><p>Let <var>sourceBrowsingContext</var> be the <span
+   data-x="concept-incumbent-global">incumbent global object</span>'s <span data-x="window
+   bc">browsing context</span>.</p></li>
 
-    <p>If the <var>replacement flag</var> is set or the <span>browsing context</span>'s
-    <span>session history</span> contains only one <code>Document</code>, and that was the
-    <code>about:blank</code> <code>Document</code> created when the <span>browsing context</span>
-    was created, then the navigation must be done with <span>replacement enabled</span>.</p>
-    <!-- READ ME WHEN EDITING THIS: IE and Firefox only seem to treat it that way if the DOM is
-         still a virgin DOM; Safari doesn't check that. Thus this might need changing if testing
-         shows the IE/Firefox behavior is required here. -->
-   </li>
+   <li><p>If <var>browsingContext</var>'s <span>session history</span> contains only one
+   <code>Document</code>, and that was the <code>about:blank</code> <code>Document</code> created
+   when the <span>browsing context</span> was created, then set <var>historyHandling</var> to "<code
+   data-x="hh-replace">replace</code>".</p></li>
+
+   <li><p><span>Navigate</span><!--DONAV location--> <var>browsingContext</var> to <var>url</var>,
+   with <var><span>exceptionsEnabled</span></var> set to true, <var
+   data-x="navigation-hh">historyHandling</var> set to <var>historyHandling</var>, and the
+   <span>source browsing context</span> set to <var>sourceBrowsingContext</var>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-location-href">href</code></dfn> attribute's getter must run these
-  steps:</p>
+  <p>The <dfn attribute for="Location"><code data-x="dom-location-href">href</code></dfn>
+  attribute's getter must run these steps:</p>
 
   <ol>
-   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
-   <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
-   object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   non-null and its <span>origin</span> is not <span>same origin-domain</span> with the <span>entry
+   settings object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Return this <code>Location</code> object's <span data-x="concept-location-url">url</span>,
    <span data-x="concept-url-serializer">serialized</span>.</p></li>
@@ -286,38 +292,41 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   <p>The <code data-x="dom-location-href">href</code> attribute's setter must run these steps:</p>
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return.</p></li>
+
    <li><p><span data-x="parse a url">Parse</span> the given value relative to the <span>entry
    settings object</span>. If that failed, throw a <code>TypeError</code> exception.</p></li>
 
-   <li><p><span><code>Location</code>-object-setter navigate</span> to the <span>resulting URL
+   <li><p><span><code>Location</code>-object-setter navigate</span> given the <span>resulting URL
    record</span>.</p></li>
   </ol>
 
   <p class="note">The <code data-x="dom-location-href">href</code> attribute setter intentionally
   has no security check.</p>
 
-  <p>The <dfn><code data-x="dom-location-origin">origin</code></dfn> attribute's getter must run
-  these steps:</p>
+  <p>The <dfn attribute for="Location"><code data-x="dom-location-origin">origin</code></dfn>
+  attribute's getter must run these steps:</p>
 
   <ol>
-   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
-   <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
-   object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   non-null and its <span>origin</span> is not <span>same origin-domain</span> with the <span>entry
+   settings object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Return the <span data-x="serialization of an origin">serialization</span> of this
    <code>Location</code> object's <span data-x="concept-location-url">url</span>'s <span
    data-x="concept-url-origin">origin</span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-location-protocol">protocol</code></dfn> attribute's getter must run
-  these steps:</p>
+  <p>The <dfn attribute for="Location"><code data-x="dom-location-protocol">protocol</code></dfn>
+  attribute's getter must run these steps:</p>
 
   <ol>
-   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
-   <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
-   object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   non-null and its <span>origin</span> is not <span>same origin-domain</span> with the <span>entry
+   settings object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Return this <code>Location</code> object's <span
    data-x="concept-location-url">url</span>'s <span data-x="concept-url-scheme">scheme</span>,
@@ -328,6 +337,9 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   steps:</p>
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return.</p></li>
+
    <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
    <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
    object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
@@ -355,14 +367,14 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
    <li><p><span><code>Location</code>-object-setter navigate</span> to <var>copyURL</var>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-location-host">host</code></dfn> attribute's getter must run these
-  steps:</p>
+  <p>The <dfn attribute for="Location"><code data-x="dom-location-host">host</code></dfn>
+  attribute's getter must run these steps:</p>
 
   <ol>
-   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
-   <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
-   object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   non-null and its <span>origin</span> is not <span>same origin-domain</span> with the <span>entry
+   settings object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>url</var> be this <code>Location</code> object's <span
    data-x="concept-location-url">url</span>.</p></li>
@@ -383,6 +395,9 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   <p>The <code data-x="dom-location-host">host</code> attribute's setter must run these steps:</p>
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return.</p></li>
+
    <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
    <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
    object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
@@ -401,14 +416,14 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
    <li><p><span><code>Location</code>-object-setter navigate</span> to <var>copyURL</var>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-location-hostname">hostname</code></dfn> attribute's getter must
-  run these steps:</p>
+  <p>The <dfn attribute for="Location"><code data-x="dom-location-hostname">hostname</code></dfn>
+  attribute's getter must run these steps:</p>
 
   <ol>
-   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
-   <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
-   object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   non-null and its <span>origin</span> is not <span>same origin-domain</span> with the <span>entry
+   settings object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If this <code>Location</code> object's <span data-x="concept-location-url">url</span>'s
    <span data-x="concept-url-host">host</span> is null, return the empty string.</p></li>
@@ -422,6 +437,9 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   steps:</p>
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return.</p></li>
+
    <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
    <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
    object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
@@ -440,14 +458,14 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
    <li><p><span><code>Location</code>-object-setter navigate</span> to <var>copyURL</var>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-location-port">port</code></dfn> attribute's getter must run these
-  steps:</p>
+  <p>The <dfn attribute for="Location"><code data-x="dom-location-port">port</code></dfn>
+  attribute's getter must run these steps:</p>
 
   <ol>
-   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
-   <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
-   object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   non-null and its <span>origin</span> is not <span>same origin-domain</span> with the <span>entry
+   settings object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If this <code>Location</code> object's <span data-x="concept-location-url">url</span>'s
    <span data-x="concept-url-port">port</span> is null, return the empty string.</p></li>
@@ -460,6 +478,9 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   <p>The <code data-x="dom-location-port">port</code> attribute's setter must run these steps:</p>
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return.</p></li>
+
    <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
    <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
    object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
@@ -481,14 +502,14 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
    <li><p><span><code>Location</code>-object-setter navigate</span> to <var>copyURL</var>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-location-pathname">pathname</code></dfn> attribute's getter must
-  run these steps:</p>
+  <p>The <dfn attribute for="Location"><code data-x="dom-location-pathname">pathname</code></dfn>
+  attribute's getter must run these steps:</p>
 
   <ol>
-   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
-   <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
-   object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   non-null and its <span>origin</span> is not <span>same origin-domain</span> with the <span>entry
+   settings object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>url</var> be this <code>Location</code> object's <span
    data-x="concept-location-url">url</span>.</p></li>
@@ -508,6 +529,9 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   steps:</p>
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return.</p></li>
+
    <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
    <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
    object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
@@ -529,14 +553,14 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
    <li><p><span><code>Location</code>-object-setter navigate</span> to <var>copyURL</var>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-location-search">search</code></dfn> attribute's getter must run
-  these steps:</p>
+  <p>The <dfn attribute for="Location"><code data-x="dom-location-search">search</code></dfn>
+  attribute's getter must run these steps:</p>
 
   <ol>
-   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
-   <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
-   object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   non-null and its <span>origin</span> is not <span>same origin-domain</span> with the <span>entry
+   settings object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If this <code>Location</code> object's <span data-x="concept-location-url">url</span>'s
    <span data-x="concept-url-query">query</span> is either null or the empty string, return the
@@ -551,6 +575,9 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   steps:</p>
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return.</p></li>
+
    <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
    <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
    object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
@@ -582,14 +609,14 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
    <li><p><span><code>Location</code>-object-setter navigate</span> to <var>copyURL</var>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-location-hash">hash</code></dfn> attribute's getter must run these
-  steps:</p>
+  <p>The <dfn attribute for="Location"><code data-x="dom-location-hash">hash</code></dfn>
+  attribute's getter must run these steps:</p>
 
   <ol>
-   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
-   <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
-   object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   non-null and its <span>origin</span> is not <span>same origin-domain</span> with the <span>entry
+   settings object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>If this <code>Location</code> object's <span data-x="concept-location-url">url</span>'s
    <span data-x="concept-url-fragment">fragment</span> is either null or the empty string, return
@@ -603,6 +630,9 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   <p>The <code data-x="dom-location-hash">hash</code> attribute's setter must run these steps:</p>
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return.</p></li>
+
    <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
    <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
    object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
@@ -630,10 +660,14 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
 
   <hr>
 
-  <p>When the <dfn><code data-x="dom-location-assign">assign(<var>url</var>)</code></dfn>
-  method is invoked, the user agent must run the following steps:
+  <p>When the <dfn method for="Location"><code
+  data-x="dom-location-assign">assign(<var>url</var>)</code></dfn> method is invoked, the user agent
+  must run the following steps:
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return.</p></li>
+
    <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
    <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
    object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
@@ -643,32 +677,38 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
    settings object</span>. If that failed, throw a <span>"<code>SyntaxError</code>"</span>
    <code>DOMException</code>.</p></li>
 
-   <li><p><span><code>Location</code>-object navigate</span> to the <span>resulting URL
-   record</span>.</p></li>
-
+   <li><p><span><code>Location</code>-object navigate</span> given the <span>resulting URL
+   record</span> and "<code data-x="hh-default">default</code>".</p></li>
   </ol>
 
-  <p>When the <dfn><code data-x="dom-location-replace">replace(<var>url</var>)</code></dfn>
-  method is invoked, the user agent must run the following steps:
+  <p>When the <dfn method for="Location"><code
+  data-x="dom-location-replace">replace(<var>url</var>)</code></dfn> method is invoked, the user
+  agent must run the following steps:
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return.</p></li>
 
    <li><p><span data-x="parse a url">Parse</span> <var>url</var> relative to the <span>entry
    settings object</span>. If that failed, throw a <span>"<code>SyntaxError</code>"</span>
    <code>DOMException</code>.</p></li>
 
-   <li><p><span><code>Location</code>-object navigate</span> to the <span>resulting URL
-   record</span> with the <var>replacement flag</var> set.</p></li>
-
+   <li><p><span><code>Location</code>-object navigate</span> given the <span>resulting URL
+   record</span> and "<code data-x="hh-replace">replace</code>".</p></li>
   </ol>
 
   <p class="note">The <code data-x="dom-location-replace">replace()</code> method intentionally has
   no security check.</p>
 
-  <p>When the <dfn><code data-x="dom-location-reload">reload()</code></dfn> method is invoked, the
-  user agent must run the appropriate steps from the following list:</p>
+  <p>When the <dfn method for="Location"><code data-x="dom-location-reload">reload()</code></dfn>
+  method is invoked, the user agent must run the appropriate steps from the following list:</p>
 
   <dl class="switch">
+   <dt>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null</dt>
+
+   <dd><p>Return.</p></dd>
+
    <dt>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
    <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
    object</span>'s <span data-x="concept-settings-object-origin">origin</span></dt>
@@ -687,46 +727,33 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
    <code>iframe</code> <code data-x="attr-iframe-srcdoc">srcdoc</code> document</span></dt>
 
    <dd><p><span data-x="process the iframe attributes">Reprocess the <code>iframe</code>
-   attributes</span> of the <span>browsing context</span>'s <span>browsing context
-   container</span>.</p></dd>
-
-   <dt>If the <span>browsing context</span>'s <span>active document</span> has its <span>reload
-   override flag</span> set</dt>
-
-   <dd><p>Perform <span>an overridden reload</span>, with the <span>browsing context</span> being
-   navigated as the <span>responsible browsing context</span>. Rethrow any exceptions.</p></dd>
-   <!-- https://damowmow.com/playground/demos/sandbox/001.html -->
+   attributes</span> of the <span>browsing context</span>'s <span
+   data-x="bc-container">container</span>.</p></dd>
 
    <dt>Otherwise</dt>
 
    <dd><p><span>Navigate</span><!--DONAV location.reload()--> the <span>browsing context</span> to
    this <code>Location</code> object's <span>relevant <code>Document</code></span>'s <span
-   data-x="concept-document-url">URL</span> to perform an <span>entry update</span> of the
-   <span>browsing context</span>'s <span>current entry</span>, with the <var><span>exceptions
-   enabled flag</span></var> set. The <span>source browsing context</span> must be the
-   <span>browsing context</span> being navigated. This is a <span>reload-triggered
-   navigation</span>. Rethrow any exceptions.</p></dd>
+   data-x="concept-document-url">URL</span>, with <var><span>exceptionsEnabled</span></var> set to
+   true, <var data-x="navigation-hh">historyHandling</var> set to "<code
+   data-x="hh-reload">reload</code>", and the <span>source browsing context</span> set to the
+   <span>browsing context</span> being navigated.</p></dd>
 
    <!-- It appears that document.reload() always uses GET and does not, e.g., re-POST. Thus the
    difference between using the document's URL here, and "the same resource as that Document" below
    in the user-triggered reload section. -->
 
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=141 defends the source browsing context claim; submit, eval document.referrer, reload, eval document.referrer. -->
-
   </dl>
 
   <p>When a user requests that the <span>active document</span> of a <span>browsing context</span>
   be reloaded through a user interface element, the user agent should <span>navigate</span><!--DONAV
   user reload--> the <span>browsing context</span> to the same resource as that
-  <code>Document</code>, to perform an <span>entry update</span> of the <span>browsing
-  context</span>'s <span>current entry</span>. This is a <span>reload-triggered navigation</span>.
-  In the case of non-idempotent methods (e.g. HTTP POST), the user agent should prompt the user to
-  confirm the operation first, since otherwise transactions (e.g. purchases or database
-  modifications) could be repeated. User agents may allow the user to explicitly override any caches
-  when reloading. If <span>browsing context</span>'s <span>active document</span>'s <span>reload
-  override flag</span> is set, then the user agent may instead perform <span>an overridden
-  reload</span> rather than the navigation described in this paragraph (with the <span>browsing
-  context</span> being reloaded as the <span>source browsing context</span>).</p>
+  <code>Document</code>, with <var data-x="navigation-hh">historyHandling</var> set to "<code
+  data-x="hh-reload">reload</code>". In the case of non-idempotent methods (e.g., HTTP POST), the
+  user agent should prompt the user to confirm the operation first, since otherwise transactions
+  (e.g., purchases or database modifications) could be repeated. User agents may allow the user to
+  explicitly override any caches when reloading.</p>
 
   <hr>
 
@@ -734,6 +761,9 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   getter must run these steps:
 
   <ol>
+   <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span> is
+   null, then return an empty <span>list</span>.</p></li>
+
    <li><p>If this <code>Location</code> object's <span>relevant <code>Document</code></span>'s
    <span>origin</span> is not <span>same origin-domain</span> with the <span>entry settings
    object</span>'s <span data-x="concept-settings-object-origin">origin</span>, then throw a
@@ -751,9 +781,9 @@ interface <dfn>Location</dfn> { // but see also <a href="#the-location-interface
   <hr>
 
   <p id="location-internal-methods">As explained earlier, the <code>Location</code> exotic object
-  requires additional logic beyond IDL for security purposes. The internal slot and internal methods
-  <code>Location</code> objects must implement are defined below.</p>
+  requires additional logic beyond IDL for security purposes. The <code>Location</code> object must
+  use the ordinary internal methods except where it is explicitly specified otherwise below.</p>
 
-  <p>Every <code>Location</code> object has a <dfn>[[DefaultProperties]]</dfn> internal slot
+  <p>Also, every <code>Location</code> object has a <dfn>[[DefaultProperties]]</dfn> internal slot
   representing its own properties at time of its creation.</p>
 

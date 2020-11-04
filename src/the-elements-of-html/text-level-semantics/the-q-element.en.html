@@ -12,6 +12,10 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-q-cite">cite</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-q">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-q">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLQuoteElement</code>.</dd>
   </dl>
@@ -24,8 +28,9 @@
   inserted into the rendering by the user agent.</p>
 
   <p>Content inside a <code>q</code> element must be quoted from another source, whose address, if
-  it has one, may be cited in the <dfn><code data-x="attr-q-cite">cite</code></dfn> attribute. The
-  source may be fictional, as when quoting characters in a novel or screenplay.</p>
+  it has one, may be cited in the <dfn element-attr for="q"><code
+  data-x="attr-q-cite">cite</code></dfn> attribute. The source may be fictional, as when quoting
+  characters in a novel or screenplay.</p>
 
   <p>If the <code data-x="attr-q-cite">cite</code> attribute is present, it must be a <span>valid
   URL potentially surrounded by spaces</span>. <span w-nodev>To obtain the corresponding citation
@@ -45,7 +50,7 @@
 
    <p>Here is a simple example of the use of the <code>q</code> element:</p>
 
-   <pre><code class="html" data-x="">&lt;p>The man said &lt;q>Things that are impossible just take
+   <pre><code class="html">&lt;p>The man said &lt;q>Things that are impossible just take
 longer&lt;/q>. I disagreed with him.&lt;/p></code></pre>
 
   </div>
@@ -55,7 +60,7 @@ longer&lt;/q>. I disagreed with him.&lt;/p></code></pre>
    <p>Here is an example with both an explicit citation link in the <code>q</code> element, and an
    explicit citation outside:</p>
 
-   <pre><code class="html" data-x="">&lt;p>The W3C page &lt;cite>About W3C&lt;/cite> says the W3C's
+   <pre><code class="html">&lt;p>The W3C page &lt;cite>About W3C&lt;/cite> says the W3C's
 mission is &lt;q cite="https://www.w3.org/Consortium/">To lead the
 World Wide Web to its full potential by developing protocols and
 guidelines that ensure long-term growth for the Web&lt;/q>. I
@@ -67,7 +72,7 @@ disagree with this mission.&lt;/p></code></pre>
 
    <p>In the following example, the quotation itself contains a quotation:</p>
 
-   <pre><code class="html" data-x="">&lt;p>In &lt;cite>Example One&lt;/cite>, he writes &lt;q>The man
+   <pre><code class="html">&lt;p>In &lt;cite>Example One&lt;/cite>, he writes &lt;q>The man
 said &lt;q>Things that are impossible just take longer&lt;/q>. I
 disagreed with him&lt;/q>. Well, I disagree even more!&lt;/p></code></pre>
 
@@ -77,7 +82,7 @@ disagreed with him&lt;/q>. Well, I disagree even more!&lt;/p></code></pre>
 
    <p>In the following example, quotation marks are used instead of the <code>q</code> element:</p>
 
-   <pre><code class="html" data-x="">&lt;p>His best argument was &#x275D;I disagree&#x275E;, which
+   <pre><code class="html">&lt;p>His best argument was &#x275D;I disagree&#x275E;, which
 I thought was laughable.&lt;/p></code></pre>
 
   </div>
@@ -87,7 +92,7 @@ I thought was laughable.&lt;/p></code></pre>
    <p>In the following example, there is no quote &mdash; the quotation marks are used to name a
    word. Use of the <code>q</code> element in this case would be inappropriate.</p>
 
-   <pre><code class="html" data-x="">&lt;p>The word "ineffable" could have been used to describe the disaster
+   <pre><code class="html">&lt;p>The word "ineffable" could have been used to describe the disaster
 resulting from the campaign's mismanagement.&lt;/p></code></pre>
 
   </div>

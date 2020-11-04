@@ -25,12 +25,17 @@ zero or more <code>track</code> elements, then
    <dd><code data-x="attr-media-loop">loop</code></dd>
    <dd><code data-x="attr-media-muted">muted</code></dd>
    <dd><code data-x="attr-media-controls">controls</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-audio">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-audio">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>,
- NamedConstructor=<span data-x="dom-Audio">Audio</span>(optional DOMString src)]
-interface <dfn>HTMLAudioElement</dfn> : <span>HTMLMediaElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window,
+ <span>LegacyFactoryFunction</span>=<span data-x="dom-Audio">Audio</span>(optional DOMString src)]
+interface <dfn>HTMLAudioElement</dfn> : <span>HTMLMediaElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLAudioElement</code>.</dd>
   </dl>
@@ -55,7 +60,7 @@ interface <dfn>HTMLAudioElement</dfn> : <span>HTMLMediaElement</span> {};</code>
   -->
 
   <p>Content may be provided inside the <code>audio</code> element<span w-nodev>. User agents
-  should not show this content to the user</span>; it is intended for older Web browsers which do
+  should not show this content to the user</span>; it is intended for older web browsers which do
   not support <code>audio</code>, so that legacy audio plugins can be tried, or to show text to the
   users of these older browsers informing them of how to access the audio contents.</p>
 
@@ -71,9 +76,9 @@ interface <dfn>HTMLAudioElement</dfn> : <span>HTMLMediaElement</span> {};</code>
   <p>The <code>audio</code> element is a <span>media element</span> whose <span>media data</span> is
   ostensibly audio data.</p>
 
-  <p>The <code data-x="attr-media-src">src</code>, <code data-x="attr-media-preload">preload</code>,
-  <code data-x="attr-media-autoplay">autoplay</code>, <code data-x="attr-media-loop">loop</code>,
-  <code data-x="attr-media-muted">muted</code>, and <code
+  <p>The <code data-x="attr-media-src">src</code>, <code data-x="attr-media-crossorigin">crossorigin</code>,
+  <code data-x="attr-media-preload">preload</code>, <code data-x="attr-media-autoplay">autoplay</code>,
+  <code data-x="attr-media-loop">loop</code>, <code data-x="attr-media-muted">muted</code>, and <code
   data-x="attr-media-controls">controls</code> attributes are <span data-x="media element
   attributes">the attributes common to all media elements</span>.</p>
 
@@ -82,21 +87,18 @@ interface <dfn>HTMLAudioElement</dfn> : <span>HTMLMediaElement</span> {};</code>
    <dt><var>audio</var> = new <code subdfn data-x="dom-Audio">Audio</code>( [ <var>url</var> ] )</dt>
 
    <dd>
-
     <p>Returns a new <code>audio</code> element, with the <code data-x="attr-media-src">src</code>
     attribute set to the value passed in the argument, if applicable.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>A constructor is provided for creating <code>HTMLAudioElement</code> objects (in addition to
-  the factory methods from DOM such as <code
+  <p>A legacy factory function is provided for creating <code>HTMLAudioElement</code> objects (in
+  addition to the factory methods from DOM such as <code
   data-x="dom-Document-createElement">createElement()</code>):
   <dfn><code data-x="dom-Audio">Audio(<var>src</var>)</code></dfn>. When invoked,
-  the constructor must perform the following steps:</p>
+  the legacy factory function must perform the following steps:</p>
 
   <ol>
    <li><p>Let <var>document</var> be the <span>current global object</span>'s <span

@@ -5,25 +5,93 @@
    <dt><var>document</var> . <code subdfn data-x="dom-document-domain">domain</code> [ = <var>domain</var> ]</dt>
 
    <dd>
-
     <p>Returns the current domain used for security checks.</p>
 
     <p>Can be set to a value that removes subdomains, to change the <span>origin</span>'s <span
     data-x="concept-origin-domain">domain</span> to allow pages on other subdomains of the same
-    domain (if they do the same thing) to access each other. (Can't be set in sandboxed
-    <code>iframe</code>s.)</p>
+    domain (if they do the same thing) to access each other. This enables pages on different hosts
+    of a domain to synchronously access each other's DOMs.</p>
 
+    <p>In sandboxed <code>iframe</code>s, <code>Document</code>s with <span
+    data-x="concept-origin-opaque">opaque origins</span>, <code>Document</code>s without a <span
+    data-x="concept-document-bc">browsing context</span>, and when the "<code
+    data-x="document-domain-feature">document-domain</code>" feature is disabled, the setter will
+    throw a <span>"<code>SecurityError</code>"</span> exception. In cases where <code
+    data-x="dom-crossOriginIsolated">crossOriginIsolated</code> or <code
+    data-x="dom-originIsolated">originIsolated</code> return true, the setter will do nothing.</p>
    </dd>
-
   </dl>
+
+  <div class="critical">
+   <p>Avoid using the <code data-x="dom-document-domain">document.domain</code>
+   setter. It undermines the security protections provided by the same-origin policy. This is
+   especially acute when using shared hosting; for example, if an untrusted third party is able to
+   host an HTTP server at the same IP address but on a different port, then the same-origin
+   protection that normally protects two different sites on the same host will fail, as the ports
+   are ignored when comparing origins after the <code
+   data-x="dom-document-domain">document.domain</code> setter has been used.</p>
+
+   <p>Because of these security pitfalls, this feature is in the process of being removed from the
+   web platform. (This is a long process that takes many years.)</p>
+
+   <p>Instead, use <code data-x="dom-window-postMessage">postMessage()</code> or
+   <code>MessageChannel</code> objects to communicate across origins in a safe manner.</p>
+  </div>
 
   <div w-nodev>
 
-  <p>To determine if a string <var>hostSuffixString</var> <dfn data-export="" data-lt="is a
-  registrable domain suffix of or is equal to|is not a registrable domain suffix of and is not equal
-  to">is a registrable domain suffix of or is equal to</dfn> a <span
-  data-x="concept-host">host</span> <var>originalHost</var>, run these steps:</p>
-  <!-- Web platform usage: document.domain, Cookies, Web Authentication -->
+  <p>The <dfn><code data-x="dom-document-domain">domain</code></dfn> getter steps are:</p>
+
+  <ol>
+   <li><p>Let <var>effectiveDomain</var> be <span>this</span>'s <span>origin</span>'s <span
+   data-x="concept-origin-effective-domain">effective domain</span>.
+
+   <li><p>If <var>effectiveDomain</var> is null, then return the empty string.</p></li>
+
+   <li><p>Return <var>effectiveDomain</var>, <span data-x="host
+   serializer">serialized</span>.</p></li>
+  </ol>
+
+  <p>The <code data-x="dom-document-domain">domain</code> setter steps are:</p>
+
+  <ol>
+   <li><p>If <span>this</span>'s <span data-x="concept-document-bc">browsing context</span> is null,
+   then throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>If <span>this</span>'s <span>active sandboxing flag set</span> has its <span>sandboxed
+   <code data-x="dom-document-domain">document.domain</code> browsing context flag</span> set, then
+   throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>If <span>this</span> is not <span>allowed to use</span> the "<code
+   data-x="document-domain-feature">document-domain</code>" feature, then throw a
+   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>Let <var>effectiveDomain</var> be <span>this</span>'s <span>origin</span>'s <span
+   data-x="concept-origin-effective-domain">effective domain</span>.
+
+   <li><p>If <var>effectiveDomain</var> is null, then throw a
+   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>If the given value <span data-x="is a registrable domain suffix of or is equal to">is not
+   a registrable domain suffix of and is not equal to</span> <var>effectiveDomain</var>, then throw
+   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>If the <span>surrounding agent</span>'s <span>agent cluster</span>'s <span>cross-origin
+   isolated</span> is true, then return.</p></li>
+
+   <li><p>If the <span>surrounding agent</span>'s <span>agent cluster</span>'s
+   <span>origin-isolated</span> is true, then return.</p></li>
+
+   <li><p>Set <var>this</var>'s <span>origin</span>'s <span
+   data-x="concept-origin-domain">domain</span> to the result of <span data-x="host
+   parser">parsing</span> the given value.</p></li>
+  </ol>
+
+  <p>To determine if a string <var>hostSuffixString</var> <dfn export data-lt="is a registrable
+  domain suffix of or is equal to|is not a registrable domain suffix of and is not equal to">is a
+  registrable domain suffix of or is equal to</dfn> a <span data-x="concept-host">host</span>
+  <var>originalHost</var>, run these steps:</p>
+  <!-- web platform usage: document.domain, Cookies, web Authentication -->
 
   <ol>
    <li><p>If <var>hostSuffixString</var> is the empty string, then return false.</p></li>
@@ -58,59 +126,7 @@
    <li><p>Return true.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-document-domain">domain</code></dfn> attribute's getter must run
-  these steps:</p>
-
-  <ol>
-   <li><p>Let <var>effectiveDomain</var> be this <code>Document</code> object's
-   <span>origin</span>'s <span data-x="concept-origin-effective-domain">effective domain</span>.
-
-   <li><p>If <var>effectiveDomain</var> is null, then return the empty string.</p></li>
-
-   <li><p>Return <var>effectiveDomain</var>, <span data-x="host
-   serializer">serialized</span>.</p></li>
-  </ol>
-
-  <p>The <code data-x="dom-document-domain">domain</code> attribute's setter must run these
-  steps:</p>
-
-  <ol>
-   <li><p>If this <code>Document</code> object has no <span data-x="concept-document-bc">browsing
-   context</span>, then throw a <span>"<code>SecurityError</code>"</span>
-   <code>DOMException</code>.</p></li>
-
-   <li><p>If this <code>Document</code> object's <span>active sandboxing flag set</span> has its
-   <span>sandboxed <code data-x="dom-document-domain">document.domain</code> browsing context
-   flag</span> set, then throw a <span>"<code>SecurityError</code>"</span>
-   <code>DOMException</code>.</p></li>
-
-   <li><p>Let <var>effectiveDomain</var> be this <code>Document</code> object's
-   <span>origin</span>'s <span data-x="concept-origin-effective-domain">effective domain</span>.
-
-   <li><p>If <var>effectiveDomain</var> is null, then throw a
-   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
-
-   <li><p>If the given value <span data-x="is a registrable domain suffix of or is equal to">is not
-   a registrable domain suffix of and is not equal to</span> <var>effectiveDomain</var>, then throw
-   a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
-
-   <li><p>Set this <code>Document</code> object's <span>origin</span>'s <span
-   data-x="concept-origin-domain">domain</span> to the result of <span data-x="host
-   parser">parsing</span> the given value.</p></li>
-  </ol>
-
   </div>
-
-  <p class="note">The <code data-x="dom-document-domain">document.domain</code> attribute is used to
-  enable pages on different hosts of a domain to access each other's DOMs.</p>
-
-  <p class="warning">Do not use the <code data-x="dom-document-domain">document.domain</code>
-  attribute when using shared hosting. If an untrusted third party is able to host an HTTP server at
-  the same IP address but on a different port, then the same-origin protection that normally
-  protects two different sites on the same host will fail, as the ports are ignored when comparing
-  origins after the <code data-x="dom-document-domain">document.domain</code> attribute has been
-  used.</p>
-
 
 
 

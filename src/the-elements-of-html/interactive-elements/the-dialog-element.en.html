@@ -11,16 +11,21 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-dialog-open">open</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-dialog">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-dialog">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-dialog-open">open</span>;
   attribute DOMString <span data-x="dom-dialog-returnValue">returnValue</span>;
-  [<span>CEReactions</span>] void <span data-x="dom-dialog-show">show</span>();
-  [<span>CEReactions</span>] void <span data-x="dom-dialog-showModal">showModal</span>();
-  [<span>CEReactions</span>] void <span data-x="dom-dialog-close">close</span>(optional DOMString returnValue);
+  [<span>CEReactions</span>] undefined <span data-x="dom-dialog-show">show</span>();
+  [<span>CEReactions</span>] undefined <span data-x="dom-dialog-showModal">showModal</span>();
+  [<span>CEReactions</span>] undefined <span data-x="dom-dialog-close">close</span>(optional DOMString returnValue);
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLDialogElement</code>.</dd>
@@ -29,9 +34,9 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   <p>The <code>dialog</code> element represents a part of an application that a user interacts with
   to perform a task, for example a dialog box, inspector, or window.</p>
 
-  <p>The <dfn><code data-x="attr-dialog-open">open</code></dfn> attribute is a <span>boolean
-  attribute</span>. When specified, it indicates that the <code>dialog</code> element is active and
-  that the user can interact with it.</p>
+  <p>The <dfn element-attr for="dialog"><code data-x="attr-dialog-open">open</code></dfn> attribute
+  is a <span>boolean attribute</span>. When specified, it indicates that the <code>dialog</code>
+  element is active and that the user can interact with it.</p>
 
   <div w-nodev>
 
@@ -74,69 +79,55 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
    <dt><var>dialog</var> . <code subdfn data-x="dom-dialog-show">show</code>()</dt>
 
    <dd>
-
     <p>Displays the <code>dialog</code> element.</p>
-
    </dd>
 
    <dt><var>dialog</var> . <code subdfn data-x="dom-dialog-showModal">showModal</code>()</dt>
 
    <dd>
-
     <p>Displays the <code>dialog</code> element and makes it the top-most modal dialog.</p>
 
     <p>This method honors the <code data-x="attr-fe-autofocus">autofocus</code> attribute.</p>
-
    </dd>
 
    <dt><var>dialog</var> . <code subdfn data-x="dom-dialog-close">close</code>( [ <var>result</var> ] )</dt>
 
    <dd>
-
     <p>Closes the <code>dialog</code> element.</p>
 
     <p>The argument, if provided, provides a return value.</p>
-
    </dd>
 
    <dt><var>dialog</var> . <code subdfn data-x="dom-dialog-returnValue">returnValue</code> [ = <var>result</var> ]</dt>
 
    <dd>
-
     <p>Returns the <code>dialog</code>'s return value.</p>
 
     <p>Can be set, to update the return value.</p>
-
    </dd>
-
   </dl>
 
 <!--ADD-TOPIC:CSS-->
 
   <div w-nodev>
 
-  <p>When the <dfn><code data-x="dom-dialog-show">show()</code></dfn> method is invoked, the user
-  agent must run the following steps:</p>
+  <p>When the <dfn method for="HTMLDialogElement"><code data-x="dom-dialog-show">show()</code></dfn>
+  method is invoked, the user agent must run the following steps:</p>
 
   <ol>
-
    <li><p>If the element already has an <code data-x="attr-dialog-open">open</code> attribute, then
    return.</p></li>
 
    <li><p>Add an <code data-x="attr-dialog-open">open</code> attribute to the <code>dialog</code>
    element, whose value is the empty string.</p></li>
 
-   <li><p>Set the <code>dialog</code> to the <span>normal alignment</span> mode.</p></li>
-
    <li><p>Run the <span>dialog focusing steps</span> for the <code>dialog</code> element.</p></li>
-
   </ol>
 
   <p>When the <dfn><code data-x="dom-dialog-showModal">showModal()</code></dfn> method is invoked,
   the user agent must run the following steps:</p>
 
   <ol>
-
    <li><p>Let <var>subject</var> be the <code>dialog</code> element on which the method was
    invoked.</p></li>
 
@@ -146,12 +137,22 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
    <li><p>If <var>subject</var> is not <span>connected</span>, then throw an
    <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
 
-   <li><p>Add an <code data-x="attr-dialog-open">open</code> attribute to <var>subject</var>, whose value is the empty string.</p></li>
+   <li><p>Add an <code data-x="attr-dialog-open">open</code> attribute to <var>subject</var>, whose
+   value is the empty string.</p></li>
 
-   <li><p>Set the <code>dialog</code> to the <span>centered alignment</span> mode.</p></li>
+   <li><p>Set the <span>is modal</span> flag of <var>subject</var> to true.</p></li>
 
-   <li><p>Let <var>subject</var>'s <span>node document</span> be <span data-x="blocked by a
-   modal dialog">blocked by the modal dialog</span> <var>subject</var>.</p></li>
+   <li>
+    <p>Let <var>subject</var>'s <span>node document</span> be <span data-x="blocked by a
+    modal dialog">blocked by the modal dialog</span> <var>subject</var>.</p>
+
+    <p class="note" id="note-dialog-plus-focus-fixup">This will cause the <span>focused area of the
+    document</span> to become <span>inert</span> (unless that currently focused area is a
+    <span>shadow-including descendant</span> of <var>subject</var>). In such cases, the <span>focus
+    fixup rule</span> will kick in and reset the <span>focused area of the document</span> to the
+    <span>viewport</span> for now. In a couple steps we will attempt to find a better candidate to
+    focus.</p>
+   </li>
 
    <li><p>If <var>subject</var>'s <span>node document</span>'s <span>top layer</span> does not
    already <span data-x="list contains">contain</span> <var>subject</var>, then <span
@@ -159,17 +160,14 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
    document</span>'s <span>top layer</span>.</p></li>
 
    <li><p>Run the <span>dialog focusing steps</span> for <var>subject</var>.</p></li>
-
   </ol>
 
   <p>The <dfn>dialog focusing steps</dfn> for a <code>dialog</code> element <var>subject</var> are as follows:</p>
 
   <ol>
-
    <li><p>If <var>subject</var> is <span>inert</span>, return.</p></li>
 
    <li>
-
     <p>Let <var>control</var> be the first descendant element of <var>subject</var>, in <span>tree
     order</span>, that is not <span>inert</span> and has the <code
     data-x="attr-fe-autofocus">autofocus</code> attribute specified.</p>
@@ -178,11 +176,28 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
     descendant element of <var>subject</var>, in tree order.
 
     <p>If there isn't one of those either, then let <var>control</var> be <var>subject</var>.</p>
-
    </li>
 
-   <li><p>Run the <span>focusing steps</span> for <var>control</var>.</p></li>
+   <li>
+    <p>Run the <span>focusing steps</span> for <var>control</var>.</p>
 
+    <p class="note">If <var>control</var> is not <span>focusable</span>, this will do nothing. For
+    modal dialogs, this means that any <a href="#note-dialog-plus-focus-fixup">earlier
+    modifications</a> to the <span>focused area of the document</span> will apply.</p>
+   </li>
+
+   <li><p>Let <var>topDocument</var> be the <span>active document</span> of <var>control</var>'s
+   <span>node document</span>'s <span data-x="concept-document-bc">browsing context</span>'s
+   <span>top-level browsing context</span>.</p></li>
+
+   <li><p>If <var>control</var>'s <span>node document</span>'s <span>origin</span> is not the
+   <span data-x="same origin">same</span> as the <span>origin</span> of <var>topDocument</var>,
+   then return.</p></li>
+
+   <li><p><span data-x="list empty">Empty</span> <var>topDocument</var>'s
+   <span>autofocus candidates</span>.</p></li>
+
+   <li><p>Set <var>topDocument</var>'s <span>autofocus processed flag</span> to true.</p></li>
   </ol>
 
   <p>If at any time a <code>dialog</code> element is <span data-x="node is removed from a
@@ -190,10 +205,10 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   <code>Document</code>'s <span>top layer</span>, it must be <span
   data-x="list remove">removed</span> from it.</p>
 
-  <p>When the <dfn><code data-x="dom-dialog-close">close()</code></dfn> method is invoked, the user
-  agent must <span>close the dialog</span> that the method was invoked on. If the method was invoked
-  with an argument, that argument must be used as the return value; otherwise, there is no return
-  value.</p>
+  <p>When the <dfn method for="HTMLDialogElement"><code
+  data-x="dom-dialog-close">close()</code></dfn> method is invoked, the user agent must <span>close
+  the dialog</span> that the method was invoked on. If the method was invoked with an argument, that
+  argument must be used as the return value; otherwise, there is no return value.</p>
 
 
   <p>When a <code>dialog</code> element <var>subject</var> is to be <dfn data-x="close the
@@ -201,12 +216,13 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
   must run the following steps:</p>
 
   <ol>
-
    <li><p>If <var>subject</var> does not have an <code data-x="attr-dialog-open">open</code>
    attribute, then return.</p></li>
 
    <li><p>Remove <var>subject</var>'s <code data-x="attr-dialog-open">open</code>
    attribute.</p></li>
+
+   <li><p>Set the <span>is modal</span> flag of <var>subject</var> to false.</p></li>
 
    <li><p>If the argument <var>result</var> was provided, then set the <code
    data-x="dom-dialog-returnValue">returnValue</code> attribute to the value of <var>result</var>.</p></li>
@@ -214,9 +230,9 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
    <li><p>If <var>subject</var> is in its <code>Document</code>'s <span>top layer</span>, then <span
    data-x="list remove">remove</span> it.</p></li>
 
-   <li><p><span>Queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
+   <li><p><span>Queue an element task</span> on the <span>user interaction task source</span> given the
+   <var>subject</var> element to <span data-x="concept-event-fire">fire an event</span> named
    <code data-x="event-close">close</code> at <var>subject</var>.</p></li>
-
   </ol>
 
   <p>The <dfn><code data-x="dom-dialog-returnValue">returnValue</code></dfn> IDL attribute, on
@@ -227,7 +243,8 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   <p id="canceling-dialogs"><strong>Canceling dialogs</strong>: When <code>Document</code> is
   <span>blocked by a modal dialog</span> <var>dialog</var>, user agents may provide a user interface
-  that, upon activation, <span data-x="queue a task">queues a task</span> to run these steps:
+  that, upon activation, <span data-x="queue an element task">queues an element task</span> on the
+  <span>user interaction task source</span> given the <var>dialog</var> element to run these steps:
 
   <ol>
    <li><p>Let <var>close</var> be the result of <span data-x="concept-event-fire">firing an
@@ -243,53 +260,14 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p>A <code>dialog</code> element is in one of two modes: <dfn>normal alignment</dfn> or
-  <dfn>centered alignment</dfn>. When a <code>dialog</code> element is created, it must be placed in
-  the <span>normal alignment</span> mode. In this mode, normal CSS requirements apply to the
-  element. The <span>centered alignment</span> mode is only used for <code>dialog</code> elements
-  that are in the <span>top layer</span>. <ref spec=FULLSCREEN> <ref spec=CSS></p>
-
-  <p>When an element <var>subject</var> is placed in <span>centered alignment</span> mode, and when
-  it is in that mode and has new rendering boxes created, the user agent must set up the element
-  such that its static position of the edge that corresponds to <var>subject</var>'s parent's
-  <span>block-start</span> edge, for the purposes of calculating the <span>used value</span> of the
-  appropriate box offset property (<span>'top'</span>, <span>'right'</span>, <span>'bottom'</span>,
-  or <span>'left'</span>), is the value that would place the element's <span>margin edge</span> on
-  the side that corresponds to <var>subject</var>'s parent's <span>block-start</span> side as far
-  from the same-side edge of the <span>viewport</span> as the element's opposing side <span>margin
-  edge</span> from that same-side edge of the <span>viewport</span>, if the element's dimension
-  (<span>'width'</span> or <span>'height'</span>) in <var>subject</var>'s parent's <span>block flow
-  direction</span> is less than the same-axis dimension of the <span>viewport</span>, and otherwise
-  is the value that would place the element's <span>margin edge</span> on the side that corresponds
-  to <var>subject</var>'s parent's <span>block-start</span> side at the same-side edge of the
-  <span>viewport</span>.</p>
-
-  <p>If there is a <code>dialog</code> element with <span>centered alignment</span> and that is
-  <span>being rendered</span> when its <span>browsing context</span> changes <span>viewport</span>
-  dimensions (as measured in <span data-x="'px'">CSS pixels</span>), or when this
-  <code>dialog</code> element's parent changes <span>block flow direction</span>, then the user
-  agent must recreate the element's boxes, recalculating its edge that corresponds to this
-  <code>dialog</code> element's parent's <span>block-start</span> edge as in the previous
-  paragraph.</p>
-
-  <p>This static position of a <code>dialog</code> element's edge with <span>centered
-  alignment</span> must remain the element's static position of that edge until its boxes are
-  recreated. (The element's static position is only used in calculating the <span>used value</span>
-  of the appropriate box offset property (<span>'top'</span>, <span>'right'</span>,
-  <span>'bottom'</span>, or <span>'left'</span>) in certain situations; it's not used, for instance,
-  to position the element if its <span>'position'</span> property is set to
-  <span>'static'</span>.)</p>
-
-  <p>User agents in visual interactive media should allow the user to pan the <span>viewport</span>
-  to access all parts of a <code>dialog</code> element's <span>border box</span>, even if the
-  element is larger than the <span>viewport</span> and the <span>viewport</span> would otherwise not
-  have a scroll mechanism (e.g. because the <span>viewport</span>'s <span>'overflow'</span> property
-  is set to <span>'hidden'</span>).</p>
+  <p>Each <code>dialog</code> element has an <dfn>is modal</dfn> flag. When a <code>dialog</code>
+  element is created, this flag must be set to false.</p>
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-dialog-open">open</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-dialog-open">open</code> content attribute.</p>
+  <p>The <dfn attribute for="HTMLDialogElement"><code data-x="dom-dialog-open">open</code></dfn> IDL
+  attribute must <span>reflect</span> the <code data-x="attr-dialog-open">open</code> content
+  attribute.</p>
 
   </div>
 
@@ -298,7 +276,7 @@ interface <dfn>HTMLDialogElement</dfn> : <span>HTMLElement</span> {
    <p>This dialog box has some small print. The <code>strong</code> element is used to draw the
    user's attention to the more important part.</p>
 
-   <pre><code class="html" data-x="">&lt;dialog>
+   <pre><code class="html">&lt;dialog>
  &lt;h1>Add to Wallet&lt;/h1>
  &lt;p>&lt;strong>&lt;label for=amt>How many gold coins do you want to add to your wallet?&lt;/label>&lt;/strong>&lt;/p>
  &lt;p>&lt;input id=amt name=amt type=number min=0 step=0.01 value=100>&lt;/p>

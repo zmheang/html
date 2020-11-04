@@ -4,7 +4,6 @@
   user agent must <span>queue a task</span> to run these steps:</p>
 
   <ol>
-
    <li><p>Change the <code data-x="dom-WebSocket-readyState">readyState</code> attribute's value to
    <code data-x="dom-WebSocket-OPEN">OPEN</code> (1).</p></li>
 
@@ -18,7 +17,6 @@
 
    <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
    data-x="event-open">open</code> at the <code>WebSocket</code> object.</p>
-
   </ol>
 
   <p class="note">Since the algorithm above is <span data-x="queue a task">queued as a task</span>,
@@ -33,12 +31,9 @@
   to follow these steps: <ref spec=WSP></p>
 
   <ol>
-
    <li>
-
     <p>If the <code data-x="dom-WebSocket-readyState">readyState</code> attribute's value is not
     <code data-x="dom-WebSocket-OPEN">OPEN</code> (1), then return.</p>
-
    </li>
 
    <li>
@@ -73,7 +68,6 @@
    data-x="concept-url-origin">origin</span>, and the <code
    data-x="dom-MessageEvent-data">data</code> attribute initialized to
    <var>dataForEvent</var>.</p></li>
-
   </ol>
 
   <p class="note">User agents are encouraged to check if they can perform the above steps
@@ -96,7 +90,7 @@
    <p>Here is an example of how to define a handler for the <code
    data-x="event-message">message</code> event in the case of text frames:</p>
 
-   <pre><code class="js" data-x="">mysocket.onmessage = function (event) {
+   <pre><code class="js">mysocket.onmessage = function (event) {
   if (event.data == 'on') {
     turnLampOn();
   } else if (event.data == 'off') {
@@ -127,7 +121,6 @@
   following substeps:</p>
 
   <ol>
-
    <li><p>Change the <code data-x="dom-WebSocket-readyState">readyState</code> attribute's value to
    <code data-x="dom-WebSocket-CLOSED">CLOSED</code> (3).</p></li>
 
@@ -146,7 +139,6 @@
    data-x="dom-CloseEvent-reason">reason</code> attribute initialized to the result of applying
    <span>UTF-8 decode without BOM</span> to <i data-x="concept-websocket-close-reason">the WebSocket
    connection close reason</i>. <ref spec=WSP></p></li>
-
   </ol>
 
   <div class="warning">
@@ -178,7 +170,7 @@
    </ul>
 
    <p>In all of these cases, the <i data-x="concept-websocket-close-code">the WebSocket connection close code</i> would be 1006, as
-   required by the WebSocket Protocol specification. <ref spec=WSP></p>
+   required by <cite>WebSocket Protocol</cite>. <ref spec=WSP></p>
 
    <p>Allowing a script to distinguish these cases would allow a script to probe the user's local
    network in preparation for an attack.</p>

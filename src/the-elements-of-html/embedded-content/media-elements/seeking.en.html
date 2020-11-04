@@ -5,38 +5,31 @@
    <dt><var>media</var> . <code subdfn data-x="dom-media-seeking">seeking</code></dt>
 
    <dd>
-
     <p>Returns true if the user agent is currently seeking.</p>
-
    </dd>
 
    <dt><var>media</var> . <code subdfn data-x="dom-media-seekable">seekable</code></dt>
 
    <dd>
-
     <p>Returns a <code>TimeRanges</code> object that represents the ranges of the <span>media
     resource</span> to which it is possible for the user agent to seek.</p>
-
    </dd>
 
    <dt><var>media</var> . <code subdfn data-x="dom-media-fastSeek">fastSeek</code>( <var>time</var> )</dt>
 
    <dd>
-
     <p>Seeks to near the given <var>time</var> as fast as possible, trading precision for
     speed. (To seek to a precise time, use the <code
     data-x="dom-media-currentTime">currentTime</code> attribute.)</p>
 
     <p>This does nothing if the media resource has not been loaded.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-media-seeking">seeking</code></dfn> attribute must initially have the
-  value false.</p>
+  <p>The <dfn attribute for="HTMLMediaElement"><code data-x="dom-media-seeking">seeking</code></dfn>
+  attribute must initially have the value false.</p>
 
   <p>The <dfn><code data-x="dom-media-fastSeek">fastSeek()</code></dfn> method must <span
   data-x="dom-media-seek">seek</span> to the time given by the method's argument, with the
@@ -49,7 +42,6 @@
   algorithm). Steps in that section are marked with &#x231B;.</p>
 
   <ol>
-
    <li><p>Set the <span>media element</span>'s <span>show poster flag</span> to false.</p></li>
 
    <li><p>If the <span>media element</span>'s <code data-x="dom-media-readyState">readyState</code>
@@ -83,7 +75,6 @@
    data-x="dom-media-seeking">seeking</code> IDL attribute to false and return.</p></li>
 
    <li>
-
     <p>If the <i>approximate-for-speed</i> flag is set, adjust the <var>new playback
     position</var> to a value that will allow for playback to resume promptly. If <var>new
     playback position</var> before this step is before <span>current playback position</span>, then
@@ -95,14 +86,13 @@
     <p class="example">For example, the user agent could snap to a nearby key frame, so that it
     doesn't have to spend time decoding then discarding intermediate frames before resuming
     playback.</p>
+   </li>
 
-    </li>
-
-   <li><p><span>Queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
-   <code data-x="event-media-seeking">seeking</code> at the element.</p></li>
+   <li><p><span>Queue a media element task</span> given the <span>media element</span> to <span
+   data-x="concept-event-fire">fire an event</span> named <code
+   data-x="event-media-seeking">seeking</code> at the element.</p></li>
 
    <li>
-
     <p>Set the <span>current playback position</span> to the <var>new playback
     position</var>.</p>
 
@@ -122,7 +112,6 @@
     <p class="note">The <code data-x="dom-media-currentTime">currentTime</code> attribute returns
     the <span>official playback position</span>, not the <span>current playback position</span>, and
     therefore gets updated before script execution, separate from this algorithm.</p>
-
    </li>
 
    <li><p>Wait until the user agent has established whether or not the <span>media data</span> for
@@ -138,19 +127,20 @@
 
    <li><p>&#x231B; Run the <span>time marches on</span> steps.</p></li>
 
-   <li id="seekUpdate"><p>&#x231B; <span>Queue a task</span> to <span
-   data-x="concept-event-fire">fire an event</span> named <code
+   <li id="seekUpdate"><p>&#x231B; <span>Queue a media element task</span> given the <span>media
+   element</span> to <span data-x="concept-event-fire">fire an event</span> named <code
    data-x="event-media-timeupdate">timeupdate</code> at the element.</p></li>
 
-   <li><p>&#x231B; <span>Queue a task</span> to <span data-x="concept-event-fire">fire an
-   event</span> named <code data-x="event-media-seeked">seeked</code> at the element.</p></li>
-
+   <li><p>&#x231B; <span>Queue a media element task</span> given the <span>media element</span> to
+   <span data-x="concept-event-fire">fire an event</span> named <code
+   data-x="event-media-seeked">seeked</code> at the element.</p></li>
   </ol>
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-media-seekable">seekable</code></dfn> attribute must return a new
-  static <span>normalized <code>TimeRanges</code> object</span> that represents the ranges of the
+  <p>The <dfn attribute for="HTMLMediaElement"><code
+  data-x="dom-media-seekable">seekable</code></dfn> attribute must return a new static
+  <span>normalized <code>TimeRanges</code> object</span> that represents the ranges of the
   <span>media resource</span>, if any, that the user agent is able to seek to, at the time the
   attribute is evaluated.</p>
 

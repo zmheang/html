@@ -1,26 +1,25 @@
   <h4 id="read-text"><dfn data-x="navigate-text">文本文件的页面加载处理模型</dfn></h4>
 
-  <p>在 <span data-x="browsing context">浏览上下文</span> 中加载纯文本文档时，
-  用户代理应该 <span data-x="queue a task">排一个任务</span> 来创建
-  <code>Document</code> 对象，把它标记为 <span data-x="HTML documents">HTML 文档</span>，
-  设置其 <span data-x="concept-document-content-type">内容类型</span> 为
-  资源的 <span data-x="Content-Type sniffing">计算后的 MIME 类型</span>
-  （<span data-x="navigate">导航</span> 算法中的 <var>type</var>），
-  <span data-x="initialize the Document object">初始化 <code>Document</code> 对象</span>，
-  创建一个 <span data-x="HTML parser">HTML 解析器</span> 并把它关联到这个 <code>Document</code>，
-  表现地就像 tokenizer 已经触发了名为 "pre" 的开始标签一样，紧接着一个
-  U+000A LINE FEED (LF) 字符<!-- to get eaten, so that a leading LF in the text/plain stream doesn't get
-  eaten itself-->，把 <span data-x="HTML parser">HTML 解析器</span>的 tokenizer 切换到
-  <span data-x="PLAINTEXT state">纯文本状态</span>。
-  在执行获取时 <span data-x="networking task source">网络任务源</span> 放到
-  <span data-x="task queue">任务队列</span> 的每个 <span data-x="concept-task">任务</span>
-  在完成时都必须用获取到的字节填充这个解析器的 <span data-x="input byte stream">输入字节流</span>，
-  使得 <span data-x="HTML parser">HTML 解析器</span> 对输入流执行适当的处理。</p>
+  <p>给定 <span data-x="navigation params">导航参数</span> <var>navigationParams</var> 和字符串 <var>type</var> 加载纯文本文档时，
+  用户代理必须在 <span data-x="networking task source">网络任务源</span> 里 <span data-x="queue a task">入队一个任务</span>：</p>
+
+  <ol>
+   <li><p>令 <var>document</var> 为给定 "<code data-x="">html</code>"，<var>type</var> 和 <var>navigationParams</var>
+   <span data-x="create-the-document-object">创建和初始化 <code>Document</code> 对象</span> 的结果。</p></li>
+
+   <li><p>创建一个 <span data-x="HTML parser">HTML 解析器</span> 并把它关联到 <var>document</var>。
+   假装 tokenizer 输出了标签名为"pre" 的开始标签，紧接着一个 U+000A LINE FEED (LF) 字符，
+   <!-- to get eaten, so that a leading LF in the text/plain stream doesn't get eaten itself-->
+   然后把 <span data-x="HTML parser">HTML 解析器</span> 的 tokenizer 切换到 <span data-x="PLAINTEXT state">PLAINTEXT 状态</span>。
+   获取过程中 <span data-x="networking task source">网络任务源</span> 在 <span data-x="task queue">任务队列</span>
+   里加入的所有 <span data-x="concept-task">任务</span> 都必须把获取到的字节填充到解析器的
+   <span data-x="input byte stream">输入字节流</span> 里，让 <span data-x="HTML parser">HTML 解析器</span> 对输入流执行适当的处理。</p></li>
+  </ol>
 
   <p>如何将纯文本文档的字节转换为真正字符的规则，
   以及真正渲染文字给用户的规则，定义在该资源
   <span data-x="Content-Type sniffing">计算得到的 MIME 类型</span>
-  （<span data-x="navigate">导航</span> 算法中的 <var>type</var>）的规范中。</p>
+  （即 <var>type</var>）的规范中。</p>
 
   <p><span data-x="document's character encoding">文档的字符编码</span> 必须设置为解码文档时用的字符编码。</p>
 
@@ -32,11 +31,13 @@
   "navigate-ua-inline" section, and the next three are similar to the navigate-media and
   navigate-plugin sections; keep them all in sync -->
 
-  <p>当没有字节可用时，用户代理必须 <span data-x="queue a task">排一个任务</span>
-  让解析器处理这个虚拟的 EOF 字符，最终使得 <code data-x="event-load">load</code> 事件触发。</p>
+  <p>当没有字节可以处理时，用户代理必须在 <span data-x="networking task source">网络任务源</span> 里，
+  用新创建的 <code>Document</code> 的 <span data-x="relevant global object">相关全局对象</span>
+  <span data-x="queue a global task">入队一个全局任务</span>，让解析器处理隐含的 EOF 字符，最终让
+  <code data-x="event-load">load</code> 事件触发。</p>
 
   <p>在创建 <code>Document</code> 对象后，页面完全结束加载之前，
-  用户代理必须
+  用户代理必须给定 <var>navigationParams</var>，
   <span data-x="update the session history with the new page">用新的页面更新会话历史</span>。</p>
 
   <p>用户代理可能会添加内容到 <code>Document</code> 的 <code>head</code> 元素，
@@ -45,8 +46,4 @@
   <p class="note">特别是如果用户代理支持 RFC 3676 的 <code data-x="">Format=Flowed</code>
   特性，就需要应用额外的样式来使文字正确折行，以及处理引用特性。
   这可以通过使用 CSS 扩展来完成。</p>
-
-  <p>这部分提到的两个任务的 <span data-x="task source">任务源</span> 必须是
-  <span data-x="networking task source">网络任务源</span>。</p>
-
 

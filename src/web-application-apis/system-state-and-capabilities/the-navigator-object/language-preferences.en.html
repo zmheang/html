@@ -1,6 +1,6 @@
   <h5>Language preferences</h5>
 
-  <pre><code class="idl" data-x="">interface mixin <dfn>NavigatorLanguage</dfn> {
+  <pre><code class="idl">interface mixin <dfn>NavigatorLanguage</dfn> {
   readonly attribute DOMString <span data-x="dom-navigator-language">language</span>;
   readonly attribute FrozenArray&lt;DOMString&gt; <span data-x="dom-navigator-languages">languages</span>;
 };</code></pre>
@@ -28,7 +28,6 @@
   <div w-nodev>
 
   <dl>
-
    <!--
    <dt><dfn><code data-x="dom-navigator-browserLanguage">browserLanguage</code></dfn></dt> <!- - Opera and IE only - ->
    <dd><p>Must return a language tag representing either <span>a plausible language</span> or the
@@ -38,13 +37,13 @@
    <dt><dfn><code data-x="dom-navigator-userLanguage">userLanguage</code></dfn></dt> <!- - Opera and IE only - ->
    -->
    <!-- at time of testing, this was supported by Opera, Safari, and Mozilla only -->
-   <dt><dfn><code data-x="dom-navigator-language">language</code></dfn></dt>
-   <dd><p>Must return a valid BCP 47 language tag representing either <span>a plausible
-   language</span> or the user's most preferred language. <ref spec=BCP47></p></dd>
+   <dt><dfn attribute for="NavigatorLanguage"><code
+   data-x="dom-navigator-language">language</code></dfn></dt> <dd><p>Must return a valid BCP 47
+   language tag representing either <span>a plausible language</span> or the user's most preferred
+   language. <ref spec=BCP47></p></dd>
 
-   <dt><dfn><code data-x="dom-navigator-languages">languages</code></dfn></dt>
+   <dt><dfn attribute for="NavigatorLanguage"><code data-x="dom-navigator-languages">languages</code></dfn></dt>
    <dd>
-
     <p>Must return a <span>frozen array</span> of valid BCP 47 language tags representing either one
     or more <span data-x="a plausible language">plausible languages</span>, or the user's preferred
     languages, ordered by preference with the most preferred language first. The same object must be
@@ -53,27 +52,22 @@
 
     <p>Whenever the user agent needs to make the <code
     data-x="dom-navigator-languages">navigator.languages</code> attribute of a <code>Window</code>
-    or <code>WorkerGlobalScope</code> object return a new set of language tags, the user agent must
-    <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
-    data-x="event-languagechange">languagechange</code> at the <code>Window</code> or
-    <code>WorkerGlobalScope</code> object and wait until that task begins to be executed before
-    actually returning a new value.</p>
-
-    <p>The <span>task source</span> for this <span data-x="concept-task">task</span> is the
-    <span>DOM manipulation task source</span>.</p>
-
+    or <code>WorkerGlobalScope</code> object <var>global</var> return a new set of language tags,
+    the user agent must <span>queue a global task</span> on the <span>DOM manipulation task
+    source</span> given <var>global</var> to <span data-x="concept-event-fire">fire an event</span>
+    named <code data-x="event-languagechange">languagechange</code> at <var>global</var>, and wait
+    until that task begins to be executed before actually returning a new value.</p>
    </dd>
-
   </dl>
 
   <p>To determine <dfn>a plausible language</dfn>, the user agent should bear in mind the following:</p>
 
   <ul>
 
-   <li>Any information in this API that varies from user to user can be used to profile or identify
-   the user.
-   <!--INSERT FINGERPRINT-->
-   </li>
+   <li>
+   <!--INSERT TRACKING-->
+   Any information in this API that varies from user to user can be used to profile or identify the
+   user.</li>
 
    <li>If the user is not using a service that obfuscates the user's point of origin (e.g. the Tor
    anonymity network), then the value that is least likely to distinguish the user from other users
@@ -86,11 +80,11 @@
 
   </ul>
 
-  <p>To avoid introducing any more fingerprinting vectors, user agents should use the same list for
-  the APIs defined in this function as for the HTTP `<code
-  data-x="http-accept-language">Accept-Language</code>` header.
-  <!--INSERT FINGERPRINT-->
-  </p>
+  <p>
+  <!--INSERT TRACKING-->
+  To avoid introducing any more fingerprinting vectors, user agents should use the same list for the
+  APIs defined in this function as for the HTTP `<code
+  data-x="http-accept-language">Accept-Language</code>` header.</p>
 
   </div>
 

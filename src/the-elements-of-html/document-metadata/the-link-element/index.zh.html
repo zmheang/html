@@ -1,4 +1,4 @@
-  <h4 data-dfn-type="element" data-lt="link"><dfn><code>link</code></dfn> 元素</h4>
+  <h4 element data-lt="link"><dfn><code>link</code></dfn> 元素</h4>
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">类别</span>：</dt>
@@ -23,13 +23,21 @@
    <dd><code data-x="attr-link-type">type</code></dd>
    <dd><code data-x="attr-link-referrerpolicy">referrerpolicy</code></dd>
    <dd><code data-x="attr-link-sizes">sizes</code></dd>
+   <dd><code data-x="attr-link-imagesrcset">imagesrcset</code></dd>
+   <dd><code data-x="attr-link-imagesizes">imagesizes</code></dd>
    <dd><code data-x="attr-link-as">as</code></dd>
    <dd><code data-x="attr-link-color">color</code></dd>
+   <dd><code data-x="attr-link-disabled">disabled</code></dd>
    <dd>此外，在该元素上 <code data-x="attr-link-title">title</code> 属性 <span data-x="attr-link-title">有特殊的语义</span>。</dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">可访问性相关</span>：</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-link">使用者版本</a>。</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-link">实现者版本</a>。</dd>
    <dt><span data-x="concept-element-dom">DOM 接口</span>：</dt>
    <dd w-nodev>
-<pre class="idl">[<span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-href">href</span>;
   [<span>CEReactions</span>] attribute DOMString? <span data-x="dom-link-crossOrigin">crossOrigin</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-rel">rel</span>;
@@ -40,28 +48,35 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-hreflang">hreflang</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-type">type</span>;
   [SameObject，PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-sizes">sizes</span>;
+  [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-imageSrcset">imageSrcset</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-imageSizes">imageSizes</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-referrerPolicy">referrerPolicy</span>;
+  [<span>CEReactions</span>] attribute boolean <span data-x="dom-link-disabled">disabled</span>;
+
+  // <a href="#HTMLLinkElement-partial">also has obsolete members</a>
 };
-<span>HTMLLinkElement</span> includes <span>LinkStyle</span>;</pre>
+<span>HTMLLinkElement</span> includes <span>LinkStyle</span>;</code></pre>
    </dd>
    <dd w-nohtml>Uses <code>HTMLLinkElement</code>。</dd>
   </dl>
 
   <p><code>link</code> 元素允许作者把他们的文档链接到其他资源。</p>
 
-  <p>链接的目标由 <dfn><code data-x="attr-link-href">href</code></dfn> 属性给出，
-  它必须存在并包含一个
-  <span data-x="valid non-empty URL potentially surrounded by spaces">合法的可能由空白包裹的非空 URL 字符串</span>。
-  <span w-nodev>如果 <code data-x="attr-link-href">href</code> 属性缺失，
-  则视为该元素不定义链接。</span></p>
+  <p>链接的地址由 <dfn><code data-x="attr-link-href">href</code></dfn> 属性给出。
+  如果存在 <code data-x="attr-link-href">href</code> 属性，那么它的值必须是一个
+  <span data-x="valid non-empty url potentially surrounded by spaces">可能由空格包裹的合法的非空 URL</span>。
+  必须存在 <code data-x="attr-link-href">href</code> 或 <code data-x="attr-link-imagesrcset">imagesrcset</code> 属性。</p>
 
-  <p><dfn><code data-x="attr-link-crossorigin">crossorigin</code></dfn> 属性是一个
-  <span data-x="CORS settings attribute">CORS 设置属性</span>。
-  它用于 <span data-x="external resource link">外部资源链接</span>。</p>
+  <p w-nodev>如果 <code data-x="attr-link-href">href</code> 和 <code
+  data-x="attr-link-imagesrcset">imagesrcset</code> 属性都不存在，那么该元素就不包含链接的定义。</p>
+
+  <p><dfn element-attr for="link"><code data-x="attr-link-crossorigin">crossorigin</code></dfn>
+  属性是一个 <span data-x="CORS settings attribute">CORS 设置属性</span>，用于 <span
+  data-x="external resource link">外部资源链接</span>。</p>
 
   <p>链接指示的类型（关系）由 <dfn><code data-x="attr-link-rel">rel</code></dfn>
   属性的值给出。该属性如果出现则它的值必须是一个
-  <span data-x="set of space-separated tokens">由空格分隔的令牌</span>。
+  <span data-x="unordered set of unique space-separated tokens">由空格分隔的唯一令牌的无序集合</span>。
   <a href="#linkTypes" data-x="allowed keywords and their meanings">允许的关键字及其含义</a> 定义在后续章节中。
   <span w-nodev>如果 <code data-x="attr-link-rel">rel</code> 属性缺失，
   不包含关键字，或者没有出现（根据本规范中的定义）允许的关键字，
@@ -136,15 +151,13 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <code data-x="attr-link-title">title</code>）的影响。</p>
 
   <div class="example">
-
    <p>例如下面的 <code>link</code> 元素创建了两个 <span data-x="hyperlink">超链接</span>
    （指向同一页面）：</p>
 
-   <pre>&lt;link rel="author license" href="/about"></pre>
+   <pre><code class="html">&lt;link rel="author license" href="/about"></code></pre>
 
    <p>该元素创建的这两个链接，一个的语义是目标页面具有关于当前页面作者的信息，
    另一个的语义是目标页面具有提供当前页面的授权信息。</p>
-
   </div>
 
   <p class="note">
@@ -157,7 +170,7 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <p><span data-x="external resource link">外部资源链接</span> 的确切行为取决于由相关的
   <a href="#linkTypes" data-x="link type">链接类型</a> 定义的具体关系。</p>
 
-  <p><dfn><code data-x="attr-link-media">media</code></dfn> 属性指定了该资源适用哪种媒体。
+  <p><dfn element-attr for="link"><code data-x="attr-link-media">media</code></dfn> 属性指定了该资源适用哪种媒体。
   它的值必须是 <span data-x="valid media query list">合法的媒体查询列表</span>。</p>
 
   <p><dfn><code data-x="attr-link-nonce">nonce</code></dfn> 属性表示一个加密随机数
@@ -165,31 +178,31 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <span data-x="external resource link">该链接指定的外部资源</span>
   是否会被加载和应用于该文档。它的值是文本。 <ref spec="CSP"></p>
 
-  <p><dfn data-export="" data-dfn-for="link" data-dfn-type="element-attr"><code
-  data-x="attr-link-integrity">integrity</code></dfn> 属性表示
-  该元素对应请求的 <span data-x="concept-request-integrity-metadata">完整性元数据</span>。
-  它的值是文本。该属性不得指定在 <code data-x="attr-link-rel">rel</code> 属性不包含
-  <code data-x="rel-stylesheet">stylesheet</code> 关键字的 <code>link</code> 元素上。
-  <ref spec="SRI"></p>
+  <p><dfn for="link" element-attr><code data-x="attr-link-integrity">integrity</code></dfn>
+  属性表示该元素负责的请求的 <span data-x="concept-request-integrity-metadata">integrity 元信息</span>。
+  值为文本。该属性只能用于 <code data-x="attr-link-rel">rel</code> 属性包含
+  <code data-x="rel-stylesheet">stylesheet</code>，
+  <code data-x="rel-preload">preload</code> 或
+  <code data-x="rel-modulepreload">modulepreload</code> 关键字的 <code>link</code> 元素。<ref spec=SRI></p>
 
   <p><code>link</code> 元素上的 <dfn><code data-x="attr-link-hreflang">hreflang</code></dfn>
   属性与 <span data-x="attr-hyperlink-hreflang"><code>a</code> 元素上的 <code>hreflang</code>
   属性</span> 具有相同的语义。</p>
 
-  <p><dfn><code data-x="attr-link-type">type</code></dfn> 属性给出了被链接资源的
-  <span>MIME type</span>。它纯属建议性的。它的值必须是
+  <p><dfn element-attr for="link"><code data-x="attr-link-type">type</code></dfn> 属性给出了被链接资源的
+  <span data-x="mime type">MIME 类型</span>。它纯属建议性的。它的值必须是
   <span data-x="valid MIME type string">合法的 MIME 类型</span>。</p>
 
   <p>对于 <span data-x="external resource link">外部资源链接</span>，
   <code data-x="attr-link-type">type</code> 属性用于提示用户代理避免获取它们不支持的资源。</p>
 
-  <p><dfn><code data-x="attr-link-referrerpolicy">referrerpolicy</code></dfn> 属性是一个
+  <p><dfn element-attr for="link"><code data-x="attr-link-referrerpolicy">referrerpolicy</code></dfn> 属性是一个
   <span data-x="referrer policy attribute">引荐策略属性</span>。
   它用于 <span data-x="external resource link">外部资源链接</span>，
-  帮助设置 <span data-x="concept-link-obtain">获取</span> 该外部资源时的
+  帮助设置 <span data-x="fetch and process the linked resource">获取和处理</span> 该外部资源时的
   <span data-x="referrer policy">引荐策略</span>。 <ref spec=REFERRERPOLICY>。</p>
 
-  <p><dfn><code data-x="attr-link-title">title</code></dfn> 属性给出了链接的标题。
+  <p><dfn element-attr for="link"><code data-x="attr-link-title">title</code></dfn> 属性给出了链接的标题。
   有一个特例中，它是纯建议性的。它的值是文本。
   特例是 <span data-x="in a document tree">在文档树</span> 中的样式表链接，
   对它而言 <code data-x="attr-link-title">title</code> 属性定义了
@@ -201,36 +214,99 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p><dfn><code data-x="attr-link-sizes">sizes</code></dfn> 属性为视觉媒体给出了图标大小。
-  它的值（如果存在的话）只是建议性的。<span w-nodev>在有多个图标可用时，
-  用户代理可以用这一值决定用哪个图标。</span> 如果指定了，该属性的值必须是
-  一个 <span data-x="unordered set of unique space-separated tokens">
-  一组无序的不重复的空格分隔的令牌</span>，它们是
-  <span data-x="ASCII case-insensitive">ASCII 大小写不敏感的</span>。
-  每个值必须 <span data-x="ASCII case-insensitive">ASCII 大小写不敏感</span> 地匹配
-  字符串 "<code data-x="attr-link-sizes-any">any</code>"，或者由两个
-  <span data-x="valid non-negative integer">合法非负整数</span>
-  组成，且没有前导 U+0030 DIGIT ZERO（0）字符，且由一个
-  U+0078 LATIN SMALL LETTER X 或 U+0058 LATIN CAPITAL LETTER X 字符分隔。
-  该属性不得在
-  <code data-x="attr-link-rel">rel</code> 属性没有指定 <code data-x="rel-icon">icon</code>
-  关键字或 <code data-x="">apple-touch-icon</code> 关键字的 <code>link</code> 元素上指定。</p>
+  <p><dfn element-attr for="link"><code data-x="attr-link-imagesrcset">imagesrcset</code></dfn>
+  属性可以是一个 <span data-x="srcset attribute">srcset 属性</span>。</p>
+
+  <p><code data-x="attr-link-imagesrcset">imagesrcset</code> 和 <code
+  data-x="attr-link-href">href</code> 属性（如果没有使用 <span data-x="width descriptor">宽度描述符</span>）
+  一起给 <span>source set</span> 提供 <span data-x="image source">图片源</span>。</p>
+
+  <p>如果 <code data-x="attr-link-imagesrcset">imagesrcset</code> 属性存在且有任一个
+  <span data-x="image candidate string">图片候选字符串</span> 使用了 <span data-x="width descriptor">宽度描述符</span>，
+  <dfn element-attr for="link"><code data-x="attr-link-imagesizes">imagesizes</code></dfn> 属性就必须存在，且是一个
+  <span data-x="sizes attribute">尺寸属性</span>。<code data-x="attr-link-imagesizes">imagesizes</code> 属性给
+  <span>source set</span> 提供 <span data-x="source size">源尺寸</span>。</p>
+
+  <p><code data-x="attr-link-imagesrcset">imagesrcset</code> 和 <code data-x="attr-link-imagesizes">imagesizes</code> 属性只能用于
+  <code data-x="attr-link-rel">rel</code> 属性指定了 <code data-x="rel-preload">preload</code> 关键字，且
+  <code data-x="attr-link-as">as</code> 属性在处于 "<code data-x="">image</code>" 状态的
+  <code>link</code> 元素上。
+  </p>
+
+  <div class="example">
+   <p>这些属性运行预加载适当的资源，
+   后续 <code>img</code> 被使用
+     <code data-x="attr-img-srcset">srcset</code> 和 <code data-x="attr-img-sizes">sizes</code> 属性：</p>
+
+   <pre><code class="html">&lt;link rel="preload" as="image"
+      imagesrcset="wolf_400px.jpg 400w, wolf_800px.jpg 800w, wolf_1600px.jpg 1600w"
+      imagesizes="50vw">
+
+&lt;!-- ... later, or perhaps inserted dynamically ... -->
+&lt;img src="wolf.jpg" alt="A rad wolf"
+     srcset="wolf_400px.jpg 400w, wolf_800px.jpg 800w, wolf_1600px.jpg 1600w"
+     sizes="50vw"></code></pre>
+
+     <p>注意我们忽略了 <code data-x="attr-link-href">href</code> 属性，因为它会在不支持
+     <code data-x="attr-link-imagesrcset">imagesrcset</code> 的浏览器中起作用，可能会预加载错误的图片。</p>
+  </div>
+
+  <div class="example">
+   <p><code data-x="attr-link-imagesrcset">imagesrcset</code> 属性可以和
+   <code data-x="attr-link-media">media</code> 属性一起使用来预加载适当的资源
+   <code>picture</code> 元素选择的资源，来实现 <span data-x="art direction">美术设计</span>：</p>
+
+   <pre><code class="html">&lt;link rel="preload" as="image"
+      imagesrcset="dog-cropped-1x.jpg, dog-cropped-2x.jpg 2x"
+      media="(max-width: 800px)">
+&lt;link rel="preload" as="image"
+      imagesrcset="dog-wide-1x.jpg, dog-wide-2x.jpg 2x"
+      media="(min-width: 801px)">
+
+&lt;!-- ... later, or perhaps inserted dynamically ... -->
+&lt;picture>
+  &lt;source srcset="dog-cropped-1x.jpg, dog-cropped-2x.jpg 2x"
+          media="(max-width: 800px)">
+  &lt;img src="dog-wide-1x.jpg" srcset="dog-wide-2x.jpg 2x"
+       alt="An awesome dog">
+&lt;/picture></code></pre>
+  </div>
+
+  <hr>
+
+  <p><dfn element-attr for="link"><code data-x="attr-link-sizes">sizes</code></dfn> 属性给出了
+  视觉媒体的图标大小。它的值（如果存在的话）只是建议性的。
+  <span w-nodev> 用户代理可以根据它的值来在多个可用的图标中选择使用哪个。</span>
+  如果指定了，这个属性的值必须是 <span data-x="ascii case-insensitive">ASCII 大小写不敏感</span> 的
+  <span data-x="unordered set of unique space-separated tokens">空格分隔的无序不重复令牌集合</span>。
+  每个值必须 <span data-x="ascii case-insensitive">ASCII 大小写不敏感</span> 地匹配字符串
+  "<code data-x="attr-link-sizes-any">any</code>"，或包含两个
+  <span data-x="valid non-negative integer">合法的非负整数</span> 且不得有前导 U+0030 DIGIT ZERO (0) 字符，
+  并以单个 U+0078 LATIN SMALL LETTER X 或 U+0058 LATIN CAPITAL LETTER X 字符分隔。
+  该属性只能用于 <code data-x="attr-link-rel">rel</code> 属性指定了
+  <code data-x="rel-icon">icon</code> 关键字或 <code data-x="">apple-touch-icon</code> 关键字的 <code>link</code> 元素。
+  </p>
 
   <p class="note"><code data-x="">apple-touch-icon</code> 关键字是一个已注册的 <span
   data-x="concept-rel-extensions">链接类型的预定义集合扩展</span>，但不要求用户代理支持它。</p>
 
   <hr>
 
-  <p><dfn><code data-x="attr-link-as">as</code></dfn> 属性为
+  <p><dfn element-attr for="link"><code data-x="attr-link-as">as</code></dfn> 属性为
   <code data-x="attr-link-href">href</code> 指定的资源的预加载请求指定了
-  <span data-x="concept-potential-destination">potential destination</span>。
+  <span data-x="concept-potential-destination">可能的地址</span>。
   这是一个 <span data-x="enumerated attribute">枚举属性</span>。
-  每个 <span data-x="concept-potential-destination">potential destination</span> 是一个关键字，
+  每个 <span data-x="concept-potential-destination">可能的地址</span> 是一个关键字，
   映射为一个同名的状态。该属性必须指定在
   <code data-x="attr-link-rel">rel</code> 属性包含 <code data-x="rel-preload">preload</code> 关键字的
-  <code>link</code> 元素上，不得指定在没有该关键字的 <code>link</code> 元素上。
-  <span w-nodev>在 <span data-x="concept-link-obtain">获取资源的步骤</span> 中给出了
-  <code data-x="attr-link-as">as</code> 属性如何使用的处理模型。</span></p>
+  <code>link</code> 元素上。也可以指定在
+  <code data-x="attr-link-rel">rel</code> 属性包含 <code data-x="rel-modulepreload">modulepreload</code> 关键字的
+  <code>link</code> 元素上；这种情况下它的值必须是
+  <span data-x="concept-script-like-destination">script-like 地址</span>。
+  其他 <code>link</code> 元素不能使用这个属性。</p>
+
+   <p w-nodev>如何使用 <code data-x="attr-link-as">as</code> 属性的处理模型在
+   每个 link 类型的 <span data-x="fetch and process the linked resource">获取和处理链接资源</span> 算法中给出。</p>
 
   <p class="note">该属性没有 <i data-x="missing value default">缺失值默认</i> 或
   <i data-x="invalid value default">非法值默认</i>，意味着非法值或缺失值不映射到任何状态。
@@ -238,7 +314,7 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p><dfn><code data-x="attr-link-color">color</code></dfn> 属性用于 <code
+  <p><dfn element-attr for="link"><code data-x="attr-link-color">color</code></dfn> 属性用于 <code
   data-x="">mask-icon</code> 链接类型。该属性不得指定在
   <code data-x="attr-link-rel">rel</code> 属性不包含 <code data-x="">mask-icon</code> 关键字的
   <code>link</code> 元素上。它的值必须是一个匹配 CSS <span>&lt;color></span> 生成式的字符串，
@@ -249,19 +325,40 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <p class="note"><code data-x="">mask-icon</code> 关键字是一个已注册的 <span
   data-x="concept-rel-extensions">链接类型的预定义集合扩展</span>，但不要求用户代理支持。</p>
 
+  <hr>
+
+  <p><code>link</code> 元素有一个关联的 <dfn>explicitly enabled</dfn> 布尔。它默认为假。
+
+  <p><dfn element-attr for="link"><code data-x="attr-link-disabled">disabled</code></dfn>
+  属性是一个 <span data-x="boolean attribute">布尔属性</span>，用在 <code
+  data-x="rel-stylesheet">stylesheet</code> 链接类型上。该属性只能用在
+  <code data-x="attr-link-rel">rel</code> 属性包含 <code data-x="rel-stylesheet">stylesheet</code>
+  关键字的 <code>link</code> 元素上。</p>
+
+  <p>只要 <code data-x="attr-link-disabled">disabled</code> 属性被移除，就设置
+  <code>link</code> 元素的 <span>explicitly enabled</span> 属性为真。</p>
+
+  <div class="example">
+   <p>动态地移除 <code data-x="attr-link-disabled">disabled</code> 属性，例如用
+   <code data-x="">document.querySelector("link").removeAttribute("disabled")</code>，会去获取并应用样式：</p>
+
+   <pre><code class="html">&lt;link disabled rel="alternate stylesheet" href="css/pooh"></code></pre>
+  </div>
+
   <div w-nodev>
   <hr>
 
   <p>IDL 属性
-  <dfn><code data-x="dom-link-href">href</code></dfn>，
-  <dfn><code data-x="dom-link-hreflang">hreflang</code></dfn>，
-  <dfn><code data-x="dom-link-integrity">integrity</code></dfn>，
-  <dfn><code data-x="dom-link-media">media</code></dfn>，
-  <dfn><code data-x="dom-link-nonce">nonce</code></dfn>，
-  <dfn><code data-x="dom-link-rel">rel</code></dfn>，
-  <dfn><code data-x="dom-link-scope">scope</code></dfn>，
-  <dfn><code data-x="dom-link-sizes">sizes</code></dfn>，和
-  <dfn><code data-x="dom-link-type">type</code></dfn>
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-href">href</code></dfn>，
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-hreflang">hreflang</code></dfn>，
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-integrity">integrity</code></dfn>，
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-media">media</code></dfn>，
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-nonce">nonce</code></dfn>，
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-rel">rel</code></dfn>，
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-scope">scope</code></dfn>，
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-sizes">sizes</code></dfn>，
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-type">type</code></dfn>，和
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-disabled">disabled</code></dfn>
   都必须 <span data-x="reflect">反映</span> 对应的同名内容属性。</p>
 
   <p class="note">对 <code data-x="attr-link-color">color</code> 属性没有相应的 IDL 属性，但今后可能会增加。</p>
@@ -270,12 +367,18 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <code data-x="attr-link-as">as</code> 内容属性，<span data-x="limited to only known values">
   并限制为已知的值</span>。</p>
 
-  <p><dfn><code data-x="dom-link-crossOrigin">crossOrigin</code></dfn> IDL 属性必须
+  <p><dfn attribute for="HTMLLinkElement"><code data-x="dom-link-crossOrigin">crossOrigin</code></dfn> IDL 属性必须
   <span data-x="reflect">反映</span> <code data-x="attr-link-crossorigin">crossorigin</code> 内容属性。</p>
 
   <p><dfn><code data-x="dom-link-referrerPolicy">referrerPolicy</code></dfn> IDL 属性必须
   <span data-x="reflect">反映</span> <code data-x="attr-link-referrerpolicy">referrerpolicy</code>
   内容属性，并 <span data-x="limited to only known values">限制到已知的值</span>。</p>
 
-  <p><dfn><code data-x="dom-link-rellist">relList</code></dfn> IDL 属性必须 <span
+  <p>The <dfn><code data-x="dom-link-imageSrcset">imageSrcset</code></dfn> IDL 属性必须
+  <span data-x="reflect">反映</span> <code data-x="attr-link-imagesrcset">imagesrcset</code> 内容属性。</p>
+
+  <p>The <dfn><code data-x="dom-link-imageSizes">imageSizes</code></dfn> IDL 属性必须
+  <span data-x="reflect">反映</span> the <code data-x="attr-link-imagesizes">imagesizes</code> 内容属性。</p>
+
+  <p><dfn attribute for="HTMLLinkElement"><code data-x="dom-link-rellist">relList</code></dfn> IDL 属性必须 <span
   data-x="reflect">反映</span> <code data-x="attr-link-rel">rel</code> 内容属性。</p>

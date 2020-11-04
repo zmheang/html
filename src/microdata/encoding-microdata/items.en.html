@@ -1,20 +1,22 @@
   <h4>Items</h4>
 
-  <p>Every <span data-x="HTML elements">HTML element</span> may have an <dfn><code data-x="attr-itemscope">itemscope</code></dfn> attribute specified. The <code
-  data-x="attr-itemscope">itemscope</code> attribute is a <span>boolean attribute</span>.</p>
+  <p>Every <span data-x="HTML elements">HTML element</span> may have an <dfn element-attr
+  for="html-global"><code data-x="attr-itemscope">itemscope</code></dfn> attribute specified. The
+  <code data-x="attr-itemscope">itemscope</code> attribute is a <span>boolean attribute</span>.</p>
 
   <p>An element with the <code data-x="attr-itemscope">itemscope</code> attribute specified creates a
   new <dfn data-x="concept-item">item</dfn>, a group of name-value pairs.</p>
 
   <hr>
 
-  <p>Elements with an <code data-x="attr-itemscope">itemscope</code> attribute may have an <dfn><code data-x="attr-itemtype">itemtype</code></dfn> attribute specified, to give the <span>item
-  types</span> of the <span data-x="concept-item">item</span>.</p>
+  <p>Elements with an <code data-x="attr-itemscope">itemscope</code> attribute may have an <dfn
+  element-attr for="html-global"><code data-x="attr-itemtype">itemtype</code></dfn> attribute
+  specified, to give the <span>item types</span> of the <span data-x="concept-item">item</span>.</p>
 
   <p>The <code data-x="attr-itemtype">itemtype</code> attribute, if specified, must have a value that
-  is an <span>unordered set of unique space-separated tokens</span> that are
-  <span>case-sensitive</span>, each of which is a <span>valid URL string</span> that is an
-  <span>absolute URL</span>, and all of which are defined to use the same vocabulary. The
+  is an <span>unordered set of unique space-separated tokens</span>, none of which are
+  <span>identical to</span> another token and each of which is a <span>valid URL string</span> that
+  is an <span>absolute URL</span>, and all of which are defined to use the same vocabulary. The
   attribute's value must have at least one token.</p>
 
   <p>The <dfn>item types</dfn> of an <span data-x="concept-item">item</span> are the tokens obtained
@@ -60,9 +62,10 @@
 
   <p>Elements with an <code data-x="attr-itemscope">itemscope</code> attribute and an <code
   data-x="attr-itemtype">itemtype</code> attribute that references a vocabulary that is defined to
-  <dfn>support global identifiers for items</dfn> may also have an <dfn><code data-x="attr-itemid">itemid</code></dfn> attribute specified, to give a global identifier for
-  the <span data-x="concept-item">item</span>, so that it can be related to other <span
-  data-x="concept-item">items</span> on pages elsewhere on the Web.</p>
+  <dfn>support global identifiers for items</dfn> may also have an <dfn element-attr
+  for="html-global"><code data-x="attr-itemid">itemid</code></dfn> attribute specified, to give a
+  global identifier for the <span data-x="concept-item">item</span>, so that it can be related to
+  other <span data-x="concept-item">items</span> on pages elsewhere on the web.</p>
 
   <p>The <code data-x="attr-itemid">itemid</code> attribute, if specified, must have a value that is
   a <span>valid URL potentially surrounded by spaces</span>.</p>
@@ -88,13 +91,15 @@
 
   <hr>
 
-  <p>Elements with an <code data-x="attr-itemscope">itemscope</code> attribute may have an <dfn><code data-x="attr-itemref">itemref</code></dfn> attribute specified, to give a list of additional
-  elements to crawl to find the name-value pairs of the <span data-x="concept-item">item</span>.</p>
+  <p>Elements with an <code data-x="attr-itemscope">itemscope</code> attribute may have an <dfn
+  element-attr for="html-global"><code data-x="attr-itemref">itemref</code></dfn> attribute
+  specified, to give a list of additional elements to crawl to find the name-value pairs of the
+  <span data-x="concept-item">item</span>.</p>
 
   <p>The <code data-x="attr-itemref">itemref</code> attribute, if specified, must have a value that
-  is an <span>unordered set of unique space-separated tokens</span> that are
-  <span>case-sensitive</span>, consisting of <span data-x="concept-ID">IDs</span> of elements in the
-  same <span>tree</span>.</p>
+  is an <span>unordered set of unique space-separated tokens</span> none of which are
+  <span>identical to</span> another token and consisting of <span data-x="concept-ID">IDs</span> of
+  elements in the same <span>tree</span>.</p>
 
   <p>The <code data-x="attr-itemref">itemref</code> attribute must not be specified on elements that
   do not have an <code data-x="attr-itemscope">itemscope</code> attribute specified.</p>
@@ -146,7 +151,7 @@
 
    <p>Thus, a locomotive might be marked up as:</p>
 
-<pre><code class="html" data-x="">&lt;dl itemscope itemtype="https://md.example.com/loco
+<pre><code class="html">&lt;dl itemscope itemtype="https://md.example.com/loco
                         https://md.example.com/lighting">
  &lt;dt>Name:
  &lt;dd itemprop="name">Tank Locomotive (DB 80)
@@ -160,8 +165,8 @@
 
    <p>A turnout lantern retrofit kit might be marked up as:</p>
 
-   <pre><code class="html" data-x="">&lt;dl itemscope itemtype="https://md.example.com/track
-                       https://md.example.com/lighting">
+   <pre><code class="html">&lt;dl itemscope itemtype="https://md.example.com/track
+                        https://md.example.com/lighting">
  &lt;dt>Name:
  &lt;dd itemprop="name">Turnout Lantern Kit
  &lt;dt>Product code:
@@ -173,7 +178,7 @@
 
    <p>A passenger car with no lighting might be marked up as:</p>
 
-   <pre><code class="html" data-x="">&lt;dl itemscope itemtype="https://md.example.com/passengers">
+   <pre><code class="html">&lt;dl itemscope itemtype="https://md.example.com/passengers">
  &lt;dt>Name:
  &lt;dd itemprop="name">Express Train Passenger Car (DB Am 203)
  &lt;dt>Product code:

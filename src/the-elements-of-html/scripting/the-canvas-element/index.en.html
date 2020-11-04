@@ -15,33 +15,36 @@
    <code>input</code> elements whose <code data-x="attr-input-type">type</code> attribute are in
    the <span data-x="attr-input-type-checkbox">Checkbox</span> or <span
    data-x="attr-input-type-radio">Radio Button</span> states, <code>input</code> elements that are
-   <span data-x="concept-button">buttons</span>, <code>select</code> elements with a <code
+   <span data-x="concept-button">buttons</span>, and <code>select</code> elements with a <code
    data-x="attr-select-multiple">multiple</code> attribute or a <span
-   data-x="concept-select-size">display size</span> greater than 1, and elements that would not be
-   <span>interactive content</span> except for having the <code
-   data-x="attr-tabindex">tabindex</code> attribute specified.</dd>
+   data-x="concept-select-size">display size</span> greater than 1.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-canvas-width">width</code></dd>
    <dd><code data-x="attr-canvas-height">height</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-canvas">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-canvas">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">typedef (<span>CanvasRenderingContext2D</span> or <span>ImageBitmapRenderingContext</span> or <span>WebGLRenderingContext</span>) <dfn>RenderingContext</dfn>;
+    <pre><code class="idl">typedef (<span>CanvasRenderingContext2D</span> or <span>ImageBitmapRenderingContext</span> or <span>WebGLRenderingContext</span> or <span>WebGL2RenderingContext</span>) <dfn>RenderingContext</dfn>;
 
-[Exposed=Window,
- <span>HTMLConstructor</span>]
+[Exposed=Window]
 interface <dfn>HTMLCanvasElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-canvas-width">width</span>;
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-canvas-height">height</span>;
 
   <span>RenderingContext</span>? <span data-x="dom-canvas-getContext">getContext</span>(DOMString contextId, optional any options = null);
 
-  USVString <span data-x="dom-canvas-toDataURL">toDataURL</span>(optional DOMString type, optional any quality);
-  void <span data-x="dom-canvas-toBlob">toBlob</span>(<span>BlobCallback</span> _callback, optional DOMString type, optional any quality);
+  USVString <span data-x="dom-canvas-toDataURL">toDataURL</span>(optional DOMString type = "image/png", optional any quality);
+  undefined <span data-x="dom-canvas-toBlob">toBlob</span>(<span>BlobCallback</span> _callback, optional DOMString type = "image/png", optional any quality);
   <span>OffscreenCanvas</span> <span data-x="dom-canvas-transferControlToOffscreen">transferControlToOffscreen</span>();
 };
 
-callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
+callback <dfn>BlobCallback</dfn> = undefined (<span>Blob</span>? blob);</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLCanvasElement</code>.</dd>
   </dl>
@@ -97,14 +100,14 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
   <hr>
 
   <p>The <code>canvas</code> element has two attributes to control the size of the element's bitmap:
-  <dfn><code data-x="attr-canvas-width">width</code></dfn> and <dfn><code
+  <dfn element-attr for="canvas"><code data-x="attr-canvas-width">width</code></dfn> and <dfn><code
   data-x="attr-canvas-height">height</code></dfn>. These attributes, when specified, must have
-  values that are <span data-x="valid non-negative integer">valid non-negative integers</span>. <span
-  w-nodev>The <span>rules for parsing non-negative integers</span> must be used to <dfn
-  data-x="obtain-numeric-values">obtain their numeric values</dfn>. If an attribute is missing,
-  or if parsing its value returns an error, then the default value must be used instead.</span>
-  The <code data-x="attr-canvas-width">width</code> attribute defaults to 300, and the
-  <code data-x="attr-canvas-height">height</code> attribute defaults to 150.</p>
+  values that are <span data-x="valid non-negative integer">valid non-negative integers</span>.
+  <span w-nodev>The <span>rules for parsing non-negative integers</span> must be used to <dfn
+  data-x="obtain-numeric-values">obtain their numeric values</dfn>. If an attribute is missing, or
+  if parsing its value returns an error, then the default value must be used instead.</span> The
+  <code data-x="attr-canvas-width">width</code> attribute defaults to 300, and the <code
+  data-x="attr-canvas-height">height</code> attribute defaults to 150.</p>
 
   <p>When setting the value of the <code data-x="attr-canvas-width">width</code> or <code
   data-x="attr-canvas-height">height</code> attribute, if the <span
@@ -142,8 +145,9 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
   data-x="concept-canvas-none">none</dfn> but can be changed to either <dfn
   data-x="concept-canvas-placeholder">placeholder</dfn>, <dfn
   data-x="concept-canvas-2d">2d</dfn>, <dfn
-  data-x="concept-canvas-bitmaprenderer">bitmaprenderer</dfn>, or <dfn
-  data-x="concept-canvas-webgl">webgl</dfn> by algorithms defined in this specification.</p>
+  data-x="concept-canvas-bitmaprenderer">bitmaprenderer</dfn>, <dfn
+  data-x="concept-canvas-webgl">webgl</dfn>, or <dfn
+  data-x="concept-canvas-webgl2">webgl2</dfn> by algorithms defined in this specification.</p>
 
   <p>When its <span data-x="concept-canvas-context-mode">canvas context mode</span> is <span
   data-x="concept-canvas-none">none</span>, a <code>canvas</code> element has no rendering context,
@@ -192,9 +196,10 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
 
     <tr>
      <th>
-      <p><span data-x="concept-canvas-webgl">webgl</span></p>
+      <p><span data-x="concept-canvas-webgl">webgl</span> or <span
+      data-x="concept-canvas-webgl2">webgl2</span></p>
      <td>
-      <p>Follow the behavior defined in the WebGL specification. <ref spec=WEBGL></p>
+      <p>Follow the behavior defined in the WebGL specifications. <ref spec=WEBGL></p>
 
     <tr>
      <th>
@@ -218,8 +223,10 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
       <p>Do nothing.</p>
   </table>
 
-  <p>The <dfn><code data-x="dom-canvas-width">width</code></dfn> and <dfn><code data-x="dom-canvas-height">height</code></dfn> IDL attributes must <span>reflect</span> the
-  respective content attributes of the same name, with the same defaults.</p>
+  <p>The <dfn attribute for="HTMLCanvasElement"><code data-x="dom-canvas-width">width</code></dfn>
+  and <dfn attribute for="HTMLCanvasElement"><code data-x="dom-canvas-height">height</code></dfn>
+  IDL attributes must <span>reflect</span> the respective content attributes of the same name, with
+  the same defaults.</p>
 
   </div>
 
@@ -230,13 +237,14 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
    <dd>
     <p>Returns an object that exposes an API for drawing on the canvas. <var>contextId</var>
     specifies the desired API: "<code data-x="canvas-context-2d">2d</code>", "<code
-    data-x="canvas-context-bitmaprenderer">bitmaprenderer</code>", or "<code
-    data-x="canvas-context-webgl">webgl</code>". <var>options</var> is handled by that API.</p>
+    data-x="canvas-context-bitmaprenderer">bitmaprenderer</code>", "<code
+    data-x="canvas-context-webgl">webgl</code>", or "<code
+    data-x="canvas-context-webgl2">webgl2</code>". <var>options</var> is handled by that API.</p>
 
     <p>This specification defines the "<code data-x="canvas-context-2d">2d</code>" and "<code
-    data-x="canvas-context-bitmaprenderer">bitmaprenderer</code>" contexts below. There is also a
-    specification that defines a "<code data-x="canvas-context-webgl">webgl</code>" context. <ref
-    spec=WEBGL></p>
+    data-x="canvas-context-bitmaprenderer">bitmaprenderer</code>" contexts below. The WebGL
+    specifications define the "<code data-x="canvas-context-webgl">webgl</code>" and "<code
+    data-x="canvas-context-webgl2">webgl2</code>" contexts. <ref spec=WEBGL></p>
 
     <p>Returns null if <var>contextId</var> is not supported, or if the canvas has already been
     initialized with another context type (e.g., trying to get a "<code
@@ -270,7 +278,8 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
        <th><span data-x="concept-canvas-none">none</span>
        <th><span data-x="concept-canvas-2d">2d</span>
        <th><span data-x="concept-canvas-bitmaprenderer">bitmaprenderer</span>
-       <th><span data-x="concept-canvas-webgl">webgl</span>
+       <th><span data-x="concept-canvas-webgl">webgl</span> or <span
+       data-x="concept-canvas-webgl2">webgl2</span>
        <th><span data-x="concept-canvas-placeholder">placeholder</span>
      <tbody>
       <tr>
@@ -310,15 +319,18 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
        <td>
         Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
       <tr>
-       <th>"<dfn><code data-x="canvas-context-webgl">webgl</code></dfn>", if the user agent supports
-       the WebGL feature in its current configuration
+       <th>"<dfn><code data-x="canvas-context-webgl">webgl</code></dfn>" or "<dfn><code
+       data-x="canvas-context-webgl2">webgl2</code></dfn>", if the user agent supports the WebGL
+       feature in its current configuration
        <td>
-        Follow the instructions given in the WebGL specification's <i>Context Creation</i> section
-        to obtain either a <code>WebGLRenderingContext</code> or null; if the returned value is
-        null, then return null; otherwise, set this <code>canvas</code> element's <span
-        data-x="concept-canvas-context-mode">context mode</span> to <span
-        data-x="concept-canvas-webgl">webgl</span>, and return the
-        <code>WebGLRenderingContext</code> object. <ref spec=WEBGL>
+        Follow the instructions given in the WebGL specifications' <i>Context Creation</i> sections
+        to obtain a <code>WebGLRenderingContext</code>, <code>WebGL2RenderingContext</code>, or
+        null; if the returned value is null, then return null; otherwise, set this
+        <code>canvas</code> element's <span data-x="concept-canvas-context-mode">context mode</span>
+        to <span data-x="concept-canvas-webgl">webgl</span> or <span
+        data-x="concept-canvas-webgl2">webgl2</span>, and return the
+        <code>WebGLRenderingContext</code> or <code>WebGL2RenderingContext</code> object. <ref
+        spec=WEBGL>
        <td>
         Return null.
        <td>
@@ -343,7 +355,8 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
     </table>
 
     <p class="tablenote"><small>* For example, the "<code
-    data-x="canvas-context-webgl">webgl</code>" value in the case of a user agent having exhausted
+    data-x="canvas-context-webgl">webgl</code>" or "<code
+    data-x="canvas-context-webgl2">webgl2</code>" value in the case of a user agent having exhausted
     the graphics hardware's abilities and having no software fallback implementation.</small></p>
    </li>
   </ol>
@@ -357,7 +370,6 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
    <dt><var>url</var> = <var>canvas</var> . <code subdfn data-x="dom-canvas-toDataURL">toDataURL</code>( [ <var>type</var> [, <var>quality</var> ] ] )</dt>
 
    <dd>
-
     <p>Returns a <span data-x="data protocol"><code>data:</code> URL</span> for the image in the
     canvas.</p>
 
@@ -373,13 +385,11 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
     data-x="">data:image/png;</code>". If it does, the image is PNG, and thus the requested type was
     not supported. (The one exception to this is if the canvas has either no height or no width, in
     which case the result might simply be "<code data-x="">data:,</code>".)</p>
-
    </dd>
 
    <dt><var>canvas</var> . <code subdfn data-x="dom-canvas-toBlob">toBlob</code>(<var>callback</var> [, <var>type</var> [, quality ] ] )</dt>
 
    <dd>
-
     <p>Creates a <code>Blob</code> object representing a file containing the image in the canvas,
     and invokes a callback with a handle to that object.</p>
 
@@ -388,7 +398,6 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
     supported. The third argument applies if the type is an image format that supports variable
     quality (such as "<code>image/jpeg</code>"), and is a number in the range 0.0 to 1.0 inclusive
     indicating the desired quality level for the resulting image.</p>
-
    </dd>
 
    <dt><var>canvas</var> . <code subdfn
@@ -403,7 +412,6 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
     <code>OffscreenCanvas</code> object's rendering context.
     </p>
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -412,7 +420,6 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
   <var>quality</var>)</code></dfn> method, when invoked, must run these steps:</p>
 
   <ol>
-
 <!--ADD-TOPIC:Security-->
    <li><p>If this <code>canvas</code> element's bitmap's <span
    data-x="concept-canvas-origin-clean">origin-clean</span> flag is set to false, then throw a
@@ -427,7 +434,7 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
 
    <li><p>Let <var>file</var> be <span data-x="a serialization of the bitmap as a file">a
    serialization of this <code>canvas</code> element's bitmap as a file</span>, passing
-   <var>type</var> and <var>quality</var> if they were given.</p></li>
+   <var>type</var> and <var>quality</var> if given.</p></li>
 
    <li><p>If <var>file</var> is null then return "<code data-x="">data:,</code>".</p></li>
 
@@ -436,7 +443,6 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
 
    <!-- should we explicitly require the URL to be base64-encoded and not have any parameters, to
    ensure the same exact URL is generated in each browser? -->
-
   </ol>
 
   <p>The <dfn><code data-x="dom-canvas-toBlob">toBlob(<var>callback</var>, <var>type</var>,
@@ -458,11 +464,13 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
 
     <ol>
      <li><p>If <var>result</var> is non-null, then set <var>result</var> to <span data-x="a
-     serialization of the bitmap as a file">a serialization of <var>result</var> as a file</span>,
-     with <var>type</var> and <var>quality</var> if they were given.</p></li>
+     serialization of the bitmap as a file">a serialization of <var>result</var> as a file</span>
+     with <var>type</var> and <var>quality</var> if given.</p></li>
 
      <li>
-      <p><span>Queue a task</span> to run these steps:</p>
+      <p><span>Queue an element task</span> on the
+      <!--en-GB--><dfn id="canvas-blob-serialisation-task-source">canvas blob serialization task
+      source</dfn> given the <code>canvas</code> element to run these steps:</p>
 
       <ol>
        <li><p>If <var>result</var> is non-null, then set <var>result</var> to a new
@@ -473,10 +481,6 @@ callback <dfn>BlobCallback</dfn> = void (<span>Blob</span>? blob);</code></pre>
        <li><p><span data-x="es-invoking-callback-functions">Invoke</span> <var>callback</var> with
        « <var>result</var> ».</p></li>
       </ol>
-
-      <p>The <span>task source</span> for this task is the
-      <!--en-GB--><dfn id="canvas-blob-serialisation-task-source">canvas blob serialization task
-      source</dfn>.</p>
      </li>
     </ol>
    </li>

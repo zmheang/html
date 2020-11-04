@@ -7,7 +7,7 @@
    { [[Property]]: "<code data-x="">href</code>", [[NeedsGet]]: false, [[NeedsSet]]: true },
    { [[Property]]: "<code data-x="">replace</code>" } ».</p></li>
 
-   <li><p>Let <var>crossOriginWindowProperties</var> be «
+   <li><p>Return «
    { [[Property]]: "<code data-x="">window</code>", [[NeedsGet]]: true, [[NeedsSet]]: false },
    { [[Property]]: "<code data-x="">self</code>", [[NeedsGet]]: true, [[NeedsSet]]: false },
    { [[Property]]: "<code data-x="">location</code>", [[NeedsGet]]: true, [[NeedsSet]]: true },
@@ -21,18 +21,6 @@
    { [[Property]]: "<code data-x="">opener</code>", [[NeedsGet]]: true, [[NeedsSet]]: false },
    { [[Property]]: "<code data-x="">parent</code>", [[NeedsGet]]: true, [[NeedsSet]]: false },
    { [[Property]]: "<code data-x="">postMessage</code>" } ».</p></li>
-
-   <li>
-    <p>Repeat for each <var>e</var> that is an element of <var>O</var>'s <span>document-tree child
-    browsing context name property set</span>:</p>
-
-    <ol>
-     <li><p>Add { [[Property]]: <var>e</var>, [[HideFromKeys]]: true } as the last element of
-     <var>crossOriginWindowProperties</var>.</p></li>
-    </ol>
-   </li>
-
-   <li><p>Return <var>crossOriginWindowProperties</var>.</p></li>
   </ol>
 
   <p class="note">Indexed properties do not need to be safelisted as they are handled directly by

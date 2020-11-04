@@ -5,48 +5,37 @@
    <dt><var>window</var> = <var>window</var> . <code subdfn data-x="dom-open">open</code>( [ <var>url</var> [, <var>target</var> [, <var>features</var> ] ] ] )</dt>
 
    <dd>
-
     <p>Opens a window to show <var>url</var> (defaults to <code>about:blank</code>), and returns it.
     The <var>target</var> argument gives the name of the new window. If a window exists with that
     name already, it is reused. The <var>features</var> argument can be used to influence the
     rendering of the new window.</p>
-
    </dd>
 
    <dt><var>window</var> . <code subdfn data-x="dom-name">name</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the name of the window.</p>
 
     <p>Can be set, to change the name.</p>
-
    </dd>
 
    <dt><var>window</var> . <code subdfn data-x="dom-window-close">close</code>()</dt>
 
    <dd>
-
     <p>Closes the window.</p>
-
    </dd>
 
    <dt><var>window</var> . <code subdfn data-x="dom-window-closed">closed</code></dt>
 
    <dd>
-
     <p>Returns true if the window has been closed, false otherwise.</p>
-
    </dd>
 
    <dt><var>window</var> . <code subdfn data-x="dom-window-stop">stop</code>()</dt>
 
    <dd>
-
     <p>Cancels the document load.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -55,11 +44,11 @@
   and a string <var>features</var>, are as follows:</p>
 
   <ol>
+   <li><p>If the <span>event loop</span>'s <span>termination nesting level</span> is nonzero, return
+   null.</p></li>
 
-   <li><p>Let <var>entry settings</var> be the <span>entry settings object</span>.</p></li>
-
-   <li><p>Let <var>source browsing context</var> be the <span>responsible browsing context</span>
-   specified by <var>entry settings</var>.</p></li>
+   <li><p>Let <var>source browsing context</var> be the <span>entry global object</span>'s <span
+   data-x="window bc">browsing context</span>.</p></li>
 
    <li><p>If <var>target</var> is the empty string, then set <var>target</var> to "<code
    data-x="">_blank</code>".</p></li>
@@ -67,13 +56,42 @@
    <li><p>Let <var>tokenizedFeatures</var> be the result of <span
    data-x="concept-window-open-features-tokenize">tokenizing</span> <var>features</var>.</p></li>
 
-   <li><p>Let <var>noopener</var> be true if <var>tokenizedFeatures</var> <span data-x="map
-   exists">contains</span> an entry with the key "<code data-x="">noopener</code>"</p></li>
+   <li><p>Let <var>noopener</var> and <var>noreferrer</var> be false.</p></li>
 
    <li>
-    <p>Let <var>target browsing context</var> and <var>new</var> be the result of applying <span>the
-    rules for choosing a browsing context</span> given <var>target</var>, <var>source browsing
-    context</var>, and <var>noopener</var>.
+    <p>If <var>tokenizedFeatures</var>["<code data-x="">noopener</code>"] <span data-x="map
+    exists">exists</span>, then:</p>
+
+    <ol>
+     <li><p>Set <var>noopener</var> to the result of <span
+     data-x="concept-window-open-features-parse-boolean">parsing <var>tokenizedFeatures</var>["<code
+     data-x="">noopener</code>"] as a boolean feature</span>.</p></li>
+
+     <li><p><span data-x="map remove">Remove</span> <var>tokenizedFeatures</var>["<code
+     data-x="">noopener</code>"].</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>If <var>tokenizedFeatures</var>["<code data-x="">noreferrer</code>"] <span data-x="map
+    exists">exists</span>, then:</p>
+
+    <ol>
+     <li><p>Set <var>noreferrer</var> to the result of <span
+     data-x="concept-window-open-features-parse-boolean">parsing <var>tokenizedFeatures</var>["<code
+     data-x="">noreferrer</code>"] as a boolean feature</span>.</p></li>
+
+     <li><p><span data-x="map remove">Remove</span> <var>tokenizedFeatures</var>["<code
+     data-x="">noreferrer</code>"].</p></li>
+    </ol>
+   </li>
+
+   <li><p>If <var>noreferrer</var> is true, then set <var>noopener</var> to true.</p></li>
+
+   <li>
+    <p>Let <var>target browsing context</var> and <var>windowType</var> be the result of applying
+    <span>the rules for choosing a browsing context</span> given <var>target</var>, <var>source
+    browsing context</var>, and <var>noopener</var>.</p>
 
     <p class="example">If there is a user agent that supports control-clicking a link to open it in
     a new tab, and the user control-clicks on an element whose <code
@@ -83,47 +101,76 @@
     tab.</p>
    </li>
 
+   <li><p>Let <var>new</var> be true if <var>windowType</var> is either "<code data-x="">new and
+   unrestricted</code>" or "<code data-x="">new with no opener</code>", and false otherwise.</p></li>
+
    <li><p>If <var>target browsing context</var> is null, then return null.</p></li>
 
    <li><p>If <var>new</var> is true, then <span>set up browsing context features</span> for
    <var>target browsing context</var> given <var>tokenizedFeatures</var>. <ref
    spec="CSSOMVIEW"></p></li>
 
-   <li><p>Let <var>resource</var> be the <span>URL</span> "<code>about:blank</code>".</p></li>
+   <li><p>Let <var>urlRecord</var> be the <span>URL</span> "<code>about:blank</code>".</p></li>
 
    <li>
     <p>If <var>url</var> is not the empty string or <var>new</var> is true, then:
 
     <ol>
      <li><p>If <var>url</var> is not the empty string, then <span data-x="parse a url">parse</span>
-     <var>url</var> relative to <var>entry settings</var>, and set <var>resource</var> to the
-     <span>resulting URL record</span>, if any. If the <span>parse a URL</span> algorithm failed,
-     then throw a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
+     <var>url</var> relative to the <span>entry settings object</span>, and set <var>urlRecord</var>
+     to the <span>resulting URL record</span>, if any. If the <span>parse a URL</span> algorithm
+     failed, then throw a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
 
-     <li><p>If <var>resource</var> is "<code>about:blank</code>" and <var>new</var> is true, then
-     <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
-     data-x="event-load">load</code> at <var>target browsing context</var>'s <code>Window</code>
-     object, with the <var>legacy target override flag</var> set.</p>
+     <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
+     <span data-x="concept-request-url">URL</span> is <var>urlRecord</var>.</p></li>
 
-     <li><p>Otherwise, <span>navigate</span><!--DONAV window.open()--> <var>target browsing
-     context</var> to <var>resource</var>, with the <var><span>exceptions enabled flag</span></var>
-     set. If <var>new</var> is true, then <span data-x="replacement enabled">replacement must be
-     enabled</span>. The <span>source browsing context</span> is <var>source browsing context</var>.
-     Rethrow any exceptions.</p></li>
+     <li><p>If <var>noreferrer</var> is true, then set <var>request</var>'s <span
+     data-x="concept-request-referrer">referrer</span> to "<code
+     data-x="">noreferrer</code>".</p></li>
+
+     <li><p>Let <var>window</var> be <var>target browsing context</var>'s <span>active
+     window</span>.</p></li>
+
+     <li><p>If <var>urlRecord</var> is "<code>about:blank</code>" and <var>new</var> is true, then
+     <span>queue a global task</span> on the <span>networking task source</span> given
+     <var>window</var> to <span data-x="concept-event-fire">fire an event</span> named <code
+     data-x="event-load">load</code> at <var>window</var>, with the <var>legacy target override
+     flag</var> set.</p>
+
+     <li>
+      <p>Otherwise:</p>
+
+      <ol>
+       <li><p>Let <var>historyHandling</var> be "<code data-x="hh-replace">replace</code>" if
+       <var>new</var> is true; otherwise "<code data-x="hh-default">default</code>".</p></li>
+
+       <li><p><span>Navigate</span><!--DONAV window.open()--> <var>target browsing context</var> to
+       <var>request</var>, with <var><span>exceptionsEnabled</span></var> set to true, <var
+       data-x="navigation-hh">historyHandling</var> set to <var>historyHandling</var>, and the
+       <span>source browsing context</span> set to <var>source browsing context</var>.</p></li>
+      </ol>
+     </li>
     </ol>
    </li>
 
-   <li><p>If <var>noopener</var> is true, then <span data-x="disowned">disown</span> <var>target
-   browsing context</var> and return null.</p></li>
+   <li><p>If <var>noopener</var> is true or <var>windowType</var> is "<code
+   data-x="">new with no opener</code>", then return null.</p></li>
+
+   <li>
+    <p>Otherwise, if <var>new</var> is false, set <var>target browsing context</var>'s <span>opener
+    browsing context</span> to <var>source browsing context</var>.</p>
+
+    <p class="note">If <var>new</var> is true this is done as part of <span>creating a new auxiliary
+    browsing context</span>.</p>
+   </li>
 
    <li><p>Return <var>target browsing context</var>'s <code>WindowProxy</code> object.</p></li>
   </ol>
 
-  <p>The <dfn data-export="" data-dfn-for="Window" data-dfn-type="operation"
-  data-lt="open()|open(url, target, features)"><code data-x="dom-open">open(<var>url</var>,
-  <var>target</var>, <var>features</var>)</code></dfn> method on <code>Window</code> objects
-  provides a mechanism for <span data-x="navigate">navigating</span> an existing <span>browsing
-  context</span> or opening and navigating an <span>auxiliary browsing context</span>.</p>
+  <p>The <dfn for="Window" method><code data-x="dom-open">open(<var>url</var>, <var>target</var>,
+  <var>features</var>)</code></dfn> method on <code>Window</code> objects provides a mechanism for
+  <span data-x="navigate">navigating</span> an existing <span>browsing context</span> or opening and
+  navigating an <span>auxiliary browsing context</span>.</p>
 
   <p>When the method is invoked, the user agent must run the <span>window open steps</span> with
   <var>url</var>, <var>target</var>, and <var>features</var>.</p>
@@ -226,51 +273,100 @@
    <dd>Return <var>name</var>.
   </dl>
 
+  <p>To <dfn data-x="concept-window-open-features-parse-boolean">parse a boolean feature</dfn> given
+  a string <var>value</var>:</p>
+
+  <ol>
+   <li><p>If <var>value</var> is the empty string, then return true.</p></li>
+
+   <li><p>If <var>value</var> <span>is</span> "<code data-x="">yes</code>", then return
+   true.</p></li>
+
+   <li><p>Let <var>parsed</var> be the result of <span data-x="rules for parsing integers">parsing
+   <var>value</var> as an integer</span>.</p></li>
+
+   <li><p>If <var>parsed</var> is an error, then set it to 0.</p></li>
+
+   <li><p>Return false if <var>parsed</var> is 0, and true otherwise.</p></li>
+  </ol>
+
   <hr>
 
-  <p>The <dfn><code data-x="dom-name">name</code></dfn> attribute of the <code>Window</code> object
-  must, on getting, return the current <span data-x="browsing context name">name</span> of the
-  <span>browsing context</span>; and, on setting, set the <span data-x="browsing context
-  name">name</span> of the <span>browsing context</span> to the new value.</p>
+  <p>The <dfn attribute for="Window"><code data-x="dom-name">name</code></dfn> attribute's getter
+  must run these steps:</p>
+
+  <ol>
+   <li><p>If this <code>Window</code> object's <span data-x="window bc">browsing context</span> is
+   null, then return the empty string.</p></li>
+
+   <li><p>Return this <code>Window</code> object's <span data-x="window bc">browsing
+   context</span>'s <span data-x="browsing context name">name</span>.</p></li>
+  </ol>
+
+  <p>The <code data-x="dom-name">name</code> attribute's setter must run these steps:</p>
+
+  <ol>
+   <li><p>If this <code>Window</code> object's <span data-x="window bc">browsing context</span> is
+   null, then return.</p></li>
+
+   <li><p>Set this <code>Window</code> object's <span data-x="window bc">browsing context</span>'s
+   <span data-x="browsing context name">name</span> to the given value.</p></li>
+  </ol>
 
   <p class="note">The name <a href="#resetBCName">gets reset</a> when the browsing context is
   <span data-x="navigate">navigated</span> to another <span>origin</span>.</p>
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-window-close">close()</code></dfn> method on <code>Window</code>
-  objects should, if all the following conditions are met, <span data-x="close a browsing
-  context">close</span> the <span>browsing context</span> <var>A</var>:
+  <p>The <dfn method for="Window"><code data-x="dom-window-close">close()</code></dfn> method must
+  run these steps:
 
-  <ul class="brief">
+  <ol>
+   <li><p>Let <var>current</var> be this <code>Window</code> object's <span data-x="window
+   bc">browsing context</span>.</p></li>
 
-   <li>The corresponding <span>browsing context</span> <var>A</var> is
-   <span>script-closable</span>.</li>
+   <li><p>If <var>current</var> is null or its <span>is closing</span> is true, then
+   return.</p></li>
 
-   <li>The <span>responsible browsing context</span> specified by the <span>incumbent settings
-   object</span> is <span>familiar with</span> the <span>browsing context</span> <var>A</var>.</li>
+   <li>
+    <p>If all the following are true</p>
 
-   <li id="sandboxClose">The <span>responsible browsing context</span> specified by the
-   <span>incumbent settings object</span> is <span>allowed to navigate</span> the <span>browsing
-   context</span> <var>A</var>.</li>
+    <ul class="brief">
+     <li><var>current</var> is <span>script-closable</span></li>
 
-  </ul>
+     <li>the <span data-x="concept-incumbent-global">incumbent global object</span>'s <span
+     data-x="window bc">browsing context</span> is <span>familiar with</span>
+     <var>current</var></li>
+
+     <li id="sandboxClose">the <span data-x="concept-incumbent-global">incumbent global
+     object</span>'s <span data-x="window bc">browsing context</span> is <span>allowed to
+     navigate</span> <var>current</var></li>
+    </ul>
+
+    <p>then:</p>
+
+    <ol>
+     <li><p>Set <var>current</var>'s <span>is closing</span> to true.</p></li>
+
+     <li><p><span>Queue a task</span> on the <span>DOM manipulation task source</span> to <span
+     data-x="close a browsing context">close</span> <var>current</var>.</p></li>
+    </ol>
+   </li>
+  </ol>
 
   <p>A <span>browsing context</span> is <dfn>script-closable</dfn> if it is an <span>auxiliary
   browsing context</span> that was created by a script (as opposed to by an action of the user), or
   if it is a <span>top-level browsing context</span> whose <span>session history</span> contains
   only one <code>Document</code>.</p>
 
-  <p>The <dfn><code data-x="dom-window-closed">closed</code></dfn> attribute on <code>Window</code>
-  objects must return true if the <code>Window</code> object's <span>browsing context</span> has
-  been <span data-x="a browsing context is discarded">discarded</span>, and false otherwise.</p>
+  <p>The <dfn attribute for="Window"><code data-x="dom-window-closed">closed</code></dfn>
+  attribute's getter must return true if this <code>Window</code> object's <span data-x="window
+  bc">browsing context</span> is null or its <span>is closing</span> is true, and false
+  otherwise.</p>
 
-  <p>The <dfn><code data-x="dom-window-stop">stop()</code></dfn> method on <code>Window</code>
-  objects should, if there is an existing attempt to <span>navigate</span> the <span>browsing
-  context</span> and that attempt is not currently running the <span>unload a document</span>
-  algorithm, cancel that <span data-x="navigate">navigation</span>; then, it must <span
-  data-x="abort a document">abort</span> the <span>active document</span> of the <span>browsing
-  context</span> of the <code>Window</code> object on which it was invoked.</p>
+  <p>The <dfn method for="Window"><code data-x="dom-window-stop">stop()</code></dfn> method must
+  <span>stop document loading</span> given this <code>Window</code> object's <span
+  data-x="concept-document-window">associated <code>Document</code></span>.</p>
 
   </div>
 

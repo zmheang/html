@@ -14,12 +14,22 @@
   compression format used was not supported, even if the implementation could determine the
   dimensions of the movie from the file's metadata.</p>
 
-  <p>What some specifications, in particular the HTTP specification, refer to as a
+  <p>What some specifications, in particular the HTTP specifications, refer to as a
   <i>representation</i> is referred to in this specification as a <dfn data-x="">resource</dfn>.
   <ref spec=HTTP></p>
 
   <p>A resource's <dfn>critical subresources</dfn> are those that the resource needs to have
   available to be correctly processed. Which resources are considered critical or not is defined by
   the specification that defines the resource's format.</p>
+
+  <p>For <span data-x="CSS style sheet">CSS style sheets</span>, we tentatively define here that
+  their critical subresources are other style sheets imported via <code data-x="">@import</code>
+  rules, including those indirectly imported by other imported style sheets.</p>
+
+  <p class="XXX">This definition is not fully interoperable; furthermore, some user agents seem to
+  count resources like background images or web fonts as critical subresources. Ideally, the CSS
+  Working Group would define this; see <a
+  href="https://github.com/w3c/csswg-drafts/issues/1088">w3c/csswg-drafts issue #1088</a> to track
+  progress on that front.</p>
 
 

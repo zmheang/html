@@ -1,0 +1,50 @@
+  <h5>Secure contexts</h5>
+
+  <p>An <span>environment</span> <var>environment</var> is a <dfn export data-lt="secure context|Is
+  an environment settings object contextually secure?">secure context</dfn> if the following
+  algorithm returns true:</p>
+
+  <ol>
+   <li>
+    <p>If <var>environment</var> is an <span>environment settings object</span>, then:</p>
+
+    <ol>
+     <li><p>Let <var>global</var> be <var>environment</var>'s <span
+     data-x="concept-settings-object-global">global object</span>.</p></li>
+
+     <li>
+      <p>If <var>global</var> is a <code>WorkerGlobalScope</code>, then:
+
+      <ol>
+       <li>
+        <p>If <var>global</var>'s <span>owner set</span>[0]'s <span>relevant settings object</span>
+        is a <span>secure context</span>, then return true.</p>
+
+        <p class="note">We only need to check the 0th item since they will necessarily all be
+        consistent.</p>
+       </li>
+
+       <li><p>Return false.</p></li>
+      </ol>
+     </li>
+
+     <li>
+      <p>If <var>global</var> is a <code>WorkletGlobalScope</code>, then return true.</p>
+
+      <p class="note">Worklets can only be created in secure contexts.</p>
+     </li>
+    </ol>
+   </li>
+
+   <li><p>If the result of <span>Is url potentially trustworthy?</span> given
+   <var>environment</var>'s <span>top-level creation URL</span> is "<code data-x="">Potentially
+   Trustworthy</code>", then return true.</p></li>
+
+   <li><p>Return false.</p></li>
+  </ol>
+
+  <p>An <span>environment</span> is a <dfn export>non-secure context</dfn> if it is not a
+  <span>secure context</span>.</p>
+
+  </div>
+

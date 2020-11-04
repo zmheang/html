@@ -12,20 +12,17 @@
    <dt><var>result</var> = self . <code subdfn data-x="dom-btoa">btoa</code>( <var>data</var> )</dt>
 
    <dd>
-
     <p>Takes the input data, in the form of a Unicode string containing only characters in the range
     U+0000 to U+00FF, each representing a binary byte with values 0x00 to 0xFF respectively, and
     converts it to its base64 representation, which it returns.</p>
 
     <p>Throws an <span>"<code>InvalidCharacterError</code>"</span> <code>DOMException</code>
     exception if the input string contains any out-of-range characters.</p>
-
    </dd>
 
    <dt><var>result</var> = self . <code subdfn data-x="dom-atob">atob</code>( <var>data</var> )</dt>
 
    <dd>
-
     <p>Takes the input data, in the form of a Unicode string containing base64-encoded binary data,
     decodes it, and returns a string consisting of characters in the range U+0000 to U+00FF, each
     representing a binary byte with values 0x00 to 0xFF respectively, corresponding to that binary
@@ -33,9 +30,7 @@
 
     <p>Throws an <span>"<code>InvalidCharacterError</code>"</span> <code>DOMException</code> if the
     input string is not valid base64 data.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>

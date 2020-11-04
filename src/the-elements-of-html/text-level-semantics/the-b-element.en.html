@@ -11,6 +11,10 @@
    <dd><span>Phrasing content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-b">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-b">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -25,7 +29,7 @@
    <p>The following example shows a use of the <code>b</code> element to highlight key words without
    marking them up as important:</p>
 
-   <pre><code class="html" data-x="">&lt;p>The &lt;b>frobonitor&lt;/b> and &lt;b>barbinator&lt;/b> components are fried.&lt;/p></code></pre>
+   <pre><code class="html">&lt;p>The &lt;b>frobonitor&lt;/b> and &lt;b>barbinator&lt;/b> components are fried.&lt;/p></code></pre>
 
   </div>
 
@@ -34,7 +38,7 @@
    <p>In the following example, objects in a text adventure are highlighted as being special by use
    of the <code>b</code> element.</p>
 
-   <pre><code class="html" data-x="">&lt;p>You enter a small room. Your &lt;b>sword&lt;/b> glows
+   <pre><code class="html">&lt;p>You enter a small room. Your &lt;b>sword&lt;/b> glows
 brighter. A &lt;b>rat&lt;/b> scurries past the corner wall.&lt;/p></code></pre>
 
   </div>
@@ -46,7 +50,7 @@ brighter. A &lt;b>rat&lt;/b> scurries past the corner wall.&lt;/p></code></pre>
    href="http://news.bbc.co.uk/2/hi/uk_news/scotland/north_east/7101506.stm">BBC article about
    kittens adopting a rabbit as their own</a> could be marked up:</p>
 
-   <pre><code class="html" data-x="">&lt;article>
+   <pre><code class="html">&lt;article>
  &lt;h2>Kittens 'adopted' by pet rabbit&lt;/h2>
  &lt;p>&lt;b class="lede">Six abandoned kittens have found an
  unexpected new mother figure &mdash; a pet rabbit.&lt;/b>&lt;/p>
@@ -71,7 +75,7 @@ brighter. A &lt;b>rat&lt;/b> scurries past the corner wall.&lt;/p></code></pre>
 
    <p>The following would be <em>incorrect</em> usage:</p>
 
-   <pre class="bad"><code class="html" data-x="">&lt;p>&lt;b>WARNING!&lt;/b> Do not frob the barbinator!&lt;/p></code></pre>
+   <pre class="bad"><code class="html">&lt;p>&lt;b>WARNING!&lt;/b> Do not frob the barbinator!&lt;/p></code></pre>
 
    <p>In the previous example, the correct element to use would have been <code>strong</code>, not
    <code>b</code>.</p>

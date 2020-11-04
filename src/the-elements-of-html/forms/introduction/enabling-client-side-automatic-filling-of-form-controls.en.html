@@ -11,12 +11,12 @@
   fields that can be usefully annotated in this way: the information about who the pizza is to be
   delivered to. Adding this information looks like this:</p>
 
-  <pre><code class="html" data-x="">&lt;form method="post"
+  <pre><code class="html">&lt;form method="post"
       enctype="application/x-www-form-urlencoded"
       action="https://pizza.example.com/order.cgi">
  &lt;p>&lt;label>Customer name: &lt;input name="custname" required <strong>autocomplete="shipping name"</strong>>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Telephone: &lt;input type=tel name="custtel" <strong>autocomplete="shipping tel"</strong>>&lt;/label>&lt;/p>
- &lt;p>&lt;label>E-mail address: &lt;input type=email name="custemail" <strong>autocomplete="shipping email"</strong>>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Email address: &lt;input type=email name="custemail" <strong>autocomplete="shipping email"</strong>>&lt;/label>&lt;/p>
  &lt;fieldset>
   &lt;legend> Pizza Size &lt;/legend>
   &lt;p>&lt;label> &lt;input type=radio name=size required value="small"> Small &lt;/label>&lt;/p>

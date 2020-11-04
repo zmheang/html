@@ -1,0 +1,98 @@
+  <h5>Script settings for worklets</h5>
+
+  <p>To <dfn>set up a worklet environment settings object</dfn>, given a <span>JavaScript
+  execution context</span> <var>executionContext</var> and an <span>environment settings
+  object</span> <var>outsideSettings</var>:</p>
+
+  <ol>
+   <li><p>Let <var>origin</var> be a unique <span data-x="concept-origin-opaque">opaque
+   origin</span>.</p></li>
+
+   <li><p>Let <var>inheritedAPIBaseURL</var> be <var>outsideSettings</var>'s <span>API base
+   URL</span>.</p></li>
+
+   <li><p>Let <var>inheritedReferrerPolicy</var> be <var>outsideSettings</var>'s <span
+   data-x="concept-settings-object-referrer-policy">referrer policy</span>.</p></li>
+
+   <li><p>Let <var>inheritedEmbedderPolicy</var> be <var>outsideSettings</var>'s <span
+   data-x="concept-settings-object-embedder-policy">embedder policy</span>.</p></li>
+
+   <li><p>Let <var>realm</var> be the value of <var>executionContext</var>'s Realm
+   component.</p></li>
+
+   <li><p>Let <var>workletGlobalScope</var> be <var>realm</var>'s <span
+   data-x="concept-realm-global">global object</span>.</p></li>
+
+   <li>
+    <p>Let <var>settingsObject</var> be a new <span>environment settings object</span> whose
+    algorithms are defined as follows:</p>
+
+    <dl>
+     <dt>The <span>realm execution context</span></dt>
+     <dd>
+      <p>Return <var>executionContext</var>.</p>
+     </dd>
+
+     <dt>The <span data-x="concept-settings-object-module-map">module map</span></dt>
+     <dd>
+      <p>Return <var>workletGlobalScope</var>'s <span
+      data-x="concept-WorkletGlobalScope-module-map">module map</span>.</p>
+     </dd>
+
+     <dt>The <span>responsible document</span></dt>
+     <dd><p>Not applicable (the <span>responsible event loop</span> is not a <span>window event
+     loop</span>).</p></dd>
+
+     <dt>The <span>API URL character encoding</span></dt>
+     <dd>
+      <p>Return <span>UTF-8</span>.</p>
+     </dd>
+
+     <dt>The <span>API base URL</span></dt>
+     <dd>
+      <p>Return <var>inheritedAPIBaseURL</var>.</p>
+
+      <p class="note">Unlike workers or other globals derived from a single resource, worklets have
+      no primary resource; instead, multiple scripts, each with their own URL, are loaded into the
+      global scope via <code
+      data-x="dom-Worklet-addModule">worklet.addModule()</code>. So this <span>API base URL</span>
+      is rather unlike that of other globals. However, so far this doesn't matter, as no APIs
+      available to worklet code make use of the <span>API base URL</span>.</p>
+     </dd>
+
+     <dt>The <span data-x="concept-settings-object-origin">origin</span></dt>
+     <dd>
+      <p>Return <var>origin</var>.</p>
+     </dd>
+
+     <dt>The <span data-x="concept-settings-object-referrer-policy">referrer policy</span></dt>
+     <dd>
+      <p>Return <var>inheritedReferrerPolicy</var>.</p>
+     </dd>
+
+     <dt>The <span data-x="concept-settings-object-embedder-policy">embedder policy</span></dt>
+     <dd>
+      <p>Return <var>inheritedEmbedderPolicy</var>.</p>
+     </dd>
+
+     <dt>The <span data-x="concept-settings-object-cross-origin-isolated-capability">cross-origin
+     isolated capability</span></dt>
+     <dd><p>Return <span class="XXX">TODO</span>.</p></dd>
+    </dl>
+   </li>
+
+   <li><p>Set <var>settingsObject</var>'s <span data-x="concept-environment-id">id</span> to a new
+   unique opaque string, <span data-x="concept-environment-creation-url">creation URL</span> to
+   <var>inheritedAPIBaseURL</var>, <span>top-level creation URL</span> to null, <span>top-level
+   origin</span> to <var>outsideSettings</var>'s <span>top-level origin</span>, <span
+   data-x="concept-environment-target-browsing-context">target browsing context</span> to null, and
+   <span data-x="concept-environment-active-service-worker">active service worker</span> to
+   null.</p></li>
+
+   <li><p>Set <var>realm</var>'s [[HostDefined]] field to <var>settingsObject</var>.</p></li>
+
+   <li><p>Return <var>settingsObject</var>.</p></li>
+  </ol>
+
+  </div>
+

@@ -29,13 +29,20 @@
    <tbody>
     <tr>
      <th class="data-header" headers="th-fa-area" id="td-fa-1">
-     设置了 <span data-x="tabindex focus flag">tabindex focus 标志</span> 的元素中，
-     那些没有 <span data-x="concept-element-disabled">真正禁用的</span>，
-     那些没有 <span data-x="expressly inert">明确不活动的</span>，
-     和那些 <span data-x="being rendered">正在被渲染的</span> 或者
-     <span data-x="being used as relevant canvas fallback content">被用作相关画布的 fallback 内容</span>。 <!-- CANVAS-FOCUS-FALLBACK -->
+     满足下面所有条件的元素：
+     <ul class="brief">
+      <li>元素的 <span data-x="tabindex value">tabindex 值</span> 非空，或用户代理确定钙元素为可聚焦的；</li>
+
+      <li>元素不是 <span>shadow host</span> 或其 <span data-x="concept-element-shadow-root">shadow root</span> 的 <span>delegates focus</span> 为 false；</li>
+
+      <li>元素没有 <span data-x="concept-element-disabled">被禁用</span>；</li>
+
+      <li>元素不是 <span data-x="expressly inert">明确不活动的</span>；</li>
+
+      <li>元素正 <span data-x="being rendered">被渲染</span> 或 <span data-x="being used as relevant canvas fallback content">被用作相关画布的 fallback 内容</span>。</li>
+     </ul>
      <td headers="td-fa-1 th-fa-dom-rep">
-     元素自己
+     元素自己。
     <tr>
      <td headers="td-fa-1 th-fa-examples" colspan=2>
      <p class="example"><code>iframe</code>， <code data-x="attr-input-type-text">&lt;input
@@ -55,11 +62,11 @@
       <p>下面的例子中，<code>area</code> 元素创建了两个形状，每个图片一个。
       第一个形状的 <span data-x="dom anchor">DOM 锚点</span> 是第一个 <code>img</code> 元素，
       第二个形状的 <span data-x="dom anchor">DOM 锚点</span> 是第二个 <code>img</code> 元素。</p>
-      <pre>&lt;map id=wallmap>&lt;area alt="Enter Door" coords="10,10,100,200" href="door.html">&lt;/map>
+      <pre><code class="html" data-x="">&lt;map id=wallmap>&lt;area alt="Enter Door" coords="10,10,100,200" href="door.html">&lt;/map>
 ...
 &lt;img src="images/innerwall.jpeg" alt="There is a white wall here, with a door." usemap="#wallmap">
 ...
-&lt;img src="images/outerwall.jpeg" alt="There is a red wall here, with a door." usemap="#wallmap"></pre>
+&lt;img src="images/outerwall.jpeg" alt="There is a red wall here, with a door." usemap="#wallmap"></code></pre>
      </div>
 
    <tbody>
@@ -75,7 +82,7 @@
     <tr>
      <td headers="td-fa-3 th-fa-examples" colspan=2>
      <p class="example"><span data-x="expose a user interface to the user">
-     <code>video</code> 元素暴露给用户的 UI 控件</span>，
+     <code>video</code> 元素的 UI 控件</span>，
      <code data-x="attr-input-type-number">&lt;input type=number></code> 的旋钮控件的上下按钮，
      <code data-x="attr-input-type-range">&lt;input type=range multiple></code> 中的两个范围控件，
      <code>details</code> 元素的渲染结果中可以使用键盘输入使元素打开和关闭的部分。</p>
@@ -97,10 +104,10 @@
    <tbody>
     <tr>
      <th class="data-header" headers="th-fa-area" id="td-fa-5">
-     有 <span data-x="concept-document-bc">浏览上下文</span> 且不是 <span data-x="inert">不活动的</span>
-     <code>Document</code> 的 <span>viewport</span>
+     有非空 <span data-x="concept-document-bc">浏览上下文</span> 且不是 <span data-x="inert">不活动的</span>
+     <code>Document</code> 的 <span data-x="viewport">视口</span>
      <td headers="td-fa-5 th-fa-dom-rep">
-     为其创建 <span>viewport</span> 的 <code>Document</code>
+     为其创建 <span data-x="viewport">视口</span> 的 <code>Document</code>
     <tr>
      <td headers="td-fa-5 th-fa-examples" colspan=2>
      <p class="example"><code>iframe</code> 的内容</p>
@@ -108,14 +115,14 @@
    <tbody>
     <tr>
      <th class="data-header" headers="th-fa-area" id="td-fa-6">
-     任何其他元素或元素的部分，尤其是提高可访问性或更好地匹配平台惯例的那些元素
+     任何由用户代理确定的属于可聚焦区域的其他元素或元素的一部分，尤其是提高可访问性或更好地匹配平台惯例的那些元素
      <td headers="td-fa-6 th-fa-dom-rep">
      该元素本身
     <tr>
      <td headers="td-fa-6 th-fa-examples" colspan=2>
-     <p class="example">用户代理可以把所有列表项标志变成可聚焦的，这样用户可以更容易地在列表中导航。</p>
-     <p class="example">类似地，用户代理可以让所有有 <code
-     data-x="attr-title">title</code> 属性的元素可聚焦，这样就可以访问它们的提示信息了。</p>
+     <p class="example">用户代理可以把所有列表项标志变成 <span data-x="sequentially focusable">可顺序聚焦</span> 的，这样用户可以更容易地在列表中导航。</p>
+     <p class="example">类似地，用户代理可以让所有有 <code data-x="attr-title">title</code>
+     属性的元素<span data-x="sequentially focusable">可顺序聚焦</span>，这样就可以访问它们的提示信息了。</p>
 
   </table>
 
@@ -137,35 +144,24 @@
   被指定的具体是哪个控件会随时间变化，取决于本规范中的算法。
   如果 <code>Document</code> 没有 <span data-x="focusable area">可聚焦区域</span>，
   它就没有 <span data-x="focused area of the document">焦点区域</span>。</p>
-  <!-- TODO(kochi): update "in a document tree" for shadow trees -->
 
-  <p><code>Document</code> 中的 <span data-x="focusable area">可聚焦区域</span>
-  是相对于他们的 <span data-x="DOM anchor">DOM 锚点</span> 的 <span data-x="tree order">树序</span> 排列的。
-  <code>Document</code> 中有着同样 <span data-x="dom anchor">DOM 锚点</span> 的
-  <span data-x="focusable area">可获得焦点区域</span>
-  是按照它们相关的 CSS 盒子的相对位置的树序排列的，是盒子树的深度优先遍历。 <ref spec=CSS></p>
-
-  <hr>
-
-  <p>任意一刻 <dfn data-x="currently focused area of a top-level browsing context">顶级浏览上下文的当前焦点区域</dfn>
-  都是下列算法返回的 <span data-x="focusable area">可聚焦区域</span>：</p>
+  <p>任意一刻顶级浏览上下文 <var>topLevelBC</var> 的
+  <dfn data-x="currently focused area of a top-level browsing context">的当前焦点区域</dfn>，由以下算法返回：</p>
 
   <ol>
 
-   <li><p>Let <var>candidate</var> be the <code>Document</code> of the <span>top-level
-   browsing context</span>.</p></li>
+   <li><p>令 <var>candidate</var> 为 <var>topLevelBC</var> 的 <span data-x="active document">活动文档</span>。</p></li>
 
-   <li><p>If the designated <span>focused area of the document</span> is a <span>browsing context
-   container</span> with a non-null <span>nested browsing context</span>, then let
-   <var>candidate</var> be the <span>active document</span> of that <span>browsing context
-   container</span>'s <span>nested browsing context</span>, and redo this step.</p></li>
+   <li><p>只要 <var>candidate</var> 的 <span data-x="focused area of the document">活动区域</span> 为
+    有着非空 <span data-x="nested browsing context">嵌套浏览环境</span> 的 <span data-x="browsing context container">浏览环境容器</span> 时：
+    设置 <var>candidate</var> 为这个 <span data-x="browsing context container">浏览环境容器</span> 的 <span data-x="nested browsing context">嵌套浏览环境</span>
+    的 <span data-x="active document">活动文档</span>。</p></li>
 
-   <li><p>If <var>candidate</var> has a <span data-x="focused area of the document">focused
-   area</span>, set <var>candidate</var> to <var>candidate</var>'s <span data-x="focused area of
-   the document">focused area</span>.</p></li>
+   <li><p>如果 <var>candidate</var> 的 <span data-x="focused area of the document">聚焦区域</span> 非空，
+   设置 <var>candidate</var> 为 <var>candidate</var> 的 <span data-x="focused area of the document">聚焦区域</span>。</p></li>
+   <!-- Can it be null though? See https://github.com/whatwg/html/issues/5835. -->
 
    <li><p>返回 <var>candidate</var>。</p></li>
-
   </ol>
 
   <p>
@@ -193,28 +189,20 @@
    <li><p><i>Loop</i>：把 <var>current object</var> 添加到 <var>output</var>。</p></li>
 
    <li>
-
     <p>如果 <var>current object</var> 是一个 <code>area</code> 元素的形状，就把那个
     <code>area</code> 元素添加到 <var>output</var>。</p>
 
     <p>否则，如果 <var>current object</var> 是 <span data-x="focusable area">可聚焦区域</span> 元素，
     且它的 <span data-x="dom anchor">DOM 锚点</span> 不是 <var>current object</var> 自己，把那个
     <span data-x="dom anchor">DOM 锚点</span> 元素添加到 <var>output</var>。</p>
-
    </li>
 
-   <li>
-
-    <p>如果 <var>current object</var> 是一个
-    <span data-x="nested browsing context">嵌套浏览上下文</span> 中的
-    <code>Document</code>，令 <var>current object</var> 为它的
-    <span data-x="browsing context container">浏览上下文容器</span>，
-    并返回到标记为 <i>loop</i> 的步骤。</p>
-
-   </li>
+   <li><p>如果 <var>current object</var> 是一个 <span data-x="concept-document-bc">浏览上下文</span> 为
+   <span data-x="child browsing context">子浏览环境</span> 的 <code>Document</code>,
+   设置 <var>current object</var> 为 <var>current object</var> 的 <span
+   data-x="concept-document-bc">浏览环境</span> 的 <span data-x="bc-container">容器</span> 并返回到标签为 <i>loop</i> 的步骤。</p></li>
 
    <li>
-
     <p>返回 <var>output</var>。</p>
 
     <p class="note">这个链条从 <var>subject</var> 开始
@@ -228,6 +216,146 @@
 
   </ol>
 
+  <p>All elements that are <span data-x="focusable area">focusable areas</span> are said to be
+  <dfn>focusable</dfn>.</p>
+
+  <p>There are two special types of focusability for <span data-x="focusable area">focusable
+  areas</span>:</p>
+  <ul>
+   <li>
+    <p>A <span>focusable area</span> is said to be <dfn>sequentially focusable</dfn> if it is
+    included in its <code>Document</code>'s <span>sequential focus navigation order</span> and
+    the user agent determines that it is sequentially focusable.</p>
+   </li>
+   <li>
+    <p>A <span>focusable area</span> is said to be <dfn>click focusable</dfn> if the user agent
+    determines that it is click focusable. User agents should consider focusable areas with non-null
+    <span data-x="tabindex value">tabindex values</span> to be click focusable.</p>
+   </li>
+  </ul>
+
+  <p class="note">Elements which are not <span>focusable</span> are not <span data-x="focusable
+  area">focusable areas</span>, and thus not <span>sequentially focusable</span> and not <span>click
+  focusable</span>.</p>
+
+  <div class="note">
+   <p>Being <span>focusable</span> is a statement about whether an element can be focused
+   programmatically, e.g. via the <code data-x="dom-focus">focus()</code> method or <code
+   data-x="attr-fe-autofocus">autofocus</code> attribute. In contrast, <span>sequentially
+   focusable</span> and <span>click focusable</span> govern how the user agent responds to user
+   interaction: respectively, to <span>sequential focus navigation</span> and as <a
+   href="#focus-activation-behavior">activation behavior</a>.</p>
+
+   <p>The user agent might determine that an element is not <span>sequentially focusable</span> even
+   if it is <span>focusable</span> and is included in its <code>Document</code>'s <span>sequential
+   focus navigation order</span>, according to user preferences. For example, macOS users can set
+   the user agent to skip non-form control elements, or can skip links when doing <span>sequential
+   focus navigation</span> with just the <kbd>Tab</kbd> key (as opposed to using both the
+   <kbd>Option</kbd> and <kbd>Tab</kbd> keys).</p>
+
+   <p>Similarly, the user agent might determine that an element is not <span>click focusable</span>
+   even if it is <span>focusable</span>. For example, in some user agents, clicking on a
+   non-editable form control does not focus it, i.e. the user agent has determined that such
+   controls are not click focusable.</p>
+
+   <p>Thus, an element can be <span>focusable</span>, but neither <span>sequentially
+   focusable</span> nor <span>click focusable</span>. For example, in some user agents, a
+   non-editable form-control with a negative-integer <span>tabindex value</span> would not be
+   focusable via user interaction, only via programmatic APIs.</p>
   </div>
 
+  <p>When a user <a href="#activation">activates</a> a <span>click focusable</span> <span>focusable
+  area</span>, the user agent must run the <span>focusing steps</span> on the <span>focusable
+  area</span> with <var>focus trigger</var> set to "<code data-x="">click</code>".</p>
+
+  <p class="note">Note that focusing is not an <span>activation behavior</span>, i.e. calling the
+  <code data-x="dom-click">click()</code> method on an element or dispatching a synthetic <code
+  data-x="event-click">click</code> event on it won't cause the element to get focused.</p>
+
+  <hr>
+
+  <p>A node is a <dfn>focus navigation scope owner</dfn> if it is a <span>document</span>, a
+  <span>shadow host</span> or a <span>slot</span>.</p>
+
+  <p>Each <span>focus navigation scope owner</span> has a <dfn>focus navigation scope</dfn>, which
+  is a list of elements. Its contents are determined as follows:</p>
+
+  <p>Every element <var>element</var> has an <dfn>associated focus navigation owner</dfn>, which is
+  either null or a <span>focus navigation scope owner</span>. It is determined by the following
+  algorithm:</p>
+
+  <ol>
+   <li><p>If <var>element</var>'s parent is null, then return null.</p></li>
+
+   <li><p>If <var>element</var>'s parent is a <span>shadow host</span>, then return
+   <var>element</var>'s <span>assigned slot</span>.</p></li>
+
+   <li><p>If <var>element</var>'s parent is a <span>shadow root</span>, then return the parent's
+   <span data-x="concept-DocumentFragment-host">host</span>.</p></li>
+
+   <li><p>If <var>element</var>'s parent is the <span>document element</span>, then return the
+   parent's <span>node document</span>.</p></li>
+
+   <li><p>Return <var>element</var>'s parent's <span>associated focus navigation owner</span>.</p></li>
+  </ol>
+
+  <p>Then, the contents of a given <span>focus navigation scope owner</span> <var>owner</var>'s
+  <span>focus navigation scope</span> are all elements whose <span>associated focus navigation
+  owner</span> is <var>owner</var>.</p>
+
+  <p class="note">The order of elements within a <span>focus navigation scope</span> does not impact
+  any of the algorithms in this specification. Ordering only becomes important for the
+  <span>tabindex-ordered focus navigation scope</span> and <span>flattened tabindex-ordered focus
+  navigation scope</span> concepts defined below.</p>
+
+  <p>A <dfn>tabindex-ordered focus navigation scope</dfn> is a list of <span data-x="focusable
+  area">focusable areas</span> and <span data-x="focus navigation scope owner">focus navigation
+  scope owners</span>. Every <span>focus navigation scope owner</span> <var>owner</var> has
+  <span>tabindex-ordered focus navigation scope</span>, whose contents are determined as
+  follows:</p>
+
+  <ul>
+   <li><p>It contains all elements in <var>owner</var>'s <span>focus navigation scope</span> that
+   are themselves <span data-x="focus navigation scope owner">focus navigation scope owners</span>,
+   except the elements whose <span>tabindex value</span> is a negative integer.</p></li>
+
+   <li><p>It contains all of the <span data-x="focusable area">focusable areas</span> whose
+   <span>DOM anchor</span> is an element in <var>owner</var>'s <span>focus navigation scope</span>,
+   except the <span data-x="focusable area">focusable areas</span> whose <span>tabindex value</span>
+   is a negative integer.</p></li>
+  </ul>
+
+  <p>The order within a <span>tabindex-ordered focus navigation scope</span> is determined by each
+  element's <span>tabindex value</span>, as described in the section below.</p>
+
+  <p class="note">The rules there do not give a precise ordering, as they are composed mostly of
+  "<!--non-normative-->should" statements and relative orderings.</p>
+
+  <p>A <dfn>flattened tabindex-ordered focus navigation scope</dfn> is a list of <span
+  data-x="focusable area">focusable areas</span>. Every <span>focus navigation scope owner</span>
+  <var>owner</var> owns a distinct <span>flattened tabindex-ordered focus navigation scope</span>,
+  whose contents are determined by the following algorithm:</p>
+
+  <ol>
+   <li><p>Let <var>result</var> be a <span data-x="list clone">clone</span> of <var>owner</var>'s
+   <span>tabindex-ordered focus navigation scope</span>.</p></li>
+
+   <li>
+    <p>For each <var>item</var> of <var>result</var>:</p>
+
+    <ol>
+     <li><p>If <var>item</var> is not a <span>focus navigation scope owner</span>, then
+     <span>continue</span>.</p></li>
+
+     <li><p>If <var>item</var> is not a <span>focusable area</span>, then replace <var>item</var>
+     with all of the items in <var>item</var>'s <span>flattened tabindex-ordered focus navigation
+     scope</span>.</p></li>
+
+     <li><p>Otherwise, insert the contents of <var>item</var>'s <span>flattened tabindex-ordered
+     focus navigation scope</span> after <var>item</var>.</p></li>
+    </ol>
+   </li>
+  </ol>
+
+  </div>
 

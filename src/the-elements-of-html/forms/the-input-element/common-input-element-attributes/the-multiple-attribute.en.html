@@ -1,20 +1,20 @@
   <h6>The <code data-x="attr-input-multiple">multiple</code> attribute</h6>
 
-  <p>The <dfn><code data-x="attr-input-multiple">multiple</code></dfn> attribute is a <span>boolean
-  attribute</span> that indicates whether the user is to be allowed to specify more than one
-  value.</p>
+  <p>The <dfn element-attr for="input"><code data-x="attr-input-multiple">multiple</code></dfn>
+  attribute is a <span>boolean attribute</span> that indicates whether the user is to be allowed to
+  specify more than one value.</p>
 
   <div class="example">
 
-   <p>The following extract shows how an e-mail client's "To" field could accept multiple e-mail
+   <p>The following extract shows how an email client's "To" field could accept multiple email
    addresses.</p>
 
-   <pre><code class="html" data-x="">&lt;label>To: &lt;input type=email multiple name=to>&lt;/label></code></pre>
+   <pre><code class="html">&lt;label>To: &lt;input type=email multiple name=to>&lt;/label></code></pre>
 
    <p>If the user had, amongst many friends in their user contacts database, two friends
    "Spider-Man" (with address "spider@parker.example.net") and "Scarlet Witch" (with address
    "scarlet@avengers.example.net"), then, after the user has typed "<kbd>s</kbd>", the user agent
-   might suggest these two e-mail addresses to the user.</p>
+   might suggest these two email addresses to the user.</p>
 
    <!-- Having alternative text in the following image would be bogus and non-conforming use of
    HTML, since the image is redundant with the previous paragraph. In particular, just describing
@@ -24,7 +24,7 @@
 
    <p>The page could also link in the user's contacts database from the site:</p>
 
-   <pre><code class="html" data-x="">&lt;label>To: &lt;input type=email multiple name=to list=contacts>&lt;/label>
+   <pre><code class="html">&lt;label>To: &lt;input type=email multiple name=to list=contacts>&lt;/label>
 ...
 &lt;datalist id="contacts">
  &lt;option value="hedral@damowmow.com">
@@ -34,7 +34,7 @@
 &lt;/datalist></code></pre>
 
    <p>Suppose the user had entered "<kbd>bob@example.net</kbd>" into this text control, and then
-   started typing a second e-mail address starting with "<kbd>s</kbd>". The user agent might show
+   started typing a second email address starting with "<kbd>s</kbd>". The user agent might show
    both the two friends mentioned earlier, as well as the "astrophy" and "astronomy" values given in
    the <code>datalist</code> element.</p>
 
@@ -47,10 +47,10 @@
 
   <div class="example">
 
-   <p>The following extract shows how an e-mail client's "Attachments" field could accept multiple
+   <p>The following extract shows how an email client's "Attachments" field could accept multiple
    files for upload.</p>
 
-   <pre><code class="html" data-x="">&lt;label>Attachments: &lt;input type=file multiple name=att>&lt;/label></code></pre>
+   <pre><code class="html">&lt;label>Attachments: &lt;input type=file multiple name=att>&lt;/label></code></pre>
 
   </div>
 

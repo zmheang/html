@@ -1,4 +1,5 @@
-  <h4 data-dfn-type="element" data-lt="script" id="the-script-element">The <dfn id="script"><code>script</code></dfn> element</h4>
+  <h4 element data-lt="script" id="the-script-element">The <dfn
+  id="script"><code>script</code></dfn> element</h4>
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
@@ -29,11 +30,16 @@
    <dd><code data-x="attr-script-crossorigin">crossorigin</code></dd>
    <dd><code data-x="attr-script-integrity">integrity</code></dd>
    <dd><code data-x="attr-script-referrerpolicy">referrerpolicy</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-script">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-script">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-script-src">src</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-script-type">type</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-script-noModule">noModule</span>;
@@ -44,6 +50,7 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-script-integrity">integrity</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-script-referrerPolicy">referrerPolicy</span>;
 
+  // <a href="#HTMLScriptElement-partial">also has obsolete members</a>
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLScriptElement</code>.</dd>
@@ -53,8 +60,8 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   their documents. The element does not <span data-x="represents">represent</span> content for the
   user.</p>
 
-  <p>The <dfn><code data-x="attr-script-type">type</code></dfn> attribute allows customization of
-  the type of script represented:</p>
+  <p>The <dfn element-attr for="script"><code data-x="attr-script-type">type</code></dfn> attribute
+  allows customization of the type of script represented:</p>
 
   <ul>
     <li><p>Omitting the attribute, setting it to the empty string, or setting it to a
@@ -83,23 +90,22 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   <p class="note">The requirement that <span data-x="data block">data blocks</span>
   <!--non-normative-->must be denoted using a <span>valid MIME type string</span> is in place to
   avoid potential future collisions. If this specification ever adds additional types of
-  <span>script</span>, they will be triggered by setting the <code
+  <span data-x="concept-script">script</span>, they will be triggered by setting the <code
   data-x="attr-script-type">type</code> attribute to something which is not a MIME type, like how
   the "<code data-x="">module</code>" value denotes <span data-x="module script">module
   scripts</span>. By using a valid MIME type string now, you ensure that your data block will not
  ever be reinterpreted as a different script type, even in future user agents.</p>
 
   <p><span data-x="classic script">Classic scripts</span> and <span data-x="module script">module
-  scripts</span> may either be embedded inline or may be imported from an external file using the
-  <dfn data-export="" data-dfn-for="script" data-dfn-type="element-attr"><code
-  data-x="attr-script-src">src</code></dfn> attribute, which if specified gives the <span>URL</span>
-  of the external script resource to use. If <code data-x="attr-script-src">src</code> is specified,
-  it must be a <span>valid non-empty URL potentially surrounded by spaces</span>. The contents of
-  inline <code>script</code> elements, or the external script resource, must conform with the
-  requirements of the JavaScript specification's <i data-x="js-prod-Script">Script</i> or <i
-  data-x="js-prod-Module">Module</i> productions, for <span data-x="classic script">classic
-  scripts</span> and <span data-x="module script">module scripts</span> respectively. <ref
-  spec="JAVASCRIPT"></p>
+  scripts</span> can be embedded inline, or be imported from an external file using the <dfn
+  for="script" element-attr><code data-x="attr-script-src">src</code></dfn> attribute, which if
+  specified gives the <span>URL</span> of the external script resource to use. If <code
+  data-x="attr-script-src">src</code> is specified, it must be a <span>valid non-empty URL
+  potentially surrounded by spaces</span>. The contents of inline <code>script</code> elements, or
+  the external script resource, must conform with the requirements of the JavaScript specification's
+  <i data-x="js-prod-Script">Script</i> or <i data-x="js-prod-Module">Module</i> productions, for
+  <span data-x="classic script">classic scripts</span> and <span data-x="module script">module
+  scripts</span> respectively. <ref spec="JAVASCRIPT"></p>
 
   <p>When used to include <span data-x="data block">data blocks</span>, the data must be embedded
   inline, the format of the data must be given using the <code data-x="attr-script-type">type</code>
@@ -111,17 +117,17 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   data-x="attr-script-integrity">integrity</code>, and <code
   data-x="attr-script-referrerpolicy">referrerpolicy</code> attributes must not be specified.</p>
 
-  <p>The <dfn><code data-x="attr-script-nomodule">nomodule</code></dfn> attribute is a <span>boolean
-  attribute</span> that prevents a script from being executed in user agents that support
-  <span data-x="module script">module scripts</span>. This allows selective execution of <span
-  data-x="module script">module scripts</span> in modern user agents and <span data-x="classic
-  script">classic scripts</span> in older user agents, <a href="#script-nomodule-example">as shown
-  below</a>. The <code data-x="attr-script-nomodule">nomodule</code> attribute must not be
-  specified on <span data-x="module script">module scripts</span> (and will be ignored if it
-  is).</p>
+  <p>The <dfn element-attr for="script"><code data-x="attr-script-nomodule">nomodule</code></dfn>
+  attribute is a <span>boolean attribute</span> that prevents a script from being executed in user
+  agents that support <span data-x="module script">module scripts</span>. This allows selective
+  execution of <span data-x="module script">module scripts</span> in modern user agents and <span
+  data-x="classic script">classic scripts</span> in older user agents, <a
+  href="#script-nomodule-example">as shown below</a>. The <code
+  data-x="attr-script-nomodule">nomodule</code> attribute must not be specified on <span
+  data-x="module script">module scripts</span> (and will be ignored if it is).</p>
 
-  <p>The <dfn><code data-x="attr-script-async">async</code></dfn> and <dfn><code
-  data-x="attr-script-defer">defer</code></dfn> attributes are <span data-x="boolean
+  <p>The <dfn element-attr for="script"><code data-x="attr-script-async">async</code></dfn> and
+  <dfn><code data-x="attr-script-defer">defer</code></dfn> attributes are <span data-x="boolean
   attribute">boolean attributes</span> that indicate how the script should be evaluated. <span
   data-x="classic script">Classic scripts</span> may specify <code
   data-x="attr-script-defer">defer</code> or <code data-x="attr-script-async">async</code>, but must
@@ -165,15 +171,16 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   href="#scripting">scripting</a>, etc.</p>
 
   <p>The <code data-x="attr-script-defer">defer</code> attribute may be specified even if the <code
-  data-x="attr-script-async">async</code> attribute is specified, to cause legacy Web browsers that
+  data-x="attr-script-async">async</code> attribute is specified, to cause legacy web browsers that
   only support <code data-x="attr-script-defer">defer</code> (and not <code
   data-x="attr-script-async">async</code>) to fall back to the <code
   data-x="attr-script-defer">defer</code> behavior instead of the blocking behavior that
   is the default.</p>
 
-  <p>The <dfn><code data-x="attr-script-crossorigin">crossorigin</code></dfn> attribute is a
-  <span>CORS settings attribute</span>. For <span data-x="classic script">classic scripts</span>,
-  it controls whether error information will be exposed, when the script is obtained from other <span
+  <p>The <dfn element-attr for="script"><code
+  data-x="attr-script-crossorigin">crossorigin</code></dfn> attribute is a <span>CORS settings
+  attribute</span>. For <span data-x="classic script">classic scripts</span>, it controls whether
+  error information will be exposed, when the script is obtained from other <span
   data-x="origin">origins</span>. For <span data-x="module script">module scripts</span>, it
   controls the <span data-x="concept-request-credentials-mode">credentials mode</span> used for
   cross-origin requests.</p>
@@ -182,25 +189,24 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   data-x="module script">module scripts</span> require the use of the <span
   data-x="CORS protocol">CORS protocol</span> for cross-origin fetching.</p>
 
-  <p>The <dfn data-export="" data-dfn-for="script" data-dfn-type="element-attr"><code
-  data-x="attr-script-integrity">integrity</code></dfn> attribute represents the <span
-  data-x="concept-request-integrity-metadata">integrity metadata</span> for requests which this
-  element is responsible for. The value is text. The <code
-  data-x="attr-script-integrity">integrity</code> attribute must not be specified when embedding a
-  <span>module script</span> or when the <code data-x="attr-script-src">src</code> attribute is not
-  specified. <ref spec="SRI"></p>
+  <p>The <dfn for="script" element-attr><code data-x="attr-script-integrity">integrity</code></dfn>
+  attribute represents the <span data-x="concept-request-integrity-metadata">integrity
+  metadata</span> for requests which this element is responsible for. The value is text. The <code
+  data-x="attr-script-integrity">integrity</code> attribute must not be specified when the <code
+  data-x="attr-script-src">src</code> attribute is not specified. <ref spec=SRI></p>
 
-  <p>The <dfn><code data-x="attr-script-referrerpolicy">referrerpolicy</code></dfn> attribute is a
-  <span>referrer policy attribute</span>. Its purpose is to set the <span>referrer policy</span>
-  used when <span data-x="concept-fetch">fetching</span> the script, as well as any scripts imported
-  from it. <ref spec=REFERRERPOLICY></p>
+  <p>The <dfn element-attr for="script"><code
+  data-x="attr-script-referrerpolicy">referrerpolicy</code></dfn> attribute is a <span>referrer
+  policy attribute</span>. Its purpose is to set the <span>referrer policy</span> used when <span
+  data-x="concept-fetch">fetching</span> the script, as well as any scripts imported from it. <ref
+  spec=REFERRERPOLICY></p>
 
   <div class="example">
-   <p>An example of a &lt;script>'s referrer policy being used when fetching imported scripts but
-   not other subresources.</p>
+   <p>An example of a <code>script</code> element's referrer policy being used when fetching
+   imported scripts but not other subresources:</p>
 
-   <pre><code class="html" data-x="">&lt;script src="main.js" referrerpolicy="origin">
-  fetch('/api/data');   // not fetched with &lt;script>'s referrer policy
+   <pre><code class="html">&lt;script referrerpolicy="origin">
+  fetch('/api/data');    // not fetched with &lt;script>'s referrer policy
   import('./utils.mjs'); // is fetched with &lt;script>'s referrer policy ("origin" in this case)
 &lt;/script></code></pre>
   </div>
@@ -216,9 +222,9 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
 
   <div w-nodev>
 
-  <p>The IDL attributes <dfn><code data-x="dom-script-src">src</code></dfn>, <dfn><code
-  data-x="dom-script-type">type</code></dfn>, <dfn><code
-  data-x="dom-script-defer">defer</code></dfn>, and <dfn><code
+  <p>The IDL attributes <dfn attribute for="HTMLScriptElement"><code
+  data-x="dom-script-src">src</code></dfn>, <dfn><code data-x="dom-script-type">type</code></dfn>,
+  <dfn><code data-x="dom-script-defer">defer</code></dfn>, and <dfn><code
   data-x="dom-script-integrity">integrity</code></dfn>, must each <span>reflect</span> the
   respective content attributes of the same name.</p>
 
@@ -234,14 +240,15 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
   <span>reflect</span> the <code data-x="attr-script-nomodule">nomodule</code> content
   attribute.</p>
 
-  <p>The <dfn><code data-x="dom-script-async">async</code></dfn> IDL attribute controls whether the
-  element will execute asynchronously or not. If the element's <span>"non-blocking"</span> flag is
-  set, then, on getting, the <code data-x="dom-script-async">async</code> IDL attribute must return
-  true, and on setting, the <span>"non-blocking"</span> flag must first be unset, and then the
-  content attribute must be removed if the IDL attribute's new value is false, and must be set to
-  the empty string if the IDL attribute's new value is true. If the element's
-  <span>"non-blocking"</span> flag is <em>not</em> set, the IDL attribute must <span>reflect</span>
-  the <code data-x="attr-script-async">async</code> content attribute.</p>
+  <p>The <dfn attribute for="HTMLScriptElement"><code data-x="dom-script-async">async</code></dfn>
+  IDL attribute controls whether the element will execute asynchronously or not. If the element's
+  <span>"non-blocking"</span> flag is set, then, on getting, the <code
+  data-x="dom-script-async">async</code> IDL attribute must return true, and on setting, the
+  <span>"non-blocking"</span> flag must first be unset, and then the content attribute must be
+  removed if the IDL attribute's new value is false, and must be set to the empty string if the IDL
+  attribute's new value is true. If the element's <span>"non-blocking"</span> flag is <em>not</em>
+  set, the IDL attribute must <span>reflect</span> the <code data-x="attr-script-async">async</code>
+  content attribute.</p>
 
   </div>
 
@@ -250,20 +257,20 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
    <dt><var>script</var> . <code subdfn data-x="dom-script-text">text</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the <span>child text content</span> of the element.</p>
 
     <p>Can be set, to replace the element's children with the given value.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The IDL attribute <dfn><code data-x="dom-script-text">text</code></dfn> must return the
-  <span>child text content</span> of the <code>script</code> element. On setting, it must act the
-  same way as the <code>textContent</code> IDL attribute.</p>
+  <p>The <dfn attribute for="HTMLScriptElement"><code data-x="dom-script-text">text</code></dfn>
+  attribute's getter must return this <code>script</code> element's <span>child text
+  content</span>.</p>
+
+  <p>The <code data-x="dom-script-text">text</code> attribute's setter must <span>string replace
+  all</span> with the given value within this <code>script</code> element.</p>
 
   </div>
 
@@ -278,7 +285,7 @@ interface <dfn>HTMLScriptElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, two <code>script</code> elements are used. One embeds an external
    <span>classic script</span>, and the other includes some data as a <span>data block</span>.</p>
 
-   <pre><code class="html" data-x="">&lt;script src="game-engine.js">&lt;/script>
+   <pre><code class="html">&lt;script src="game-engine.js">&lt;/script>
 &lt;script type="text/x-game-map">
 ........U.........e
 o............A....e
@@ -300,7 +307,7 @@ o............A....e
    also shows how a <code>script</code> element can be used to invoke script while the document is
    being parsed, in this case to initialize the form's output.</p>
 
-   <pre><code class="html" data-x="">&lt;script>
+   <pre><code class="html">&lt;script>
  function calculate(form) {
    var price = 52000;
    if (form.elements.brakes.checked)
@@ -339,7 +346,7 @@ o............A....e
    <p>The following sample shows how a <code>script</code> element can be used to include an
    external <span>module script</span>.
 
-   <pre><code class="html" data-x="">&lt;script type="module" src="app.mjs">&lt;/script></code></pre>
+   <pre><code class="html">&lt;script type="module" src="app.mjs">&lt;/script></code></pre>
 
    <p>This module, and all its dependencies (expressed through JavaScript <code
    data-x="">import</code> statements in the source file), will be fetched. Once the entire
@@ -358,8 +365,8 @@ o............A....e
   <p>This example shows how to include a <span>module script</span> for modern user agents, and a
   <span>classic script</span> for older user agents:</p>
 
-  <pre><code class="html" data-x="">&lt;script type="module" src="app.mjs">&lt;/script>
-&lt;script nomodule src="classic-app-bundle.mjs">&lt;/script></code></pre>
+  <pre><code class="html">&lt;script type="module" src="app.mjs">&lt;/script>
+&lt;script nomodule defer src="classic-app-bundle.js">&lt;/script></code></pre>
 
   <p>In modern user agents that support <span data-x="module script">module scripts</span>, the
   <code>script</code> element with the <code data-x="attr-script-nomodule">nomodule</code> attribute
@@ -381,7 +388,7 @@ o............A....e
    order to make for a more interesting reading experience (e.g. on a news site): <ref
    spec="XKCD1288"></p>
 
-   <pre><code class="html" data-x="">&lt;script type="module">
+   <pre><code class="html">&lt;script type="module">
  import { walkAllTextNodeDescendants } from "./dom-utils.mjs";
 
  const substitutions = new Map([

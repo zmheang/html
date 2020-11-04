@@ -16,25 +16,27 @@
 
      <li><p>Let <var>value</var> be undefined.</p></li>
 
+     <li><p>If <var>maxProperties</var> is greater than 0 and <var>index</var> is less than
+     <var>maxProperties</var>, then set <var>value</var> to the <code>WindowProxy</code> object of
+     the <var>index</var>th <span>document-tree child browsing context</span> of <var>W</var>'s
+     <span data-x="window bc">browsing context</span>, sorted in the order that their <span
+     data-x="browsing context container">browsing context container</span> elements were most
+     recently inserted into <var>W</var>'s <span data-x="concept-document-window">associated
+     <code>Document</code></span>, the <code>WindowProxy</code> object of the most recently inserted
+     <span>browsing context container</span>'s <span>nested browsing context</span> being
+     last.</p></li>
+     <!-- sort order: https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2860 -->
+
      <li>
-      <p>If <var>maxProperties</var> is greater than 0 and <var>index</var> is less than
-      <var>maxProperties</var>, then:</p>
+      <p>If <var>value</var> is undefined, then:</p>
 
       <ol>
-       <li><p>Let <var>document</var> be <var>W</var>'s <span
-       data-x="concept-document-window">associated <code>Document</code></span>.</p></li>
+       <li><p>If ! <span>IsPlatformObjectSameOrigin</span>(<var>W</var>) is true, then return
+       undefined.</p></li>
 
-       <li><p>Set <var>value</var> to the <code>WindowProxy</code> object of the <var>index</var>th
-       <span>document-tree child browsing context</span> of <var>document</var>'s <span
-       data-x="concept-document-bc">browsing context</span>, sorted in the order
-       that their <span data-x="browsing context container">browsing context container</span>
-       elements were most recently inserted into <var>document</var>, the
-       <code>WindowProxy</code> object of the most recently inserted <span>browsing context
-       container</span>'s <span>nested browsing context</span> being last.</p></li>
-       <!-- sort order: https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2860 -->
+       <li><p>Throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
       </ol>
-
-     <li><p>If <var>value</var> is undefined, then return undefined.</p></li>
+     </li>
 
      <li><p>Return <span>PropertyDescriptor</span>{
      [[Value]]: <var>value</var>,
@@ -50,7 +52,7 @@
 
     <p class="note">This is a <span>willful violation</span> of the JavaScript specification's
     <span>invariants of the essential internal methods</span> to maintain compatibility with
-    existing Web content. See <a href="https://github.com/tc39/ecma262/issues/672">tc39/ecma262
+    existing web content. See <a href="https://github.com/tc39/ecma262/issues/672">tc39/ecma262
     issue #672</a> for more information. <ref spec=JAVASCRIPT></p>
    </li>
 
@@ -64,8 +66,9 @@
     child browsing context name property set</span>, then:</p>
 
     <ol>
-     <li><p>Let <var>value</var> be the <code>WindowProxy</code> object of the
-     <span data-x="dom-window-nameditem-filter">named object</span> with the name <var>P</var>.
+     <li><p>Let <var>value</var> be the <code>WindowProxy</code> object of the <span
+     data-x="dom-window-nameditem-filter">named object</span> of <var>W</var> with the name
+     <var>P</var>.
 
      <li>
       <p>Return <span>PropertyDescriptor</span>{
@@ -75,11 +78,11 @@
       [[Configurable]]: true }.</p>
 
       <p class="note">The reason the property descriptors are non-enumerable, despite this
-      mismatching the same-origin behavior, is for compatibility with existing Web content. See <a
+      mismatching the same-origin behavior, is for compatibility with existing web content. See <a
       href="https://github.com/whatwg/html/issues/3183">issue #3183</a> for details.</p>
      </li>
     </ol>
 
-   <li><p>Throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>Return ? <span>CrossOriginPropertyFallback</span>(<var>P</var>).</p></li>
   </ol>
 

@@ -9,40 +9,30 @@
    <li>One or both of the following, in the given order:
 
     <ol>
-
      <li>A series of one or more <span>ASCII digits</span>.</li>
 
      <li>Both of the following, in the given order:
 
       <ol>
-
        <li>A single U+002E FULL STOP character (.).</li>
 
        <li>A series of one or more <span>ASCII digits</span>.</li>
-
       </ol>
-
      </li>
-
     </ol>
-
    </li>
 
    <li>Optionally:
 
     <ol>
-
      <li>Either a U+0065 LATIN SMALL LETTER E character (e) or a U+0045 LATIN CAPITAL LETTER E
      character (E).</li>
 
      <li>Optionally, a U+002D HYPHEN-MINUS character (-) or U+002B PLUS SIGN character (+).</li>
 
      <li>A series of one or more <span>ASCII digits</span>.</li>
-
     </ol>
-
    </li>
-
   </ol>
 
   <p>A <span>valid floating-point number</span> represents the number obtained by multiplying the
@@ -77,12 +67,11 @@
   return the same string for that value (though it may differ from the value used by other user
   agents).</p>
 
-  <p>The <dfn data-export="">rules for parsing floating-point number values</dfn> are as given in
-  the following algorithm. This algorithm must be aborted at the first step that returns something.
+  <p>The <dfn export>rules for parsing floating-point number values</dfn> are as given in the
+  following algorithm. This algorithm must be aborted at the first step that returns something.
   This algorithm will return either a number or an error.</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the string being parsed.</p></li>
 
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially pointing at the
@@ -100,31 +89,25 @@
    <li><p>If <var>position</var> is past the end of <var>input</var>, return an error.</p></li>
 
    <li>
-
     <p>If the character indicated by <var>position</var> is a U+002D HYPHEN-MINUS character (-):</p>
 
     <ol>
-
      <li>Change <var>value</var> and <var>divisor</var> to &#x2212;1.</li>
 
      <li>Advance <var>position</var> to the next character.</li>
 
      <li>If <var>position</var> is past the end of <var>input</var>, return an error.</li>
-
     </ol>
 
     <p>Otherwise, if the character indicated by <var>position</var> (the first character) is a
     U+002B PLUS SIGN character (+):</p>
 
     <ol>
-
      <li>Advance <var>position</var> to the next character. (The "<code data-x="">+</code>"
      is ignored, but it is not conforming.)</li>
 
      <li>If <var>position</var> is past the end of <var>input</var>, return an error.</li>
-
     </ol>
-
    </li>
 
    <li><p>If the character indicated by <var>position</var> is a U+002E FULL STOP (.), and that is
@@ -147,7 +130,6 @@
    FULL STOP (.), run these substeps:</p>
 
     <ol>
-
      <li><p>Advance <var>position</var> to the next character.</p></li>
 
      <li><p>If <var>position</var> is past the end of <var>input</var>, or if the character
@@ -172,48 +154,39 @@
      <li><p>If the character indicated by <var>position</var> is an <span data-x="ASCII
      digits">ASCII digit</span>, jump back to the step labeled <i>fraction loop</i> in these
      substeps.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>If the character indicated by <var>position</var> is U+0065 (e) or a U+0045 (E), then:</p>
 
     <ol>
-
      <li><p>Advance <var>position</var> to the next character.</p></li>
 
      <li><p>If <var>position</var> is past the end of <var>input</var>, then jump to the step
      labeled <i>conversion</i>.</li>
 
      <li>
-
       <p>If the character indicated by <var>position</var> is a U+002D HYPHEN-MINUS character
       (-):</p>
 
       <ol>
-
        <li>Change <var>exponent</var> to &#x2212;1.</li>
 
        <li>Advance <var>position</var> to the next character.</li>
 
        <li><p>If <var>position</var> is past the end of <var>input</var>, then jump to the step
        labeled <i>conversion</i>.</li>
-
       </ol>
 
       <p>Otherwise, if the character indicated by <var>position</var> is a U+002B PLUS SIGN
       character (+):</p>
 
       <ol>
-
        <li>Advance <var>position</var> to the next character.</li>
 
        <li><p>If <var>position</var> is past the end of <var>input</var>, then jump to the step
        labeled <i>conversion</i>.</li>
-
       </ol>
-
      </li>
 
      <li><p>If the character indicated by <var>position</var> is not an <span data-x="ASCII
@@ -224,9 +197,7 @@
      integer. Multiply <var>exponent</var> by that integer.</p></li>
 
      <li><p>Multiply <var>value</var> by ten raised to the <var>exponent</var>th power.</p></li>
-
     </ol>
-
    </li>
 
    <li><p><i>Conversion</i>: Let <var>S</var> be the set of finite IEEE 754 double-precision
@@ -240,7 +211,6 @@
    <li><p>If <var>rounded-value</var> is 2<sup>1024</sup> or &#x2212;2<sup>1024</sup>, return an error.</p></li>
 
    <li><p>Return <var>rounded-value</var>.</p></li>
-
   </ol>
 
   </div>

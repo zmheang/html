@@ -1,4 +1,4 @@
-  <h4 data-dfn-type="element" data-lt="link">The <dfn><code>link</code></dfn> element</h4>
+  <h4 element data-lt="link">The <dfn><code>link</code></dfn> element</h4>
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
@@ -22,14 +22,22 @@
    <dd><code data-x="attr-link-type">type</code></dd>
    <dd><code data-x="attr-link-referrerpolicy">referrerpolicy</code></dd>
    <dd><code data-x="attr-link-sizes">sizes</code></dd>
+   <dd><code data-x="attr-link-imagesrcset">imagesrcset</code></dd>
+   <dd><code data-x="attr-link-imagesizes">imagesizes</code></dd>
    <dd><code data-x="attr-link-as">as</code></dd>
    <dd><code data-x="attr-link-color">color</code></dd>
+   <dd><code data-x="attr-link-disabled">disabled</code></dd>
    <dd>Also, the <code data-x="attr-link-title">title</code> attribute <span data-x="attr-link-title">has special semantics</span> on this element.</dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-link">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-link">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-href">href</span>;
   [<span>CEReactions</span>] attribute DOMString? <span data-x="dom-link-crossOrigin">crossOrigin</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-rel">rel</span>;
@@ -40,7 +48,12 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-hreflang">hreflang</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-type">type</span>;
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-link-sizes">sizes</span>;
+  [<span>CEReactions</span>] attribute USVString <span data-x="dom-link-imageSrcset">imageSrcset</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-imageSizes">imageSizes</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-referrerPolicy">referrerPolicy</span>;
+  [<span>CEReactions</span>] attribute boolean <span data-x="dom-link-disabled">disabled</span>;
+
+  // <a href="#HTMLLinkElement-partial">also has obsolete members</a>
 };
 <span>HTMLLinkElement</span> includes <span>LinkStyle</span>;</code></pre>
    </dd>
@@ -49,20 +62,24 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <p>The <code>link</code> element allows authors to link their document to other resources.</p>
 
-  <p>The destination of the link(s) is given by the <dfn><code
-  data-x="attr-link-href">href</code></dfn> attribute, which must be present and must contain a
-  <span>valid non-empty URL potentially surrounded by spaces</span>. <span w-nodev>If the <code
-  data-x="attr-link-href">href</code> attribute is absent, then the element does not define a
-  link.</span></p>
+  <p>The address of the link(s) is given by the <dfn><code data-x="attr-link-href">href</code></dfn>
+  attribute. If the <code data-x="attr-link-href">href</code> attribute is present, then its value
+  must be a <span>valid non-empty URL potentially surrounded by spaces</span>. One or both of the
+  <code data-x="attr-link-href">href</code> or <code
+  data-x="attr-link-imagesrcset">imagesrcset</code> attributes must be present.</p>
 
-  <p>The <dfn><code data-x="attr-link-crossorigin">crossorigin</code></dfn> attribute is a
-  <span>CORS settings attribute</span>. It is intended for use with <span data-x="external resource
-  link">external resource links</span>.</p>
+  <p w-nodev>If both the <code data-x="attr-link-href">href</code> and <code
+  data-x="attr-link-imagesrcset">imagesrcset</code> attributes are absent, then the element does not
+  define a link.</p>
+
+  <p>The <dfn element-attr for="link"><code data-x="attr-link-crossorigin">crossorigin</code></dfn>
+  attribute is a <span>CORS settings attribute</span>. It is intended for use with <span
+  data-x="external resource link">external resource links</span>.</p>
 
   <p>The types of link indicated (the relationships) are given by the value of the <dfn><code
   data-x="attr-link-rel">rel</code></dfn> attribute, which, if present, must have a value that is a
-  <span>set of space-separated tokens</span>. The <a href="#linkTypes">allowed keywords and their
-  meanings</a> are defined in a later section. <span w-nodev>If the <code
+  <span>unordered set of unique space-separated tokens</span>. The <a href="#linkTypes">allowed
+  keywords and their meanings</a> are defined in a later section. <span w-nodev>If the <code
   data-x="attr-link-rel">rel</code> attribute is absent, has no keywords, or if none of the keywords
   used are allowed according to the definitions in this specification, then the element does not
   create any links.</span></p>
@@ -77,6 +94,7 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <code data-x="rel-alternate">alternate</code>,
   <code data-x="rel-dns-prefetch">dns-prefetch</code>,
   <code data-x="rel-icon">icon</code>,
+  <code data-x="rel-manifest">manifest</code>,
   <code data-x="rel-modulepreload">modulepreload</code>,
   <code data-x="rel-next">next</code>,
   <code data-x="rel-pingback">pingback</code>,
@@ -114,7 +132,7 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   the microdata model.</p>
 
   <p>Two categories of links can be created using the <code>link</code> element: <span
-  data-x="external resource link">Links to external resources</span> and <span
+  data-x="external resource link">links to external resources</span> and <span
   data-x="hyperlink">hyperlinks</span>. The <a href="#linkTypes">link types section</a> defines
   whether a particular link type is an external resource or a hyperlink. One <code>link</code>
   element can create multiple links (of which some might be <span data-x="external resource
@@ -135,16 +153,14 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   differently.</p>
 
   <div class="example">
-
    <p>For example, the following <code>link</code> element creates two <span
    data-x="hyperlink">hyperlinks</span> (to the same page):</p>
 
-   <pre><code class="html" data-x="">&lt;link rel="author license" href="/about"></code></pre>
+   <pre><code class="html">&lt;link rel="author license" href="/about"></code></pre>
 
    <p>The two links created by this element are one whose semantic is that the target page has
    information about the current page's author, and one whose semantic is that the target page has
    information regarding the license under which the current page is provided.</p>
-
   </div>
 
   <p class="note"><span data-x="hyperlink">Hyperlinks</span> created with the <code>link</code>
@@ -157,38 +173,41 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   depends on the exact relationship, as defined for the relevant <a href="#linkTypes">link
   type</a>.</p>
 
-  <p>The <dfn><code data-x="attr-link-media">media</code></dfn> attribute says which media the
-  resource applies to. The value must be a <span>valid media query list</span>.</p>
+  <p>The <dfn element-attr for="link"><code data-x="attr-link-media">media</code></dfn> attribute
+  says which media the resource applies to. The value must be a <span>valid media query
+  list</span>.</p>
 
-  <p>The <dfn data-export="" data-dfn-for="link" data-dfn-type="element-attr"><code
-  data-x="attr-link-integrity">integrity</code></dfn> attribute represents the <span
-  data-x="concept-request-integrity-metadata">integrity metadata</span> for requests which this
-  element is responsible for. The value is text. The attribute must not be specified on
-  <code>link</code> elements that do not have a <code data-x="attr-link-rel">rel</code> attribute
-  that contains the <code data-x="rel-stylesheet">stylesheet</code> keyword. <ref spec="SRI"></p>
+  <p>The <dfn for="link" element-attr><code data-x="attr-link-integrity">integrity</code></dfn>
+  attribute represents the <span data-x="concept-request-integrity-metadata">integrity
+  metadata</span> for requests which this element is responsible for. The value is text. The
+  attribute must only be specified on <code>link</code> elements that have a <code
+  data-x="attr-link-rel">rel</code> attribute that contains the <code
+  data-x="rel-stylesheet">stylesheet</code>, <code data-x="rel-preload">preload</code>, or <code
+  data-x="rel-modulepreload">modulepreload</code> keyword. <ref spec=SRI></p>
 
-  <p>The <dfn><code data-x="attr-link-hreflang">hreflang</code></dfn> attribute on the
-  <code>link</code> element has the same semantics as the <span
+  <p>The <dfn element-attr for="link"><code data-x="attr-link-hreflang">hreflang</code></dfn>
+  attribute on the <code>link</code> element has the same semantics as the <span
   data-x="attr-hyperlink-hreflang"><code>hreflang</code> attribute on the <code>a</code>
   element</span>.</p>
 
-  <p>The <dfn><code data-x="attr-link-type">type</code></dfn> attribute gives the <span>MIME
-  type</span> of the linked resource. It is purely advisory. The value must be a <span>valid MIME
-  type string</span>.</p>
+  <p>The <dfn element-attr for="link"><code data-x="attr-link-type">type</code></dfn> attribute
+  gives the <span>MIME type</span> of the linked resource. It is purely advisory. The value must be
+  a <span>valid MIME type string</span>.</p>
 
   <p>For <span data-x="external resource link">external resource links</span>, the <code
   data-x="attr-link-type">type</code> attribute is used as a hint to user agents so that they can
   avoid fetching resources they do not support.</p>
 
-  <p>The <dfn><code data-x="attr-link-referrerpolicy">referrerpolicy</code></dfn> attribute is a
-  <span>referrer policy attribute</span>. It is intended for use with <span data-x="external
-  resource link">external resource links</span>, where it helps set the <span>referrer policy</span>
-  used when <span data-x="concept-link-obtain">obtaining</span> the external resource. <ref
-  spec=REFERRERPOLICY>.</p>
+  <p>The <dfn element-attr for="link"><code
+  data-x="attr-link-referrerpolicy">referrerpolicy</code></dfn> attribute is a <span>referrer policy
+  attribute</span>. It is intended for use with <span data-x="external resource link">external
+  resource links</span>, where it helps set the <span>referrer policy</span> used when <span
+  data-x="fetch and process the linked resource">fetching and processing the linked resource</span>.
+  <ref spec=REFERRERPOLICY>.</p>
 
-  <p>The <dfn><code data-x="attr-link-title">title</code></dfn> attribute gives the title of the
-  link. With one exception, it is purely advisory. The value is text. The exception is for style
-  sheet links that are <span>in a document tree</span>, for which the <code
+  <p>The <dfn element-attr for="link"><code data-x="attr-link-title">title</code></dfn> attribute
+  gives the title of the link. With one exception, it is purely advisory. The value is text. The
+  exception is for style sheet links that are <span>in a document tree</span>, for which the <code
   data-x="attr-link-title">title</code> attribute defines <span data-x="CSS style sheet set">CSS
   style sheet sets</span>.</p>
 
@@ -199,18 +218,83 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p>The <dfn><code data-x="attr-link-sizes">sizes</code></dfn> attribute gives the sizes of icons
-  for visual media. Its value, if present, is merely advisory.<span w-nodev> User agents may use the
-  value to decide which icon(s) to use if multiple icons are available.</span> If specified, the
-  attribute must have a value that is an <span>unordered set of unique space-separated tokens</span>
-  which are <span>ASCII case-insensitive</span>. Each value must be either an <span>ASCII
-  case-insensitive</span> match for the string "<code data-x="attr-link-sizes-any">any</code>", or a
-  value that consists of two <span data-x="valid non-negative integer">valid non-negative
-  integers</span> that do not have a leading U+0030 DIGIT ZERO (0) character and that are separated
-  by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN CAPITAL LETTER X character. The attribute
-  must not be specified on <code>link</code> elements that do not have a <code
-  data-x="attr-link-rel">rel</code> attribute that specifies the <code data-x="rel-icon">icon</code>
-  keyword or the <code data-x="">apple-touch-icon</code> keyword.</p>
+  <p>The <dfn element-attr for="link"><code data-x="attr-link-imagesrcset">imagesrcset</code></dfn>
+  attribute may be present, and is a <span>srcset attribute</span>.</p>
+
+  <p>The <code data-x="attr-link-imagesrcset">imagesrcset</code> and <code
+  data-x="attr-link-href">href</code> attributes (if <span data-x="width descriptor">width
+  descriptors</span> are not used) together contribute the <span data-x="image source">image
+  sources</span> to the <span>source set</span>.</p>
+
+  <p>If the <code data-x="attr-link-imagesrcset">imagesrcset</code> attribute is present and has any
+  <span data-x="image candidate string">image candidate strings</span> using a <span>width
+  descriptor</span>, the <dfn element-attr for="link"><code
+  data-x="attr-link-imagesizes">imagesizes</code></dfn> attribute must also be present, and is a
+  <span>sizes attribute</span>. The <code data-x="attr-link-imagesizes">imagesizes</code> attribute
+  contributes the <span>source size</span> to the <span>source set</span>.</p>
+
+  <p>The <code data-x="attr-link-imagesrcset">imagesrcset</code> and <code
+  data-x="attr-link-imagesizes">imagesizes</code> attributes must only be specified on
+  <code>link</code> elements that have both a <code data-x="attr-link-rel">rel</code> attribute that
+  specifies the <code data-x="rel-preload">preload</code> keyword, as well as an <code
+  data-x="attr-link-as">as</code> attribute in the "<code data-x="">image</code>" state.</p>
+
+  <div class="example">
+   <p>These attributes allow preloading the appropriate resource that is later used by an
+   <code>img</code> element that has the corresponding values for its <code
+   data-x="attr-img-srcset">srcset</code> and <code data-x="attr-img-sizes">sizes</code>
+   attributes:</p>
+
+   <pre><code class="html">&lt;link rel="preload" as="image"
+      imagesrcset="wolf_400px.jpg 400w, wolf_800px.jpg 800w, wolf_1600px.jpg 1600w"
+      imagesizes="50vw">
+
+&lt;!-- ... later, or perhaps inserted dynamically ... -->
+&lt;img src="wolf.jpg" alt="A rad wolf"
+     srcset="wolf_400px.jpg 400w, wolf_800px.jpg 800w, wolf_1600px.jpg 1600w"
+     sizes="50vw"></code></pre>
+
+     <p>Note how we omit the <code data-x="attr-link-href">href</code> attribute, as it would only
+     be relevant for browsers that do not support <code
+     data-x="attr-link-imagesrcset">imagesrcset</code>, and in those cases it would likely cause the
+     incorrect image to be preloaded.</p>
+  </div>
+
+  <div class="example">
+   <p>The <code data-x="attr-link-imagesrcset">imagesrcset</code> attribute can be combined with the
+   <code data-x="attr-link-media">media</code> attribute to preload the appropriate resource
+   selected from a <code>picture</code> element's sources, for <span>art direction</span>:</p>
+
+   <pre><code class="html">&lt;link rel="preload" as="image"
+      imagesrcset="dog-cropped-1x.jpg, dog-cropped-2x.jpg 2x"
+      media="(max-width: 800px)">
+&lt;link rel="preload" as="image"
+      imagesrcset="dog-wide-1x.jpg, dog-wide-2x.jpg 2x"
+      media="(min-width: 801px)">
+
+&lt;!-- ... later, or perhaps inserted dynamically ... -->
+&lt;picture>
+  &lt;source srcset="dog-cropped-1x.jpg, dog-cropped-2x.jpg 2x"
+          media="(max-width: 800px)">
+  &lt;img src="dog-wide-1x.jpg" srcset="dog-wide-2x.jpg 2x"
+       alt="An awesome dog">
+&lt;/picture></code></pre>
+  </div>
+
+  <hr>
+
+  <p>The <dfn element-attr for="link"><code data-x="attr-link-sizes">sizes</code></dfn> attribute
+  gives the sizes of icons for visual media. Its value, if present, is merely advisory.<span
+  w-nodev> User agents may use the value to decide which icon(s) to use if multiple icons are
+  available.</span> If specified, the attribute must have a value that is an <span>unordered set of
+  unique space-separated tokens</span> which are <span>ASCII case-insensitive</span>. Each value
+  must be either an <span>ASCII case-insensitive</span> match for the string "<code
+  data-x="attr-link-sizes-any">any</code>", or a value that consists of two <span data-x="valid
+  non-negative integer">valid non-negative integers</span> that do not have a leading U+0030 DIGIT
+  ZERO (0) character and that are separated by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN
+  CAPITAL LETTER X character. The attribute must only be specified on <code>link</code> elements
+  that have a <code data-x="attr-link-rel">rel</code> attribute that specifies the <code
+  data-x="rel-icon">icon</code> keyword or the <code data-x="">apple-touch-icon</code> keyword.</p>
 
   <p class="note">The <code data-x="">apple-touch-icon</code> keyword is a registered <span
   data-x="concept-rel-extensions">extension to the predefined set of link types</span>, but user
@@ -218,24 +302,22 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p>The <dfn><code data-x="attr-link-as">as</code></dfn> attribute specifies the <span
-  data-x="concept-potential-destination">potential destination</span> for a preload request for the
-  resource given by the <code data-x="attr-link-href">href</code> attribute. It is an
-  <span>enumerated attribute</span>. Each <span data-x="concept-potential-destination">potential
-  destination</span> is a keyword for this attribute, mapping to a state of the same name. The
-  attribute must be specified on <code>link</code> elements that have a <code
-  data-x="attr-link-rel">rel</code> attribute that contains the <code
-  data-x="rel-preload">preload</code> keyword. It may be specified on <code>link</code> elements
-  that have a <code data-x="attr-link-rel">rel</code> attribute that contains the <code
-  data-x="rel-modulepreload">modulepreload</code> keyword; in such cases it must have a value which
-  is a <span data-x="concept-script-like-destination">script-like destination</span>. For other
-  <code>link</code> elements, it must not be specified.</p>
+  <p>The <dfn element-attr for="link"><code data-x="attr-link-as">as</code></dfn> attribute
+  specifies the <span data-x="concept-potential-destination">potential destination</span> for a
+  preload request for the resource given by the <code data-x="attr-link-href">href</code> attribute.
+  It is an <span>enumerated attribute</span>. Each <span
+  data-x="concept-potential-destination">potential destination</span> is a keyword for this
+  attribute, mapping to a state of the same name. The attribute must be specified on
+  <code>link</code> elements that have a <code data-x="attr-link-rel">rel</code> attribute that
+  contains the <code data-x="rel-preload">preload</code> keyword. It may be specified on
+  <code>link</code> elements that have a <code data-x="attr-link-rel">rel</code> attribute that
+  contains the <code data-x="rel-modulepreload">modulepreload</code> keyword; in such cases it must
+  have a value which is a <span data-x="concept-script-like-destination">script-like
+  destination</span>. For other <code>link</code> elements, it must not be specified.</p>
 
   <p w-nodev>The processing model for how the <code data-x="attr-link-as">as</code> attribute is
-  used is given in the steps to obtain the resource, for <span data-x="concept-link-obtain">for
-  <code data-x="rel-preload">preload</code> links</span> and <a
-  href="#modulepreload-obtain-steps">for <code data-x="rel-modulepreload">modulepreload</code>
-  links</a>, respectively.</p>
+  used is given in an individual link type's <span>fetch and process the linked resource</span>
+  algorithm.</p>
 
   <p class="note">The attribute does not have a <i data-x="missing value default">missing value
   default</i> or <i data-x="invalid value default">invalid value default</i>, meaning that invalid
@@ -246,11 +328,11 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p>The <dfn><code data-x="attr-link-color">color</code></dfn> attribute is used with the <code
-  data-x="">mask-icon</code> link type. The attribute must not be specified on <code>link</code>
-  elements that do not have a <code data-x="attr-link-rel">rel</code> attribute that contains the
-  <code data-x="">mask-icon</code> keyword. The value must be a string that matches the CSS
-  <span>&lt;color></span> production, defining a suggested color that user agents can use to
+  <p>The <dfn element-attr for="link"><code data-x="attr-link-color">color</code></dfn> attribute is
+  used with the <code data-x="">mask-icon</code> link type. The attribute must only be specified on
+  <code>link</code> elements that have a <code data-x="attr-link-rel">rel</code> attribute that
+  contains the <code data-x="">mask-icon</code> keyword. The value must be a string that matches the
+  CSS <span>&lt;color></span> production, defining a suggested color that user agents can use to
   customize the display of the icon that the user sees when they pin your site.</p>
 
   <p class="note">This specification does not have any user agent requirements for the <code
@@ -260,25 +342,48 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   data-x="concept-rel-extensions">extension to the predefined set of link types</span>, but user
   agents are not required to support it in any way.</p>
 
+  <hr>
+
+  <p><code>link</code> elements have an associated <dfn>explicitly enabled</dfn> boolean. It is
+  initially false.
+
+  <p>The <dfn element-attr for="link"><code data-x="attr-link-disabled">disabled</code></dfn>
+  attribute is a <span>boolean attribute</span> that is used with the <code
+  data-x="rel-stylesheet">stylesheet</code> link type.  The attribute must only be specified on
+  <code>link</code> elements that have a <code data-x="attr-link-rel">rel</code> attribute that
+  contains the <code data-x="rel-stylesheet">stylesheet</code> keyword.</p>
+
+  <p>Whenever the <code data-x="attr-link-disabled">disabled</code> attribute is removed, set the
+  <code>link</code> element's <span>explicitly enabled</span> attribute to true.</p>
+
+  <div class="example">
+   <p>Removing the <code data-x="attr-link-disabled">disabled</code> attribute dynamically, e.g.,
+   using <code data-x="">document.querySelector("link").removeAttribute("disabled")</code>, will
+   fetch and apply the style sheet:</p>
+
+   <pre><code class="html">&lt;link disabled rel="alternate stylesheet" href="css/pooh"></code></pre>
+  </div>
+
   <div w-nodev>
   <hr>
 
   <p>The IDL attributes
-  <dfn><code data-x="dom-link-href">href</code></dfn>,
-  <dfn><code data-x="dom-link-hreflang">hreflang</code></dfn>,
-  <dfn><code data-x="dom-link-integrity">integrity</code></dfn>,
-  <dfn><code data-x="dom-link-media">media</code></dfn>,
-  <dfn><code data-x="dom-link-rel">rel</code></dfn>,
-  <dfn><code data-x="dom-link-sizes">sizes</code></dfn>, and
-  <dfn><code data-x="dom-link-type">type</code></dfn>
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-href">href</code></dfn>,
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-hreflang">hreflang</code></dfn>,
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-integrity">integrity</code></dfn>,
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-media">media</code></dfn>,
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-rel">rel</code></dfn>,
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-sizes">sizes</code></dfn>,
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-type">type</code></dfn>, and
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-disabled">disabled</code></dfn>
   each must <span>reflect</span> the respective content attributes of the same name.</p>
 
   <p class="note">There is no reflecting IDL attribute for the <code
   data-x="attr-link-color">color</code> attribute, but this might be added later.</p>
 
-  <p>The <dfn><code data-x="dom-link-as">as</code></dfn> IDL attribute must <span>reflect</span> the
-  <code data-x="attr-link-as">as</code> content attribute, <span>limited to only known
-  values</span>.</p>
+  <p>The <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-as">as</code></dfn> IDL
+  attribute must <span>reflect</span> the <code data-x="attr-link-as">as</code> content attribute,
+  <span>limited to only known values</span>.</p>
 
   <p>The <dfn><code data-x="dom-link-crossOrigin">crossOrigin</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-link-crossorigin">crossorigin</code> content
@@ -288,6 +393,15 @@ interface <dfn>HTMLLinkElement</dfn> : <span>HTMLElement</span> {
   <span>reflect</span> the <code data-x="attr-link-referrerpolicy">referrerpolicy</code>
   content attribute, <span>limited to only known values</span>.</p>
 
-  <p>The <dfn><code data-x="dom-link-rellist">relList</code></dfn> IDL attribute must <span
-  data-x="reflect">reflect</span> the <code data-x="attr-link-rel">rel</code> content attribute.</p>
+  <p>The <dfn><code data-x="dom-link-imageSrcset">imageSrcset</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-link-imagesrcset">imagesrcset</code> content
+  attribute.</p>
+
+  <p>The <dfn><code data-x="dom-link-imageSizes">imageSizes</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-link-imagesizes">imagesizes</code> content
+  attribute.</p>
+
+  <p>The <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-rellist">relList</code></dfn>
+  IDL attribute must <span data-x="reflect">reflect</span> the <code
+  data-x="attr-link-rel">rel</code> content attribute.</p>
 

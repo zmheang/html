@@ -5,7 +5,6 @@
    <dt><var>document</var> . <code subdfn data-x="dom-document-write">write</code>(<var>text</var>...)</dt>
 
    <dd>
-
     <p>In general, adds the given string(s) to the <code>Document</code>'s input stream.</p>
 
     <p class="warning">This method has very idiosyncratic behavior. In some cases, this method can
@@ -13,9 +12,9 @@
     that does not correspond to the source of the document (e.g. if the string written is the string
     "<code data-x="">&lt;plaintext&gt;</code>" or "<code data-x="">&lt;!--</code>"). In other cases,
     the call can clear the current page first, as if <code
-    data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> had been
-    called. In yet more cases, the method is simply ignored, or throws an exception. Users agents
-    are <a href="#document-written-scripts-intervention">explicitly allowed to avoid executing
+    data-x="dom-document-open">document.open()</code> had been called. In yet more cases, the method
+    is simply ignored, or throws an exception. Users agents are <a
+    href="#document-written-scripts-intervention">explicitly allowed to avoid executing
     <code>script</code> elements inserted via this method</a>. And to make matters even worse, the
     exact behavior of this method can in some cases be dependent on network latency<!--
 
@@ -34,9 +33,7 @@
 
     <p>Throws an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> if the
     parser is currently executing a <span>custom element constructor</span>.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -44,9 +41,8 @@
   <p><code>Document</code> objects have an <dfn>ignore-destructive-writes counter</dfn>, which is
   used in conjunction with the processing of <code>script</code> elements to prevent external
   scripts from being able to use <code data-x="dom-document-write">document.write()</code> to blow
-  away the document by implicitly calling <code
-  data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code>.  Initially,
-  the counter must be set to zero.</p>
+  away the document by implicitly calling <code data-x="dom-document-open">document.open()</code>.
+  Initially, the counter must be set to zero.</p>
 
   <p>The <dfn>document write steps</dfn>, given a <code>Document</code> object <var>document</var>
   and a string <var>input</var>, are as follows:</p>
@@ -62,7 +58,8 @@
    than 0, then throw an <span>"<code>InvalidStateError</code>"</span>
    <code>DOMException</code>.</p></li>
 
-   <li><p>If <var>document</var> is not an <span>active document</span>, then return.</p></li>
+   <li><p>If <var>document</var>'s <span>active parser was aborted</span> is true, then
+   return.</p></li>
 
    <li>
     <p>If the <span>insertion point</span> is undefined, then:
@@ -72,18 +69,12 @@
      0 or <var>document</var>'s <span>ignore-destructive-writes counter</span> is greater than 0,
      then return.</p></li>
 
-     <li><p>Run the <span>document open steps</span> with <var>document</var> and the empty string.
-     If the user <span>refused to allow the document to be unloaded</span>, then return. Otherwise,
-     the <span>insertion point</span> will point at just before the end of the (empty) <span>input
-     stream</span>.</p></li>
+     <li><p>Run the <span>document open steps</span> with <var>document</var>.</p></li>
     </ol>
    </li>
 
    <li><p>Insert <var>input</var> into the <span>input stream</span> just before the <span>insertion
    point</span>.</p></li>
-
-   <li><p>If <var>document</var>'s <span>reload override flag</span> is set, then append
-   <var>input</var> to <var>document</var>'s <span>reload override buffer</span>.</p></li>
 
    <li>
     <p>If there is no <span>pending parsing-blocking script</span>, have the <span>HTML
@@ -101,9 +92,10 @@
    </li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-document-write">document.write(...)</code></dfn> method, when
-  invoked, must run the <span>document write steps</span> with this <code>Document</code> object and
-  a string that is the concatanation of all arguments passed.</p>
+  <p>The <dfn method for="Document"><code
+  data-x="dom-document-write">document.write(...)</code></dfn> method, when invoked, must run the
+  <span>document write steps</span> with this <code>Document</code> object and a string that is the
+  concatanation of all arguments passed.</p>
 
 
   </div>

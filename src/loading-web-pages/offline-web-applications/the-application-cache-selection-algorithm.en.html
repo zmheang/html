@@ -13,7 +13,6 @@
    group</span> is <em>not</em> the same as <var>manifest URL</var></dt>
 
    <dd>
-
     <p>Mark the entry for the resource from which <var>document</var> was taken in the
     <span>application cache</span> from which it was loaded as <span
     data-x="concept-appcache-foreign">foreign</span>.</p>
@@ -29,7 +28,6 @@
 
     <p>User agents may notify the user of the inconsistency between the cache manifest and the
     document's own metadata, to aid in application development.</p>
-
    </dd>
 
 
@@ -40,11 +38,9 @@
    group</span> is the same as <var>manifest URL</var>--></dt>
 
    <dd>
-
     <p>Associate <var>document</var> with the <span>application cache</span> from which it
     was loaded. Invoke, in the background, the <span>application cache download process</span> for
     that <span>application cache</span>'s <span>application cache group</span>, with <var>document</var> as the <span>cache host</span>.</p>
-
    </dd>
 
 
@@ -54,10 +50,9 @@
    <var>document</var></dt>
 
    <dd>
-
     <p>Invoke, in the background, the <span>application cache download process</span> for <var>manifest URL</var>, with <var>document</var> as the <span>cache host</span>
     and with the resource from which <var>document</var> was parsed as the <span
-    data-x="concept-appcache-master">master</span> resource.</p>
+    data-x="concept-appcache-primary">primary</span> resource.</p>
 
     <p>If there are <span data-x="relevant application cache">relevant application caches</span> that
     are identified by a URL with the <span>same origin</span> as the URL of <var>document</var>, and that have this URL as one of their entries, excluding entries
@@ -65,7 +60,6 @@
     the <span data-x="concept-appcache-selection">most appropriate application cache</span> of those
     that match as an HTTP cache for any subresource loads. User agents may also have other caches in
     place that are also honored.</p>
-
    </dd>
 
 
@@ -73,14 +67,11 @@
    non-GET, or wrong-origin manifest -->
 
    <dd>
-
     <p>The <code>Document</code> is not associated with any <span>application cache</span>.</p>
 
     <p>If there was a <var>manifest URL</var>, the user agent may report to the user that
     it was ignored, to aid in application development.</p>
-
    </dd>
-
   </dl>
 
 

@@ -1,0 +1,23 @@
+  <h5>Link type "<dfn><code data-x="rel-opener">opener</code></dfn>"</h5>
+
+  <p>The <code data-x="rel-opener">opener</code> keyword may be used with <code>a</code>,
+  <code>area</code>, and <code>form</code> elements. This keyword does not create a
+  <span>hyperlink</span>, but <span data-x="hyperlink annotation">annotates</span> any other
+  hyperlinks created by the element (the implied hyperlink, if no other keywords create one).</p>
+
+  <p>The keyword indicates that any newly created <span>top-level browsing context</span> which
+  results from following the <span>hyperlink</span> will be an <span>auxiliary browsing
+  context</span>.</p>
+
+  <p w-nodev class="note">See also the <a href="#opener-processing-model">processing model</a>.</p>
+
+  <div class="example">
+   <p>In the following example the <code data-x="rel-opener">opener</code> is used to allow the help
+   page popup to navigate its opener, e.g., in case what the user is looking for can be found
+   elsewhere. An alternative might be to use a named target, rather than <code
+   data-x="">_blank</code>, but this has the potential to clash with existing names.</p>
+
+   <pre><code class="html">&lt;a href="..." <mark>rel=opener</mark> target=_blank>Help!&lt;/a></code></pre>
+  </div>
+
+

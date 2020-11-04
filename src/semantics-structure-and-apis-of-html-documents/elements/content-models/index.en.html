@@ -28,13 +28,11 @@
   compound documents, these contexts could be inside elements from other namespaces, if those
   elements are defined as providing the relevant contexts.</p>
 
-  <div class="example">
-   <p>For example, the Atom specification defines a <code data-x="">content</code> element. When its
-   <code data-x="">type</code> attribute has the value <code data-x="">xhtml</code>, the Atom
-   specification requires that it contain a single HTML <code>div</code> element. Thus, a
-   <code>div</code> element is allowed in that context, even though this is not explicitly
-   normatively stated by this specification. <ref spec=ATOM></p>
-  </div>
+  <p class="example"><cite>The Atom Syndication Format</cite> defines a <code
+  data-x="">content</code> element. When its <code data-x="">type</code> attribute has the value
+  <code data-x="">xhtml</code>, <cite>The Atom Syndication Format</cite> requires that it contain a
+  single HTML <code>div</code> element. Thus, a <code>div</code> element is allowed in that context,
+  even though this is not explicitly normatively stated by this specification. <ref spec=ATOM></p>
 
   <p>In addition, <span>HTML elements</span> may be orphan nodes (i.e. without a parent node).</p>
 
@@ -44,7 +42,7 @@
    script is conforming, even though <code>td</code> elements are otherwise only supposed to be used
    inside <code>tr</code> elements.</p>
 
-   <pre><code class="js" data-x="">var data = {
+   <pre><code class="js">var data = {
   name: "Banana",
   cell: document.createElement('td'),
 };</code></pre>

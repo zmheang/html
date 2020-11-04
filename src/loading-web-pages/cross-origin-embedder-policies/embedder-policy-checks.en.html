@@ -1,0 +1,121 @@
+  <h4>Embedder policy checks</h4>
+
+  <p>To <dfn>check a navigation response's adherence to its embedder policy</dfn> given a <span
+  data-x="concept-response">response</span> <var>response</var> and a <span>browsing context</span>
+  <var>target</var>:</p>
+
+  <ol>
+   <li><p>If <var>target</var> is not a <span>child browsing context</span>, then return
+   true.</p></li>
+
+   <li><p>Let <var>responsePolicy</var> be the result of <span data-x="obtain an embedder
+   policy">obtaining an embedder policy</span> from <var>response</var>.</p></li>
+
+   <li><p>Let <var>parentPolicy</var> be <var>target</var>'s <span
+   data-x="bc-container-document">container document</span>'s <span
+   data-x="concept-document-embedder-policy">embedder policy</span>.</p></li>
+
+   <li><p>If <var>parentPolicy</var>'s <span data-x="embedder-policy-report-only-value">report only
+   value</span> is "<code data-x="coep-require-corp">require-corp</code>" and
+   <var>responsePolicy</var>'s <span data-x="embedder-policy-value">value</span> is "<code
+   data-x="coep-unsafe-none">unsafe-none</code>", then <span>queue a cross-origin embedder policy
+   inheritance violation</span> with <var>response</var>, "<code data-x="">navigation</code>",
+   <var>parentPolicy</var>'s <span data-x="embedder-policy-report-only-reporting-endpoint">report
+   only reporting endpoint</span>, "<code data-x="">reporting</code>", and <var>target</var>'s <span
+   data-x="bc-container-document">container document</span>'s <span>relevant settings
+   object</span>.</p></li>
+
+   <li><p>If <var>parentPolicy</var>'s <span data-x="embedder-policy-value">value</span> is "<code
+   data-x="coep-unsafe-none">unsafe-none</code>" or <var>responsePolicy</var>'s <span
+   data-x="embedder-policy-value">value</span> is "<code
+   data-x="coep-require-corp">require-corp</code>", then return true.</p></li>
+
+   <li><p><span>Queue a cross-origin embedder policy inheritance violation</span> with
+   <var>response</var>, "<code data-x="">navigation</code>", <var>parentPolicy</var>'s <span
+   data-x="embedder-policy-reporting-endpoint">reporting endpoint</span>,
+   "<code data-x="">enforce</code>", and <var>target</var>'s
+   <span data-x="bc-container-document">container document</span>'s <span>relevant settings
+   object</span>.</p></li>
+
+   <li><p>Return false.</p></li>
+  </ol>
+
+  <p>To <dfn>check a global object's embedder policy</dfn> given a <code>WorkerGlobalScope</code>
+  <var>workerGlobalScope</var>, an <span>environment settings object</span> <var>owner</var>, and
+  a <span data-x="concept-response">response</span> <var>response</var>:</p>
+
+  <ol>
+   <li><p>If <var>workerGlobalScope</var> is not a <code>DedicatedWorkerGlobalScope</code> object,
+   then return true.</p></li>
+
+   <li><p>Let <var>policy</var> be <var>workerGlobalScope</var>'s <span
+   data-x="concept-WorkerGlobalScope-embedder-policy">embedder policy</span>.
+
+   <li><p>Let <var>ownerPolicy</var> be <var>owner</var>'s <span
+   data-x="concept-settings-object-embedder-policy">embedder policy</span>.
+
+   <li><p>If <var>ownerPolicy</var>'s <span data-x="embedder-policy-report-only-value">report only
+   value</span> is "<code data-x="coep-require-corp">require-corp</code>" and <var>policy</var>'s
+   <span data-x="embedder-policy-value">value</span> is "<code
+   data-x="coep-unsafe-none">unsafe-none</code>", then <span>queue a cross-origin embedder policy
+   inheritance violation</span> with <var>response</var>, "<code data-x="">worker
+   initialization</code>", <var>owner's policy</var>'s <span
+   data-x="embedder-policy-report-only-reporting-endpoint">report only reporting endpoint</span>,
+   "<code data-x="">reporting</code>", and <var>owner</var>.</p></li>
+
+   <li><p>If <var>ownerPolicy</var>'s <span data-x="embedder-policy-value">value</span> is "<code
+   data-x="coep-unsafe-none">unsafe-none</code>" or <var>policy</var>'s <span
+   data-x="embedder-policy-value">value</span> is "<code
+   data-x="coep-require-corp">require-corp</code>", then return true.</p></li>
+
+   <li><p><span>Queue a cross-origin embedder policy inheritance violation</span> with
+   <var>response</var>, "<code data-x="">worker initialization</code>", <var>owner's policy</var>'s
+   <span data-x="embedder-policy-reporting-endpoint">reporting endpoint</span>,
+   "<code data-x="">enforce</code>", and <var>owner</var>.</p></li>
+
+   <li><p>Return false.</p></li>
+  </ol>
+
+  <p>To <dfn>queue a cross-origin embedder policy inheritance violation</dfn> given a <span
+  data-x="concept-response">response</span> <var>response</var>, a string <var>type</var>, a string
+  <var>endpoint</var>, a string <var>disposition</var>, and an <span>environment settings
+  object</span> <var>settings</var>:</p>
+
+  <ol>
+   <li><p>Let <var>serialized</var> be the result of <span
+   data-x="serialize-a-response-url-for-reporting">serializing a response URL for
+   reporting</span> with <var>response</var>.</p></li>
+
+   <li>
+    <p>Let <var>body</var> be a new object containing the following properties:</p>
+
+    <table class="data">
+     <thead>
+      <tr>
+       <th>key</th>
+       <th>value</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+      <td>type</td>
+       <td><var>type</var></td>
+      </tr>
+      <tr>
+       <td>blockedURL</td>
+       <td><var>serialized</var></td>
+      </tr>
+      <tr>
+       <td>disposition</td>
+       <td><var>disposition</var></td>
+      </tr>
+     </tbody>
+    </table>
+   </li>
+
+   <li><p><span data-x="queue a report">Queue</span> <var>body</var> as the
+   <span>"<code>coep</code>" report type</span> for <var>endpoint</var> on <var>settings</var>.
+  </ol>
+
+
+

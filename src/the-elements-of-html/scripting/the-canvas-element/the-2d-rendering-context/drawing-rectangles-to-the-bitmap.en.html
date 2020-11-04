@@ -25,28 +25,21 @@
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-clearRect">clearRect</code>(<var>x</var>, <var>y</var>, <var>w</var>, <var>h</var>)</dt>
 
    <dd>
-
     <p>Clears all pixels on the bitmap in the given rectangle to <span>transparent black</span>.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-fillRect">fillRect</code>(<var>x</var>, <var>y</var>, <var>w</var>, <var>h</var>)</dt>
 
    <dd>
-
     <p>Paints the given rectangle onto the bitmap, using the current fill style.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-strokeRect">strokeRect</code>(<var>x</var>, <var>y</var>, <var>w</var>, <var>h</var>)</dt>
 
    <dd>
-
     <p>Paints the box that outlines the given rectangle onto the bitmap, using the current stroke
     style.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -55,7 +48,6 @@
   <var>w</var>, <var>h</var>)</code></dfn> method, when invoked, must run these steps:</p>
 
   <ol>
-
    <li><p>If any of the arguments are infinite or NaN, then return.</p></li>
 
    <li><p>Let <var>pixels</var> be the set of pixels in the specified rectangle that also
@@ -63,7 +55,6 @@
 
    <li><p>Clear the pixels in <var>pixels</var> to a <span>transparent black</span>, erasing any
    previous image.</p></li>
-
   </ol>
 
   <p class="note">If either height or width are zero, this method has no effect, since the set of

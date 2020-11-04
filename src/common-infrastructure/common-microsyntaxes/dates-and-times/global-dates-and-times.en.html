@@ -9,7 +9,6 @@
   time-zone offset if it consists of the following components in the given order:</p>
 
   <ol>
-
    <li>A <span>valid date string</span> representing the date</li>
 
    <li>A U+0054 LATIN CAPITAL LETTER T character (T) or a U+0020 SPACE character</li>
@@ -17,7 +16,6 @@
    <li>A <span>valid time string</span> representing the time</li>
 
    <li>A <span>valid time-zone offset string</span> representing the time-zone offset</li>
-
   </ol>
 
   <p>Times in dates before the formation of UTC in the mid twentieth century must be expressed and
@@ -33,7 +31,6 @@
    string">valid global date and time strings</span>.</p>
 
    <dl>
-
     <dt>"<code data-x="">0037-12-13 00:00Z</code>"</dt>
 
     <dd>Midnight in areas using London time on the birthday of Nero (the Roman Emperor). See below
@@ -49,7 +46,6 @@
     <dd>Midnight UTC on the 1st of January, 8592. The time zone associated with that time is two
     hours and nine minutes ahead of UTC, which is not currently a real time zone, but is nonetheless
     allowed.</dd>
-
    </dl>
 
    <p>Several things are notable about these dates:</p>
@@ -94,7 +90,6 @@
   aborted at that point and returns nothing.</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the string being parsed.</p></li>
 
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially
@@ -126,7 +121,6 @@
    hours and <var>timezone<sub>minutes</sub></var> minutes from UTC.</p></li>
 
    <li><p>Return <var>time</var> and <var>timezone</var>.</p></li>
-
   </ol>
 
   </div>

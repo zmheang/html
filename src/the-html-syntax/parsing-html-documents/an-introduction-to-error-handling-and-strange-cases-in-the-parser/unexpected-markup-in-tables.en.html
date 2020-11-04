@@ -5,7 +5,7 @@
   <p>Error handling in tables is, for historical reasons, especially strange. For example, consider
   the following markup:</p>
 
-  <pre><code class="html" data-x="">&lt;table><strong>&lt;b></strong>&lt;tr>&lt;td>aaa&lt;/td>&lt;/tr><strong>bbb</strong>&lt;/table>ccc</code></pre>
+  <pre><code class="html">&lt;table><strong>&lt;b></strong>&lt;tr>&lt;td>aaa&lt;/td>&lt;/tr><strong>bbb</strong>&lt;/table>ccc</code></pre>
 
   <p>The highlighted <code>b</code> element start tag is not allowed directly inside a table like
   that, and the parser handles this case by placing the element <em>before</em> the table. (This is

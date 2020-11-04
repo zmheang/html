@@ -5,15 +5,14 @@
   string</span>, e.g. the empty string). If the attribute is omitted, but the <span>external
   resource link</span> type has a default type defined, then the user agent must assume that the
   resource is of that type. If the UA does not support the given <span>MIME type</span> for the
-  given link relationship, then the UA should not <span data-x="concept-link-obtain">obtain</span>
-  the resource; if the UA does support the given <span>MIME type</span> for the given link
-  relationship, then the UA should <span data-x="concept-link-obtain">obtain</span> the resource at
-  the appropriate time as specified for the <span>external resource link</span>'s particular type.
+  given link relationship, then the UA should not <span>fetch and process the linked
+  resource</span>; if the UA does support the given <span>MIME type</span> for the given link
+  relationship, then the UA should <span>fetch and process the linked resource</span> at the
+  appropriate time as specified for the <span>external resource link</span>'s particular type.
   If the attribute is omitted, and the <span>external resource link</span> type does not have a
-  default type defined, but the user agent would <span data-x="concept-link-obtain">obtain</span>
-  the resource if the type was known and supported, then the user agent should <span
-  data-x="concept-link-obtain">obtain</span> the resource under the assumption that it will be
-  supported.</p>
+  default type defined, but the user agent would <span>fetch and process the linked resource</span>
+  if the type was known and supported, then the user agent should <span>fetch and process the linked
+  resource</span> under the assumption that it will be supported.</p>
 
   <p>User agents must not consider the <code data-x="attr-link-type">type</code> attribute
   authoritative &mdash; upon fetching the resource, user agents must not use the <code
@@ -44,7 +43,7 @@
 
    <p>If a document contains style sheet links labeled as follows:</p>
 
-   <pre><code class="html" data-x="">&lt;link rel="stylesheet" href="A" type="text/plain"&gt;
+   <pre><code class="html">&lt;link rel="stylesheet" href="A" type="text/plain"&gt;
 &lt;link rel="stylesheet" href="B" type="text/css"&gt;
 &lt;link rel="stylesheet" href="C"&gt;</code></pre>
 

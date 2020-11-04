@@ -17,7 +17,7 @@
    which contains phrasing content that is not a paragraph. Note how the comments and
    <span>inter-element whitespace</span> do not form paragraphs.</p>
 
-   <pre><code class="html" data-x="">&lt;section>
+   <pre><code class="html">&lt;section>
   &lt;h1>Example of paragraphs&lt;/h1>
   This is the &lt;em>first&lt;/em> paragraph in this example.
   &lt;p>This is the second.&lt;/p>
@@ -43,7 +43,7 @@
    &mdash; the <code>ins</code> element straddles the heading and the first paragraph, and the
    <code>del</code> element straddles the boundary between the two paragraphs.</p>
 
-   <pre><code class="html" data-x="">&lt;section>
+   <pre><code class="html">&lt;section>
   &lt;ins>&lt;h1>Example of paragraphs&lt;/h1>
   This is the &lt;em>first&lt;/em> paragraph in&lt;/ins> this example&lt;del>.
   &lt;p>This is the second.&lt;/p>&lt;/del>
@@ -86,7 +86,7 @@
    separating the two paragraphs, and half of the second paragraph. It straddles the paragraphs and
    the heading.</p>
 
-   <pre><code class="html" data-x="">&lt;header>
+   <pre><code class="html">&lt;header>
  Welcome!
  &lt;a href="about.html">
   This is home of...
@@ -99,7 +99,7 @@
    <p>Here is another way of marking this up, this time showing the paragraphs explicitly, and
    splitting the one link element into three:</p>
 
-   <pre><code class="html" data-x="">&lt;header>
+   <pre><code class="html">&lt;header>
  &lt;p>Welcome! &lt;a href="about.html">This is home of...&lt;/a>&lt;/p>
  &lt;h1>&lt;a href="about.html">The Falcons!&lt;/a>&lt;/h1>
  &lt;p>&lt;a href="about.html">The Lockheed Martin multirole jet
@@ -116,7 +116,7 @@
    <p>It is possible for paragraphs to overlap when using certain elements that define fallback
    content. For example, in the following section:</p>
 
-   <pre><code class="html" data-x="">&lt;section>
+   <pre><code class="html">&lt;section>
  &lt;h1>My Cats&lt;/h1>
  You can play with my cat simulator.
  &lt;object data="cats.sim">
@@ -144,7 +144,6 @@
     <li>The paragraph that says "Use online simulator".</li>
 
     <li>The paragraph that says "Alternatively, upgrade to the Mellblom Browser.".</li>
-
    </ol>
 
    <p>The first paragraph is overlapped by the other four. A user agent that supports the "cats.sim"
@@ -156,7 +155,7 @@
    <p>To avoid this confusion, explicit <code>p</code> elements can be used. For example:</p>
 
    <!-- My Fish -->
-   <pre><code class="html" data-x="">&lt;section>
+   <pre><code class="html">&lt;section>
  &lt;h1>My Cats&lt;/h1>
  &lt;p>You can play with my cat simulator.&lt;/p>
  &lt;object data="cats.sim">

@@ -6,11 +6,15 @@
    <dd><span>Sectioning content</span>.</dd>
    <dd><span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
-   <dd>Where <span>flow content</span> is expected.</dd>
+   <dd>Where <span>sectioning content</span> is expected.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
    <dd><span>Flow content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-nav">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-nav">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -35,7 +39,7 @@
    <p>In the following example, there are two <code>nav</code> elements, one for primary navigation
    around the site, and one for secondary navigation around the page itself.</p>
 
-   <pre><code class="html" data-x="">&lt;body>
+   <pre><code class="html">&lt;body>
  &lt;h1>The Wiki Center Of Exampland&lt;/h1>
  &lt;nav>
   &lt;ul>
@@ -83,7 +87,7 @@
    <p>In the following example, the page has several places where links are present, but only one of
    those places is considered a navigation section.</p>
 
-   <pre><code class="html" data-x="">&lt;body itemscope itemtype="http://schema.org/Blog">
+   <pre><code class="html">&lt;body itemscope itemtype="http://schema.org/Blog">
  &lt;header>
   &lt;h1>Wake up sheeple!&lt;/h1>
   &lt;p>&lt;a href="news.html">News&lt;/a> -
@@ -135,7 +139,7 @@
    <p>A <code>nav</code> element doesn't have to contain a list, it can contain other kinds of
    content as well. In this navigation block, links are provided in prose:</p>
 
-   <pre><code class="html" data-x="">&lt;nav>
+   <pre><code class="html">&lt;nav>
  &lt;h1>Navigation&lt;/h1>
  &lt;p>You are on my home page. To the north lies &lt;a href="/blog">my
  blog&lt;/a>, from whence the sounds of battle can be heard. To the east
@@ -156,10 +160,10 @@
 
   <div class="example">
 
-   <p>In this example, <code>nav</code> is used in an e-mail application, to let the user switch
+   <p>In this example, <code>nav</code> is used in an email application, to let the user switch
    folders:</p>
 
-   <pre><code class="html" data-x="">&lt;p>&lt;input type=button value="Compose" onclick="compose()">&lt;/p>
+   <pre><code class="html">&lt;p>&lt;input type=button value="Compose" onclick="compose()">&lt;/p>
 &lt;nav>
  &lt;h1>Folders&lt;/h1>
  &lt;ul>

@@ -6,7 +6,7 @@
   element's contents, matches the <code data-x="">documentation</code> production in the following
   ABNF, the character set for which is Unicode. <ref spec=ABNF></p>
 
-  <pre>documentation = *( *( space / tab / comment ) [ line-comment ] newline )
+  <pre><code data-x="" class="abnf">documentation = *( *( space / tab / comment ) [ line-comment ] newline )
 comment       = slash star *( not-star / star not-slash ) 1*star slash
 line-comment  = slash slash *not-newline
 
@@ -21,7 +21,7 @@ not-newline   = %x0000-0009 / %x000B-10FFFF
 not-star      = %x0000-0029 / %x002B-10FFFF
                 ; a <span>scalar value</span> other than U+002A ASTERISK (*)
 not-slash     = %x0000-002E / %x0030-10FFFF
-                ; a <span>scalar value</span> other than U+002F SOLIDUS (/)</pre>
+                ; a <span>scalar value</span> other than U+002F SOLIDUS (/)</code></pre>
 
   <p class="note">This corresponds to putting the contents of the element in JavaScript
   comments.</p>
@@ -36,7 +36,7 @@ not-slash     = %x0000-002E / %x0030-10FFFF
    so that authors don't accidentally include what looks like valid script while also providing a
    <code data-x="attr-script-src">src</code> attribute.</p>
 
-   <pre><code class="html" data-x="">&lt;script src="cool-effects.js">
+   <pre><code class="html">&lt;script src="cool-effects.js">
  // create new instances using:
  //    var e = new Effect();
  // start the effect using .play, stop using .stop:

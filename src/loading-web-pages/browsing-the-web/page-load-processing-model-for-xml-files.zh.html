@@ -1,20 +1,19 @@
   <h4 id="read-xml"><dfn data-x="navigate-xml">XML 文件的页面加载处理模型</dfn></h4>
 
-  <p>当内联地显示 XML 文件时，用户代理必须遵守 XML and Namespaces in XML recommendations，RFC 7303，
-  DOM，和其他相关规范中定义的要求，来创建一个 <code>Document</code> 对象以及相应的
-  <span data-x="XML parser">XML 解析器</span>。
+  <p>给定 <span data-x="navigation params">导航参数</span> <var>navigationParams</var> 和字符串 <var>type</var>，
+  要显示内联 XML 文件时，用户代理必须遵循
+  <cite>XML</cite> 和 <cite>Namespaces in XML</cite>, <cite>XML Media Types</cite>, <cite>DOM</cite> 和其他相关规范，
+  使用 "<code data-x="">xml</code>"，<var>type</var> 和 <var>navigationParams</var> <span data-x="create-the-document-object">
+  创建和初始化 <code>Document</code> 对象</span>。也必须创建一个对应的 <span data-x="XML parser">XML 解析器</span>。
   <ref spec=XML> <ref spec=XMLNS> <ref spec=RFC7303> <ref spec=DOM></p>
 
   <p class="note">编写这篇文档时，XML 规范社区其实还没有真正说明 XML 和 DOM 如何交互。</p> <!--XMLPARSE-->
-
-  <p>创建 <code>Document</code> 后，用户代理必须
-  <span data-x="initialize the Document object">初始化 <code>Document</code> 对象</span>。</p>
 
   <p>必须使用实际的 HTTP 头部和其他元数据（而不是本标准中算法修改后的），根据上述规范来确定字符编码。
   一旦建立了字符编码，必须把 <span data-x="document's character encoding">文档的字符编码</span>
   设置为这个编码。</p>
 
-  <p>如果根据上述 XML 规范解析的 <span data-x="document element">文档元素</span> 是一个
+  <p>如果根据上述 <cite>XML</cite> 解析的 <span data-x="document element">文档元素</span> 是一个
   有着<code data-x="attr-html-manifest">manifest</code> 属性值为非空字符串的 <code>html</code> 元素，
   那么当该元素 <span data-x="node is inserted into a document">插入到文档时</span>，
   用户代理必须相对于那个元素的 <span data-x="node document">节点文档</span>
@@ -34,16 +33,10 @@
   <span data-x="document element">文档元素</span> 之前的处理指令中引用的 URL
   （例如<code data-x="">&lt;?xml-stylesheet?></code> PI）将会从网络获取，不会被缓存。</p><!-- v2： fix this somehow -->
 
-  <p>用户代理可能会检查该 <code>Document</code> 的根 <code>Element</code> 节点的命名空间
-  来基于命名空间分发给其他处理工具，例如发现内容其实是一个联合feed，就把它传给一个 feed 处理器。
-  如果发生了这样的处理，终止本小节中的步骤，并跳到上述 <span data-x="navigate">导航</span> 步骤中的
-  <a href="#navigate-non-Document">下一步</a>
-  （标记为 <i>非文档内容</i>）。</p>
-
-  <p>否则，用户代理必须用新创建的 <code>Document</code>
-  <span data-x="update the session history with the new page">更新会话历史</span>。
-  用户代理需要在整个文档被解析完之前（这样来达到 <i>渐进渲染</i>），
-  并且在任何脚本执行之前。</p>
+  <p>
+  然后用代理必须用新创建的 <code>Document</code> 和 <var>navigationParams</var>，
+  <span data-x="update the session history with the new page">更新会话历史为新页面</span>。
+  用户代理必须在任何脚本执行之前更新会话历史，可能在文档完成解析之前（所以才能实现 <i>增量渲染</i>）。</p>
 
   <p>解析过程中的错误消息（例如 XML 命名空间良构性错误）可以通过修改 <code>Document</code>
   来内联地报告。</p>

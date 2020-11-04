@@ -1,6 +1,6 @@
   <h4 id="navigator.hardwareconcurrency">Concurrent hardware capabilities</h4>
 
-  <pre><code class="idl" data-x="">interface mixin <dfn>NavigatorConcurrentHardware</dfn> {
+  <pre><code class="idl">interface mixin <dfn>NavigatorConcurrentHardware</dfn> {
   readonly attribute unsigned long long <span data-x="dom-navigator-hardwareConcurrency">hardwareConcurrency</span>;
 };</code></pre>
 
@@ -13,11 +13,12 @@
 
   <div w-nodev>
 
-  <p>The <dfn><code
+  <p>
+  <!--INSERT TRACKING-->
+  The <dfn><code
   data-x="dom-navigator-hardwareConcurrency">navigator.hardwareConcurrency</code></dfn> attribute's
   getter must return a number between 1 and the number of logical processors potentially available
-  to the user agent. If this cannot be determined, the getter must return 1.
-  <!--INSERT FINGERPRINT--></p>
+  to the user agent. If this cannot be determined, the getter must return 1.</p>
 
   <p>User agents should err toward exposing the number of logical processors available, using lower
   values only in cases where there are user-agent specific limits in place (such as a limitation

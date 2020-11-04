@@ -24,27 +24,25 @@
 
    <dt>A start tag whose tag name is "html"</dt>
    <dd>
-
     <p><span>Create an element for the token</span> in the <span>HTML namespace</span>, with the
     <code>Document</code> as the intended parent. Append it to the <code>Document</code> object. Put
     this element in the <span>stack of open elements</span>.</p>
 
     <p id="parser-appcache">If the <code>Document</code> is being loaded as part of <span
-    data-x="navigate">navigation</span> of a <span>browsing context</span>, run these steps:</p>
+    data-x="navigate">navigation</span> of a <span>browsing context</span> and
+    <code>Document</code>'s <span>relevant settings object</span> is a <span>secure context</span>,
+    then:</p>
 
     <ol>
-
      <li><p>If the result of running <span data-x="scope-match-algorithm">match service worker
      registration</span> for the document's <span data-x="concept-document-url">URL</span> is
      non-null, run the <span data-x="concept-appcache-init">application cache selection
      algorithm</span> passing the <code>Document</code> object with no manifest.</p></li>
 
      <li>
-
       <p>Otherwise, run these substeps:</p>
 
       <ol>
-
        <li><p>If the newly created element has a <code data-x="attr-html-manifest">manifest</code>
        attribute whose value is not the empty string, then <span data-x="parse a
        url">parse</span> the value of that attribute, relative to the newly created element's
@@ -56,16 +54,12 @@
 
        <li><p>Otherwise, run the <span data-x="concept-appcache-init">application cache selection
        algorithm</span> passing the <code>Document</code> object with no manifest.</p></li>
-
       </ol>
-
      </li>
-
     </ol>
 
     <p>Switch the <span>insertion mode</span> to "<span data-x="insertion mode: before head">before
     head</span>".</p>
-
    </dd>
 
    <dt>An end tag whose tag name is one of: "head", "body", "html", "br"</dt>
@@ -80,7 +74,6 @@
 
    <dt>Anything else</dt>
    <dd>
-
     <p>Create an <code>html</code> element whose <span>node document</span> is the <code>Document</code> object. Append
     it to the <code>Document</code> object. Put this element in the <span>stack of open
     elements</span>.</p>
@@ -92,9 +85,7 @@
 
     <p>Switch the <span>insertion mode</span> to "<span data-x="insertion mode: before head">before
     head</span>", then reprocess the token.</p>
-
    </dd>
-
   </dl>
 
   <p>The <span>document element</span> can end up being removed from the <code>Document</code>

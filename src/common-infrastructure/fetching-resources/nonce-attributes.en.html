@@ -1,17 +1,16 @@
   <h4>Nonce attributes</h4>
 
-  <p>A <dfn data-export="" data-x="attr-nonce">nonce</dfn> content attribute represents a
-  cryptographic nonce ("number used once") which can be used by <cite>Content Security Policy</cite>
-  to determine whether or not a given fetch will be allowed to proceed. The value is text. <ref
-  spec="CSP"></p>
+  <p>A <dfn element-attr for="htmlsvg-global" data-x="attr-nonce"><code>nonce</code></dfn> content
+  attribute represents a cryptographic nonce ("number used once") which can be used by <cite>Content
+  Security Policy</cite> to determine whether or not a given fetch will be allowed to proceed. The
+  value is text. <ref spec="CSP"></p>
 
   <p>Elements that have a <code data-x="attr-nonce">nonce</code> content attribute ensure that the
   crytographic nonce is only exposed to script (and not to side-channels like CSS attribute
-  selectors) by extracting the value from the content attribute, moving it into an internal slot
-  named <dfn data-export="" data-dfn-for="HTMLOrSVGElement"
-  data-dfn-type="attribute">[[CryptographicNonce]]</dfn>, and exposing it to script via the
-  <code>HTMLOrSVGElement</code> interface mixin. Unless otherwise specified, the slot's value
-  is the empty string.</p>
+  selectors) by taking the value from the content attribute, moving it into an internal slot
+  named <dfn for="HTMLOrSVGElement" attribute>[[CryptographicNonce]]</dfn>, exposing it to script
+  via the <code>HTMLOrSVGElement</code> interface mixin, and setting the content attribute to the
+  empty string. Unless otherwise specified, the slot's value is the empty string.</p>
 
   <dl class="domintro">
    <dt><var>element</var> . <code data-x="">nonce</code></dt>
@@ -21,17 +20,40 @@
    </dd>
   </dl>
 
-  <p>The <dfn id="dom-noncedelement-nonce"><code
+  <p>The <dfn id="dom-noncedelement-nonce" attribute for="HTMLOrSVGElement"><code
   data-x="dom-HTMLOrSVGElement-nonce">nonce</code></dfn> IDL attribute must, on getting, return the
   value of this element's <span>[[CryptographicNonce]]</span>; and on setting, set this element's
   <span>[[CryptographicNonce]]</span> to the given value.</p>
 
-  <p>Whenever an element including <code>HTMLOrSVGElement</code> has its <code
-  data-x="attr-nonce">nonce</code> attribute is set or changed, set this element's
-  <span>[[CryptographicNonce]]</span> to the given value.</p>
+  <p class="note" id="nonce-does-not-update-dom">Note how the setter for the <code
+  data-x="dom-HTMLOrSVGElement-nonce">nonce</code> IDL attribute does not update the corresponding
+  content attribute. This, as well as the below setting of the <code
+  data-x="attr-nonce">nonce</code> content attribute to the empty string when an element
+  <span>becomes browsing-context connected</span>, is meant to prevent exfiltration of the nonce
+  value through mechanisms that can easily read content attributes, such as selectors. Learn more in
+  <a href="https://github.com/whatwg/html/issues/2369">issue #2369</a>, where this behavior was
+  introduced.</p>
 
-  <p>Whenever an element including <code>HTMLOrSVGElement</code> <span>becomes browsing-context
-  connected</span>, the user agent must execute the following steps on the <var>element</var>:</p>
+  <p>The following <span data-x="concept-element-attributes-change-ext">attribute change
+  steps</span> are used for the <code data-x="attr-nonce">nonce</code> content attribute:
+
+  <ol>
+   <li><p>If <var>element</var> does not <span>include</span> <code>HTMLOrSVGElement</code>, then
+   return.</p></li>
+
+   <li><p>If <var>localName</var> is not <code data-x="attr-nonce">nonce</code> or
+   <var>namespace</var> is not null, then return.</p></li>
+
+   <li><p>If <var>value</var> is null, then set <var>element</var>'s
+   <span>[[CryptographicNonce]]</span> to the empty string.</p></li>
+
+   <li><p>Otherwise, set <var>element</var>'s <span>[[CryptographicNonce]]</span> to
+   <var>value</var>.</p></li>
+  </ol>
+
+  <p>Whenever an element <span data-x="include">including</span> <code>HTMLOrSVGElement</code>
+  <span>becomes browsing-context connected</span>, the user agent must execute the following steps
+  on the <var>element</var>:</p>
 
   <ol>
    <li><p>Let <var>CSP list</var> be <var>element</var>'s <span data-x="shadow-including
@@ -44,21 +66,30 @@
     <var>attr</var> whose value is not the empty string, then:</p>
 
     <ol>
+     <li><p>Let <var>nonce</var> be <var>element</var>'s
+     <span>[[CryptographicNonce]]</span>.</p></li>
+
      <li><p><span data-x="concept-element-attributes-set-value">Set an attribute value</span> for
      <var>element</var> using "<code data-x="attr-nonce">nonce</code>" and the empty
      string.</p></li>
+
+     <li><p>Set <var>element</var>'s <span>[[CryptographicNonce]]</span> to
+     <var>nonce</var>.</p></li>
     </ol>
+
+    <p class="note">If <var>element</var>'s <span>[[CryptographicNonce]]</span> were not restored it
+    would be the empty string at this point.</p>
    </li>
   </ol>
 
   <p class="note">As each <code>Document</code>'s <span data-x="concept-document-csp-list">CSP
   list</span> is append-only, user agents can optimize away the <span>contains a header-delivered
   Content Security Policy</span> check by, for example, holding a flag on the <code>Document</code>,
-  set during <span data-x="initialize the Document object"><code data-x="">Document</code>
-  initialization</span>.</p>
+  set during <span data-x="create-the-document-object"><code data-x="">Document</code>
+  creation and initialization</span>.</p>
 
-  <p>The <span data-x="concept-node-clone-ext">cloning steps</span> for elements that include
-  <code>HTMLOrSVGElement</code> must set the <span>[[CryptographicNonce]]</span> slot on the copy
-  to the value of the slot on the element being cloned.</p>
-
+  <p>The <span data-x="concept-node-clone-ext">cloning steps</span> for elements that
+  <span>include</span> <code>HTMLOrSVGElement</code> must set the
+  <span>[[CryptographicNonce]]</span> slot on the copy to the value of the slot on the element being
+  cloned.</p>
 

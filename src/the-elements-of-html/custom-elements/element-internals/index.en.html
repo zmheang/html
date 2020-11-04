@@ -1,0 +1,56 @@
+  <h4>Element internals</h4>
+
+  <p>Certain capabilities are meant to be available to a custom element author, but not to a custom
+  element consumer. These are provided by the <code
+  data-x="dom-attachInternals">element.attachInternals()</code> method, which returns an instance of
+  <code>ElementInternals</code>. The properties and methods of <code>ElementInternals</code> allow
+  control over internal features which the user agent provides to all elements.</p>
+
+  <dl class="domintro">
+   <dt><var>element</var> . <code subdfn data-x="dom-attachInternals">attachInternals()</code></dt>
+
+   <dd><p>Returns an <code>ElementInternals</code> object targeting the <span>custom element</span>
+   <var>element</var>. Throws an exception if <var>element</var> is not a <span>custom
+   element</span>, if the "<code data-x="">internals</code>" feature was disabled as part of the
+   element definition, or if it is called twice on the same element.</p></dd>
+  </dl>
+
+  <div w-nodev>
+
+  <p>Each <code>HTMLElement</code> has an <dfn>attached internals</dfn> boolean, initially
+  false.</p>
+
+  <p>The <dfn><code data-x="dom-attachInternals">attachInternals()</code></dfn> method steps
+  are:</p>
+
+  <ol>
+   <!-- We could lift this restriction in the future. -->
+   <li><p>If <span>this</span>'s <span data-x="concept-element-is-value"><code data-x="">is</code>
+   value</span> is not null, then throw a <span>"<code>NotSupportedError</code>"</span>
+   <code>DOMException</code>.</p></li>
+
+   <li><p>Let <var>definition</var> be the result of <span data-x="look up a custom element
+   definition">looking up a custom element definition</span> given this's <span>node
+   document</span>, its namespace, its local name, and null as the <span
+   data-x="concept-element-is-value"><code data-x="">is</code> value</span>.</p></li>
+
+   <li><p>If <var>definition</var> is null, then throw an
+   <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>If <var>definition</var>'s <span
+   data-x="concept-custom-element-definition-disable-internals">disable internals</span> is true,
+   then throw a <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>If <span>this</span>'s <span>attached internals</span> is true, then throw an
+   <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>If <span>this</span>'s <span>custom element state</span> is not "<code
+   data-x="">precustomized</code>" or "<code data-x="">custom</code>", then throw a
+   <span>"<code>NotSupportedError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>Set <span>this</span>'s <span>attached internals</span> to true.</p></li>
+
+   <li><p>Return a new <code>ElementInternals</code> instance whose <span
+   data-x="internals-target">target element</span> is <span>this</span>.</p></li>
+  </ol>
+

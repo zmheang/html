@@ -9,20 +9,16 @@
   following:</p>
 
   <ol>
-
    <li><p>Let <var>source size</var> be <var>source set</var>'s <span>source size</span>.</p></li>
 
    <li>
-
     <p>For each <span>image source</span> in <var>source set</var>:</p>
 
     <ol>
-
      <li><p>If the <span>image source</span> has a <span>pixel density descriptor</span>, continue to the next
      <span>image source</span>.</p></li>
 
      <li>
-
       <p>Otherwise, if the <span>image source</span> has a <span>width descriptor</span>, replace the <span>width
       descriptor</span> with a <span>pixel density descriptor</span> with a <span data-x="pixel density descriptor
       value">value</span> of the <span>width descriptor value</span> divided by the <span>source size</span> and a unit
@@ -31,16 +27,12 @@
       <p class="note">If the <span>source size</span> is zero,
       the density would be infinity,
       which results in the <span>intrinsic dimensions</span> being zero by zero.</p>
-
      </li>
 
      <li><p>Otherwise, give the <span>image source</span> a <span>pixel density descriptor</span> of <code
      data-x="">1x</code>.</p></li>
-
     </ol>
-
    </li>
-
   </ol>
 
 

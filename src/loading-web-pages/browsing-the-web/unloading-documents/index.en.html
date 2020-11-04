@@ -4,12 +4,12 @@
 
   <p>A <code>Document</code> has a <dfn
   data-x="concept-document-salvageable"><i>salvageable</i></dfn> state, which must initially be
-  true, a <dfn>fired unload</dfn> flag, which must initially be false, and a <dfn>page showing</dfn>
-  flag, which must initially be false. The <span>page showing</span> flag is used to ensure that
-  scripts receive <code data-x="event-pageshow">pageshow</code> and <code
-  data-x="event-pagehide">pagehide</code> events in a consistent manner (e.g. that they never
-  receive two <code data-x="event-pagehide">pagehide</code> events in a row without an intervening
-  <code data-x="event-pageshow">pageshow</code>, or vice versa).</p>
+  true, and a <dfn>page showing</dfn> flag, which must initially be false. The <span>page
+  showing</span> flag is used to ensure that scripts receive <code
+  data-x="event-pageshow">pageshow</code> and <code data-x="event-pagehide">pagehide</code> events
+  in a consistent manner (e.g. that they never receive two <code
+  data-x="event-pagehide">pagehide</code> events in a row without an intervening <code
+  data-x="event-pageshow">pageshow</code>, or vice versa).</p>
 
   <p><span data-x="event loop">Event loops</span> have a <dfn>termination nesting level</dfn>
   counter, which must initially be 0.</p>
@@ -32,14 +32,10 @@
    data-x="dom-Event-cancelable">cancelable</code> attribute true.</p></li>
 
    <li><p><i>Dispatch</i>: <span data-x="concept-event-dispatch">Dispatch</span> <var>event</var> at
-   <var>document</var>'s <code>Window</code> object.</p></li>
+   <var>document</var>'s <span>relevant global object</span>.</p></li>
 
    <li><p>Decrease the <span>event loop</span>'s <span>termination nesting level</span> by
    1.</p></li>
-
-   <li><p>If any event listeners were triggered by the earlier <i>dispatch</i> step, then set
-   <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state to
-   false.</p></li>
 
    <li>
     <p>If <var>document</var>'s <span>active sandboxing flag set</span> does not have its
@@ -76,15 +72,11 @@
 
       <ol>
        <li><p><span>Prompt to unload</span> <var>browsingContext</var>'s <span>active
-       document</span> with the <var>recursiveFlag</var> set. If the user <span>refused to allow
-       the document to be unloaded</span>, then the user implicitly also <span data-x="refused to
-       allow the document to be unloaded">refused to allow <var>document</var> to be
-       unloaded</span>; <span>break</span>.</p></li>
+       document</span> with the <var>recursiveFlag</var> set.</p></li>
 
-       <li><p>If the <i data-x="concept-document-salvageable">salvageable</i> state of
-       <var>browsingContext</var>'s <span>active document</span> is false, then set the <i
-       data-x="concept-document-salvageable">salvageable</i> state of <var>document</var> to
-       false.</p></li>
+       <li><p>If the user <span>refused to allow the document to be unloaded</span>, then the user
+       implicitly also <span data-x="refused to allow the document to be unloaded">refused to allow
+       <var>document</var> to be unloaded</span>; <span>break</span>.</p></li>
       </ol>
      </li>
     </ol>
@@ -94,13 +86,8 @@
    1.</p></li>
   </ol>
 
-  <p>To <dfn data-export="" data-x="unload a document" data-lt="unload a document">unload</dfn> a
-  <code>Document</code> <var>document</var>, given a boolean <var>recycle</var> and optionally a
-  <var>recursiveFlag</var>:</p>
-
-  <p class="note">The <var>recycle</var> argument indicates whether the <code>Document</code> object
-  is going to be reused; it is set by the <code
-  data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> method.</p>
+  <p>To <dfn export data-x="unload a document" data-lt="unload a document">unload</dfn> a
+  <code>Document</code> <var>document</var>, optionally given a <var>recursiveFlag</var>:</p>
 
   <ol>
    <li><p>Increase the <span>event loop</span>'s <span>termination nesting level</span> by
@@ -116,9 +103,14 @@
 
    <li><p>Set <var>document</var>'s <span>page showing</span> flag to false.</p></li>
 
+   <li><p>If the user agent does not intend to keep <var>document</var> alive
+   in a <span>session history entry</span> (such that it can be reused later on <span
+   data-x="traverse the history">history traversal</span>), set <var>document</var>'s
+   <i data-x="concept-document-salvageable">salvageable</i> state to false.</p></li>
+
    <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
-   data-x="event-pagehide">pagehide</code> at <var>document</var>'s <code>Window</code>
-   object, using <code>PageTransitionEvent</code>, with the <code
+   data-x="event-pagehide">pagehide</code> at <var>document</var>'s <span>relevant global
+   object</span>, using <code>PageTransitionEvent</code>, with the <code
    data-x="dom-PageTransitionEvent-persisted">persisted</code> attribute initialized to true if
    <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state is
    true, and false otherwise, and <var>legacy target override flag</var> set.</p></li>
@@ -127,20 +119,18 @@
     <p>Run any <dfn>unloading document visibility change steps</dfn> for <var>document</var> that
     are defined by <span>other applicable specifications</span>.</p>
 
-    <p class="note">This is specifically intended for use by the Page Visibility specification. <ref spec=PAGEVIS></p>
+    <p class="note">This is specifically intended for use by <cite>Page Visibility</cite>.
+    <ref spec=PAGEVIS></p>
    </li>
 
-   <li><p><i>Unload event</i>: If <var>document</var>'s <span>fired unload</span> flag is
-   false, then <span data-x="concept-event-fire">fire an event</span> named <code
-   data-x="event-unload">unload</code> at <var>document</var>'s <code>Window</code>
-   object, with <var>legacy target override flag</var> set.</p></li>
+   <li><p><i>Unload event</i>: If <var>document</var>'s <i
+   data-x="concept-document-salvageable">salvageable</i> state is false, then <span
+   data-x="concept-event-fire">fire an event</span> named <code data-x="event-unload">unload</code>
+   at <var>document</var>'s <span>relevant global object</span>, with <var>legacy target override
+   flag</var> set.</p></li>
 
    <li><p>Decrease the <span>event loop</span>'s <span>termination nesting level</span> by
    one.</p></li>
-
-   <li><p>If any event listeners were triggered by the earlier <i>unload event</i> step, then set
-   <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state
-   to false and set <var>document</var>'s <span>fired unload</span> flag to true.</p></li>
 
    <li><p>Run any <span>unloading document cleanup steps</span> for <var>document</var> that are
    defined by this specification and <span>other applicable specifications</span>.</p></li>
@@ -157,8 +147,7 @@
 
       <ol>
        <li><p><span data-x="unload a document">Unload</span> the <span>active document</span> of
-       <var>browsingContext</var> with the <var>recycle</var> parameter set to false, and the
-       <var>recursiveFlag</var> set.</p></li>
+       <var>browsingContext</var> with the <var>recursiveFlag</var> set.</p></li>
 
        <li><p>If the <i data-x="concept-document-salvageable">salvageable</i> state of the
        <span>active document</span> of <var>browsingContext</var> is false, then set the
@@ -167,9 +156,8 @@
       </ol>
      </li>
 
-     <li><p>If both <var>document</var>'s <i
-     data-x="concept-document-salvageable">salvageable</i> state and <var>recycle</var> are false,
-     then <span data-x="discard a document">discard</span><var>document</var>.</p></li>
+     <li><p>If <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state
+     is false, then <span data-x="discard a document">discard</span><var>document</var>.</p></li>
     </ol>
    </li>
 
@@ -177,42 +165,34 @@
    one.</p></li>
   </ol>
 
-  <p>This specification defines the following <dfn data-export="">unloading document cleanup
-  steps</dfn>. Other specifications can define more.  Given a <code>Document</code> <var>document</var>:</p>
+  <p>This specification defines the following <dfn export>unloading document cleanup steps</dfn>.
+  Other specifications can define more.  Given a <code>Document</code> <var>document</var>:</p>
 
   <ol>
-
-   <li><p>Let <var>window</var> be <var>document</var>'s <code>Window</code> object.</p></li>
+   <li><p>Let <var>window</var> be <var>document</var>'s <span>relevant global
+   object</span>.</p></li>
 
    <li>
-
-    <p>For each <code>WebSocket</code> object <var>webSocket</var> whose <span
-    data-x="concept-relevant-global">relevant global object</span> is equal to <var>window</var>,
-    <span>make disappear</span> <var>webSocket</var>.</p>
+    <p>For each <code>WebSocket</code> object <var>webSocket</var> whose <span>relevant global
+    object</span> is <var>window</var>, <span>make disappear</span> <var>webSocket</var>.</p>
 
     <p>If this affected any <code>WebSocket</code> objects, then set <var>document</var>'s <i
     data-x="concept-document-salvageable">salvageable</i> state to false.</p>
-
    </li>
 
    <li>
-
     <p>If <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i>
     state is false, then:</p>
 
     <ol>
-
-     <li><p>For each <code>EventSource</code> object <var>eventSource</var> whose <span
-     data-x="concept-relevant-global">relevant global object</span> is equal to <var>window</var>,
-     <span data-x="concept-EventSource-forcibly-close">forcibly close</span>
+     <li><p>For each <code>EventSource</code> object <var>eventSource</var> whose <span>relevant
+     global object</span> is equal to <var>window</var>, <span
+     data-x="concept-EventSource-forcibly-close">forcibly close</span>
      <var>eventSource</var>.</p></li>
 
      <li><p>Empty <var>window</var>'s <span>list of active timers</span>.</p></li>
-
     </ol>
-
    </li>
-
   </ol>
 
   </div>

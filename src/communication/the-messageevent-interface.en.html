@@ -1,19 +1,21 @@
   <h3>The <code>MessageEvent</code> interface</h3>
 
-  <p>Messages in <span>server-sent events</span>, <span>Web sockets</span>, <span>cross-document
+  <p>Messages in <span>server-sent events</span>, <span>web sockets</span>, <span>cross-document
   messaging</span>, <span>channel messaging</span>, and <span>broadcast channels</span> use the
   <code>MessageEvent</code> interface for their <code data-x="event-message">message</code>
   events:</p>
 
-  <pre><code class="idl" data-x="">[Constructor(DOMString type, optional <span>MessageEventInit</span> eventInitDict), Exposed=(Window,Worker,AudioWorklet)]
+  <pre><code class="idl">[Exposed=(Window,Worker,AudioWorklet)]
 interface <dfn>MessageEvent</dfn> : <span>Event</span> {
+  <span data-x="dom-Event-constructor">constructor</span>(DOMString type, optional <span>MessageEventInit</span> eventInitDict = {});
+
   readonly attribute any <span data-x="dom-MessageEvent-data">data</span>;
   readonly attribute USVString <span data-x="dom-MessageEvent-origin">origin</span>;
   readonly attribute DOMString <span data-x="dom-MessageEvent-lastEventId">lastEventId</span>;
   readonly attribute <span>MessageEventSource</span>? <span data-x="dom-MessageEvent-source">source</span>;
   readonly attribute FrozenArray&lt;<span>MessagePort</span>&gt; <span data-x="dom-MessageEvent-ports">ports</span>;
 
-  void <span data-x="dom-MessageEvent-initMessageEvent">initMessageEvent</span>(DOMString type, optional boolean bubbles = false, optional boolean cancelable = false, optional any data = null, optional USVString origin = "", optional DOMString lastEventId = "", optional <span>MessageEventSource</span>? source = null, optional sequence&lt;<span>MessagePort</span>&gt; ports = []);
+  undefined <span data-x="dom-MessageEvent-initMessageEvent">initMessageEvent</span>(DOMString type, optional boolean bubbles = false, optional boolean cancelable = false, optional any data = null, optional USVString origin = "", optional DOMString lastEventId = "", optional <span>MessageEventSource</span>? source = null, optional sequence&lt;<span>MessagePort</span>&gt; ports = []);
 };
 
 dictionary <dfn>MessageEventInit</dfn> : <span>EventInit</span> {
@@ -31,51 +33,40 @@ typedef (<span>WindowProxy</span> or <span>MessagePort</span> or <span>ServiceWo
    <dt><var>event</var> . <code subdfn data-x="dom-MessageEvent-data">data</code></dt>
 
    <dd>
-
     <p>Returns the data of the message.</p>
-
    </dd>
 
    <dt><var>event</var> . <code subdfn data-x="dom-MessageEvent-origin">origin</code></dt>
 
    <dd>
-
     <p>Returns the origin of the message, for <span>server-sent events</span> and
     <span>cross-document messaging</span>.</p>
-
    </dd>
 
    <dt><var>event</var> . <code subdfn data-x="dom-MessageEvent-lastEventId">lastEventId</code></dt>
 
    <dd>
-
     <p>Returns the <span data-x="concept-event-stream-last-event-id">last event ID string</span>, for
     <span>server-sent events</span>.</p>
-
    </dd>
 
    <dt><var>event</var> . <code subdfn data-x="dom-MessageEvent-source">source</code></dt>
 
    <dd>
-
     <p>Returns the <code>WindowProxy</code> of the source window, for <span>cross-document
     messaging</span>, and the <code>MessagePort</code> being attached, in the <code
     data-x="event-WorkerGlobalScope-connect">connect</code> event fired at
     <code>SharedWorkerGlobalScope</code> objects.</p>
-
    </dd>
 
    <dt><var>event</var> . <code subdfn data-x="dom-MessageEvent-ports">ports</code></dt>
 
    <dd>
-
     <p>Returns the <code>MessagePort</code> array sent with the message, for <span>cross-document
     messaging</span> and <span>channel messaging</span>.</p>
-
    </dd>
 
    <!-- initMessageEvent is deprecated -->
-
   </dl>
 
   <div w-nodev>
@@ -106,7 +97,7 @@ typedef (<span>WindowProxy</span> or <span>MessagePort</span> or <span>ServiceWo
   value it was initialized to. It represents, in <span>cross-document messaging</span> and
   <span>channel messaging</span>, the <code>MessagePort</code> array being sent.</p>
 
-  <!-- handwave this one since it's deprecated anyway... let me know if there's interop issues -->
+  <!-- handwavy, file bugs if there are interop issues -->
   <p>The <dfn><code data-x="dom-MessageEvent-initMessageEvent">initMessageEvent()</code></dfn>
   method must initialize the event in a manner analogous to the similarly-named <code
   data-x="dom-Event-initEvent">initEvent()</code> method. <ref spec=DOM></p>

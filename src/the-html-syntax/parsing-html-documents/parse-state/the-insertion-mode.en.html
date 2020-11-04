@@ -53,23 +53,20 @@
   means the UA must follow these steps:</p>
 
   <ol>
-
    <li><p>Let <var>last</var> be false.</p></li>
 
    <li><p>Let <var>node</var> be the last node in the <span>stack of open
    elements</span>.</p></li>
 
-   <li><p><i>Loop</i>: If <var>node</var> is the first node in the stack of open elements,
-   then set <var>last</var> to true, and, if the parser was originally created as part of
-   the <span>HTML fragment parsing algorithm</span> (<span>fragment case</span>), set <var>node</var> to the <var data-x="concept-frag-parse-context">context</var>
-   element passed to that algorithm.</p></li>
+   <li><p><i>Loop</i>: If <var>node</var> is the first node in the stack of open elements, then set
+   <var>last</var> to true, and, if the parser was created as part of the <span>HTML fragment
+   parsing algorithm</span> (<span>fragment case</span>), set <var>node</var> to the <var
+   data-x="concept-frag-parse-context">context</var> element passed to that algorithm.</p></li>
 
    <li>
-
     <p>If <var>node</var> is a <code>select</code> element, run these substeps:</p>
 
     <ol>
-
      <li><p>If <var>last</var> is true, jump to the step below labeled
      <i>done</i>.</p></li>
 
@@ -94,9 +91,7 @@
 
      <li><p><i>Done</i>: Switch the <span>insertion mode</span> to "<span data-x="insertion mode: in
      select">in select</span>" and return.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>If <var>node</var> is a <code>td</code> or <code>th</code> element and <var>last</var> is
@@ -152,11 +147,9 @@
    return. (<span>fragment case</span>)</p></li>
 
    <li>
-
     <p>If <var>node</var> is an <code>html</code> element, run these substeps:</p>
 
     <ol>
-
      <li><p>If the <span><code>head</code> element pointer</span> is null, switch the
      <span>insertion mode</span> to "<span data-x="insertion mode: before head">before head</span>"
      and return. (<span>fragment case</span>)</p></li>
@@ -164,9 +157,7 @@
      <li><p>Otherwise, the <span><code>head</code> element pointer</span> is not null, switch the
      <span>insertion mode</span> to "<span data-x="insertion mode: after head">after head</span>" and
      return.</p></li> <!-- consider <html><head></head><template></template> -->
-
     </ol>
-
    </li>
 
    <li><p>If <var>last</var> is true, then switch the <span>insertion mode</span> to "<span
@@ -177,7 +168,6 @@
    <span>stack of open elements</span>.</p></li>
 
    <li><p>Return to the step labeled <i>loop</i>.</p></li>
-
   </ol>
 
 

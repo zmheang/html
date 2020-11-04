@@ -20,10 +20,8 @@
 
    <dt>A DOCTYPE token</dt>
    <dd>
-
-    <p>If the DOCTYPE token's name is not a <span>case-sensitive</span> match for the string "<code
-    data-x="">html</code>", or the token's public identifier is not missing, or the token's system
-    identifier is neither missing nor a <span>case-sensitive</span> match for the string
+    <p>If the DOCTYPE token's name is not "<code data-x="">html</code>", or the token's public
+    identifier is not missing, or the token's system identifier is neither missing nor
     "<code>about:legacy-compat</code>", then there is a <span>parse error</span>.</p>
 
     <p>Append a <code>DocumentType</code> node to the <code>Document</code> node, with the <code
@@ -44,7 +42,7 @@
 
     <ul class="brief">
      <li> The <i data-x="force-quirks flag">force-quirks flag</i> is set to <i>on</i>. </li>
-     <li> The name is set to anything other than "<code data-x="">html</code>" (compared <span data-x="case-sensitive">case-sensitively</span>). </li>
+     <li> The name is not "<code data-x="">html</code>". </li>
      <li> The public identifier is set to: "<code data-x="">-//W3O//DTD W3 HTML Strict 3.0//EN//</code>" </li>
      <li> The public identifier is set to: "<code data-x="">-/W3C/DTD HTML 4.0 Transitional/EN</code>" </li>
      <li> The public identifier is set to: "<code data-x="">HTML</code>" </li>
@@ -127,21 +125,17 @@
 
     <p>Then, switch the <span>insertion mode</span> to "<span data-x="insertion mode: before
     html">before html</span>".</p>
-
    </dd>
 
    <dt>Anything else</dt>
    <dd>
-
     <p>If the document is <em>not</em> <span>an <code>iframe</code> <code
     data-x="attr-iframe-srcdoc">srcdoc</code> document</span>, then this is a <span>parse
     error</span>; set the <code>Document</code> to <span>quirks mode</span>.</p>
 
     <p>In any case, switch the <span>insertion mode</span> to "<span data-x="insertion mode: before
     html">before html</span>", then reprocess the token.</p>
-
    </dd>
-
   </dl>
 
 

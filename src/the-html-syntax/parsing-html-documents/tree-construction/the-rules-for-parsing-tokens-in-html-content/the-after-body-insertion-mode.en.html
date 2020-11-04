@@ -7,18 +7,14 @@
    <dt>A character token that is one of U+0009 CHARACTER TABULATION, U+000A LINE FEED (LF), U+000C
    FORM FEED (FF), U+000D CARRIAGE RETURN (CR), or U+0020 SPACE</dt>
    <dd>
-
     <p>Process the token <span>using the rules for</span> the "<span data-x="insertion mode: in
     body">in body</span>" <span>insertion mode</span>.</p>
-
    </dd>
 
    <dt>A comment token</dt>
    <dd>
-
     <p><span>Insert a comment</span> as the last child of the first element in the <span>stack of
     open elements</span> (the <code>html</code> element).</p>
-
    </dd>
 
    <dt>A DOCTYPE token</dt>
@@ -28,22 +24,17 @@
 
    <dt>A start tag whose tag name is "html"</dt>
    <dd>
-
     <p>Process the token <span>using the rules for</span> the "<span data-x="insertion mode: in
     body">in body</span>" <span>insertion mode</span>.</p>
-
    </dd>
 
    <dt>An end tag whose tag name is "html"</dt>
    <dd>
-
-    <p>If the parser was originally created as part of the <span>HTML fragment parsing
-    algorithm</span>, this is a <span>parse error</span>; ignore the token. (<span>fragment
-    case</span>)</p>
+    <p>If the parser was created as part of the <span>HTML fragment parsing algorithm</span>, this
+    is a <span>parse error</span>; ignore the token. (<span>fragment case</span>)</p>
 
     <p>Otherwise, switch the <span>insertion mode</span> to "<span data-x="insertion mode: after
     after body">after after body</span>".</p>
-
    </dd>
 
    <dt>An end-of-file token</dt>
@@ -53,12 +44,9 @@
 
    <dt>Anything else</dt>
    <dd>
-
     <p><span>Parse error</span>. Switch the <span>insertion mode</span> to "<span data-x="insertion
     mode: in body">in body</span>" and reprocess the token.</p>
-
    </dd>
-
   </dl>
 
 

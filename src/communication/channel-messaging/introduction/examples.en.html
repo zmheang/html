@@ -8,7 +8,7 @@
    <code>MessagePort</code>s. This allows the libraries to later be hosted in different frames, or
    in <code>Worker</code> objects, without any change to the APIs.</p>
 
-   <pre><code class="html" data-x="">&lt;script src="contacts.js">&lt;/script> &lt;!-- exposes a contacts object -->
+   <pre><code class="html">&lt;script src="contacts.js">&lt;/script> &lt;!-- exposes a contacts object -->
 &lt;script src="compose-mail.js">&lt;/script> &lt;!-- exposes a composer object -->
 &lt;script>
  var channel = new MessageChannel();
@@ -18,7 +18,7 @@
 
    <p>Here's what the "addContactsProvider()" function's implementation could look like:</p>
 
-   <pre><code class="js" data-x="">function addContactsProvider(port) {
+   <pre><code class="js">function addContactsProvider(port) {
   port.onmessage = function (event) {
     switch (event.data.messageType) {
       'search-result': handleSearchResult(event.data.results); break;
@@ -31,7 +31,7 @@
 
    <p>Alternatively, it could be implemented as follows:</p>
 
-   <pre><code class="js" data-x="">function addContactsProvider(port) {
+   <pre><code class="js">function addContactsProvider(port) {
   port.addEventListener('message', function (event) {
     if (event.data.messageType == 'search-result')
       handleSearchResult(event.data.results);

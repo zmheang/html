@@ -7,8 +7,6 @@ let g:formatdef_spec = '"./bin/translate-references.js"'
 let g:formatters_html = ['spec']
 let g:syntastic_html_checkers = ['spec']
 
-set ts=4
-set sw=4
 function! TranslatePunc()
     execute '%s/\zs\.\ze\(<\|$\| \)/。/g'
     execute '%s/ 。 / . /g'
@@ -16,7 +14,7 @@ function! TranslatePunc()
     execute '%s/,$/，/g'
 endfunction
 
-function! TranslateTerm()
+function! TranslateGramma()
     execute '%s/Let /令/g'
     execute '%s/Set /设置/g'
     execute "%s/'s/的/g"
@@ -51,11 +49,11 @@ function! TranslateTerm()
 endfunction
 
 function! PreTranslate()
-    call TranslateTerm()
+    call TranslateGramma()
     call TranslatePunc()
 endfunction
 
-set sw=2 ts=2
+set sw=1 ts=1
 
 nnoremap <F6> :call PreTranslate()<CR>
-nnoremap <F4> :source helper.vim<CR>
+let @x="f>wdt<hi data-x=\"\"\eF=llPf>a"

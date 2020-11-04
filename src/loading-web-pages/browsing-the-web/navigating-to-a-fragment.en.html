@@ -1,34 +1,37 @@
-  <h4 id="scroll-to-fragid"><dfn data-x="navigate-fragid">Navigating to a fragment</dfn></h4>
+  <h4 id="scroll-to-fragid">Navigating to a fragment</h4>
 
-  <p>When a user agent is supposed to navigate to a <span
-  data-x="concept-url-fragment">fragment</span>, optionally with <span>replacement enabled</span>,
-  then the user agent must run the following steps:</p>
+  <p>To <dfn data-x="navigate-fragid">navigate to a fragment</dfn> given a <span>browsing
+  context</span> <var>browsingContext</var>, a <span>URL</span> <var>url</var>, and a <span>history
+  handling behavior</span> <var>historyHandling</var>:</p>
 
   <ol>
    <li>
-    <p>If not with <span>replacement enabled</span>, then remove all the entries in the
-    <span>browsing context</span>'s <span>session history</span> after the <span>current
-    entry</span>. If the <span>current entry</span> is the last entry in the session history, then
-    no entries are removed.</p>
+    <p>If <var>historyHandling</var> is not "<code data-x="hh-replace">replace</code>", then remove
+    all the entries in <var>browsingContext</var>'s <span>session history</span> after the
+    <span>current entry</span>. (If the <span>current entry</span> is the last entry in the session
+    history, then no entries are removed.)</p>
 
     <p class="note">This <a href="#history-notes">doesn't necessarily have to affect</a> the user
     agent's user interface.</p>
    </li>
 
    <li><p>Remove any <span data-x="concept-task">tasks</span> queued by the <span>history traversal
-   task source</span> that are associated with any <code>Document</code> objects in the
-   <span>top-level browsing context</span>'s <span>document family</span>.</p></li>
+   task source</span> that are associated with any <code>Document</code> objects in
+   <var>browsingContext</var>'s <span>top-level browsing context</span>'s <span>document
+   family</span>.</p></li>
 
-   <li><p>Append a new entry at the end of the <code>History</code> object representing the new
-   resource and its <code>Document</code> object, related state, and <span>current entry</span>'s
-   <span>scroll restoration mode</span>. Its <span>URL</span> must be set to the address to which
-   the user agent was <span data-x="navigate">navigating</span>. The title must be left
-   unset.</p></li>
+   <li><p>Append a new <span>session history entry</span> to the <span>session history</span> whose
+   <span data-x="she-url">URL</span> is <var>url</var>, <span data-x="she-document">document</span>
+   is the <span>current entry</span>'s <span data-x="she-document">document</span>, and <span
+   data-x="she-scroll-restoration-mode">scroll restoration mode</span> is the <span>current
+   entry</span>'s <span data-x="she-scroll-restoration-mode">scroll restoration
+   mode</span>.</p></li>
 
-   <li><p><span>Traverse the history</span> to the new entry, with <span>replacement enabled</span>
-   if this was invoked with <span>replacement enabled</span>, and with the <i data-x="non-blocking
-   events flag">non-blocking events flag</i> set. This will <span>scroll to the fragment</span>
-   given in what is now the document's <span data-x="concept-document-url">URL</span>.</p></li>
+   <li><p><span>Traverse the history</span> to the new entry, with <var
+   data-x="traverse-history-hh">historyHandling</var> set to <var>historyHandling</var> and with
+   <var><span>nonBlockingEvents</span></var> set to true. This will <span>scroll to the
+   fragment</span> given in what is now the document's <span
+   data-x="concept-document-url">URL</span>.</p></li>
   </ol>
 
   <p class="note">If the scrolling fails because the relevant <span data-x="concept-id">ID</span> has
@@ -77,7 +80,7 @@
      set to "nearest". <ref spec=CSSOMVIEW></p></li>
 
      <li><p>Run the <span>focusing steps</span> for <var>target</var>, with the
-     <code>Document</code>'s <span>viewport</span> as the <i>fallback target</i>.</p></li>
+     <code>Document</code>'s <span>viewport</span> as the <var>fallback target</var>.</p></li>
 
      <li><p>Move the <span>sequential focus navigation starting point</span> to
      <var>target</var>.</p></li>
@@ -112,8 +115,8 @@
    non-null, then the return value is <span>the indicated part of the document</span>;
    return.</p></li>
 
-   <li><p>Let <var>fragmentBytes</var> be the result of <span data-x="string percent decode">string
-   percent decoding</span> <var>fragment</var>.</p></li>
+   <li><p>Let <var>fragmentBytes</var> be the result of <span
+   data-x="percent-decode">percent-decoding</span> <var>fragment</var>.</p></li>
 
    <li><p>Let <var>decodedFragment</var> be the result of running <span>UTF-8 decode without
    BOM</span> on <var>fragmentBytes</var>.</p></li>
@@ -144,9 +147,6 @@
 
    <li><p>Return null.</p></li>
   </ol>
-
-  <p>The <span>task source</span> for the task mentioned in this section must be the <span>DOM
-  manipulation task source</span>.</p>
 
   </div>
 

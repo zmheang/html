@@ -1,0 +1,117 @@
+  <h5><span id="obtaining-a-resource-from-a-link-element"></span>Fetching and processing a resource
+  from a <code>link</code> element</h5>
+
+  <p id="concept-link-obtain">All <span data-x="external resource link">external resource
+  links</span> have a <dfn>fetch and process the linked resource</dfn> algorithm, which takes a
+  <code>link</code> element <var>el</var>. They also have <dfn>linked resource fetch setup
+  steps</dfn> which take a <code>link</code> element <var>el</var> and <span
+  data-x="concept-request">request</span> <var>request</var>. Individual link types may provide
+  their own <span>fetch and process the linked resource</span> algorithm, but unless explicitly
+  stated, they use the <span>default fetch and process the linked resource</span> algorithm.
+  Similarly, individual link types may provide their own <span>linked resource fetch setup
+  steps</span>, but unless explicitly stated, these steps just return true.</p>
+
+  <p>The <dfn>default fetch and process the linked resource</dfn>, given a <code>link</code> element
+  <var>el</var>, is as follows:</p>
+
+  <ol>
+   <li><p>If <var>el</var>'s <code data-x="attr-link-href">href</code> attribute's value is the
+   empty string, then return.</p></li>
+
+   <li><p><span data-x="parse a url">Parse</span> the <span>URL</span> given by <var>el</var>'s
+   <code data-x="attr-link-href">href</code> attribute, relative to <var>el</var>'s <span>node
+   document</span>. If that fails, then return. Otherwise, let <var>url</var> be the <span>resulting
+   URL record</span>.</p></li>
+
+   <li><p>Let <var>corsAttributeState</var> be the current state of the <var>el</var>'s <code
+   data-x="attr-link-crossorigin">crossorigin</code> content attribute.</p></li>
+
+   <li><p>Let <var>request</var> be the result of <span
+   data-x="create a potential-CORS request">creating a potential-CORS request</span> given
+   <var>url</var>, the empty string, and <var>corsAttributeState</var>.</p></li>
+
+   <li><p>Set <var>request</var>'s <span>synchronous flag</span>.</p></li>
+
+   <li><p>Set <var>request</var>'s <span data-x="concept-request-client">client</span> to
+   <var>el</var>'s <span>node document</span>'s <span>relevant settings object</span>.</p></li>
+
+   <li><p>Set <var>request</var>'s <span data-x="concept-request-nonce-metadata">cryptographic
+   nonce metadata</span> to the current value of <var>el</var>'s <span>[[CryptographicNonce]]</span>
+   internal slot.</p></li>
+
+   <li><p>Set <var>request</var>'s <span data-x="concept-request-integrity-metadata">integrity
+   metadata</span> to the current value of <var>el</var>'s <code
+   data-x="attr-link-integrity">integrity</code> content attribute.</p></li>
+
+   <li><p>Set <var>request</var>'s
+   <span data-x="concept-request-referrer-policy">referrer policy</span> to the current state of the
+   <var>el</var>'s <code data-x="attr-link-referrerpolicy">referrerpolicy</code> attribute.</p></li>
+
+   <li><p>Run the <span>linked resource fetch setup steps</span>, given <var>el</var> and
+   <var>request</var>. If the result is false, then return.</p></li>
+
+   <li>
+    <p>Run the following steps <span>in parallel</span>:</p>
+
+    <ol>
+     <!--FETCH--><li><p>Let <var>response</var> be the result of <span
+     data-x="concept-fetch">fetching</span> <var>request</var>.</p></li>
+
+     <li><p>Let <var>success</var> be true.</p></li>
+
+     <li>
+      <p>If <var>response</var> is a <span>network error</span> or its <span
+      data-x="concept-response-status">status</span> is not an <span>ok
+      status</span>, set <var>success</var> to false.</p>
+
+      <p class="note">Note that content-specific errors, e.g., CSS parse errors or PNG decoding
+      errors, do not affect <var>success</var>.</p>
+     </li>
+
+     <li>
+      <p>If <var>success</var> is true, wait for the <span data-x="external resource link">link
+      resource</span>'s <span>critical subresources</span> to finish loading.</p>
+
+      <p class="XXX">The specification that defines a link type's <span>critical subresources</span>
+      (e.g., CSS) is expected to describe how these subresources are fetched and processed. However,
+      since this is not currently explicit, this specification describes waiting for a <span
+      data-x="external resource link">link resource</span>'s <span>critical subresources</span> to
+      be fetched and processed, with the expectation that this will be done correctly.</p>
+     </li>
+
+     <li><span>Queue an element task</span> on the <span>networking task source</span> given
+     <var>el</var> to <span>process the linked resource</span> given <var>el</var>,
+     <var>success</var>, and <var>response</var>.</li>
+    </ol>
+   </li>
+  </ol>
+
+  <p>User agents may opt to only try to <span data-x="fetch and process the linked resource">fetch
+  and process</span> such resources when they are needed, instead of pro-actively fetching all the
+  <span data-x="external resource link">external resources</span> that are not applied.</p>
+
+  <!-- the next few paragraphs are similar to text in the <style> element section -->
+  <!-- TODO: integrate this better with Fetch's process response definition -->
+  <p>Similar to the <span>fetch and process the linked resource</span> algorithm, all <span
+  data-x="external resource link">external resource links</span> have a <dfn>process the linked
+  resource</dfn> algorithm which takes a <code>link</code> element <var>el</var>, boolean
+  <var>success</var>, and <span data-x="concept-response">response</span> <var>response</var>.
+  Unless an individual link type provides its own <span>process the linked resource</span>
+  algorithm, the <dfn>default process the linked resource</dfn> algorithm, given a <code>link</code>
+  element <var>el</var>, and boolean <var>success</var> (ignoring <var>response</var>) is used:</p>
+
+  <ol>
+   <li><p>If <var>success</var> is true, <span data-x="concept-event-fire">fire an event</span>
+   named <code data-x="event-load">load</code> at <var>el</var>.</p></li>
+
+   <li><p>Otherwise, <span data-x="concept-event-fire">fire an event</span> named <code
+   data-x="event-error">error</code> at <var>el</var>.</p></li>
+  </ol>
+
+  <p>Unless otherwise specified for a given <code data-x="attr-link-rel">rel</code> keyword, the
+  element must <span>delay the load event</span> of the element's <span>node document</span> until
+  all the attempts to <span>fetch and process the linked resource</span> and its <span>critical
+  subresources</span> are complete. (Resources that the user agent has not yet attempted to fetch
+  and process, e.g., because it is waiting for the resource to be needed, do not <span>delay the
+  load event</span>.)</p>
+

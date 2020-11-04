@@ -1,8 +1,9 @@
   <h5>The <code>TrackEvent</code> interface</h5>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- Constructor(DOMString type, optional <span>TrackEventInit</span> eventInitDict)]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>TrackEvent</dfn> : <span>Event</span> {
+  constructor(DOMString type, optional <span>TrackEventInit</span> eventInitDict = {});
+
   readonly attribute (<span>VideoTrack</span> or <span>AudioTrack</span> or <span>TextTrack</span>)? <span data-x="dom-TrackEvent-track">track</span>;
 };
 
@@ -15,12 +16,9 @@ dictionary <dfn>TrackEventInit</dfn> : <span>EventInit</span> {
    <dt><var>event</var> . <code subdfn data-x="dom-TrackEvent-track">track</code></dt>
 
    <dd>
-
     <p>Returns the track object (<code>TextTrack</code>, <code>AudioTrack</code>, or
     <code>VideoTrack</code>) to which the event relates.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>

@@ -10,8 +10,8 @@
    is the <span data-x="same origin">same</span> as the <span>origin</span> of the <span>active
    document</span> of <var>B</var>, or</li>
 
-   <li>The browsing context <var>A</var> is a <span>nested browsing context</span> with a
-   <span>top-level browsing context</span>, and its <span>top-level browsing context</span> is <var>B</var>, or</li>
+   <li>The browsing context <var>A</var> is a <span>child browsing context</span> and its
+   <span>top-level browsing context</span> is <var>B</var>, or</li>
 
    <li>The browsing context <var>B</var> is an <span>auxiliary browsing context</span> and
    <var>A</var> is <span>familiar with</span> <var>B</var>'s <span>opener
@@ -30,7 +30,6 @@
   second <span>browsing context</span> <var>B</var> if the following algorithm returns true:</p>
 
   <ol>
-
    <li><p>If <var>A</var> is not the same <span>browsing context</span> as <var>B</var>, and
    <var>A</var> is not one of the <span data-x="ancestor browsing context">ancestor browsing
    contexts</span> of <var>B</var>, and <var>B</var> is not a <span>top-level browsing
@@ -44,15 +43,15 @@
     then:</p>
 
     <ol>
-     <li><p>If this algorithm is <span>triggered by user activation</span> and <var>A</var>'s
-     <span>active document</span>'s <span>active sandboxing flag set</span> has its <span>sandboxed
-     top-level navigation with user activation browsing context flag</span> set, then return
-     false.</p></li>
-
-     <li><p>Otherwise, if this algorithm is not <span>triggered by user activation</span> and
+     <li><p>If <var>A</var>'s <span>active window</span> has <span>transient activation</span> and
      <var>A</var>'s <span>active document</span>'s <span>active sandboxing flag set</span> has its
-     <span>sandboxed top-level navigation without user activation browsing context flag</span> set,
+     <span>sandboxed top-level navigation with user activation browsing context flag</span> set,
      then return false.</p></li>
+
+     <li><p>Otherwise, if <var>A</var>'s <span>active window</span> does not have <span>transient
+     activation</span> and <var>A</var>'s <span>active document</span>'s <span>active sandboxing
+     flag set</span> has its <span>sandboxed top-level navigation without user activation browsing
+     context flag</span> set, then return false.</p></li>
     </ol>
    </li>
 
@@ -66,7 +65,6 @@
    opening the new top-level browsing context. -->
 
    <li><p>Return true.</p></li>
-
   </ol>
 
   <hr>

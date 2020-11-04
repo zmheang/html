@@ -5,7 +5,7 @@
 ## 关于本项目
 
 [HTML 标准][whatwg/html] 的简体中文翻译 <https://whatwg-cn.github.io/html/multipage>，
-当前进度： 43% (468/1073)
+当前进度： 41% (467/1122)
 
 由于 [whatwg/html][whatwg/html] 标准的更新频率非常快，完全的同步翻译非常困难，我们欢迎任何形式的参与，包括校对纠错、更新增补、术语讨论等。
 

@@ -29,11 +29,16 @@
    <dd><code data-x="attr-media-controls">controls</code></dd>
    <dd><code data-x="attr-dim-width">width</code></dd>
    <dd><code data-x="attr-dim-height">height</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-video">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-video">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-dim-width">width</span>;
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-dim-height">height</span>;
   readonly attribute unsigned long <span data-x="dom-video-videoWidth">videoWidth</span>;
@@ -49,7 +54,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   captions.</p>
 
   <p>Content may be provided inside the <code>video</code> element<span w-nodev>. User agents
-  should not show this content to the user</span>; it is intended for older Web browsers which do
+  should not show this content to the user</span>; it is intended for older web browsers which do
   not support <code>video</code>, so that legacy video plugins can be tried, or to show text to the
   users of these older browsers informing them of how to access the video contents.</p>
 
@@ -67,16 +72,16 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   <p>The <code>video</code> element is a <span>media element</span> whose <span>media data</span> is
   ostensibly video data, possibly with associated audio data.</p>
 
-  <p>The <code data-x="attr-media-src">src</code>, <code data-x="attr-media-preload">preload</code>,
-  <code data-x="attr-media-autoplay">autoplay</code>, <code data-x="attr-media-loop">loop</code>,
-  <code data-x="attr-media-muted">muted</code>, and <code
+  <p>The <code data-x="attr-media-src">src</code>, <code data-x="attr-media-crossorigin">crossorigin</code>,
+  <code data-x="attr-media-preload">preload</code>, <code data-x="attr-media-autoplay">autoplay</code>,
+  <code data-x="attr-media-loop">loop</code>, <code data-x="attr-media-muted">muted</code>, and <code
   data-x="attr-media-controls">controls</code> attributes are <span data-x="media element
   attributes">the attributes common to all media elements</span>.</p>
 
-  <p>The <dfn><code data-x="attr-video-poster">poster</code></dfn> attribute gives the
-  <span>URL</span> of an image file that the user agent can show while no video data is available.
-  The attribute, if present, must contain a <span>valid non-empty URL potentially surrounded by
-  spaces</span>.</p>
+  <p>The <dfn element-attr for="video"><code data-x="attr-video-poster">poster</code></dfn>
+  attribute gives the <span>URL</span> of an image file that the user agent can show while no video
+  data is available.  The attribute, if present, must contain a <span>valid non-empty URL
+  potentially surrounded by spaces</span>.</p>
 
   <div w-nodev>
 
@@ -87,7 +92,6 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   to the base URL. -->
 
   <ol>
-
    <li><p>If there is an existing instance of this algorithm running for this <code>video</code>
    element, abort that instance of this algorithm without changing the <span>poster
    frame</span>.</p></li>
@@ -102,9 +106,9 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
    <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
    <span data-x="concept-request-url">url</span> is the <span>resulting URL record</span>,
    <span data-x="concept-request-client">client</span> is the element's <span>node document</span>'s
-   <code>Window</code> object's <span>environment settings object</span>, <span
-   data-x="concept-request-destination">destination</span> is "<code data-x="">image</code>",
-   <span data-x="concept-request-credentials-mode">credentials mode</span> is "<code
+   <span>relevant settings object</span>, <span
+   data-x="concept-request-destination">destination</span> is "<code data-x="">image</code>", <span
+   data-x="concept-request-credentials-mode">credentials mode</span> is "<code
    data-x="">include</code>", and whose <span>use-URL-credentials flag</span> is set.
 
    <!--FETCH--><li><p><span data-x="concept-fetch">Fetch</span> <var>request</var>. This must
@@ -114,7 +118,6 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
    <li><p>If an image is thus obtained, the <span>poster frame</span> is that image. Otherwise,
    there is no <span>poster frame</span>.</p></li>
-
   </ol>
 
   </div>
@@ -125,10 +128,11 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   is like.</p>
 
 
-  <p>The <dfn><code data-x="attr-video-playsinline">playsinline</code></dfn> attribute is a
-  <span>boolean attribute</span>. If present, it serves as a hint to the user agent that the video
-  ought to be displayed "inline" in the document by default, constrained to the element's playback
-  area, instead of being displayed fullscreen or in an independent resizable window.</p>
+  <p>The <dfn element-attr for="video"><code
+  data-x="attr-video-playsinline">playsinline</code></dfn> attribute is a <span>boolean
+  attribute</span>. If present, it serves as a hint to the user agent that the video ought to be
+  displayed "inline" in the document by default, constrained to the element's playback area, instead
+  of being displayed fullscreen or in an independent resizable window.</p>
 
   <p class="note">The absence of the <code data-x="attr-video-playsinline">playsinline</code>
   attributes does not imply that the video will display fullscreen by default. Indeed, most user
@@ -184,7 +188,6 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
    <span>current playback position</span> changes such that the last frame rendered is no longer the
    frame corresponding to the <span>current playback position</span> in the video, the new frame
    must be rendered.</dd>
-
   </dl>
 
   <p>Frames of video must be obtained from the video track that was <span
@@ -232,12 +235,9 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
    <dt><var>video</var> . <code subdfn data-x="dom-video-videoHeight">videoHeight</code></dt>
 
    <dd>
-
     <p>These attributes return the intrinsic dimensions of the video,
     or zero if the dimensions are not known.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -264,7 +264,8 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   (including, for example, because the <span data-x="dom-VideoTrack-selected">selected video
   track</span> was changed), if the element's <code data-x="dom-media-readyState">readyState</code>
   attribute is not <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>, the user agent must
-  <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
+  <span>queue a media element task</span> given the <span>media element</span> to <span
+  data-x="concept-event-fire">fire an event</span> named <code
   data-x="event-media-resize">resize</code> at the <span>media element</span>.</p>
 
   </div>
@@ -298,10 +299,6 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   <p>The <span>default object size</span> is a width of 300 <span data-x="'px'">CSS pixels</span>
   and a height of 150 <span data-x="'px'">CSS pixels</span>. <ref spec=CSSIMAGES></p>
 
-  <p>A <code>video</code> element is said to <dfn>intersect the viewport</dfn> when it is
-  <span>being rendered</span> and its associated CSS layout box intersects the
-  <span>viewport</span>.</p>
-
   <hr>
 
   <p>User agents should provide controls to enable or disable the display of closed captions, audio
@@ -324,8 +321,9 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-video-poster">poster</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-video-poster">poster</code> content attribute.</p>
+  <p>The <dfn attribute for="HTMLVideoElement"><code data-x="dom-video-poster">poster</code></dfn>
+  IDL attribute must <span>reflect</span> the <code data-x="attr-video-poster">poster</code> content
+  attribute.</p>
 
   <p>The <dfn><code data-x="dom-video-playsInline">playsInline</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-video-playsinline">playsinline</code> content
@@ -337,7 +335,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
    <p>This example shows how to detect when a video has failed to play correctly:</p>
 
-   <pre><code class="html" data-x="">&lt;script>
+   <pre><code class="html">&lt;script>
  function failed(e) {
    // video playback failed - show a message saying why
    switch (e.target.error.code) {

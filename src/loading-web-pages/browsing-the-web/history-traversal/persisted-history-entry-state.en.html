@@ -1,0 +1,61 @@
+  <h5 id="persisted-user-state-restoration">Persisted history entry state</h5>
+
+  <p>To <dfn>save persisted state</dfn> to a <span>session history entry</span>
+  <var>entry</var>:</p>
+
+  <ol>
+   <li><p>Set the <span data-x="she-scroll-position">scroll position data</span> of <var>entry</var>
+   to contain the scroll positions for all of <var>entry</var>'s <span
+   data-x="she-document">document</span>'s <span>restorable scrollable regions</span>.</p></li>
+
+   <li><p>Optionally, update <var>entry</var>'s <span data-x="she-other">persisted user state</span>
+   to reflect any state that the user agent wishes to persist, such as the values of form
+   fields.</p></li>
+  </ol>
+
+  <p id="restore-persisted-user-state">To <dfn>restore persisted state</dfn> from a <span>session
+  history entry</span> <var>entry</var>:</p>
+
+  <ol>
+   <li>
+    <p>If <var>entry</var>'s <span data-x="she-scroll-restoration-mode">scroll restoration
+    mode</span> is "<code data-x="dom-ScrollRestoration-auto">auto</code>", then the user agent may
+    use <var>entry</var>'s <span data-x="she-scroll-position">scroll position data</span> to restore
+    the scroll positions of <var>entry</var>'s <span data-x="she-document">document</span>'s
+    <span>restorable scrollable regions</span>.</p>
+
+    <p class="note">The user agent not restoring scroll positions does not imply that scroll
+    positions will be left at any particular value (e.g., (0,0)). The actual scroll position depends
+    on the navigation type and the user agent's particular caching strategy. So web applications
+    cannot assume any particular scroll position but rather are urged to set it to what they want it
+    to be.</p>
+   </li>
+
+   <li>
+    <p>Optionally, update other aspects of <var>entry</var>'s <span
+    data-x="she-document">document</span> and its rendering, for instance values of form fields,
+    that the user agent had previously recorded in <var>entry</var>'s <span
+    data-x="she-other">persisted user state</span>.</p>
+
+    <p class="note">This can even include updating the <code data-x="attr-dir">dir</code> attribute
+    of <code>textarea</code> elements or <code>input</code> elements whose <code
+    data-x="attr-input-type">type</code> attribute is in either the <span
+    data-x="attr-input-type-text">Text</span> state or the <span
+    data-x="attr-input-type-search">Search</span> state, if the persisted state includes the
+    directionality of user input in such controls.</p>
+   </li>
+  </ol>
+
+  <hr>
+
+  <p>The <dfn>restorable scrollable regions</dfn> of a <code>Document</code> <var>document</var> are
+  <var>document</var>'s <span>viewport</span>, and all of <var>document</var>'s scrollable regions
+  excepting any <span data-x="child browsing context">child browsing contexts</span> of
+  <var>document</var>.</p>
+
+  <p class="note"><span>Child browsing context</span> scroll restoration is handled by the history
+  entry for those browsing contexts' <code>Document</code>s.</p>
+
+  </div>
+
+

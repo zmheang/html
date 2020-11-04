@@ -1,0 +1,18 @@
+  <h4>Realms and their counterparts</h4>
+
+  <p>The JavaScript specification introduces the <span data-x="JavaScript realm">realm</span>
+  concept, representing a global environment in which script is run. Each realm comes with an
+  <span>implementation-defined</span> <span>global object</span>; much of this specification is
+  devoted to defining that global object and its properties.</p>
+
+  <p>For web specifications, it is often useful to associate values or algorithms with a
+  realm/global object pair. When the values are specific to a particular type of realm, they are
+  associated directly with the global object in question, e.g., in the definition of the
+  <code>Window</code> or <code>WorkerGlobalScope</code> interfaces. When the values have utility
+  across multiple realms, we use the <span>environment settings object</span> concept.</p>
+
+  <p>Finally, in some cases it is necessary to track associated values before a
+  realm/global object/environment settings object even comes into existence (for example, during
+  <span data-x="navigate">navigation</span>). These values are tracked in the
+  <span>environment</span> concept.</p>
+

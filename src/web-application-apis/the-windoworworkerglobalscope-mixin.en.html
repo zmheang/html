@@ -7,10 +7,12 @@
   interface mixin <span>WindowOrWorkerGlobalScope</span> { &hellip; };</code> along with an
   appropriate reference.</p>
 
-  <pre><code class="idl" data-x="">typedef (DOMString or <span data-x="idl-Function">Function</span>) <dfn>TimerHandler</dfn>;
+  <pre><code class="idl">typedef (DOMString or <span data-x="idl-Function">Function</span>) <dfn>TimerHandler</dfn>;
 
 interface mixin <dfn>WindowOrWorkerGlobalScope</dfn> {
   [Replaceable] readonly attribute USVString <span data-x="dom-origin">origin</span>;
+  readonly attribute boolean <span data-x="dom-isSecureContext">isSecureContext</span>;
+  readonly attribute boolean <span data-x="dom-crossOriginIsolated">crossOriginIsolated</span>;
 
   // base64 utility methods
   DOMString <span data-x="dom-btoa">btoa</span>(DOMString data);
@@ -18,21 +20,34 @@ interface mixin <dfn>WindowOrWorkerGlobalScope</dfn> {
 
   // timers
   long <span data-x="dom-setTimeout">setTimeout</span>(<span>TimerHandler</span> handler, optional long timeout = 0, any... arguments);
-  void <span data-x="dom-clearTimeout">clearTimeout</span>(optional long handle = 0);
+  undefined <span data-x="dom-clearTimeout">clearTimeout</span>(optional long handle = 0);
   long <span data-x="dom-setInterval">setInterval</span>(<span>TimerHandler</span> handler, optional long timeout = 0, any... arguments);
-  void <span data-x="dom-clearInterval">clearInterval</span>(optional long handle = 0);
+  undefined <span data-x="dom-clearInterval">clearInterval</span>(optional long handle = 0);
+
+  // microtask queuing
+  undefined <span data-x="dom-queueMicrotask">queueMicrotask</span>(<span data-x="idl-VoidFunction">VoidFunction</span> <var>callback</var>);
 
   // ImageBitmap
-  Promise&lt;<span>ImageBitmap</span>&gt; <span data-x="dom-createImageBitmap">createImageBitmap</span>(<span>ImageBitmapSource</span> image, optional <span>ImageBitmapOptions</span> options);
-  Promise&lt;<span>ImageBitmap</span>&gt; <span data-x="dom-createImageBitmap">createImageBitmap</span>(<span>ImageBitmapSource</span> image, long sx, long sy, long sw, long sh, optional <span>ImageBitmapOptions</span> options);
+  Promise&lt;<span>ImageBitmap</span>&gt; <span data-x="dom-createImageBitmap">createImageBitmap</span>(<span>ImageBitmapSource</span> image, optional <span>ImageBitmapOptions</span> options = {});
+  Promise&lt;<span>ImageBitmap</span>&gt; <span data-x="dom-createImageBitmap">createImageBitmap</span>(<span>ImageBitmapSource</span> image, long sx, long sy, long sw, long sh, optional <span>ImageBitmapOptions</span> options = {});
 };
 <span>Window</span> includes <span>WindowOrWorkerGlobalScope</span>;
 <span>WorkerGlobalScope</span> includes <span>WindowOrWorkerGlobalScope</span>;</code></pre>
 
   <dl class="domintro">
-   <dt><var>origin</var> = self . <code subdfn data-x="dom-origin">origin</code></dt>
+   <dt>self . <code subdfn data-x="dom-isSecureContext">isSecureContext</code></dt>
+   <dd><p>Returns whether or not this global object represents a <span>secure context</span>. <ref
+   spec=SECURE-CONTEXTS></p></dd>
 
+   <dt>self . <code subdfn data-x="dom-origin">origin</code></dt>
    <dd><p>Returns the global object's <span>origin</span>, serialized as string.</p></dd>
+
+   <dt>self . <code subdfn data-x="dom-crossOriginIsolated">crossOriginIsolated</code></dt>
+   <dd><p>Returns whether scripts running in this global are allowed to use APIs that require
+   cross-origin isolation. This depends on the `<code
+   data-x="http-cross-origin-opener-policy">Cross-Origin-Opener-Policy</code>` and
+   `<code>Cross-Origin-Embedder-Policy</code>` HTTP response headers and the "<code
+   data-x="cross-origin-isolated-feature">cross-origin-isolated</code>" feature.</p></dd>
   </dl>
 
   <div class="example">
@@ -41,7 +56,7 @@ interface mixin <dfn>WindowOrWorkerGlobalScope</dfn> {
    the latter of the URL of the environment. Imagine the following script executing in a document on
    <code data-x="">https://stargate.example/</code>:</p>
 
-   <pre><code class="js" data-x="">var frame = document.createElement("iframe")
+   <pre><code class="js">var frame = document.createElement("iframe")
 frame.onload = function() {
   var frameWin = frame.contentWindow
   console.log(frameWin.location.origin) // "null"
@@ -52,9 +67,22 @@ document.body.appendChild(frame)</code></pre>
    <p><code data-x="">self.origin</code> is a more reliable security indicator.</p>
   </div>
 
-  <p>The <dfn data-x="dom-origin"><code>origin</code></dfn> attribute's getter must return this
-  object's <span>relevant settings object</span>'s <span
+  <div w-nodev>
+
+  <p>The <dfn data-x="dom-isSecureContext"><code>isSecureContext</code></dfn> getter steps are to
+  return true if <span>this</span>'s <span>relevant settings object</span> is a <span>secure
+  context</span>, or false otherwise.</p>
+
+  <p>The <dfn data-x="dom-origin"><code>origin</code></dfn> getter steps are to return
+  <span>this</span>'s <span>relevant settings object</span>'s <span
   data-x="concept-settings-object-origin">origin</span>, <span data-x="serialization of an
   origin">serialized</span>.</p>
+
+  <p>The <dfn data-x="dom-crossOriginIsolated"><code>crossOriginIsolated</code></dfn> getter steps
+  are to return <span>this</span>'s <span>relevant settings object</span>'s <span
+  data-x="concept-settings-object-cross-origin-isolated-capability">cross-origin isolated
+  capability</span>.</p>
+
+  </div>
 
 

@@ -1,0 +1,26 @@
+  <h4 id="user-activation-gated-apis">APIs gated by user activation</h4>
+
+  </div>
+
+  <p>APIs that are dependent on user activation are classified into three different levels. The
+  levels are as follows, sorted by their "strength of dependence" on user activation (from weakest
+  to strongest):</p>
+
+  <dl>
+   <dt><dfn data-x="sticky activation gated api">Sticky activation-gated APIs</dfn></dt>
+   <dd><p>These APIs require the <span>sticky activation</span> state to be true, so they are blocked
+   until the very first user activation.</p></dd>
+
+   <dt><dfn data-x="transient activation gated api">Transient activation-gated APIs</dfn><dt>
+   <dd><p>These APIs require the <span>transient activation</span> state to be true, but they don't
+   <span data-x="consume user activation">consume</span> it, so multiple calls are allowed per user
+   activation until the transient state <span data-x="activation-expiry">expires</span>.</p></dd>
+
+   <dt><dfn data-x="activation consuming api">Transient activation-consuming APIs</dfn></dt>
+   <dd><p>These APIs require the <span>transient activation</span> state to be true, and they
+   <span>consume user activation</span> in each call to prevent multiple calls per user
+   activation.</p></dd>
+  </dl>
+
+
+

@@ -5,31 +5,26 @@
    <dt><var>input</var> . <code subdfn data-x="dom-input-value">value</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the current <span data-x="concept-fe-value">value</span> of the form control.</p>
 
     <p>Can be set, to change the value.</p>
 
     <p>Throws an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> if it is
     set to any value other than the empty string when the control is a file upload control.</p>
-
    </dd>
 
    <dt><var>input</var> . <code subdfn data-x="dom-input-checked">checked</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the current <span data-x="concept-fe-checked">checkedness</span> of the form
     control.</p>
 
     <p>Can be set, to change the <span data-x="concept-fe-checked">checkedness</span>.</p>
-
    </dd>
 
    <dt><var>input</var> . <code subdfn data-x="dom-input-files">files</code> [ = <var>files</var> ]</dt>
 
    <dd>
-
     <p>Returns a <code>FileList</code> object listing the <span
     data-x="concept-input-type-file-selected">selected files</span> of the form control.</p>
 
@@ -38,13 +33,11 @@
     <p>Can be set to a <code>FileList</code> object to change the <span
     data-x="concept-input-type-file-selected">selected files</span> of the form control. For
     instance, as the result of a drag-and-drop operation.</p>
-
    </dd>
 
    <dt><var>input</var> . <code subdfn data-x="dom-input-valueAsDate">valueAsDate</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns a <code>Date</code> object representing the form control's <span
     data-x="concept-fe-value">value</span>, if applicable; otherwise, returns null.</p>
 
@@ -52,13 +45,11 @@
 
     <p>Throws an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> if the
     control isn't date- or time-based.</p>
-
    </dd>
 
    <dt><var>input</var> . <code subdfn data-x="dom-input-valueAsNumber">valueAsNumber</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns a number representing the form control's <span data-x="concept-fe-value">value</span>,
     if applicable; otherwise, returns NaN.</p>
 
@@ -67,14 +58,12 @@
 
     <p>Throws an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> if the
     control is neither date- or time-based nor numeric.</p>
-
    </dd>
 
    <dt><var>input</var> . <code subdfn data-x="dom-input-stepUp">stepUp</code>( [ <var>n</var> ] )</dt>
    <dt><var>input</var> . <code subdfn data-x="dom-input-stepDown">stepDown</code>( [ <var>n</var> ] )</dt>
 
    <dd>
-
     <p>Changes the form control's <span data-x="concept-fe-value">value</span> by the value given in
     the <code data-x="attr-input-step">step</code> attribute, multiplied by <var>n</var>.
     The default value for <var>n</var> is 1.</p>
@@ -82,28 +71,24 @@
     <p>Throws <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> if the control
     is neither date- or time-based nor numeric, or if the <code data-x="attr-input-step">step</code>
     attribute's value is "<code data-x="">any</code>".</p>
-
    </dd>
 
    <dt><var>input</var> . <code subdfn data-x="dom-input-list">list</code></dt>
 
    <dd>
-
     <p>Returns the <code>datalist</code> element indicated by the <code
     data-x="attr-input-list">list</code> attribute.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-input-value">value</code></dfn> IDL attribute allows scripts to
-  manipulate the <span data-x="concept-fe-value">value</span> of an <code>input</code> element. The
-  attribute is in one of the following modes, which define its behavior:</p>
+  <p>The <dfn attribute for="HTMLInputElement"><code data-x="dom-input-value">value</code></dfn> IDL
+  attribute allows scripts to manipulate the <span data-x="concept-fe-value">value</span> of an
+  <code>input</code> element. The attribute is in one of the following modes, which define its
+  behavior:</p>
 
   <dl>
-
    <dt><dfn data-x="dom-input-value-value">value</dfn>
 
    <dd>
@@ -174,25 +159,24 @@
     <p class="note">Since <span data-x="concept-input-file-path">path components</span> are not
     permitted in file names in the list of <span data-x="concept-input-type-file-selected">selected
     files</span>, the "\fakepath\" cannot be mistaken for a path component.</p>
-
    </dd>
-
   </dl>
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-input-checked">checked</code></dfn> IDL attribute allows scripts to
-  manipulate the <span data-x="concept-fe-checked">checkedness</span> of an <code>input</code>
-  element. On getting, it must return the current <span
-  data-x="concept-fe-checked">checkedness</span> of the element; and on setting, it must set the
-  element's <span data-x="concept-fe-checked">checkedness</span> to the new value and set the
-  element's <span data-x="concept-input-checked-dirty-flag">dirty checkedness flag</span> to
-  true.</p>
+  <p>The <dfn attribute for="HTMLInputElement"><code data-x="dom-input-checked">checked</code></dfn>
+  IDL attribute allows scripts to manipulate the <span
+  data-x="concept-fe-checked">checkedness</span> of an <code>input</code> element. On getting, it
+  must return the current <span data-x="concept-fe-checked">checkedness</span> of the element; and
+  on setting, it must set the element's <span data-x="concept-fe-checked">checkedness</span> to the
+  new value and set the element's <span data-x="concept-input-checked-dirty-flag">dirty checkedness
+  flag</span> to true.</p>
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-input-files">files</code></dfn> IDL attribute allows scripts to
-  access the element's <span data-x="concept-input-type-file-selected">selected files</span>.
+  <p>The <dfn attribute for="HTMLInputElement"><code data-x="dom-input-files">files</code></dfn> IDL
+  attribute allows scripts to access the element's <span
+  data-x="concept-input-type-file-selected">selected files</span>.
 
   <p>On getting, if the IDL attribute <span data-x="concept-input-apply">applies</span>, it must
   return a <code>FileList</code> object that represents the current <span
@@ -268,7 +252,6 @@
   must run the following algorithm:</p>
 
   <ol>
-
    <li><p>If the <code data-x="dom-input-stepDown">stepDown()</code> and <code
    data-x="dom-input-stepUp">stepUp()</code> methods <span>do not apply</span>, as defined for the
    <code>input</code> element's <code data-x="attr-input-type">type</code> attribute's current state,
@@ -296,7 +279,6 @@
    <li><p>Let <var>valueBeforeStepping</var> be <var>value</var>.</p></li>
 
    <li>
-
     <p>If <var>value</var> subtracted from the <span data-x="concept-input-min-zero">step
     base</span> is not an integral multiple of the <span data-x="concept-input-step">allowed value
     step</span>, then set <var>value</var> to the nearest value that, when subtracted from
@@ -310,7 +292,6 @@
     data-x="concept-input-step">allowed value step</span>):</p>
 
     <ol>
-
      <li><p>Let <var>n</var> be the argument.</p></li>
 
      <li><p>Let <var>delta</var> be the <span data-x="concept-input-step">allowed value
@@ -320,9 +301,7 @@
      negate <var>delta</var>.</p></li>
 
      <li><p>Let <var>value</var> be the result of adding <var>delta</var> to <var>value</var>.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>If the element has a <span data-x="concept-input-min">minimum</span>, and <var>value</var> is less than that <span data-x="concept-input-min">minimum</span>, then set
@@ -346,7 +325,7 @@
      <code>input</code> element in the following example does not change the <span
      data-x="concept-fe-value">value</span> of that element:</p>
 
-     <pre><code class="html" data-x="">&lt;input type=number value=1 max=0></code></pre>
+     <pre><code class="html">&lt;input type=number value=1 max=0></code></pre>
     </div>
    </li>
 
@@ -357,13 +336,13 @@
 
    <li><p>Set the <span data-x="concept-fe-value">value</span> of the element to <var>value
    as string</var>.</p></li>
-
   </ol>
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-input-list">list</code></dfn> IDL attribute must return the current
-  <span data-x="concept-input-list">suggestions source element</span>, if any, or null otherwise.</p>
+  <p>The <dfn attribute for="HTMLInputElement"><code data-x="dom-input-list">list</code></dfn> IDL
+  attribute must return the current <span data-x="concept-input-list">suggestions source
+  element</span>, if any, or null otherwise.</p>
 
   </div>
 

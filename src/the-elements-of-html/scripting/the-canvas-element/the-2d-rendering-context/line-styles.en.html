@@ -6,52 +6,44 @@
    <dt><var>styles</var> . <code data-x="dom-context-2d-lineWidth">lineWidth</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the current line width.</p>
 
     <p>Can be set, to change the line width. Values that are not finite values greater than zero are
     ignored.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-lineCap">lineCap</code> [ = <var>value</var> ]</dt>
    <dt><var>styles</var> . <code data-x="dom-context-2d-lineCap">lineCap</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the current line cap style.</p>
 
     <p>Can be set, to change the line cap style.</p>
 
     <p>The possible line cap styles are "<code data-x="">butt</code>", "<code
     data-x="">round</code>", and "<code data-x="">square</code>". Other values are ignored.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-lineJoin">lineJoin</code> [ = <var>value</var> ]</dt>
    <dt><var>styles</var> . <code data-x="dom-context-2d-lineJoin">lineJoin</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the current line join style.</p>
 
     <p>Can be set, to change the line join style.</p>
 
     <p>The possible line join styles are "<code data-x="">bevel</code>", "<code
     data-x="">round</code>", and "<code data-x="">miter</code>". Other values are ignored.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-miterLimit">miterLimit</code> [ = <var>value</var> ]</dt>
    <dt><var>styles</var> . <code data-x="dom-context-2d-miterLimit">miterLimit</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the current miter limit ratio.</p>
 
     <p>Can be set, to change the miter limit ratio. Values that are not finite values greater than
     zero are ignored.</p>
-
    </dd>
 
 
@@ -59,10 +51,8 @@
    <dt><var>styles</var> . <code data-x="dom-context-2d-setLineDash">setLineDash</code>(<var>segments</var>)</dt>
 
    <dd>
-
     <p>Sets the current line dash pattern (as used when stroking). The argument is a list of
     distances for which to alternately have the line on and the line off.</p>
-
    </dd>
 
 
@@ -70,10 +60,8 @@
    <dt><var>segments</var> = <var>styles</var> . <code data-x="dom-context-2d-getLineDash">getLineDash</code>()</dt>
 
    <dd>
-
     <p>Returns a copy of the current line dash pattern. The array returned will always have an even
     number of entries (i.e. the pattern is normalized).</p>
-
    </dd>
 
 
@@ -81,13 +69,10 @@
    <dt><var>styles</var> . <code data-x="dom-context-2d-lineDashOffset">lineDashOffset</code></dt>
 
    <dd>
-
     <p>Returns the phase offset (in the same units as the line dash pattern).</p>
 
     <p>Can be set, to change the phase offset. Values that are not finite values are ignored.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -156,7 +141,6 @@
   invoked, must run these steps:</p>
 
   <ol>
-
    <li><p>Let <var>a</var> be the argument.</p></li>
 
    <li><p>If any value in <var>a</var> is not finite (e.g. an Infinity or a NaN value), or
@@ -168,7 +152,6 @@
    be the concatenation of two copies of <var>a</var>.</p></li>
 
    <li><p>Let the object's <span>dash list</span> be <var>a</var>.</p></li>
-
   </ol>
 
   <p>When the <dfn><code data-x="dom-context-2d-getLineDash">getLineDash()</code></dfn> method is
@@ -192,7 +175,6 @@
   algorithm. This algorithm returns a new <span data-x="concept-path">path</span>.</p>
 
   <ol>
-
    <li><p>Let <var>path</var> be a copy of the path being traced.</p></li>
 
    <!-- PATH SANITIZATION -->
@@ -228,7 +210,6 @@
    vivo</i>.</p>
 
     <ol>
-
      <li><p>Let <var>subpath width</var> be the length of all the lines of <var>subpath</var>, in coordinate space units.</p>
 
      <li><p>Let <var>offset</var> be the value of <var>style</var>'s <code
@@ -236,13 +217,11 @@
      units.</p></li>
 
      <li>
-
       <p>While <var>offset</var> is greater than <var>pattern width</var>,
       decrement it by <var>pattern width</var>.</p>
 
       <p>While <var>offset</var> is less than zero, increment it by <var>pattern
       width</var>.</p>
-
      </li>
 
      <li><p>Define <var>L</var> to be a linear coordinate line defined along all lines in
@@ -288,7 +267,6 @@
      then let <var>end</var> be the offset <var>subpath width</var> on <var>L</var>. Otherwise, let <var>end</var> be the offset <var>position</var> on <var>L</var>.</p></li>
 
      <li>
-
       <p>Jump to the first appropriate step:</p>
 
       <dl class="switch">
@@ -297,29 +275,24 @@
        <i>off</i></dt>
 
        <dd>
-
         <p>Do nothing, just continue to the next step.</p>
-
        </dd>
 
 
        <dt>If <var>current state</var> is <i>off</i></dt>
 
        <dd>
-
         <p>Cut the line on which <var>end</var> finds itself short at <var>end</var> and place a point there, cutting in two the subpath that it was in;
         remove all line segments, joins, points, and subpaths that are between <var>start</var> and <var>end</var>; and finally place a single point at <var>start</var> with no lines connecting to it.</p>
 
         <p>The point has a <i>directionality</i> for the purposes of drawing line caps (see below).
         The directionality is the direction that the original line had at that point (i.e. when <var>L</var> was defined above).</p>
-
        </dd>
 
 
        <dt>Otherwise</dt>
 
        <dd>
-
         <p>Cut the line on which <var>start</var> finds itself into two at <var>start</var> and place a point there, cutting in two the subpath that it was in, and
         similarly cut the line on which <var>end</var> finds itself short at <var>end</var> and place a point there, cutting in two the subpath that <em>it</em> was in,
         and then remove all line segments, joins, points, and subpaths that are between <var>start</var> and <var>end</var>.</p>
@@ -328,11 +301,8 @@
         results in just the line being cut in two and two points being inserted there, with nothing
         being removed, unless a join also happens to be at that point, in which case the join must
         be removed.</p>
-
        </dd>
-
       </dl>
-
      </li>
 
      <li><p><i>Post-cut</i>: If <var>position</var> is greater than <var>subpath width</var>, then jump to the step labeled <i>convert</i>.</p></li>
@@ -345,15 +315,12 @@
      0.</p></li>
 
      <li><p>Return to the step labeled <i>dash on</i>.</p></li>
-
     </ol>
-
    </li>
 
    <!-- STROKING -->
 
    <li>
-
     <p><i>Convert</i>: This is the step that converts the path to a new path that represents its
     stroke.</p>
 
@@ -439,11 +406,9 @@
     only if the number of times a half-infinite straight line drawn from that same point crosses a
     subpath going in one direction is equal to the number of times it crosses a subpath going in the
     other direction.</p>
-
    </li>
 
    <li><p>Return the newly created path.</p></li>
-
   </ol>
 
 <!--v6: Another request has been for hairline width lines, that remain hairline width with

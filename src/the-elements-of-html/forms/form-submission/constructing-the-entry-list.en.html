@@ -1,11 +1,16 @@
   <h5 id="constructing-form-data-set">Constructing the entry list</h5>
 
-  <p>The algorithm to <dfn id="constructing-the-form-data-set" data-export="" data-lt="constructing
-  the entry list" data-x="constructing the entry list">construct the entry list</dfn> given a
+  <p>The algorithm to <dfn id="constructing-the-form-data-set" export data-lt="constructing the
+  entry list" data-x="constructing the entry list">construct the entry list</dfn> given a
   <var>form</var>, an optional <var>submitter</var>, and an optional <var>encoding</var>, is as
   follows. If not specified otherwise, <var>submitter</var> is null.</p>
 
   <ol>
+   <li><p>If <var>form</var>'s <span>constructing entry list</span> is true, then return
+   null.</p></li>
+
+   <li><p>Set <var>form</var>'s <span>constructing entry list</span> to true.</p></li>
+
    <li><p>Let <var>controls</var> be a list of all the <span
    data-x="category-submit">submittable elements</span> whose <span>form owner</span> is <var>form</var>, in <span>tree order</span>.</p></li>
 
@@ -37,12 +42,6 @@
        data-x="attr-input-type">type</code> attribute is in the <span
        data-x="attr-input-type-radio">Radio Button</span> state and whose <span
        data-x="concept-fe-checked">checkedness</span> is false.</li>
-
-       <li>The <var>field</var> element is not an <code>input</code> element whose <code
-       data-x="attr-input-type">type</code> attribute is in the <span
-       data-x="attr-input-type-image">Image Button</span> state, and either the <var>field</var> element does not have a <code data-x="attr-fe-name">name</code> attribute
-       specified, or its <code data-x="attr-fe-name">name</code> attribute's value is the empty
-       string.</li>
 
        <li>The <var>field</var> element is an <code>object</code> element that is not using
        a <span>plugin</span>.</li>
@@ -84,6 +83,15 @@
        <li><p>Continue.</p></li>
       </ol>
      </li>
+
+     <li><p>If the <var>field</var> is a <span>form-associated custom element</span>, then perform
+     the <span data-x="face-entry-construction">entry construction algorithm</span> given
+     <var>field</var> and <var>entry list</var>, then <span>continue</span>.</p></li>
+
+     <li><p>If either the <var>field</var> element does not have a
+     <code data-x="attr-fe-name">name</code> attribute specified, or its
+     <code data-x="attr-fe-name">name</code> attribute's value is the empty string, then
+     <span>continue</span>.</p></li>
 
      <li><p>Let <var>name</var> be the value of the <var>field</var> element's
      <code data-x="attr-fe-name">name</code> attribute.</p></li>
@@ -140,8 +148,8 @@
      <li>
       <p>Otherwise, if the <var>field</var> element is an <code>input</code> element whose <code
       data-x="attr-input-type">type</code> attribute is in the <span
-      data-x="attr-input-type-hidden">Hidden</span> state and <var>name</var> is "<code
-      data-x="attr-fe-name-charset">_charset_</code>":</p>
+      data-x="attr-input-type-hidden">Hidden</span> state and <var>name</var> is an <span>ASCII
+      case-insensitive</span> match for "<code data-x="attr-fe-name-charset">_charset_</code>":</p>
 
       <ol>
        <li><p>Let <var>charset</var> be the <span data-x="encoding name">name</span> of
@@ -195,7 +203,18 @@
     </ol>
    </li>
 
-   <li><p>Return <var>entry list</var>.</p></li>
+   <li><p>Let <var>form data</var> be a new <code>FormData</code> object associated with
+   <var>entry list</var>.</p></li>
+
+   <li><p><span data-x="concept-event-fire">Fire an event</span> named
+   <code data-x="event-formdata">formdata</code> at <var>form</var> using
+   <code>FormDataEvent</code>, with the <code data-x="dom-FormDataEvent-formData">formData</code>
+   attribute initialized to <var>form data</var> and the
+   <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p></li>
+
+   <li><p>Set <var>form</var>'s <span>constructing entry list</span> to false.</p></li>
+
+   <li><p>Return a <span data-x="list clone">clone</span> of <var>entry list</var>.</p></li>
   </ol>
 
   <p>To <dfn>append an entry</dfn> to <var>entry list</var>, given <var>name</var>,

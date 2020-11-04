@@ -25,12 +25,12 @@
      <th> <code data-x="">accept-charset</code>
      <td> <code data-x="attr-form-accept-charset">form</code>
      <td> Character encodings to use for <span>form submission</span>
-     <td> <span>Ordered set of unique space-separated tokens</span>, <span>ASCII case-insensitive</span>, consisting of <span data-x="encoding label">labels</span> of <span data-x="ASCII-compatible encoding">ASCII-compatible encodings</span>*
+     <td> <span>ASCII case-insensitive</span> match for "<code data-x="">UTF-8</code>"
     <tr>
      <th> <code data-x="">accesskey</code>
      <td> <span data-x="attr-accesskey">HTML elements</span>
      <td> Keyboard shortcut to activate or focus element
-     <td> <span>Ordered set of unique space-separated tokens</span>, <span>case-sensitive</span>, consisting of one code point in length
+     <td> <span>Ordered set of unique space-separated tokens</span>, none of which are <span>identical to</span> another, each consisting of one code point in length
     <tr>
      <th> <code data-x="">action</code>
      <td> <code data-x="attr-fs-action">form</code>
@@ -39,22 +39,12 @@
     <tr>
      <th> <code data-x="">allow</code>
      <td> <code data-x="attr-iframe-allow">iframe</code>
-     <td> <span data-x="concept-feature-policy">Feature policy</span> to be applied to the <code>iframe</code>'s contents
-     <td> <span data-x="concept-serialized-feature-policy">Serialized feature policy</span>
+     <td> <span data-x="concept-permissions-policy">Permissions policy</span> to be applied to the <code>iframe</code>'s contents
+     <td> <span data-x="concept-serialized-permissions-policy">Serialized permissions policy</span>
     <tr>
      <th> <code data-x="">allowfullscreen</code>
      <td> <code data-x="attr-iframe-allowfullscreen">iframe</code>
      <td> Whether to allow the <code>iframe</code>'s contents to use <code data-x="dom-element-requestFullscreen">requestFullscreen()</code>
-     <td> <span>Boolean attribute</span>
-    <tr>
-     <th> <code data-x="">allowpaymentrequest</code>
-     <td> <code data-x="attr-iframe-allowpaymentrequest">iframe</code>
-     <td> Whether the <code>iframe</code>'s contents are allowed to use the <code>PaymentRequest</code> interface to make payment requests
-     <td> <span>Boolean attribute</span>
-    <tr>
-     <th> <code data-x="">allowusermedia</code>
-     <td> <code data-x="attr-iframe-allowusermedia">iframe</code>
-     <td> Whether to allow the <code>iframe</code>'s contents to use <code data-x="dom-MediaDevices-getUserMedia">getUserMedia()</code>
      <td> <span>Boolean attribute</span>
     <tr>
      <th> <code data-x="">alt</code>
@@ -71,7 +61,7 @@
     <tr>
      <th> <code data-x="">async</code>
      <td> <code data-x="attr-script-async">script</code>
-     <td> Execute script when available, without blocking
+     <td> Execute script when available, without blocking while fetching
      <td> <span>Boolean attribute</span>
     <tr>
      <th> <code data-x="">autocapitalize</code>
@@ -97,11 +87,8 @@
      <td> <span data-x="autofill field">Autofill field</span> name and related tokens*
     <tr>
      <th> <code data-x="">autofocus</code>
-     <td> <code data-x="attr-fe-autofocus">button</code>;
-          <code data-x="attr-fe-autofocus">input</code>;
-          <code data-x="attr-fe-autofocus">select</code>;
-          <code data-x="attr-fe-autofocus">textarea</code>
-     <td> Automatically focus the form control when the page is loaded
+     <td> <span data-x="attr-fe-autofocus">HTML elements</span>
+     <td> Automatically focus the element when the page is loaded
      <td> <span>Boolean attribute</span>
     <tr>
      <th> <code data-x="">autoplay</code>
@@ -239,13 +226,23 @@
     <tr>
      <th> <code data-x="">disabled</code>
      <td> <code data-x="attr-fe-disabled">button</code>;
-          <code data-x="attr-fieldset-disabled">fieldset</code>;
           <code data-x="attr-fe-disabled">input</code>;
           <code data-x="attr-optgroup-disabled">optgroup</code>;
           <code data-x="attr-option-disabled">option</code>;
           <code data-x="attr-fe-disabled">select</code>;
-          <code data-x="attr-fe-disabled">textarea</code>
+          <code data-x="attr-fe-disabled">textarea</code>;
+          <span data-x="attr-fe-disabled">form-associated custom elements</span>
      <td> Whether the form control is disabled
+     <td> <span>Boolean attribute</span>
+    <tr>
+     <th> <code data-x="">disabled</code>
+     <td> <code data-x="attr-fieldset-disabled">fieldset</code>
+     <td> Whether the descendant form controls, except any inside <code>legend</code>, are disabled
+     <td> <span>Boolean attribute</span>
+    <tr>
+     <th> <code data-x="">disabled</code>
+     <td> <code data-x="attr-link-disabled">link</code>
+     <td> Whether the link is disabled
      <td> <span>Boolean attribute</span>
     <tr>
      <th> <code data-x="">download</code>
@@ -264,6 +261,17 @@
      <td> Entry list encoding type to use for <span>form submission</span>
      <td> "<code data-x="attr-fs-enctype-urlencoded">application/x-www-form-urlencoded</code>"; "<code data-x="attr-fs-enctype-formdata">multipart/form-data</code>"; "<code data-x="attr-fs-enctype-text">text/plain</code>"
     <tr>
+     <th> <code data-x="">enterkeyhint</code>
+     <td> <span data-x="attr-enterkeyhint">HTML elements</span>
+     <td> Hint for selecting an enter key action
+     <td> "<code data-x="attr-enterkeyhint-keyword-enter">enter</code>";
+          "<code data-x="attr-enterkeyhint-keyword-done">done</code>";
+          "<code data-x="attr-enterkeyhint-keyword-go">go</code>";
+          "<code data-x="attr-enterkeyhint-keyword-next">next</code>";
+          "<code data-x="attr-enterkeyhint-keyword-previous">previous</code>";
+          "<code data-x="attr-enterkeyhint-keyword-search">search</code>";
+          "<code data-x="attr-enterkeyhint-keyword-send">send</code>"
+    <tr>
      <th> <code data-x="">for</code>
      <td> <code data-x="attr-label-for">label</code>
      <td> Associate the label with form control
@@ -272,7 +280,7 @@
      <th> <code data-x="">for</code>
      <td> <code data-x="attr-output-for">output</code>
      <td> Specifies controls from which the output was calculated
-     <td> <span>Unordered set of unique space-separated tokens</span>, <span>case-sensitive</span>, consisting of IDs*
+     <td> <span>Unordered set of unique space-separated tokens</span> consisting of IDs*
     <tr>
      <th> <code data-x="">form</code>
      <td> <code data-x="attr-fae-form">button</code>;
@@ -281,8 +289,9 @@
           <code data-x="attr-fae-form">object</code>;
           <code data-x="attr-fae-form">output</code>;
           <code data-x="attr-fae-form">select</code>;
-          <code data-x="attr-fae-form">textarea</code>
-     <td> Associates the control with a <code>form</code> element
+          <code data-x="attr-fae-form">textarea</code>;
+          <span data-x="attr-fae-form">form-associated custom elements</span>
+     <td> Associates the element with a <code>form</code> element
      <td> <span data-x="concept-id">ID</span>*
     <tr>
      <th> <code data-x="">formaction</code>
@@ -321,7 +330,7 @@
      <td> <code data-x="attr-tdth-headers">td</code>;
           <code data-x="attr-tdth-headers">th</code>
      <td> The header cells for this cell
-     <td> <span>Unordered set of unique space-separated tokens</span>, <span>case-sensitive</span>, consisting of IDs*
+     <td> <span>Unordered set of unique space-separated tokens</span> consisting of IDs*
     <tr>
      <th> <code data-x="">height</code>
      <td> <code data-x="attr-canvas-height">canvas</code>;
@@ -380,6 +389,16 @@
      <td> The element's <span data-x="concept-id">ID</span>
      <td> <a href="#attribute-text">Text</a>*
     <tr>
+     <th> <code data-x="">imagesizes</code>
+     <td> <code data-x="attr-link-imagesizes">link</code>
+     <td> Image sizes for different page layouts (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-preload">preload</code>")
+     <td> <span>Valid source size list</span>
+    <tr>
+     <th> <code data-x="">imagesrcset</code>
+     <td> <code data-x="attr-link-imagesrcset">link</code>
+     <td> Images to use in different situations, e.g., high-resolution displays, small monitors, etc. (for <code data-x="attr-link-rel">rel</code>="<code data-x="rel-preload">preload</code>")
+     <td> Comma-separated list of <span data-x="image candidate string">image candidate strings</span>
+    <tr>
      <th> <code data-x="">inputmode</code>
      <td> <span data-x="attr-inputmode">HTML elements</span>
      <td> Hint for selecting an input modality
@@ -387,15 +406,15 @@
           "<code data-x="attr-inputmode-keyword-text">text</code>";
           "<code data-x="attr-inputmode-keyword-tel">tel</code>";
           "<code data-x="attr-inputmode-keyword-email">email</code>";
-          "<code data-x="attr-inputmode-keyword-url">url</code>"
+          "<code data-x="attr-inputmode-keyword-url">url</code>";
           "<code data-x="attr-inputmode-keyword-numeric">numeric</code>";
           "<code data-x="attr-inputmode-keyword-decimal">decimal</code>";
-          "<code data-x="attr-inputmode-keyword-search">search</code>";
+          "<code data-x="attr-inputmode-keyword-search">search</code>"
     <tr>
      <th> <code data-x="">integrity</code>
      <td> <code data-x="attr-link-integrity">link</code>;
           <code data-x="attr-script-integrity">script</code>
-     <td> Integrity metadata used in <cite>Subresource Integrity</cite> checks <ref spec="SRI">
+     <td> Integrity metadata used in <cite>Subresource Integrity</cite> checks <ref spec=SRI>
      <td> <a href="#attribute-text">Text</a>
     <tr>
      <th> <code data-x="">is</code>
@@ -416,12 +435,12 @@
      <th> <code data-x="">itemprop</code>
      <td> <span data-x="attr-itemprop">HTML elements</span>
      <td> <span>Property names</span> of a microdata item
-     <td> <span>Unordered set of unique space-separated tokens</span>, <span>case-sensitive</span>, consisting of <span data-x="absolute URL">valid absolute URLs</span>, <span data-x="defined property name">defined property names</span>, or text*
+     <td> <span>Unordered set of unique space-separated tokens</span> consisting of <span data-x="absolute URL">valid absolute URLs</span>, <span data-x="defined property name">defined property names</span>, or text*
     <tr>
      <th> <code data-x="">itemref</code>
      <td> <span data-x="attr-itemref">HTML elements</span>
      <td> <span data-x="referenced">Referenced</span> elements
-     <td> <span>Unordered set of unique space-separated tokens</span>, <span>case-sensitive</span>, consisting of IDs*
+     <td> <span>Unordered set of unique space-separated tokens</span> consisting of IDs*
     <tr>
      <th> <code data-x="">itemscope</code>
      <td> <span data-x="attr-itemscope">HTML elements</span>
@@ -431,7 +450,7 @@
      <th> <code data-x="">itemtype</code>
      <td> <span data-x="attr-itemtype">HTML elements</span>
      <td> <span>Item types</span> of a microdata item
-     <td> <span>Unordered set of unique space-separated tokens</span>, <span>case-sensitive</span>, consisting of <span data-x="absolute URL">valid absolute URL</span>*
+     <td> <span>Unordered set of unique space-separated tokens</span> consisting of <span data-x="absolute URL">valid absolute URLs</span>*
     <tr>
      <th> <code data-x="">kind</code>
      <td> <code data-x="attr-track-kind">track</code>
@@ -458,6 +477,13 @@
      <td> <code data-x="attr-input-list">input</code>
      <td> List of autocomplete options
      <td> <span data-x="concept-id">ID</span>*
+    <tr>
+     <th> <code data-x="">loading</code>
+     <td> <code data-x="attr-img-loading">img</code>;
+          <code data-x="attr-iframe-loading">iframe</code>
+     <td> Used when determining loading deferral
+     <td> "<code data-x="attr-loading-lazy">lazy</code>";
+          "<code data-x="attr-loading-eager">eager</code>"
     <tr>
      <th> <code data-x="">loop</code>
      <td> <code data-x="attr-media-loop">audio</code>;
@@ -489,7 +515,7 @@
      <th> <code data-x="">maxlength</code>
      <td> <code data-x="attr-input-maxlength">input</code>;
           <code data-x="attr-textarea-maxlength">textarea</code>
-     <td> Maximum length of value
+     <td> Maximum <span>length</span> of value
      <td> <span>Valid non-negative integer</span>
     <tr>
      <th> <code data-x="">media</code>
@@ -519,7 +545,7 @@
      <th> <code data-x="">minlength</code>
      <td> <code data-x="attr-input-minlength">input</code>;
           <code data-x="attr-textarea-minlength">textarea</code>
-     <td> Minimum length of value
+     <td> Minimum <span>length</span> of value
      <td> <span>Valid non-negative integer</span>
     <tr>
      <th> <code data-x="">multiple</code>
@@ -540,8 +566,9 @@
           <code data-x="attr-fe-name">input</code>;
           <code data-x="attr-fe-name">output</code>;
           <code data-x="attr-fe-name">select</code>;
-          <code data-x="attr-fe-name">textarea</code>
-     <td> Name of form control to use for <span>form submission</span> and in the <code data-x="dom-form-elements">form.elements</code> API <!--or: Name of form control to use in the <code data-x="dom-form-elements">form.elements</code> API -->
+          <code data-x="attr-fe-name">textarea</code>;
+          <span data-x="attr-fe-name">form-associated custom elements</span>
+     <td> Name of the element to use for <span>form submission</span> and in the <code data-x="dom-form-elements">form.elements</code> API <!--or: Name of the element to use in the <code data-x="dom-form-elements">form.elements</code> API. -->
      <td> <a href="#attribute-text">Text</a>*
     <tr>
      <th> <code data-x="">name</code>
@@ -582,7 +609,7 @@
     <tr>
      <th> <code data-x="">nonce</code>
      <td> <span data-x="attr-nonce">HTML elements</span>
-     <td> Cryptographic nonce used in <cite>Content Security Policy</cite> checks <ref spec="CSP">
+     <td> Cryptographic nonce used in <cite>Content Security Policy</cite> checks <ref spec=CSP>
      <td> <a href="#attribute-text">Text</a>
     <tr>
      <th> <code data-x="">novalidate</code>
@@ -646,6 +673,11 @@
      <td> Whether to allow the value to be edited by the user
      <td> <span>Boolean attribute</span>
     <tr>
+     <th> <code data-x="">readonly</code>
+     <td> <span data-x="attr-face-readonly">form-associated custom elements</span>
+     <td> Affects <code data-x="dom-ElementInternals-willValidate">willValidate</code>, plus any behavior added by the custom element author
+     <td> <span>Boolean attribute</span>
+    <tr>
      <th> <code data-x="">referrerpolicy</code>
      <td> <code data-x="attr-hyperlink-referrerpolicy">a</code>;
           <code data-x="attr-hyperlink-referrerpolicy">area</code>;
@@ -660,12 +692,12 @@
      <td> <code data-x="attr-hyperlink-rel">a</code>;
           <code data-x="attr-hyperlink-rel">area</code>
      <td> Relationship between the location in the document containing the <span>hyperlink</span> and the destination resource
-     <td> <span>Set of space-separated tokens</span>*
+     <td> <span>Unordered set of unique space-separated tokens</span>*
     <tr>
      <th> <code data-x="">rel</code>
      <td> <code data-x="attr-link-rel">link</code>
      <td> Relationship between the document containing the <span>hyperlink</span> and the destination resource
-     <td> <span>Set of space-separated tokens</span>*
+     <td> <span>Unordered set of unique space-separated tokens</span>*
     <tr>
      <th> <code data-x="">required</code>
      <td> <code data-x="attr-input-required">input</code>;
@@ -785,7 +817,7 @@
      <th> <code data-x="">srcset</code>
      <td> <code data-x="attr-img-srcset">img</code>;
           <code data-x="attr-source-srcset">source</code>
-     <td> Images to use in different situations (e.g. high-resolution displays, small monitors, etc)
+     <td> Images to use in different situations, e.g., high-resolution displays, small monitors, etc.
      <td> Comma-separated list of <span data-x="image candidate string">image candidate strings</span>
     <tr>
      <th> <code data-x="">start</code>
@@ -805,7 +837,8 @@
     <tr>
      <th> <code data-x="">tabindex</code>
      <td> <span data-x="attr-tabindex">HTML elements</span>
-     <td> Whether the element is focusable, and the relative order of the element for the purposes of sequential focus navigation
+     <td> Whether the element is <span>focusable</span> and <span>sequentially focusable</span>, and
+     the relative order of the element for the purposes of <span>sequential focus navigation</span>
      <td> <span>Valid integer</span>
     <tr>
      <th> <code data-x="">target</code>
@@ -894,11 +927,6 @@
      <td> <code data-x="attr-script-type">script</code>
      <td> Type of script
      <td> "<code data-x="">module</code>"; a <span>valid MIME type string</span> that is not a <span>JavaScript MIME type essence match</span>
-    <tr>
-     <th> <code data-x="">typemustmatch</code>
-     <td> <code data-x="attr-object-typemustmatch">object</code>
-     <td> Whether the <code data-x="attr-object-type">type</code> attribute and the <span>Content-Type</span> value need to match for the resource to be used
-     <td> <span>Boolean attribute</span>
     <tr>
      <th> <code data-x="">usemap</code>
      <td> <code data-x="attr-hyperlink-usemap">img</code>;
@@ -1092,12 +1120,6 @@
      <td> <span data-x="event handler content attributes">Event handler content attribute</span>
 
     <tr>
-     <th id="ix-handler-ondragexit"> <code data-x="">ondragexit</code>
-     <td> <span data-x="handler-ondragexit">HTML elements</span>
-     <td> <code data-x="event-dnd-dragexit">dragexit</code> event handler
-     <td> <span data-x="event handler content attributes">Event handler content attribute</span>
-
-    <tr>
      <th id="ix-handler-ondragleave"> <code data-x="">ondragleave</code>
      <td> <span data-x="handler-ondragleave">HTML elements</span>
      <td> <code data-x="event-dnd-dragleave">dragleave</code> event handler
@@ -1149,6 +1171,12 @@
      <th id="ix-handler-onfocus"> <code data-x="">onfocus</code>
      <td> <span data-x="handler-onfocus">HTML elements</span>
      <td> <code data-x="event-focus">focus</code> event handler
+     <td> <span data-x="event handler content attributes">Event handler content attribute</span>
+
+    <tr>
+     <th id="ix-handler-onformdata"> <code data-x="">onformdata</code>
+     <td> <span data-x="handler-onformdata">HTML elements</span>
+     <td> <code data-x="event-formdata">formdata</code> event handler
      <td> <span data-x="event handler content attributes">Event handler content attribute</span>
 
     <tr>
@@ -1212,12 +1240,6 @@
      <td> <span data-x="event handler content attributes">Event handler content attribute</span>
 
     <tr>
-     <th id="ix-handler-onloadend"> <code data-x="">onloadend</code>
-     <td> <span data-x="handler-onloadend">HTML elements</span>
-     <td> <code data-x="event-loadend">loadend</code> event handler
-     <td> <span data-x="event handler content attributes">Event handler content attribute</span>
-
-    <tr>
      <th id="ix-handler-onloadstart"> <code data-x="">onloadstart</code>
      <td> <span data-x="handler-onloadstart">HTML elements</span>
      <td> <code data-x="event-media-loadstart">loadstart</code> event handler
@@ -1275,12 +1297,6 @@
      <th id="ix-handler-onmouseup"> <code data-x="">onmouseup</code>
      <td> <span data-x="handler-onmouseup">HTML elements</span>
      <td> <code data-x="event-mouseup">mouseup</code> event handler
-     <td> <span data-x="event handler content attributes">Event handler content attribute</span>
-
-    <tr>
-     <th id="ix-handler-onwheel"> <code data-x="">onwheel</code>
-     <td> <span data-x="handler-onwheel">HTML elements</span>
-     <td> <code data-x="event-wheel">wheel</code> event handler
      <td> <span data-x="event handler content attributes">Event handler content attribute</span>
 
     <tr>
@@ -1398,6 +1414,12 @@
      <td> <span data-x="event handler content attributes">Event handler content attribute</span>
 
     <tr>
+     <th id="ix-handler-onslotchange"> <code data-x="">onslotchange</code>
+     <td> <span data-x="handler-onslotchange">HTML elements</span>
+     <td> <code data-x="event-slotchange">slotchange</code> event handler
+     <td> <span data-x="event handler content attributes">Event handler content attribute</span>
+
+    <tr>
      <th id="ix-handler-onstalled"> <code data-x="">onstalled</code>
      <td> <span data-x="handler-onstalled">HTML elements</span>
      <td> <code data-x="event-media-stalled">stalled</code> event handler
@@ -1455,6 +1477,12 @@
      <th id="ix-handler-onwaiting"> <code data-x="">onwaiting</code>
      <td> <span data-x="handler-onwaiting">HTML elements</span>
      <td> <code data-x="event-media-waiting">waiting</code> event handler
+     <td> <span data-x="event handler content attributes">Event handler content attribute</span>
+
+    <tr>
+     <th id="ix-handler-onwheel"> <code data-x="">onwheel</code>
+     <td> <span data-x="handler-onwheel">HTML elements</span>
+     <td> <code data-x="event-wheel">wheel</code> event handler
      <td> <span data-x="event handler content attributes">Event handler content attribute</span>
 
   </table>

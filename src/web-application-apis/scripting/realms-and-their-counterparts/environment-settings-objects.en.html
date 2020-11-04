@@ -1,0 +1,97 @@
+  <h5>Environment settings objects</h5>
+
+  <p>An <dfn export>environment settings object</dfn> is an <span>environment</span> that
+  additionally specifies algorithms for:</p>
+
+  <dl>
+   <dt>A <dfn export for="environment settings object">realm execution
+   context</dfn></dt>
+
+   <dd>
+    <p>A <span>JavaScript execution context</span> shared by all
+    <span data-x="script">scripts</span> that use this settings object, i.e. all scripts in a given
+    <span>JavaScript realm</span>. When we <span>run a classic script</span> or <span>run a module
+    script</span>, this execution context becomes the top of the <span>JavaScript execution context
+    stack</span>, on top of which another execution context specific to the script in question is
+    pushed. (This setup ensures <span data-x="js-ParseScript">ParseScript</span> and <span>Source
+    Text Module Record</span>'s <span data-x="js-Evaluate">Evaluate</span> know which Realm to
+    use.)</p>
+   </dd>
+
+   <dt>A <dfn data-x="concept-settings-object-module-map" export for="environment
+   settings object">module map</dfn></dt>
+
+   <dd>
+    <p>A <span>module map</span> that is used when importing JavaScript modules.</p>
+   </dd>
+
+   <dt>A <dfn export for="environment settings object">responsible document</dfn></dt>
+
+   <dd>
+    <p>A <code>Document</code> that is assigned responsibility for actions taken by the scripts that
+    use this <span>environment settings object</span>.</p>
+
+    <p class="example">For example, the <span data-x="concept-document-url">URL</span> of the
+    <span>responsible document</span> is used to set the <span
+    data-x="concept-document-url">URL</span> of the <code>Document</code> after it has been reset
+    using <code data-x="dom-document-open">document.open()</code>.</p>
+
+    <p>If the <span>responsible event loop</span> is not a <span>window event loop</span>, then the
+    <span>environment settings object</span> has no <span>responsible document</span>.</p>
+   </dd>
+
+   <dt>An <dfn export for="environment settings object">API URL character encoding</dfn></dt>
+
+   <dd>
+    <p>A character encoding used to encode URLs by APIs called by scripts that use this <span>environment
+    settings object</span>.</p>
+   </dd>
+
+   <dt>An <dfn export for="environment settings object">API base URL</dfn></dt>
+
+   <dd>
+    <p>A <span>URL</span> used by APIs called by scripts that use this <span>environment settings
+    object</span> to <span data-x="parse a url">parse URLs</span>.</p>
+   </dd>
+
+   <dt>An <dfn data-x="concept-settings-object-origin" export for="environment
+   settings object">origin</dfn></dt>
+
+   <dd>
+    <p>An <span>origin</span> used in security checks.</p>
+   </dd>
+
+   <dt>A <dfn data-x="concept-settings-object-referrer-policy" export
+   for="environment settings object">referrer policy</dfn></dt>
+
+   <dd><p>The default <span>referrer policy</span> for <span data-x="concept-fetch">fetches</span>
+   performed using this <span>environment settings object</span> as a <span
+   data-x="concept-request-client">request client</span>. <ref spec=REFERRERPOLICY>
+
+   <dt>An <dfn data-x="concept-settings-object-embedder-policy" export
+   for="environment settings object">embedder policy</dfn></dt>
+
+   <dd><p>An <span>embedder policy</span> used by <span data-x="cross-origin resource policy
+   check">cross-origin resource policy checks</span> for <span data-x="concept-fetch">fetches</span>
+   performed using this <span>environment settings object</span> as a <span
+   data-x="concept-request-client">request client</span>.</p></dd>
+
+   <dt>A <dfn data-x="concept-settings-object-cross-origin-isolated-capability" export
+   for="environment settings object">cross-origin isolated capability</dfn></dt>
+
+   <dd><p>A boolean representing whether scripts that use this <span>environment settings
+   object</span> are allowed to use APIs that require cross-origin isolation.</p></dd>
+  </dl>
+
+  <p>An <span>environment settings object</span> also has an <dfn>outstanding rejected promises
+  weak set</dfn> and an <dfn>about-to-be-notified rejected promises list</dfn>, used to track
+  <a href="#unhandled-promise-rejections">unhandled promise rejections</a>. The <span>outstanding
+  rejected promises weak set</span> must not create strong references to any of its members, and
+  implementations are free to limit its size, e.g. by removing old entries from it when new ones
+  are added.</p>
+
+  <p>An <span>environment settings object</span>'s <dfn export for="environment settings
+  object">responsible event loop</dfn> is its <span data-x="concept-settings-object-global">global
+  object</span>'s <span>relevant agent</span>'s <span data-x="concept-agent-event-loop">event
+  loop</span>.</p>
+

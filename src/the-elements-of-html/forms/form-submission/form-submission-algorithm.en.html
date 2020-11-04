@@ -1,5 +1,11 @@
   <h5>Form submission algorithm</h5>
 
+  <p>Each <code>form</code> element has a <dfn>constructing entry list</dfn> boolean, initially
+  false.</p>
+
+  <p>Each <code>form</code> element has a <dfn>firing submission events</dfn> boolean, initially
+  false.</p>
+
   <p>When a <code>form</code> element <var>form</var> is <dfn
   data-x="concept-form-submit">submitted</dfn> from an element <var>submitter</var>
   (typically a button), optionally with a <var>submitted from <code
@@ -9,6 +15,8 @@
   <ol>
    <li><p>If <var>form</var> <span>cannot navigate</span>, then return.</p></li>
 
+   <li><p>If <var>form</var>'s <span>constructing entry list</span> is true, then return.</p></li>
+
    <li><p>Let <var>form document</var> be <var>form</var>'s <span>node document</span>.</p></li>
 
    <li id="sandboxSubmitBlocked"><p>If <var>form document</var>'s <span>active sandboxing flag
@@ -17,25 +25,41 @@
    <li><p>Let <var>form browsing context</var> be the <span data-x="concept-document-bc">browsing
    context</span> of <var>form document</var>.</p></li>
 
-   <!-- lock (all the following steps are skipped if called from submit() - see unlock step below) -->
-
-   <li><p>If the <var>submitted from <code data-x="dom-form-submit">submit()</code>
-   method</var> flag is not set, and the <var>submitter</var> element's <span
-   data-x="concept-fs-novalidate">no-validate state</span> is false, then <span>interactively
-   validate the constraints</span> of <var>form</var> and examine the result: if the result
-   is negative (the constraint validation concluded that there were invalid fields and probably
-   informed the user of this) then <span data-x="concept-event-fire">fire an event</span> named
-   <code data-x="event-invalid">invalid</code> at the <var>form</var> element and then return.</p></li>
-
    <li>
     <p>If the <var>submitted from <code data-x="dom-form-submit">submit()</code> method</var> flag
     is not set, then:
 
     <ol>
+     <li><p>If <var>form</var>'s <span>firing submission events</span> is true, then
+     return.</p></li>
+
+     <li><p>Set <var>form</var>'s <span>firing submission events</span> to true.</p></li>
+
+     <li>
+      <p>If the <var>submitter</var> element's <span data-x="concept-fs-novalidate">no-validate
+      state</span> is false, then <span>interactively validate the constraints</span> of
+      <var>form</var> and examine the result. If the result is negative (i.e., the constraint
+      validation concluded that there were invalid fields and probably informed the user of this),
+      then:</p>
+
+      <ol>
+       <li><p>Set <var>form</var>'s <span>firing submission events</span> to false.</p></li>
+
+       <li><p>Return.</p></li>
+      </ol>
+     </li>
+
+     <li><p>Let <var>submitterButton</var> be null if <var>submitter</var> is <var>form</var>.
+     Otherwise, let <var>submitterButton</var> be <var>submitter</var>.</p></li>
+
      <li><p>Let <var>continue</var> be the result of <span data-x="concept-event-fire">firing an
-     event</span> named <code data-x="event-submit">submit</code> at <var>form</var>, with the
-     <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true and the <code
+     event</span> named <code data-x="event-submit">submit</code> at <var>form</var> using
+     <code>SubmitEvent</code>, with the <code data-x="dom-SubmitEvent-submitter">submitter</code>
+     attribute initialized to <var>submitterButton</var>, the <code
+     data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, and the <code
      data-x="dom-Event-cancelable">cancelable</code> attribute initialized to true.</p></li>
+
+     <li><p>Set <var>form</var>'s <span>firing submission events</span> to false.</p></li>
 
      <li><p>If <var>continue</var> is false, then return.</p></li>
 
@@ -46,11 +70,7 @@
       data-x="event-submit">submit</code> event could have changed the outcome.</p>
      </li>
     </ol>
-
-   <!-- if you add any steps between the "lock" and "unlock" lines, make sure to update the step
-   immediately before the "lock" line -->
-
-   <!-- unlock -->
+   </li>
 
    <li><p>Let <var>encoding</var> be the result of <span>picking an encoding for the
    form</span>.</p>
@@ -58,11 +78,18 @@
    <li><p>Let <var>entry list</var> be the result of <span>constructing the entry list</span> with
    <var>form</var>, <var>submitter</var>, and <var>encoding</var>.</p></li>
 
+   <li>
+    <p>If <var>form</var> <span>cannot navigate</span>, then return.</p>
+
+    <p class="note"><span>Cannot navigate</span> is run again as dispatching the <code
+    data-x="event-formdata">formdata</code> event in <span>constructing the entry list</span>
+    could have changed the outcome.</p>
+   </li>
+
    <li><p>Let <var>action</var> be the <var>submitter</var> element's <span
    data-x="concept-fs-action">action</span>.</p></li>
 
    <li>
-
     <p>If <var>action</var> is the empty string, let <var>action</var> be the <span
     data-x="concept-document-url">URL</span> of the <var>form document</var>.</p>
 
@@ -72,7 +99,6 @@
       https://bugs.webkit.org/show_bug.cgi?id=7763
       https://bugzilla.mozilla.org/show_bug.cgi?id=297761
     -->
-
    </li>
 
    <li><p><span data-x="parse a url">Parse</span> the <span>URL</span> <var>action</var>, relative
@@ -95,18 +121,25 @@
    be the result of <span data-x="get an element's target">getting an element's target</span> given
    <var>submitter</var>'s <span>form owner</span>.</p></li>
 
-   <li><p>Let <var>target browsing context</var> and <var>replace</var> be the result of applying
-   <span>the rules for choosing a browsing context</span> using <var>target</var> and <var>form
-   browsing context</var>.</p></li>
+   <li><p>Let <var>noopener</var> be the result of <span data-x="get an element's noopener">getting
+   an element's noopener</span> with <var>form</var> and <var>targetAttributeValue</var>.</p></li>
+
+   <li><p>Let <var>target browsing context</var> and <var>windowType</var> be the result of
+   applying <span>the rules for choosing a browsing context</span> using <var>target</var>,
+   <var>form browsing context</var>, and <var>noopener</var>.</p></li>
+
+   <li><p>Let <var>historyHandling</var> be "<code data-x="hh-replace">replace</code>" if
+   <var>windowType</var> is either "<code data-x="">new and unrestricted</code>" or "<code
+   data-x="">new with no opener</code>"; otherwise "<code
+   data-x="hh-default">default</code>".</p></li>
 
    <li><p>If <var>target browsing context</var> is null, then return.</p></li>
 
    <li><p>If <var>form document</var> has not yet <span>completely loaded</span> and the
    <var>submitted from <code data-x="dom-form-submit">submit()</code> method</var> flag is set, then
-   set <var>replace</var> to true.</p></li>
+   set <var>historyHandling</var> to "<code data-x="hh-replace">replace</code>".</p></li>
 
    <li>
-
     <p>If the value of <var>method</var> is <span
     data-x="attr-fs-method-dialog">dialog</span> then jump to the <span data-x="submit-dialog">submit
     dialog</span> steps.</p>
@@ -159,50 +192,41 @@
     user agent is required to <dfn>plan to navigate</dfn> to a particular resource <var>destination</var>, it must run the following steps:</p>
 
     <ol>
+     <li><p>If <var>destination</var> is not a <span data-x="concept-request">request</span>, then
+     set <var>destination</var> to a new <span data-x="concept-request">request</span> whose <span
+     data-x="concept-request-url">URL</span> is <var>destination</var>.</p></li>
+
+     <li><p>If the <code>form</code> element's <a href="#linkTypes">link types</a> include the <code
+     data-x="rel-noreferrer">noreferrer</code> keyword, then set <var>destination</var>'s <span
+     data-x="concept-request-referrer">referrer</span> to "<code
+     data-x="">no-referrer</code>".</p></li>
 
      <li><p>If the <code>form</code> has a non-null <span>planned navigation</span>, remove it from
      its <span>task queue</span>.</p></li>
 
      <li>
-
-      <p>Let the <code>form</code>'s <span>planned navigation</span> be a new <span
-      data-x="concept-task">task</span> that consists of running the following steps:</p>
+      <p><span>Queue an element task</span> on the <span>DOM manipulation task source</span> given
+      the <code>form</code> element and the following steps:</p>
 
       <ol>
-
-       <li><p>Let the <code>form</code>'s <span>planned navigation</span> be null.</p></li>
+       <li><p>Set the <code>form</code>'s <span>planned navigation</span> to null.</p></li>
 
        <li><p><span>Navigate</span><!--DONAV form--> <var>target browsing context</var> to
-       <var>destination</var>. If <var>replace</var> is true, then <var>target browsing
-       context</var> must be navigated with <span>replacement enabled</span>.</p>
-
+       <var>destination</var>, with <var data-x="navigation-hh">historyHandling</var> set to
+       <var>historyHandling</var> and <var data-x="navigation-navigationtype">navigationType</var>
+       set to "<code data-x="">form-submission</code>".</p>
       </ol>
-
-      <p>For the purposes of this task, <var>target browsing context</var> and <var>replace</var> are the variables that were set up when the overall form submission
-      algorithm was run, with their values as they stood when this <span>planned navigation</span>
-      was <span data-x="queue a task">queued</span>.</p>
-
      </li>
 
-     <li>
-
-      <p><span data-x="queue a task">Queue the task</span> that is the <code>form</code>'s new
-      <span>planned navigation</span>.</p>
-
-      <p>The <span>task source</span> for this task is the <span>DOM manipulation task
-      source</span>.</p>
-
-     </li>
-
+     <li><p>Set the <code>form</code>'s <span>planned navigation</span> to the just-queued <span
+     data-x="concept-task">task</span>.</p>
     </ol>
 
     <p>The behaviors are as follows:</p>
 
     <dl>
-
      <dt><dfn data-x="submit-mutate-action">Mutate action URL</dfn>
      <dd>
-
       <p>Let <var>query</var> be the result of running the
       <span><code>application/x-www-form-urlencoded</code> serializer</span> with <var>entry
       list</var> and <var>encoding</var>.</p>
@@ -211,7 +235,6 @@
       component to <var>query</var>.</p>
 
       <p><span>Plan to navigate</span> to <var>parsed action</var>.</p>
-
      </dd>
 
      <dt><dfn data-x="submit-body">Submit as entity body</dfn>
@@ -265,16 +288,13 @@
       data-x="concept-request-header-list">header list</span> consists of `<code
       data-x="">Content-Type</code>`/<var>MIME type</var>, and <span
       data-x="concept-request-body">body</span> is <var>body</var>.</p>
-
      </dd>
 
      <dt><dfn data-x="submit-get-action">Get action URL</dfn>
      <dd>
-
       <p><span>Plan to navigate</span> to <var>parsed action</var>.</p>
 
       <p class="note"><var>entry list</var> is discarded.</p>
-
      </dd>
 
      <dt><dfn data-x="submit-mailto-headers">Mail with headers</dfn>
@@ -303,9 +323,8 @@
         <p>Let <var>body</var> be the result of running the <span><code data-x="">text/plain</code>
         encoding algorithm</span> with <var>entry list</var>.</p>
 
-        <p>Set <var>body</var> to the result of concatenating the result of <span data-x="UTF-8
-        percent encode">UTF-8 percent encoding</span> each code point in <var>body</var>, using the
-        <span>default encode set</span>. <ref spec=URL></p>
+        <p>Set <var>body</var> to the result of running <span>UTF-8 percent-encode</span> on
+        <var>body</var> using the <span>default encode set</span>. <ref spec=URL></p>
        </dd>
 
        <dt>Otherwise</dt>
@@ -333,7 +352,6 @@
 
      <dt><dfn data-x="submit-dialog">Submit dialog</dfn>
      <dd>
-
       <p>Let <var>subject</var> be the nearest ancestor <code>dialog</code> element of <var>form</var>, if any.</p>
 
       <p>If there isn't one, or if it does not have an <code data-x="attr-dialog-open">open</code>
@@ -354,13 +372,9 @@
       <p>Otherwise, there is no <var>result</var>.</p>
 
       <p>Then, <span>close the dialog</span> <var>subject</var>. If there is a <var>result</var>, let that be the return value.</p>
-
      </dd>
-
     </dl>
-
    </li>
-
   </ol>
 
 

@@ -1,11 +1,11 @@
   <h5>The <code subdfn>WorkerGlobalScope</code> common interface</h5>
 
-  <pre><code class="idl" data-x="">[Exposed=Worker]
+  <pre><code class="idl">[Exposed=Worker]
 interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   readonly attribute <span>WorkerGlobalScope</span> <span data-x="dom-WorkerGlobalScope-self">self</span>;
   readonly attribute <span>WorkerLocation</span> <span data-x="dom-WorkerGlobalScope-location">location</span>;
   readonly attribute <span>WorkerNavigator</span> <span data-x="dom-worker-navigator">navigator</span>;
-  void <span data-x="dom-WorkerGlobalScope-importScripts">importScripts</span>(USVString... urls);
+  undefined <span data-x="dom-WorkerGlobalScope-importScripts">importScripts</span>(USVString... urls);
 
   attribute <span>OnErrorEventHandler</span> <span data-x="handler-WorkerGlobalScope-onerror">onerror</span>;
   attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onlanguagechange">onlanguagechange</span>;
@@ -22,29 +22,28 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   <div w-nodev>
 
   <p id="the-worker's-documents">A <code>WorkerGlobalScope</code> object has an associated <dfn
-  id="concept-WorkerGlobalScope-owner-set" data-export="" data-dfn-for="WorkerGlobalScope">owner
-  set</dfn> (a <span>set</span> of <code>Document</code> and <code>WorkerGlobalScope</code>
-  objects). It is initially empty and populated when the worker is created or obtained.</p>
+  id="concept-WorkerGlobalScope-owner-set" export for="WorkerGlobalScope">owner set</dfn> (a
+  <span>set</span> of <code>Document</code> and <code>WorkerGlobalScope</code> objects). It is
+  initially empty and populated when the worker is created or obtained.</p>
 
   <p class="note">It is a <span>set</span>, instead of a single owner, to accomodate
   <code>SharedWorkerGlobalScope</code> objects.</p>
 
   <p>A <code>WorkerGlobalScope</code> object has an associated <dfn id="the-worker's-workers"
-  data-export="" data-dfn-for="WorkerGlobalScope">worker set</dfn> (a <span>set</span> of
+  export for="WorkerGlobalScope">worker set</dfn> (a <span>set</span> of
   <code>WorkerGlobalScope</code> objects). It is initially empty and populated when the worker
   creates or obtains further workers.</p>
 
-  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-type">type</dfn> ("<code
-  data-x="">classic</code>" or "<code data-x="">module</code>"). It is set during creation.</p>
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn export for="WorkerGlobalScope"
+  data-x="concept-WorkerGlobalScope-type">type</dfn> ("<code data-x="">classic</code>" or "<code
+  data-x="">module</code>"). It is set during creation.</p>
 
-  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-url">url</dfn> (null or a
-  <span>URL</span>). It is initially null.</p>
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn export for="WorkerGlobalScope"
+  data-x="concept-WorkerGlobalScope-url">url</dfn> (null or a <span>URL</span>). It is initially
+  null.</p>
 
-  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-name">name</dfn> (a string). It
-  is set during creation.</p>
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn export for="WorkerGlobalScope"
+  data-x="concept-WorkerGlobalScope-name">name</dfn> (a string). It is set during creation.</p>
 
   <p class="note">The <span data-x="concept-WorkerGlobalScope-name">name</span> can have different
   semantics for each subclass of <code>WorkerGlobalScope</code>. For
@@ -55,22 +54,26 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   <code>ServiceWorkerGlobalScope</code> objects, it doesn't make sense (and as such isn't exposed
   through the JavaScript API at all).</p>
 
-  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-https-state">HTTPS state</dfn>
-  (an <span>HTTPS state value</span>). It is initially "<code data-x="">none</code>".</p>
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn export for="WorkerGlobalScope"
+  data-x="concept-WorkerGlobalScope-referrer-policy">referrer policy</dfn> (a <span>referrer
+  policy</span>). It is initially the empty string.</p>
 
-  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-referrer-policy">referrer
-  policy</dfn> (a <span>referrer policy</span>). It is initially the empty string.</p>
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn export for="WorkerGlobalScope"
+  data-x="concept-WorkerGlobalScope-embedder-policy">embedder policy</dfn> (an <span>embedder
+  policy</span>).</p>
 
-  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-csp-list">CSP list</dfn>, which
-  is a <span data-x="concept-csp-list">CSP list</span> containing all of the <span>Content Security
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn export for="WorkerGlobalScope"
+  data-x="concept-WorkerGlobalScope-csp-list">CSP list</dfn>, which is a <span
+  data-x="concept-csp-list">CSP list</span> containing all of the <span>Content Security
   Policy</span> objects active for the worker. It is initially an empty list.</p>
 
-  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-module-map">module map</dfn>.
-  It is a <span>module map</span>, initially empty.</p>
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn export for="WorkerGlobalScope"
+  data-x="concept-WorkerGlobalScope-module-map">module map</dfn>.  It is a <span>module map</span>,
+  initially empty.</p>
+
+  <p>A <code>WorkerGlobalScope</code> object has an associated <dfn export for="WorkerGlobalScope"
+  data-x="concept-WorkerGlobalScope-cross-origin-isolated-capability">cross-origin isolated
+  capability</dfn> boolean. It is initially false.</p>
 
   </div>
 

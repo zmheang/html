@@ -55,8 +55,9 @@
   <p>When a <code>track</code> element's parent element changes and the new parent is a <span>media
   element</span>, then the user agent must add the <code>track</code> element's corresponding
   <span>text track</span> to the <span>media element</span>'s <span>list of text tracks</span>, and
-  then <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
-  <code data-x="event-media-addtrack">addtrack</code> at the <span>media element</span>'s <code
+  then <span>queue a media element task</span> given the <span>media element</span> to <span
+  data-x="concept-event-fire">fire an event</span> named <code
+  data-x="event-media-addtrack">addtrack</code> at the <span>media element</span>'s <code
   data-x="dom-media-textTracks">textTracks</code> attribute's <code>TextTrackList</code> object,
   using <code>TrackEvent</code>, with the <code data-x="dom-TrackEvent-track">track</code> attribute
   initialized to the <span>text track</span>'s <code>TextTrack</code> object.</p>
@@ -64,21 +65,22 @@
   <p>When a <code>track</code> element's parent element changes and the old parent was a <span>media
   element</span>, then the user agent must remove the <code>track</code> element's corresponding
   <span>text track</span> from the <span>media element</span>'s <span>list of text tracks</span>,
-  and then <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
-  <code data-x="event-media-removetrack">removetrack</code> at the <span>media element</span>'s
-  <code data-x="dom-media-textTracks">textTracks</code> attribute's <code>TextTrackList</code>
-  object, using <code>TrackEvent</code>, with the <code data-x="dom-TrackEvent-track">track</code>
-  attribute initialized to the <span>text track</span>'s <code>TextTrack</code> object.</p>
+  and then <span>queue a media element task</span> given the <span>media element</span> to <span
+  data-x="concept-event-fire">fire an event</span> named <code
+  data-x="event-media-removetrack">removetrack</code> at the <span>media element</span>'s <code
+  data-x="dom-media-textTracks">textTracks</code> attribute's <code>TextTrackList</code> object,
+  using <code>TrackEvent</code>, with the <code data-x="dom-TrackEvent-track">track</code> attribute
+  initialized to the <span>text track</span>'s <code>TextTrack</code> object.</p>
   <!-- removetrack -->
 
   <hr>
 
   <p>When a <span>text track</span> corresponding to a <code>track</code> element is added to a
   <span>media element</span>'s <span>list of text tracks</span>, the user agent must <span>queue a
-  task</span> to run the following steps for the <span>media element</span>:</p>
+  media element task</span> given the <span>media element</span> to run the following steps for the
+  <span>media element</span>:</p>
 
   <ol>
-
    <li><p>If the element's <span>blocked-on-parser</span> flag is true, then return.</p></li>
 
    <li><p>If the element's <span>did-perform-automatic-track-selection</span> flag is true, then
@@ -86,14 +88,12 @@
 
    <li><p><span>Honor user preferences for automatic text track selection</span> for this
    element.</p></li>
-
   </ol>
 
   <p>When the user agent is required to <dfn>honor user preferences for automatic text track
   selection</dfn> for a <span>media element</span>, the user agent must run the following steps:</p>
 
   <ol>
-
    <li><p><span>Perform automatic text track selection</span> for <code
    data-x="dom-TextTrack-kind-subtitles">subtitles</code> and <code
    data-x="dom-TextTrack-kind-captions">captions</code>.</p></li>
@@ -112,14 +112,12 @@
 
    <li><p>Set the element's <span>did-perform-automatic-track-selection</span> flag to
    true.</p></li>
-
   </ol>
 
   <p>When the steps above say to <dfn>perform automatic text track selection</dfn> for one or more
   <span data-x="text track kind">text track kinds</span>, it means to run the following steps:</p>
 
   <ol>
-
    <li><p>Let <var>candidates</var> be a list consisting of the <span data-x="text
    track">text tracks</span> in the <span>media element</span>'s <span>list of text tracks</span>
    whose <span>text track kind</span> is one of the kinds that were passed to the algorithm, if any,
@@ -131,7 +129,6 @@
    showing">showing</span>, return.</p></li>
 
    <li>
-
     <p>If the user has expressed an interest in having a track from <var>candidates</var>
     enabled based on its <span>text track kind</span>, <span>text track language</span>, and
     <span>text track label</span>, then set its <span>text track mode</span> to <span data-x="text
@@ -155,9 +152,7 @@
     data-x="attr-track-default">default</code> attribute set whose <span>text track mode</span> is
     set to <span data-x="text track disabled">disabled</span>, then set the <span>text track
     mode</span> of the first such track to <span data-x="text track showing">showing</span>.</p>
-
    </li>
-
   </ol>
 
   <p>When a <span>text track</span> corresponding to a <code>track</code> element experiences any of
@@ -182,7 +177,6 @@
   algorithm). The steps in that section are marked with &#x231B;.</p>
 
   <ol>
-
    <li><p>If another occurrence of this algorithm is already running for this <span>text
    track</span> and its <code>track</code> element, return, letting that other algorithm
    take care of this element.</p></li>
@@ -216,7 +210,6 @@
    <span>in parallel</span>.</p></li>
 
    <li>
-
     <p>If <var>URL</var> is not the empty string, then:
 
     <ol>
@@ -226,8 +219,8 @@
      <i>same-origin fallback flag</i> set.</p></li>
 
      <li><p>Set <var>request</var>'s <span data-x="concept-request-client">client</span> to the
-     <code>track</code> element's <span>node document</span>'s <code>Window</code> object's
-     <span>environment settings object</span>.</p></li>
+     <code>track</code> element's <span>node document</span>'s <span>relevant settings
+     object</span>.</p></li>
 
      <!--FETCH--><li><p><span data-x="concept-fetch">Fetch</span> <var>request</var>.</p></li>
     </ol>
@@ -250,34 +243,33 @@
     <p class="critical">This specification does not currently say whether or how to check the MIME
     types of text tracks, or whether or how to perform file type sniffing using the actual file
     data. Implementors differ in their intentions on this matter and it is therefore unclear what
-    the right solution is. In the absence of any requirement here, the HTTP specification's strict
+    the right solution is. In the absence of any requirement here, the HTTP specifications' strict
     requirement to follow the Content-Type header prevails ("Content-Type specifies the media type
     of the underlying data." ... "If and only if the media type is not given by a Content-Type
     field, the recipient MAY attempt to guess the media type via inspection of its content
     and<!---->/<!---->or the name extension(s) of the URI used to identify the resource.").</p>
 
     <p>If fetching fails for any reason (network error, the server returns an error code, CORS
-    fails, etc), or if <var>URL</var> is the empty string, then <span>queue a task</span> to first
+    fails, etc), or if <var>URL</var> is the empty string, then <span>queue an element task</span>
+    on the <span>DOM manipulation task source</span> given the <span>media element</span> to first
     change the <span>text track readiness state</span> to <span data-x="text track failed to
     load">failed to load</span> and then <span data-x="concept-event-fire">fire an event</span>
-    named <code data-x="event-track-error">error</code> at the <code>track</code> element. This
-    <span data-x="concept-task">task</span> must use the <span>DOM manipulation task
-    source</span>.</p>
+    named <code data-x="event-track-error">error</code> at the <code>track</code> element.</p>
     <!-- can't be the media element one, since there might not be a media element by this point -->
 
     <p>If fetching does not fail, but the <!--computed--> type of the resource is not a supported
     text track format, or the file was not successfully processed (e.g., the format in question is
-    an XML format and the file contained a well-formedness error that the XML specification requires
-    be detected and reported to the application), then the <span data-x="concept-task">task</span>
-    that is <span data-x="queue a task">queued</span> by the <span>networking task source</span> in
-    which the aforementioned problem is found must change the <span>text track readiness
+    an XML format and the file contained a well-formedness error that <cite>XML</cite> requires be
+    detected and reported to the application), then the <span data-x="concept-task">task</span> that
+    is <span data-x="queue an element task">queued</span> on the <span>networking task source</span>
+    in which the aforementioned problem is found must change the <span>text track readiness
     state</span> to <span data-x="text track failed to load">failed to load</span> and <span
     data-x="concept-event-fire">fire an event</span> named <code
     data-x="event-track-error">error</code> at the <code>track</code> element.</p>
 
     <p>If fetching does not fail, and the file was successfully processed, then the final <span
-    data-x="concept-task">task</span> that is <span data-x="queue a task">queued</span> by the
-    <span>networking task source</span>, after it has finished parsing the data, must change the
+    data-x="concept-task">task</span> that is <span data-x="queue an element task">queued</span> by
+    the <span>networking task source</span>, after it has finished parsing the data, must change the
     <span>text track readiness state</span> to <span data-x="text track loaded">loaded</span>, and
     <span data-x="concept-event-fire">fire an event</span> named <code
     data-x="event-track-load">load</code> at the <code>track</code> element.</p>
@@ -296,15 +288,14 @@
     </ul>
 
     <p>...then the user agent must abort <span data-x="concept-fetch">fetching</span>, discarding
-    any pending <span data-x="concept-task">tasks</span> generated by that algorithm (and
-    in particular, not adding any cues to the <span>text track list of cues</span> after the moment
-    the URL changed), and then <span>queue a task</span> that first changes the <span>text track
+    any pending <span data-x="concept-task">tasks</span> generated by that algorithm (and in
+    particular, not adding any cues to the <span>text track list of cues</span> after the moment the
+    URL changed), and then <span>queue an element task</span> on the <span>DOM manipulation task
+    source</span> given the <code>track</code> element that first changes the <span>text track
     readiness state</span> to <span data-x="text track failed to load">failed to load</span> and
     then <span data-x="concept-event-fire">fires an event</span> named <code
-    data-x="event-track-error">error</code> at the <code>track</code> element. This <span
-    data-x="concept-task">task</span> must use the <span>DOM manipulation task source</span>. <!--
-    can't be the media element one, since there might not be a media element by this point --></p>
-
+    data-x="event-track-error">error</code> at the <code>track</code> element. <!-- can't be the
+    media element one, since there might not be a media element by this point --></p>
    </li>
 
    <li><p>Wait until the <span>text track readiness state</span> is no longer set to <span
@@ -315,7 +306,6 @@
    hidden">hidden</span> or <span data-x="text track showing">showing</span>.</p></li>
 
    <li><p>Jump to the step labeled <i>top</i>.</p></li>
-
   </ol>
 
   <p>Whenever a <code>track</code> element has its <code data-x="attr-track-src">src</code> attribute

@@ -1,8 +1,9 @@
-  <h5>The <dfn><code data-x="attr-style">style</code></dfn> attribute</h5>
+  <h5>The <code data-x="attr-style">style</code> attribute</h5>
 
-  <p>All <span>HTML elements</span> may have the <code data-x="attr-style">style</code> content
-  attribute set. This is a <span data-x="css-styling-attribute">style attribute</span> as defined by
-  the <cite>CSS Style Attributes</cite> specification. <ref spec=CSSATTR></p>
+  <p>All <span>HTML elements</span> may have the <dfn element-attr for="html-global"><code
+  data-x="attr-style">style</code></dfn> content attribute set. This is a <span
+  data-x="css-styling-attribute">style attribute</span> as defined by <cite>CSS Style
+  Attributes</cite>. <ref spec=CSSATTR></p>
 
   <div w-nodev>
 
@@ -15,7 +16,7 @@
   Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when executed upon the
   attribute's <span>element</span>, "<code data-x="">style attribute</code>", and the attribute's
   value, then the style rules defined in the attribute's value must not be applied to the
-  <span>element</span>. <ref spec="CSP"></p>
+  <span>element</span>. <ref spec=CSP></p>
 
   </div>
 
@@ -35,13 +36,12 @@
    <dd>
     <p>Returns a <code>CSSStyleDeclaration</code> object for the element's <code data-x="attr-style">style</code> attribute.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-style">style</code></dfn> IDL attribute is defined in the CSS Object
-  Model (CSSOM) specification. <ref spec=CSSOM></p>
+  <p>The <code data-x="dom-style">style</code> IDL attribute is defined in <cite>CSS Object Model</cite>. <ref
+  spec=CSSOM></p>
 
   </div>
 
@@ -51,7 +51,7 @@
    <code>span</code> element and the <code data-x="attr-style">style</code> attribute to make those
    words show up in the relevant colors in visual media.</p>
 
-   <pre><code class="html" data-x="">&lt;p>My sweat suit is &lt;span style="color: green; background:
+   <pre><code class="html">&lt;p>My sweat suit is &lt;span style="color: green; background:
 transparent">green&lt;/span> and my eyes are &lt;span style="color: blue;
 background: transparent">blue&lt;/span>.&lt;/p></code></pre>
 

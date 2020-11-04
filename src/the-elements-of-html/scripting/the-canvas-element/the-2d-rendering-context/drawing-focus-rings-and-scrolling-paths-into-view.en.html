@@ -6,10 +6,8 @@
    <dt><var>context</var> . <code data-x="dom-context-2d-drawFocusIfNeeded">drawFocusIfNeeded</code>(<var>path</var>, <var>element</var>)</dt>
 
    <dd>
-
     <p>If the given element is <span>focused</span>, draws a focus ring around the <span>current
     default path</span> or the given path, following the platform conventions for focus rings.</p>
-
    </dd>
 
 
@@ -17,12 +15,9 @@
    <dt><var>context</var> . <code data-x="dom-context-2d-scrollPathIntoView">scrollPathIntoView</code>(<var>path</var>)</dt>
 
    <dd>
-
     <p>Scrolls the <span>current default path</span> or the given path into view. This is especially
     useful on devices with small screens, where the whole canvas might not be visible at once.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -37,12 +32,10 @@
   method, when invoked, must run these steps:</p>
 
   <ol>
-
    <li><p>If <var>element</var> is not <span>focused</span> or is not a descendant of the element with
    whose context the method is associated, then return.</p></li>
 
    <li>
-
     <p>Draw a focus ring of the appropriate style along the intended path, following platform
     conventions.</p>
 
@@ -61,13 +54,11 @@
     <code>CanvasTextDrawingStyles</code> interfaces, but <em>should</em> be subject to the
     <span>clipping region</span>. (The effect of transformations is described above and varies based
     on which path is being used.)</p>
-
    </li>
 
    <li><p><a href="#inform">Inform the user</a> that the focus is at the location given by the
    intended path. User agents may wait until the next time the <span>event loop</span> reaches its
    <span>update the rendering</span> step to optionally inform the user.</p></li>
-
   </ol>
 
   <p>User agents should not implicitly close open subpaths in the intended path when drawing the
@@ -85,7 +76,6 @@
   method, when invoked, must run these steps:</p>
 
   <ol>
-
    <li><p>Let <var>specifiedRectangle</var> be the rectangle of the bounding box of the intended
    path.</p></li>
 
@@ -100,7 +90,6 @@
    cover <var>specifiedRectangle</var> of the canvas. The user agent may wait until the next time
    the <span>event loop</span> reaches its <span>update the rendering</span> step to optionally
    inform the user.</p></li>
-
   </ol>
 
   <p id="inform">"Inform the user", as used in this section, does not imply any persistent state

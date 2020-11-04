@@ -1,4 +1,4 @@
-  <h4 data-dfn-type="element" data-lt="head" id="the-head-element">The <dfn><code>head</code></dfn> element</h4>
+  <h4 element data-lt="head" id="the-head-element">The <dfn><code>head</code></dfn> element</h4>
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
@@ -10,11 +10,16 @@
    <dd>Otherwise: One or more elements of <span>metadata content</span>, of which exactly one is a <code>title</code> element and no more than one is a <code>base</code> element.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-head">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-head">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLHeadElement</dfn> : <span>HTMLElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLHeadElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLHeadElement</code>.</dd>
   </dl>
@@ -27,7 +32,7 @@ interface <dfn>HTMLHeadElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    <p>The collection of metadata in a <code>head</code> element can be large or small. Here is an
    example of a very short one:</p>
 
-   <pre><code class="html" data-x="">&lt;!doctype html>
+   <pre><code class="html">&lt;!doctype html>
 &lt;html lang=en>
  &lt;head>
   &lt;title>A document with a short head&lt;/title>
@@ -37,7 +42,7 @@ interface <dfn>HTMLHeadElement</dfn> : <span>HTMLElement</span> {};</code></pre>
 
    <p>Here is an example of a longer one:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;HTML LANG="EN">
  &lt;HEAD>
   &lt;META CHARSET="UTF-8">
@@ -54,8 +59,8 @@ interface <dfn>HTMLHeadElement</dfn> : <span>HTMLElement</span> {};</code></pre>
   </div>
 
   <p class="note">The <code>title</code> element is a required child in most situations, but when a
-  higher-level protocol provides title information, e.g. in the Subject line of an e-mail when HTML
-  is used as an e-mail authoring format, the <code>title</code> element can be omitted.</p>
+  higher-level protocol provides title information, e.g. in the Subject line of an email when HTML
+  is used as an email authoring format, the <code>title</code> element can be omitted.</p>
 
 
 

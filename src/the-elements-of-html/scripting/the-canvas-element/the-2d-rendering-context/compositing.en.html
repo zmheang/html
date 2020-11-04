@@ -5,26 +5,21 @@
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-globalAlpha">globalAlpha</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the current alpha value applied to rendering operations.</p>
 
     <p>Can be set, to change the alpha value. Values outside of the range 0.0 .. 1.0 are
     ignored.</p>
-
    </dd>
 
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-globalCompositeOperation">globalCompositeOperation</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
-    <p>Returns the current composition operation, from the values defined in the Compositing and
-    Blending specification. <ref spec=COMPOSITE>.</p>
+    <p>Returns the current composition operation, from the values defined in <cite>Compositing and
+    Blending</cite>. <ref spec=COMPOSITE>.</p>
 
     <p>Can be set, to change the composition operation. Unknown values are ignored.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -49,7 +44,7 @@
   sets the <dfn>current composition operator</dfn>, which controls how shapes and images are drawn onto the
   <span>output bitmap</span>, once they have had <code
   data-x="dom-context-2d-globalAlpha">globalAlpha</code> and the current transformation matrix
-  applied. The possible values are those defined in the Compositing and Blending specification, and
+  applied. The possible values are those defined in <cite>Compositing and Blending</cite>, and
   include the values <dfn><code data-x="gcop-source-over"
   data-x-href="https://drafts.fxtf.org/compositing-1/#porterduffcompositingoperators_srcover">source-over</code></dfn>
   and <dfn><code data-x="gcop-copy"
@@ -57,8 +52,8 @@
   <ref spec=COMPOSITE></p>
 
   <p>These values are all case-sensitive &mdash; they must be used exactly as defined. User agents
-  must not recognize values that are not a <span>case-sensitive</span> match for one of the values
-  given in the Compositing and Blending specification. <ref spec=COMPOSITE></p>
+  must not recognize values that are not <span>identical to</span> one of the values given in
+  <cite>Compositing and Blending</cite>. <ref spec=COMPOSITE></p>
 
   <p>On setting, if the user agent does not recognize the specified value, it must be ignored,
   leaving the value of <code

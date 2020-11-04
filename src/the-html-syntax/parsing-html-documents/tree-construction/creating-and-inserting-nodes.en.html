@@ -7,18 +7,14 @@
   <i>override target</i>, is the position in an element returned by running the following steps:</p>
 
   <ol>
-
    <li>
-
     <p>If there was an <i>override target</i> specified, then let <var>target</var> be the
     <i>override target</i>.</p>
 
     <p>Otherwise, let <var>target</var> be the <span>current node</span>.</p>
-
    </li>
 
    <li>
-
     <p>Determine the <var>adjusted insertion location</var> using the first matching steps
     from the following list:</p>
 
@@ -29,13 +25,11 @@
      in "in table" mode -->
 
      <dd>
-
       <p class="note">Foster parenting happens when content is misnested in tables.</p>
 
       <p>Run these substeps:</p>
 
       <ol>
-
        <li><p>Let <var>last template</var> be the last <code>template</code> element in the
        <span>stack of open elements</span>, if any.</p>
 
@@ -45,19 +39,19 @@
        <li><p>If there is a <var>last template</var> and either there is no <var>last table</var>, or there is one, but <var>last template</var> is lower
        (more recently added) than <var>last table</var> in the <span>stack of open
        elements</span>, then: let <var>adjusted insertion location</var> be inside <var>last template</var>'s <span>template contents</span>, after its last child (if any),
-       and abort these substeps.</p></li>
+       and abort these steps.</p></li>
 
        <li><p>If there is no <var>last table</var>, <!-- there's also implicitly no last
        template, since we didn't hit the previous step --> then let <var>adjusted insertion
        location</var> be inside the first element in the <span>stack of open elements</span> (the
-       <code>html</code> element), after its last child (if any), and abort these substeps.
+       <code>html</code> element), after its last child (if any), and abort these steps.
        (<span>fragment case</span>)</p>
 
        <!-- if we get here, we know there's a last table, and if there's a last template, it's older
        than the last table. -->
 
        <li><p>If <var>last table</var> has a parent node, then let <var>adjusted insertion location</var> be inside <var>last table</var>'s parent
-       node, immediately before <var>last table</var>, and abort these substeps.</p></li>
+       node, immediately before <var>last table</var>, and abort these steps.</p></li>
 
        <!-- if we get here, we know there's a last table, but it has no parent, and if there's a
        last template, it's older than the last table. -->
@@ -66,43 +60,32 @@
 
        <li><p>Let <var>adjusted insertion location</var> be inside <var>previous
        element</var>, after its last child (if any).</p></li>
-
       </ol>
 
       <p class="note">These steps are involved in part because it's possible for elements, the
       <code>table</code> element in this case in particular, to have been moved by a script around
       in the DOM, or indeed removed from the DOM entirely, after the element was inserted by the
       parser.</p>
-
      </dd>
 
      <dt>Otherwise</dt>
 
      <dd>
-
       <p>Let <var>adjusted insertion location</var> be inside <var>target</var>,
       after its last child (if any).</p>
-
      </dd>
-
     </dl>
-
    </li>
 
    <li>
-
     <p>If the <var>adjusted insertion location</var> is inside a <code>template</code>
     element, let it instead be inside the <code>template</code> element's <span>template
     contents</span>, after its last child (if any).</p>
-
    </li>
 
    <li>
-
     <p>Return the <var>adjusted insertion location</var>.</p>
-
    </li>
-
   </ol>
 
   <hr>
@@ -123,7 +106,7 @@
    definition">looking up a custom element definition</span> given <var>document</var>, <var>given
    namespace</var>, <var>local name</var>, and <var>is</var>.</p></li>
 
-   <li><p>If <var>definition</var> is non-null and the parser was not originally created for the
+   <li><p>If <var>definition</var> is non-null and the parser was not created as part of the
    <span>HTML fragment parsing algorithm</span>, then let <var>will execute script</var> be true.
    Otherwise, let it be false.</p></li>
 
@@ -137,8 +120,8 @@
      <li><p>If the <span>JavaScript execution context stack</span> is empty, then <span>perform a
      microtask checkpoint</span>.</p></li>
 
-     <li><p>Push a new <span>element queue</span> onto the <span>custom element reactions
-     stack</span>.</li>
+     <li><p>Push a new <span>element queue</span> onto <var>document</var>'s <span>relevant
+     agent</span>'s <span>custom element reactions stack</span>.</li>
     </ol>
    </li>
 
@@ -173,9 +156,9 @@
     <p>If <var>will execute script</var> is true, then:</p>
 
     <ol>
-     <li><p>Let <var>queue</var> be the result of popping the <span>current element queue</span>
-     from the <span>custom element reactions stack</span>. (This will be the same <span>element
-     queue</span> as was pushed above.)</p></li>
+     <li><p>Let <var>queue</var> be the result of popping from <var>document</var>'s <span>relevant
+     agent</span>'s <span>custom element reactions stack</span>. (This will be the same
+     <span>element queue</span> as was pushed above.)</p></li>
 
      <li><p><span>Invoke custom element reactions</span> in <var>queue</var>.</p></li>
 
@@ -195,10 +178,11 @@
    element's <span data-x="concept-fe-value">value</span> and <span
    data-x="concept-fe-checked">checkedness</span> based on the element's attributes.)</p></li>
 
-   <li><p>If <var>element</var> is a <span>form-associated element</span>, the <span><code
-   data-x="">form</code> element pointer</span> is not null, there is no <code>template</code>
-   element on the <span>stack of open elements</span>, <var>element</var> is either not <span
-   data-x="category-listed">listed</span> or doesn't have a <code
+   <li><p>If <var>element</var> is a <span>form-associated element</span> and not a
+   <span>form-associated custom element</span>, the
+   <span><code data-x="">form</code> element pointer</span> is not null, there is no
+   <code>template</code> element on the <span>stack of open elements</span>, <var>element</var> is
+   either not <span data-x="category-listed">listed</span> or doesn't have a <code
    data-x="attr-fae-form">form</code> attribute, and the <var>intended parent</var> is in the same
    <span>tree</span> as the element pointed to by the <span><code data-x="">form</code> element
    pointer</span>, then <span data-x="concept-form-association">associate</span> <var>element</var>
@@ -206,7 +190,6 @@
    pointer</span> and set <var>element</var>'s <span>parser inserted flag</span>.</p></li>
 
    <li><p>Return <var>element</var>.</p></li>
-
   </ol>
 
   <hr>
@@ -234,13 +217,16 @@
     then:</p>
 
     <ol>
-     <li><p>Push a new <span>element queue</span> onto the <span>custom element reactions
-     stack</span>.</li>
+     <li><p>If the parser was not created as part of the <span>HTML fragment parsing
+     algorithm</span>, then push a new <span>element queue</span> onto <var>element</var>'s
+     <span>relevant agent</span>'s <span>custom element reactions stack</span>.</li>
 
      <li><p>Insert <var>element</var> at the <var>adjusted insertion location</var>.</p></li>
 
-     <li><p>Pop the <span>element queue</span> from the <span>custom element reactions stack</span>,
-     and <span>invoke custom element reactions</span> in that queue.</p></li>
+     <li><p>If the parser was not created as part of the <span>HTML fragment parsing
+     algorithm</span>, then pop the <span>element queue</span> from <var>element</var>'s
+     <span>relevant agent</span>'s <span>custom element reactions stack</span>, and <span>invoke
+     custom element reactions</span> in that queue.</p></li>
     </ol>
 
     <p class="note">If the <var>adjusted insertion location</var> cannot accept more
@@ -365,7 +351,6 @@
   token, the user agent must run the following steps:</p>
 
   <ol>
-
    <li><p>Let <var>data</var> be the characters passed to the algorithm, or, if no
    characters were explicitly specified, the character of the character token being
    processed.</p></li>
@@ -374,17 +359,14 @@
    place for inserting a node</span>.</p></li>
 
    <li>
-
     <p>If the <var>adjusted insertion location</var> is in a <code>Document</code> node,
     then return.
 
     <p class="note">The DOM will not let <code>Document</code> nodes have <code>Text</code> node
     children, so they are dropped on the floor.</p>
-
    </li>
 
    <li>
-
     <p>If there is a <code>Text</code> node immediately before the <var>adjusted insertion
     location</var>, then append <var>data</var> to that <code>Text</code> node's data.</p>
 
@@ -392,9 +374,7 @@
     whose <span>node document</span> is the same as that of the
     element in which the <var>adjusted insertion location</var> finds itself, and insert
     the newly created node at the <var>adjusted insertion location</var>.</p>
-
    </li>
-
   </ol>
 
   <div class="example">
@@ -408,32 +388,32 @@
       <th>Input <th>Number of <code>Text</code> nodes
     <tbody>
      <tr>
-      <td><pre><code class="html" data-x="">A&lt;script>
+      <td><pre><code class="html">A&lt;script>
 var&nbsp;script&nbsp;=&nbsp;document.getElementsByTagName('script')[0];
 document.body.removeChild(script);
 &lt;/script>B</code></pre>
       <td>One <code>Text</code> node in the document, containing "AB".
      <tr>
-      <td><pre><code class="html" data-x="">A&lt;script>
+      <td><pre><code class="html">A&lt;script>
 var&nbsp;text&nbsp;=&nbsp;document.createTextNode('B');
 document.body.appendChild(text);
 &lt;/script>C</code></pre>
       <td>Three <code>Text</code> nodes; "A" before the script, the script's contents, and "BC" after the script (the parser appends to the <code>Text</code> node created by the script).
      <tr>
-      <td><pre><code class="html" data-x="">A&lt;script>
+      <td><pre><code class="html">A&lt;script>
 var&nbsp;text&nbsp;=&nbsp;document.getElementsByTagName('script')[0].firstChild;
 text.data&nbsp;=&nbsp;'B';
 document.body.appendChild(text);
 &lt;/script>C</code></pre>
       <td>Two adjacent <code>Text</code> nodes in the document, containing "A" and "BC".
      <tr>
-      <td><pre><code class="html" data-x="">A&lt;table>B&lt;tr>C&lt;/tr>D&lt;/table></code></pre>
+      <td><pre><code class="html">A&lt;table>B&lt;tr>C&lt;/tr>D&lt;/table></code></pre>
       <td>One <code>Text</code> node before the table, containing "ABCD". (This is caused by <span data-x="foster parent">foster parenting</span>.)
      <tr>
-      <td><pre><code class="html" data-x="">A&lt;table>&lt;tr>&nbsp;B&lt;/tr>&nbsp;C&lt;/table></code></pre>
+      <td><pre><code class="html">A&lt;table>&lt;tr>&nbsp;B&lt;/tr>&nbsp;C&lt;/table></code></pre>
       <td>One <code>Text</code> node before the table, containing "A&nbsp;B&nbsp;C" (A-space-B-space-C). (This is caused by <span data-x="foster parent">foster parenting</span>.)
      <tr>
-      <td><pre><code class="html" data-x="">A&lt;table>&lt;tr>&nbsp;B&lt;/tr>&nbsp;&lt;/em>C&lt;/table></code></pre>
+      <td><pre><code class="html">A&lt;table>&lt;tr>&nbsp;B&lt;/tr>&nbsp;&lt;/em>C&lt;/table></code></pre>
       <td>One <code>Text</code> node before the table, containing "A&nbsp;BC" (A-space-B-C), and one <code>Text</code> node inside the table (as a child of a <code>tbody</code>) with a single space character. (Space characters separated from non-space characters by non-character tokens are not affected by <span data-x="foster parent">foster parenting</span>, even if those other tokens then get ignored.)
    </table>
 
@@ -446,7 +426,6 @@ document.body.appendChild(text);
   user agent must run the following steps:</p>
 
   <ol>
-
    <li><p>Let <var>data</var> be the data given in the comment token being
    processed.</p></li>
 
@@ -461,7 +440,6 @@ document.body.appendChild(text);
 
    <li><p>Insert the newly created node at the <var>adjusted insertion
    location</var>.</p></li>
-
   </ol>
 
   <hr>
@@ -471,8 +449,8 @@ document.body.appendChild(text);
   data-x="dom-document-write">document.write()</code> and <code
   data-x="dom-document-writeln">document.writeln()</code> calls. <ref spec=UIEVENTS></p>
 
-  <p>However, <span>mutation observers</span> <em>do</em> fire, as required by the WHATWG DOM
-  Standard.</p>
+  <p>However, <span>mutation observers</span> <em>do</em> fire, as required by <cite>DOM</cite>
+  .</p>
 
 
 

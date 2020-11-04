@@ -15,16 +15,23 @@
    <dd>Zero or more <code>td</code>, <code>th</code>, and <span data-x="script-supporting elements">script-supporting</span> elements.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-tr">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-tr">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLTableRowElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   readonly attribute long <span data-x="dom-tr-rowIndex">rowIndex</span>;
   readonly attribute long <span data-x="dom-tr-sectionRowIndex">sectionRowIndex</span>;
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-tr-cells">cells</span>;
   <span>HTMLTableCellElement</span> <span data-x="dom-tr-insertCell">insertCell</span>(optional long index = -1);
-  [<span>CEReactions</span>] void <span data-x="dom-tr-deleteCell">deleteCell</span>(long index);
+  [<span>CEReactions</span>] undefined <span data-x="dom-tr-deleteCell">deleteCell</span>(long index);
+
+  // <a href="#HTMLTableRowElement-partial">also has obsolete members</a>
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLTableRowElement</code>.</dd>
@@ -44,37 +51,30 @@ interface <dfn>HTMLTableRowElement</dfn> : <span>HTMLElement</span> {
    <dt><var>tr</var> . <code subdfn data-x="dom-tr-rowIndex">rowIndex</code></dt>
 
    <dd>
-
     <p>Returns the position of the row in the table's <code data-x="dom-table-rows">rows</code>
     list.</p>
 
     <p>Returns &#x2212;1 if the element isn't in a table.</p>
-
    </dd>
 
    <dt><var>tr</var> . <code subdfn data-x="dom-tr-sectionRowIndex">sectionRowIndex</code></dt>
 
    <dd>
-
     <p>Returns the position of the row in the table section's <code
     data-x="dom-tbody-rows">rows</code> list.</p>
 
     <p>Returns &#x2212;1 if the element isn't in a table section.</p>
-
    </dd>
 
    <dt><var>tr</var> . <code subdfn data-x="dom-tr-cells">cells</code></dt>
    <dd>
-
     <p>Returns an <code>HTMLCollection</code> of the <code>td</code> and <code>th</code> elements of
     the row.</p>
-
    </dd>
 
    <dt><var>cell</var> = <var>tr</var> . <code subdfn data-x="dom-tr-insertCell">insertCell</code>( [ <var>index</var> ] )</dt>
 
    <dd>
-
     <p>Creates a <code>td</code> element, inserts it into the table row at the position given by the
     argument, and returns the <code>td</code>.</p>
 
@@ -83,12 +83,10 @@ interface <dfn>HTMLTableRowElement</dfn> : <span>HTMLElement</span> {
 
     <p>If the given position is less than &#x2212;1 or greater than the number of cells, throws an
     <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code>.</p>
-
    </dd>
 
    <dt><var>tr</var> . <code subdfn data-x="dom-tr-deleteCell">deleteCell</code>(<var>index</var>)</dt>
    <dd>
-
     <p>Removes the <code>td</code> or <code>th</code> element with the given position in the
     row.</p>
 
@@ -98,9 +96,7 @@ interface <dfn>HTMLTableRowElement</dfn> : <span>HTMLElement</span> {
     <p>If the given position is less than &#x2212;1 or greater than the index of the last cell, or
     if there are no cells, throws an <span>"<code>IndexSizeError</code>"</span>
     <code>DOMException</code>.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -120,9 +116,10 @@ interface <dfn>HTMLTableRowElement</dfn> : <span>HTMLElement</span> {
   sections, that's <code>HTMLTableSectionElement</code>'s <code data-x="dom-tbody-rows">rows</code>
   collection). If there is no such parent element, then the attribute must return &#x2212;1.</p>
 
-  <p>The <dfn><code data-x="dom-tr-cells">cells</code></dfn> attribute must return an
-  <code>HTMLCollection</code> rooted at this <code>tr</code> element, whose filter matches only
-  <code>td</code> and <code>th</code> elements that are children of the <code>tr</code> element.</p>
+  <p>The <dfn attribute for="HTMLTableRowElement"><code data-x="dom-tr-cells">cells</code></dfn>
+  attribute must return an <code>HTMLCollection</code> rooted at this <code>tr</code> element, whose
+  filter matches only <code>td</code> and <code>th</code> elements that are children of the
+  <code>tr</code> element.</p>
 
   <p>The <dfn><code data-x="dom-tr-insertCell">insertCell(<var>index</var>)</code></dfn>
   method must act as follows:</p>

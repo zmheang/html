@@ -11,7 +11,6 @@
   <p>The <dfn>rules for parsing a list of floating-point numbers</dfn> are as follows:</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the string being parsed.</p></li>
 
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially pointing at the
@@ -27,7 +26,6 @@
    <li><p>While <var>position</var> is not past the end of <var>input</var>:</p>
 
     <ol>
-
      <li><p><span>Collect a sequence of code points</span> that are not <span>ASCII
      whitespace</span>, U+002C COMMA, U+003B SEMICOLON, <span>ASCII digits</span>, U+002E FULL STOP,
      or U+002D HYPHEN-MINUS characters from <var>input</var> given <var>position</var>. This skips
@@ -47,13 +45,10 @@
      <li><p><span>Collect a sequence of code points</span> that are <span>ASCII whitespace</span>,
      U+002C COMMA, or U+003B SEMICOLON characters from <var>input</var> given <var>position</var>.
      This skips past the delimiter.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>Return <var>numbers</var>.</p></li>
-
   </ol>
 
   </div>

@@ -11,11 +11,16 @@
    <dd><span>Phrasing content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-span">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-span">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLSpanElement</dfn> : <span>HTMLElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLSpanElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLSpanElement</code>.</dd>
   </dl>
@@ -33,7 +38,7 @@ interface <dfn>HTMLSpanElement</dfn> : <span>HTMLElement</span> {};</code></pre>
 
    <!-- extract from https://www.cs.cmu.edu/~dst/DeCSS/Gallery/vlc-dvd_css-c.txt -->
 
-   <pre><code class="html" data-x="">&lt;pre>&lt;code class="lang-c">&lt;span class="keyword">for&lt;/span> (&lt;span class="ident">j&lt;/span> = 0; &lt;span class="ident">j&lt;/span> &amp;lt; 256; &lt;span class="ident">j&lt;/span>++) {
+   <pre><code class="html">&lt;pre>&lt;code class="lang-c">&lt;span class="keyword">for&lt;/span> (&lt;span class="ident">j&lt;/span> = 0; &lt;span class="ident">j&lt;/span> &amp;lt; 256; &lt;span class="ident">j&lt;/span>++) {
   &lt;span class="ident">i_t3&lt;/span> = (&lt;span class="ident">i_t3&lt;/span> & 0x1ffff) | (&lt;span class="ident">j&lt;/span> &amp;lt;&amp;lt; 17);
   &lt;span class="ident">i_t6&lt;/span> = (((((((&lt;span class="ident">i_t3&lt;/span> >> 3) ^ &lt;span class="ident">i_t3&lt;/span>) >> 1) ^ &lt;span class="ident">i_t3&lt;/span>) >> 8) ^ &lt;span class="ident">i_t3&lt;/span>) >> 5) & 0xff;
   &lt;span class="keyword">if&lt;/span> (&lt;span class="ident">i_t6&lt;/span> == &lt;span class="ident">i_t1&lt;/span>)

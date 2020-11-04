@@ -1,19 +1,19 @@
   <h4><dfn data-x="custom-element-upgrades">Upgrades</dfn></h4>
 
-  <p>To <dfn data-x="concept-upgrade-an-element" data-export="">upgrade an element</dfn>, given as
-  input a <span>custom element definition</span> <var>definition</var> and an element
-  <var>element</var>, run the following steps:</p>
+  <p>To <dfn data-x="concept-upgrade-an-element" export>upgrade an element</dfn>, given as input a
+  <span>custom element definition</span> <var>definition</var> and an element <var>element</var>,
+  run the following steps:</p>
 
   <ol>
-   <li>
-    <p>If <var>element</var> is <span data-x="concept-element-custom">custom</span>, then
-    return.</p>
+   <li id="concept-upgrade-an-element-early-exit">
+    <p>If <var>element</var>'s <span>custom element state</span> is not "<code
+    data-x="">undefined</code>" or "<code data-x="">uncustomized</code>", then return.</p>
 
     <div class="example">
-     <p>This can occur due to reentrant invocation of this algorithm, as in the following
-     example:</p>
+     <p>One scenario where this can occur due to reentrant invocation of this algorithm, as in the
+     following example:</p>
 
-     <pre><code class="html" data-x="">&lt;!DOCTYPE html>
+     <pre><code class="html">&lt;!DOCTYPE html>
 &lt;x-foo id="a">&lt;/x-foo>
 &lt;x-foo id="b">&lt;/x-foo>
 
@@ -41,11 +41,18 @@ customElements.define("x-foo", class extends HTMLElement {
     </div>
    </li>
 
-   <li><p>If <var>element</var>'s <span>custom element state</span> is "<code
-   data-x="">failed</code>", then return.</p></li>
-
    <li><p>Set <var>element</var>'s <span data-x="concept-element-custom-element-definition">custom
    element definition</span> to <var>definition</var>.</p></li>
+
+   <li>
+    <p>Set <var>element</var>'s <span>custom element state</span> to "<code
+    data-x="">failed</code>".</p>
+
+    <p class="note">It will be set to "<code data-x="">custom</code>" <a
+    href="#concept-upgrade-an-element-set-state-to-custom">after the upgrade succeeds</a>. For now,
+    we set it to "<code data-x="">failed</code>" so that any reentrant invocations will hit <a
+    href="#concept-upgrade-an-element-early-exit">the above early-exit step</a>.</p>
+   </li>
 
    <li><p>For each <var>attribute</var> in <var>element</var>'s <span>attribute list</span>, in
    order, <span>enqueue a custom element callback reaction</span> with <var>element</var>, callback
@@ -68,6 +75,22 @@ customElements.define("x-foo", class extends HTMLElement {
 
     <ol>
      <li>
+      <p>If <var>definition</var>'s <span
+      data-x="concept-custom-element-definition-disable-shadow">disable shadow</span> is true and
+      <var>element</var>'s <span data-x="concept-element-shadow-root">shadow root</span> is
+      non-null, then throw a <span>"<code>NotSupportedError</code>"</span>
+      <code>DOMException</code>.</p>
+
+      <p class="note">This is needed as <code
+      data-x="dom-Element-attachShadow">attachShadow()</code> does not use <span>look up a custom
+      element definition</span> while <code data-x="dom-attachInternals">attachInternals()</code>
+      does.</p>
+     </li>
+
+     <li><p>Set <var>element</var>'s <span>custom element state</span> to "<code
+     data-x="">precustomized</code>".</p></li>
+
+     <li>
       <p>Let <var>constructResult</var> be the result of <span
       data-x="es-constructing-callback-functions">constructing</span> <var>C</var>, with no
       arguments.</p>
@@ -80,13 +103,13 @@ customElements.define("x-foo", class extends HTMLElement {
      </li>
 
      <li>
-      <p>If <span>SameValue</span>(<var>constructResult</var>, <var>element</var>) is false,
-      then throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p>
+      <p>If <span>SameValue</span>(<var>constructResult</var>, <var>element</var>) is false, then
+      throw a <code>TypeError</code>.</p>
 
       <p class="note">This can occur if <var>C</var> constructs another instance of the same custom
       element before calling <code data-x="">super()</code>, or if <var>C</var> uses JavaScript's
-      <code data-x="">return</code>-override feature to return an arbitrary object from the
-      constructor.</p>
+      <code data-x="">return</code>-override feature to return an arbitrary <code>HTMLElement</code>
+      object from the constructor.</p>
      </li>
     </ol>
 
@@ -117,9 +140,6 @@ customElements.define("x-foo", class extends HTMLElement {
     <p>Finally, if the above steps threw an exception, then:</p>
 
     <ol>
-     <li><p>Set <var>element</var>'s <span>custom element state</span> to "<code
-     data-x="">failed</code>".</p></li>
-
      <li><p>Set <var>element</var>'s <span data-x="concept-element-custom-element-definition">custom
      element definition</span> to null.</p></li>
 
@@ -127,14 +147,33 @@ customElements.define("x-foo", class extends HTMLElement {
 
      <li><p>Rethrow the exception (thus terminating this algorithm).</p></li>
     </ol>
+
+    <p class="note">If the above steps threw an exception, then <var>element</var>'s <span>custom
+    element state</span> will remain "<code data-x="">failed</code>" or "<code
+    data-x="">precustomized</code>".</p>
    </li>
 
-   <li><p>Set <var>element</var>'s <span>custom element state</span> to "<code
-   data-x="">custom</code>".</p></li>
+   <li>
+    <p>If <var>element</var> is a <span>form-associated custom element</span>, then:</p>
+    <ol>
+     <li><p><span>Reset the form owner</span> of <var>element</var>. If <var>element</var> is
+     associated with a <code>form</code> element, then
+     <span>enqueue a custom element callback reaction</span> with <var>element</var>, callback
+     name "<code data-x="">formAssociatedCallback</code>", and « the associated <code>form</code>
+     ».</p></li>
+
+     <li><p>If <var>element</var> is <span data-x="concept-fe-disabled">disabled</span>, then
+     <span>enqueue a custom element callback reaction</span> with <var>element</var>, callback name
+     "<code data-x="">formDisabledCallback</code>" and « true ».</p></li>
+    </ol>
+   </li>
+
+   <li id="concept-upgrade-an-element-set-state-to-custom"><p>Set <var>element</var>'s <span>custom
+   element state</span> to "<code data-x="">custom</code>".</p></li>
   </ol>
 
-  <p>To <dfn data-x="concept-try-upgrade" data-export="">try to upgrade an element</dfn>, given as
-  input an element <var>element</var>, run the following steps:</p>
+  <p>To <dfn data-x="concept-try-upgrade" export>try to upgrade an element</dfn>, given as input an
+  element <var>element</var>, run the following steps:</p>
 
   <ol>
    <li><p>Let <var>definition</var> be the result of <span data-x="look up a custom element

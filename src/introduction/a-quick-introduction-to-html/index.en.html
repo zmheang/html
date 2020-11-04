@@ -4,7 +4,7 @@
 
   <p>A basic HTML document looks like this:</p>
 
-  <pre id="intro-early-example"><code class="html" data-x="">&lt;!DOCTYPE html>
+  <pre id="intro-early-example"><code class="html">&lt;!DOCTYPE html>
 &lt;html lang="en">
  &lt;head>
   &lt;title>Sample page&lt;/title>
@@ -25,8 +25,8 @@
   <p>Tags have to be nested such that elements are all completely within each other, without
   overlapping:</p>
 
-  <pre class="bad"><code class="html" data-x="">&lt;p>This is &lt;em>very &lt;strong>wrong&lt;/em>!&lt;/strong>&lt;/p></code></pre>
-  <pre><code class="html" data-x="">&lt;p>This &lt;em>is &lt;strong>correct&lt;/strong>.&lt;/em>&lt;/p></code></pre>
+  <pre class="bad"><code class="html">&lt;p>This is &lt;em>very &lt;strong>wrong&lt;/em>!&lt;/strong>&lt;/p></code></pre>
+  <pre><code class="html">&lt;p>This &lt;em>is &lt;strong>correct&lt;/strong>.&lt;/em>&lt;/p></code></pre>
 
   <p>This specification defines a set of elements that can be used in HTML, along with rules about
   the ways in which the elements can be nested.</p>
@@ -35,7 +35,7 @@
   is a <span>hyperlink</span>, formed using the <code>a</code> element and its <code
   data-x="attr-hyperlink-href">href</code> attribute:</p>
 
-  <pre><code class="html" data-x="">&lt;a href="demo.html">simple&lt;/a></code></pre>
+  <pre><code class="html">&lt;a href="demo.html">simple&lt;/a></code></pre>
 
   <p><span data-x="syntax-attributes">Attributes</span> are placed inside the start tag, and consist
   of a <span data-x="syntax-attribute-name">name</span> and a <span
@@ -47,7 +47,7 @@
   value, along with the "<code data-x="">=</code>" character, can be omitted altogether if the value
   is the empty string.</p>
 
-  <pre><code class="html" data-x="">&lt;!-- empty attributes -->
+  <pre><code class="html">&lt;!-- empty attributes -->
 &lt;input name=address disabled>
 &lt;input name=address disabled="">
 
@@ -56,7 +56,7 @@
 &lt;input name=address maxlength='200'>
 &lt;input name=address maxlength="200"></code></pre>
 
-  <p>HTML user agents (e.g. Web browsers) then <i>parse</i> this markup, turning it into a DOM
+  <p>HTML user agents (e.g., web browsers) then <i>parse</i> this markup, turning it into a DOM
   (Document Object Model) tree. A DOM tree is an in-memory representation of a document.</p>
 
   <p>DOM trees contain several kinds of nodes, in particular a <code>DocumentType</code> node,
@@ -91,7 +91,7 @@
   handler content attributes</span>. For example, here is a form with a script that sets the value
   of the form's <code>output</code> element to say "Hello World":</p>
 
-  <pre><code class="html" data-x="">&lt;<span>form</span> <span data-x="attr-form-name">name</span>="main">
+  <pre><code class="html">&lt;<span>form</span> <span data-x="attr-form-name">name</span>="main">
  Result: &lt;<span>output</span> <span data-x="attr-fe-name">name</span>="result">&lt;/output>
  &lt;<span>script</span>>
   <span data-x="Document">document</span>.<span data-x="dom-document-forms">forms</span>.main.<span data-x="dom-form-elements">elements</span>.result.<span data-x="dom-output-value">value</span> = 'Hello World';
@@ -103,13 +103,13 @@
   can have its "<code data-x="attr-hyperlink-href">href</code>" attribute changed in several
   ways:</p>
 
-  <pre><code class="js" data-x="">var a = <span data-x="Document">document</span>.<span data-x="dom-document-links">links</span>[0]; // obtain the first link in the document
+  <pre><code class="js">var a = <span data-x="Document">document</span>.<span data-x="dom-document-links">links</span>[0]; // obtain the first link in the document
 a.<span data-x="dom-hyperlink-href">href</span> = 'sample.html'; // change the destination URL of the link
 a.<span data-x="dom-hyperlink-protocol">protocol</span> = 'https'; // change just the scheme part of the URL
 a.setAttribute('href', 'https://example.com/'); // change the content attribute directly</code></pre>
 
   <p>Since DOM trees are used as the way to represent HTML documents when they are processed and
-  presented by implementations (especially interactive implementations like Web browsers), this
+  presented by implementations (especially interactive implementations like web browsers), this
   specification is mostly phrased in terms of DOM trees, instead of the markup described above.</p>
 
   <hr>
@@ -121,7 +121,7 @@ a.setAttribute('href', 'https://example.com/'); // change the content attribute 
 
   <p>In the following example, the page has been made yellow-on-blue using CSS.</p>
 
-  <pre><code class="html" data-x="">&lt;!DOCTYPE html>
+  <pre><code class="html">&lt;!DOCTYPE html>
 &lt;html lang="en">
  &lt;head>
   &lt;title>Sample styled page&lt;/title>

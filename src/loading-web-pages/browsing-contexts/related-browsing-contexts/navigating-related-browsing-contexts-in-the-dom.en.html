@@ -1,0 +1,153 @@
+  <h5 id="navigating-nested-browsing-contexts-in-the-dom">Navigating related browsing contexts in
+  the DOM</h5>
+
+  <dl class="domintro">
+   <dt><var>window</var> . <code subdfn data-x="dom-top">top</code></dt>
+   <dd>
+    <p>Returns the <code>WindowProxy</code> for the <span>top-level browsing context</span>.</p>
+   </dd>
+
+   <dt><var>window</var> . <code subdfn data-x="dom-opener">opener</code> [ = <var>value</var> ]</dt>
+   <dd>
+    <p>Returns the <code>WindowProxy</code> for the <span>opener browsing context</span>.</p>
+
+    <p>Returns null if there isn't one or if it has been set to null.</p>
+
+    <p>Can be set to null.</p>
+   </dd>
+
+   <dt><var>window</var> . <code subdfn data-x="dom-parent">parent</code></dt>
+   <dd>
+    <p>Returns the <code>WindowProxy</code> for the <span>parent browsing context</span>.</p>
+   </dd>
+
+   <dt><var>window</var> . <code subdfn data-x="dom-frameElement">frameElement</code></dt>
+   <dd>
+    <p>Returns the <code>Element</code> for the <span>browsing context container</span>.</p>
+
+    <p>Returns null if there isn't one, and in cross-origin situations.</p>
+   </dd>
+  </dl>
+
+  <div w-nodev>
+
+  <p>The <dfn attribute for="Window"><code data-x="dom-top">top</code></dfn> attribute's getter must
+  run these steps:</p>
+
+  <ol>
+   <li><p>If this <code>Window</code> object's <span data-x="window bc">browsing context</span> is
+   null, then return null.</p></li>
+
+   <li><p>Return this <code>Window</code> object's <span data-x="window bc">browsing
+   context</span>'s <span>top-level browsing context</span>'s <code>WindowProxy</code>
+   object.</p></li>
+  </ol>
+
+  <p>The <dfn attribute for="Window"><code data-x="dom-opener">opener</code></dfn> attribute's
+  getter must run these steps:</p>
+
+  <ol>
+   <li><p>Let <var>current</var> be this <code>Window</code> object's <span data-x="window
+   bc">browsing context</span>.</p></li>
+
+   <li><p>If <var>current</var> is null, then return null.</p></li>
+
+   <li><p>If <var>current</var>'s <span>disowned</span> is true, then return null.</p></li>
+
+   <li><p>If <var>current</var>'s <span>opener browsing context</span> is null, then return
+   null.</p></li>
+
+   <li><p>Return <var>current</var>'s <span>opener browsing context</span>'s
+   <code>WindowProxy</code> object.</p></li>
+  </ol>
+
+  <p>The <code data-x="dom-opener">opener</code> attribute's setter must run these steps:</p>
+
+  <ol>
+   <li><p>If the given value is null and this <code>Window</code> object's <span data-x="window
+   bc">browsing context</span> is non-null, then set this <code>Window</code> object's <span
+   data-x="window bc">browsing context</span>'s <span>disowned</span> to true.</p></li>
+
+   <li><p>If the given value is non-null, then return ? <span>OrdinaryDefineOwnProperty</span>(this
+   <code>Window</code> object, "<code data-x="">opener</code>", { [[Value]]: the given value,
+   [[Writable]]: true, [[Enumerable]]: true, [[Configurable]]: true }).</p></li>
+  </ol>
+
+  <div class="note">
+   <p>If a <span>browsing context</span>'s <span>disowned</span> is true, its <code
+   data-x="dom-opener">window.opener</code> attribute is null. That prevents scripts in the
+   <span>browsing context</span> from changing any properties of its <span>opener browsing
+   context</span>'s <code>Window</code> object (i.e., the <code>Window</code> object from which the
+   <span>browsing context</span> was created).</p>
+
+   <p>Otherwise, if a <span>browsing context</span>'s <span>disowned</span> is false, then scripts
+   in that <span>browsing context</span> can use <code data-x="dom-opener">window.opener</code> to
+   change properties of its <span>opener browsing context</span>'s <code>Window</code> object. For
+   example, a script running in the <span>browsing context</span> can change the value of <code
+   data-x="">window.opener.location</code>, causing the <span>opener browsing context</span> to
+   navigate to a completely different document.</p>
+  </div>
+
+  <p>The <dfn attribute for="Window"><code data-x="dom-parent">parent</code></dfn> attribute's
+  getter must run these steps:</p>
+
+  <ol>
+   <li><p>Let <var>current</var> be this <code>Window</code> object's <span data-x="window
+   bc">browsing context</span>.</p></li>
+
+   <li><p>If <var>current</var> is null, then return null.</p></li>
+
+   <li><p>If <var>current</var> is a <span>child browsing context</span> of another <span>browsing
+   context</span> <var>parent</var>, then return <var>parent</var>'s <code>WindowProxy</code>
+   object.</p></li>
+
+   <li><p>Assert: <var>current</var> is a <span>top-level browsing context</span>.</p></li>
+
+   <li><p>Return <var>current</var>'s <code>WindowProxy</code> object.</p></li>
+  </ol>
+
+  <p>The <dfn><code data-x="dom-frameElement">frameElement</code></dfn> attribute's getter must run
+  these steps:</p>
+
+  <ol>
+   <li><p>Let <var>current</var> be this <code>Window</code> object's <span data-x="window
+   bc">browsing context</span>.</p></li>
+
+   <li><p>If <var>current</var> is null, then return null.</p></li>
+
+   <li><p>Let <var>container</var> be <var>current</var>'s <span
+   data-x="bc-container">container</span>.</p></li>
+
+   <li><p>If <var>container</var> is null, then return null.</p></li>
+
+   <li><p>If <var>container</var>'s <span>node document</span>'s <span>origin</span> is not
+   <span>same origin-domain</span> with the <span>current settings object</span>'s <span
+   data-x="concept-settings-object-origin">origin</span>, then return null.</p></li>
+
+   <li><p>Return <var>container</var>.</p></li>
+  </ol>
+
+  <div class="example">
+   <p>An example of when these IDL attributes can return null is as follows:</p>
+
+   <pre><code class="html">&lt;!DOCTYPE html>
+&lt;iframe>&lt;/iframe>
+
+&lt;script>
+"use strict";
+const element = document.querySelector("iframe");
+const iframeWindow = element.contentWindow;
+element.remove();
+
+console.assert(iframeWindow.top === null);
+console.assert(iframeWindow.parent === null);
+console.assert(iframeWindow.frameElement === null);
+&lt;/script></code></pre>
+
+   <p>Here the <span>browsing context</span> corresponding to <code data-x="">iframeWindow</code>
+   was <span data-x="a browsing context is discarded">discarded</span> when <code
+   data-x="">element</code> was removed from the document.</p>
+  </div>
+
+
+

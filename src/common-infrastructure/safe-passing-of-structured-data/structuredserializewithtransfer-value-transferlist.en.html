@@ -1,6 +1,6 @@
-  <h4 id="structuredserializewithtransfer" data-export="" data-lt="StructuredSerializeWithTransfer"
-  data-dfn-type="abstract-op"><dfn>StructuredSerializeWithTransfer</dfn> ( <var>value</var>,
-  <var>transferList</var> )</h4>
+  <h4 id="structuredserializewithtransfer" data-lt="StructuredSerializeWithTransfer"
+  abstract-op><dfn>StructuredSerializeWithTransfer</dfn> ( <var>value</var>, <var>transferList</var>
+  )</h4>
 
   <ol>
    <li>
@@ -71,7 +71,13 @@
        <li><p>Set <var>dataHolder</var>.[[ArrayBufferByteLength]] to
        <var>transferable</var>.[[ArrayBufferByteLength]].</p></li>
 
-       <li><p>Perform ! <span>DetachArrayBuffer</span>(<var>transferable</var>).</p></li>
+       <li>
+        <p>Perform ? <span>DetachArrayBuffer</span>(<var>transferable</var>).</p>
+
+        <p class="note">Specifications can use the [[ArrayBufferDetachKey]] internal slot to prevent
+        <code data-x="idl-ArrayBuffer">ArrayBuffer</code>s from being detached. This is used in
+        <cite>WebAssembly JavaScript Interface</cite>, for example. <ref spec=WASMJS></p>
+       </li>
       </ol>
      </li>
 

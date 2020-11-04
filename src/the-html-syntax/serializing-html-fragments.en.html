@@ -1,7 +1,11 @@
   <!--en-GB--><h3 id="serialising-html-fragments">Serializing HTML fragments</h3>
 
+  <p>For the purposes of the following algorithm, an element <dfn>serializes as void</dfn> if its
+  element type is one of the <span>void elements</span>, or is <code>basefont</code>,
+  <code>bgsound</code>, <code>frame</code>, or <code>keygen</code>.</p>
+
   <p>The following steps form the <!--en-GB--><dfn id="html-fragment-serialisation-algorithm"
-  data-export="">HTML fragment serialization algorithm</dfn>. The algorithm takes as input a DOM
+  export>HTML fragment serialization algorithm</dfn>. The algorithm takes as input a DOM
   <code>Element</code>, <code>Document</code>, or <code>DocumentFragment</code> referred to as
   <var>the node</var>, and returns a string.</p>
 
@@ -9,6 +13,8 @@
   the node itself.</p>
 
   <ol>
+   <li><p>If <var>the node</var> <span>serializes as void</span>, then return the empty
+   string.</p></li>
 
    <li><p>Let <var>s</var> be a string, and initialize it to the empty string.</p></li>
 
@@ -16,16 +22,13 @@
    contents</span> (a <code>DocumentFragment</code> node).</p></li>
 
    <li>
-
     <p>For each child node of <var>the node</var>, in <span>tree order</span>, run the
     following steps:
 
     <ol>
-
      <li><p>Let <var>current node</var> be the child node being processed.</p></li>
 
      <li>
-
       <p>Append the appropriate string from the following list to <var>s</var>:</p>
 
       <dl class="switch">
@@ -33,7 +36,6 @@
        <dt>If <var>current node</var> is an <code data-x="">Element</code></dt>
 
        <dd>
-
         <p>If <var>current node</var> is an element in the <span>HTML namespace</span>, the
         <span>MathML namespace</span>, or the <span>SVG namespace</span>, then let <var>tagname</var> be <var>current node</var>'s local name. Otherwise, let <var>tagname</var> be <var>current node</var>'s qualified name.</p>
 
@@ -65,13 +67,11 @@
          <dt>If the attribute has no namespace</dt>
 
          <dd>
-
           <p>The attribute's serialized name is the attribute's local name.</p>
 
           <p class="note">For attributes on <span>HTML elements</span> set by the <span>HTML
-          parser</span> or by <code data-x="">Element.setAttribute()</code>, the local name will be
-          lowercase.</p>
-
+          parser</span> or by <code data-x="dom-Element-setAttribute">setAttribute()</code>, the
+          local name will be lowercase.</p>
          </dd>
 
 
@@ -104,39 +104,29 @@
          <dt>If the attribute is in some other namespace</dt>
 
          <dd><p>The attribute's serialized name is the attribute's qualified name.</p></dd>
-
         </dl>
 
-        <p>While the exact order of attributes is UA-defined, and may depend on factors such as the
-        order that the attributes were given in the original markup, the sort order must be stable,
-        such that consecutive invocations of this algorithm serialize an element's attributes in the
-        same order.</p>
+        <p>While the exact order of attributes is <span>implementation-defined</span>, and may
+        depend on factors such as the order that the attributes were given in the original markup,
+        the sort order must be stable, such that consecutive invocations of this algorithm serialize
+        an element's attributes in the same order.</p>
 
         <p>Append a U+003E GREATER-THAN SIGN character (&gt;).</p>
 
-        <p>If <var>current node</var> is an <code>area</code>, <code>base</code>,
-        <code>basefont</code>, <code>bgsound</code>, <code>br</code>, <code>col</code>,
-        <code>embed</code>, <code>frame</code>, <code>hr</code>, <code>img</code>,
-        <code>input</code>, <code>keygen</code>, <code>link</code>, <code>meta</code>,
-        <code>param</code>, <code>source</code>, <code>track</code> or <code>wbr</code> element,
-        then continue on to the next child node at this point.</p>
-        <!-- VOIDLIST superset -->
-        <!-- also, i guess: image, but we don't list it because we don't consider it an "element",
-        more a "macro", and thus we should never serialize it -->
+        <p>If <var>current node</var> <span>serializes as void</span>, then continue on to the next
+        child node at this point.</p>
 
         <p>Append the value of running the <span>HTML fragment serialization algorithm</span> on the
         <var>current node</var> element (thus recursing into this algorithm for that
         element), followed by a U+003C LESS-THAN SIGN character (&lt;), a U+002F SOLIDUS character
         (/), <var>tagname</var> again, and finally a U+003E GREATER-THAN SIGN character
         (&gt;).</p>
-
        </dd>
 
 
        <dt>If <var>current node</var> is a <code data-x="">Text</code> node</dt>
 
        <dd>
-
         <p>If the parent of <var>current node</var> is a <code>style</code>,
         <code>script</code>, <code>xmp</code>, <code>iframe</code>, <code>noembed</code>,
         <code>noframes</code>, or <code>plaintext</code> element, or if the parent of <var>current node</var> is a <code>noscript</code> element and <span
@@ -146,59 +136,47 @@
         <p>Otherwise, append the value of <var>current node</var>'s <code
         data-x="">data</code> IDL attribute, <span data-x="escaping a string">escaped as described
         below</span>.</p>
-
        </dd>
 
 
        <dt>If <var>current node</var> is a <code data-x="">Comment</code></dt>
 
        <dd>
-
         <p>Append the literal string "<code data-x="">&lt;!--</code>" (U+003C LESS-THAN SIGN, U+0021
         EXCLAMATION MARK, U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS), followed by the value of <var>current node</var>'s <code data-x="">data</code> IDL attribute, followed by the
         literal string "<code data-x="">--&gt;</code>" (U+002D HYPHEN-MINUS, U+002D HYPHEN-MINUS,
         U+003E GREATER-THAN SIGN).</p>
-
        </dd>
 
 
        <dt>If <var>current node</var> is a <code data-x="">ProcessingInstruction</code></dt>
 
        <dd>
-
         <p>Append the literal string "<code data-x="">&lt;?</code>" (U+003C LESS-THAN SIGN, U+003F
         QUESTION MARK), followed by the value of <var>current node</var>'s <code
         data-x="">target</code> IDL attribute, followed by a single U+0020 SPACE character, followed
         by the value of <var>current node</var>'s <code data-x="">data</code> IDL
         attribute, followed by a single U+003E GREATER-THAN SIGN character (>).</p>
-
        </dd>
 
 
        <dt>If <var>current node</var> is a <code data-x="">DocumentType</code></dt>
 
        <dd>
-
         <p>Append the literal string "<code data-x="">&lt;!DOCTYPE</code>" (U+003C LESS-THAN SIGN, U+0021
         EXCLAMATION MARK, U+0044 LATIN CAPITAL LETTER D, U+004F LATIN CAPITAL LETTER O, U+0043 LATIN
         CAPITAL LETTER C, U+0054 LATIN CAPITAL LETTER T, U+0059 LATIN CAPITAL LETTER Y, U+0050 LATIN
         CAPITAL LETTER P, U+0045 LATIN CAPITAL LETTER E), followed by a space (U+0020 SPACE),
         followed by the value of <var>current node</var>'s <code data-x="">name</code> IDL
         attribute, followed by the literal string "<code data-x="">&gt;</code>" (U+003E GREATER-THAN SIGN).</p>
-
        </dd>
 
-
       </dl>
-
      </li>
-
     </ol>
-
    </li>
 
-   <li><p>The result of the algorithm is the string <var>s</var>.</p></li>
-
+   <li><p>Return <var>s</var>.</p></li>
   </ol>
 
   <p class="warning">It is possible that the output of this algorithm, if parsed with an <span>HTML
@@ -234,7 +212,7 @@
 
    <p>For example, consider the following markup:</p>
 
-   <pre><code class="html" data-x="">&lt;form id="outer">&lt;div>&lt;/form>&lt;form id="inner">&lt;input></code></pre>
+   <pre><code class="html">&lt;form id="outer">&lt;div>&lt;/form>&lt;form id="inner">&lt;input></code></pre>
 
    <p>This will be parsed into:</p>
 
@@ -245,7 +223,7 @@
    id="inner"></code> start tag will be ignored, and so the <code>input</code> element will be
    associated with the outer <code>form</code> element instead.</p>
 
-   <pre><code class="html" data-x="">&lt;html>&lt;head>&lt;/head>&lt;body>&lt;form id="outer">&lt;div><mark>&lt;form id="inner"></mark>&lt;input>&lt;/form>&lt;/div>&lt;/form>&lt;/body>&lt;/html></code></pre>
+   <pre><code class="html">&lt;html>&lt;head>&lt;/head>&lt;body>&lt;form id="outer">&lt;div><mark>&lt;form id="inner"></mark>&lt;input>&lt;/form>&lt;/div>&lt;/form>&lt;/body>&lt;/html></code></pre>
 
    <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>form</code> <span class="t2" data-x=""><code class="attribute name" data-x="attr-id">id</code>="<code class="attribute value" data-x="">outer</code>"</span><ul><li class="t1"><code>div</code><ul><li class="t1"><code>input</code></li></ul></li></ul></li></ul></li></ul></li></ul>
 
@@ -255,7 +233,7 @@
 
    <p>As another example, consider the following markup:</p>
 
-   <pre><code class="html" data-x="">&lt;a>&lt;table>&lt;a></code></pre>
+   <pre><code class="html">&lt;a>&lt;table>&lt;a></code></pre>
 
    <p>This will be parsed into:</p>
 
@@ -267,7 +245,7 @@
    second <code data-x="">&lt;a></code> start tag implicitly closes the first <code>a</code>
    element.</p>
 
-   <pre><code class="html" data-x="">&lt;html>&lt;head>&lt;/head>&lt;body>&lt;a><mark>&lt;a></mark>&lt;/a>&lt;table>&lt;/table>&lt;/a>&lt;/body>&lt;/html></code></pre>
+   <pre><code class="html">&lt;html>&lt;head>&lt;/head>&lt;body>&lt;a><mark>&lt;a></mark>&lt;/a>&lt;table>&lt;/table>&lt;/a>&lt;/body>&lt;/html></code></pre>
 
    <ul class="domTree"><li class="t1"><code>html</code><ul><li class="t1"><code>head</code></li><li class="t1"><code>body</code><ul><li class="t1"><code>a</code></li><li class="t1"><code>a</code></li><li class="t1"><code>table</code></li></ul></li></ul></li></ul>
 
@@ -283,7 +261,7 @@
   <div class="example">
    <p>For example, consider the following markup:</p>
 
-   <pre><code class="html" data-x="">&lt;pre>
+   <pre><code class="html">&lt;pre>
 
 Hello.&lt;/pre></code></pre>
 
@@ -305,7 +283,7 @@ Hello.&lt;/pre></code></pre>
    <p>When creating a <span>customized built-in element</span> via the parser, a developer uses the <code
    data-x="attr-is">is</code> attribute directly; in such cases serialize-parse roundtrips work fine.</p>
 
-   <pre><code class="html" data-x="">&lt;script>
+   <pre><code class="html">&lt;script>
 window.SuperP = class extends HTMLParagraphElement {};
 customElements.define("super-p", SuperP, { extends: "p" });
 &lt;/script>
@@ -326,7 +304,7 @@ console.assert(container.firstChild instanceof SuperP);
    data-x="">is</code> value</span> (which is what the custom elements machinery uses) is set
    without intermediating through an attribute.</p>
 
-   <pre><code class="html" data-x="">&lt;script>
+   <pre><code class="html">&lt;script>
 container.innerHTML = "";
 const p = document.createElement("p", { is: "super-p" });
 container.appendChild(p);
@@ -342,7 +320,7 @@ console.assert(p instanceof SuperP);
    writes out the element's <span data-x="concept-element-is-value"><code data-x="">is</code>
    value</span> as an <code data-x="attr-is">is</code> attribute:</p>
 
-   <pre><code class="html" data-x="">&lt;script>
+   <pre><code class="html">&lt;script>
 console.log(container.innerHTML); // &lt;p is="super-p">
 container.innerHTML = container.innerHTML;
 console.log(container.innerHTML); // &lt;p is="super-p">
@@ -354,7 +332,6 @@ console.assert(container.firstChild instanceof SuperP);
   consists of running the following steps:</p>
 
   <ol>
-
    <li><p>Replace any occurrence of the "<code data-x="">&amp;</code>" character by the string "<code
    data-x="">&amp;amp;</code>".</p></li>
 
@@ -369,7 +346,6 @@ console.assert(container.firstChild instanceof SuperP);
    occurrences of the "<code data-x="">&lt;</code>" character by the string "<code
    data-x="">&amp;lt;</code>", and any occurrences of the "<code data-x="">&gt;</code>" character by
    the string "<code data-x="">&amp;gt;</code>".</p></li>
-
   </ol>
 
 

@@ -15,35 +15,103 @@
   and payload. Similarly, <span>an <code>iframe</code> <code
   data-x="attr-iframe-srcdoc">srcdoc</code> document</span> needs to know the data it is to use.</p>
 
-  <p>Navigation always involves <dfn data-export="">source browsing context</dfn>, which is the
-  browsing context which was responsible for starting the navigation.</p>
+  <p>Much of the navigation process is concerned with determining how to create a new
+  <code>Document</code>, which ultimately happens in the <span
+  data-x="create-the-document-object">create and initialize a <code>Document</code> object</span>
+  algorithm. The parameters to this algorithm are tracked via a <dfn>navigation params</dfn>
+  <span>struct</span>, which has the following <span data-x="struct item">items</span>:</p>
 
-  <p class="&#x0058;&#x0058;&#x0058;">As explained in <a
-  href="https://github.com/whatwg/html/issues/1130">issue #1130</a> the use of a browsing context as
-  source might not be the correct architecture.</p>
+  <dl>
+   <dt><dfn data-x="navigation-params-request">request</dfn></dt>
+   <dd>null or a <span data-x="concept-request">request</span> that started the navigation</dd>
+
+   <dt><dfn data-x="navigation-params-response">response</dfn></dt>
+   <dd>a <span data-x="concept-response">response</span> that ultimately was navigated to
+   (potentially a <span>network error</span>)</dd>
+
+   <dt><dfn data-x="navigation-params-origin">origin</dfn></dt>
+   <dd>an <span>origin</span> to use for the new <code>Document</code></dd>
+
+   <dt><dfn data-x="navigation-params-sandboxing">final sandboxing flag set</dfn></dt>
+   <dd>a <span>sandboxing flag set</span> to impose on the new <code>Document</code></dd>
+
+   <dt><dfn data-x="navigation-params-coop">cross-origin opener policy</dfn></dt>
+   <dd>a <span>cross-origin opener policy</span> to use for the new <code>Document</code></dd>
+
+   <dt><dfn data-x="navigation-params-reserved-environment">reserved environment</dfn></dt>
+   <dd>null or an <span>environment</span> reserved for the new <code>Document</code></dd>
+
+   <dt><dfn data-x="navigation-params-browsing-context">browsing context</dfn></dt>
+   <dd>the <span>browsing context</span> to be navigated (but see below)</dd>
+
+   <dt><dfn data-x="navigation-params-bc-switch-needed">browsing context switch needed</dfn></dt>
+   <dd>a boolean indicating whether or not the navigation should conclude by <span data-x="a
+   browsing context is discarded">discarding</span> the given <span
+   data-x="navigation-params-browsing-context">browsing context</span> and creating a new one</dd>
+
+   <dt><dfn data-x="navigation-params-hh">history handling</dfn></dt>
+   <dd>a <span>history handling behavior</span></dd>
+  </dl>
+
+  <p class="note">Once a <span>navigation params</span> struct is created, this standard does not
+  mutate any of its <span data-x="struct item">items</span>. They are only passed onward to other
+  algorithms.</p>
+
+  <p>After <code>Document</code> creation, the <span>session history</span> gets updated. A
+  <dfn>history handling behavior</dfn> is used to track the desired type of session history update
+  throughout the navigation process. It is one of the following:</p>
+
+  <dl>
+   <dt>"<dfn data-x="hh-default"><code>default</code></dfn>"</dt>
+   <dd>A regular navigation which adds a new entry to the session history.</dd>
+
+   <dt>"<dfn data-x="hh-entry-update"><code>entry update</code></dfn>"</dt>
+   <dd>A navigation to an existing <span>session history entry</span> to recreate that entry's <span
+   data-x="she-document">document</span>, which was previously <span data-x="discard a
+   document">discarded</span>.</dd>
+
+   <dt>"<dfn data-x="hh-reload"><code>reload</code></dfn>"</dt>
+   <dd>A navigation intended to reload the current page and replace the <span data-x="current
+   entry">current session history entry</span>.</dd>
+
+   <dt>"<dfn data-x="hh-replace"><code>replace</code></dfn>"</dt>
+   <dd>A non-reload navigation that will replace the <span data-x="current
+   entry">current session history entry</span>.</dd>
+  </dl>
+
+  <p>Navigation always involves <dfn export>source browsing context</dfn>, which is the browsing
+  context which was responsible for starting the navigation.</p>
+
+  <p class="XXX">As explained in <a href="https://github.com/whatwg/html/issues/1130">issue
+  #1130</a> the use of a browsing context as source might not be the correct architecture.</p>
 
   <!-- NAVIGATE <dfn>navigate</dfn> -->
   <!-- For places that _call_ this, as opposed to just referring to
   it, search for "DONAV" -->
-  <p>To <dfn data-export="">navigate</dfn> a browsing context <var>browsingContext</var> to a
-  resource <var>resource</var>, optionally with an <dfn id="exceptions-enabled"
-  data-export=""><var>exceptions enabled flag</var></dfn>, the user agent must run these steps:</p>
+  <p>To <dfn export>navigate</dfn> a browsing context <var>browsingContext</var> to a resource
+  <var>resource</var>, with an optional boolean <dfn id="exceptions-enabled"
+  export><var>exceptionsEnabled</var></dfn> (default false), an optional <span>history handling
+  behavior</span> <dfn data-x="navigation-hh"><var>historyHandling</var></dfn> (default "<code
+  data-x="hh-default">default</code>"), and an optional string <dfn
+  data-x="navigation-navigationtype"><var>navigationType</var></dfn> (default "<code
+  data-x="">other</code>"):</p>
 
   <ol>
    <li><p>If <var>resource</var> is a <span>URL</span>, then set <var>resource</var> to a new <span
    data-x="concept-request">request</span> whose <span data-x="concept-request-url">url</span> is
    <var>resource</var>.</p></li>
 
-   <li><p>If <var>resource</var> is a <span data-x="concept-request">request</span> and this is
-   a <dfn>reload-triggered navigation</dfn>, then set <var>resource</var>'s <span
-   data-x="concept-request-reload-navigation-flag">reload-navigation flag</span>.
+   <li><p>If <var>resource</var> is a <span data-x="concept-request">request</span> and
+   <var>historyHandling</var> is "<code data-x="hh-reload">reload</code>", then set
+   <var>resource</var>'s <span data-x="concept-request-reload-navigation-flag">reload-navigation
+   flag</span>.</p></li>
 
    <li id="sandboxLinks">
     <p>If the <span>source browsing context</span> is not <span>allowed to navigate</span>
     <var>browsingContext</var>, then:</p>
 
     <ol>
-     <li><p>If the <var><span>exceptions enabled flag</span></var> is set, then throw a
+     <li><p>If <var>exceptionsEnabled</var> is given and is true, then throw a
      <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
      <li>
@@ -75,20 +143,36 @@
    <span>prompt to unload</span> algorithm.</p></li>
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1946 to 1955 -->
 
-   <li id="navigate-fragid-step"><p>If this is not a <span>reload-triggered navigation</span>,
-   <var>resource</var> is a <span data-x="concept-request">request</span>, <var>resource</var>'s
-   <span data-x="concept-request-url">url</span> <span data-x="concept-url-equals">equals</span>
-   <var>browsingContext</var>'s <span>active document</span>'s <span
-   data-x="concept-document-url">URL</span> with <var>exclude fragments flag</var> set, and
-   <var>resource</var>'s <span data-x="concept-request-url">url</span>'s <span
-   data-x="concept-url-fragment">fragment</span> is non-null, then <span
-   data-x="navigate-fragid">navigate to that fragment</span>, with <span>replacement enabled</span>
-   if this was invoked with <span>replacement enabled</span>, and return.</p></li>
+   <li id="navigate-fragid-step">
+    <p>If <var>historyHandling</var> is not "<code data-x="hh-reload">reload</code>",
+    <var>resource</var> is a <span data-x="concept-request">request</span>, <var>resource</var>'s
+    <span data-x="concept-request-url">url</span> <span data-x="concept-url-equals">equals</span>
+    <var>browsingContext</var>'s <span>active document</span>'s <span
+    data-x="concept-document-url">URL</span> with <var>exclude fragments flag</var> set, and
+    <var>resource</var>'s <span data-x="concept-request-url">url</span>'s <span
+    data-x="concept-url-fragment">fragment</span> is non-null, then:</p>
+
+    <ol>
+     <li><p><span data-x="navigate-fragid">Navigate to a fragment</span> given
+     <var>browsingContext</var>, <var>resource</var>'s <span
+     data-x="concept-request-url">url</span>, and <var>historyHandling</var>.</p></li>
+
+     <li><p>Return.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Let <var>activeDocumentNavigationOrigin</var> be the <span>origin</span> of the
+   <span>active document</span> of <var>browsingContext</var>.</p></li>
+
+   <li><p>Let <var>incumbentNavigationOrigin</var> be the <span>origin</span> of the <span>incumbent
+   settings object</span>, or if no <span>script</span> was involved, the <span>origin</span> of the
+   <span>node document</span> of the element that initiated the <span
+   data-x="navigate">navigation</span>.</p></li>
 
    <li><p>Cancel any preexisting but not yet <span data-x="concept-navigate-mature">mature</span>
    attempt to navigate <var>browsingContext</var>, including canceling any instances of the <span
    data-x="concept-fetch">fetch</span> algorithm started by those attempts. If one of those attempts
-   has already created and <span data-x="initialize the Document object">initialized a new
+   has already <span data-x="create-the-document-object">created and initialized a new
    <code>Document</code> object</span>, <span data-x="abort a document">abort</span> that
    <code>Document</code> also. (Navigation attempts that have <span
    data-x="concept-navigate-mature">matured</span> already have session history entries, and are
@@ -108,11 +192,10 @@
    <var>browsingContext</var>.</p></li>
 
    <li>
-
-    <p>If <var>browsingContext</var> is a <span>nested browsing context</span>, then put it in the
+    <p>If <var>browsingContext</var> is a <span>child browsing context</span>, then put it in the
     <span>delaying <code data-x="event-load">load</code> events mode</span>.</p>
 
-    <p>The user agent must take this <span>nested browsing context</span> out of the <span>delaying
+    <p>The user agent must take this <span>child browsing context</span> out of the <span>delaying
     <code data-x="event-load">load</code> events mode</span> when this <span
     data-x="navigate">navigation</span> algorithm later <span
     data-x="concept-navigate-mature">matures</span>, or when it terminates (whether due to having
@@ -121,153 +204,99 @@
     <!-- this is what makes <iframe> elements, <embed> elements, <object> elements, etc, delay the
     load event of their parent browsing context when their child browsing context is in between this
     step and the step that starts the parser. -->
-
    </li>
 
-   <li><p>Let <var>navigationType</var> be "<code data-x="">form-submission</code>" if the <span
-   data-x="navigate">navigation algorithm</span> was invoked as a result of the <span
-   data-x="concept-form-submit">form submission algorithm</span>, and "<code data-x="">other</code>"
-   otherwise.</p></li>
+   <li><p>Let <var>sandboxFlags</var> be the result of <span>determining the creation sandboxing
+   flags</span> given <var>browsingContext</var> and <var>browsingContext</var>'s <span
+   data-x="bc-container">container</span>.</p></li>
 
    <li><p>Return to whatever algorithm invoked the navigation steps and continue running these steps
    <span>in parallel</span>.</p></li>
 
    <li>
-
     <p>This is the step that attempts to obtain <var>resource</var>, if necessary. Jump to the first
     appropriate substep:</p>
 
     <dl>
-
      <dt>If <var>resource</var> is a <span data-x="concept-response">response</span></dt>
-     <dd><p>Run <span>process a navigate response</span> with null, <var>resource</var>,
-     <var>navigationType</var>, the <span>source browsing context</span>, and
-     <var>browsingContext</var>, and then return.</p></dd>
+     <dd>
+      <ol>
+       <li><p>Assert: <var>browsingContext</var> is not a <span>top-level browsing
+       context</span>.</p></li>
+       <!-- TODO: this is probably not true for multipart/x-mixed-replace, though it's not clear how
+            close to reality its current definition is. -->
+
+       <li><p>Let <var>finalSandboxFlags</var> be the <span data-x="set union">union</span> of
+       <var>browsingContext</var>'s <span data-x="concept-bc-sandboxing-flags">sandboxing
+       flags</span> and <var>resource</var>'s <span>forced sandboxing flag set</span>.</p></li>
+
+       <li><p>Let <var>responseOrigin</var> be the result of <span>determining the origin</span>
+       given <var>browsingContext</var>, <var>resource</var>'s <span
+       data-x="concept-response-url">url</span>, <var>finalSandboxFlags</var>,
+       <var>incumbentNavigationOrigin</var>, and <var>activeDocumentNavigationOrigin</var>.</p></li>
+
+       <li><p>Let <var>navigationParams</var> be a new <span>navigation params</span> whose <span
+       data-x="navigation-params-request">request</span> is null, <span
+       data-x="navigation-params-response">response</span> is <var>resource</var>, <span
+       data-x="navigation-params-origin">origin</span> is <var>responseOrigin</var>, <span
+       data-x="navigation-params-sandboxing">final sandboxing flag set</span> is
+       <var>finalSandboxFlags</var>, <span data-x="navigation-params-coop">cross-origin opener
+       policy</span> is "<code data-x="coop-unsafe-none">unsafe-none</code>", <span
+       data-x="navigation-params-reserved-environment">reserved environment</span> is null, <span
+       data-x="navigation-params-browsing-context">browsing context</span> is
+       <var>browsingContext</var>, <span data-x="navigation-params-bc-switch-needed">browsing
+       context switch needed</span> is false, and <span data-x="navigation-params-hh">history
+       handling</span> is <var>historyHandling</var>.</p></li>
+
+       <li><p>Run <span>process a navigate response</span> with <var>navigationType</var>, the
+       <span>source browsing context</span>, and <var>navigationParams</var>.</p></li>
+      </ol>
+     </dd>
 
      <dt>If <var>resource</var> is a <span data-x="concept-request">request</span> whose <span
      data-x="concept-request-url">url</span>'s <span data-x="concept-url-scheme">scheme</span>
      is "<code data-x="javascript protocol">javascript</code>"</dt>
 
      <dd>
+      <p><span>Queue a global task</span> on the <span>DOM manipulation task source</span> given
+      <var>browsingContext</var>'s <span>active window</span> to run these steps:</p>
 
-      <!-- https://www.hixie.ch/tests/adhoc/html/navigation/javascript-url/ -->
+      <ol>
+       <li><p>Let <var>response</var> be the result of <span data-x="javascript protocol">executing
+       a <code>javascript:</code> URL request</span> given <var>resource</var>, the <span>source
+       browsing context</span>, and <var>browsingContext</var>.</p></li>
 
-      <p><span>Queue a task</span> to run <dfn data-x="javascript protocol">these
-      "<code>javascript:</code> URL" steps</dfn>, associated with the <span>active document</span>
-      of <var>browsingContext</var>:</p>
+       <li><p>Let <var>finalSandboxFlags</var> be the <span data-x="set union">union</span> of
+       <var>browsingContext</var>'s <span data-x="concept-bc-sandboxing-flags">sandboxing
+       flags</span> and <var>response</var>'s <span>forced sandboxing flag set</span>.</p></li>
 
-      <ol id="concept-js-deref">
+       <li><p>Let <var>navigationParams</var> be a new <span>navigation params</span> whose <span
+       data-x="navigation-params-request">request</span> is <var>resource</var>, <span
+       data-x="navigation-params-response">response</span> is <var>response</var>, <span
+       data-x="navigation-params-origin">origin</span> is <var>activeDocumentNavigationOrigin</var>,
+       <span data-x="navigation-params-sandboxing">final sandboxing flag set</span> is
+       <var>finalSandboxFlags</var>, <span data-x="navigation-params-coop">cross-origin opener
+       policy</span> is <var>browsingContext</var>'s <span>active document</span>'s <span
+       data-x="concept-document-coop">cross-origin opener policy</span>, <span
+       data-x="navigation-params-reserved-environment">reserved environment</span> is null, <span
+       data-x="navigation-params-browsing-context">browsing context</span> is
+       <var>browsingContext</var>, <span data-x="navigation-params-bc-switch-needed">browsing
+       context switch needed</span> is false, and <span data-x="navigation-params-hh">history
+       handling</span> is <var>historyHandling</var>.</p></li>
 
-       <li>
-        <p>Let <var>result</var> be undefined, and jump to the step labeled <i>process result</i>
-        below if either of the following are true:</p>
-
-        <ul>
-         <li>
-          <p>The <span>source browsing context</span>'s <span>active document</span>'s
-          <span>origin</span> is not the <span>same origin</span> as <var>browsingContext</var>'s
-          <span>active document</span>'s <span>origin</span>.</p>
-
-          <p class="&#x0058;&#x0058;&#x0058;">As explained in <a
-          href="https://github.com/whatwg/html/issues/2591">issue #2591</a> this step does not work
-          and presents a security issue.</p>
-         </li>
-
-         <li><p>The <span>Should navigation request of type from source in target be blocked by
-         Content Security Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when
-         executed upon <var>resource</var>, "<code data-x="">other</code>", the <span>source
-         browsing context</span>, and <var>browsingContext</var>. <ref spec="CSP"></p></li>
-        </ul>
-       </li>
-
-       <li><p>Let <var>urlString</var> be the result of running the <span
-       data-x="concept-url-serializer">URL serializer</span> on <var>resource</var>'s <span
-       data-x="concept-request-url">url</span>.</p></li>
-
-       <li><p>Remove the leading "<code data-x="">javascript:</code>" string from
-       <var>urlString</var>.</p></li>
-
-       <li><p>Let <var>script source</var> be the result of <span data-x="string percent
-       decode">string percent decoding</span> <var>urlString</var>.</p></li>
-
-       <li><p>Replace <var>script source</var> with the result of applying the <span>UTF-8
-       decode</span> algorithm to <var>script source</var>.</p></li>
-
-       <!-- <body onload="&#xFFFE;w('test')"> and javascript:%EF%BB%BF'test' both work, so we assume
-            that JavaScript is stripping the BOM, and we don't have to -->
-
-       <!--
-         https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2639 -> about:blank
-         https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2640 -> javascript:'test' in Firefox, about:blank otherwise
-       -->
-
-       <li><p>Let <var>address</var> be the <span data-x="concept-document-url">URL</span> of the
-       <span>active document</span> of <var>browsingContext</var>.</p></li>
-
-       <li><p>Let <var>settings</var> be the <span>relevant settings object</span> for the
-       <span>active document</span> of <var>browsingContext</var>.</p></li>
-
-       <li><p>Let <var>base URL</var> be <var>settings object</var>'s <span>API base
-       URL</span>.</p></li>
-
-       <li><p>Let <var>script</var> be the result of <span>creating a classic script</span> given
-       <var>script source</var>, <var>settings</var>, <var>base URL</var>, and the <span>default
-       classic script fetch options</span>.</p></li>
-
-       <li><p>Let <var>result</var> be the result of <span data-x="run a classic script">running the
-       classic script</span> <var>script</var>. If evaluation was unsuccessful, let
-       <var>result</var> be undefined instead. (The result will also be undefined if <span
-       data-x="concept-bc-noscript">scripting is disabled</span>.)</p></li>
-
-       <li><p>Let <var>response</var> be null.</p></li>
-
-       <li>
-
-        <p><i>Process result</i>: If <span data-x="js-Type">Type</span>(<var>result</var>) is not
-        String, then set <var>response</var> to a <span
-        data-x="concept-response">response</span> whose <span
-        data-x="concept-response-status">status</span> is <code data-x="">204</code>.</p>
-
-        <p>Otherwise, set <var>response</var> a <span data-x="concept-response">response</span>
-        whose <span data-x="concept-response-header-list">header list</span> consists of `<code
-        data-x="">Content-Type</code>`/`<code>text/html</code>` and `<code
-        data-x="http-referrer-policy">Referrer-Policy</code>`/<var>settings</var>'s <span>referrer
-        policy</span>, whose <span data-x="concept-response-body">body</span> is <var>result</var>,
-        and whose <span data-x="concept-response-https-state">HTTPS state</span> is
-        <var>settings</var>'s <span>HTTPS state</span>.</p>
-
-        <p class="warning">The exact conversion between the JavaScript string <var>result</var> and
-        the bytes that comprise a <span data-x="concept-response-body">response body</span> is
-        not yet specified, pending further investigation into user agent behavior. See <a
-        href="https://github.com/whatwg/html/issues/1129">issue #1129</a>.</p>
-
-        <p>When it comes time to <span>set the document's address</span>, use <var>address</var> as
-        the <span>override URL</span>.</p>
-       </li>
-
-       <li><p>Run <span>process a navigate response</span> with <var>resource</var>,
-       <var>response</var>, <var>navigationType</var>, the <span>source browsing context</span>, and
-       <var>browsingContext</var>, and then return.</p></li>
+       <li><p>Run <span>process a navigate response</span> with <var>navigationType</var>, the
+       <span>source browsing context</span>, and <var>navigationParams</var>.</p></li>
       </ol>
 
-      <p>The <span>task source</span> for this <span data-x="concept-task">task</span> is the
-      <span>DOM manipulation task source</span>.</p>
-
-      <div class="example">
-
-       <p>So for example a <span data-x="javascript protocol"><code>javascript:</code> URL</span> in
-       an <code data-x="attr-hyperlink-href">href</code> attribute of an <code>a</code> element
-       would only be evaluated when the link was <span data-x="following
-       hyperlinks">followed</span>, while such a URL in the <code
-       data-x="attr-iframe-src">src</code> attribute of an <code>iframe</code> element would be
-       evaluated in the context of the <code>iframe</code>'s own <span>nested browsing
-       context</span> when the <code>iframe</code> is being set up; once evaluated, its return value
-       (if it was a string) would replace that <span>browsing context</span>'s
-       <code>Document</code>, thus also changing the <code>Window</code> object of that
-       <span>browsing context</span>.</p>
-
-      </div>
-
+      <p class="example">So for example a <span data-x="javascript
+      protocol"><code>javascript:</code> URL</span> in an <code
+      data-x="attr-hyperlink-href">href</code> attribute of an <code>a</code> element would only be
+      evaluated when the link was <span data-x="following hyperlinks">followed</span>, while such a
+      URL in the <code data-x="attr-iframe-src">src</code> attribute of an <code>iframe</code>
+      element would be evaluated in the context of the <code>iframe</code>'s <span>nested browsing
+      context</span> when the <code>iframe</code> is being set up. Once evaluated, its return value
+      (if it was a string) would replace that <span>browsing context</span>'s <span>active
+      document</span>, thus also changing the corresponding <code>Window</code> object.</p>
      </dd>
 
      <dt>If <var>resource</var> is to be fetched using `<code data-x="">GET</code>`, and there are
@@ -280,7 +309,6 @@
      will avoid using <span data-x="application cache">application caches</span></dt>
 
      <dd>
-
       <p>Fetch <var>resource</var> from the <span data-x="concept-appcache-selection">most
       appropriate application cache</span> of those that match.</p>
 
@@ -293,16 +321,16 @@
       agent will not use an application cache at all; the submission will be made to the
       network.</p>
 
-      <p class="&#x0058;&#x0058;&#x0058;">This still needs to be integrated with the Fetch
-      standard. <ref spec=FETCH></p>
-
+      <p class="XXX">This still needs to be integrated with the Fetch standard. <ref spec=FETCH></p>
      </dd>
 
      <dt>If <var>resource</var> is a <span data-x="concept-request">request</span> whose <span
      data-x="concept-request-url">url</span>'s <span data-x="concept-url-scheme">scheme</span>
      is a <span>fetch scheme</span></dt>
      <dd><p>Run <span>process a navigate fetch</span> given <var>resource</var>, the <span>source
-     browsing context</span>, and <var>browsing context</var>, and <var>navigationType</var>.</p></dd>
+     browsing context</span>, <var>browsingContext</var>, <var>navigationType</var>,
+     <var>sandboxFlags</var>, <var>incumbentNavigationOrigin</var>,
+     <var>activeDocumentNavigationOrigin</var>, and <var>historyHandling</var>.</p></dd>
 
      <dt>Otherwise, <var>resource</var> is a <span data-x="concept-request">request</span> whose
      <span data-x="concept-request-url">url</span>'s <span data-x="concept-url-scheme">scheme</span>
@@ -314,10 +342,13 @@
    </li>
   </ol>
 
-  <p>To <dfn data-export="">process a navigate fetch</dfn>, given a <span
-  data-x="concept-request">request</span> <var>request</var>, <span>browsing context</span>
-  <var>sourceBrowsingContext</var>, <span>browsing context</span> <var>browsingContext</var>, and
-  string <var>navigationType</var>, run these steps:</p>
+  <p>To <dfn export>process a navigate fetch</dfn>, given a <span
+  data-x="concept-request">request</span> <var>request</var>, two <span data-x="browsing
+  context">browsing contexts</span> <var>sourceBrowsingContext</var> and <var>browsingContext</var>,
+  a string <var>navigationType</var>, a <span>sandboxing flag set</span> <var>sandboxFlags</var>,
+  two <span data-x="origin">origins</span> <var>incumbentNavigationOrigin</var> and
+  <var>activeDocumentNavigationOrigin</var>, and a <span>history handling behavior</span>
+  <var>historyHandling</var>:</p>
 
   <ol>
    <li><p>Let <var>response</var> be null.</p></li>
@@ -329,63 +360,198 @@
    data-x="">navigate</code>", <span data-x="concept-request-credentials-mode">credentials
    mode</span> to "<code data-x="">include</code>", <span>use-URL-credentials flag</span>, <span
    data-x="concept-request-redirect-mode">redirect mode</span> to "<code data-x="">manual</code>",
-   and <span data-x="concept-request-target-client-id">target client id</span> to
+   and <span data-x="concept-request-replaces-client-id">replaces client id</span> to
    <var>browsingContext</var>'s <span>active document</span>'s <span>relevant settings
    object</span>'s <span data-x="concept-environment-id">id</span>.</p></li>
 
-   <li><p>If <var>browsingContext</var> is a <span>child browsing context</span> and the
-   <span>browsing context container</span> of <var>browsingContext</var> has a <span>browsing
-   context scope origin</span>, then set <var>request</var>'s <span
-   data-x="concept-request-origin">origin</span> to that <span>browsing context scope
-   origin</span>.</p></li>
-
    <li>
-    <p>Create a new <span>environment</span> <var>reservedEnvironment</var>, and set its <span
-    data-x="concept-environment-id">id</span> to a new unique opaque string, its <span
-    data-x="concept-environment-creation-url">creation URL</span> to <var>request</var>'s
-    <span>url</span>, and its <span data-x="concept-environment-target-browsing-context">target
-    browsing context</span> to <var>browsingContext</var>.</p>
-
-    <p class="note">The created environment's <span
-    data-x="concept-environment-active-service-worker">active service worker</span> is set in the
-    <span data-x="on-fetch-request-algorithm">handle fetch</span> algorithm during the fetch if its
-    <span data-x="concept-environment-creation-url">creation URL</span> matches a service worker
-    registration. <ref spec="SW"></p>
-   </li>
-
-   <li><p>Set <var>request</var>'s <span data-x="concept-request-reserved-client">reserved
-   client</span> to <var>reservedEnvironment</var>.</p></li>
-
-   <li>
-    <p>If the <span>Should navigation request of type from source in target be blocked by Content
-    Security Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when executed upon
-    <var>request</var>, <var>navigationType</var>, <var>sourceBrowsingContext</var>, and
-    <var>browsingContext</var>, then set <var>response</var> to a network error.
-    <ref spec="CSP"></p>
-
-    <p>Otherwise:</p>
+    <p>If <var>browsingContext</var>'s <span data-x="bc-container">container</span> is non-null:</p>
 
     <ol>
-     <!--FETCH--><li><p><span data-x="concept-fetch">Fetch</span> <var>request</var>.</p></li>
+     <li><p>If the <var>browsingContext</var>'s <span data-x="bc-container">container</span> has a
+     <span>browsing context scope origin</span>, then set <var>request</var>'s <span
+     data-x="concept-request-origin">origin</span> to that <span>browsing context scope
+     origin</span>.</p></li>
 
-     <li><p>Wait for the <span data-x="concept-task">task</span> on the <span>networking task
-     source</span> to <span>process response</span> and set <var>response</var> to the
-     result.</p></li>
+     <li><p>Set <var>request</var>'s <span
+     data-x="concept-request-destination">destination</span> to <var>browsingContext</var>'s
+     <span data-x="bc-container">container</span>'s <span data-x="concept-element-local-name">local
+     name</span>.</p></li>
     </ol>
    </li>
 
+   <li><p>Let <var>reservedEnvironment</var> be null.</p></li>
 
-   <li id="navigate-redirect-step">
-    <p>If <var>response</var> has a <span data-x="concept-response-location-url">location URL</span>
-    and it is either failure or a <span>URL</span> whose <span
-    data-x="concept-url-scheme">scheme</span> is an <span>HTTP(S) scheme</span>, then set
-    <var>response</var> to the result of performing <span>HTTP-redirect fetch</span> using
-    <var>request</var> and <var>response</var> and then run this step again.</p>
+   <li><p>Let <var>responseOrigin</var> be null.
 
-    <p class="note">Navigation handles redirects manually as navigation is the only place in the web
-    platform that cares for redirects to <code data-x="mailto protocol">mailto:</code> URLs and
-    such.</p>
+   <li><p>Let <var>coopEnforcementResult</var> be a new <span
+   data-x="coop-enforcement-result">cross-origin opener policy enforcement result</span> whose <span
+   data-x="coop-enforcement-bcg-switch">needs a browsing context group switch</span> is false, <span
+   data-x="coop-enforcement-origin">origin</span> is <var>browsingContext</var>'s
+   <span>active document</span>'s <span>origin</span>, and <span
+   data-x="coop-enforcement-coop">cross-origin opener policy</span> is <var>browsingContext</var>'s
+   <span>active document</span>'s <span data-x="concept-document-coop">cross-origin opener
+   policy</span>.</p></li>
+
+   <li><p>Let <var>finalSandboxFlags</var> be an empty <span>sandboxing flag set</span>.</p></li>
+
+   <li><p>Let <var>responseCOOP</var> be "<code
+   data-x="coop-unsafe-none">unsafe-none</code>".</p></li>
+
+   <li>
+    <p>While true:</p>
+
+    <ol>
+     <li><p>Let <var>currentURL</var> be <var>response</var>'s <span
+     data-x="concept-response-location-url">location URL</span>, if <var>response</var> is not null,
+     and <var>request</var>'s <span data-x="concept-request-current-url">current URL</span>
+     otherwise.</p></li>
+
+     <li>
+      <p>If <var>reservedEnvironment</var> is not null and <var>currentURL</var>'s
+      <span data-x="concept-url-origin">origin</span> is not the <span
+      data-x="same origin">same</span> as <var>reservedEnvironment</var>'s <span
+      data-x="concept-environment-creation-url">creation URL</span>'s <span
+      data-x="concept-url-origin">origin</span>, then:</p>
+
+      <ol>
+       <li><p>Run the <span>environment discarding steps</span> for
+       <var>reservedEnvironment</var>.</p></li>
+
+       <li><p>Set <var>reservedEnvironment</var> to null.</p></li>
+      </ol>
+     </li>
+
+     <li>
+      <p>If <var>reservedEnvironment</var> is null, then:</p>
+
+      <ol>
+       <li><p>Let <var>topLevelCreationURL</var> be <var>currentURL</var>.</p></li>
+
+       <li><p>Let <var>topLevelOrigin</var> be null.</p></li>
+
+       <li>
+        <p>If <var>browsingContext</var> is not a <span>top-level browsing context</span>, then:</p>
+
+        <ol>
+         <li><p>Let <var>parentEnvironment</var> be <var>browsingContext</var>'s <span
+         data-x="bc-container">container</span>'s <span>relevant settings object</span>.</p></li>
+
+         <li><p>Set <var>topLevelCreationURL</var> to <var>parentEnvironment</var>'s <span>top-level
+         creation URL</span> and <var>topLevelOrigin</var> to <var>parentEnvironment</var>'s
+         <span>top-level origin</span>.</p></li>
+        </ol>
+       </li>
+
+       <li>
+        <p>Set <var>reservedEnvironment</var> to a new <span>environment</span> whose <span
+        data-x="concept-environment-id">id</span> is a unique opaque string, <span
+        data-x="concept-environment-target-browsing-context">target browsing context</span> is
+        <var>browsingContext</var>, <span data-x="concept-environment-creation-url">creation
+        URL</span> is <var>currentURL</var>, <span>top-level creation URL</span> is
+        <var>topLevelCreationURL</var>, and <span>top-level origin</span> is
+        <var>topLevelOrigin</var>.</p>
+
+        <p class="note">The created environment's <span
+        data-x="concept-environment-active-service-worker">active service worker</span> is set in
+        the <span data-x="on-fetch-request-algorithm">Handle Fetch</span> algorithm during the fetch
+        if the request URL matches a service worker registration. <ref spec="SW"></p>
+       </li>
+      </ol>
+     </li>
+
+     <li><p>Set <var>request</var>'s <span data-x="concept-request-reserved-client">reserved
+     client</span> to <var>reservedEnvironment</var>.</p></li>
+
+     <li><p>If the result of <span>Should navigation request of type be blocked by Content Security
+     Policy?</span> given <var>request</var> and <var>navigationType</var> is "<code
+     data-x="">Blocked</code>", then set <var>response</var> to a <span>network error</span> and
+     <span>break</span>. <ref spec="CSP"></p></li>
+
+     <li>
+      <p>Otherwise:</p>
+
+      <ol>
+       <li><p>If <var>response</var> is null, <!--FETCH--><span
+       data-x="concept-fetch">fetch</span> <var>request</var>.</p></li>
+
+       <li><p>Otherwise, perform <span>HTTP-redirect fetch</span> using
+       <var>request</var> and <var>response</var>.</p></li>
+
+       <li><p>Wait for the <span data-x="concept-task">task</span> on the <span>networking task
+       source</span> to <span>process response</span> and set <var>response</var> to the
+       result.</p></li>
+
+       <li><p>Set <var>finalSandboxFlags</var> to the <span data-x="set union">union</span> of
+       <var>browsingContext</var>'s <span data-x="concept-bc-sandboxing-flags">sandboxing
+       flags</span> and <var>response</var>'s <span>forced sandboxing flag set</span>.</p></li>
+
+       <li><p>Set <var>responseOrigin</var> to the result of <span>determining the origin</span>
+       given <var>browsingContext</var>, <var>request</var>'s <span
+       data-x="concept-request-url">url</span>, <var>finalSandboxFlags</var>,
+       <var>incumbentNavigationOrigin</var>, and <var>activeDocumentNavigationOrigin</var>.</p></li>
+
+       <li>
+        <p>If <var>browsingContext</var> is a <span>top-level browsing context</span>, then:</p>
+
+        <ol>
+         <li><p>Set <var>responseCOOP</var> to the result of <span data-x="obtain-coop">obtaining a
+         cross-origin opener policy</span> given <var>response</var> and
+         <var>reservedEnvironment</var>.</p></li>
+
+         <li>
+          <p>If <var>sandboxFlags</var> is not empty and <var>responseCOOP</var> is not "<code
+          data-x="coop-unsafe-none">unsafe-none</code>", then set <var>response</var> to an
+          appropriate <span>network error</span> and <span>break</span>.</p>
+
+          <p class="note">This results in a network error as one cannot simultaneously provide a
+          clean slate to a response using cross-origin opener policy and sandbox the result of
+          navigating to that response.</p>
+         </li>
+
+         <li><p>Set <var>coopEnforcementResult</var> to the result of <span
+         data-x="coop-enforce">enforcing the response's cross-origin opener policy</span> given
+         <var>browsingContext</var>, <var>responseOrigin</var>, <var>responseCOOP</var>, and
+         <var>coopEnforcementResult</var>.</p></li>
+        </ol>
+       </li>
+
+       <li>
+        <p>If <var>response</var> is not a <span>network error</span>, <var>browsingContext</var>
+        is a <span>child browsing context</span>, and the result of performing a
+        <span>cross-origin resource policy check</span> with <var>browsingContext</var>'s
+        <span data-x="bc-container-document">container document</span>'s <span>origin</span>,
+        <var>browsingContext</var>'s <span data-x="bc-container-document">container
+        document</span>'s <span>relevant settings object</span>, <var>request</var>'s <span
+        data-x="concept-request-destination">destination</span>, <var>response</var>, and true
+        is <b>blocked</b>, then set <var>response</var> to a <span>network error</span> and
+        <span>break</span>.</p>
+
+        <p class="note">Here we're running the <span>cross-origin resource policy check</span>
+        against the <span>parent browsing context</span> rather than
+        <var>sourceBrowsingContext</var>. This is because we care about the same-originness of the
+        embedded content against the parent context, not the navigation source.</p>
+       </li>
+
+       <li>
+        <p>If <var>response</var> does not have a <span
+        data-x="concept-response-location-url">location URL</span> or the <span
+        data-x="concept-response-location-url">location URL</span> is not a <span>URL</span> whose
+        <span data-x="concept-url-scheme">scheme</span> is an <span>HTTP(S) scheme</span>,
+        then <span>break</span>.</p>
+
+        <p class="note">Navigation handles redirects manually as navigation is the only place in
+        the web platform that cares for redirects to <code data-x="mailto protocol">mailto:</code>
+        URLs and such.</p>
+       </li>
+      </ol>
+     </li>
+    </ol>
    </li>
+
+   <li><p>If <var>response</var> has a <span data-x="concept-response-location-url">location
+   URL</span> that is failure, then set <var>response</var> to a <span>network
+   error</span>.</p></li>
 
    <li><p>Otherwise, if <var>response</var> has a <span
    data-x="concept-response-location-url">location URL</span> that is a <span>URL</span> whose <span
@@ -399,16 +565,17 @@
    <span>process a navigate fetch</span> with a new <span data-x="concept-request">request</span>
    whose <span data-x="concept-request-url">url</span> is <var>response</var>'s <span
    data-x="concept-response-location-url">location URL</span>, <var>sourceBrowsingContext</var>,
-   <var>browsingContext</var>, and <var>navigationType</var>.
+   <var>browsingContext</var>, <var>navigationType</var>, <var>sandboxFlags</var>,
+   <var>incumbentNavigationOrigin</var>, <var>activeDocumentNavigationOrigin</var>, and
+   <var>historyHandling</var>, and return.
 
    <li><p>Otherwise, if <var>response</var> has a <span
    data-x="concept-response-location-url">location URL</span> that is a <span>URL</span>, run the
    <span>process a navigate URL scheme</span> given <var>response</var>'s <span
    data-x="concept-response-location-url">location URL</span> and
-   <var>browsingContext</var>.</p></li>
+   <var>browsingContext</var>, and return.</p></li>
 
    <li>
-
     <p><strong>Fallback in prefer-online mode</strong>: If <var>response</var> was not fetched from
     an <span>application cache</span>, and was to be fetched using `<code data-x="">GET</code>`, and
     there are <span data-x="relevant application cache">relevant application caches</span> that are
@@ -432,11 +599,9 @@
     load and instead continue along these steps using <var>candidate</var> as <var>response</var>.
     The user agent may indicate to the user that the original page load failed, and that the page
     used was a previously cached response.</p>
-
    </li>
 
    <li>
-
     <p><strong>Fallback for fallback entries</strong>: If <var>response</var> was not fetched from
     an <span>application cache</span>, and was to be fetched using `<code data-x="">GET</code>`, and
     its URL <span data-x="concept-appcache-matches-fallback">matches the fallback namespace</span>
@@ -467,55 +632,98 @@
     the fallback response actually is.</p>
    </li>
 
-   <li><p>Run <span>process a navigate response</span> given <var>request</var>,
-   <var>response</var>, <var>navigationType</var>, the <span>source browsing context</span>,
-   <var>browsingContext</var>, and <var>reservedEnvironment</var>.</p></li>
+
+   <li><p>Let <var>navigationParams</var> be a new <span>navigation params</span> whose <span
+   data-x="navigation-params-request">request</span> is <var>request</var>, <span
+   data-x="navigation-params-response">response</span> is <var>response</var>, <span
+   data-x="navigation-params-origin">origin</span> is <var>responseOrigin</var>, <span
+   data-x="navigation-params-sandboxing">final sandboxing flag set</span> is
+   <var>finalSandboxFlags</var>, <span data-x="navigation-params-coop">cross-origin opener
+   policy</span> is <var>responseCOOP</var>, <span
+   data-x="navigation-params-reserved-environment">reserved environment</span> is
+   <var>reservedEnvironment</var>, <span data-x="navigation-params-browsing-context">browsing
+   context</span> is <var>browsingContext</var>, <span
+   data-x="navigation-params-bc-switch-needed">browsing context switch needed</span> is
+   <var>coopEnforcementResult</var>'s <span data-x="coop-enforcement-bcg-switch">needs a browsing
+   context group switch</span>, and <span data-x="navigation-params-hh">history
+   handling</span> is <var>historyHandling</var>.</p></li>
+
+   <li><p>Run <span>process a navigate response</span> with <var>navigationType</var>, the
+   <span>source browsing context</span>, and <var>navigationParams</var>.</p></li>
   </ol>
 
-  <p>To <dfn data-export="">process a navigate response</dfn>, given null or a <span
-  data-x="concept-request">request</span> <var>request</var>, a <span
-  data-x="concept-response">response</span> <var>response</var>, a string <var>navigationType</var>,
-  two <span data-x="browsing context">browsing contexts</span> <var>source</var> and
-  <var>browsingContext</var>, and an optional <span>environment</span>
-  <var>reservedEnvironment</var>, run these steps:</p>
+  <p>To <dfn export>process a navigate response</dfn>, given a string <var>navigationType</var>, a
+  <span>browsing context</span> <var>source</var>, and a <span>navigation params</span>
+  <var>navigationParams</var>:</p>
 
   <ol>
+   <li><p>Let <var>response</var> be <var>navigationParams</var>'s <span
+   data-x="navigation-params-response">response</span>.</p></li>
+
+   <li><p>Let <var>browsingContext</var> be <var>navigationParams</var>'s <span
+   data-x="navigation-params-browsing-context">browsing context</span>.</p></li>
+
+   <li><p>Let <var>failure</var> be false.</p></li>
+
    <li>
-    <p>If any of the following are true, then <span data-x="navigate-ua-inline">display the inline
-    content with an appropriate error shown to the user</span>, with the newly created
-    <code>Document</code> object's <span>origin</span> set to a new <span
-    data-x="concept-origin-opaque">opaque origin</span>, run the <span data-x="environment
-    discarding steps">environment discarding steps</span> for <var>reservedEnvironment</var>, and
-    return.</p>
+    <p>If <var>response</var> is a <span>network error</span>, then set <var>failure</var> to
+    true.</p>
 
-    <ul>
-     <li><p><var>response</var> is a network error.</p></li>
+    <p>Otherwise, if the result of <span>Should navigation response to navigation request of type in
+    target be blocked by Content Security Policy?</span> given <var>navigationParams</var>'s <span
+    data-x="navigation-params-request">request</span>, <var>response</var>,
+    <var>navigationType</var>, and <var>browsingContext</var> is "<code data-x="">Blocked</code>",
+    then set <var>failure</var> to true. <ref spec="CSP"></p>
 
-     <li><p class="&#x0058;&#x0058;&#x0058;">TODO: Define <code data-x="">X-Frame-Options</code>
-     processing here [<a
-     href="https://github.com/whatwg/html/issues/1230">whatwg/html#1230</a>].</p></li>
+    <p>Otherwise, if the result of <span data-x="check a navigation response's adherence to its
+    embedder policy">checking a navigation response's adherence to its embedder policy</span> given
+    <var>response</var> and <var>browsingContext</var> is false, then set <var>failure</var> to
+    true.</p>
 
-     <li><p>The <span>Should navigation response to navigation request of type from source in target
-     be blocked by Content Security Policy?</span> algorithm returns "<code
-     data-x="">Blocked</code>" when executed upon <var>request</var>, <var>response</var>,
-     <var>navigationType</var>, <var>source</var>, and <var>browsingContext</var>. <ref
-     spec="CSP"></p></li>
-    </ul>
-
-    <p class="note">This is where the network errors defined and propagated by the WHATWG Fetch
-    standard, such as DNS or TLS errors, end up being displayed to users. <ref spec=FETCH></p>
+    <p>Otherwise, if the result of <span data-x="check a navigation response's adherence to
+    `X-Frame-Options`">checking a navigation response's adherence to
+    `<code>X-Frame-Options</code>`</span> given <var>response</var>, <var>browsingContext</var>,
+    and <var>navigationParams</var>'s <span data-x="navigation-params-origin">origin</span> is
+    false, then set <var>failure</var> to true.</p>
    </li>
 
-   <li><p>If <var>response</var>'s <span data-x="concept-response-status">status</span> is
-   <code data-x="">204</code> or <code data-x="">205</code>, then return.</p></li>
+   <li>
+    <p>If <var>failure</var> is true, then:</p>
+
+    <ol>
+     <li><p><span data-x="navigate-ua-inline">Display the inline content with an appropriate error
+     shown to the user</span> given <var>browsingContext</var>.</p></li>
+
+     <li><p>Run the <span data-x="environment discarding steps">environment discarding steps</span>
+     for <var>navigationParams</var>'s <span
+     data-x="navigation-params-reserved-environment">reserved environment</span>.</p></li>
+
+     <li><p>Return.</p></li>
+    </ol>
+
+    <p class="note">This is where the network errors defined and propagated by <cite>Fetch</cite>,
+    such as DNS or TLS errors, end up being displayed to users. <ref spec=FETCH></p>
+   </li>
+
+   <li><p>If <var>response</var>'s <span data-x="concept-response-status">status</span> is 204 or
+   205, then return.</p></li>
    <!-- Theoretically, HTTP 205 processing would occur here, resetting all forms with no other
         effect. However, it seems nobody actually wants to use this ability, so requiring it here
         seems like unnecessary work. -->
 
-   <li><p>If <var>response</var> has an `<code
-   data-x="http-content-disposition">Content-Disposition</code>` header specifying the <code
-   data-x="">attachment</code> disposition type, then handle it <span>as a download</span> and
-   return.</p></li>
+   <li>
+    <p>If <var>response</var> has a `<code
+    data-x="http-content-disposition">Content-Disposition</code>` header specifying the <code
+    data-x="">attachment</code> disposition type, then:</p>
+
+    <ol>
+     <li><p>If the result of running the <span>allowed to download</span> given <var>source</var>
+     and <var>browsingContext</var> is true, then handle <var>response</var> <span>as a
+     download</span>.</p></li>
+
+     <li><p>Return.</p></li>
+    </ol>
+   </li>
 
    <li><p>Let <var>type</var> be the <span data-x="Content-Type sniffing">computed type of
    <var>response</var></span>.</p></li>
@@ -527,18 +735,14 @@
     appropriate entry in the following list, and process <var>response</var> as described there:</p>
 
     <dl class="switch">
-
      <dt>an <span>HTML MIME type</span></dt>
-     <dd>Follow the steps given in the <span data-x="navigate-html">HTML document</span>
-     section, and then, once they have completed, return.</dd>
+     <dd>Follow the steps given in the <span data-x="navigate-html">HTML document</span> section
+     providing <var>navigationParams</var>. Once the steps have completed, return.</dd>
 
      <dt>an <span>XML MIME type</span> that is not an <span>explicitly supported XML MIME
      type</span></dt>
-
-     <dd>Follow the steps given in the <span data-x="navigate-xml">XML document</span> section. If
-     that section determines that the content is <em>not</em> to be displayed as a generic XML
-     document, then proceed to the next step in this overall set of steps. Otherwise, once the steps
-     given in the <span data-x="navigate-xml">XML document</span> section have completed,
+     <dd>Follow the steps given in the <span data-x="navigate-xml">XML document</span> section
+     providing <var>navigationParams</var> and <var>type</var>. Once the steps have completed,
      return.</dd>
 
      <dt>a <span>JavaScript MIME type</span></dt>
@@ -548,30 +752,31 @@
      <dt>"<code>text/css</code>"</dt>
      <dt>"<code>text/plain</code>"</dt>
      <dt>"<code>text/vtt</code>"</dt>
-     <dd>Follow the steps given in the <span data-x="navigate-text">plain text file</span>
-     section, and then, once they have completed, return..</dd>
+     <dd>Follow the steps given in the <span data-x="navigate-text">plain text file</span> section
+     providing <var>navigationParams</var> and <var>type</var>. Once the steps have completed,
+     return.</dd>
 
      <dt>"<code>multipart/x-mixed-replace</code>"</dt>
      <dd>Follow the steps given in the <span
-     data-x="navigate-multipart-x-mixed-replace">multipart/x-mixed-replace</span> section, and then,
-     once they have completed, return.</dd>
+     data-x="navigate-multipart-x-mixed-replace">multipart/x-mixed-replace</span> section providing
+     <var>navigationParams</var>. Once the steps have completed, return.</dd>
 
      <dt>A supported image, video, or audio type</dt>
-     <dd>Follow the steps given in the <span data-x="navigate-media">media</span> section, and then,
-     once they have completed, return.</dd>
+     <dd>Follow the steps given in the <span data-x="navigate-media">media</span> section providing
+     <var>navigationParams</var> and <var>type</var>. Once the steps have completed, return.</dd>
 
      <dt>A type that will use an external application to render the content in
      <var>browsingContext</var></dt>
-     <dd>Follow the steps given in the <span data-x="navigate-plugin">plugin</span> section, and then, once they have
-     completed, return.</dd>
-
+     <dd>Follow the steps given in the <span data-x="navigate-plugin">plugin</span> section
+     providing <var>navigationParams</var> and <var>type</var>. Once the steps have completed,
+     return.</dd>
     </dl>
 
     <p>An <dfn>explicitly supported XML MIME type</dfn> is an <span>XML MIME type</span> for which
     the user agent is configured to use an external application to render the content (either a
     <span>plugin</span> rendering directly in <var>browsingContext</var>, or a separate
-    application), or one for which the user agent has dedicated processing rules (e.g. a Web browser
-    with a built-in Atom feed viewer would be said to explicitly support the
+    application), or one for which the user agent has dedicated processing rules (e.g., a web
+    browser with a built-in Atom feed viewer would be said to explicitly support the
     <code>application/atom+xml</code> MIME type), or one for which the user agent has a dedicated
     handler.</p>
 
@@ -580,167 +785,18 @@
     <span>plugin</span> rendering directly in <var>browsingContext</var>, or a separate
     application), or one for which the user agent has dedicated processing rules, or one for which
     the user agent has a dedicated handler.</p>
-
-    <p><dfn data-x="set the document's address">Setting the document's address</dfn>: If there is no
-    <dfn>override URL</dfn>, then any <code>Document</code> created by these steps must have its
-    <span data-x="concept-document-url">URL</span> set to the <span>URL</span> that was
-    originally to be fetched, ignoring any other data that was used to obtain the resource. However,
-    if there <em>is</em> an <span>override URL</span>, then any <code>Document</code> created by
-    these steps must have its <span data-x="concept-document-url">URL</span> set to that
-    <span>URL</span> instead.</p>
-
-    <p class="note">An <span data-x="override URL">override URL</span> is set when <span
-    data-x="javascript protocol">dereferencing a <code>javascript:</code> URL</span> and when
-    performing <span>an overridden reload</span>.</p>
-
-    <p><!--en-GB--><dfn id="initialise-the-document-object" data-x="initialize the Document object"
-    data-export="">Initializing a new <code>Document</code> object</dfn>: when a
-    <code>Document</code> is created as part of the above steps, the user agent will be required to
-    additionally run the following algorithm after creating the new object:</p>
-
-    <ol>
-     <li><p>If <var>browsingContext</var>'s only entry in its <span>session history</span> is the
-     <code>about:blank</code> <code>Document</code> that was added when <var>browsingContext</var>
-     was <span data-x="creating a new browsing context">created</span>, and navigation is occurring
-     with <span>replacement enabled</span>, and that <code>Document</code> has the <span>same
-     origin</span> as the new <code>Document</code>, then do nothing.</p></li>
-
-     <li>
-      <p>Otherwise:</p>
-
-      <ol>
-       <li>
-        <p>Let <var>realm execution context</var> be the result of <span>creating a new JavaScript
-        realm</span> with the following customizations:</p>
-
-        <ul>
-         <li><p>For the global object, create a new <code>Window</code> object.</p></li>
-
-         <li><p>For the global <b>this</b> binding, use <var>browsingContext</var>'s
-         <code>WindowProxy</code> object.</p></li>
-        </ul>
-       </li>
-
-       <li><p><span>Set up a window environment settings object</span> with <var>realm execution
-       context</var> and <var>reservedEnvironment</var>, if present.</p></li>
-      </ol>
-     </li>
-
-     <li><p>Set the <code>Document</code>'s <span data-x="concept-document-https-state">HTTPS
-     state</span> to the <span data-x="concept-response-https-state">HTTPS state</span> of
-     <var>response</var>.</p></li>
-
-     <li><p>Set the <code>Document</code>'s <span data-x="concept-document-referrer-policy">referrer
-     policy</span> to the result of <span data-x="parse-referrer-policy-header">parsing the
-     `<code>Referrer-Policy</code>` header</span> of <var>response</var>. <ref
-     spec="REFERRERPOLICY"></p></li>
-
-     <li><p>Execute the <span>Initialize a <code data-x="">Document</code>'s CSP list</span>
-     algorithm on the <code>Document</code> object and the <span
-     data-x="concept-response">response</span> used to generate the document. <ref spec="CSP"></p>
-
-     <li>
-      <p>If <var>request</var> is non-null, then set <span>the document's referrer</span> to the
-      <span data-x="concept-url-serializer">serialization</span> of <var>request</var>'s <span
-      data-x="concept-request-referrer">referrer</span>, if <var>request</var>'s <span
-      data-x="concept-request-referrer">referrer</span> is a <span>URL record</span>, and the empty
-      string otherwise.</p>
-
-      <p class="note">Per the WHATWG Fetch standard a <span
-      data-x="concept-request">request</span>'s <span
-      data-x="concept-request-referrer">referrer</span> will be either a <span>URL record</span> or
-      "<code data-x="">no-referrer</code>" at this point.</p>
-     </li>
-
-     <li><p><span>Implement the sandboxing</span> for the <code>Document</code>.</p></li>
-
-     <li>
-       <p>Execute the <span>Initialize document’s Feature Policy from response</span>
-       algorithm on the <code>Document</code> object and the <span
-       data-x="concept-response">response</span> used to generate the document.  <ref
-       spec="FEATUREPOLICY"></p>
-
-       <p class="note">The <span>Initialize document’s Feature Policy from response</span> algorithm
-       makes use of the <code>Document</code>'s <span>origin</span>. If <code
-       data-x="dom-document-domain">document.domain</code> has been used for the <span>browsing
-       context container</span>'s <span>node document</span>, then its <span>origin</span> cannot be
-       <span>same origin-domain</span> with <var>document</var>'s <span>origin</span>, because these
-       steps run when <var>document</var> is initialized, so it cannot itself yet have used <code
-       data-x="dom-document-domain">document.domain</code>. Note that this means that Feature Policy
-       checks are less permissive compared to doing a <span>same origin</span> check instead.</p>
-
-       <div class="example">
-         <p>In this example, the child document is not allowed to use <code>PaymentRequest</code>,
-         despite being <span>same origin-domain</span> at the time the child document tries to use
-	 it. At the time the child document is initialized, only the parent document has set <code
-         data-x="dom-document-domain">document.domain</code>, and the child document has not.</p>
-
-         <pre><code class="html" data-x="">&lt;!-- https://foo.example.com/a.html -->
-&lt;!doctype html>
-&lt;script>
- document.domain = 'example.com';
-&lt;/script>
-&lt;iframe src=b.html>&lt;/iframe></code></pre>
-
-      <pre><code class="html" data-x="">&lt;!-- https://bar.example.com/b.html -->
-&lt;!doctype html>
-&lt;script>
- document.domain = 'example.com'; // This happens after the document is initialized
- new PaymentRequest(&hellip;); // Not allowed to use
-&lt;/script></code></pre>
-       </div>
-
-       <div class="example">
-         <p>In this example, the child document <em>is</em> allowed to use
-	 <code>PaymentRequest</code>, despite not being <span>same origin-domain</span> at the time
-	 the child document tries to use it. At the time the child document is initialized, none of
-	 the documents have set <code data-x="dom-document-domain">document.domain</code> yet so
-	 <span>same origin-domain</span> falls back to a normal <span>same origin</span> check.</p>
-
-         <pre><code class="html" data-x="">&lt;!-- https://example.com/a.html -->
-&lt;!doctype html>
-&lt;iframe src=b.html>&lt;/iframe>
-&lt;!-- The child document is now initialized, before the script below is run. -->
-&lt;script>
- document.domain = 'example.com';
-&lt;/script></code></pre>
-
-         <pre><code class="html" data-x="">&lt;!-- https://example.com/b.html -->
-&lt;!doctype html>
-&lt;script>
- new PaymentRequest(&hellip;); // Allowed to use
-&lt;/script></code></pre>
-       </div>
-     </li>
-
-     <li>
-      <p>If <var>response</var> has a `<code data-x="http-refresh">Refresh</code>` header, then:</p>
-
-      <ol>
-       <li><p class="&#x0058;&#x0058;&#x0058;"><a
-       href="https://github.com/whatwg/html/issues/2900">Multiple `<code
-       data-x="http-refresh">Refresh</code>` headers</a>.</p></li>
-
-       <li><p>Let <var>value</var> be the value of the header with each byte mapped to a code point
-       of equal value.</p></li>
-
-       <li><p>Run the <span>shared declarative refresh steps</span> with the <code>Document</code>
-       and <var>value</var>.</p></li>
-      </ol>
-     </li>
-    </ol>
    </li>
 
    <li id="navigate-non-Document"><p><i>Non-document content</i>: If, given <var>type</var>, the new
    resource is to be handled by displaying some sort of inline content, e.g., a native rendering of
    the content or an error message because the specified type is not supported, then <span
-   data-x="navigate-ua-inline">display the inline content</span>, and then return.</p></li>
+   data-x="navigate-ua-inline">display the inline content</span> given <var>browsingContext</var>,
+   and then return.</p></li>
 
    <li><p>Otherwise, the document's <var>type</var> is such that the resource will not affect
    <var>browsingContext</var>, e.g., because the resource is to be handed to an external application
    or because it is an unknown type that will be processed <span>as a download</span>. <span
    data-x="hand-off to external software">Process the resource appropriately</span>.</p>
-
   </ol>
 
   <p>To <dfn>process a navigate URL scheme</dfn>, given a <span>URL</span> <var>url</var> and
@@ -757,7 +813,7 @@
     an error message because the specified scheme is not one of the supported protocols, or an
     inline prompt to allow the user to select <span data-x="dom-navigator-registerProtocolHandler">a
     registered handler</span> for the given scheme. <span data-x="navigate-ua-inline">Display the
-    inline content</span>.</p>
+    inline content</span> given <var>browsingContext</var>.</p>
 
     <p class="note">In the case of a registered handler being used, <span>navigate</span> will be
     invoked with a new URL.</p>
@@ -770,26 +826,361 @@
   processor), user agents should attempt to mitigate the risk that this is an attempt to exploit the
   target software, e.g. by prompting the user to confirm that the <span>source browsing
   context</span>'s <span>active document</span>'s <span>origin</span> is to be allowed to invoke the
-  specified software. In particular, if the <span>navigate</span> algorithm, when it was invoked,
-  was not <span>triggered by user activation</span>, the user agent should not invoke the external
-  software package without prior user confirmation.</p>
+  specified software. In particular, if the <span>navigate</span> algorithm was invoked when
+  <span>source browsing context</span>'s <span>active window</span> does not have <span>transient
+  activation</span>, the user agent should not invoke the external software package without prior
+  user confirmation.</p>
 
   <p class="example">For example, there could be a vulnerability in the target software's URL
   handler which a hostile page would attempt to exploit by tricking a user into clicking a link.</p>
 
-  <hr>
+  <p>To <dfn data-x="javascript protocol">execute a <code>javascript:</code> URL request</dfn>,
+  given a <span data-x="concept-request">request</span> <var>request</var> and two <span
+  data-x="browsing context">browsing contexts</span> <var>source</var> and
+  <var>browsingContext</var>, run these steps:</p>
 
-  <p>Some of the sections below, to which the above algorithm defers in certain cases, require the
-  user agent to <dfn>update the session history with the new page</dfn>. When a user agent is
-  required to do this, it must <span>queue a task</span> (associated with the <code>Document</code>
-  object of the <span>current entry</span>, not the new one) to run the following steps:</p>
-
-  <ol>
+  <ol id="concept-js-deref">
+   <li><p>Let <var>response</var> be a <span data-x="concept-response">response</span> whose <span
+   data-x="concept-response-status">status</span> is <code data-x="">204</code>.</p></li>
 
    <li>
+    <p>If both of the following are true:</p>
 
-    <p><span data-x="unload a document">Unload</span> the <code>Document</code> object of the
-    <span>current entry</span>, with the <var>recycle</var> parameter set to false.</p>
+    <ul>
+     <li>
+      <p><var>source</var>'s <span>active document</span>'s <span>origin</span> is <span>same
+      origin</span> with <var>browsingContext</var>'s <span>active document</span>'s
+      <span>origin</span>.</p>
+
+      <p class="XXX">As explained in <a href="https://github.com/whatwg/html/issues/2591">issue
+      #2591</a> this step does not work and presents a security issue.</p>
+     </li>
+
+     <li><p>The result of <span>Should navigation request of type be blocked by Content Security
+     Policy?</span> given <var>request</var> and "<code data-x="">other</code>" is "<code
+     data-x="">Allowed</code>". <ref spec="CSP"></p></li>
+    </ul>
+
+    <p>then:</p>
+
+    <ol>
+     <li><p>Let <var>urlString</var> be the result of running the <span
+     data-x="concept-url-serializer">URL serializer</span> on <var>request</var>'s <span
+     data-x="concept-request-url">url</span>.</p></li>
+
+     <li><p>Let <var>encodedScriptSource</var> be the result of removing the leading "<code
+     data-x="">javascript:</code>" from <var>urlString</var>.</p></li>
+
+     <li><p>Let <var>scriptSource</var> be the <span data-x="UTF-8 decode">UTF-8 decoding</span>
+     of the <span data-x="percent-decode">percent-decoding</span> of
+     <var>encodedScriptSource</var>.</p></li>
+
+     <!--
+      <body onload="&#xFFFE;w('test')"> and javascript:%EF%BB%BF'test' both work, so we assume
+      that JavaScript is stripping the BOM, and we don't have to
+     -->
+
+     <!--
+      https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2639 -> about:blank
+      https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2640 -> javascript:'test' in Firefox, about:blank otherwise
+     -->
+
+     <li><p><span data-x="list append">Append</span> <var>browsingContext</var>'s <span>active
+     document</span>'s <span data-x="concept-document-url">URL</span> to <var>request</var>'s <span
+     data-x="concept-request-url-list">URL list</span>.</p></li>
+
+     <li><p>Let <var>settings</var> be <var>browsingContext</var>'s <span>active document</span>'s
+     <span>relevant settings object</span>.</p></li>
+
+     <li><p>Let <var>baseURL</var> be <var>settings</var>'s <span>API base URL</span>.</p></li>
+
+     <li><p>Let <var>script</var> be the result of <span>creating a classic script</span> given
+     <var>scriptSource</var>, <var>settings</var>, <var>baseURL</var>, and the <span>default
+     classic script fetch options</span>.</p></li>
+
+     <li><p>Let <var>evaluationStatus</var> be the result of <span data-x="run a classic
+     script">running the classic script</span> <var>script</var>.</p></li>
+
+     <li><p>Let <var>result</var> be undefined if <var>evaluationStatus</var> is an <span>abrupt
+     completion</span> or <var>evaluationStatus</var>.[[Value]] is empty, or
+     <var>evaluationStatus</var>.[[Value]] otherwise.</p></li>
+
+     <li>
+      <p>If <span data-x="js-Type">Type</span>(<var>result</var>) is String, then set
+      <var>response</var> to a <span data-x="concept-response">response</span> whose <span
+      data-x="concept-response-header-list">header list</span> consists of
+      `<code>Content-Type</code>`/`<code>text/html</code>` and `<code
+      data-x="http-referrer-policy">Referrer-Policy</code>`/<var>settings</var>'s <span>referrer
+      policy</span>, and whose <span data-x="concept-response-body">body</span> is
+      <var>result</var>.</p>
+
+      <p class="XXX">The exact conversion between the string <var>result</var> and the bytes that
+      comprise a <span data-x="concept-response-body">response body</span> is not yet specified,
+      pending further investigation into user agent behavior. See <a
+      href="https://github.com/whatwg/html/issues/1129">issue #1129</a>.</p>
+     </li>
+    </ol>
+   </li>
+
+   <li><p>Return <var>response</var>.</p></li>
+  </ol>
+
+  <p class="XXX">In addition to the specific issues linked above, <code data-x="javascript
+  protocol">javascript:</code> URLs have a <a
+  href="https://github.com/whatwg/html/labels/topic%3A%20javascript%3A%20URLs">dedicated label</a>
+  on the issue tracker documenting various problems with their specification.</p>
+
+  <hr>
+
+  <p>Some of the sections below, to which the above algorithm defers in certain cases, use the
+  following steps to <!--en-GB--><dfn id="initialise-the-document-object"
+  data-x="create-the-document-object">create and initialize a <code>Document</code> object</dfn>,
+  given a <span data-x="concept-document-type">type</span> <var>type</var>, <span
+  data-x="concept-document-content-type">content type</span> <var>contentType</var>, and
+  <span>navigation params</span> <var>navigationParams</var>:</p>
+
+  <ol>
+   <li><p>Let <var>browsingContext</var> be <var>navigationParams</var>'s <span
+   data-x="navigation-params-browsing-context">browsing context</span>.</p></li>
+
+   <li><p>If <var>navigationParams</var>'s <span
+   data-x="navigation-params-bc-switch-needed">browsing context switch needed</span> is true, then
+   set <var>browsingContext</var> to the result of the <span
+   data-x="obtain-browsing-context-navigation">obtain a browsing context to use for a navigation
+   response</span> algorithm, given <var>browsingContext</var>, <var>navigationParams</var>'s <span
+   data-x="navigation-params-sandboxing">final sandboxing flag set</span>, and
+   <var>navigationParams</var>'s <span data-x="navigation-params-coop">cross-origin opener
+   policy</span>.</p></li>
+
+   <li>
+    <p>Let <var>permissionsPolicy</var> be the result of <span>creating a permissions policy from a
+    response</span> given <var>browsingContext</var>, <var>navigationParams</var>'s <span
+    data-x="navigation-params-origin">origin</span>, and <var>navigationParams</var>'s <span
+    data-x="navigation-params-response">response</span>. <ref spec="PERMISSIONSPOLICY"></p>
+
+    <div class="note">
+     <p>The <span>creating a permissions policy from a response</span> algorithm makes use of the
+     passed <span>origin</span>. If <code data-x="dom-document-domain">document.domain</code> has
+     been used for <var>browsingContext</var>'s <span
+     data-x="bc-container-document">container document</span>, then its <span>origin</span> cannot
+     be <span>same origin-domain</span> with the passed origin, because these steps run before the
+     <var>document</var> is created, so it cannot itself yet have used <code
+     data-x="dom-document-domain">document.domain</code>. Note that this means that Permissions
+     Policy checks are less permissive compared to doing a <span>same origin</span> check instead.</p>
+
+     <p>See below for some examples of this in action.</p>
+    </div>
+   </li>
+
+   <li><p>Let <var>creationURL</var> be <var>navigationParams</var>'s <span
+   data-x="navigation-params-response">response</span>'s <span
+   data-x="concept-response-url">URL</span>.</p></li>
+
+   <li><p>If <var>navigationParams</var>'s <span data-x="navigation-params-request">request</span>
+   is non-null, then set <var>creationURL</var> to <var>navigationParams</var>'s <span
+   data-x="navigation-params-request">request</span>'s <span
+   data-x="concept-request-current-url">current URL</span>.</p></li>
+
+   <li><p>If <var>browsingContext</var>'s only entry in its <span>session history</span> is the
+   initial <code>about:blank</code> <code>Document</code> that was added when that <span>browsing
+   context</span> was <span data-x="creating a new browsing context">created</span>, and
+   <var>navigationParams</var>'s <span data-x="navigation-params-hh">history handling</span> is
+   "<code data-x="hh-replace">replace</code>", and that <code>Document</code>'s <span>origin</span>
+   is <span>same origin-domain</span> with <var>navigationParams</var>'s <span
+   data-x="navigation-params-origin">origin</span>, then do nothing.</p></li>
+
+   <li>
+    <p>Otherwise:</p>
+
+    <ol>
+     <li><p>Let <var>oiHeader</var> be the result of <span>getting a structured field value</span>
+     given `<code data-x="http-origin-isolation">Origin-Isolation</code>` and "<code
+     data-x="">item</code>" from <var>response</var>'s <span
+     data-x="concept-response-header-list">header list</span>.</p></li>
+
+     <li><p>Let <var>requestsOI</var> be true if <var>oiHeader</var> is not
+     null and <var>oiHeader</var>[0] is the <span
+     data-x="http-structured-header-boolean">boolean</span> true; otherwise false.</p></li>
+
+     <li><p>If <var>reservedEnvironment</var> is a <span>non-secure context</span>, then set
+     <var>requestsOI</var> to false.</p></li>
+
+     <li><p>Let <var>agent</var> be the result of <span
+     data-x="obtain-similar-origin-window-agent">obtaining a similar-origin window agent</span>
+     given <var>navigationParams</var>'s <span data-x="navigation-params-origin">origin</span>,
+     <var>browsingContext</var>'s <span data-x="tlbc group">group</span>, and
+     <var>requestsOI</var>.</p></li>
+
+     <li>
+      <p>Let <var>realm execution context</var> be the result of <span>creating a new JavaScript
+      realm</span> given <var>agent</var> and the following customizations:</p>
+
+      <ul>
+       <li><p>For the global object, create a new <code>Window</code> object.</p></li>
+
+       <li><p>For the global <b>this</b> binding, use <var>browsingContext</var>'s
+       <code>WindowProxy</code> object.</p></li>
+      </ul>
+     </li>
+
+     <li><p>Let <var>topLevelCreationURL</var> be <var>creationURL</var>.</p></li>
+
+     <li><p>Let <var>topLevelOrigin</var> be <var>navigationParams</var>'s <span
+     data-x="navigation-params-request">origin</span>.</p></li>
+
+     <li>
+      <p>If <var>browsingContext</var> is not a <span>top-level browsing context</span>, then:</p>
+
+      <ol>
+       <li><p>Let <var>parentEnvironment</var> be <var>browsingContext</var>'s <span
+       data-x="bc-container">container</span>'s <span>relevant settings object</span>.</p></li>
+
+       <li><p>Set <var>topLevelCreationURL</var> to <var>parentEnvironment</var>'s <span>top-level
+       creation URL</span>.</p></li>
+
+       <li><p>Set <var>topLevelOrigin</var> to <var>parentEnvironment</var>'s <span>top-level
+       origin</span>.</p></li>
+      </ol>
+     </li>
+
+     <li><p><span>Set up a window environment settings object</span> with <var>realm execution
+     context</var>, <var>navigationParams</var>'s <span
+     data-x="navigation-params-reserved-environment">reserved environment</span>,
+     <var>topLevelCreationURL</var>, and <var>topLevelOrigin</var>.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Let <var>document</var> be a new <code>Document</code>, whose <span
+   data-x="concept-document-type">type</span> is <var>type</var>, <span
+   data-x="concept-document-content-type">content type</span> is <var>contentType</var>,
+   <span>origin</span> is <var>navigationParams</var>'s <span
+   data-x="navigation-params-origin">origin</span>, <span
+   data-x="concept-document-permissions-policy">permissions policy</span> is
+   <var>permissionsPolicy</var>, <span>active sandboxing flag set</span> is
+   <var>navigationParams</var>'s <span data-x="navigation-params-sandboxing">final sandboxing flag
+   set</span>, and <span data-x="concept-document-coop">cross-origin opener policy</span> is
+   <var>navigationParams</var>'s <span data-x="navigation-params-coop">cross-origin opener
+   policy</span>.</p></li>
+
+   <li id="set-the-document's-address"><p>Set <var>document</var>'s <span
+   data-x="concept-document-url">URL</span> to <var>creationURL</var>.</p></li>
+
+   <li><p>Set <var>document</var>'s <span data-x="concept-document-referrer-policy">referrer
+   policy</span> to the result of <span data-x="parse-referrer-policy-header">parsing the
+   `<code>Referrer-Policy</code>` header</span> of <var>navigationParams</var>'s <span
+   data-x="navigation-params-response">response</span>. <ref spec="REFERRERPOLICY"></p></li>
+
+   <li><p>Set <var>document</var>'s <span data-x="concept-document-embedder-policy">embedder
+   policy</span> to the result of <span data-x="obtain an embedder policy">obtaining an embedder
+   policy</span> from <var>navigationParams</var>'s <span
+   data-x="navigation-params-response">response</span>.</p></li>
+
+   <li><p><span>Initialize a <code data-x="">Document</code>'s CSP list</span> given
+   <var>document</var>, <var>navigationParams</var>'s <span
+   data-x="navigation-params-response">response</span>, and <var>navigationParams</var>'s <span
+   data-x="navigation-params-request">request</span>. <ref spec="CSP"></p>
+
+   <li>
+    <p>If <var>navigationParams</var>'s <span data-x="navigation-params-request">request</span> is
+    non-null, then:</p>
+
+    <ol>
+     <li><p>Set <var>document</var>'s <span data-x="the document's referrer">referrer</span> to the
+     empty string.</p></li>
+
+     <li><p>Let <var>referrer</var> be <var>navigationParams</var>'s <span
+     data-x="navigation-params-request">request</span>'s <span
+     data-x="concept-request-referrer">referrer</span>.</p></li>
+
+     <li>
+      <p>If <var>referrer</var> is a <span>URL record</span>, then set <var>document</var>'s <span
+      data-x="the document's referrer">referrer</span> to the <span
+      data-x="concept-url-serializer">serialization</span> of <var>referrer</var>.</p>
+
+      <p class="note">Per <cite>Fetch</cite>, <var>referrer</var> will be either a <span>URL
+      record</span> or "<code data-x="">no-referrer</code>" at this point.</p>
+     </li>
+    </ol>
+   </li>
+
+   <li>
+    <p>If <var>navigationParams</var>'s <span data-x="navigation-params-response">response</span>
+    has a `<code data-x="http-refresh">Refresh</code>` header, then:</p>
+
+    <ol>
+     <li><p>Let <var>value</var> be the <span data-x="isomorphic decode">isomorphic decoding</span>
+     of the value of the header.</p></li>
+
+     <li><p>Run the <span>shared declarative refresh steps</span> with <var>document</var> and
+     <var>value</var>.</p></li>
+    </ol>
+
+    <p class="XXX">We do not currently have a spec for how to handle multiple `<code
+    data-x="http-refresh">Refresh</code>` headers. This is tracked as <a
+    href="https://github.com/whatwg/html/issues/2900">issue #2900</a>.</p>
+   </li>
+
+   <li><p>Return <var>document</var>.</p></li>
+  </ol>
+
+  <div class="example">
+   <p>In this example, the child document is not allowed to use <code>PaymentRequest</code>,
+   despite being <span>same origin-domain</span> at the time the child document tries to use
+   it. At the time the child document is initialized, only the parent document has set <code
+   data-x="dom-document-domain">document.domain</code>, and the child document has not.</p>
+
+   <pre><code class="html">&lt;!-- https://foo.example.com/a.html -->
+&lt;!doctype html>
+&lt;script>
+document.domain = 'example.com';
+&lt;/script>
+&lt;iframe src=b.html>&lt;/iframe></code></pre>
+
+  <pre><code class="html">&lt;!-- https://bar.example.com/b.html -->
+&lt;!doctype html>
+&lt;script>
+document.domain = 'example.com'; // This happens after the document is initialized
+new PaymentRequest(&hellip;); // Not allowed to use
+&lt;/script></code></pre>
+  </div>
+
+  <div class="example">
+   <p>In this example, the child document <em>is</em> allowed to use
+   <code>PaymentRequest</code>, despite not being <span>same origin-domain</span> at the time
+   the child document tries to use it. At the time the child document is initialized, none of
+   the documents have set <code data-x="dom-document-domain">document.domain</code> yet so
+   <span>same origin-domain</span> falls back to a normal <span>same origin</span> check.</p>
+
+   <pre><code class="html">&lt;!-- https://example.com/a.html -->
+&lt;!doctype html>
+&lt;iframe src=b.html>&lt;/iframe>
+&lt;!-- The child document is now initialized, before the script below is run. -->
+&lt;script>
+document.domain = 'example.com';
+&lt;/script></code></pre>
+
+   <pre><code class="html">&lt;!-- https://example.com/b.html -->
+&lt;!doctype html>
+&lt;script>
+new PaymentRequest(&hellip;); // Allowed to use
+&lt;/script></code></pre>
+  </div>
+
+  <p>Some of the sections below, to which the above algorithm defers in certain cases, require the
+  user agent to <dfn>update the session history with the new page</dfn>, given some <span>navigation
+  params</span> <var>navigationParams</var>. When a user agent is required to do this, it must
+  <span>queue a global task</span> on the <span>networking task source</span>, given the
+  <span>relevant global object</span> of the <code>Document</code> object of the <span>current
+  entry</span> (not the new one), to run the following steps:</p>
+
+  <ol>
+   <li><p>Let <var>newDocument</var> be <var>navigationParams</var>'s <span
+   data-x="navigation-params-browsing-context">browsing context</span>'s <span>active
+   document</span>.</p></li>
+
+   <li>
+    <p><span data-x="unload a document">Unload</span> the <span
+    data-x="she-document">document</span> of the <span>current entry</span>.</p>
 
     <p>If this instance of the <span data-x="navigate">navigation</span> algorithm is canceled while
     this step is running the <span>unload a document</span> algorithm, then the <span>unload a
@@ -797,99 +1188,94 @@
     data-x="navigate">navigation</span> algorithm must not run beyond this step. (In particular, for
     instance, the cancelation of this algorithm does not abort any event dispatch or script
     execution occurring as part of unloading the document or its descendants.)</p>
-
    </li>
 
    <li>
-
     <dl>
-
-     <dt>If the navigation was initiated for <dfn>entry update</dfn> of an entry</dt>
+     <dt>If <var>navigationParams</var>'s <span data-x="navigation-params-hh">history
+     handling</span> is "<code data-x="hh-reload">reload</code>" or "<code
+     data-x="hh-entry-update">entry update</code>"</dt>
 
      <dd>
-
       <ol>
+       <li><p>Replace the <span data-x="she-document">document</span> of the <span>current
+       entry</span>, and any other entries that reference the same <span
+       data-x="she-document">document</span> as that entry, with <var>newDocument</var>.</p></li>
 
-       <li><p>Replace the <code>Document</code> of the entry being updated, and any other entries
-       that referenced the same document as that entry, with the new <code>Document</code>.</p></li>
-
-       <li><p><span>Traverse the history</span> to the new entry.</p></li>
-
+       <li><p><span>Traverse the history</span> to the <span>current entry</span>.</p></li>
       </ol>
-
      </dd>
 
      <dt>If the navigation was initiated with a <span>URL</span> that <span
-     data-x="concept-url-equals">equals</span> the <span>browsing context</span>'s <span>active
-     document</span>'s <span data-x="concept-document-url">URL</span></dt>
+     data-x="concept-url-equals">equals</span> <var>newDocument</var>'s <span
+     data-x="concept-document-url">URL</span></dt>
 
      <dd>
       <ol>
-       <li><p>Replace the <span>current entry</span> with a new entry representing the new resource
-       and its <code>Document</code> object, related state, and the default <span>scroll restoration
-       mode</span> of "<code data-x="dom-ScrollRestoration-auto">auto</code>".</p></li>
-       <!-- matches entry creation prose below -->
+       <li><p>Replace the <span>current entry</span> with a new <span>session history entry</span>
+       whose <span data-x="she-url">URL</span> is <var>newDocument</var>'s <span
+       data-x="concept-document-url">URL</span> and <span data-x="she-document">document</span> is
+       <var>newDocument</var>.</p></li>
 
-       <li><p><span>Traverse the history</span> to the new entry.</p></li>
+       <li><p><span>Traverse the history</span> to the <span>current entry</span>.</p></li>
       </ol>
      </dd>
 
      <dt>Otherwise</dt>
 
      <dd>
-
       <ol>
-
        <li>
-
-        <p>Remove all the entries in the <span>browsing context</span>'s <span>session
-        history</span> after the <span>current entry</span>. If the <span>current entry</span> is
-        the last entry in the session history, then no entries are removed.</p>
+        <p>Remove all the entries in the <span>session history</span> after the <span>current
+        entry</span>. If the <span>current entry</span> is the last entry in the session history,
+        then no entries are removed.</p>
 
         <p class="note">This <a href="#history-notes">doesn't necessarily have to affect</a> the
         user agent's user interface.</p>
-
        </li>
 
-       <li><p>Append a new entry at the end of the <code>History</code> object representing the new
-       resource and its <code>Document</code> object, related state, and the default <span>scroll
-       restoration mode</span> of "<code data-x="dom-ScrollRestoration-auto">auto</code>".</p></li>
-       <!-- matches entry creation prose above -->
+       <li><p>Append a new <span>session history entry</span> to the <span>session history</span>,
+       whose <span data-x="she-url">URL</span> is <var>newDocument</var>'s <span
+       data-x="concept-document-url">URL</span> and <span data-x="she-document">document</span> is
+       <var>newDocument</var>.</p></li>
 
-       <li><p><span>Traverse the history</span> to the new entry. If the navigation was initiated
-       with <span>replacement enabled</span>, then the traversal must itself be initiated with
-       <span>replacement enabled</span>.</p>
-
-       </li>
-
+       <li><p><span>Traverse the history</span> to the new entry, with <var
+       data-x="traverse-history-hh">historyHandling</var> set to <var>navigationParams</var>'s <span
+       data-x="navigation-params-hh">history handling</span>.</p></li>
       </ol>
-
      </dd>
-
     </dl>
-
    </li>
 
    <li><p>The <span data-x="navigate">navigation algorithm</span> has now <dfn
    data-x="concept-navigate-mature">matured</dfn>.</p></li>
 
-   <li><p><i>Fragment loop</i>: <span>Spin the event loop</span> for a user-agent-defined amount of
-   time, as desired by the user agent implementer. (This is intended to allow the user agent to
-   optimize the user experience in the face of performance concerns.)</p></li>
-
-   <li><p>If the <code>Document</code> object has no parser, or its parser has <span data-x="stop
-   parsing">stopped parsing</span>, or the user agent has reason to believe the user is no longer
-   interested in scrolling to the <span data-x="concept-url-fragment">fragment</span>, then
-   return.</p></li>
-
-   <li><p><span>Scroll to the fragment</span> given in the document's <span
-   data-x="concept-document-url">URL</span>. If this fails to find <span data-x="the indicated part
-   of the document">an indicated part of the document</span>, then return to the <i>fragment
-   loop</i> step.</p></li>
-
+   <li><p><span>Try to scroll to the fragment</span> for <var>newDocument</var>.</p></li>
   </ol>
 
-  <p>The <span>task source</span> for this <span data-x="concept-task">task</span> is the
-  <span>networking task source</span>.</p>
+  <p>To <dfn>try to scroll to the fragment</dfn> for a <code>Document</code> <var>document</var>,
+  perform the following steps <span>in parallel</span>:</p>
+
+  <ol>
+   <li><p>Wait for an <span>implementation-defined</span> amount of time. (This is intended to allow
+   the user agent to optimize the user experience in the face of performance concerns.)</p></li>
+
+   <li>
+    <p><span>Queue a global task</span> on the <span>networking task source</span> given
+    <var>document</var>'s <span>relevant global object</span> to run these steps:</p>
+
+    <ol>
+     <li><p>If <var>document</var> has no parser, or its parser has <span data-x="stop
+     parsing">stopped parsing</span>, or the user agent has reason to believe the user is no longer
+     interested in scrolling to the <span data-x="concept-url-fragment">fragment</span>, then abort
+     these steps.</p></li>
+
+     <li><p><span>Scroll to the fragment</span> given in <var>document</var>'s <span
+     data-x="concept-document-url">URL</span>. If this does not find <span data-x="the indicated
+     part of the document">an indicated part of the document</span>, then <span>try to scroll to the
+     fragment</span> for <var>document</var>.</p></li>
+    </ol>
+   </li>
+  </ol>
 
 

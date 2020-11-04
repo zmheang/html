@@ -1,15 +1,16 @@
   <h5>Submitting element directionality: the <code data-x="attr-fe-dirname">dirname</code> attribute</h5>
 
-  <p>The <dfn><code data-x="attr-fe-dirname">dirname</code></dfn> attribute on a form control
-  element enables the submission of <span>the directionality</span> of the element, and gives the
-  name of the control that contains this value during <span>form submission</span>. If such an
-  attribute is specified, its value must not be the empty string.</p>
+  <p>The <dfn element-attr for="button,fieldset,input,object,output,select,textarea"><code
+  data-x="attr-fe-dirname">dirname</code></dfn> attribute on a form control element enables the
+  submission of <span>the directionality</span> of the element, and gives the name of the control
+  that contains this value during <span>form submission</span>. If such an attribute is specified,
+  its value must not be the empty string.</p>
 
   <div class="example">
 
    <p>In this example, a form contains a text control and a submission button:</p>
 
-   <pre><code class="html" data-x="">&lt;form action="addcomment.cgi" method=post>
+   <pre><code class="html">&lt;form action="addcomment.cgi" method=post>
  &lt;p>&lt;label>Comment: &lt;input type=text name="comment" dirname="comment.dir" required>&lt;/label>&lt;/p>
  &lt;p>&lt;button name="mode" type=submit value="add">Post Comment&lt;/button>&lt;/p>
 &lt;/form></code></pre>

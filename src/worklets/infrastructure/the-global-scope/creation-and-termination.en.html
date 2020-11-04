@@ -1,0 +1,103 @@
+  <h5 id="worklets-creation-termination">Creation and termination</h5>
+
+  <p>To <dfn export>create a worklet global scope</dfn> for a <code>Worklet</code>
+  <var>worklet</var>:</p>
+
+  <ol>
+   <li><p>Let <var>outsideSettings</var> be <var>worklet</var>'s <span>relevant settings
+   object</span>.</p></li>
+
+   <li><p>Let <var>agent</var> be the result of <span data-x="obtain a worklet agent">obtaining a
+   worklet agent</span> given <var>outsideSettings</var>. Run the rest of these steps in that
+   agent.</p></li>
+
+   <li>
+    <p>Let <var>realmExecutionContext</var> be the result of <span>creating a new JavaScript
+    realm</span> given <var>agent</var> and the following customizations:</p>
+
+    <ul>
+     <li><p>For the global object, create a new object of the type given by <var>worklet</var>'s
+     <span>worklet global scope type</span>.</p></li>
+    </ul>
+   </li>
+
+   <li><p>Let <var>workletGlobalScope</var> be the <span data-x="concept-realm-global">global
+   object</span> of <var>realmExecutionContext</var>'s Realm component.</p></li>
+
+   <li><p>Let <var>insideSettings</var> be the result of <span data-x="set up a worklet environment
+   settings object">setting up a worklet environment settings object</span> given
+   <var>realmExecutionContext</var> and <var>outsideSettings</var>.</p></li>
+
+   <li><p><span>Initialize a global object's CSP list</span> given <var>workletGlobalScope</var>.
+   <ref spec=CSP></p></li>
+
+   <li>
+    <p><span data-x="list iterate">For each</span> <var>moduleURL</var> of <var>worklet</var>'s
+    <span data-x="concept-Worklet-added-modules-list">added modules list</span>:</p>
+
+    <ol>
+     <li>
+      <p><span>Fetch a worklet script graph</span> given <var>moduleURL</var>,
+      <var>insideSettings</var>, <var>worklet</var>'s <span>worklet destination type</span>, <span
+      class="XXX">what credentials mode?</span>, <var>insideSettings</var>, and <var>worklet</var>'s
+      <span data-x="concept-Worklet-module-responses-map">module responses map</span>. Wait until
+      the algorithm asynchronously completes with <var>script</var>.</p>
+
+      <p class="note">This will not actually perform a network request, as it will just reuse <span
+      data-x="concept-response">responses</span> from <var>worklet</var>'s <span
+      data-x="concept-Worklet-module-responses-map">module responses map</span>. The main
+      purpose of this step is to create a new <var>workletGlobalScope</var>-specific <span>module
+      script</span> from the <span data-x="concept-response">response</span>.</p>
+     </li>
+
+     <li><p>Assert: <var>script</var> is not null, since the fetch succeeded and the source text was
+     successfully parsed when <var>worklet</var>'s <span
+     data-x="concept-Worklet-module-responses-map">module responses map</span> was initially
+     populated with <var>moduleURL</var>.</p></li>
+
+     <li><p><span>Run a module script</span> given <var>script</var>.</p></li>
+    </ol>
+   </li>
+
+   <li><p><span data-x="list append">Append</span> <var>workletGlobalScope</var> to
+   <var>outsideSettings</var>'s <span data-x="concept-settings-object-global">global object</span>'s
+   <span data-x="concept-document-window">associated <code>Document</code></span>'s <span
+   data-x="concept-Document-worklet-global-scopes">worklet global scopes</span>.</p></li>
+
+   <li><p><span data-x="list append">Append</span> <var>workletGlobalScope</var> to
+   <var>worklet</var>'s <span data-x="concept-Worklet-global-scopes">global scopes</span>.</p></li>
+
+   <li><p>Run the <span>responsible event loop</span> specified by
+   <var>insideSettings</var>.</p></li>
+  </ol>
+
+  <p>To <dfn export>terminate a worklet global scope</dfn> given a <code>WorkletGlobalScope</code>
+  <var>workletGlobalScope</var>:</p>
+
+  <ol>
+   <li><p>Let <var>eventLoop</var> be <var>workletGlobalScope</var>'s <span>relevant agent</span>'s
+   <span data-x="concept-agent-event-loop">event loop</span>.</p></li>
+
+   <li><p>If there are any <span data-x="concept-task">tasks</span> queued in <var>eventLoop</var>'s
+   <span data-x="task queue">task queues</span>, discard them without processing them.</p></li>
+
+   <li><p>Wait for <var>eventLoop</var> to complete the <span>currently running
+   task</span>.</p></li>
+
+   <li><p>If the previous step doesn't complete within an <span>implementation-defined</span> period
+   of time, then <span data-x="abort a running script">abort the script</span> currently running in
+   the worklet.</p></li>
+
+   <li><p>Destroy <var>eventLoop</var>.</p></li>
+
+   <li><p><span data-x="list remove">Remove</span> <var>workletGlobalScope</var> from the <span
+   data-x="concept-Worklet-global-scopes">global scopes</span> of the <code>Worklet</code> whose
+   <span data-x="concept-Worklet-global-scopes">global scopes</span> contains
+   <var>workletGlobalScope</var>.</p></li>
+
+   <li><p><span data-x="list remove">Remove</span> <var>workletGlobalScope</var> from the <span
+   data-x="concept-Document-worklet-global-scopes">worklet global scopes</span> of the
+   <code>Document</code> whose <span data-x="concept-Document-worklet-global-scopes">worklet global
+   scopes</span> contains <var>workletGlobalScope</var>.</p></li>
+  </ol>
+

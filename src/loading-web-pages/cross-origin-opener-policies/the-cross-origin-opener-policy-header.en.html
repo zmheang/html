@@ -1,0 +1,56 @@
+  <h4>The `<code data-x="http-cross-origin-opener-policy">Cross-Origin-Opener-Policy</code>`
+  header</h4>
+
+  <p>A <code>Document</code>'s <span data-x="concept-document-coop">cross-origin opener
+  policy</span> is derived from the `<code
+  data-x="http-cross-origin-opener-policy">Cross-Origin-Opener-Policy</code>` HTTP response header.
+  This header is a <span data-x="http-structured-header">structured header</span> whose value must
+  be a <span data-x="http-structured-header-token">token</span>. <ref spec=STRUCTURED-FIELDS></p>
+
+  <p>The valid <span data-x="http-structured-header-token">token</span> values are "<code
+  data-x="coop-unsafe-none">unsafe-none</code>", "<code
+  data-x="coop-same-origin-allow-popups">same-origin-allow-popups</code>", and "<code
+  data-x="coop-same-origin">same-origin</code>".</p>
+
+  <p class="note">Per the processing model described below, user agents will ignore this header if
+  it contains an invalid value. Likewise, user agents will ignore this header if the value cannot be
+  parsed as a <span data-x="http-structured-header-token">token</span>.</p>
+
+  <hr>
+
+  <p>To <dfn data-x="obtain-coop">obtain a cross-origin opener policy</dfn> given a <span
+  data-x="concept-response">response</span> <var>response</var> and an <span>environment</span>
+  <var>reservedEnvironment</var>:</p>
+
+  <ol>
+   <li><p>If <var>reservedEnvironment</var> is a <span>non-secure context</span>, then return
+   "<code data-x="coop-unsafe-none">unsafe-none</code>".</p></li>
+
+   <li><p>Let <var>value</var> be the result of <span>getting a structured field value</span> given
+   `<code data-x="http-cross-origin-opener-policy">Cross-Origin-Opener-Policy</code>` and "<code
+   data-x="">item</code>" from <var>response</var>'s <span
+   data-x="concept-response-header-list">header list</span>.</p></li>
+
+   <li><p>If <var>value</var> is null, then return "<code
+   data-x="coop-unsafe-none">unsafe-none</code>".</p></li>
+
+   <li><p>If <var>value</var>[0] is not "<code data-x="coop-same-origin">same-origin</code>" or
+   "<code data-x="coop-same-origin-allow-popups">same-origin-allow-popups</code>", then return
+   "<code data-x="coop-unsafe-none">unsafe-none</code>".</p></li>
+
+   <li>
+    <p>If <var>value</var>[0] is "<code data-x="coop-same-origin">same-origin</code>", then:</p>
+
+    <ol>
+     <li><p>Let <var>coep</var> be the result of <span data-x="obtain an embedder policy">obtaining
+     an embedder policy</span> from <var>response</var>.</p></li>
+
+     <li><p>If <var>coep</var>'s <span data-x="embedder-policy-value">value</span> is
+     "<code data-x="">require-corp</code>", then return "<code
+     data-x="coop-same-origin-plus-COEP">same-origin-plus-COEP</code>".</p></li>
+    </ol>
+   </li>
+
+   <li><p>Return <var>value</var>[0].</p></li>
+  </ol>
+

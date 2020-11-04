@@ -1,0 +1,200 @@
+  <h4 id="nested-browsing-contexts">Related browsing contexts</h4>
+
+  <p>Certain elements (for example, <code>iframe</code> elements) can instantiate further <span
+  data-x="browsing context">browsing contexts</span>. These elements are called <dfn
+  data-x="browsing context container" export data-lt="browsing context container">browsing context
+  containers</dfn>.</p>
+
+  <p>Each <span>browsing context container</span> has a <dfn export>nested browsing context</dfn>,
+  which is either a <span>browsing context</span> or null. It is initially null.</p>
+
+  <p>The <dfn data-x="bc-container">container</dfn> of a <span>browsing context</span> <var>bc</var>
+  is the <span>browsing context container</span> whose <span>nested browsing context</span> is
+  <var>bc</var>, or null if there is no such element.</p>
+
+  <p>Each <span>browsing context</span> <var>bc</var> has a <dfn
+  data-x="bc-container-document">container document</dfn>, which is the result of running these
+  steps:</p>
+
+  <ol>
+   <li><p>If <var>bc</var>'s <span data-x="bc-container">container</span> is null, then return
+   null.</p></li>
+
+   <li>
+    <p>Return <var>bc</var>'s <span data-x="bc-container">container</span>'s <span>node
+    document</span>.</p>
+
+    <p class="note">This is equal to <var>bc</var>'s <span data-x="bc-container">container</span>'s
+    <span>shadow-including root</span> as <var>bc</var>'s <span
+    data-x="bc-container">container</span> has to be <span>connected</span>.</p>
+   </li>
+  </ol>
+
+  <p>A <span>browsing context</span> <var>child</var> is said to be a <dfn export>child browsing
+  context</dfn> of another <span>browsing context</span> <var>parent</var>, if <var>child</var>'s
+  <span data-x="bc-container-document">container document</span> is non-null and <var>child</var>'s
+  <span data-x="bc-container-document">container document</span>'s <span
+  data-x="concept-document-bc">browsing context</span> is <var>parent</var>.</p>
+
+  <p>A <span>browsing context</span> <var>child</var> is a <dfn>document-tree child browsing
+  context</dfn> of <var>parent</var> if <var>child</var> is a <span>child browsing context</span>
+  and <var>child</var>'s <span data-x="bc-container">container</span> is <span>in a document
+  tree</span>.</p>
+
+  <p>A <span>browsing context</span> <var>child</var> may have a <dfn export>parent browsing
+  context</dfn>. This is the unique <span>browsing context</span> that has <var>child</var> as a
+  <span>child browsing context</span>, if any such browsing context exists. Otherwise, the
+  <span>browsing context</span> has no <span>parent browsing context</span>.</p>
+
+  <p>A <span>browsing context</span> <var>A</var> is said to be an <dfn data-x="ancestor browsing
+  context" export data-lt="ancestor browsing context">ancestor</dfn> of a browsing context
+  <var>B</var> if there exists a browsing context <var>A'</var> that is a <span>child browsing
+  context</span> of <var>A</var> and that is itself an <span data-x="ancestor browsing
+  context">ancestor</span> of <var>B</var>, or if the browsing context <var>A</var> is the
+  <span>parent browsing context</span> of <var>B</var>.</p>
+
+  <p>A <span>browsing context</span> that has no <span>parent browsing context</span> is the <dfn
+  export>top-level browsing context</dfn> for itself and all of the browsing contexts for which it
+  is an <span>ancestor browsing context</span>.</p>
+
+  <p>A <span>top-level browsing context</span> has an associated <dfn data-x="tlbc
+  group">group</dfn> (null or a <span>browsing context group</span>). It is initially null.</p>
+
+  <p>It is possible to create new browsing contexts that are related to a <span>top-level browsing
+  context</span> while their <span data-x="bc-container">container</span> is null. Such browsing
+  contexts are called <dfn data-x="auxiliary browsing context" data-lt="auxiliary browsing context"
+  export>auxiliary browsing contexts</dfn>. Auxiliary browsing contexts are always <span
+  data-x="top-level browsing context">top-level browsing contexts</span>.</p>
+
+  <p>The transitive closure of <span data-x="parent browsing context">parent browsing
+  contexts</span> for a <span>browsing context</span> that is a <span>child browsing context</span>
+  gives the list of <span data-x="ancestor browsing context">ancestor browsing contexts</span>.</p>
+
+  <p>The <dfn>list of the descendant browsing contexts</dfn> of a <code>Document</code> <var>d</var>
+  is the (ordered) list returned by the following algorithm:</p>
+
+  <ol>
+   <li><p>Let <var>list</var> be an empty <span>list</span>.</p></li>
+
+   <li>
+    <p>For each <span>browsing context container</span> <var>container</var>, whose <span>nested
+    browsing context</span> is non-null and whose <span>shadow-including root</span> is
+    <var>d</var>, in <span>shadow-including tree order</span>:</p>
+
+    <ol>
+     <li><p>Let <var>nestedBC</var> be <var>container</var>'s <span>nested browsing
+     context</span>.</p></li>
+
+     <li><p><span data-x="list append">Append</span> <var>nestedBC</var> to
+     <var>list</var>.</p></li>
+
+     <li><p><span data-x="list extend">Extend</span> <var>list</var> with the <span>list of the
+     descendant browsing contexts</span> of <var>nestedBC</var>'s <span>active
+     document</span>.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Return <var>list</var>.</p></li>
+  </ol>
+
+  <p>A <code>Document</code> <var>d</var> is said to be <dfn export for="Document">fully
+  active</dfn> when <var>d</var>'s <span data-x="concept-document-bc">browsing context</span> is
+  non-null, <var>d</var>'s <span data-x="concept-document-bc">browsing context</span>'s <span>active
+  document</span> is <var>d</var>, and either <var>d</var>'s <span
+  data-x="concept-document-bc">browsing context</span> is a <span>top-level browsing context</span>,
+  or <var>d</var>'s <span data-x="bc-container-document">container document</span> is <span>fully
+  active</span>.</p>
+
+  <p>Because they are associated with an element, <span data-x="child browsing context">child
+  browsing contexts</span> are always tied to a specific <code>Document</code> in their <span>parent
+  browsing context</span>. User agents must not allow the user to interact with <span data-x="child
+  browsing context">child browsing contexts</span> of elements that are in <code>Document</code>s
+  that are not themselves <span>fully active</span>.</p>
+
+  <div class="example">
+   <p>The following example illustrates the differences between <span data-x="active
+   document">active</span> and <span>fully active</span> <code>Document</code> objects. Here <code
+   data-x="">a.html</code> is loaded into a browser window, <code data-x="">b-1.html</code> starts
+   out loaded into an <code>iframe</code> as shown, and <code data-x="">b-2.html</code> and <code
+   data-x="">c.html</code> are omitted (they can simply be an empty document).</p>
+
+   <pre><code data-x="" class="html">&lt;!-- a.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;title>Browsing context A&lt;/title>
+
+&lt;iframe src="b-1.html">&lt;/iframe>
+&lt;button onclick="frames[0].location.href = 'b-2.html'">Click me&lt;/button>
+
+&lt;!-- b-1.html -->
+&lt;!DOCTYPE html>
+&lt;html lang="en">
+&lt;title>Browsing context B&lt;/title>
+
+&lt;iframe src="c.html">&lt;/iframe></code></pre>
+
+   <p>At this point, the documents given by <code data-x="">a.html</code>, <code
+   data-x="">b-1.html</code>, and <code data-x="">c.html</code> are all the <span data-x="active
+   document">active documents</span> of their respective <span data-x="concept-document-bc">browsing
+   contexts</span>. They are also all <span>fully active</span>.</p>
+
+   <p>After clicking on the <code>button</code>, and thus loading a new <code>Document</code> from
+   <code data-x="">b-2.html</code> into browsing context B, we have the following results:</p>
+
+   <ul>
+    <li><p>The <code data-x="">a.html</code> <code>Document</code> remains both the <span>active
+    document</span> of browsing context A, and <span>fully active</span>.</p></li>
+
+    <li><p>The <code data-x="">b-1.html</code> <code>Document</code> is now <em>not</em> the
+    <span>active document</span> of browsing context B. As such it is also not <span>fully
+    active</span>.</p></li>
+
+    <li><p>The new <code data-x="">b-2.html</code> <code>Document</code> is now the <span>active
+    document</span> of browsing context B, and is also <span>fully active</span>.</p></li>
+
+    <li><p>The <code data-x="">c.html</code> <code>Document</code> is still the <span>active
+    document</span> of browsing context C. However, since C's <span
+    data-x="bc-container-document">container document</span> is the <code data-x="">b-1.html</code>
+    <code>Document</code>, which is itself not <span>fully active</span>, this means the <code
+    data-x="">c.html</code> <code>Document</code> is now not <span>fully active</span> (even though
+    it is <span data-x="active document">active</span>).</p></li>
+   </ul>
+
+   <p>For more explorations of the complexities involved here, especially as it impacts <a
+   href="#history">the session history</a>, see <cite>A Model of Navigation History</cite>. <ref
+   spec=NAVMODEL></p>
+  </div>
+
+  <p>A <span>child browsing context</span> can be put into a <dfn>delaying <code
+  data-x="event-load">load</code> events mode</dfn>. This is used when it is <span
+  data-x="navigate">navigated</span>, to <span>delay the load event</span> of its
+  <span data-x="bc-container">container</span> before the new <code>Document</code> is created.</p>
+
+  <p>The <dfn>document family</dfn> of a <span>browsing context</span> consists of the union of all
+  the <code>Document</code> objects in that <span>browsing context</span>'s <span>session
+  history</span> and the <span data-x="document family">document families</span> of all those
+  <code>Document</code> objects. The <span>document family</span> of a <code>Document</code> object
+  consists of the union of all the <span data-x="document family">document families</span> of the
+  <span data-x="browsing context">browsing contexts</span> in the <span>list of the descendant
+  browsing contexts</span> of the <code>Document</code> object.</p>
+
+  <p>The <dfn data-x="concept-bcc-content-document">content document</dfn> of a <span>browsing
+  context container</span> <var>container</var> is the result of the following algorithm:</p>
+
+  <ol>
+   <li><p>If <var>container</var>'s <span>nested browsing context</span> is null, then return
+   null.</p></li>
+
+   <li><p>Let <var>context</var> be <var>container</var>'s <span>nested browsing
+   context</span>.</p></li>
+
+   <li><p>Let <var>document</var> be <var>context</var>'s <span>active document</span>.</p></li>
+
+   <li><p>If <var>document</var>'s <span>origin</span> and <var>container</var>'s <span>node
+   document</span>'s <span>origin</span> are not <span>same origin-domain</span>, then return
+   null.</p></li>
+
+   <li><p>Return <var>document</var>.</p></li>
+  </ol>
+
+

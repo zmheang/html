@@ -1,14 +1,15 @@
-  <h4>Names: the <dfn><code data-x="attr-itemprop">itemprop</code></dfn> attribute</h4>
+  <h4>Names: the <dfn element-attr for="html-global"><code
+  data-x="attr-itemprop">itemprop</code></dfn> attribute</h4>
 
   <p>Every <span data-x="HTML elements">HTML element</span> may have an <code
   data-x="attr-itemprop">itemprop</code> attribute specified, if doing so <span data-x="the properties
   of an item">adds one or more properties</span> to one or more <span
   data-x="concept-item">items</span> (as defined below).</p>
 
-  <p>The <code data-x="attr-itemprop">itemprop</code> attribute, if specified, must have a value that
-  is an <span>unordered set of unique space-separated tokens</span> that are
-  <span>case-sensitive</span>, representing the names of the name-value pairs that it adds. The
-  attribute's value must have at least one token.</p>
+  <p>The <code data-x="attr-itemprop">itemprop</code> attribute, if specified, must have a value
+  that is an <span>unordered set of unique space-separated tokens</span> none of which are
+  <span>identical to</span> another token, representing the names of the name-value pairs that it
+  adds. The attribute's value must have at least one token.</p>
 
   <p>Each token must be either:</p>
 
@@ -71,7 +72,7 @@
    <p>In the following example, the "a" property has the values "1" and "2", <em>in that order</em>,
    but whether the "a" property comes before the "b" property or not is not important:</p>
 
-   <pre><code class="html" data-x="">&lt;div itemscope>
+   <pre><code class="html">&lt;div itemscope>
  &lt;p itemprop="a">1&lt;/p>
  &lt;p itemprop="a">2&lt;/p>
  &lt;p itemprop="b">test&lt;/p>
@@ -79,7 +80,7 @@
 
    <p>Thus, the following is equivalent:</p>
 
-   <pre><code class="html" data-x="">&lt;div itemscope>
+   <pre><code class="html">&lt;div itemscope>
  &lt;p itemprop="b">test&lt;/p>
  &lt;p itemprop="a">1&lt;/p>
  &lt;p itemprop="a">2&lt;/p>
@@ -87,7 +88,7 @@
 
    <p>As is the following:</p>
 
-   <pre><code class="html" data-x="">&lt;div itemscope>
+   <pre><code class="html">&lt;div itemscope>
  &lt;p itemprop="a">1&lt;/p>
  &lt;p itemprop="b">test&lt;/p>
  &lt;p itemprop="a">2&lt;/p>
@@ -95,7 +96,7 @@
 
    <p>And the following:</p>
 
-   <pre><code class="html" data-x="">&lt;div id="x">
+   <pre><code class="html">&lt;div id="x">
  &lt;p itemprop="a">1&lt;/p>
 &lt;/div>
 &lt;div itemscope itemref="x">

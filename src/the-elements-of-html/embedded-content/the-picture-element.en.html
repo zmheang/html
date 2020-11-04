@@ -12,11 +12,16 @@
    optionally intermixed with <span>script-supporting elements</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-picture">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-picture">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLPictureElement</dfn> : <span>HTMLElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLPictureElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLPictureElement</code>.</dd>
   </dl>

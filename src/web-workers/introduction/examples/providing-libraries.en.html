@@ -5,7 +5,6 @@
   <p>Suppose that a cryptography library is made available that provides three tasks:</p>
 
   <dl>
-
    <dt>Generate a public/private key pair</dt>
 
    <dd>Takes a port, on which it will send two messages, first the public key and then the private
@@ -22,37 +21,36 @@
    <dd>Takes a port, to which any number of messages can be sent, the first giving the private key,
    and the remainder giving the ciphertext, each of which is decrypted and then sent on that same
    channel as the plaintext. The user can close the port when it is done decrypting content.</dd>
-
   </dl>
 
   <p>The library itself is as follows:</p>
 
-  <pre><code class="js" data-x="">EXAMPLE workers/crypto/libcrypto-v1.js</code></pre>
+  <pre><code class="js">EXAMPLE workers/crypto/libcrypto-v1.js</code></pre>
 
   <p>Note that the crypto functions here are just stubs and don't do real cryptography.</p>
 
   <p>This library could be used as follows:</p>
 
-  <pre><code class="html" data-x="">EXAMPLE workers/crypto/page.html</code></pre>
+  <pre><code class="html">EXAMPLE workers/crypto/page.html</code></pre>
 
   <p>A later version of the API, though, might want to offload all the crypto work onto subworkers.
   This could be done as follows:</p>
 
-  <pre><code class="js" data-x="">EXAMPLE workers/crypto/libcrypto-v2.js</code></pre>
+  <pre><code class="js">EXAMPLE workers/crypto/libcrypto-v2.js</code></pre>
 
   <p>The little subworkers would then be as follows.</p>
 
   <p>For generating key pairs:</p>
 
-  <pre><code class="js" data-x="">EXAMPLE workers/crypto/libcrypto-v2-generator.js</code></pre>
+  <pre><code class="js">EXAMPLE workers/crypto/libcrypto-v2-generator.js</code></pre>
 
   <p>For encrypting:</p>
 
-  <pre><code class="js" data-x="">EXAMPLE workers/crypto/libcrypto-v2-encryptor.js</code></pre>
+  <pre><code class="js">EXAMPLE workers/crypto/libcrypto-v2-encryptor.js</code></pre>
 
   <p>For decrypting:</p>
 
-  <pre><code class="js" data-x="">EXAMPLE workers/crypto/libcrypto-v2-decryptor.js</code></pre>
+  <pre><code class="js">EXAMPLE workers/crypto/libcrypto-v2-decryptor.js</code></pre>
 
   <p>Notice how the users of the API don't have to even know that this is happening &mdash; the API
   hasn't changed; the library can delegate to subworkers without changing its API, even though it is

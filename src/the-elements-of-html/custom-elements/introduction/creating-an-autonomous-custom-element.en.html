@@ -6,12 +6,12 @@
   define a custom element that encapsulates rendering a small icon for a country flag. Our goal is
   to be able to use it like so:</p>
 
-  <pre><code class="html" data-x="">&lt;flag-icon country="nl">&lt;/flag-icon></code></pre>
+  <pre><code class="html">&lt;flag-icon country="nl">&lt;/flag-icon></code></pre>
 
   <p>To do this, we first declare a class for the custom element, extending
   <code>HTMLElement</code>:</p>
 
-  <pre><code class="js" data-x="">class FlagIcon extends HTMLElement {
+  <pre><code class="js">class FlagIcon extends HTMLElement {
   constructor() {
     super();
     this._countryCode = null;
@@ -45,7 +45,7 @@
 
   <p>We then need to use this class to define the element:</p>
 
-  <pre><code class="js" data-x="">customElements.define("flag-icon", FlagIcon);</code></pre>
+  <pre><code class="js">customElements.define("flag-icon", FlagIcon);</code></pre>
 
   <p>At this point, our above code will work! The parser, whenever it sees the <code
   data-x="">flag-icon</code> tag, will construct a new instance of our <code
@@ -55,14 +55,14 @@
 
   <p>You can also create <code data-x="">flag-icon</code> elements using the DOM API:</p>
 
-  <pre><code class="js" data-x="">const flagIcon = document.createElement("flag-icon")
+  <pre><code class="js">const flagIcon = document.createElement("flag-icon")
 flagIcon.country = "jp"
 document.body.appendChild(flagIcon)</code></pre>
 
   <p>Finally, we can also use the <span>custom element constructor</span> itself. That is, the above
   code is equivalent to:</p>
 
-  <pre><code class="js" data-x="">const flagIcon = new FlagIcon()
+  <pre><code class="js">const flagIcon = new FlagIcon()
 flagIcon.country = "jp"
 document.body.appendChild(flagIcon)</code></pre>
 

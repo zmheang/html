@@ -23,19 +23,23 @@
   <p>If a reflecting IDL attribute is a <code data-x="idl-DOMString">DOMString</code> attribute
   whose content attribute is an <span>enumerated attribute</span>, and the IDL attribute is
   <dfn>limited to only known values</dfn>, then, on getting, the IDL attribute must return the
-  conforming value associated with the state the attribute is in (in its canonical case), if any, or
-  the empty string if the attribute is in a state that has no associated keyword value or if the
-  attribute is not in a defined state (e.g. the attribute is missing and there is no <i
-  data-x="missing value default">missing value default</i>). On setting, the content attribute must
-  be set to the specified new value.</p>
+  keyword value associated with the state the attribute is in, if any, or the empty string if the
+  attribute is in a state that has no associated keyword value or if the attribute is not in a
+  defined state (e.g. the attribute is missing and there is no <i data-x="missing value
+  default">missing value default</i>). If there are multiple keyword values for the state, then
+  return the conforming one. If there are multiple conforming keyword values, then one will be
+  designated the <dfn>canonical keyword</dfn>; choose that one. On setting, the content attribute
+  must be set to the specified new value.</p>
 
   <p>If a reflecting IDL attribute is a nullable <code data-x="idl-DOMString">DOMString</code>
   attribute whose content attribute is an <span>enumerated attribute</span>, then, on getting, if
-  the corresponding content attribute is in its <i>missing value default</i> then the IDL attribute
-  must return null, otherwise, the IDL attribute must return the conforming value associated with
-  the state the attribute is in (in its canonical case). On setting, if the new value is null, the
-  content attribute must be removed, and otherwise, the content attribute must be set to the
-  specified new value.</p>
+  the corresponding content attribute is in its <i>missing value default</i> state then the IDL
+  attribute must return null, otherwise, the IDL attribute must return the keyword value associated
+  with the state the attribute is in. If there are multiple keyword values for the state, then
+  return the conforming one. If there are multiple conforming keyword values, then one will be
+  designated the <span>canonical keyword</span>; choose that one. On setting, if the new value is
+  null, the content attribute must be removed, and otherwise, the content attribute must be set to
+  the specified new value.</p>
 
   <p>If a reflecting IDL attribute is a <code data-x="idl-DOMString">DOMString</code> or <code
   data-x="idl-USVString">USVString</code> attribute but doesn't fall into any of the above
@@ -146,7 +150,7 @@
   value.</p>
 
   <p class="note">The values Infinity and Not-a-Number (NaN) values throw an exception on setting,
-  as defined in the Web IDL specification. <ref spec=WEBIDL></p>
+  as defined in <cite>Web IDL</cite>. <ref spec=WEBIDL></p>
 
   <p>If a reflecting IDL attribute has the type <code>DOMTokenList</code>, then on getting it must
   return a <code>DOMTokenList</code> object whose associated element is the element in question and

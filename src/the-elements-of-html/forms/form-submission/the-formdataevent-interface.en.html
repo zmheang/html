@@ -1,0 +1,30 @@
+  <h5>The <code>FormDataEvent</code> interface</h5>
+
+  <pre><code class="idl">[Exposed=Window]
+interface <dfn>FormDataEvent</dfn> : <span>Event</span> {
+  constructor(DOMString type, <span>FormDataEventInit</span> eventInitDict);
+
+  readonly attribute <span>FormData</span> <span data-x="dom-FormDataEvent-formData">formData</span>;
+};
+
+dictionary <dfn>FormDataEventInit</dfn> : <span>EventInit</span> {
+  required <span>FormData</span> formData;
+};</code></pre>
+
+  <dl class="domintro">
+
+   <dt><var>event</var> . <code data-x="dom-FormDataEvent-formData">formData</code></dt>
+
+   <dd>
+    <p>Returns a <code>FormData</code> object representing names and values of elements associated
+    to the target <code>form</code>. Operations on the <code>FormData</code> object will affect
+    form data to be submitted.</p>
+   </dd>
+  </dl>
+
+  <div w-nodev>
+
+  <p>The <dfn><code data-x="dom-FormDataEvent-formData">formData</code></dfn> attribute must return the value it was
+  initialized to. It represents a <code>FormData</code> object associated to the entry list that is <span
+  data-x="constructing the entry list">constructed</span> when the <code>form</code> is submitted.</p>
+

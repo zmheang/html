@@ -4,7 +4,6 @@
   must run the following steps:</p>
 
   <ol>
-
    <!-- this happens as part of one of the tasks that runs the parser -->
 
    <li><p>Set the <span>current document readiness</span> to "<code data-x="">interactive</code>"
@@ -17,7 +16,6 @@
    parsing</span> is not empty, run these substeps:</p>
 
     <ol>
-
      <li><p><span>Spin the event loop</span> until the first <code>script</code> in the <span>list
      of scripts that will execute when the document has finished parsing</span> has its <span>"ready
      to be parser-executed"</span> flag set <em>and</em> the parser's <code>Document</code>
@@ -33,13 +31,12 @@
 
      <li><p>If the <span>list of scripts that will execute when the document has finished
      parsing</span> is still not empty, repeat these substeps again from substep 1.</p>
-
     </ol>
-
    </li>
 
    <li>
-    <p><span>Queue a task</span> to run the following substeps:</p>
+    <p><span>Queue a global task</span> on the <span>DOM manipulation task source</span> given the
+    <code>Document</code>'s <span>relevant global object</span> to run the following substeps:</p>
 
     <ol>
      <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
@@ -65,31 +62,28 @@
    event">delays the load event</dfn> in the <code>Document</code>.</p></li>
 
    <li>
-
-    <p><span>Queue a task</span> to run the following substeps:</p>
+    <p><span>Queue a global task</span> on the <span>DOM manipulation task source</span> given the
+    <code>Document</code>'s <span>relevant global object</span> to run the following substeps:</p>
 
     <ol>
-
      <li><p>Set the <span>current document readiness</span> to "<code data-x="">complete</code>"<!--
      this also fires an event immediately during the task -->.</p></li>
 
-     <li><p><i>Load event</i>: If the <code>Document</code> has a <span
-     data-x="concept-document-bc">browsing context</span>, then <span
+     <li><p><i>Load event</i>: If the <code>Document</code> object's <span
+     data-x="concept-document-bc">browsing context</span> is non-null, then <span
      data-x="concept-event-fire">fire an event</span> named <code data-x="event-load">load</code> at
-     the <code>Document</code> object's <code>Window</code> object, with <var>legacy target override
-     flag</var> set.</p></li>
-
+     the <code>Document</code> object's <span>relevant global object</span>, with <var>legacy target
+     override flag</var> set.</p></li>
     </ol>
-
    </li>
 
    <li>
-
-    <p>If the <code>Document</code> has a <span data-x="concept-document-bc">browsing
-    context</span>, then <span>queue a task</span> to run the following substeps:</p>
+    <p>If the <code>Document</code> object's <span data-x="concept-document-bc">browsing
+    context</span> is non-null, then <span>queue a global task</span> on the <span>DOM manipulation
+    task source</span> given the <code>Document</code>'s <span>relevant global object</span> to run
+    these steps:</p>
 
     <ol>
-
      <li><p>If the <code>Document</code>'s <span>page showing</span> flag is true, then return
      (i.e. don't fire the event below).</p></li> <!-- i don't see how this could be, but just
      to be sure... -->
@@ -97,13 +91,11 @@
      <li><p>Set the <code>Document</code>'s <span>page showing</span> flag to true.</p></li>
 
      <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
-     data-x="event-pageshow">pageshow</code> at the <code>Document</code> object's
-     <code>Window</code> object, using <code>PageTransitionEvent</code>, with the <code
+     data-x="event-pageshow">pageshow</code> at the <code>Document</code> object's <span>relevant
+     global object</span>, using <code>PageTransitionEvent</code>, with the <code
      data-x="dom-PageTransitionEvent-persisted">persisted</code> attribute initialized to false, and
      <var>legacy target override flag</var> set.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>If the <code>Document</code> has any <span>pending application cache download process
@@ -118,15 +110,12 @@
 
    <li><p>The <code>Document</code> is now <dfn>ready for post-load tasks</dfn>.</p></li>
 
-   <li><p><span>Queue a task</span> to mark the <code>Document</code> as <dfn>completely
-   loaded</dfn>.</p></li>
-
+   <li><p><span>Completely finish loading</span> the <code>Document</code>.</p></li>
   </ol>
 
   <p>When the user agent is to <dfn>abort a parser</dfn>, it must run the following steps:</p>
 
   <ol>
-
    <li><p>Throw away any pending content in the <span>input stream</span>, and discard any future
    content that would have been added to it.</p></li>
 
@@ -142,12 +131,7 @@
    still being parsed, or when you navigate a document that's still parsing, or navigate the parent
    of a frame with a document that's still parsing, or the user hits "stop". Should the pending
    scripts be blown away or anything? -->
-
   </ol>
-
-  <p>Except where otherwise specified, the <span>task source</span> for the <span
-  data-x="concept-task">tasks</span> mentioned in this section is the <span>DOM manipulation task
-  source</span>.</p>
 
   </div>
 

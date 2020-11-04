@@ -1,7 +1,8 @@
   <h5>Naming form controls: the <code data-x="attr-fe-name">name</code> attribute</h5>
 
-  <p>The <dfn><code data-x="attr-fe-name">name</code></dfn> content attribute gives the name of the
-  form control, as used in <span>form submission</span> and in the <code>form</code> element's <code
+  <p>The <dfn element-attr for="button,fieldset,input,object,output,select,textarea"><code
+  data-x="attr-fe-name">name</code></dfn> content attribute gives the name of the form control, as
+  used in <span>form submission</span> and in the <code>form</code> element's <code
   data-x="dom-form-elements">elements</code> object. If the attribute is specified, its value must
   not be the empty string or <code data-x="">isindex</code>.</p>
 
@@ -13,17 +14,19 @@
   is no longer allowed.</p>
 
   <p>Other than <code data-x="">isindex</code>, any non-empty value for <code
-  data-x="attr-form-name">name</code> is allowed. The name <dfn><code
-  data-x="attr-fe-name-charset">_charset_</code></dfn> is special: if used as the name of a <span
-  data-x="attr-input-type-hidden">Hidden</span> control with no <code
+  data-x="attr-form-name">name</code> is allowed. An <span>ASCII case-insensitive</span> match for
+  the name <dfn><code data-x="attr-fe-name-charset">_charset_</code></dfn> is special: if used as
+  the name of a <span data-x="attr-input-type-hidden">Hidden</span> control with no <code
   data-x="attr-input-value">value</code> attribute, then during submission the <code
   data-x="attr-input-value">value</code> attribute is automatically given a value consisting of the
   submission character encoding.</p>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-fe-name">name</code></dfn> IDL attribute must <span>reflect</span>
-  the <code data-x="attr-fe-name">name</code> content attribute.</p>
+  <p>The <dfn attribute
+  for="HTMLInputElement,HTMLButtonElement,HTMLSelectElement,HTMLTextAreaElement"><code
+  data-x="dom-fe-name">name</code></dfn> IDL attribute must <span>reflect</span> the <code
+  data-x="attr-fe-name">name</code> content attribute.</p>
 
   </div>
 
@@ -34,7 +37,7 @@
    <p>In this example, the <code>input</code> element overrides the built-in <code
    data-x="attr-fs-method">method</code> property:</p>
 
-   <pre><code class="js" data-x="">let form = document.createElement("form");
+   <pre><code class="js">let form = document.createElement("form");
 let input = document.createElement("input");
 form.appendChild(input);
 

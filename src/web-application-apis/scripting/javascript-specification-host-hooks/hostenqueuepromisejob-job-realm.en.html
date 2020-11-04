@@ -1,0 +1,136 @@
+  <h5 id="hostenqueuepromisejob"><dfn>HostEnqueuePromiseJob</dfn>(<var>job</var>,
+  <var>realm</var>)</h5>
+
+  <p>JavaScript contains an <span>implementation-defined</span> <span
+  data-x="js-HostEnqueuePromiseJob">HostEnqueuePromiseJob</span>(<var>job</var>, <var>realm</var>)
+  abstract operation to schedule Promise-related operations. HTML schedules these operations in the
+  microtask queue. User agents must use the following implementation: <ref spec=JAVASCRIPT></p>
+
+  <ol>
+   <li>
+    <p>If <var>realm</var> is not null, then let <var>job settings</var> be the <span
+    data-x="concept-realm-settings-object">settings object</span> for <var>realm</var>. Otherwise,
+    let <var>job settings</var> be null.</p>
+
+     <div class="note">
+      <p>If <var>realm</var> is not null, it is the <span data-x="JavaScript realm">Realm</span> of
+      the author code that will run. When <var>job</var> is returned by
+      <span>NewPromiseReactionJob</span>, it is the realm of the promise's handler function. When
+      <var>job</var> is returned by <span>NewPromiseResolveThenableJob</span>, it is the realm of
+      the <code data-x="">then</code> function.
+
+      <p>If <var>realm</var> is null, either no author code will run or author code is guaranteed to
+      throw. For the former, the author may not have passed in code to run, such as in <code
+      data-x="">promise.then(null, null)</code>. For the latter, it is because a revoked Proxy was
+      passed. In both cases, all the steps below that would otherwise use <var>job settings</var>
+      get skipped.</p>
+     </div>
+   </li>
+
+   <li><p>Let <var>incumbent settings</var> be the <span>incumbent settings object</span>.</p></li>
+
+   <li><p>Let <var>active script</var> be the <span>active script</span>.</p></li>
+
+   <li><p>Let <var>script execution context</var> be null.</p></li>
+
+   <li>
+    <p>If <var>active script</var> is not null, set <var>script execution context</var> to a new
+    <span>JavaScript execution context</span>, with its Function field set to null, its Realm field
+    set to <var>active script</var>'s <span>settings object</span>'s <span data-x="environment
+    settings object's Realm">Realm</span>, and its ScriptOrModule set to <var>active script</var>'s
+    <span data-x="concept-script-record">record</span>.</p>
+
+    <p class="note">As seen below, this is used in order to propagate the current <span>active
+    script</span> forward to the time when the job is executed.</p>
+
+    <div class="example">
+     <p>A case where <var>active script</var> is non-null, and saving it in this way is useful, is
+     the following:</p>
+
+     <pre><code class="js">Promise.resolve('import(`./example.mjs`)').then(eval);</code></pre>
+
+     <p>Without this step (and the steps below that use it), there would be no <span>active
+     script</span> when the <code>import()</code> expression is evaluated, since <code>eval()</code>
+     is a built-in function that does not originate from any particular <span
+     data-x="concept-script">script</span>.</p>
+
+     <p>With this step in place, the active script is propagated from the above code into the job,
+     allowing <code>import()</code> to use the original script's <span
+     data-x="concept-script-base-url">base URL</span> appropriately.</p>
+    </div>
+
+    <div class="example">
+     <p><var>active script</var> can be null if the user clicks on the following button:</p>
+
+     <pre><code class="html">&lt;button onclick="Promise.resolve('import(`./example.mjs`)').then(eval)">Click me&lt;/button></code></pre>
+
+     <p>In this case, the JavaScript function for the <span data-x="event handlers">event
+     handler</span> will be created by the <span data-x="getting the current value of the event
+     handler">get the current value of the event handler</span> algorithm, which creates a function
+     with null [[ScriptOrModule]] value. Thus, when the promise machinery calls
+     <span>HostEnqueuePromiseJob</span>, there will be no <span>active script</span> to pass
+     along.</p>
+
+     <p>As a consequence, this means that when the <code>import()</code> expression is evaluated,
+     there will still be no <span>active script</span>. Fortunately that is handled by our
+     implementations of <span>HostResolveImportedModule</span> and
+     <span>HostImportModuleDynamically</span>, by falling back to using the <span>current settings
+     object</span>'s <span>API base URL</span>.</p>
+    </div>
+   </li>
+
+   <li>
+    <p><span>Queue a microtask</span> on the <span>surrounding agent</span>'s <span
+    data-x="concept-agent-event-loop">event loop</span> to perform the following steps:</p>
+
+    <ol>
+     <li><p>If <var>job settings</var> is not null, then <span>check if we can run script</span>
+     with <var>job settings</var>. If this returns "do not run" then return.</p></li>
+
+     <li>
+      <p>If <var>job settings</var> is not null, then <span>prepare to run script</span> with
+      <var>job settings</var>.</p>
+
+      <p class="note">This affects the <span data-x="concept-entry-everything">entry</span> concept
+      while the job runs.</p>
+     </li>
+
+     <li>
+      <p><span>Prepare to run a callback</span> with <var>incumbent settings</var>.</p>
+
+      <p class="note">This affects the <span data-x="concept-incumbent-everything">incumbent</span>
+      concept while the job runs.</p>
+     </li>
+
+     <li>
+      <p>If <var>script execution context</var> is not null, then <span data-x="stack
+      push">push</span> <var>script execution context</var> onto the <span>JavaScript execution
+      context stack</span>.</p>
+
+      <p class="note">As explained above, this affects the <span>active script</span> while the job
+      runs.</p>
+     </li>
+
+     <li>
+      <p>Let <var>result</var> be <var>job</var>().</p>
+
+      <p class="note"><var>job</var> is an <span>abstract closure</span> returned by
+      <span>NewPromiseReactionJob</span> or <span>NewPromiseResolveThenableJob</span>.</p>
+    </li>
+
+     <li><p>If <var>script execution context</var> is not null, then <span data-x="stack
+     pop">pop</span> <var>script execution context</var> from the <span>JavaScript execution context
+     stack</span>.</p></li>
+
+     <li><p><span>Clean up after running a callback</span> with <var>incumbent
+     settings</var>.</p></li>
+
+     <li><p>If <var>job settings</var> is not null, then <span>clean up after running script</span>
+     with <var>job settings</var>.</p></li>
+
+     <li><p>If <var>result</var> is an <span>abrupt completion</span>, then <span>report the
+     exception</span> given by <var>result</var>.[[Value]].</p></li>
+    </ol>
+   </li>
+  </ol>
+

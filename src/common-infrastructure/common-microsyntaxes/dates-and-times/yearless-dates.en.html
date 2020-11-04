@@ -7,7 +7,6 @@
   in the given order:</p>
 
   <ol>
-
    <li>Optionally, two U+002D HYPHEN-MINUS characters (-)</li>
 
    <li>Two <span>ASCII digits</span>, representing the month <var>month</var>, in the range
@@ -19,7 +18,6 @@
    1&nbsp;&le;&nbsp;<var>day</var>&nbsp;&le;&nbsp;<var>maxday</var> where <var>maxday</var> is the <span data-x="number of days in month month of year year">number of
    days</span> in the month <var>month</var> and any arbitrary leap year (e.g. 4 or
    2000)</li>
-
   </ol>
 
   <p class="note">In other words, if the <var>month</var> is "<code data-x="">02</code>",
@@ -32,7 +30,6 @@
   it is aborted at that point and returns nothing.</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the string being parsed.</p></li>
 
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially
@@ -43,7 +40,6 @@
    <li><p>If <var>position</var> is <em>not</em> beyond the end of <var>input</var>, then fail.</p></li>
 
    <li><p>Return <var>month</var> and <var>day</var>.</p></li>
-
   </ol>
 
   <p>The rules to <dfn>parse a yearless date component</dfn>, given an <var>input</var>
@@ -52,7 +48,6 @@
   at that point and returns nothing.</p>
 
   <ol>
-
    <li><p><span>Collect a sequence of code points</span> that are U+002D HYPHEN-MINUS characters (-)
    from <var>input</var> given <var>position</var>. If the collected sequence is not exactly zero or
    two characters long, then fail.</p></li>
@@ -80,7 +75,6 @@
    <li><p>If <var>day</var> is not a number in the range 1&nbsp;&le;&nbsp;<var>day</var>&nbsp;&le;&nbsp;<var>maxday</var>, then fail.</li>
 
    <li><p>Return <var>month</var> and <var>day</var>.</p></li>
-
   </ol>
 
   </div>

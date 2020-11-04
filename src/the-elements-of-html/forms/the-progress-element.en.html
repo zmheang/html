@@ -14,11 +14,16 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-progress-value">value</code></dd>
    <dd><code data-x="attr-progress-max">max</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-progress">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-progress">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLProgressElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute double <span data-x="dom-progress-value">value</span>;
   [<span>CEReactions</span>] attribute double <span data-x="dom-progress-max">max</span>;
   readonly attribute double <span data-x="dom-progress-position">position</span>;
@@ -35,9 +40,10 @@ interface <dfn>HTMLProgressElement</dfn> : <span>HTMLElement</span> {
   giving the fraction of work that has so far been completed.</p>
 
   <p>There are two attributes that determine the current task completion represented by the element.
-  The <dfn><code data-x="attr-progress-value">value</code></dfn> attribute specifies how much of the
-  task has been completed, and the <dfn><code data-x="attr-progress-max">max</code></dfn> attribute
-  specifies how much work the task requires in total. The units are arbitrary and not specified.</p>
+  The <dfn element-attr for="progress"><code data-x="attr-progress-value">value</code></dfn>
+  attribute specifies how much of the task has been completed, and the <dfn element-attr
+  for="progress"><code data-x="attr-progress-max">max</code></dfn> attribute specifies how much work
+  the task requires in total. The units are arbitrary and not specified.</p>
 
   <p class="note">To make a determinate progress bar, add a <code
   data-x="attr-progress-value">value</code> attribute with the current progress (either a number from
@@ -51,9 +57,9 @@ interface <dfn>HTMLProgressElement</dfn> : <span>HTMLElement</span> {
 
   <div class="example">
 
-   <p>Here is a snippet of a Web application that shows the progress of some automated task:</p>
+   <p>Here is a snippet of a web application that shows the progress of some automated task:</p>
 
-   <pre><code class="html" data-x="">&lt;section>
+   <pre><code class="html">&lt;section>
  &lt;h2>Task Progress&lt;/h2>
  &lt;p>Progress: &lt;progress id="p" max=100>&lt;span>0&lt;/span>%&lt;/progress>&lt;/p>
  &lt;script>
@@ -154,9 +160,10 @@ interface <dfn>HTMLProgressElement</dfn> : <span>HTMLElement</span> {
   when the corresponding content attribute is absent would change the progress bar from an
   indeterminate progress bar to a determinate progress bar with no progress.</p>
 
-  <p>The <dfn><code data-x="dom-progress-max">max</code></dfn> IDL attribute must
-  <span>reflect</span> the content attribute of the same name, <span>limited to numbers greater than
-  zero</span>. The default value for <code data-x="dom-progress-max">max</code> is 1.0.</p>
+  <p>The <dfn attribute for="HTMLProgressElement"><code data-x="dom-progress-max">max</code></dfn>
+  IDL attribute must <span>reflect</span> the content attribute of the same name, <span>limited to
+  numbers greater than zero</span>. The default value for <code data-x="dom-progress-max">max</code>
+  is 1.0.</p>
 
   <p>The <code data-x="dom-lfe-labels">labels</code> IDL attribute provides a list of the element's
   <code>label</code>s.</p>

@@ -13,12 +13,12 @@
   delivery time fields, we allow the user agent to notify the user when the user submits the form
   without filling in those fields:</p>
 
-  <pre><code class="html" data-x="">&lt;form method="post"
+  <pre><code class="html">&lt;form method="post"
       enctype="application/x-www-form-urlencoded"
       action="https://pizza.example.com/order.cgi">
  &lt;p>&lt;label>Customer name: &lt;input name="custname"<strong> required</strong>>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Telephone: &lt;input type=tel name="custtel">&lt;/label>&lt;/p>
- &lt;p>&lt;label>E-mail address: &lt;input type=email name="custemail">&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Email address: &lt;input type=email name="custemail">&lt;/label>&lt;/p>
  &lt;fieldset>
   &lt;legend> Pizza Size &lt;/legend>
   &lt;p>&lt;label> &lt;input type=radio name=size<strong> required</strong> value="small"> Small &lt;/label>&lt;/p>
@@ -42,12 +42,12 @@
   element, we can limit users to 1000 characters, preventing them from writing huge essays to the
   busy delivery drivers instead of staying focused and to the point:</p>
 
-  <pre><code class="html" data-x="">&lt;form method="post"
+  <pre><code class="html">&lt;form method="post"
       enctype="application/x-www-form-urlencoded"
       action="https://pizza.example.com/order.cgi">
  &lt;p>&lt;label>Customer name: &lt;input name="custname" required>&lt;/label>&lt;/p>
  &lt;p>&lt;label>Telephone: &lt;input type=tel name="custtel">&lt;/label>&lt;/p>
- &lt;p>&lt;label>E-mail address: &lt;input type=email name="custemail">&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Email address: &lt;input type=email name="custemail">&lt;/label>&lt;/p>
  &lt;fieldset>
   &lt;legend> Pizza Size &lt;/legend>
   &lt;p>&lt;label> &lt;input type=radio name=size required value="small"> Small &lt;/label>&lt;/p>
@@ -67,9 +67,9 @@
 &lt;/form></code></pre>
 
   <p class="note">When a form is submitted, <code data-x="event-invalid">invalid</code> events are
-  fired at each form control that is invalid, and then at the <code>form</code> element itself. This
-  can be useful for displaying a summary of the problems with the form, since typically the browser
-  itself will only report one problem at a time.</p>
+  fired at each form control that is invalid. This can be useful for displaying a summary of the
+  problems with the form, since typically the browser itself will only report one problem at a
+  time.</p>
 
 
 

@@ -1,9 +1,5 @@
   <h5 id="images-processing-model">Processing model</h5>
 
-  <p>The <span>task source</span> for the <span data-x="concept-task">tasks</span> <span
-  data-x="queue a task">queued</span> by algorithms in this section is the <span>DOM manipulation
-  task source</span>.</p>
-
   <hr>
 
   <p>An <code>img</code> element has a <dfn>current request</dfn> and a <dfn>pending request</dfn>.
@@ -17,7 +13,6 @@
   following:</p>
 
   <dl>
-
    <dt><dfn data-x="img-none">Unavailable</dfn></dt>
    <dd>The user agent hasn't obtained any image data,
    or has obtained some or all of the image data but
@@ -35,7 +30,6 @@
    <dd>The user agent has obtained all of the image data that it can, but it cannot even decode the
    image enough to get the image dimensions (e.g. the image is corrupted, or the format is not
    supported, or no data could be obtained).</dd>
-
   </dl>
 
   <p>An <span>image request</span>'s <span data-x="img-req-url">current URL</span> is initially the
@@ -88,7 +82,7 @@
   data is 300x600, it has <span>intrinsic dimensions</span> of 96 <span data-x="'px'">CSS
   pixels</span> by 192 <span data-x="'px'">CSS pixels</span>.</p>
 
-  <p>An <code>img</code> element is associated with a <span>source set</span>.</p>
+  <p>All <code>img</code> and <code>link</code> elements are associated with a <span>source set</span>.</p>
 
   <p>A <dfn>source set</dfn> is an ordered set of zero or more <span data-x="image source">image sources</span>
   and a <span>source size</span>.</p>

@@ -1,6 +1,6 @@
   <h6>Text track API</h6>
 
-  <pre><code class="idl" data-x="">[Exposed=Window]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>TextTrackList</dfn> : <span>EventTarget</span> {
   readonly attribute unsigned long <span data-x="dom-TextTrackList-length">length</span>;
   <a href="#dom-texttracklist-item">getter</a> <span>TextTrack</span> (unsigned long index);
@@ -26,11 +26,8 @@ interface <dfn>TextTrackList</dfn> : <span>EventTarget</span> {
    <dt><var>textTrack</var> = <var>media</var> . <code data-x="dom-media-textTracks">textTracks</code> . <code subdfn data-x="dom-TextTrackList-getTrackById">getTrackById</code>( <var>id</var> )</dt>
 
    <dd>
-
     <p>Returns the <code>TextTrack</code> object with the given identifier, or null if no track has that identifier.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -68,7 +65,7 @@ interface <dfn>TextTrackList</dfn> : <span>EventTarget</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">enum <dfn>TextTrackMode</dfn> {<!--
+  <pre><code class="idl">enum <dfn>TextTrackMode</dfn> {<!--
    --> "<span data-x="dom-TextTrack-disabled">disabled</span>", <!--
    --> "<span data-x="dom-TextTrack-hidden">hidden</span>", <!--
    --> "<span data-x="dom-TextTrack-showing">showing</span>" };
@@ -93,8 +90,8 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
   readonly attribute <span>TextTrackCueList</span>? <span data-x="dom-TextTrack-cues">cues</span>;
   readonly attribute <span>TextTrackCueList</span>? <span data-x="dom-TextTrack-activeCues">activeCues</span>;
 
-  void <span data-x="dom-TextTrack-addCue">addCue</span>(<span>TextTrackCue</span> cue);
-  void <span data-x="dom-TextTrack-removeCue">removeCue</span>(<span>TextTrackCue</span> cue);
+  undefined <span data-x="dom-TextTrack-addCue">addCue</span>(<span>TextTrackCue</span> cue);
+  undefined <span data-x="dom-TextTrack-removeCue">removeCue</span>(<span>TextTrackCue</span> cue);
 
   attribute <span>EventHandler</span> <span data-x="handler-TextTrack-oncuechange">oncuechange</span>;
 };</code></pre>
@@ -103,26 +100,20 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
 
    <dt><var>textTrack</var> = <var>media</var> . <code subdfn data-x="dom-media-addTextTrack">addTextTrack</code>( <var>kind</var> [, <var>label</var> [, <var>language</var> ] ] )</dt>
    <dd>
-
     <p>Creates and returns a new <code>TextTrack</code> object, which is also added to the
     <span>media element</span>'s <span>list of text tracks</span>.</p>
-
    </dd>
 
    <dt><var>textTrack</var> . <code subdfn data-x="dom-TextTrack-kind">kind</code></dt>
    <dd>
-
     <p>Returns the <span>text track kind</span> string.</p>
-
    </dd>
 
    <dt><var>textTrack</var> . <code subdfn data-x="dom-TextTrack-label">label</code></dt>
    <dd>
-
     <p>Returns the <span>text track label</span>, if there is one, or the empty string otherwise
     (indicating that a custom label probably needs to be generated from the other attributes of the
     object if the object is exposed to the user).</p>
-
    </dd>
 
    <dt><var>textTrack</var> . <code subdfn data-x="dom-TextTrack-language">language</code></dt>
@@ -132,7 +123,6 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
 
    <dt><var>textTrack</var> . <code subdfn data-x="dom-TextTrack-id">id</code></dt>
    <dd>
-
     <p>Returns the ID of the given track.</p>
 
     <p>For in-band tracks, this is the ID that can be used with a <span
@@ -142,19 +132,15 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
 
     <p>For <code>TextTrack</code> objects corresponding to <code>track</code> elements, this is the
     ID of the <code>track</code> element.</p>
-
    </dd>
 
    <dt><var>textTrack</var> . <code subdfn data-x="dom-TextTrack-inBandMetadataTrackDispatchType">inBandMetadataTrackDispatchType</code></dt>
    <dd>
-
     <p>Returns the <span>text track in-band metadata track dispatch type</span> string.</p>
-
    </dd>
 
    <dt><var>textTrack</var> . <code subdfn data-x="dom-TextTrack-mode">mode</code> [ = <var>value</var> ]</dt>
    <dd>
-
     <p>Returns the <span>text track mode</span>, represented by a string from the following
     list:</p>
 
@@ -174,7 +160,6 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
     </dl>
 
     <p>Can be set, to change the mode.</p>
-
    </dd>
 
    <dt><var>textTrack</var> . <code subdfn data-x="dom-TextTrack-cues">cues</code></dt>
@@ -184,11 +169,9 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
 
    <dt><var>textTrack</var> . <code subdfn data-x="dom-TextTrack-activeCues">activeCues</code></dt>
    <dd>
-
     <p>Returns the <span data-x="text track cue">text track cues</span> from the <span>text track
     list of cues</span> that are currently active (i.e. that start before the <span>current playback
     position</span> and end after it), as a <code>TextTrackCueList</code> object.</p>
-
    </dd>
 
    <dt><var>textTrack</var> . <code subdfn data-x="dom-TextTrack-addCue">addCue</code>( <var>cue</var> )</dt>
@@ -200,7 +183,6 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
    <dd>
     <p>Removes the given cue from <var>textTrack</var>'s <span>text track list of cues</span>.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -209,15 +191,11 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
   element">media elements</span>, when invoked, must run the following steps:</p>
 
   <ol>
-
    <li>
-
     <p>Create a new <code>TextTrack</code> object.</p>
-
    </li>
 
    <li>
-
     <p>Create a new <span>text track</span> corresponding to the new object, and set its <span>text
     track kind</span> to <var>kind</var>, its <span>text track label</span> to <var>label</var>, its <span>text track language</span> to <var>language</var>, its
     <span>text track readiness state</span> to the <span>text track loaded</span> state, its
@@ -227,32 +205,25 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
     <p>Initially, the <span>text track list of cues</span> is not associated with any <span>rules
     for updating the text track rendering</span>. When a <span>text track cue</span> is added to it,
     the <span>text track list of cues</span> has its rules permanently set accordingly.</p>
-
    </li>
 
    <li>
-
     <p>Add the new <span>text track</span> to the <span>media element</span>'s <span>list of text
     tracks</span>.</p>
-
    </li>
 
    <li>
-
-    <p><span>Queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
-    <code data-x="event-media-addtrack">addtrack</code> at the <span>media element</span>'s <code
+    <p><span>Queue a media element task</span> given the <span>media element</span> to <span
+    data-x="concept-event-fire">fire an event</span> named <code
+    data-x="event-media-addtrack">addtrack</code> at the <span>media element</span>'s <code
     data-x="dom-media-textTracks">textTracks</code> attribute's <code>TextTrackList</code> object,
     using <code>TrackEvent</code>, with the <code data-x="dom-TrackEvent-track">track</code>
     attribute initialized to the new <span>text track</span>'s <code>TextTrack</code> object.</p>
-
    </li>
 
    <li>
-
     <p>Return the new <code>TextTrack</code> object.</p>
-
    </li>
-
   </ol>
 
   <hr>
@@ -303,30 +274,23 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
    <dt>If the new value is "<code data-x="dom-TextTrack-disabled">disabled</code>"</dt>
 
    <dd>
-
     <p>Set the <span>text track mode</span> of the <span>text track</span> that the
     <code>TextTrack</code> object represents to the <span>text track disabled</span> mode.</p>
-
    </dd>
 
    <dt>If the new value is "<code data-x="dom-TextTrack-hidden">hidden</code>"</dt>
 
    <dd>
-
     <p>Set the <span>text track mode</span> of the <span>text track</span> that the
     <code>TextTrack</code> object represents to the <span>text track hidden</span> mode.</p>
-
    </dd>
 
    <dt>If the new value is "<code data-x="dom-TextTrack-showing">showing</code>"</dt>
 
    <dd>
-
     <p>Set the <span>text track mode</span> of the <span>text track</span> that the
     <code>TextTrack</code> object represents to the <span>text track showing</span> mode.</p>
-
    </dd>
-
   </dl>
 
   <p>If the <span>text track mode</span> of the <span>text track</span> that the
@@ -362,7 +326,6 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
   of <code>TextTrack</code> objects, when invoked, must run the following steps:</p>
 
   <ol>
-
    <li><p>If the <span>text track list of cues</span> does not yet have any associated <span>rules
    for updating the text track rendering</span>, then associate the <span>text track list of
    cues</span> with the <span>rules for updating the text track rendering</span> appropriate to <var>cue</var>.</p>
@@ -377,21 +340,18 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
 
    <li><p>Add <var>cue</var> to the <code>TextTrack</code> object's <span>text track</span>'s
    <span>text track list of cues</span>.</p></li>
-
   </ol>
 
   <p>The <dfn><code data-x="dom-TextTrack-removeCue">removeCue(<var>cue</var>)</code></dfn>
   method of <code>TextTrack</code> objects, when invoked, must run the following steps:</p>
 
   <ol>
-
    <li><p>If the given <var>cue</var> is not in the <code>TextTrack</code> object's <span>text
    track</span>'s <span>text track list of cues</span>, then throw a
    <span>"<code>NotFoundError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Remove <var>cue</var> from the <code>TextTrack</code> object's <span>text track</span>'s
    <span>text track list of cues</span>.</p></li>
-
   </ol>
 
   </div>
@@ -404,7 +364,7 @@ interface <dfn>TextTrack</dfn> : <span>EventTarget</span> {
    relied on script to pause the audio, then the start of the next clip might be heard if the
    browser was not able to run the script at the exact time specified.</p>
 
-   <pre><code class="js" data-x="">var sfx = new Audio('sfx.wav');
+   <pre><code class="js">var sfx = new Audio('sfx.wav');
 var sounds = sfx.addTextTrack('metadata');
 
 // add sounds we care about
@@ -437,7 +397,7 @@ window.onbeforeunload = function (e) {
 
   <hr>
 
-  <pre><code class="idl" data-x="">[Exposed=Window]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>TextTrackCueList</dfn> {
   readonly attribute unsigned long <span data-x="dom-TextTrackCueList-length">length</span>;
   <a href="#dom-texttrackcuelist-item">getter</a> <span>TextTrackCue</span> (unsigned long index);
@@ -461,7 +421,6 @@ interface <dfn>TextTrackCueList</dfn> {
     <p>Returns the first <span>text track cue</span> (in <span>text track cue order</span>) with <span>text track cue identifier</span> <var>id</var>.</p>
     <p>Returns null if none of the cues have the given identifier or if the argument is the empty string.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -492,7 +451,7 @@ interface <dfn>TextTrackCueList</dfn> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">[Exposed=Window]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>TextTrackCue</dfn> : <span>EventTarget</span> {
   readonly attribute <span>TextTrack</span>? <span data-x="dom-TextTrackCue-track">track</span>;
 
@@ -537,7 +496,6 @@ interface <dfn>TextTrackCue</dfn> : <span>EventTarget</span> {
     <p>Returns true if the <span>text track cue pause-on-exit flag</span> is set, false otherwise.</p>
     <p>Can be set.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>

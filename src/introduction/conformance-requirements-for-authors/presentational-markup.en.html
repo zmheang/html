@@ -6,11 +6,9 @@
   Presentational markup in general has been found to have a number of problems:</p>
 
   <dl>
-
    <dt>The use of presentational elements leads to poorer accessibility</dt>
 
    <dd>
-
     <p>While it is possible to use presentational markup in a way that provides users of assistive
     technologies (ATs) with an acceptable experience (e.g. using ARIA), doing so is significantly
     more difficult than doing so when using semantically-appropriate markup. Furthermore, even using
@@ -19,31 +17,25 @@
 
     <p>Using media-independent markup, on the other hand, provides an easy way for documents to be
     authored in such a way that they work for more users (e.g. users of text browsers).</p>
-
    </dd>
 
 
    <dt>Higher cost of maintenance</dt>
 
    <dd>
-
     <p>It is significantly easier to maintain a site written in such a way that the markup is
     style-independent. For example, changing the color of a site that uses <code
     data-x="">&lt;font&nbsp;color=""></code> throughout requires changes across the entire site,
     whereas a similar change to a site based on CSS can be done by changing a single file.</p>
-
    </dd>
 
 
    <dt>Larger document sizes</dt>
 
    <dd>
-
     <p>Presentational markup tends to be much more redundant, and thus results in larger document
     sizes.</p>
-
    </dd>
-
   </dl>
 
   <p>For those reasons, presentational markup has been removed from HTML in this version. This

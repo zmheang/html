@@ -1,0 +1,49 @@
+  <h5>The <code>ElementInternals</code> interface</h5>
+
+  <p>The IDL for the <code>ElementInternals</code> interface is as follows, with the various operations and attributes
+  defined in the following sections:</p>
+
+  <pre><code class="idl">[Exposed=Window]
+interface <dfn>ElementInternals</dfn> {
+  // <a href="#shadow-root-access">Shadow root access</a>
+  readonly attribute <code>ShadowRoot</code>? <span data-x="dom-ElementInternals-shadowRoot">shadowRoot</span>;
+
+  // <a href="#form-associated-custom-elements">Form-associated custom elements</a>
+  undefined <span data-x="dom-ElementInternals-setFormValue">setFormValue</span>((<span>File</span> or <span data-x="idl-USVString">USVString</span> or <span>FormData</span>)? value,
+                         optional (<span>File</span> or <span data-x="idl-USVString">USVString</span> or <span>FormData</span>)? state);
+
+  readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-ElementInternals-form">form</span>;
+
+  undefined <span data-x="dom-ElementInternals-setValidity">setValidity</span>(optional <span>ValidityStateFlags</span> flags = {},
+                        optional DOMString message,
+                        optional <span>HTMLElement</span> anchor);
+  readonly attribute boolean <span data-x="dom-ElementInternals-willValidate">willValidate</span>;
+  readonly attribute <span>ValidityState</span> <span data-x="dom-ElementInternals-validity">validity</span>;
+  readonly attribute DOMString <span data-x="dom-ElementInternals-validationMessage">validationMessage</span>;
+  boolean <span data-x="dom-ElementInternals-checkValidity">checkValidity</span>();
+  boolean <span data-x="dom-ElementInternals-reportValidity">reportValidity</span>();
+
+  readonly attribute <span>NodeList</span> <span data-x="dom-ElementInternals-labels">labels</span>;
+};
+
+// <a href="#accessibility-semantics">Accessibility semantics</a>
+ElementInternals includes <span>ARIAMixin</span>;
+
+dictionary <dfn>ValidityStateFlags</dfn> {
+  boolean valueMissing = false;
+  boolean typeMismatch = false;
+  boolean patternMismatch = false;
+  boolean tooLong = false;
+  boolean tooShort = false;
+  boolean rangeUnderflow = false;
+  boolean rangeOverflow = false;
+  boolean stepMismatch = false;
+  boolean badInput = false;
+  boolean customError = false;
+};</code></pre>
+
+  <p>Each <code>ElementInternals</code> has a <dfn data-x="internals-target">target element</dfn>,
+  which is a <span>custom element</span>.</p>
+
+  </div>
+

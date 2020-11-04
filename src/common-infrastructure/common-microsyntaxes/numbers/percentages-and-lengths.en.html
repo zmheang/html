@@ -2,78 +2,81 @@
 
   <p>The <dfn>rules for parsing dimension values</dfn> are as given in the following algorithm. When
   invoked, the steps must be followed in the order given, aborting at the first step that returns a
-  value. This algorithm will return either a number greater than or equal to 0.0, or an error; if a
+  value. This algorithm will return either a number greater than or equal to 0.0, or failure; if a
   number is returned, then it is further categorized as either a percentage or a length.</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the string being parsed.</p></li>
 
-   <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially pointing at the
-   start of the string.</p></li>
+   <li><p>Let <var>position</var> be a <span>position variable</span> for <var>input</var>,
+   initially pointing at the start of <var>input</var>.</p></li>
 
    <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
    <var>position</var>.</p></li>
 
-   <li><p>If <var>position</var> is past the end of <var>input</var>, return an error.</p></li>
-
-   <li><p>If the character indicated by <var>position</var> is a U+002B PLUS SIGN character (+),
-   advance <var>position</var> to the next character.</li>
-
-   <li><p>If <var>position</var> is past the end of <var>input</var>, return an error.</p></li>
-
-   <li><p>If the character indicated by <var>position</var> is not an <span data-x="ASCII
-   digits">ASCII digit</span>, then return an error.</p></li>
+   <li><p>If <var>position</var> is past the end of <var>input</var> or the code point at
+   <var>position</var> within <var>input</var> is not an <span data-x="ASCII digits">ASCII
+   digit</span>, then return failure.</p></li>
 
    <!-- Ok. At this point we know we have a number. It might have trailing garbage which we'll
    ignore, but it's a number, and we won't return an error. -->
 
    <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
    <var>input</var> given <var>position</var>, and interpret the resulting sequence as a base-ten
-   integer. Let <var>value</var> be that number.</li>
+   integer. Let <var>value</var> be that number.</p></li>
 
-   <li><p>If <var>position</var> is past the end of <var>input</var>, return <var>value</var> as a
-   length.</p></li>
+   <li><p>If <var>position</var> is past the end of <var>input</var>, then return <var>value</var>
+   as a length.</p></li>
 
    <li>
-
-    <p>If the character indicated by <var>position</var> is a U+002E FULL STOP character (.):</p>
+    <p>If the code point at <var>position</var> within <var>input</var> is U+002E (.), then:</p>
 
     <ol>
+     <li><p>Advance <var>position</var> by 1.</p></li>
 
-     <li><p>Advance <var>position</var> to the next character.</p></li>
-
-     <li><p>If <var>position</var> is past the end of <var>input</var>, or if the character
-     indicated by <var>position</var> is not an <span data-x="ASCII digits">ASCII digit</span>, then
-     return <var>value</var> as a length.</li>
+     <li><p>If <var>position</var> is past the end of <var>input</var> or the code point at
+     <var>position</var> within <var>input</var> is not an <span data-x="ASCII digits">ASCII
+     digit</span>, then return the <span>current dimension value</span> with <var>value</var>,
+     <var>input</var>, and <var>position</var>.</p></li>
 
      <li><p>Let <var>divisor</var> have the value 1.</p></li>
 
-     <li><p><i>Fraction loop</i>: Multiply <var>divisor</var> by ten.</p></li>
+     <li>
+      <p>While true:</p>
 
-     <li>Add the value of the character indicated by <var>position</var>, interpreted as a base-ten
-     digit (0..9) and divided by <var>divisor</var>, to <var>value</var>.</li>
+      <ol>
+       <li><p>Multiply <var>divisor</var> by ten.</p></li>
 
-     <li><p>Advance <var>position</var> to the next character.</p></li>
+       <li><p>Add the value of the code point at <var>position</var> within <var>input</var>,
+       interpreted as a base-ten digit (0..9) and divided by <var>divisor</var>, to
+       <var>value</var>.</p></li>
 
-     <li><p>If <var>position</var> is past the end of <var>input</var>, then return <var>value</var>
-     as a length.</li>
+       <li><p>Advance <var>position</var> by 1.</p></li>
 
-     <li><p>If the character indicated by <var>position</var> is an <span data-x="ASCII
-     digits">ASCII digit</span>, return to the step labeled <i>fraction loop</i> in these
-     substeps.</p></li>
+       <li><p>If <var>position</var> is past the end of <var>input</var>, then return
+       <var>value</var> as a length.</p></li>
 
+       <li><p>If the code point at <var>position</var> within <var>input</var> is not an <span
+       data-x="ASCII digits">ASCII digit</span>, then <span>break</span>.</p></li>
+      </ol>
+     </li>
     </ol>
-
    </li>
 
-   <li><p>If <var>position</var> is past the end of <var>input</var>, return <var>value</var> as a
-   length.</p></li>
+   <li><p>Return the <span>current dimension value</span> with <var>value</var>, <var>input</var>,
+   and <var>position</var>.</p></li>
+  </ol>
 
-   <li><p>If the character indicated by <var>position</var> is a U+0025 PERCENT SIGN character (%),
+  <p>The <dfn>current dimension value</dfn>, given <var>value</var>, <var>input</var>, and
+  <var>position</var>, is determined as follows:</p>
+
+  <ol>
+   <li><p>If <var>position</var> is past the end of <var>input</var>, then return <var>value</var>
+   as a length.</p></li>
+
+   <li><p>If the code point at <var>position</var> within <var>input</var> is U+0025 (%), then
    return <var>value</var> as a percentage.</p></li>
 
    <li><p>Return <var>value</var> as a length.</p></li>
-
   </ol>
 

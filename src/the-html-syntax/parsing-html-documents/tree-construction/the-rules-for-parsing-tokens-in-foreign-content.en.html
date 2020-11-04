@@ -7,34 +7,26 @@
 
    <dt>A character token that is U+0000 NULL</dt>
    <dd>
-
     <p><span>Parse error</span>. <span data-x="insert a character">Insert a U+FFFD REPLACEMENT
     CHARACTER character</span>.</p>
-
    </dd>
 
    <dt>A character token that is one of U+0009 CHARACTER TABULATION, U+000A LINE FEED (LF), U+000C
    FORM FEED (FF), U+000D CARRIAGE RETURN (CR), or U+0020 SPACE</dt>
    <dd>
-
     <p><span data-x="insert a character">Insert the token's character</span>.</p>
-
    </dd>
 
    <dt>Any other character token</dt>
    <dd>
-
     <p><span data-x="insert a character">Insert the token's character</span>.</p>
 
     <p>Set the <span>frameset-ok flag</span> to "not ok".</p>
-
    </dd>
 
    <dt>A comment token</dt>
    <dd>
-
     <p><span>Insert a comment</span>.</p>
-
    </dd>
 
    <dt>A DOCTYPE token</dt>
@@ -57,7 +49,6 @@
    but legacy <font>s won't -->
 
    <dd>
-
     <p><span>Parse error</span>.</p>
 
     <!-- for sanity's sake, we limit this wacked quirk to legacy full-document parsing, not to
@@ -66,8 +57,8 @@
     to in the first place). Therefore, rather than trying to figure out in what convoluted
     conditions we could actually do this quirk for innerHTML, we just don't do it at all. -->
 
-    <p>If the parser was originally created for the <span>HTML fragment parsing algorithm</span>,
-    then act as described in the "any other start tag" entry below. (<span>fragment case</span>)</p>
+    <p>If the parser was created as part of the <span>HTML fragment parsing algorithm</span>, then
+    act as described in the "any other start tag" entry below. (<span>fragment case</span>)</p>
 
     <p>Otherwise:</p>
 
@@ -77,12 +68,10 @@
     element in the <span>HTML namespace</span>.</p>
 
     <p>Then, reprocess the token.</p>
-
    </dd>
 
    <dt>Any other start tag</dt>
    <dd>
-
     <p>If the <span>adjusted current node</span> is an element in the <span>MathML namespace</span>,
     <span>adjust MathML attributes</span> for the token. (This fixes the case of MathML attributes
     that are not all lowercase.)</p>
@@ -154,30 +143,23 @@
      <dt>If the token's tag name is "script", and the new <span>current node</span> is in the <span>SVG namespace</span></dt>
 
      <dd>
-
       <p><span data-x="acknowledge self-closing flag">Acknowledge the token's <i data-x="self-closing flag">self-closing
       flag</i></span>, and then act as described in the steps for a "script" end tag below.</p>
-
      </dd>
 
      <dt>Otherwise</dt>
 
      <dd>
-
       <p>Pop the <span>current node</span> off the <span>stack of open elements</span> and <span
       data-x="acknowledge self-closing flag">acknowledge the token's <i data-x="self-closing flag">self-closing
       flag</i></span>.</p>
-
      </dd>
-
     </dl>
-
    </dd>
 
    <dt id="scriptForeignEndTag">An end tag whose tag name is "script", if the <span>current
    node</span> is an <span>SVG <code>script</code></span> element</dt>
    <dd>
-
     <p>Pop the <span>current node</span> off the <span>stack of open elements</span>.</p>
 
     <p>Let the <var>old insertion point</var> have the same value as the current
@@ -201,17 +183,14 @@
     <p>Let the <span>insertion point</span> have the value of the <var>old insertion
     point</var>. (In other words, restore the <span>insertion point</span> to its previous value.
     This value might be the "undefined" value.)</p>
-
    </dd>
 
    <dt>Any other end tag</dt>
 
    <dd>
-
     <p>Run these steps:</p>
 
     <ol>
-
      <li><p>Initialize <var>node</var> to be the <span>current node</span> (the bottommost
      node of the stack).</p></li>
 
@@ -233,11 +212,8 @@
 
      <li><p>Otherwise, process the token according to the rules given in the section corresponding
      to the current <span>insertion mode</span> in HTML content.</li>
-
     </ol>
-
    </dd>
-
   </dl>
 
   </div>

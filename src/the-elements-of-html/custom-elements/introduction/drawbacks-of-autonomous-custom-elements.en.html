@@ -4,7 +4,7 @@
 
   <p>As specified below, and alluded to above, simply defining and using an element called
   <code data-x="">taco-button</code> does not mean that such elements <span
-  data-x="represents">represent</span> buttons. That is, tools such as Web browsers, search engines,
+  data-x="represents">represent</span> buttons. That is, tools such as web browsers, search engines,
   or accessibility technology will not automatically treat the resulting element as a button just
   based on its defined name.</p>
 
@@ -13,24 +13,23 @@
 
   <ul>
    <li><p>The addition of the <code data-x="attr-tabindex">tabindex</code> attribute would make the
-   <code data-x="">taco-button</code> <span>interactive content</span>, thus making it
-   <span data-x="focusable area">focusable</span>. Note that if the
+   <code data-x="">taco-button</code> <span>focusable</span>. Note that if the
    <code data-x="">taco-button</code> were to become logically disabled, the <code
    data-x="attr-tabindex">tabindex</code> attribute would need to be removed.</p></li>
 
-   <li><p>The addition of various ARIA attributes helps convey semantics to accessibility
-   technology. For example, setting the <code data-x="attr-aria-role">role</code> attribute to
-   "<code data-x="attr-aria-role-button">button</code>" will convey the semantics that this is a
-   button, enabling users to successfully interact with the control using usual button-like
-   interactions in their accessibility technology. Setting the <code
-   data-x="attr-aria-label">aria-label</code> attribute is necessary to give the button an
-   <span data-x="concept-accessible-name">accessible name</span>, instead of having accessibility
-   technology traverse its child text nodes and announce them. And setting <code
-   data-x="attr-aria-disabled">aria-disabled</code> to "<code data-x="">true</code>" when the button
-   is logically disabled conveys to accessibility technology the button's disabled state.</p></li>
+   <li><p>The addition of an ARIA role and various ARIA states and properties helps convey semantics
+   to accessibility technology. For example, setting the <span>role</span> to "<code
+   data-x="attr-aria-role-button">button</code>" will convey the semantics that this is a button,
+   enabling users to successfully interact with the control using usual button-like interactions in
+   their accessibility technology. Setting the <code data-x="attr-aria-label">aria-label</code>
+   property is necessary to give the button an <span data-x="concept-accessible-name">accessible
+   name</span>, instead of having accessibility technology traverse its child text nodes and
+   announce them. And setting the <code data-x="attr-aria-disabled">aria-disabled</code> state to
+   "<code data-x="">true</code>" when the button is logically disabled conveys to accessibility
+   technology the button's disabled state.</p></li>
 
    <li><p>The addition of event handlers to handle commonly-expected button behaviors helps convey
-   the semantics of the button to Web browser users. In this case, the most relevant event handler
+   the semantics of the button to web browser users. In this case, the most relevant event handler
    would be one that proxies appropriate <code data-x="event-keydown">keydown</code> events to
    become <code data-x="event-click">click</code> events, so that you can activate the button both
    with keyboard and by clicking.</li>
@@ -46,14 +45,16 @@
   responsibility of conveying button semantics (including the ability to be disabled) might look
   something like this:</p>
 
-  <pre><code class="js" data-x="">class TacoButton extends HTMLElement {
+  <pre><code class="js">class TacoButton extends HTMLElement {
   static get observedAttributes() { return ["disabled"]; }
 
   constructor() {
     super();
+    this._internals = this.attachInternals();
+    this._internals.role = "button";
 
     this.addEventListener("keydown", e => {
-      if (e.keyCode === 32 || e.keyCode === 13) {
+      if (e.code === "Enter" || e.code === "Space") {
         this.dispatchEvent(new MouseEvent("click", {
           bubbles: true,
           cancelable: true
@@ -64,17 +65,16 @@
     this.addEventListener("click", e => {
       if (this.disabled) {
         e.preventDefault();
-        e.stopPropagation();
+        e.stopImmediatePropagation();
       }
     });
 
     this._observer = new MutationObserver(() => {
-      this.setAttribute("aria-label", this.textContent);
+      this._internals.ariaLabel = this.textContent;
     });
   }
 
   connectedCallback() {
-    this.setAttribute("role", "button");
     this.setAttribute("tabindex", "0");
 
     this._observer.observe(this, {
@@ -91,33 +91,29 @@
   get disabled() {
     return this.hasAttribute("disabled");
   }
-
-  set disabled(v) {
-    if (v) {
-      this.setAttribute("disabled", "");
-    } else {
-      this.removeAttribute("disabled");
-    }
+  set disabled(flag) {
+    this.toggleAttribute("disabled", Boolean(flag));
   }
 
-  attributeChangedCallback() {
-    // only is called for the disabled attribute due to observedAttributes
+  attributeChangedCallback(name, oldValue, newValue) {
+    // name will always be "disabled" due to observedAttributes
     if (this.disabled) {
       this.removeAttribute("tabindex");
-      this.setAttribute("aria-disabled", "true");
+      this._internals.ariaDisabled = "true";
     } else {
       this.setAttribute("tabindex", "0");
-      this.setAttribute("aria-disabled", "false");
+      this._internals.ariaDisabled = "false";
     }
   }
 }</code></pre>
 
   <p>Even with this rather-complicated element definition, the element is not a pleasure to use for
-  consumers: it will be continually "sprouting" <code data-x="attr-tabindex">tabindex</code> and
-  <code data-x="attr-aria-*">aria-*</code> attributes of its own volition. This is because as of now
-  there is no way to specify default accessibility semantics or focus behavior for custom elements,
-  forcing the use of these attributes to do so (even though they are usually reserved for allowing
-  the consumer to override default behavior).</p>
+  consumers: it will be continually "sprouting" <code data-x="attr-tabindex">tabindex</code>
+  attributes of its own volition, and its choice of <code data-x="">tabindex="0"</code> focusability
+  behavior may not match the <code>button</code> behavior on the current platform. This is because
+  as of now there is no way to specify default focus behavior for custom elements, forcing the use
+  of the <code data-x="attr-tabindex">tabindex</code> attribute to do so (even though it is usually
+  reserved for allowing the consumer to override default behavior).</p>
 
   <p>In contrast, a simple <span>customized built-in element</span>, as shown in the previous
   section, would automatically inherit the semantics and behavior of the <code>button</code>

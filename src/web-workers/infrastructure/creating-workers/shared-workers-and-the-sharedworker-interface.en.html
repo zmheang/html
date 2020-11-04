@@ -1,8 +1,9 @@
   <h5>Shared workers and the <code subdfn>SharedWorker</code> interface</h5>
 
-  <pre><code class="idl" data-x="">[<span data-x="dom-SharedWorker">Constructor</span>(USVString scriptURL, optional (DOMString or <span>WorkerOptions</span>) options),
- Exposed=(Window,Worker)]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
+  <span data-x="dom-SharedWorker">constructor</span>(USVString scriptURL, optional (DOMString or <span>WorkerOptions</span>) options = {});
+
   readonly attribute <span>MessagePort</span> <span data-x="dom-SharedWorker-port">port</span>;
 };
 <span>SharedWorker</span> includes <span>AbstractWorker</span>;</code></pre>
@@ -22,7 +23,10 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
    data-x="">name</code> option. It can also ensure this new global environment supports JavaScript
    modules (specify <code data-x="">type: "module"</code>), and if that is specified, can also be
    used to specify how <var>scriptURL</var> is fetched through the <code
-   data-x="">credentials</code> option.</dd>
+   data-x="">credentials</code> option. Note that attempting to construct a shared worker with
+   <var>options</var> whose <code data-x="">type</code> or <code data-x="">credentials</code>
+   values mismatch an existing shared worker will cause the returned <var>sharedWorker</var> to
+   fire an error event and not connect to the existing shared worker.</dd>
 
    <dt><var>sharedWorker</var> . <code subdfn data-x="dom-SharedWorker-port">port</code></dt>
    <dd>Returns <var>sharedWorker</var>'s <code>MessagePort</code> object which can be used to
@@ -73,15 +77,14 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
 
    <li><p>Let <var>worker</var> be a new <code>SharedWorker</code> object.</p></li>
 
-   <li><p><span>Create a new <code>MessagePort</code> object</span> whose <span
-   data-x="concept-port-owner">owner</span> is <var>outside settings</var>. Let this be the
-   <var>outside port</var>.</p></li>
+   <li><p>Let <var>outside port</var> be a <span>new</span> <code>MessagePort</code> in <var>outside
+   settings</var>'s <span data-x="environment settings object's Realm">Realm</span>.</p></li>
 
    <li><p>Assign <var>outside port</var> to the <code data-x="dom-SharedWorker-port">port</code>
    attribute of <var>worker</var>.</p></li>
 
-   <li><p>Let <var>callerIsSecureContext</var> be the result of executing <span>Is environment
-   settings object a secure context?</span> on <var>outside settings</var>.</p></li>
+   <li><p>Let <var>callerIsSecureContext</var> be true if <var>outside settings</var> is a
+   <span>secure context</span>; otherwise, false.</p></li>
 
    <li>
     <p><span>Enqueue the following steps</span> to the <span>shared worker manager</span>:</p>
@@ -123,6 +126,13 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
       browser mode.</p>
      </li>
 
+     <li><p>If <var>worker global scope</var> is not null, then check if <var>worker global
+     scope</var>'s <span data-x="concept-WorkerGlobalScope-type">type</span> and <span
+     data-x="concept-SharedWorkerGlobalScope-credentials">credentials</span> match the
+     <var>options</var> values. If not, <span>queue a task</span> to <span
+     data-x="concept-event-fire">fire an event</span> named <code data-x="event-error">error</code>
+     and abort these steps.</p></li>
+
      <li>
       <p>If <var>worker global scope</var> is not null, then run these subsubsteps:</p>
 
@@ -130,19 +140,19 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
        <li><p>Let <var>settings object</var> be the <span>relevant settings object</span> for
        <var>worker global scope</var>.</p></li>
 
-       <li><p>Let <var>workerIsSecureContext</var> be the result of executing <span>Is environment
-       settings object a secure context?</span> on <var>settings object</var>.</p></li>
+       <li><p>Let <var>workerIsSecureContext</var> be true if <var>settings object</var> is a
+       <span>secure context</span>; otherwise, false.</p></li>
 
        <li><p>If <var>workerIsSecureContext</var> is not <var>callerIsSecureContext</var>, then
        <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
-       <code data-x="event-error">error</code> at <var>worker</var> and abort these subsubsteps.
-       <ref spec="SECURE-CONTEXTS"></p></li>
+       <code data-x="event-error">error</code> at <var>worker</var> and abort these steps.
+       <ref spec=SECURE-CONTEXTS></p></li>
 
        <li><p>Associate <var>worker</var> with <var>worker global scope</var>.</p></li>
 
-       <li><p><span>Create a new <code>MessagePort</code> object</span> whose <span
-       data-x="concept-port-owner">owner</span> is <var>settings object</var>. Let this be
-       the <var>inside port</var>.</p></li>
+       <li><p>Let <var>inside port</var> be a <span>new</span> <code>MessagePort</code> in
+       <var>settings object</var>'s <span data-x="environment settings object's
+       Realm">Realm</span>.</p></li>
 
        <li><p><span>Entangle</span> <var>outside port</var> and <var>inside port</var>.</p></li>
 
@@ -158,12 +168,6 @@ interface <dfn>SharedWorker</dfn> : <span>EventTarget</span> {
 
        <li><p><span data-x="set append">Append</span> the <span>relevant owner to add</span> given
        <var>outside settings</var> to <var>worker global scope</var>'s <span>owner
-       set</span>.</p></li>
-
-       <li><p>If <var>outside settings</var>'s <span data-x="concept-settings-object-global">global
-       object</span> is a <code>WorkerGlobalScope</code> object, then <span data-x="set
-       append">append</span> <var>worker global scope</var> to <var>outside settings</var>'s <span
-       data-x="concept-settings-object-global">global object</span>'s <span>worker
        set</span>.</p></li>
       </ol>
      </li>

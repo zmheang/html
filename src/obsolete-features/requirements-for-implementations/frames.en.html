@@ -1,38 +1,39 @@
   <h4>Frames</h4>
 
-  <p>The <dfn data-export="" data-dfn-type="element"><code>frameset</code></dfn> element acts as
-  <span>the body element</span> in documents that use frames.</p>
+  <p>The <dfn element><code>frameset</code></dfn> element acts as <span>the body element</span> in
+  documents that use frames.</p>
 
   <p>The <code>frameset</code> element must implement the <code>HTMLFrameSetElement</code>
   interface.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLFrameSetElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frameset-cols">cols</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frameset-rows">rows</span>;
 };
 <span>HTMLFrameSetElement</span> includes <span>WindowEventHandlers</span>;</code></pre>
 
-  <p>The <dfn><code data-x="dom-frameset-cols">cols</code></dfn> and <dfn><code data-x="dom-frameset-rows">rows</code></dfn> IDL attributes of the <code>frameset</code>
-  element must <span>reflect</span> the respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLFrameSetElement"><code data-x="dom-frameset-cols">cols</code></dfn>
+  and <dfn attribute for="HTMLFrameSetElement"><code data-x="dom-frameset-rows">rows</code></dfn>
+  IDL attributes of the <code>frameset</code> element must <span>reflect</span> the respective
+  content attributes of the same name.</p>
 
   <p>The <code>frameset</code> element exposes as <span>event handler content attributes</span> a
   number of the <span>event handlers</span> of the <code>Window</code> object. It also mirrors their
   <span>event handler IDL attributes</span>.</p>
 
-  <p>The <code data-x="handler-onblur">onblur</code>, <code data-x="handler-onerror">onerror</code>,
-  <code data-x="handler-onfocus">onfocus</code>, <code data-x="handler-onload">onload</code>, <code
-  data-x="handler-onresize">onresize</code>, and <code data-x="handler-onscroll">onscroll</code>
-  <span>event handlers</span> of the <code>Window</code> object, exposed on the
+  <p>The <span>event handlers</span> of the <code>Window</code> object named by the
+  <span><code>Window</code>-reflecting body element event handler set</span>, exposed on the
   <code>frameset</code> element, replace the generic <span>event handlers</span> with the same names
   normally supported by <span>HTML elements</span>.</p>
 
   <hr>
 
-  <p>The <dfn data-export="" data-dfn-type="element"><code>frame</code></dfn>
-  element defines a <span>nested browsing context</span> similar to the <code>iframe</code>
-  element, but rendered within a <code>frameset</code> element.</p>
+  <p>The <dfn element><code>frame</code></dfn> element has a <span>nested browsing context</span>
+  similar to the <code>iframe</code> element, but rendered within a <code>frameset</code>
+  element.</p>
 
   <!-- START of section that's very similar to <iframe> -->
 
@@ -41,14 +42,16 @@ interface <dfn>HTMLFrameSetElement</dfn> : <span>HTMLElement</span> {
   <!-- even if the parent isn't a <frameset>. In fact, even if its parent isn't being rendered at
        all: https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2721 -->
 
-  <p>When a <code>frame</code> element is created as an <span>active <code>frame</code>
-  element</span>, or becomes an <span>active <code>frame</code> element</span> after not having been
-  one, the user agent must <span data-x="creating a new browsing context">create a new browsing
-  context</span>, set the element's <span>nested browsing context</span> to the newly-created
-  <span>browsing context</span>, and then <span>process the <code>frame</code> attributes</span> for
-  the first time. If the element has a <code undefined data-x="attr-frame-name">name</code>
-  attribute, the <span>browsing context name</span> must be set to the value of this attribute;
-  otherwise, the <span>browsing context name</span> must be set to the empty string.</p>
+  <p>When a <code>frame</code> element <var>element</var> is created as an <span>active
+  <code>frame</code> element</span>, or becomes an <span>active <code>frame</code> element</span>
+  after not having been one, the user agent must run these steps:</p>
+
+  <ol>
+   <li><p><span>Create a new nested browsing context</span> for <var>element</var>.</p></li>
+
+   <li><p><span>Process the <code>frame</code> attributes</span> for <var>element</var>, with <var
+   data-x="process-frame-initial-insertion">initialInsertion</var> set to true.</p></li>
+  </ol>
 
   <p>When a <code>frame</code> element stops being an <span>active <code>frame</code>
   element</span>, the user agent must <span data-x="a browsing context is discarded">discard</span>
@@ -60,68 +63,27 @@ interface <dfn>HTMLFrameSetElement</dfn> : <span>HTMLElement</span> {
   user agent must <span>process the <code>frame</code> attributes</span>.</p> <!-- It doesn't happen
   when the base URL is changed, though. -->
 
-  <p>When the user agent is to <dfn>process the <code>frame</code> attributes</dfn>, it must run the
-  first appropriate steps from the following list:</p>
+  <p>To <dfn>process the <code>frame</code> attributes</dfn> for an element <var>element</var>, with
+  an optional boolean <dfn
+  data-x="process-frame-initial-insertion"><var>initialInsertion</var></dfn>:</p>
 
-  <dl class="switch">
-   <dt>If the element has no <code undefined data-x="attr-frame-src">src</code> attribute specified,
-   and the user agent is processing the <code>frame</code>'s attributes for the first time</dt>
+  <ol>
+   <li><p>If <var>initialInsertion</var> is true, then do nothing.</p></li>
 
-   <dd><p><span>Queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
-   <code data-x="event-load">load</code> at the <code>frame</code> element using the <span>DOM
-   manipulation task source</span>.</p></dd>
+   <li><p>Otherwise, run the <span>otherwise steps for <code>iframe</code> or <code>frame</code>
+   elements</span> given <var>element</var>.</p></li>
+  </ol>
 
-   <dt>Otherwise</dt>
-
-   <dd><p>Run the <span>otherwise steps for <code>iframe</code> or <code>frame</code>
-   elements</span>.</p></dd>
-  </dl>
-
-  <p>Any <span data-x="navigate">navigation</span> required of the user agent in the <span>process
-  the <code>frame</code> attributes</span> algorithm must use the <code>frame</code> element's
-  <span>node document</span>'s <span>browsing context</span> as the <span>source browsing
-  context</span>.</p>
-
-  <p>Furthermore, if the <span>active document</span> of the element's <span>nested browsing
-  context</span> before such a <span data-x="navigate">navigation</span> was not <span>completely
-  loaded</span> at the time of the new <span data-x="navigate">navigation</span>, then the <span
-  data-x="navigate">navigation</span> must be completed with <span>replacement enabled</span>.</p>
-
-  <p>Similarly, if the <span>nested browsing context</span>'s <span>session history</span> contained
-  only one <code>Document</code> when the <span>process the <code>frame</code> attributes</span>
-  algorithm was invoked, and that was the <code>about:blank</code> <code>Document</code> created
-  when the <span>nested browsing context</span> was created, then any <span
-  data-x="navigate">navigation</span> required of the user agent in that algorithm must be completed
-  with <span>replacement enabled</span>.</p> <!-- see also the note near similar text for the
-  location.assign() method -->
-
-  <!-- next few paragraphs are also from <iframe> but less detailed -->
-
-  <p>When a <code>Document</code> in a <code>frame</code> is marked as <span>completely
-  loaded</span>, the user agent must <span data-x="concept-event-fire">fire an event</span> named
-  <code data-x="event-load">load</code> at the <code>frame</code> element.</p>
-
-  <p>When a <code>frame</code> element has a non-null <span>nested browsing context</span>, and its
-  <span>nested browsing context</span>'s <span>active document</span> is not <span>ready for
-  post-load tasks</span>, and when anything is <span data-x="delay the load event">delaying the load
-  event</span> of the <code>frame</code> element's <span>browsing context</span>'s <span>active
-  document</span>, and when the <code>frame</code> element's <span>browsing context</span> is in the
-  <span>delaying <code data-x="event-load">load</code> events mode</span>, the <code>frame</code>
-  must <span>delay the load event</span> of its document.</p>
+  <p>The <code>frame</code> element <span>potentially delays the load event</span>.</p>
 
   <!-- END of section that's very similar to <iframe> -->
 
-  <p>Whenever the <code undefined data-x="attr-frame-name">name</code> attribute is set and the
-  <code>frame</code> element's <span>nested browsing context</span> is non-null, the <span>nested
-  browsing context</span>'s <span data-x="browsing context name">name</span> must be changed to the
-  new value. If the attribute is removed, the <span>browsing context name</span> must be set to the
-  empty string.</p>
-
   <p>The <code>frame</code> element must implement the <code>HTMLFrameElement</code> interface.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLFrameElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frame-name">name</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-frame-scrolling">scrolling</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-frame-src">src</span>;
@@ -131,14 +93,17 @@ interface <dfn>HTMLFrameElement</dfn> : <span>HTMLElement</span> {
   readonly attribute <span>Document</span>? <span data-x="dom-frame-contentDocument">contentDocument</span>;
   readonly attribute <span>WindowProxy</span>? <span data-x="dom-frame-contentWindow">contentWindow</span>;
 
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-frame-marginHeight">marginHeight</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-frame-marginWidth">marginWidth</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-frame-marginHeight">marginHeight</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-frame-marginWidth">marginWidth</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-frame-name">name</code></dfn>, <dfn><code data-x="dom-frame-scrolling">scrolling</code></dfn>, and <dfn><code data-x="dom-frame-src">src</code></dfn> IDL attributes of the <code>frame</code> element must
-  <span>reflect</span> the respective content attributes of the same name. For the purposes of
-  reflection, the <code>frame</code> element's <code undefined data-x="attr-frame-src">src</code> content
-  attribute is defined as containing a <span>URL</span>.</p>
+  <p>The <dfn attribute for="HTMLFrameElement"><code data-x="dom-frame-name">name</code></dfn>, <dfn
+  attribute for="HTMLFrameElement"><code data-x="dom-frame-scrolling">scrolling</code></dfn>, and
+  <dfn attribute for="HTMLFrameElement"><code data-x="dom-frame-src">src</code></dfn> IDL attributes
+  of the <code>frame</code> element must <span>reflect</span> the respective content attributes of
+  the same name. For the purposes of reflection, the <code>frame</code> element's <code undefined
+  data-x="attr-frame-src">src</code> content attribute is defined as containing a
+  <span>URL</span>.</p>
 
   <p>The <dfn><code data-x="dom-frame-frameBorder">frameBorder</code></dfn> IDL attribute of the
   <code>frame</code> element must <span>reflect</span> the element's <code

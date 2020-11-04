@@ -1,0 +1,14 @@
+  <h5><dfn>CrossOriginPropertyFallback</dfn> ( <var>P</var> )</h5>
+
+  <ol>
+   <li><p>If <var>P</var> is "<code data-x="">then</code>", <span>@@toStringTag</span>,
+   <span>@@hasInstance</span>, or <span>@@isConcatSpreadable</span>, then return
+   <span>PropertyDescriptor</span>{
+   [[Value]]: undefined,
+   [[Writable]]: false,
+   [[Enumerable]]: false,
+   [[Configurable]]: true }.</p></li>
+
+   <li><p>Throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+  </ol>
+

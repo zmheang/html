@@ -1,7 +1,7 @@
-  <h4 data-export="" data-lt="transferable object"><dfn>Transferable objects</dfn></h4>
+  <h4 export data-lt="transferable object"><dfn>Transferable objects</dfn></h4>
 
-  <p><span>Transferable objects</span> support being transferred across <span data-x="event
-  loop">event loops</span>. Transferring is effectively recreating the object while sharing a
+  <p><span>Transferable objects</span> support being transferred across <span
+  data-x="agent">agents</span>. Transferring is effectively recreating the object while sharing a
   reference to the underlying data and then detaching the object being transferred. This is useful
   to transfer ownership of expensive resources. Not all objects are <span>transferable
   objects</span> and not all aspects of objects that are <span>transferable objects</span> are
@@ -11,13 +11,12 @@
   been transferred, it cannot be transferred, or indeed used, again.</p>
 
   <p><span data-x="platform object">Platform objects</span> can be <span>transferable objects</span>
-  if they implement only interfaces decorated with the <dfn data-export=""
-  data-dfn-type="extended-attribute" data-lt="Transferable"
-  data-x="Transferable"><code>[Transferable]</code></dfn> IDL <span>extended attribute</span>. Such
-  interfaces must also define the following algorithms:</p>
+  if their <span>primary interface</span> is decorated with the <dfn extended-attribute
+  data-lt="Transferable" data-x="Transferable"><code>[Transferable]</code></dfn> IDL <span>extended
+  attribute</span>. Such interfaces must also define the following algorithms:</p>
 
   <dl>
-   <dt><dfn data-export="">transfer steps</dfn>, taking a <span>platform object</span>
+   <dt><dfn export>transfer steps</dfn>, taking a <span>platform object</span>
    <var>value</var> and a <span>Record</span> <var>dataHolder</var></dt>
    <dd>
     <p>A set of steps that transfers the data in <var>value</var> into fields of
@@ -27,7 +26,7 @@
     <p>These steps may throw an exception if transferral is not possible.</p>
    </dd>
 
-   <dt><dfn data-export="">transfer-receiving steps</dfn>, taking a <span>Record</span>
+   <dt><dfn export>transfer-receiving steps</dfn>, taking a <span>Record</span>
    <var>dataHolder</var> and a <span>platform object</span> <var>value</var></dt>
    <dd>
     <p>A set of steps that receives the data in <var>dataHolder</var>, using it to set up
@@ -43,17 +42,20 @@
   by these steps. Typically the steps are very symmetric.</p>
 
   <p>The <code data-x="Transferable">[Transferable]</code> extended attribute must take no
-  arguments, and must not appear on anything other than an interface. It must appear only once on an
-  interface. It must not be used on a callback interface. If it appears on a partial interface or an
-  interface that is really a mixin, then it must also appear on the original or mixed-in-to
-  interface, and any supplied <span>serialization steps</span> and <span>deserialization
-  steps</span> for the partial interface or mixin should be understood as being appended to those of
-  the original or mixed-in-to interface.</p>
+  arguments, and must only appear on an interface. It must not appear more than once on an
+  interface.</p>
+
+  <p>For a given <span>platform object</span>, only the object's <span>primary interface</span> is
+  considered during the transferring process. Thus, if inheritance is involved in defining the
+  interface, each <code data-x="Transferable">[Transferable]</code>-annotated interface in the
+  inheritance chain needs to define standalone <span>transfer steps</span> and
+  <span>transfer-receiving steps</span>, including taking into account any important data that might
+  come from inherited interfaces.</p>
 
   <p><span data-x="platform object">Platform objects</span> that are <span>transferable
-  objects</span> have a <dfn data-export="" data-dfn-for="platform object"
-  data-dfn-type="attribute">[[Detached]]</dfn> internal slot. This is used to ensure that once a
-  platform object has been transferred, it cannot be transferred again.</p>
+  objects</span> have a <dfn for="platform object" attribute>[[Detached]]</dfn> internal slot. This
+  is used to ensure that once a platform object has been transferred, it cannot be transferred
+  again.</p>
 
   <p>Objects defined in the JavaScript specification are handled by the
   <span>StructuredSerializeWithTransfer</span> abstract operation directly.</p>

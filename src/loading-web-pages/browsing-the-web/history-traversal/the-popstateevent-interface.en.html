@@ -1,8 +1,9 @@
   <h5>The <code>PopStateEvent</code> interface</h5>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- Constructor(DOMString type, optional <span>PopStateEventInit</span> eventInitDict)]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>PopStateEvent</dfn> : <span>Event</span> {
+  constructor(DOMString type, optional <span>PopStateEventInit</span> eventInitDict = {});
+
   readonly attribute any <span data-x="dom-PopStateEvent-state">state</span>;
 };
 
@@ -15,13 +16,10 @@ dictionary <dfn>PopStateEventInit</dfn> : <span>EventInit</span> {
    <dt><var>event</var> . <code subdfn data-x="dom-PopStateEvent-state">state</code></dt>
 
    <dd>
-
     <p>Returns a copy of the information that was provided to <code
     data-x="dom-history-pushState">pushState()</code> or <code
     data-x="dom-history-replaceState">replaceState()</code>.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>

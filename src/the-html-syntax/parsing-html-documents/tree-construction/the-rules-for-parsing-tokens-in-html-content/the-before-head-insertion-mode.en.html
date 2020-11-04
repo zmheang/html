@@ -31,7 +31,6 @@
 
    <dt>A start tag whose tag name is "head"</dt>
    <dd>
-
     <p><span>Insert an HTML element</span> for the token.</p>
 
     <p>Set the <span><code data-x="">head</code> element pointer</span> to the newly created
@@ -39,26 +38,20 @@
 
     <p>Switch the <span>insertion mode</span> to "<span data-x="insertion mode: in head">in
     head</span>".</p>
-
    </dd>
 
    <dt>An end tag whose tag name is one of: "head", "body", "html", "br"</dt>
    <dd>
-
     <p>Act as described in the "anything else" entry below.</p>
-
    </dd>
 
    <dt>Any other end tag</dt>
    <dd>
-
     <p><span>Parse error</span>. Ignore the token.</p>
-
    </dd>
 
    <dt>Anything else</dt>
    <dd>
-
     <!-- fake <head> -->
 
     <p><span>Insert an HTML element</span> for a "head" start tag token with no attributes.</p>
@@ -72,9 +65,7 @@
     <!-- end of fake <head> -->
 
     <p>Reprocess the current token.</p>
-
    </dd>
-
   </dl>
 
 

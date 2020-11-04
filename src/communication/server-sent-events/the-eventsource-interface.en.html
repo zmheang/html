@@ -1,7 +1,9 @@
   <h4>The <code>EventSource</code> interface</h4>
 
-  <pre><code class="idl" data-x="">[<span data-x="dom-EventSource">Constructor</span>(USVString url, optional <span>EventSourceInit</span> eventSourceInitDict), Exposed=(Window,Worker)]
+  <pre><code class="idl">[Exposed=(Window,Worker)]
 interface <dfn>EventSource</dfn> : <span>EventTarget</span> {
+  <span data-x="dom-EventSource">constructor</span>(USVString url, optional <span>EventSourceInit</span> eventSourceInitDict = {});
+
   readonly attribute USVString <span data-x="dom-EventSource-url">url</span>;
   readonly attribute boolean <span data-x="dom-EventSource-withCredentials">withCredentials</span>;
 
@@ -15,7 +17,7 @@ interface <dfn>EventSource</dfn> : <span>EventTarget</span> {
   attribute <span>EventHandler</span> <span data-x="handler-EventSource-onopen">onopen</span>;
   attribute <span>EventHandler</span> <span data-x="handler-EventSource-onmessage">onmessage</span>;
   attribute <span>EventHandler</span> <span data-x="handler-EventSource-onerror">onerror</span>;
-  void <span data-x="dom-EventSource-close">close</span>();
+  undefined <span data-x="dom-EventSource-close">close</span>();
 };
 
 dictionary <dfn>EventSourceInit</dfn> {
@@ -27,15 +29,15 @@ dictionary <dfn>EventSourceInit</dfn> {
   <p>Each <code>EventSource</code> object has the following associated with it:</p>
 
   <ul>
-   <li><p>A <dfn data-x="concept-EventSource-url" data-dfn-for="EventSource">url</dfn> (a <span>URL
+   <li><p>A <dfn data-x="concept-EventSource-url" for="EventSource">url</dfn> (a <span>URL
    record</span>). Set during construction.</p></li>
 
    <li><p>A <dfn data-x="concept-event-stream-request">request</dfn>. This must initially be
    null.</p></li>
 
    <li><p>A <dfn data-x="concept-event-stream-reconnection-time">reconnection time</dfn>, in
-   milliseconds. This must initially be a user-agent-defined value, probably in the region of a few
-   seconds.</p></li>
+   milliseconds. This must initially be an <span>implementation-defined</span> value, probably in
+   the region of a few seconds.</p></li>
 
    <li><p>A <dfn data-x="concept-event-stream-last-event-id">last event ID string</dfn>. This must
    initially be the empty string.</p></li>
@@ -91,7 +93,6 @@ dictionary <dfn>EventSourceInit</dfn> {
     <p>Returns the state of this <code>EventSource</code> object's connection. It can have the
     values described below.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -125,8 +126,7 @@ dictionary <dfn>EventSourceInit</dfn> {
 
    <li><p>Let <var>request</var> be the result of <span
    data-x="create a potential-CORS request">creating a potential-CORS request</span> given
-   <var>urlRecord</var>, the empty string, and <var>corsAttributeState</var>, and with the
-   <i>same-origin fallback flag</i> set.</p></li>
+   <var>urlRecord</var>, the empty string, and <var>corsAttributeState</var>.</p></li>
 
    <li><p>Set <var>request</var>'s <span data-x="concept-request-client">client</span> to
    <var>settings</var>.</p></li>
@@ -167,7 +167,6 @@ dictionary <dfn>EventSourceInit</dfn> {
   </div>
 
   <dl>
-
    <dt><dfn><code data-x="dom-EventSource-CONNECTING">CONNECTING</code></dfn> (numeric value 0)</dt>
 
    <dd>The connection has not yet been established, or it was closed and the user agent is
@@ -181,7 +180,6 @@ dictionary <dfn>EventSourceInit</dfn> {
 
    <dd>The connection is not open, and the user agent is not trying to reconnect. Either there was a
    fatal error or the <code data-x="dom-EventSource-close">close()</code> method was invoked.</dd>
-
   </dl>
 
   <div w-nodev>

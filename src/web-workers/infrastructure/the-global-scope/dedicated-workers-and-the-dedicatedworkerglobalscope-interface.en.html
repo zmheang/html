@@ -1,12 +1,13 @@
   <h5>Dedicated workers and the <code subdfn>DedicatedWorkerGlobalScope</code> interface</h5>
 
-  <pre><code class="idl" data-x="">[Global=(Worker,DedicatedWorker),Exposed=DedicatedWorker]
+  <pre><code class="idl">[Global=(Worker,DedicatedWorker),Exposed=DedicatedWorker]
 interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   [Replaceable] readonly attribute DOMString <span data-x="dom-DedicatedWorkerGlobalScope-name">name</span>;
 
-  void <span data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
+  undefined <span data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</span>(any message, sequence&lt;<span data-x="idl-object">object</span>&gt; transfer);
+  undefined <span data-x="dom-DedicatedWorkerGlobalScope-postMessage-options">postMessage</span>(any message, optional <span>PostMessageOptions</span> options = {});
 
-  void <span data-x="dom-DedicatedWorkerGlobalScope-close">close</span>();
+  undefined <span data-x="dom-DedicatedWorkerGlobalScope-close">close</span>();
 
   attribute <span>EventHandler</span> <span data-x="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</span>;
   attribute <span>EventHandler</span> <span data-x="handler-DedicatedWorkerGlobalScope-onmessageerror">onmessageerror</span>;
@@ -29,6 +30,9 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
    <dt><var>dedicatedWorkerGlobal</var> . <code subdfn
    data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</code>(<var>message</var> [,
    <var>transfer</var> ])</dt>
+   <dt><var>dedicatedWorkerGlobal</var> . <code subdfn
+   data-x="dom-DedicatedWorkerGlobalScope-postMessage-options">postMessage</code>(<var>message</var>
+   [, { <code data-x="dom-PostMessageOptions-transfer">transfer</code> } ])</dt>
    <dd>Clones <var>message</var> and transmits it to the <code>Worker</code> object associated with
    <var>dedicatedWorkerGlobal</var>. <var>transfer</var> can be passed as a list of objects that are
    to be transferred rather than cloned.</dd>
@@ -45,17 +49,23 @@ interface <dfn>DedicatedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span>
   data-x="concept-WorkerGlobalScope-name">name</span>. Its value represents the name given to the
   worker using the <code>Worker</code> constructor, used primarily for debugging purposes.</p>
 
-  <p>The <dfn><code data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage()</code></dfn>
-  method on <code>DedicatedWorkerGlobalScope</code> objects must act as if, when invoked, it
-  immediately invoked <span data-x="dom-MessagePort-postMessage">the method of the same name</span>
-  on the port, with the same arguments, and returned the same return value.</p>
+  <p>The <dfn><code
+  data-x="dom-DedicatedWorkerGlobalScope-postMessage">postMessage(<var>message</var>,
+  <var>transfer</var>)</code></dfn> and <dfn><code
+  data-x="dom-DedicatedWorkerGlobalScope-postMessage-options">postMessage(<var>message</var>,
+  <var>options</var>)</code></dfn> methods on <code>DedicatedWorkerGlobalScope</code> objects
+  act as if, when invoked, it immediately invoked the respective <code
+  data-x="dom-MessagePort-postMessage">postMessage(<var>message</var>, <var>transfer</var>)</code>
+  and <code data-x="dom-MessagePort-postMessage-options">postMessage(<var>message</var>,
+  <var>options</var>)</code> on the port, with the same arguments, and returned the same return
+  value.</p>
 
-  <p>To <dfn data-export="">close a worker</dfn>, given a <var>workerGlobal</var>, run these
-  steps:</p>
+  <p>To <dfn export>close a worker</dfn>, given a <var>workerGlobal</var>, run these steps:</p>
 
   <ol>
    <li><p>Discard any <span data-x="concept-task">tasks</span> that have been added to
-   <var>workerGlobal</var>'s <span>event loop</span>'s <span data-x="task queue">task
+   <var>workerGlobal</var>'s <span>relevant agent</span>'s <span
+   data-x="concept-agent-event-loop">event loop</span>'s <span data-x="task queue">task
    queues</span>.</p>
 
    <li><p>Set <var>workerGlobal</var>'s <span data-x="dom-WorkerGlobalScope-closing">closing</span>

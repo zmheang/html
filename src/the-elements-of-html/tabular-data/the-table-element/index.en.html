@@ -14,29 +14,36 @@
    <span>script-supporting elements</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-table">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-table">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute <span>HTMLTableCaptionElement</span>? <span data-x="dom-table-caption">caption</span>;
   <span>HTMLTableCaptionElement</span> <span data-x="dom-table-createCaption">createCaption</span>();
-  [<span>CEReactions</span>] void <span data-x="dom-table-deleteCaption">deleteCaption</span>();
+  [<span>CEReactions</span>] undefined <span data-x="dom-table-deleteCaption">deleteCaption</span>();
 
   [<span>CEReactions</span>] attribute <span>HTMLTableSectionElement</span>? <span data-x="dom-table-tHead">tHead</span>;
   <span>HTMLTableSectionElement</span> <span data-x="dom-table-createTHead">createTHead</span>();
-  [<span>CEReactions</span>] void <span data-x="dom-table-deleteTHead">deleteTHead</span>();
+  [<span>CEReactions</span>] undefined <span data-x="dom-table-deleteTHead">deleteTHead</span>();
 
   [<span>CEReactions</span>] attribute <span>HTMLTableSectionElement</span>? <span data-x="dom-table-tFoot">tFoot</span>;
   <span>HTMLTableSectionElement</span> <span data-x="dom-table-createTFoot">createTFoot</span>();
-  [<span>CEReactions</span>] void <span data-x="dom-table-deleteTFoot">deleteTFoot</span>();
+  [<span>CEReactions</span>] undefined <span data-x="dom-table-deleteTFoot">deleteTFoot</span>();
 
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-table-tBodies">tBodies</span>;
   <span>HTMLTableSectionElement</span> <span data-x="dom-table-createTBody">createTBody</span>();
 
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-table-rows">rows</span>;
   <span>HTMLTableRowElement</span> <span data-x="dom-table-insertRow">insertRow</span>(optional long index = -1);
-  [<span>CEReactions</span>] void <span data-x="dom-table-deleteRow">deleteRow</span>(long index);
+  [<span>CEReactions</span>] undefined <span data-x="dom-table-deleteRow">deleteRow</span>(long index);
+
+  // <a href="#HTMLTableElement-partial">also has obsolete members</a>
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLTableElement</code>.</dd>
@@ -60,7 +67,7 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
   Guidance on how to <a href="#table-descriptions-techniques">provide such information</a> is given
   below.</p>
 
-  <p>Tables must not be used as layout aids. Historically, some Web authors have misused tables in
+  <p>Tables must not be used as layout aids. Historically, some web authors have misused tables in
   HTML as a way to control their page layout. This usage is non-conforming, because tools attempting
   to extract tabular data from such documents would obtain very confusing results. In particular,
   users of accessibility tools like screen readers are likely to find it very difficult to navigate
@@ -142,101 +149,76 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
 
    <dt><var>table</var> . <code subdfn data-x="dom-table-caption">caption</code> [ = <var>value</var> ]</dt>
    <dd>
-
     <p>Returns the table's <code>caption</code> element.</p>
 
     <p>Can be set, to replace the <code>caption</code> element.</p>
-
    </dd>
 
    <dt><var>caption</var> = <var>table</var> . <code subdfn data-x="dom-table-createCaption">createCaption</code>()</dt>
    <dd>
-
     <p>Ensures the table has a <code>caption</code> element, and returns it.</p>
-
    </dd>
 
    <dt><var>table</var> . <code subdfn data-x="dom-table-deleteCaption">deleteCaption</code>()</dt>
    <dd>
-
     <p>Ensures the table does not have a <code>caption</code> element.</p>
-
    </dd>
 
    <dt><var>table</var> . <code subdfn data-x="dom-table-tHead">tHead</code> [ = <var>value</var> ]</dt>
    <dd>
-
     <p>Returns the table's <code>thead</code> element.</p>
 
     <p>Can be set, to replace the <code>thead</code> element. If the new value is not a
     <code>thead</code> element, throws a <span>"<code>HierarchyRequestError</code>"</span>
     <code>DOMException</code>.</p>
-
    </dd>
 
    <dt><var>thead</var> = <var>table</var> . <code subdfn data-x="dom-table-createTHead">createTHead</code>()</dt>
    <dd>
-
     <p>Ensures the table has a <code>thead</code> element, and returns it.</p>
-
    </dd>
 
    <dt><var>table</var> . <code subdfn data-x="dom-table-deleteTHead">deleteTHead</code>()</dt>
    <dd>
-
     <p>Ensures the table does not have a <code>thead</code> element.</p>
-
    </dd>
 
    <dt><var>table</var> . <code subdfn data-x="dom-table-tFoot">tFoot</code> [ = <var>value</var> ]</dt>
    <dd>
-
     <p>Returns the table's <code>tfoot</code> element.</p>
 
     <p>Can be set, to replace the <code>tfoot</code> element. If the new value is not a
     <code>tfoot</code> element, throws a <span>"<code>HierarchyRequestError</code>"</span>
     <code>DOMException</code>.</p>
-
    </dd>
 
    <dt><var>tfoot</var> = <var>table</var> . <code subdfn data-x="dom-table-createTFoot">createTFoot</code>()</dt>
    <dd>
-
     <p>Ensures the table has a <code>tfoot</code> element, and returns it.</p>
-
    </dd>
 
    <dt><var>table</var> . <code subdfn data-x="dom-table-deleteTFoot">deleteTFoot</code>()</dt>
    <dd>
-
     <p>Ensures the table does not have a <code>tfoot</code> element.</p>
-
    </dd>
 
    <dt><var>table</var> . <code subdfn data-x="dom-table-tBodies">tBodies</code></dt>
    <dd>
-
     <p>Returns an <code>HTMLCollection</code> of the <code>tbody</code> elements of the table.</p>
-
    </dd>
 
    <dt><var>tbody</var> = <var>table</var> . <code subdfn data-x="dom-table-createTBody">createTBody</code>()</dt>
    <dd>
-
     <p>Creates a <code>tbody</code> element, inserts it into the table, and returns it.</p>
-
    </dd>
 
    <dt><var>table</var> . <code subdfn data-x="dom-table-rows">rows</code></dt>
    <dd>
-
     <p>Returns an <code>HTMLCollection</code> of the <code>tr</code> elements of the table.</p>
-
    </dd>
 
    <dt><var>tr</var> = <var>table</var> . <code subdfn data-x="dom-table-insertRow">insertRow</code>( [ <var>index</var> ] )</dt>
    <dd>
-
     <p>Creates a <code>tr</code> element, along with a <code>tbody</code> if required, inserts them
     into the table at the position given by the argument, and returns the <code>tr</code>.</p>
 
@@ -245,12 +227,10 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
 
     <p>If the given position is less than &#x2212;1 or greater than the number of rows, throws an
     <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code>.</p>
-
    </dd>
 
    <dt><var>table</var> . <code subdfn data-x="dom-table-deleteRow">deleteRow</code>(<var>index</var>)</dt>
    <dd>
-
     <p>Removes the <code>tr</code> element with the given position in the table.</p>
 
     <p>The position is relative to the rows in the table. The index &#x2212;1 is equivalent to
@@ -259,9 +239,7 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
     <p>If the given position is less than &#x2212;1 or greater than the index of the last row, or if
     there are no rows, throws an <span>"<code>IndexSizeError</code>"</span>
     <code>DOMException</code>.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -271,11 +249,11 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
   <code>table</code> element's <span>node document</span>, the given local name, and the <span>HTML
   namespace</span>.</p>
 
-  <p>The <dfn><code data-x="dom-table-caption">caption</code></dfn> IDL attribute must return, on
-  getting, the first <code>caption</code> element child of the <code>table</code> element, if any,
-  or null otherwise. On setting, the first <code>caption</code> element child of the
-  <code>table</code> element, if any, must be removed, and the new value, if not null, must be
-  inserted as the first node of the <code>table</code> element.</p>
+  <p>The <dfn attribute for="HTMLTableElement"><code data-x="dom-table-caption">caption</code></dfn>
+  IDL attribute must return, on getting, the first <code>caption</code> element child of the
+  <code>table</code> element, if any, or null otherwise. On setting, the first <code>caption</code>
+  element child of the <code>table</code> element, if any, must be removed, and the new value, if
+  not null, must be inserted as the first node of the <code>table</code> element.</p>
 
   <p>The <dfn><code data-x="dom-table-createCaption">createCaption()</code></dfn> method must return
   the first <code>caption</code> element child of the <code>table</code> element, if any; otherwise
@@ -332,15 +310,15 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
   any, or at the end of the <code>table</code> element if the <code>table</code> element has no
   <code>tbody</code> element children, and then must return the new <code>tbody</code> element.</p>
 
-  <p>The <dfn><code data-x="dom-table-rows">rows</code></dfn> attribute must return an
-  <code>HTMLCollection</code> rooted at the <code>table</code> node, whose filter matches only
-  <code>tr</code> elements that are either children of the <code>table</code> element, or children
-  of <code>thead</code>, <code>tbody</code>, or <code>tfoot</code> elements that are themselves
-  children of the <code>table</code> element. The elements in the collection must be ordered such
-  that those elements whose parent is a <code>thead</code> are included first, in <span>tree order</span>,
-  followed by those elements whose parent is either a <code>table</code> or <code>tbody</code>
-  element, again in <span>tree order</span>, followed finally by those elements whose parent is a
-  <code>tfoot</code> element, still in <span>tree order</span>.</p>
+  <p>The <dfn attribute for="HTMLTableElement"><code data-x="dom-table-rows">rows</code></dfn>
+  attribute must return an <code>HTMLCollection</code> rooted at the <code>table</code> node, whose
+  filter matches only <code>tr</code> elements that are either children of the <code>table</code>
+  element, or children of <code>thead</code>, <code>tbody</code>, or <code>tfoot</code> elements
+  that are themselves children of the <code>table</code> element. The elements in the collection
+  must be ordered such that those elements whose parent is a <code>thead</code> are included first,
+  in <span>tree order</span>, followed by those elements whose parent is either a <code>table</code>
+  or <code>tbody</code> element, again in <span>tree order</span>, followed finally by those
+  elements whose parent is a <code>tfoot</code> element, still in <span>tree order</span>.</p>
 
   <p>The behavior of the <dfn><code data-x="dom-table-insertRow">insertRow(<var>index</var>)</code></dfn> method depends on the state of the table. When it is called,
   the method must act as required by the first item in the following list of conditions that
@@ -383,7 +361,6 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
    insert it immediately before the <var>index</var>th <code>tr</code> element in the <code
    data-x="dom-table-rows">rows</code> collection, in the same parent, and finally must return the
    newly created <code>tr</code> element.</dd>
-
   </dl>
 
   <p>When the <dfn><code data-x="dom-table-deleteRow">deleteRow(<var>index</var>)</code></dfn> method is called, the user agent must run the following
@@ -409,7 +386,7 @@ interface <dfn>HTMLTableElement</dfn> : <span>HTMLElement</span> {
    <p>Here is an example of a table being used to mark up a Sudoku puzzle. Observe the lack of
    headers, which are not necessary in such a table.</p>
 
-   <pre><code class="html" data-x="">&lt;style>
+   <pre><code class="html">&lt;style>
  #sudoku { border-collapse: collapse; border: solid thick; }
  #sudoku colgroup, table#sudoku tbody { border: solid medium; }
  #sudoku td { border: solid thin; height: 1.4em; width: 1.4em; text-align: center; padding: 0; }

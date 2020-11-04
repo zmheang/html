@@ -4,22 +4,19 @@
 
    <dt><var>document</var> . <code subdfn data-x="dom-document-referrer">referrer</code></dt>
    <dd>
-
     <p>Returns the <span data-x="concept-document-url">URL</span> of the <code>Document</code>
     from which the user navigated to this one, unless it was blocked or there was no such document,
     in which case it returns the empty string.</p>
 
     <p>The <code data-x="rel-noreferrer">noreferrer</code> link type can be used to block the
     referrer.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-document-referrer">referrer</code></dfn> attribute must return
-  <span>the document's referrer</span>.</p>
+  <p>The <dfn attribute for="Document"><code data-x="dom-document-referrer">referrer</code></dfn>
+  attribute must return <span>the document's referrer</span>.</p>
 
   </div>
 
@@ -29,7 +26,6 @@
 
    <dt><var>document</var> . <code subdfn data-x="dom-document-cookie">cookie</code> [ = <var>value</var> ]</dt>
    <dd>
-
     <p>Returns the HTTP cookies that apply to the <code>Document</code>. If there are no cookies or
     cookies can't be applied to this resource, the empty string will be returned.</p>
 
@@ -40,15 +36,13 @@
     data-x="attr-iframe-sandbox">sandbox</code> attribute), a
     <span>"<code>SecurityError</code>"</span> <code>DOMException</code> will be thrown on getting
     and setting.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-document-cookie">cookie</code></dfn> attribute represents the
-  cookies of the resource identified by the document's <span
+  <p>The <dfn attribute for="Document"><code data-x="dom-document-cookie">cookie</code></dfn>
+  attribute represents the cookies of the resource identified by the document's <span
   data-x="concept-document-url">URL</span>.</p>
 
   <p>A <code>Document</code> object that falls into one of the following conditions is a
@@ -56,8 +50,8 @@
 
   <ul>
 
-   <li>A <code>Document</code> that has no <span data-x="concept-document-bc">browsing
-   context</span>.</li>
+   <li>A <code>Document</code> object whose <span data-x="concept-document-bc">browsing
+   context</span> is null.</li>
 
    <li>A <code>Document</code> whose <span data-x="concept-document-url">URL</span>'s <span
    data-x="concept-url-scheme">scheme</span> is not a <span>network scheme</span>.</li>
@@ -67,13 +61,15 @@
   <!--Other specifications can also define <code>Document</code> objects as being <span
   data-x="cookie-averse Document object">cookie-averse <code>Document</code> objects</span>.-->
 
-  <p id="sandboxCookies">On getting, if the document is a <span>cookie-averse <code>Document</code>
-  object</span>, then the user agent must return the empty string. Otherwise, if the
-  <code>Document</code>'s <span>origin</span> is an <span data-x="concept-origin-opaque">opaque
-  origin</span>, the user agent must throw a <span>"<code>SecurityError</code>"</span>
-  <code>DOMException</code>. Otherwise, the user agent must return the <span>cookie-string</span>
-  for the document's <span data-x="concept-document-url">URL</span> for a "non-HTTP" API, decoded
-  using <span>UTF-8 decode without BOM</span>. <ref spec=COOKIES><!--INSERT FINGERPRINT--></p>
+  <p id="sandboxCookies">
+  <!--INSERT TRACKING-->
+  On getting, if the document is a <span>cookie-averse <code>Document</code> object</span>, then the
+  user agent must return the empty string. Otherwise, if the <code>Document</code>'s
+  <span>origin</span> is an <span data-x="concept-origin-opaque">opaque origin</span>, the user
+  agent must throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>. Otherwise,
+  the user agent must return the <span>cookie-string</span> for the document's <span
+  data-x="concept-document-url">URL</span> for a "non-HTTP" API, decoded using <span>UTF-8 decode
+  without BOM</span>. <ref spec=COOKIES></p>
 
   <p>On setting, if the document is a <span>cookie-averse <code>Document</code> object</span>, then
   the user agent must do nothing. Otherwise, if the <code>Document</code>'s <span>origin</span> is
@@ -108,7 +104,6 @@
     form "<code data-x="">MM/DD/YYYY&nbsp;hh:mm:ss</code>", in the user's local time zone.</p>
     <p>If the last modification date is not known, the current time is returned instead.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -118,7 +113,6 @@
   modification, in the user's local time zone, in the following format:</p>
 
   <ol>
-
    <li> The month component of the date. </li>
 
    <li> A U+002F SOLIDUS character (/). </li>
@@ -140,7 +134,6 @@
    <li> A U+003A COLON character (:). </li>
 
    <li> The seconds component of the time. </li>
-
   </ol>
 
   <p>All the numeric components above, other than the year, must be given as two <span>ASCII
@@ -175,7 +168,6 @@
     data-x="">complete</code>", at the point where all subresources apart from <code
     data-x="attr-script-async">async</code> <code>script</code> elements have loaded.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>

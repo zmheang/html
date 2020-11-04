@@ -1,0 +1,42 @@
+  <h5>Enabling and disabling scripting</h5>
+
+  <p id="concept-bc-script"><dfn data-x="concept-environment-script">Scripting is enabled</dfn> for
+  an <span>environment settings object</span> <var>settings</var> when all of the following
+  conditions are true:</p>
+
+  <ul>
+   <li>The user agent supports scripting.</li>
+
+   <li>
+   <!--INSERT TRACKING-->
+   The user has not disabled scripting for <var>settings</var> at this time. (User agents may
+   provide users with the option to disable scripting globally, or in a finer-grained manner, e.g.,
+   on a per-origin basis, down to the level of individual <span data-x="environment settings
+   object">environment settings objects</span>.)</li>
+
+   <li id="sandboxScriptBlocked">Either <var>settings</var>'s <span
+   data-x="concept-settings-object-global">global object</span> is not a <code>Window</code> object,
+   or <var>settings</var>'s <span data-x="concept-settings-object-global">global object</span>'s
+   <span data-x="concept-document-window">associated <code>Document</code></span>'s <span>active
+   sandboxing flag set</span> does not have its <span>sandboxed scripts browsing context flag</span>
+   set.</li>
+  </ul>
+
+  <p id="concept-bc-noscript"><dfn data-x="concept-environment-noscript">Scripting is disabled</dfn>
+  for an <span>environment settings object</span> when scripting is not <span
+  data-x="concept-environment-script">enabled</span> for it, i.e., when any of the above conditions
+  are false.</p>
+
+  <hr>
+
+  <p><dfn data-x="concept-n-script">Scripting is enabled</dfn> for a node <var>node</var> if
+  <var>node</var>'s <span>node document</span>'s <span data-x="concept-document-bc">browsing
+  context</span> is non-null, and <span data-x="concept-environment-script">scripting is
+  enabled</span> for <var>node</var>'s <span>relevant settings object</span>.</p>
+
+  <p><dfn data-x="concept-n-noscript">Scripting is disabled</dfn> for a node when scripting is not
+  <span data-x="concept-n-script">enabled</span>, i.e., when its <span>node document</span>'s <span
+  data-x="concept-document-bc">browsing context</span> is null or when <span
+  data-x="concept-environment-noscript">scripting is disabled</span> for its <span>relevant settings
+  object</span>.</p>
+

@@ -15,11 +15,16 @@
    <dd><span data-x="concept-content-nothing">Nothing</span> (for clarification, <a href="#template-example">see example</a>).</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-template">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-template">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   readonly attribute <span>DocumentFragment</span> <span data-x="dom-template-content">content</span>;
 };</code></pre>
 </dd>
@@ -45,7 +50,7 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
 
    <!-- https://www.quora.com/Homework-Question-How-do-I-write-a-program-that-produces-the-following-output-1 -->
 
-   <pre><code class="html" data-x="">&lt;!doctype html>
+   <pre><code class="html">&lt;!doctype html>
 &lt;html lang="en">
  &lt;head>
   &lt;title>Homework&lt;/title>
@@ -79,11 +84,8 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
    <dt><var>template</var> . <code subdfn data-x="dom-template-content">content</code></dt>
 
    <dd>
-
     <p>Returns the <span>template contents</span> (a <code>DocumentFragment</code>).</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -95,7 +97,6 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
   contents</span>:</p>
 
   <ol>
-
    <li><p>Let <var>doc</var> be the <code>template</code> element's <span>node document</span>'s <span>appropriate template contents owner
    document</span>.</p></li>
 
@@ -105,45 +106,35 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
 
    <li><p>Set the <code>template</code> element's <span>template contents</span> to the newly
    created <code>DocumentFragment</code> object.</p></li>
-
   </ol>
 
   <p>A <code>Document</code> <var>doc</var>'s <dfn>appropriate template contents owner
   document</dfn> is the <code>Document</code> returned by the following algorithm:</p>
 
   <ol>
-
    <li>
-
     <p>If <var>doc</var> is not a <code>Document</code> created by this algorithm, then:</p>
 
     <ol>
-
      <li>
-
       <p>If <var>doc</var> does not yet have an <dfn>associated inert template document</dfn>,
       then:</p>
 
       <ol>
-
-       <li><p>Let <var>new doc</var> be a new <code>Document</code> (that does not have a
-       <span data-x="concept-document-bc">browsing context</span>). This is "a
-       <code>Document</code> created by this algorithm" for the purposes of the step
-       above.</p></li>
+       <li><p>Let <var>new doc</var> be a new <code>Document</code> (whose <span
+       data-x="concept-document-bc">browsing context</span> is null). This is "a
+       <code>Document</code> created by this algorithm" for the purposes of the step above.</p></li>
 
        <li><p>If <var>doc</var> is an <span data-x="HTML documents">HTML document</span>, mark
        <var>new doc</var> as an <span data-x="HTML documents">HTML document</span>
        also.</p></li>
 
        <li><p>Let <var>doc</var>'s <span>associated inert template document</span> be <var>new doc</var>.</p></li>
-
       </ol>
-
      </li>
 
      <li><p>Set <var>doc</var> to <var>doc</var>'s <span>associated inert
      template document</span>.</p></li>
-
     </ol>
 
     <p class="note">Each <code>Document</code> not created by this algorithm thus gets a single
@@ -152,11 +143,9 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
     thus remain inert (e.g. scripts do not run). Meanwhile, <code>template</code> elements inside
     <code>Document</code> objects that <em>are</em> created by this algorithm just reuse the same
     <code>Document</code> owner for their contents.</p>
-
    </li>
 
    <li><p>Return <var>doc</var>.</p></li>
-
   </ol>
 
   <p id="template-adopting-steps">The <span data-x="concept-node-adopt-ext">adopting steps</span>
@@ -164,23 +153,20 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
   are the following:</p>
 
   <ol>
-
    <li>
-
     <p>Let <var>doc</var> be <var>node</var>'s <span>node document</span>'s
     <span>appropriate template contents owner document</span>.</p>
 
     <p class="note"><var>node</var>'s <span>node document</span> is the <code>Document</code> object
     that <var>node</var> was just adopted <em>into</em>.</p>
-
    </li>
 
    <li><p><span data-x="concept-node-adopt">Adopt</span> <var>node</var>'s
    <span>template contents</span> (a <code>DocumentFragment</code> object) into <var>doc</var>.</p></li>
-
   </ol>
 
-  <p>The <dfn><code data-x="dom-template-content">content</code></dfn> IDL attribute must return the
+  <p>The <dfn attribute for="HTMLTemplateElement"><code
+  data-x="dom-template-content">content</code></dfn> IDL attribute must return the
   <code>template</code> element's <span>template contents</span>.</p>
 
   <hr>
@@ -190,7 +176,6 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
   following steps:</p>
 
   <ol>
-
    <li><p>If the <var>clone children flag</var> is not set in the calling <span
    data-x="concept-node-clone">clone</span> algorithm, return.</p></li>
 
@@ -202,7 +187,6 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
 
    <li><p>Append <var>copied contents</var> to <var>copy</var>'s <span>template
    contents</span>.</p></li>
-
   </ol>
 
   </div>
@@ -213,7 +197,7 @@ interface <dfn>HTMLTemplateElement</dfn> : <span>HTMLElement</span> {
    a <code>template</code> to provide the element structure instead of manually generating the
    structure from markup.</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
+   <pre><code class="html">&lt;!DOCTYPE html>
 &lt;html lang='en'>
 &lt;title>Cat data&lt;/title>
 &lt;script>

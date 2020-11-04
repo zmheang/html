@@ -11,6 +11,10 @@
    <dd><span>Phrasing content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-kbd">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-kbd">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -31,7 +35,7 @@
 
    <p>Here the <code>kbd</code> element is used to indicate keys to press:</p>
 
-   <pre><code class="html" data-x="">&lt;p>To make George eat an apple, press &lt;kbd>&lt;kbd>Shift&lt;/kbd>+&lt;kbd>F3&lt;/kbd>&lt;/kbd>&lt;/p></code></pre>
+   <pre><code class="html">&lt;p>To make George eat an apple, press &lt;kbd>&lt;kbd>Shift&lt;/kbd>+&lt;kbd>F3&lt;/kbd>&lt;/kbd>&lt;/p></code></pre>
 
    <p>In this second example, the user is told to pick a particular menu item. The outer
    <code>kbd</code> element marks up a block of input, with the inner <code>kbd</code> elements
@@ -39,13 +43,13 @@
    indicating that the steps are input based on something being displayed by the system, in this
    case menu labels:</p>
 
-   <pre><code class="html" data-x="">&lt;p>To make George eat an apple, select
+   <pre><code class="html">&lt;p>To make George eat an apple, select
     &lt;kbd>&lt;kbd>&lt;samp>File&lt;/samp>&lt;/kbd>|&lt;kbd>&lt;samp>Eat Apple...&lt;/samp>&lt;/kbd>&lt;/kbd>
 &lt;/p></code></pre>
 
    <p>Such precision isn't necessary; the following is equally fine:</p>
 
-   <pre><code class="html" data-x="">&lt;p>To make George eat an apple, select &lt;kbd>File | Eat Apple...&lt;/kbd>&lt;/p></code></pre>
+   <pre><code class="html">&lt;p>To make George eat an apple, select &lt;kbd>File | Eat Apple...&lt;/kbd>&lt;/p></code></pre>
 
   </div>
 

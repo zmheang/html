@@ -22,12 +22,35 @@
 
   <hr>
 
-  <p>When a user <dfn data-x="downloading hyperlinks" data-export="">downloads a hyperlink</dfn>
-  created by an element <var>subject</var>, optionally with a <var>hyperlink suffix</var>, the user
-  agent must run the following steps:</p>
+  <p>The following <dfn>allowed to download</dfn> algorithm takes an <var>initiator browsing
+  context</var> and an <var>instantiator browsing context</var>, and returns a boolean indicating
+  whether or not downloading is allowed:</p>
+
+  <ol>
+   <li><p>If the <var>initiator browsing context</var>'s <span
+   data-x="concept-bc-sandboxing-flags">sandboxing flags</span> has the <span>sandboxed downloads
+   browsing context flag</span> set, then return false.</p></li>
+
+   <li><p>If the <var>instantiator browsing context</var> is non-null, and its <span
+   data-x="concept-bc-sandboxing-flags">sandboxing flags</span> has the <span>sandboxed downloads
+   browsing context flag</span> set, then return false.</p></li>
+
+   <li><p>Optionally, the user agent may return false, if it believes doing so would safeguard the
+   user from a potentially hostile download.</p></li>
+
+   <li><p>Return true.</p></li>
+  </ol>
+
+  <p>When a user <dfn data-x="downloading hyperlinks" export>downloads a hyperlink</dfn> created by
+  an element <var>subject</var>, optionally with a <var>hyperlink suffix</var>, the user agent must
+  run the following steps:</p>
 
   <ol>
    <li><p>If <var>subject</var> <span>cannot navigate</span>, then return.</p></li>
+
+   <li><p>Run the <span>allowed to download</span> algorithm with the <var>subject</var>'s <span>node
+   document</span>'s <span data-x="concept-document-bc">browsing context</span> and null. If the
+   algorithm returns false, then return.</p></li>
 
    <li><p><span data-x="parse a url">Parse</span> the <span>URL</span> given by
    <var>subject</var>'s <code data-x="attr-hyperlink-href">href</code> attribute, relative to
@@ -61,7 +84,7 @@
 
   <p>When a user agent is to handle a resource obtained from a fetch <dfn>as a download</dfn>, it
   should provide the user with a way to save the resource for later use, if a resource is
-  successfully obtained; or otherwise should report any problems downloading the file to the
+  successfully obtained. Otherwise, it should report any problems downloading the file to the
   user.</p>
 
   <p>If the user agent needs a file name for a resource being handled <span>as a download</span>, it
@@ -72,8 +95,7 @@
   optional, since it's not really an interoperability issue -->
 
   <ol>
-
-   <li><p>Let <var>filename</var> be the void value.</p></li>
+   <li><p>Let <var>filename</var> be the undefined value.</p></li>
 
    <!-- Content-Disposition: attachment; filename="" is always honoured, even cross-origin -->
    <li><p>If the resource has a `<code data-x="http-content-disposition">Content-Disposition</code>`
@@ -126,15 +148,14 @@
 
    <!-- fallback for same-origin resources or explicit downloads: use the resource's file name -->
    <li><p><i>No proposed file name</i>: If <var>trusted operation</var> is true, or if the
-   user indicated a preference for having the resource in question downloaded, let <var>filename</var> have a value derived from the <span>URL</span> of the resource in a
-   user-agent-defined manner, and jump to the step labeled <i>sanitize</i> below.</p></li>
+   user indicated a preference for having the resource in question downloaded, let
+   <var>filename</var> have a value derived from the <span>URL</span> of the resource in an
+   <span>implementation-defined</span> manner, and jump to the step labeled <i>sanitize</i> below.</p></li>
 
    <!-- no C-D: a header on cross-origin raises red flags -->
    <li>
-
-    <p>Act in a user-agent-defined manner to safeguard the user from a potentially hostile
-    cross-origin download. If the download is not to be aborted, then let <var>filename</var> be set to the user's preferred file name or to a file name selected by
-    the user agent, and jump to the step labeled <i>sanitize</i> below.</p>
+    <p>Let <var>filename</var> be set to the user's preferred file name or to a file name selected
+    by the user agent, and jump to the step labeled <i>sanitize</i> below.</p>
 
     <div class="warning">
 
@@ -153,7 +174,6 @@
      from the potentially hostile <var>interface origin</var> should be ignored.</p>
 
     </div>
-
    </li>
 
    <li><p><i>Sanitize</i>: Optionally, allow the user to influence <var>filename</var>. For
@@ -161,12 +181,10 @@
    <var>filename</var> as determined above as a default value.</p></li>
 
    <li>
-
     <p>Adjust <var>filename</var> to be suitable for the local file system.</p>
 
     <p class="example">For example, this could involve removing characters that are not legal in
     file names, or trimming leading and trailing whitespace.</p>
-
    </li>
 
    <li><p>If the platform conventions do not in any way use <span
@@ -190,7 +208,6 @@
    name.</p></li>
 
    <li>
-
     <p>If the <var>claimed type</var> is known, then alter <var>filename</var> to
     add an <span data-x="concept-extension">extension</span> corresponding to <var>claimed
     type</var>.</p>
@@ -203,11 +220,9 @@
     <p class="note">This last step would make it impossible to download executables, which might not
     be desirable. As always, implementers are forced to balance security and usability in this
     matter.</p>
-
    </li>
 
    <li><p>Return <var>filename</var> as the file name.</p></li>
-
   </ol>
 
   <p>For the purposes of this algorithm, a file <dfn data-x="concept-extension">extension</dfn>

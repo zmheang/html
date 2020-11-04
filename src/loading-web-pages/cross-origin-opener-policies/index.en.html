@@ -1,0 +1,60 @@
+  <h3>Cross-origin opener policies</h3>
+
+  <p>A <dfn>cross-origin opener policy</dfn> allows a document which is navigated to in a
+  <span>top-level browsing context</span> to force the creation of a new <span>top-level browsing
+  context</span>, and a corresponding <span data-x="tlbc group">group</span>. It has one of the
+  following values:</p>
+
+  <dl>
+   <dt>"<dfn><code data-x="coop-unsafe-none">unsafe-none</code></dfn>"</dt>
+   <dd><p>This is the (current) default and means that the document will occupy the same
+   <span>top-level browsing context</span> as its predecessor, unless that document specified a
+   different <span>cross-origin opener policy</span>.</p></dd>
+
+   <dt>"<dfn><code data-x="coop-same-origin-allow-popups">same-origin-allow-popups</code></dfn>"</dt>
+   <dd><p>This forces the creation of a new <span>top-level browsing context</span> for the
+   document, unless its predecessor specified the same <span>cross-origin opener policy</span> and
+   they are <span>same origin</span>.</p></dd>
+
+   <dt>"<dfn><code data-x="coop-same-origin">same-origin</code></dfn>"</dt>
+   <dd><p>This behaves the same as "<code
+   data-x="coop-same-origin-allow-popups">same-origin-allow-popups</code>", with the addition that
+   any <span>auxiliary browsing context</span> created needs to contain <span>same origin</span>
+   documents that also have the same <span>cross-origin opener policy</span> or it will appear
+   closed to the opener.</p></dd>
+
+   <dt>"<dfn><code data-x="coop-same-origin-plus-COEP">same-origin-plus-COEP</code></dfn>"</dt>
+   <dd>
+    <p>This behaves the same as "<code data-x="coop-same-origin">same-origin</code>", with the
+    addition that it sets the (new) <span>top-level browsing context</span>'s <span data-x="tlbc
+    group">group</span>'s <span data-x="bcg cross-origin isolated">cross-origin isolated</span> to
+    true.</p>
+
+    <p class="note">"<code data-x="coop-same-origin-plus-COEP">same-origin-plus-COEP</code>" cannot
+    be directly set via the `<code
+    data-x="http-cross-origin-opener-policy">Cross-Origin-Opener-Policy</code>` header, but results
+    from a combination of setting both `<code data-x=""><span
+    data-x="http-cross-origin-opener-policy">Cross-Origin-Opener-Policy</span>: <span
+    data-x="coop-same-origin">same-origin</span></code>` and `<code
+    data-x=""><span>Cross-Origin-Embedder-Policy</span>: require-corp</code>` together.</p>
+   </dd>
+  </dl>
+
+  <p>To <dfn data-x="matching-coop">match cross-origin opener policies</dfn>, given a
+  <span>cross-origin opener policy</span> <var>A</var>, an <span>origin</span> <var>originA</var>, a
+  <span>cross-origin opener policy</span> <var>B</var>, and an <span>origin</span>
+  <var>originB</var>:</p>
+
+  <ol>
+   <li><p>If <var>A</var> is "<code data-x="coop-unsafe-none">unsafe-none</code>" and <var>B</var>
+   is "<code data-x="coop-unsafe-none">unsafe-none</code>", then return true.</p></li>
+
+   <li><p>If <var>A</var> is "<code data-x="coop-unsafe-none">unsafe-none</code>" or <var>B</var> is
+   "<code data-x="coop-unsafe-none">unsafe-none</code>", then return false.</p></li>
+
+   <li><p>If <var>A</var> is <var>B</var> and <var>originA</var> is <span>same origin</span> with
+   <var>originB</var>, then return true.</p></li>
+
+   <li><p>Return false.</p></li>
+  </ol>
+

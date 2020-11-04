@@ -1,15 +1,15 @@
-  <h3>The <dfn><code data-x="attr-hidden">hidden</code></dfn> attribute</h3>
+  <h3>The <code data-x="attr-hidden">hidden</code> attribute</h3>
 
-  <p>All <span>HTML elements</span> may have the <code data-x="attr-hidden">hidden</code> content
-  attribute set. The <code data-x="attr-hidden">hidden</code> attribute is a <span>boolean
-  attribute</span>. When specified on an element, it indicates that the element is not yet, or is no
-  longer, directly relevant to the page's current state, or that it is being used to declare content
-  to be reused by other parts of the page as opposed to being directly accessed by the user. <span
-  w-nodev>User agents should not render elements that have the <code
-  data-x="attr-hidden">hidden</code> attribute specified. This requirement may be implemented
-  indirectly through the style layer. For example, an HTML+CSS user agent could implement these
-  requirements <a href="#hiddenCSS">using the rules suggested in the Rendering
-  section</a>.</span></p>
+  <p>All <span>HTML elements</span> may have the <dfn element-attr for="html-global"><code
+  data-x="attr-hidden">hidden</code></dfn> content attribute set. The <code
+  data-x="attr-hidden">hidden</code> attribute is a <span>boolean attribute</span>. When specified
+  on an element, it indicates that the element is not yet, or is no longer, directly relevant to the
+  page's current state, or that it is being used to declare content to be reused by other parts of
+  the page as opposed to being directly accessed by the user. <span w-nodev>User agents should not
+  render elements that have the <code data-x="attr-hidden">hidden</code> attribute specified. This
+  requirement may be implemented indirectly through the style layer. For example, an HTML+CSS user
+  agent could implement these requirements <a href="#hiddenCSS">using the rules suggested in the
+  Rendering section</a>.</span></p>
 
   <p class="note">Because this attribute is typically implemented using CSS, it's also possible to
   override it using CSS. For instance, a rule that applies 'display: block' to all elements will
@@ -19,10 +19,10 @@
 
   <div class="example">
 
-   <p>In the following skeletal example, the attribute is used to hide the Web game's main screen
+   <p>In the following skeletal example, the attribute is used to hide the web game's main screen
    until the user logs in:</p>
 
-   <pre><code class="html" data-x="">  &lt;h1>The Example Game&lt;/h1>
+   <pre><code class="html">  &lt;h1>The Example Game&lt;/h1>
   &lt;section id="login">
    &lt;h2>Login&lt;/h2>
    &lt;form>
@@ -75,7 +75,7 @@
    data-x="attr-aria-describedby">aria-describedby</code> attribute to refer to descriptions that are
    themselves <code data-x="attr-hidden">hidden</code>. While hiding the descriptions implies that
    they are not useful alone, they could be written in such a way that they are useful in the
-   specific context of being referenced from the images that they describe.</p>
+   specific context of being referenced from the elements that they describe.</p>
 
    <p>Similarly, a <code>canvas</code> element with the <code data-x="attr-hidden">hidden</code>
    attribute could be used by a scripted graphics engine as an off-screen buffer, and a form control
@@ -90,8 +90,8 @@
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-hidden">hidden</code></dfn> IDL attribute must <span>reflect</span>
-  the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLElement"><code data-x="dom-hidden">hidden</code></dfn> IDL
+  attribute must <span>reflect</span> the content attribute of the same name.</p>
 
   </div>
 

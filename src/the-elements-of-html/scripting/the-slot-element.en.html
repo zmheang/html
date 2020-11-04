@@ -11,14 +11,19 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-slot-name">name</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-slot">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-slot">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLSlotElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-slot-name">name</span>;
-  sequence&lt;Node> <span data-x="dom-slot-assignedNodes">assignedNodes</span>(optional <span>AssignedNodesOptions</span> options);
-  sequence&lt;Element> <span data-x="dom-slot-assignedElements">assignedElements</span>(optional <span>AssignedNodesOptions</span> options);
+  sequence&lt;Node> <span data-x="dom-slot-assignedNodes">assignedNodes</span>(optional <span>AssignedNodesOptions</span> options = {});
+  sequence&lt;Element> <span data-x="dom-slot-assignedElements">assignedElements</span>(optional <span>AssignedNodesOptions</span> options = {});
 };
 
 dictionary <dfn>AssignedNodesOptions</dfn> {
@@ -76,7 +81,7 @@ dictionary <dfn>AssignedNodesOptions</dfn> {
    <li><p>If the value of <var>options</var>'s <code data-x="">flatten</code> member is false, then
    return this element's <span>assigned nodes</span>.</p></li>
 
-   <li><p>Return the result of <span>finding flattened slotables</span> with this element.</p></li>
+   <li><p>Return the result of <span>finding flattened slottables</span> with this element.</p></li>
   </ol>
 
   <p>The <dfn data-x="dom-slot-assignedElements"><code>assignedElements(<var>options</var>)</code></dfn>
@@ -87,7 +92,7 @@ dictionary <dfn>AssignedNodesOptions</dfn> {
    return this element's <span>assigned nodes</span>, filtered to contain only <code>Element</code>
    nodes.</p></li>
 
-   <li><p>Return the result of <span>finding flattened slotables</span> with this element, filtered
+   <li><p>Return the result of <span>finding flattened slottables</span> with this element, filtered
    to contain only <code>Element</code> nodes.</p></li>
   </ol>
 

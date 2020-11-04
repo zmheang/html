@@ -1,0 +1,17 @@
+  <h6
+  id="hostgetimportmetaproperties"><dfn>HostGetImportMetaProperties</dfn>(<var>moduleRecord</var>)</h6>
+
+  <p>JavaScript contains an <span>implementation-defined</span> <span
+  data-x="js-HostGetImportMetaProperties">HostGetImportMetaProperties</span> abstract operation.
+  User agents must use the following implementation: <ref spec=JAVASCRIPT></p>
+
+  <ol>
+   <li><p>Let <var>module script</var> be <var>moduleRecord</var>.[[HostDefined]].</p></li>
+
+   <li><p>Let <var>urlString</var> be <var>module script</var>'s <span
+   data-x="concept-script-base-url">base URL</span>, <span
+   data-x="concept-url-serializer">serialized</span>.</p></li>
+
+   <li><p>Return « Record { [[Key]]: "url", [[Value]]: <var>urlString</var> } ».</p></li>
+  </ol>
+

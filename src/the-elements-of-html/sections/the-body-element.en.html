@@ -25,11 +25,18 @@
    <dd><code data-x="handler-window-onstorage">onstorage</code></dd>
    <dd><code data-x="handler-window-onunhandledrejection">onunhandledrejection</code></dd>
    <dd><code data-x="handler-window-onunload">onunload</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-body">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-body">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLBodyElement</dfn> : <span>HTMLElement</span> {};
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLBodyElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
+  // <a href="#HTMLBodyElement-partial">also has obsolete members</a>
+};
 
 <span>HTMLBodyElement</span> includes <span>WindowEventHandlers</span>;</code></pre>
 </dd>
@@ -54,12 +61,10 @@ interface <dfn>HTMLBodyElement</dfn> : <span>HTMLElement</span> {};
   of the <span>event handlers</span> of the <code>Window</code> object. It also mirrors their
   <span>event handler IDL attributes</span>.</p>
 
-  <p>The <code data-x="handler-onblur">onblur</code>, <code data-x="handler-onerror">onerror</code>,
-  <code data-x="handler-onfocus">onfocus</code>, <code data-x="handler-onload">onload</code>, <code
-  data-x="handler-onresize">onresize</code>, and <code data-x="handler-onscroll">onscroll</code>
-  <span>event handlers</span> of the <code>Window</code> object, exposed on the <code>body</code>
-  element, replace the generic <span>event handlers</span> with the same names normally supported by
-  <span>HTML elements</span>.</p>
+  <p>The <span>event handlers</span> of the <code>Window</code> object named by the
+  <span><code>Window</code>-reflecting body element event handler set</span>, exposed on the
+  <code>body</code> element, replace the generic <span>event handlers</span> with the same names
+  normally supported by <span>HTML elements</span>.</p>
 
   <p class="example">Thus, for example, a bubbling <code data-x="event-error">error</code> event
   dispatched on a child of <span>the body element</span> of a <code>Document</code> would first
@@ -79,7 +84,7 @@ interface <dfn>HTMLBodyElement</dfn> : <span>HTMLElement</span> {};
 
    <p>This page updates an indicator to show whether or not the user is online:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
  &lt;head>
   &lt;title>Online or offline?&lt;/title>

@@ -2,7 +2,7 @@
 
   <!-- v2: we're on v5. suggestions for subsequent versions are marked v6, v7, v8. -->
 
-  <pre><code class="idl" data-x="">typedef (<span>HTMLImageElement</span> or
+  <pre><code class="idl">typedef (<span>HTMLImageElement</span> or
          <span>SVGImageElement</span>) <dfn>HTMLOrSVGImageElement</dfn>;
 
 typedef (<span>HTMLOrSVGImageElement</span> or
@@ -15,6 +15,7 @@ enum <dfn>CanvasFillRule</dfn> { "<span data-x="dom-context-2d-fillRule-nonzero"
 
 dictionary <dfn>CanvasRenderingContext2DSettings</dfn> {
   boolean <span data-x="dom-CanvasRenderingContext2DSettings-alpha">alpha</span> = true;
+  boolean <span data-x="dom-CanvasRenderingContext2DSettings-desynchronized">desynchronized</span> = false;
 };
 
 enum <dfn>ImageSmoothingQuality</dfn> { "<span data-x="dom-context-2d-imageSmoothingQuality-low">low</span>", "<span data-x="dom-context-2d-imageSmoothingQuality-medium">medium</span>", "<span data-x="dom-context-2d-imageSmoothingQuality-high">high</span>" };
@@ -23,6 +24,8 @@ enum <dfn>ImageSmoothingQuality</dfn> { "<span data-x="dom-context-2d-imageSmoot
 interface <dfn>CanvasRenderingContext2D</dfn> {
   // back-reference to the canvas
   readonly attribute <span>HTMLCanvasElement</span> <span data-x="dom-context-2d-canvas">canvas</span>;
+
+  <span>CanvasRenderingContext2DSettings</span> <span data-x="dom-context-2d-canvas-getcontextattributes">getContextAttributes</span>();
 };
 <span>CanvasRenderingContext2D</span> includes <span>CanvasState</span>;
 <span>CanvasRenderingContext2D</span> includes <span>CanvasTransform</span>;
@@ -43,25 +46,25 @@ interface <dfn>CanvasRenderingContext2D</dfn> {
 
 interface mixin <dfn>CanvasState</dfn> {
   // state
-  void <span data-x="dom-context-2d-save">save</span>(); // push state on state stack
-  void <span data-x="dom-context-2d-restore">restore</span>(); // pop state stack and restore state
+  undefined <span data-x="dom-context-2d-save">save</span>(); // push state on state stack
+  undefined <span data-x="dom-context-2d-restore">restore</span>(); // pop state stack and restore state
 };
 
 interface mixin <dfn>CanvasTransform</dfn> {
   // transformations (default transform is the identity matrix)
-  void <span data-x="dom-context-2d-scale">scale</span>(unrestricted double x, unrestricted double y);
-  void <span data-x="dom-context-2d-rotate">rotate</span>(unrestricted double angle);
-  void <span data-x="dom-context-2d-translate">translate</span>(unrestricted double x, unrestricted double y);
-  void <span data-x="dom-context-2d-transform">transform</span>(unrestricted double a, unrestricted double b, unrestricted double c, unrestricted double d, unrestricted double e, unrestricted double f);
+  undefined <span data-x="dom-context-2d-scale">scale</span>(unrestricted double x, unrestricted double y);
+  undefined <span data-x="dom-context-2d-rotate">rotate</span>(unrestricted double angle);
+  undefined <span data-x="dom-context-2d-translate">translate</span>(unrestricted double x, unrestricted double y);
+  undefined <span data-x="dom-context-2d-transform">transform</span>(unrestricted double a, unrestricted double b, unrestricted double c, unrestricted double d, unrestricted double e, unrestricted double f);
 
   [NewObject] <span>DOMMatrix</span> <span data-x="dom-context-2d-getTransform">getTransform</span>();
-  void <span data-x="dom-context-2d-setTransform">setTransform</span>(unrestricted double a, unrestricted double b, unrestricted double c, unrestricted double d, unrestricted double e, unrestricted double f);
-  void <span data-x="dom-context-2d-setTransform-matrix">setTransform</span>(optional <span>DOMMatrix2DInit</span> transform);
-  void <span data-x="dom-context-2d-resetTransform">resetTransform</span>();
+  undefined <span data-x="dom-context-2d-setTransform">setTransform</span>(unrestricted double a, unrestricted double b, unrestricted double c, unrestricted double d, unrestricted double e, unrestricted double f);
+  undefined <span data-x="dom-context-2d-setTransform-matrix">setTransform</span>(optional <span>DOMMatrix2DInit</span> transform = {});
+  undefined <span data-x="dom-context-2d-resetTransform">resetTransform</span>();
 <!--
   // v7 we've also received requests (though not many so far) for:
-  void skew(...);                             // is this common enough that one can't just use setTransform()?
-  void reflect(...);  and  void mirror(...);  // aren't negative values in scale() sufficient for these?
+  undefined skew(...);                             // is this common enough that one can't just use setTransform()?
+  undefined reflect(...);  and  undefined mirror(...);  // aren't negative values in scale() sufficient for these?
 -->
 };
 
@@ -92,7 +95,7 @@ interface mixin <dfn>CanvasFillStrokeStyles</dfn> {
   attribute (DOMString or CanvasGradient or CanvasPattern) <span data-x="dom-context-2d-fillStyle">fillStyle</span>; // (default black)
   <span>CanvasGradient</span> <span data-x="dom-context-2d-createLinearGradient">createLinearGradient</span>(double x0, double y0, double x1, double y1);
   <span>CanvasGradient</span> <span data-x="dom-context-2d-createRadialGradient">createRadialGradient</span>(double x0, double y0, double r0, double x1, double y1, double r1);
-  <span>CanvasPattern</span>? <span data-x="dom-context-2d-createPattern">createPattern</span>(<span>CanvasImageSource</span> image, [TreatNullAs=EmptyString] DOMString repetition);
+  <span>CanvasPattern</span>? <span data-x="dom-context-2d-createPattern">createPattern</span>(<span>CanvasImageSource</span> image, [<span>LegacyNullToEmptyString</span>] DOMString repetition);
 <!--
   // v8 we received one request from Ralf Richard G&oml;bel for a new kind of pattern: a hatch.
   // basically it would be a series of dash styles, angles, line widths, and offsets
@@ -114,20 +117,20 @@ interface mixin <dfn>CanvasFilters</dfn> {
 
 interface mixin <dfn>CanvasRect</dfn> {
   // rects
-  void <span data-x="dom-context-2d-clearRect">clearRect</span>(unrestricted double x, unrestricted double y, unrestricted double w, unrestricted double h);
-  void <span data-x="dom-context-2d-fillRect">fillRect</span>(unrestricted double x, unrestricted double y, unrestricted double w, unrestricted double h);
-  void <span data-x="dom-context-2d-strokeRect">strokeRect</span>(unrestricted double x, unrestricted double y, unrestricted double w, unrestricted double h);
+  undefined <span data-x="dom-context-2d-clearRect">clearRect</span>(unrestricted double x, unrestricted double y, unrestricted double w, unrestricted double h);
+  undefined <span data-x="dom-context-2d-fillRect">fillRect</span>(unrestricted double x, unrestricted double y, unrestricted double w, unrestricted double h);
+  undefined <span data-x="dom-context-2d-strokeRect">strokeRect</span>(unrestricted double x, unrestricted double y, unrestricted double w, unrestricted double h);
 };
 
 interface mixin <dfn>CanvasDrawPath</dfn> {
   // path API (see also <span>CanvasPath</span>)
-  void <span data-x="dom-context-2d-beginPath">beginPath</span>();
-  void <span data-x="dom-context-2d-fill">fill</span>(optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
-  void <span data-x="dom-context-2d-fill">fill</span>(<span>Path2D</span> path, optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
-  void <span data-x="dom-context-2d-stroke">stroke</span>();
-  void <span data-x="dom-context-2d-stroke">stroke</span>(<span>Path2D</span> path);
-  void <span data-x="dom-context-2d-clip">clip</span>(optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
-  void <span data-x="dom-context-2d-clip">clip</span>(<span>Path2D</span> path, optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
+  undefined <span data-x="dom-context-2d-beginPath">beginPath</span>();
+  undefined <span data-x="dom-context-2d-fill">fill</span>(optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
+  undefined <span data-x="dom-context-2d-fill">fill</span>(<span>Path2D</span> path, optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
+  undefined <span data-x="dom-context-2d-stroke">stroke</span>();
+  undefined <span data-x="dom-context-2d-stroke">stroke</span>(<span>Path2D</span> path);
+  undefined <span data-x="dom-context-2d-clip">clip</span>(optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
+  undefined <span data-x="dom-context-2d-clip">clip</span>(<span>Path2D</span> path, optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
   boolean <span data-x="dom-context-2d-isPointInPath">isPointInPath</span>(unrestricted double x, unrestricted double y, optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
   boolean <span data-x="dom-context-2d-isPointInPath">isPointInPath</span>(<span>Path2D</span> path, unrestricted double x, unrestricted double y, optional <span>CanvasFillRule</span> fillRule = "<span data-x="dom-context-2d-fillRule-nonzero">nonzero</span>");
   boolean <span data-x="dom-context-2d-isPointInStroke">isPointInStroke</span>(unrestricted double x, unrestricted double y);
@@ -135,26 +138,24 @@ interface mixin <dfn>CanvasDrawPath</dfn> {
 };
 
 interface mixin <dfn>CanvasUserInterface</dfn> {
-  void <span data-x="dom-context-2d-drawFocusIfNeeded">drawFocusIfNeeded</span>(<span>Element</span> element);
-  void <span data-x="dom-context-2d-drawFocusIfNeeded">drawFocusIfNeeded</span>(<span>Path2D</span> path, <span>Element</span> element);
-  void <span data-x="dom-context-2d-scrollPathIntoView">scrollPathIntoView</span>();
-  void <span data-x="dom-context-2d-scrollPathIntoView">scrollPathIntoView</span>(<span>Path2D</span> path);
+  undefined <span data-x="dom-context-2d-drawFocusIfNeeded">drawFocusIfNeeded</span>(<span>Element</span> element);
+  undefined <span data-x="dom-context-2d-drawFocusIfNeeded">drawFocusIfNeeded</span>(<span>Path2D</span> path, <span>Element</span> element);
+  undefined <span data-x="dom-context-2d-scrollPathIntoView">scrollPathIntoView</span>();
+  undefined <span data-x="dom-context-2d-scrollPathIntoView">scrollPathIntoView</span>(<span>Path2D</span> path);
 };
 
 interface mixin <dfn>CanvasText</dfn> {
   // text (see also the <span>CanvasPathDrawingStyles</span> and <span>CanvasTextDrawingStyles</span> interfaces)
-  void <span data-x="dom-context-2d-fillText">fillText</span>(DOMString text, unrestricted double x, unrestricted double y, optional unrestricted double maxWidth);
-  void <span data-x="dom-context-2d-strokeText">strokeText</span>(DOMString text, unrestricted double x, unrestricted double y, optional unrestricted double maxWidth);<!-- v6DVT
-  void <span data-x="dom-context-2d-fillVerticalText">fillVerticalText</span>(DOMString text, unrestricted double x, unrestricted double y, optional unrestricted double maxHeight);
-  void <span data-x="dom-context-2d-strokeVerticalText">strokeVerticalText</span>(DOMString text, unrestricted double x, unrestricted double y, optional unrestricted double maxHeight); -->
+  undefined <span data-x="dom-context-2d-fillText">fillText</span>(DOMString text, unrestricted double x, unrestricted double y, optional unrestricted double maxWidth);
+  undefined <span data-x="dom-context-2d-strokeText">strokeText</span>(DOMString text, unrestricted double x, unrestricted double y, optional unrestricted double maxWidth);
   <span>TextMetrics</span> <span data-x="dom-context-2d-measureText">measureText</span>(DOMString text);
 };
 
 interface mixin <dfn>CanvasDrawImage</dfn> {
   // drawing images
-  void <span data-x="dom-context-2d-drawImage">drawImage</span>(<span>CanvasImageSource</span> image, unrestricted double dx, unrestricted double dy);
-  void <span data-x="dom-context-2d-drawImage">drawImage</span>(<span>CanvasImageSource</span> image, unrestricted double dx, unrestricted double dy, unrestricted double dw, unrestricted double dh);
-  void <span data-x="dom-context-2d-drawImage">drawImage</span>(<span>CanvasImageSource</span> image, unrestricted double sx, unrestricted double sy, unrestricted double sw, unrestricted double sh, unrestricted double dx, unrestricted double dy, unrestricted double dw, unrestricted double dh);
+  undefined <span data-x="dom-context-2d-drawImage">drawImage</span>(<span>CanvasImageSource</span> image, unrestricted double dx, unrestricted double dy);
+  undefined <span data-x="dom-context-2d-drawImage">drawImage</span>(<span>CanvasImageSource</span> image, unrestricted double dx, unrestricted double dy, unrestricted double dw, unrestricted double dh);
+  undefined <span data-x="dom-context-2d-drawImage">drawImage</span>(<span>CanvasImageSource</span> image, unrestricted double sx, unrestricted double sy, unrestricted double sw, unrestricted double sh, unrestricted double dx, unrestricted double dy, unrestricted double dw, unrestricted double dh);
 };
 
 interface mixin <dfn>CanvasImageData</dfn> {
@@ -162,8 +163,8 @@ interface mixin <dfn>CanvasImageData</dfn> {
   <span>ImageData</span> <span data-x="dom-context-2d-createImageData">createImageData</span>(long sw, long sh);
   <span>ImageData</span> <span data-x="dom-context-2d-createImageData">createImageData</span>(<span>ImageData</span> imagedata);
   <span>ImageData</span> <span data-x="dom-context-2d-getImageData">getImageData</span>(long sx, long sy, long sw, long sh);
-  void <span data-x="dom-context-2d-putImageData">putImageData</span>(<span>ImageData</span> imagedata, long dx, long dy);
-  void <span data-x="dom-context-2d-putImageData">putImageData</span>(<span>ImageData</span> imagedata, long dx, long dy, long dirtyX, long dirtyY, long dirtyWidth, long dirtyHeight);
+  undefined <span data-x="dom-context-2d-putImageData">putImageData</span>(<span>ImageData</span> imagedata, long dx, long dy);
+  undefined <span data-x="dom-context-2d-putImageData">putImageData</span>(<span>ImageData</span> imagedata, long dx, long dy, long dirtyX, long dirtyY, long dirtyWidth, long dirtyHeight);
 };
 
 enum <dfn>CanvasLineCap</dfn> { "butt", "round", "square" };
@@ -180,7 +181,7 @@ interface mixin <dfn>CanvasPathDrawingStyles</dfn> {
   attribute unrestricted double <span data-x="dom-context-2d-miterLimit">miterLimit</span>; // (default 10)
 
   // dashed lines
-  void <span data-x="dom-context-2d-setLineDash">setLineDash</span>(sequence&lt;unrestricted double> segments); // default empty
+  undefined <span data-x="dom-context-2d-setLineDash">setLineDash</span>(sequence&lt;unrestricted double> segments); // default empty
   sequence&lt;unrestricted double> <span data-x="dom-context-2d-getLineDash">getLineDash</span>();
   attribute unrestricted double <span data-x="dom-context-2d-lineDashOffset">lineDashOffset</span>;
 };
@@ -195,30 +196,30 @@ interface mixin <dfn>CanvasTextDrawingStyles</dfn> {
 
 interface mixin <dfn>CanvasPath</dfn> {
   // shared path API methods
-  void <span data-x="dom-context-2d-closePath">closePath</span>();
-  void <span data-x="dom-context-2d-moveTo">moveTo</span>(unrestricted double x, unrestricted double y);
-  void <span data-x="dom-context-2d-lineTo">lineTo</span>(unrestricted double x, unrestricted double y);
-  void <span data-x="dom-context-2d-quadraticCurveTo">quadraticCurveTo</span>(unrestricted double cpx, unrestricted double cpy, unrestricted double x, unrestricted double y);
-  void <span data-x="dom-context-2d-bezierCurveTo">bezierCurveTo</span>(unrestricted double cp1x, unrestricted double cp1y, unrestricted double cp2x, unrestricted double cp2y, unrestricted double x, unrestricted double y);
-  void <span data-x="dom-context-2d-arcTo">arcTo</span>(unrestricted double x1, unrestricted double y1, unrestricted double x2, unrestricted double y2, unrestricted double radius); <!-- see ARC-ORDER note below -->
-  void <span data-x="dom-context-2d-rect">rect</span>(unrestricted double x, unrestricted double y, unrestricted double w, unrestricted double h);
-  void <span data-x="dom-context-2d-arc">arc</span>(unrestricted double x, unrestricted double y, unrestricted double radius, unrestricted double startAngle, unrestricted double endAngle, optional boolean anticlockwise = false); <!-- see ARC-ORDER note below -->
-  void <span data-x="dom-context-2d-ellipse">ellipse</span>(unrestricted double x, unrestricted double y, unrestricted double radiusX, unrestricted double radiusY, unrestricted double rotation, unrestricted double startAngle, unrestricted double endAngle, optional boolean anticlockwise = false); <!-- see ARC-ORDER note below -->
+  undefined <span data-x="dom-context-2d-closePath">closePath</span>();
+  undefined <span data-x="dom-context-2d-moveTo">moveTo</span>(unrestricted double x, unrestricted double y);
+  undefined <span data-x="dom-context-2d-lineTo">lineTo</span>(unrestricted double x, unrestricted double y);
+  undefined <span data-x="dom-context-2d-quadraticCurveTo">quadraticCurveTo</span>(unrestricted double cpx, unrestricted double cpy, unrestricted double x, unrestricted double y);
+  undefined <span data-x="dom-context-2d-bezierCurveTo">bezierCurveTo</span>(unrestricted double cp1x, unrestricted double cp1y, unrestricted double cp2x, unrestricted double cp2y, unrestricted double x, unrestricted double y);
+  undefined <span data-x="dom-context-2d-arcTo">arcTo</span>(unrestricted double x1, unrestricted double y1, unrestricted double x2, unrestricted double y2, unrestricted double radius); <!-- see ARC-ORDER note below -->
+  undefined <span data-x="dom-context-2d-rect">rect</span>(unrestricted double x, unrestricted double y, unrestricted double w, unrestricted double h);
+  undefined <span data-x="dom-context-2d-arc">arc</span>(unrestricted double x, unrestricted double y, unrestricted double radius, unrestricted double startAngle, unrestricted double endAngle, optional boolean anticlockwise = false); <!-- see ARC-ORDER note below -->
+  undefined <span data-x="dom-context-2d-ellipse">ellipse</span>(unrestricted double x, unrestricted double y, unrestricted double radiusX, unrestricted double radiusY, unrestricted double rotation, unrestricted double startAngle, unrestricted double endAngle, optional boolean anticlockwise = false); <!-- see ARC-ORDER note below -->
 };
 
 [Exposed=(Window,Worker)]
 interface <dfn>CanvasGradient</dfn> {
   // opaque object
-  void <span data-x="dom-canvasgradient-addColorStop">addColorStop</span>(double offset, DOMString color);
+  undefined <span data-x="dom-canvasgradient-addColorStop">addColorStop</span>(double offset, DOMString color);
 };
 
 [Exposed=(Window,Worker)]
 interface <dfn>CanvasPattern</dfn> {
   // opaque object
-  void <span data-x="dom-canvaspattern-setTransform">setTransform</span>(optional <span>DOMMatrix2DInit</span> transform);
+  undefined <span data-x="dom-canvaspattern-setTransform">setTransform</span>(optional <span>DOMMatrix2DInit</span> transform = {});
 };
 
-[Exposed=Window]
+[Exposed=(Window,Worker)]
 interface <dfn>TextMetrics</dfn> {
   // x-direction
   readonly attribute double <span data-x="dom-textmetrics-width">width</span>; // advance width
@@ -237,20 +238,22 @@ interface <dfn>TextMetrics</dfn> {
   readonly attribute double <span data-x="dom-textmetrics-ideographicBaseline">ideographicBaseline</span>;
 };
 
-[<span data-x="dom-imagedata">Constructor</span>(unsigned long sw, unsigned long sh),
- <span data-x="dom-imagedata">Constructor</span>(<span data-x="idl-Uint8ClampedArray">Uint8ClampedArray</span> data, unsigned long sw, optional unsigned long sh),
- Exposed=(Window,Worker),
+[Exposed=(Window,Worker),
  <span>Serializable</span>]
 interface <dfn>ImageData</dfn> {
+  <span data-x="dom-imagedata">constructor</span>(unsigned long sw, unsigned long sh);
+  <span data-x="dom-imagedata">constructor</span>(<span data-x="idl-Uint8ClampedArray">Uint8ClampedArray</span> data, unsigned long sw, optional unsigned long sh);
+
   readonly attribute unsigned long <span data-x="dom-imagedata-width">width</span>;
   readonly attribute unsigned long <span data-x="dom-imagedata-height">height</span>;
   readonly attribute <span data-x="idl-Uint8ClampedArray">Uint8ClampedArray</span> <span data-x="dom-imagedata-data">data</span>;
 };
 
-[<span data-x="dom-Path2D">Constructor</span>(optional (<span>Path2D</span> or DOMString) path),
- Exposed=(Window,Worker)]
+[Exposed=(Window,Worker)]
 interface <dfn>Path2D</dfn> {
-  void <span data-x="dom-Path2D-addPath">addPath</span>(<span>Path2D</span> path, optional <span>DOMMatrix2DInit</span> transform);
+  <span data-x="dom-Path2D">constructor</span>(optional (<span>Path2D</span> or DOMString) path);
+
+  undefined <span data-x="dom-Path2D-addPath">addPath</span>(<span>Path2D</span> path, optional <span>DOMMatrix2DInit</span> transform = {});
 };
 <span>Path2D</span> includes <span>CanvasPath</span>;</code></pre>
 
@@ -259,33 +262,44 @@ interface <dfn>Path2D</dfn> {
       methods, see https://bugzilla.mozilla.org/show_bug.cgi?id=623437
       for an example, and its duplicates for more -->
 
-  <p class="note" w-nodev>To maintain compatibility with existing Web content, user agents need to
+  <p class="note" w-nodev>To maintain compatibility with existing web content, user agents need to
   enumerate methods defined in <code>CanvasUserInterface</code> immediately after the <code
   data-x="dom-context-2d-stroke">stroke()</code> method on <code>CanvasRenderingContext2D</code>
   objects.</p>
 
   <dl class="domintro">
-
-   <dt><var>context</var> = <var>canvas</var> . <code data-x="dom-canvas-getContext">getContext</code>('2d' [, { [ <code data-x="dom-CanvasRenderingContext2DSettings-alpha">alpha</code>: false ] } ] )</dt>
-
+   <dt><var>context</var> = <var>canvas</var> . <code data-x="dom-canvas-getContext">getContext</code>('2d' [, { [ <code data-x="dom-CanvasRenderingContext2DSettings-alpha">alpha</code>: true ] [, <code data-x="dom-CanvasRenderingContext2DSettings-desynchronized">desynchronized</code>: false ] } ] )</dt>
    <dd>
-
     <p>Returns a <code>CanvasRenderingContext2D</code> object that is permanently bound to a
     particular <code>canvas</code> element.</p>
 
-    <p>If the <code data-x="dom-CanvasRenderingContext2DSettings-alpha">alpha</code> setting is
-    provided and set to false, then the canvas is forced to always be opaque.</p>
+    <p>If the <code data-x="dom-CanvasRenderingContext2DSettings-alpha">alpha</code> member is
+    false, then the context is forced to always be opaque.</p>
 
+    <p>If the <code
+    data-x="dom-CanvasRenderingContext2DSettings-desynchronized">desynchronized</code> member is
+    true, then the context might be <span
+    data-x="concept-canvas-desynchronized">desynchronized</span>.</p>
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-canvas">canvas</code></dt>
-
    <dd>
-
     <p>Returns the <code>canvas</code> element.</p>
-
    </dd>
 
+   <dt><var>attributes</var> = <var>canvas</var> . <code data-x="dom-context-2d-canvas-getcontextattributes">getContextAttributes</code>()</dt>
+   <dd>
+    <p>Returns an object whose:</p>
+
+    <ul>
+     <li><code data-x="concept-canvas-alpha">alpha</code> member is true if the context has an alpha
+     channel, or false if it was forced to be opaque.</li>
+
+     <li><code data-x="dom-CanvasRenderingContext2DSettings-desynchronized">desynchronized</code>
+     member is true if the context can be <span
+     data-x="concept-canvas-desynchronized">desynchronized</span>.</li>
+    </ul>
+   </dd>
   </dl>
 
   <div w-nodev>
@@ -301,12 +315,11 @@ interface <dfn>Path2D</dfn> {
 <!--REMOVE-TOPIC:Security-->
 
   <p>The <code>CanvasRenderingContext2D</code> object also has an <dfn
-  data-x="concept-canvas-alpha">alpha</dfn> flag, which can be set to true or false. Initially,
-  when the context is created, its <span data-x="concept-canvas-alpha">alpha</span> flag must be
-  set to true. When a <code>CanvasRenderingContext2D</code> object has its <span
-  data-x="concept-canvas-alpha">alpha</span> flag set to false, then its alpha channel must be
-  fixed to 1.0 (fully opaque) for all pixels, and attempts to change the alpha component of any
-  pixel must be silently ignored.</p>
+  data-x="concept-canvas-alpha">alpha</dfn> boolean. When a
+  <code>CanvasRenderingContext2D</code> object's <span
+  data-x="concept-canvas-alpha">alpha</span> is false, then its alpha channel must be fixed to 1.0
+  (fully opaque) for all pixels, and attempts to change the alpha component of any pixel must be
+  silently ignored.</p>
 
   <p class="note">Thus, the bitmap of such a context starts off as <span>opaque black</span> instead
   of <span>transparent black</span>; <code data-x="dom-context-2d-clearRect">clearRect()</code>
@@ -316,8 +329,43 @@ interface <dfn>Path2D</dfn> {
   fourth byte in its input, and so on. However, the alpha component of styles and images drawn
   onto the canvas are still honoured up to the point where they would impact the <span>output
   bitmap</span>'s alpha channel; for instance, drawing a 50% transparent white square on a freshly
-  created <span>output bitmap</span> with its <span data-x="concept-canvas-alpha">alpha</span>
-  flag set to false will result in a fully-opaque gray square.</p>
+  created <span>output bitmap</span> with its <span data-x="concept-canvas-alpha">alpha</span> set
+  to false will result in a fully-opaque gray square.</p>
+
+  <p>The <code>CanvasRenderingContext2D</code> object also has a <dfn
+  data-x="concept-canvas-desynchronized">desynchronized</dfn> boolean. When a
+  <code>CanvasRenderingContext2D</code> object's <span
+  data-x="concept-canvas-desynchronized">desynchronized</span> is true, then the user agent may
+  optimize the rendering of the canvas to reduce the latency, as measured from input events to
+  rasterization, by desynchronizing the canvas paint cycle from the event loop, bypassing the
+  ordinary user agent rendering algorithm, or both. Insofar as this mode involves bypassing the
+  usual paint mechanisms, rasterization, or both, it might introduce visible tearing artifacts.</p>
+
+  <p class="note">The user agent usually renders on a buffer which is not being displayed, quickly
+  swapping it and the one being scanned out for presentation; the former buffer is called
+  back buffer and the latter <i>front buffer</i>. A popular technique for reducing latency is called
+  front buffer rendering, also known as <i>single buffer</i> rendering, where rendering happens in
+  parallel and racily with the scanning out process. This technique reduces the latency at the price
+  of potentially introducing tearing artifacts and can be used to implement in total or part of the
+  <span data-x="concept-canvas-desynchronized">desynchronized</span> boolean. <ref
+  spec=MULTIPLEBUFFERING></p>
+
+  <p class="note">The <span data-x="concept-canvas-desynchronized">desynchronized</span> boolean
+  can be useful when implementing certain kinds of applications, such as drawing applications,
+  where the latency between input and rasterization is critical.</p>
+
+  <p>The <dfn><code
+  data-x="dom-context-2d-canvas-getcontextattributes">getContextAttributes()</code></dfn> method,
+  when invoked, must return a <code>CanvasRenderingContext2DSettings</code> dictionary containing
+  the following members:</p>
+
+  <ul>
+   <li><p><code data-x="concept-canvas-alpha">alpha</code>, set to this context's <span
+   data-x="concept-canvas-alpha">alpha</span>.</p></li>
+
+   <li><p><code data-x="concept-canvas-desynchronized">desynchronized</code>, set to this context's
+   <span data-x="concept-canvas-desynchronized">desynchronized</span>.</p></li>
+  </ul>
 
   <hr>
 
@@ -347,7 +395,7 @@ interface <dfn>Path2D</dfn> {
    unit for ease of integration with CSS) and is rendered as 100x100 <span data-x="'px'">CSS
    pixels</span>:
 
-   <pre><code class="html" data-x="">&lt;canvas width=200 height=200 style=width:100px;height:100px></code></pre>
+   <pre><code class="html">&lt;canvas width=200 height=200 style=width:100px;height:100px></code></pre>
   </div>
 
   <hr>
@@ -373,15 +421,13 @@ interface <dfn>Path2D</dfn> {
    data-x="attr-canvas-width">width</code> and <code data-x="attr-canvas-height">height</code>
    content attributes.</p></li>
 
-   <li>
-    <p>Process each of the members of <var>settings</var> as follows:</p>
+   <li><p>Set <var>context</var>'s <span data-x="concept-canvas-alpha">alpha</span> to
+   <var>settings</var>'s <dfn><code
+   data-x="dom-CanvasRenderingContext2DSettings-alpha">alpha</code></dfn>.</p></li>
 
-    <dl>
-     <dt><dfn><code data-x="dom-CanvasRenderingContext2DSettings-alpha">alpha</code></dfn></dt>
-     <dd>If false, then set <var>context</var>'s <span data-x="concept-canvas-alpha">alpha</span>
-     flag to false.</dd>
-    </dl>
-   </li>
+   <li><p>Set <var>context</var>'s <span
+   data-x="concept-canvas-desynchronized">desynchronized</span> to <var>settings</var>'s <dfn><code
+   data-x="dom-CanvasRenderingContext2DSettings-desynchronized">desynchronized</code></dfn>.</p></li>
 
    <li><p>Return <var>context</var>.</p></li>
   </ol>
@@ -392,7 +438,6 @@ interface <dfn>Path2D</dfn> {
   dimensions</dfn> to <var>width</var> and <var>height</var>, it must run these steps:</p>
 
   <ol>
-
    <li><p><span>Reset the rendering context to its default state</span>.</p></li>
 
    <li><p>Resize the <span>output bitmap</span> to the new <var>width</var> and <var>height</var>
@@ -412,12 +457,11 @@ interface <dfn>Path2D</dfn> {
    attribute differs from <var>height</var>, then set <var>canvas</var>'s <code
    data-x="attr-canvas-height">height</code> content attribute to the shortest possible string
    representing <var>height</var> as a <span>valid non-negative integer</span>.</p></li>
-
   </ol>
 
   <div class="example">
    <p>Only one square appears to be drawn in the following example:</p>
-   <pre><code class="js" data-x="">// canvas is a reference to a &lt;canvas> element
+   <pre><code class="js">// canvas is a reference to a &lt;canvas> element
 var context = canvas.getContext('2d');
 context.fillRect(0,0,50,50);
 canvas.setAttribute('width', '300'); // clears the canvas
@@ -428,8 +472,9 @@ context.fillRect(100,0,50,50); // only this square remains</code></pre>
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-context-2d-canvas">canvas</code></dfn> attribute must return the
-  value it was initialized to when the object was created.</p>
+  <p>The <dfn attribute for="CanvasRenderingContext2D"><code
+  data-x="dom-context-2d-canvas">canvas</code></dfn> attribute must return the value it was
+  initialized to when the object was created.</p>
 
   </div>
 

@@ -2,55 +2,52 @@
 
   <p><dfn data-x="CORS settings attribute">CORS 设置属性</dfn> 是一个
   <span data-x="enumerated attribute">枚举属性</span>。下表列出了关键字以及属性状态
-  &mdash; 左侧一列的关键字对应第二列同一行中的状态。</p>
+  &mdash; 每行中第一列给出了那一行的关键字映射到的状态。</p>
 
   <table>
    <thead>
     <tr>
-     <th> 关键字
      <th> 状态
+     <th> 关键字
      <th> 简要介绍
    <tbody>
     <tr>
+     <td rowspan=2><dfn data-x="attr-crossorigin-anonymous">Anonymous</dfn>
      <td><dfn><code data-x="attr-crossorigin-anonymous-keyword">anonymous</code></dfn>
-     <td><dfn data-x="attr-crossorigin-anonymous">匿名</dfn>
-     <td>该元素的 <span data-x="concept-request">请求</span> 会把 <span
-     data-x="concept-request-mode">模式</span> 设置为 "<code data-x="">cors</code>"
-     把 <span data-x="concept-request-credentials-mode">credentials 模式</span> 设置为
-     "<code data-x="">same-origin</code>"。
+     <td rowspan=2><span data-x="concept-request">Requests</span> for the element will have their
+     <span data-x="concept-request-mode">mode</span> set to "<code data-x="">cors</code>" and their
+     <span data-x="concept-request-credentials-mode">credentials mode</span> set to "<code
+     data-x="">same-origin</code>"。
     <tr>
-     <td><dfn><code data-x="attr-crossorigin-use-credentials-keyword">use-credentials</code></dfn>
+     <td>(the empty string)
+    <tr>
      <td><dfn data-x="attr-crossorigin-use-credentials">使用 Credentials</dfn>
+     <td><dfn><code data-x="attr-crossorigin-use-credentials-keyword">use-credentials</code></dfn>
      <td>该元素的 <span data-x="concept-request">请求</span> 会把 <span
      data-x="concept-request-mode">模式</span> 设置为 "<code data-x="">cors</code>"
      把 <span data-x="concept-request-credentials-mode">credentials 模式</span> 设置为
      "<code data-x="">include</code>"。
   </table>
 
-  <p>空字符串也是合法的关键字，对应 <span data-x="attr-crossorigin-anonymous">匿名</span> 状态。
-  该属性的 <i data-x="invalid value default">非法值的默认</i> 是
-  <span data-x="attr-crossorigin-anonymous">匿名</span> 状态。
-  为了 <span data-x="reflect">反映</span> 的目的，
-  <span data-x="attr-crossorigin-anonymous">匿名</span> 状态的正规的
-  关键字是 <code data-x="attr-crossorigin-anonymous-keyword">anonymous</code>。
-  <i data-x="missing value default">缺失值的默认</i>（当属性被省略时使用）是
-  <dfn data-x="attr-crossorigin-none">No CORS</dfn> 状态。</p>
+  <p>属性的 <i data-x="invalid value default">非法值默认</i> 是 <span
+  data-x="attr-crossorigin-anonymous">Anonymous</span> 状态，它的 <i data-x="missing value
+  default">缺失值默认</i> 是 <dfn data-x="attr-crossorigin-none">No CORS</dfn> 状态。
+  用于 <span data-x="reflect">反射</span> 时，
+  <span data-x="attr-crossorigin-anonymous">Anonymous</span> 状态的
+  <span data-x="canonical keyword">标准关键字</span> 为 <code data-x="attr-crossorigin-anonymous-keyword">anonymous</code>。</p>
 
-  <p>The majority of fetches governed by <span data-x="CORS settings attribute">CORS settings
-  attributes</span> will be done via the <span>create a potential-CORS request</span> algorithm.</p>
+  <p><span data-x="CORS settings attribute">CORS 设置属性</span> 控制的多数请求都是通过
+  <span data-x="create a potential-cors request">创建一个可能 CORS 的请求</span> 算法来完成的。</p>
 
-  <p>For <span data-x="module script">module scripts</span>, certain <span data-x="CORS settings
-  attribute">CORS settings attributes</span> have been repurposed to have a slightly different
-  meaning, wherein they only impact the <span data-x="concept-request">request</span>'s <span
-  data-x="concept-request-credentials-mode">credentials mode</span> (since the <span
-  data-x="concept-request-mode">mode</span> is always "<code data-x="">cors</code>"). To perform
-  this translation, we define the <dfn>module script credentials mode</dfn> for a given <span>CORS
-  settings attribute</span> to be determined by switching on the attribute's state:</p>
+  <p id="module-script-credentials-mode">对于更先进的特行，比如请求的
+  <span data-x="concept-request-mode">mode</span> 总是 "<code data-x="">cors</code>"，
+  某些 <span data-x="CORS settings attribute">CORS 设置属性</span> 用于其他语义，
+  不过还是只对 <span data-x="concept-request">请求</span> 的 <span data-x="concept-request-credentials-mode">credentials 模式</span> 起作用。
+  为了执行这个转换，定义了 <dfn data-x="CORS settings attribute credentials mode">CORS 设置属性 credentials 模式</dfn>
+  来通过属性状态确定 <span data-x="cors settings attribute">CORS 设置属性</span>：</p>
 
   <dl class="switch">
    <dt><span data-x="attr-crossorigin-none">No CORS</span></dt>
-   <dd>"<code data-x="">omit</code>"</dd>
-
    <dt><span data-x="attr-crossorigin-anonymous">Anonymous</span></dt>
    <dd>"<code data-x="">same-origin</code>"</dd>
 

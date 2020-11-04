@@ -2,64 +2,89 @@
 
   <!-- if more text control types start supporting multiple="", this will need to be refactored -->
 
-  <p>The <dfn><code data-x="attr-input-pattern">pattern</code></dfn> attribute specifies a regular
-  expression against which the control's <span data-x="concept-fe-value">value</span>, or, when the
-  <code data-x="attr-input-multiple">multiple</code> attribute <span
+  <p>The <dfn element-attr for="input"><code data-x="attr-input-pattern">pattern</code></dfn>
+  attribute specifies a regular expression against which the control's <span
+  data-x="concept-fe-value">value</span>, or, when the <code
+  data-x="attr-input-multiple">multiple</code> attribute <span
   data-x="concept-input-apply">applies</span> and is set, the control's <span
   data-x="concept-fe-values">values</span>, are to be checked.</p>
 
   <p>If specified, the attribute's value must match the JavaScript <i
-  data-x="js-prod-Pattern">Pattern</i> production.</p>
+  data-x="js-prod-Pattern">Pattern</i><sub><code data-x="">[+U, +N]</code></sub> production.</p>
 
   <div w-nodev>
 
-  <p>If an <code>input</code> element has a <code data-x="attr-input-pattern">pattern</code>
-  attribute specified, and the attribute's value, when compiled as a JavaScript regular expression
-  with only the "<code data-x="">u</code>" flag specified, compiles successfully, then the resulting regular expression is the element's
-  <dfn>compiled pattern regular expression</dfn>. If the element has no such attribute, or if the
-  value doesn't compile successfully, then the element has no <span>compiled pattern regular
-  expression</span>. <ref spec=JAVASCRIPT></p>
+  <p>The <dfn>compiled pattern regular expression</dfn> of an <code>input</code> element, if it
+  exists, is a JavaScript <code>RegExp</code> object. It is determined as follows:</p>
 
-  <p class="note">If the value doesn't compile successfully, user agents are encouraged to log this
-  fact in a developer console, to aid debugging.</p>
+  <ol>
+   <li><p>If the element does not have a <code data-x="attr-input-pattern">pattern</code> attribute
+   specified, then return nothing. The element has no <span>compiled pattern regular
+   expression</span>.</p></li>
+
+   <li><p>Let <var>pattern</var> be the value of the <code
+   data-x="attr-input-pattern">pattern</code> attribute of the element.</p></li>
+
+   <li><p>Let <var>regexpCompletion</var> be <span>RegExpCreate</span>(<var>pattern</var>,
+   "<code data-x="">u</code>"). <ref spec=JAVASCRIPT></p></li>
+
+   <li>
+    <p>If <var>regexpCompletion</var> is an <span>abrupt completion</span>, then return nothing. The
+    element has no <span>compiled pattern regular expression</span>.</p>
+
+    <p class="note">User agents are encouraged to log this error in a developer console, to aid
+    debugging.</p>
+   </li>
+
+   <li><p>Let <var>anchoredPattern</var> be the string "<code data-x="">^(?:</code>", followed by
+   <var>pattern</var>, followed by "<code data-x="">)$</code>".</p></li>
+
+   <li><p>Return ! <span>RegExpCreate</span>(<var>anchoredPattern</var>, "<code
+   data-x="">u</code>").</p></li>
+  </ol>
+
+  <p class="note">The reasoning behind these steps, instead of just using the value of the <code
+  data-x="attr-input-pattern">pattern</code> attribute directly, is twofold. First, we want to
+  ensure that when matched against a string, the regular expression's start is anchored to the start
+  of the string and its end to the end of the string. Second, we want to ensure that the regular
+  expression is valid in standalone form, instead of only becoming valid after being surrounded by
+  the "<code data-x="">^(?:</code>" and "<code data-x="">)$</code>" anchors.</p>
+
+  <p>A <code>RegExp</code> object <var>regexp</var> <dfn data-x="RegExp match a
+  string">matches</dfn> a string <var>input</var>, if !
+  <span>RegExpBuiltinExec</span>(<var>regexp</var>, <var>input</var>) is not null.</p>
 
   <p><strong>Constraint validation</strong>: If the element's <span
   data-x="concept-fe-value">value</span> is not the empty string, and either the element's <code
   data-x="attr-input-multiple">multiple</code> attribute is not specified or it <span data-x="do not
   apply">does not apply</span> to the <code>input</code> element given its <code
   data-x="attr-input-type">type</code> attribute's current state, and the element has a
-  <span>compiled pattern regular expression</span> but that regular expression does not match the
-  entirety of the element's <span data-x="concept-fe-value">value</span>, then the element is
-  <span>suffering from a pattern mismatch</span>.</p>
+  <span>compiled pattern regular expression</span> but that regular expression does not <span
+  data-x="RegExp match a string">match</span> the element's <span
+  data-x="concept-fe-value">value</span>, then the element is <span>suffering from a pattern
+  mismatch</span>.</p>
 
   <p><strong>Constraint validation</strong>: If the element's <span
   data-x="concept-fe-value">value</span> is not the empty string, and the element's <code
   data-x="attr-input-multiple">multiple</code> attribute is specified and <span
   data-x="concept-input-apply">applies</span> to the <code>input</code> element, and the element has
-  a <span>compiled pattern regular expression</span> but that regular expression does not match the
-  entirety of each of the element's <span data-x="concept-fe-values">values</span>, then the
-  element is <span>suffering from a pattern mismatch</span>.</p>
-
-  <p>The <span>compiled pattern regular expression</span>, when matched against a string, must have
-  its start anchored to the start of the string and its end anchored to the end of the string.</p>
-
-  <p class="note">This implies that the regular expression language used for this attribute is the
-  same as that used in JavaScript, except that the <code data-x="attr-input-pattern">pattern</code>
-  attribute is matched against the entire value, not just any subset (somewhat as if it implied a
-  <code data-x="">^(?:</code> at the start of the pattern and a <code data-x="">)$</code> at the
-  end).</p>
+  a <span>compiled pattern regular expression</span> but that regular expression does not <span
+  data-x="RegExp match a string">match</span> each of the element's <span
+  data-x="concept-fe-values">values</span>, then the element is <span>suffering from a pattern
+  mismatch</span>.</p>
 
   </div>
 
   <p>When an <code>input</code> element has a <code data-x="attr-input-pattern">pattern</code>
-  attribute specified, authors should include a <dfn><code data-x="attr-input-title">title</code></dfn> attribute to give a description of the pattern.
-  User agents may use the contents of this attribute, if it is present, when informing the user that
-  the pattern is not matched, or at any other suitable time, such as in a tooltip or read out by
+  attribute specified, authors should include a <dfn element-attr for="input"><code
+  data-x="attr-input-title">title</code></dfn> attribute to give a description of the pattern.  User
+  agents may use the contents of this attribute, if it is present, when informing the user that the
+  pattern is not matched, or at any other suitable time, such as in a tooltip or read out by
   assistive technology when the control <span>gains focus</span>.</p>
 
   <div class="example">
    <p>For example, the following snippet:</p>
-   <pre><code class="html" data-x="">&lt;label&gt; Part number:
+   <pre><code class="html">&lt;label&gt; Part number:
  &lt;input pattern="[0-9][A-Z]{3}" name="part"
         title="A part number is a digit followed by three uppercase letters."/&gt;
 &lt;/label&gt;</code></pre>

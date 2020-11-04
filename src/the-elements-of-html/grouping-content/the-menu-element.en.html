@@ -10,11 +10,17 @@
    <dd>Zero or more <code>li</code> and <span data-x="script-supporting elements">script-supporting</span> elements.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-menu">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-menu">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+<pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLMenuElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
+  // <a href="#HTMLMenuElement-partial">also has obsolete members</a>
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLMenuElement</code>.</dd>
@@ -31,7 +37,7 @@ interface <dfn>HTMLMenuElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, a text-editing application uses a <code>menu</code> element to provide a
    series of editing commands:</p>
 
-   <pre><code class="html" data-x="">&lt;menu>
+   <pre><code class="html">&lt;menu>
  &lt;li>&lt;button onclick="copy()">&lt;img src="copy.svg" alt="Copy">&lt;/button>&lt;/li>
  &lt;li>&lt;button onclick="cut()">&lt;img src="cut.svg" alt="Cut">&lt;/button>&lt;/li>
  &lt;li>&lt;button onclick="paste()">&lt;img src="paste.svg" alt="Paste">&lt;/button>&lt;/li>

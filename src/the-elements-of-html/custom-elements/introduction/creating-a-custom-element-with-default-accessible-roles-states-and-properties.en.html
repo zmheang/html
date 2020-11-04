@@ -1,0 +1,57 @@
+  <h5 id="custom-elements-accessibility-example">Creating a custom element with default accessible roles, states, and properties</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>By using the appropriate properties of <code>ElementInternals</code>, your custom element can
+  have default accessibility semantics. The following code expands our form-associated checkbox from
+  the previous section to properly set its default role and checkedness, as viewed by accessibility
+  technology:</p>
+
+  <pre><code class="js" data-x="">class MyCheckbox extends HTMLElement {
+  static get formAssociated() { return true; }
+  static get observedAttributes() { return ['checked']; }
+
+  constructor() {
+    super();
+    this._internals = this.attachInternals();
+    this.addEventListener('click', this._onClick.bind(this));
+
+<mark>    this._internals.role = 'checkbox';
+    this._internals.ariaChecked = false;</mark>
+  }
+
+  get form() { return this._internals.form; }
+  get name() { return this.getAttribute('name'); }
+  get type() { return this.localName; }
+
+  get checked() { return this.getAttribute('checked'); }
+  set checked(flag) { this.toggleAttribute('checked', Boolean(flag)); }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    // name will always be "checked" due to observedAttributes
+    this._internals.setFormValue(this.checked ? 'on' : null);
+<mark>    this._internals.ariaChecked = this.checked;</mark>
+  }
+
+  _onClick(event) {
+    this.checked = !this.checked;
+  }
+}
+customElements.define('my-checkbox', MyCheckbox);</code></pre>
+
+  <p>Note that, like for built-in elements, these are only defaults, and can be overridden by the
+  page author using the <code data-x="attr-aria-role">role</code> and <code
+  data-x="attr-aria-*">aria-*</code> attributes:</p>
+
+  <pre class="bad"><code class="html" data-x="">&lt;!-- This markup is non-conforming -->
+&lt;input type="checkbox" checked role="button" aria-checked="false"></code></pre>
+
+<pre class="bad"><code class="html" data-x="">&lt;!-- This markup is probably not what the custom element author intended -->
+&lt;my-checkbox role="button" checked aria-checked="false"></code></pre>
+
+  <p>Custom element authors are encouraged to state what aspects of their accessibility semantics
+  are strong native semantics, i.e., should not be overriden by users of the custom element. In our
+  example, the author of the <code data-x="">my-checkbox</code> element would state that its
+  <span>role</span> and <code data-x="attr-aria-checked">aria-checked</code> values are strong
+  native semantics, thus discouraging code such as the above.</p>
+

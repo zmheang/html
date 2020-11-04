@@ -18,8 +18,8 @@
    <li><p>Let <var>property</var> be ! <span>CrossOriginGetOwnPropertyHelper</span>(<b>this</b>,
    <var>P</var>).</p></li>
 
-   <li><p>If <var>property</var> is not undefined, return <var>property</var>.</p></li>
+   <li><p>If <var>property</var> is not undefined, then return <var>property</var>.</p></li>
 
-   <li><p>Throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+   <li><p>Return ? <span>CrossOriginPropertyFallback</span>(<var>P</var>).</p></li>
   </ol>
 

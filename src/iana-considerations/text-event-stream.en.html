@@ -20,11 +20,9 @@
     <dl>
      <dt><code data-x="">charset</code></dt>
      <dd>
-
       <p>The <code data-x="">charset</code> parameter may be provided. The parameter's value must be
       "<code data-x="">utf-8</code>". This parameter serves no purpose; it is only allowed for
       compatibility with legacy servers.</p>
-
      </dd>
     </dl>
    </dd>
@@ -33,7 +31,6 @@
 <!--ADD-TOPIC:Security-->
    <dt>Security considerations:</dt>
    <dd>
-
     <p>An event stream from an origin distinct from the origin of the content consuming the event
     stream can result in information leakage. To avoid this, user agents are required to apply CORS
     semantics. <ref spec=FETCH></p>
@@ -45,7 +42,6 @@
     <p>Servers can be overwhelmed if a situation develops in which the server is causing clients to
     reconnect rapidly. Servers should use a 5xx status code to indicate capacity problems, as this
     will prevent conforming clients from reconnecting automatically.</p>
-
    </dd>
 <!--REMOVE-TOPIC:Security-->
    <dt>Interoperability considerations:</dt>
@@ -59,7 +55,7 @@
    </dd>
    <dt>Applications that use this media type:</dt>
    <dd>
-    Web browsers and tools using Web services.
+    Web browsers and tools using web services.
    </dd>
    <dt>Additional information:</dt>
    <dd>

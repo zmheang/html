@@ -2,10 +2,15 @@
 
   <p>Each <code>Document</code> has a <dfn>sequential focus navigation order</dfn>, which orders some
   or all of the <span data-x="focusable area">focusable areas</span> in the <code>Document</code>
-  relative to each other. The order in the <span>sequential focus navigation order</span> does not
-  have to be related to the <span>tree order</span> in the <code>Document</code> itself. If a
-  <span>focusable area</span> is omitted from the <span>sequential focus navigation order</span>
-  of its <code>Document</code>, then it is unreachable via <span>sequential focus
+  relative to each other. Its contents and ordering are given by the <span>flattened
+  tabindex-ordered focus navigation scope</span> of the <code>Document</code>.</p>
+
+  <p class="note">Per the rules defining the <span>flattened tabindex-ordered focus navigation
+  scope</span>, the ordering is not necessarily related to the <span>tree order</span> of the
+  <code>Document</code>.</p>
+
+  <p>If a <span>focusable area</span> is omitted from the <span>sequential focus navigation
+  order</span> of its <code>Document</code>, then it is unreachable via <span>sequential focus
   navigation</span>.</p>
 
   <p>There can also be a <dfn>sequential focus navigation starting point</dfn>. It is initially
@@ -14,6 +19,10 @@
   <p class="example">For example, the user agent could set it to the position of the user's click if
   the user clicks on the document contents.</p>
 
+  <p class="note">User agents are required to set the <span>sequential focus navigation starting
+  point</span> to the <span>target element</span> when <span data-x="navigate-fragid">navigating
+  to a fragment</span>.</p>
+
   <p>When the user requests that focus move from the <span>currently focused area of a top-level
   browsing context</span> to the next or previous <span>focusable area</span> (e.g. as the default action
   of pressing the <kbd><kbd>tab</kbd></kbd> key), or when the user requests that focus sequentially move to a
@@ -21,7 +30,6 @@
   the user agent must use the following algorithm:</p>
 
   <ol>
-
    <li><p>Let <var>starting point</var> be the <span>currently focused area of a top-level
    browsing context</span>, if the user requested to move focus sequentially from there, or else the
    <span>top-level browsing context</span> itself, if the user instead requested to move focus from
@@ -32,17 +40,14 @@
    focus navigation starting point</span> instead.</p></li>
 
    <li>
-
     <p>Let <var>direction</var> be <i>forward</i> if the user requested the <em>next</em>
     control, and <i>backward</i> if the user requested the previous control.</p>
 
     <p class="note">Typically, pressing <kbd><kbd>tab</kbd></kbd> requests the next control, and pressing
     <kbd><kbd>shift</kbd>+<kbd>tab</kbd></kbd> requests the previous control.</p>
-
    </li>
 
    <li>
-
     <p><i>Loop</i>: Let <var>selection mechanism</var> be <i>sequential</i> if the <var>starting
     point</var> is a <span>browsing context</span> or if <var>starting point</var> is in its
     <code>Document</code>'s <span>sequential focus navigation order</span>.</p>
@@ -50,7 +55,6 @@
     <p>Otherwise, <var>starting point</var> is not in its <code>Document</code>'s
     <span>sequential focus navigation order</span>; let <var>selection mechanism</var> be
     <i>DOM</i>.</p>
-
    </li>
 
    <li><p>Let <var>candidate</var> be the result of running the <span>sequential navigation search
@@ -63,38 +67,35 @@
    <li><p>Otherwise, unset the <span>sequential focus navigation starting point</span>.</p></li>
 
    <li>
-
     <p>If <var>starting point</var> is the <span>top-level browsing context</span>, or a
     <span>focusable area</span> in the <span>top-level browsing context</span>, the user agent
     should transfer focus to its own controls appropriately (if any), honouring
     <var>direction</var>, and then return.</p>
 
     <p class="example">For example, if <var>direction</var> is <i>backward</i>, then the last
-    focusable control before the browser's rendering area would be the control to focus.</p>
+    <span>sequentially focusable</span> control before the browser's rendering area would be the
+    control to focus.</p>
 
-    <p>If the user agent has no focusable controls &mdash; a kiosk-mode browser, for instance
-    &mdash; <!--and <var>starting point</var> is not the <span>top-level browsing context</span>,-->
-    then the user agent may instead restart these steps with the <var>starting point</var> being the
-    <span>top-level browsing context</span> itself.</p>
+    <p>If the user agent has no <span>sequentially focusable</span> controls &mdash; a kiosk-mode
+    browser, for instance &mdash; <!--and <var>starting point</var> is not the <span>top-level
+    browsing context</span>,--> then the user agent may instead restart these steps with the
+    <var>starting point</var> being the <span>top-level browsing context</span> itself.</p>
 
     <!-- in theory, the top-level browsing context _always_ has at least one focusable area: the
     viewport. Even a "blocked by a modal dialog" doesn't disable the viewport (since the Document is
     its DOM anchor, and the Document isn't made inert by "blocked by a modal dialog"). Note that
     nested browsing contexts can have inert viewports, though (if the browsing context container
     itself is inert, for example) -->
-
    </li>
 
-   <li><p>Otherwise, <var>starting point</var> is a <span>focusable area</span> in a
-   <span>nested browsing context</span>. Let <var>starting point</var> be that
-   <span>nested browsing context</span>'s <span>browsing context container</span>, and return to the
-   step labeled <i>loop</i>.</p>
-    <!--
-     https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2856
-     https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2857
-    -->
-   </li>
-
+   <li><p>Otherwise, <var>starting point</var> is a <span>focusable area</span> in a <span>child
+   browsing context</span>. Set <var>starting point</var> to that <span>child browsing
+   context</span>'s <span data-x="bc-container">container</span> and return to the step labeled
+   <i>loop</i>.</p></li>
+   <!--
+    https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2856
+    https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2857
+   -->
   </ol>
 
 
@@ -103,9 +104,7 @@
   and <var>selection mechanism</var>.</p>
 
   <ol>
-
    <li>
-
     <p>Pick the appropriate cell from the following table, and follow the instructions in that
     cell.</p>
 
@@ -138,8 +137,8 @@
     </table>
 
     <p>A <dfn>suitable sequentially focusable area</dfn> is a <span>focusable area</span> whose
-    <span>DOM anchor</span> is not <span>inert</span> and that is in its <code>Document</code>'s
-    <span>sequential focus navigation order</span>.</p>
+    <span>DOM anchor</span> is not <span>inert</span> and is <span>sequentially
+    focusable</span>.</p>
 
     <p>The <dfn>home document</dfn> is the <code>Document</code> to which <var>starting point</var>
     belongs.</p>
@@ -151,11 +150,9 @@
     document</span>'s <span>sequential focus navigation order</span>, but is only used when the
     <var>starting point</var> is in that <span>sequential focus navigation order</span>
     (when it's not, <var>selection mechanism</var> will be <i>DOM</i>).</p>
-
    </li>
 
    <li>
-
     <p>If <var>candidate</var> is a <span>browsing context container</span> with a non-null
     <span>nested browsing context</span>, then let <var>new candidate</var> be the result of running
     the <span>sequential navigation search algorithm</span> with <var>candidate</var>'s <span>nested
@@ -166,11 +163,9 @@
     <p>If <var>new candidate</var> is null, then let <var>starting point</var>
     be <var>candidate</var>, and return to the top of this algorithm. Otherwise, let
     <var>candidate</var> be <var>new candidate</var>.</p>
-
    </li>
 
    <li><p>Return <var>candidate</var>.</p></li>
-
   </ol>
 
   </div>

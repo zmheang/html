@@ -10,16 +10,23 @@
    <dd><span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>As a child of an <code>hgroup</code> element.</dd>
-   <dd>Where <span>flow content</span> is expected.</dd>
+   <dd>Where <span>heading content</span> is expected.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
    <dd><span>Phrasing content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-h1-h6">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-h1-h6">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
+  // <a href="#HTMLHeadingElement-partial">also has obsolete members</a>
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLHeadingElement</code>.</dd>
   </dl>
@@ -38,7 +45,7 @@ interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {};</code></p
    <p>As far as their respective document outlines (their heading and section structures) are
    concerned, these two snippets are semantically equivalent:</p>
 
-   <pre><code class="html" data-x="">&lt;body>
+   <pre><code class="html">&lt;body>
 &lt;h1>Let's call it a draw(ing surface)&lt;/h1>
 &lt;h2>Diving in&lt;/h2>
 &lt;h2>Simple shapes&lt;/h2>
@@ -47,7 +54,7 @@ interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {};</code></p
 &lt;h2>Paths&lt;/h2>
 &lt;/body></code></pre>
 
-   <pre><code class="html" data-x="">&lt;body>
+   <pre><code class="html">&lt;body>
  &lt;h1>Let's call it a draw(ing surface)&lt;/h1>
  &lt;section>
   &lt;h1>Diving in&lt;/h1>
@@ -74,7 +81,7 @@ interface <dfn>HTMLHeadingElement</dfn> : <span>HTMLElement</span> {};</code></p
    future-proofing for when that compatibility is no longer needed. This third snippet again has the
    same outline as the previous two:</p>
 
-   <pre><code class="html" data-x="">&lt;body>
+   <pre><code class="html">&lt;body>
  &lt;h1>Let's call it a draw(ing surface)&lt;/h1>
  &lt;section>
   &lt;h2>Diving in&lt;/h2>

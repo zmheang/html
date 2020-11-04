@@ -36,14 +36,12 @@
 
    <li><p>Add <var>element</var> to the <span>list of active formatting
    elements</span>.</p></li>
-
   </ol>
 
   <p>When the steps below require the UA to <dfn>reconstruct the active formatting elements</dfn>,
   the UA must perform the following steps:</p>
 
   <ol>
-
    <li><p>If there are no entries in the <span>list of active formatting elements</span>, then there
    is nothing to reconstruct; stop this algorithm.</p></li>
 
@@ -75,7 +73,6 @@
    <li><p>If the entry for <var>new element</var> in the <span>list of active formatting
    elements</span> is not the last entry in the list, return to the step labeled
    <i>advance</i>.</p></li>
-
   </ol>
 
   <p>This has the effect of reopening all the formatting elements that were opened in the current
@@ -90,7 +87,6 @@
   the last marker</dfn>, the UA must perform the following steps:</p>
 
   <ol>
-
    <li><p>Let <var>entry</var> be the last (most recently added) entry in the <span>list of
    active formatting elements</span>.</p></li>
 
@@ -102,7 +98,6 @@
    data-x="concept-parser-marker">marker</span>.</p></li>
 
    <li><p>Go to step 1.</p></li>
-
   </ol>
 
 

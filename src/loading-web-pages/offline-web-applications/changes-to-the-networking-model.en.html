@@ -1,7 +1,7 @@
   <h4 id="changesToNetworkingModel">Changes to the networking model</h4>
 
-  <!--FETCH--><p class="&#x0058;&#x0058;&#x0058;">If "AppCache" is not removed as a feature this
-  section needs to be integrated into the Fetch standard.</p>
+  <!--FETCH--><p class="XXX">If "AppCache" is not removed as a feature this section needs to be
+  integrated into the Fetch standard.</p>
 
   <p>When a <span>cache host</span> is associated with an <span>application cache</span> whose <span
   data-x="concept-appcache-completeness">completeness flag</span> is <i>complete</i>, any and all
@@ -10,14 +10,13 @@
   instead of immediately invoking the mechanisms appropriate to that resource's scheme:</p>
 
   <ol>
-
    <li><p>If the resource is not to be fetched using the GET method, or if applying the <span>URL
    parser</span> algorithm to both its <span>URL</span> and the <span>application cache</span>'s
    <span data-x="concept-appcache-manifest">manifest</span>'s URL results in two <span data-x="URL
    record">URL records</span> with different <span data-x="concept-url-scheme">scheme</span>
    components, then fetch the resource normally and return.</p></li>
 
-   <li><p>If the resource's URL is <span data-x="concept-appcache-master">a master entry</span>,
+   <li><p>If the resource's URL is <span data-x="concept-appcache-primary">a primary entry</span>,
    <span data-x="concept-appcache-manifest">the manifest</span>, <span
    data-x="concept-appcache-explicit">an explicit entry</span>, or <span
    data-x="concept-appcache-fallback">a fallback entry</span> in the <span>application cache</span>,
@@ -29,7 +28,6 @@
    URL, then fetch the resource normally and return.</p></li>
 
    <li>
-
     <p>If the resource's URL has the <span>same origin</span> as the manifest's URL, and there is a
     <span data-x="concept-appcache-fallback-ns">fallback namespace</span> <var>f</var> in
     the <span>application cache</span> that is a <span>prefix match</span> for the resource's URL,
@@ -41,7 +39,6 @@
     cache, the resource of the <span data-x="concept-appcache-fallback">fallback entry</span>
     corresponding to the <span data-x="concept-appcache-fallback-ns">fallback namespace</span>
     <var>f</var>. Return.</p>
-
    </li>
 
    <li><p>If the <span>application cache</span>'s <span
@@ -49,7 +46,6 @@
    <i>open</i>, then fetch the resource normally and return.</p></li>
 
    <li><p>Fail the resource load as if there had been a generic network error.</p></li>
-
   </ol>
 
   <p class="note">The above algorithm ensures that so long as the <span

@@ -1,0 +1,68 @@
+  <h6><dfn>HostResolveImportedModule</dfn>(<var>referencingScriptOrModule</var>,
+  <var>specifier</var>)</h6>
+
+  <p>JavaScript contains an <span>implementation-defined</span> <span
+  data-x="js-HostResolveImportedModule">HostResolveImportedModule</span> abstract operation. User
+  agents must use the following implementation: <ref spec=JAVASCRIPT></p>
+
+  <ol>
+   <li><p>Let <var>settings object</var> be the <span>current settings object</span>.</p></li>
+
+   <li><p>Let <var>base URL</var> be <var>settings object</var>'s <span>API base
+   URL</span>.</p></li>
+
+   <li>
+    <p>If <var>referencingScriptOrModule</var> is not null, then:</p>
+
+    <ol>
+     <li><p>Let <var>referencing script</var> be
+     <var>referencingScriptOrModule</var>.[[HostDefined]].</p></li>
+
+     <li><p>Set <var>settings object</var> to <var>referencing script</var>'s <span>settings
+     object</span>.</p></li>
+
+     <li><p>Set <var>base URL</var> to <var>referencing script</var>'s <span
+     data-x="concept-script-base-url">base URL</span>.</p></li>
+    </ol>
+
+    <div class="example">
+     <p><var>referencingScriptOrModule</var> is not usually null, but will be so for event handlers
+     per the <span data-x="getting the current value of the event handler">get the current value of
+     the event handler</span> algorithm. For example, given:</p>
+
+     <pre><code class="html">&lt;button onclick="import('./foo.mjs')">Click me&lt;/button></code></pre>
+
+     <p>If a <code data-x="event-click" class="no-backref">click</code> event occurs, then at the
+     time the <code>import()</code> expression runs, <span>GetActiveScriptOrModule</span> will
+     return null, which will be passed to this abstract operation when <span
+     data-x="js-HostResolveImportedModule">HostResolveImportedModule</span> is called by
+     <span>FinishDynamicImport</span>.</p>
+    </div>
+   </li>
+
+   <li><p>Let <var>moduleMap</var> be <var>settings object</var>'s <span
+   data-x="concept-settings-object-module-map">module map</span>.</p></li>
+
+   <li><p>Let <var>url</var> be the result of <span data-x="resolve a module specifier">resolving a
+   module specifier</span> given <var>base URL</var> and <var>specifier</var>.</p></li>
+
+   <li><p>Assert: <var>url</var> is never failure, because <span data-x="resolve a module
+   specifier">resolving a module specifier</span> must have been previously successful with these
+   same two arguments (either <a href="#validate-requested-module-specifiers">while creating the
+   corresponding module script</a>, or in <span>fetch an import() module script graph</span>).</p></li>
+
+   <li><p>Let <var>resolved module script</var> be <var>moduleMap</var>[<var>url</var>]. (This entry
+   must <span data-x="map exists">exist</span> for us to have gotten to this point.)</p></li>
+
+   <li><p>Assert: <var>resolved module script</var> is a <span>module script</span> (i.e., is not
+   null or "<code data-x="">fetching</code>").</p></li>
+
+   <li><p>Assert: <var>resolved module script</var>'s <span
+   data-x="concept-script-record">record</span> is not null.</p>
+
+   <li><p>Return <var>resolved module script</var>'s <span
+   data-x="concept-script-record">record</span>.</p></li>
+  </ol>
+
+  </div>
+

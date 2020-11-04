@@ -20,10 +20,11 @@
 
   <hr>
 
-  <p>The image is given by the <dfn><code data-x="attr-input-src">src</code></dfn> attribute. The
-  <code data-x="attr-input-src">src</code> attribute must be present, and must contain a <span>valid
-  non-empty URL potentially surrounded by spaces</span> referencing a non-interactive, optionally
-  animated, image resource that is neither paged nor scripted.</p>
+  <p>The image is given by the <dfn element-attr for="input"><code
+  data-x="attr-input-src">src</code></dfn> attribute. The <code data-x="attr-input-src">src</code>
+  attribute must be present, and must contain a <span>valid non-empty URL potentially surrounded by
+  spaces</span> referencing a non-interactive, optionally animated, image resource that is neither
+  paged nor scripted.</p>
 
   <div w-nodev>
 
@@ -94,20 +95,22 @@
   <p>The <span data-x="concept-task">task</span> that is <span data-x="queue a task">queued</span>
   by the <span>networking task source</span> once the resource has been fetched, must, if the
   download was successful and the image is <i data-x="input-img-available">available</i>,
-  <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
+  <span>queue an element task</span> on the <span>user interaction task source</span> given the
+  <code>input</code> element to <span data-x="concept-event-fire">fire an event</span> named <code
   data-x="event-load">load</code> at the <code>input</code> element; and otherwise, if the fetching
   process fails without a response from the remote server, or completes but the image is not a valid
-  or supported image, <span>queue a task</span> to <span data-x="concept-event-fire">fire an
+  or supported image, <span>queue an element task</span> on the <span>user interaction task
+  source</span> given the <code>input</code> element to <span data-x="concept-event-fire">fire an
   event</span> named <code data-x="event-error">error</code> on the <code>input</code> element.</p>
 
   <hr>
 
   </div>
 
-  <p>The <dfn><code data-x="attr-input-alt">alt</code></dfn> attribute provides the textual label for
-  the button for users and user agents who cannot use the image. The <code
-  data-x="attr-input-alt">alt</code> attribute must be present, and must contain a non-empty string
-  giving the label that would be appropriate for an equivalent button if the image was
+  <p>The <dfn element-attr for="input"><code data-x="attr-input-alt">alt</code></dfn> attribute
+  provides the textual label for the button for users and user agents who cannot use the image. The
+  <code data-x="attr-input-alt">alt</code> attribute must be present, and must contain a non-empty
+  string giving the label that would be appropriate for an equivalent button if the image was
   unavailable.</p>
 
   <p>The <code>input</code> element supports <span>dimension attributes</span>.</p>
@@ -179,14 +182,11 @@
    <dt><var>image</var> . <code subdfn data-x="dom-input-height">height</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>These attributes return the actual rendered dimensions of the image, or zero if the
     dimensions are not known.</p>
 
     <p>They can be set, to change the corresponding content attributes.</p>
-
    </dd>
-
   </dl>
 
   <div class="bookkeeping">
@@ -256,7 +256,7 @@
 
    <p>Take the following form:</p>
 
-   <pre><code class="html" data-x="">&lt;form action="process.cgi">
+   <pre><code class="html">&lt;form action="process.cgi">
  &lt;input type=image src=map.png name=where alt="Show location list">
 &lt;/form></code></pre>
 

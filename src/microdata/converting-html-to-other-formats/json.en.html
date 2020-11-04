@@ -5,7 +5,6 @@
   into a JSON form</dfn>:</p>
 
   <ol>
-
    <li><p>Let <var>result</var> be an empty object.</p></li>
 
    <li><p>Let <var>items</var> be an empty array.</p></li>
@@ -22,7 +21,6 @@
    only using Unicode escapes in strings for characters that do not have a dedicated escape
    sequence), and with a lowercase "<code data-x="">e</code>" used, when appropriate, in the
    representation of any numbers. <ref spec=JSON></p></li>
-
   </ol>
 
   <p class="note">This algorithm returns an object with a single property that is an array, instead
@@ -34,7 +32,6 @@
   substeps:</p>
 
   <ol>
-
    <li><p>Let <var>result</var> be an empty object.</p></li>
 
    <li><p>If no <var>memory</var> was passed to the algorithm, let <var>memory</var> be an empty list.</p></li>
@@ -51,13 +48,11 @@
    <li><p>Let <var>properties</var> be an empty object.</p></li>
 
    <li>
-
     <p>For each element <var>element</var> that has one or more <span>property names</span>
     and is one of <span data-x="the properties of an item">the properties of the item</span> <var>item</var>, in the order those elements are given by the algorithm that returns
     <span>the properties of an item</span>, run the following substeps:</p>
 
     <ol>
-
      <li><p>Let <var>value</var> be the <span data-x="concept-property-value">property
      value</span> of <var>element</var>.</p></li>
 
@@ -65,38 +60,31 @@
      the string "<code data-x="">ERROR</code>". Otherwise, <span>get the object</span> for <var>value</var>, passing a copy of <var>memory</var>, and then replace <var>value</var> with the object returned from those steps.</p></li>
 
      <li>
-
       <p>For each name <var>name</var> in <var>element</var>'s <span>property
       names</span>, run the following substeps:</p>
 
       <ol>
-
        <li><p>If there is no entry named <var>name</var> in <var>properties</var>,
        then add an entry named <var>name</var> to <var>properties</var> whose
        value is an empty array.</p></li>
 
        <li><p>Append <var>value</var> to the entry named <var>name</var> in <var>properties</var>.</p></li>
-
       </ol>
-
      </li>
-
     </ol>
-
    </li>
 
    <li><p>Add an entry to <var>result</var> called "<code data-x="">properties</code>" whose
    value is the object <var>properties</var>.</p></li>
 
    <li><p>Return <var>result</var>.</p></li>
-
   </ol>
 
   <div class="example">
 
    <p>For example, take this markup:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
 &lt;title>My Blog&lt;/title>
 &lt;article itemscope itemtype="http://schema.org/BlogPosting">
@@ -135,7 +123,7 @@
    <p>It would be turned into the following JSON by the algorithm above (supposing that the page's
    URL was <code data-x="">https://blog.example.com/progress-report</code>):</p>
 
-   <pre>{
+   <pre><code data-x="" class="json">{
   "items": [
     {
       "type": [ "http://schema.org/BlogPosting" ],
@@ -178,7 +166,7 @@
       }
     }
   ]
-}</pre>
+}</code></pre>
 
   </div>
 

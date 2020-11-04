@@ -26,7 +26,7 @@
    support full keyboards, the author has provided "C" as a possible key. To support devices
    equipped only with numeric keypads, the author has provided "1" as another possibly key.</p>
 
-   <pre><code class="html" data-x="">&lt;input type=button value=Collect onclick="collect()"
+   <pre><code class="html">&lt;input type=button value=Collect onclick="collect()"
        <strong>accesskey="C 1"</strong> id=c></code></pre>
 
   </div>
@@ -36,7 +36,7 @@
    <p>To tell the user what the shortcut key is, the author has this script here opted to explicitly
    add the key combination to the button's label:</p>
 
-   <pre><code class="js" data-x="">function addShortcutKeyLabel(button) {
+   <pre><code class="js">function addShortcutKeyLabel(button) {
 <strong>  if (button.accessKeyLabel != '')
     button.value += ' (' + button.accessKeyLabel + ')';</strong>
 }

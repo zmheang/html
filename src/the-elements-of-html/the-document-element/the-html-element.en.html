@@ -11,11 +11,18 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-html-manifest">manifest</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-html">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-html">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLHtmlElement</dfn> : <span>HTMLElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLHtmlElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
+  // <a href="#HTMLHtmlElement-partial">also has obsolete members</a>
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLHtmlElement</code>.</dd>
   </dl>
@@ -27,15 +34,15 @@ interface <dfn>HTMLHtmlElement</dfn> : <span>HTMLElement</span> {};</code></pre>
   determine what pronunciations to use, translation tools to determine what rules to use, and so
   forth.</p>
 
-  <p>The <dfn><code data-x="attr-html-manifest">manifest</code></dfn> attribute gives the address of
-  the document's <span>application cache</span> <span
+  <p>The <dfn element-attr for="html"><code data-x="attr-html-manifest">manifest</code></dfn>
+  attribute gives the address of the document's <span>application cache</span> <span
   data-x="concept-appcache-manifest">manifest</span>, if there is one. If the attribute is present,
   the attribute's value must be a <span>valid non-empty URL potentially surrounded by
   spaces</span>.</p>
 
   <p class="critical">The <code data-x="attr-html-manifest">manifest</code> attribute is part of the
-  legacy "<a href="#offline">offline Web applications</a>" feature, which is in the process of being
-  removed from the Web platform. (This is a long process that takes many years.) Using the <code
+  legacy "<a href="#offline">offline web applications</a>" feature, which is in the process of being
+  removed from the web platform. (This is a long process that takes many years.) Using the <code
   data-x="attr-html-manifest">manifest</code> attribute at this time is highly discouraged. Use
   service workers instead. <ref spec=SW></p>
 
@@ -58,7 +65,7 @@ interface <dfn>HTMLHtmlElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    <p>The <code>html</code> element in the following example declares that the document's language
    is English.</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
+   <pre><code class="html">&lt;!DOCTYPE html>
 <strong>&lt;html lang="en"></strong>
 &lt;head>
 &lt;title>Swapping Songs&lt;/title>

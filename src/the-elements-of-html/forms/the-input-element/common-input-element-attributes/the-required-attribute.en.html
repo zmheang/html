@@ -1,7 +1,7 @@
   <h6>The <code data-x="attr-input-required">required</code> attribute</h6>
 
-  <p>The <dfn><code data-x="attr-input-required">required</code></dfn> attribute is a <span>boolean
-  attribute</span>. When specified, the element is <dfn
+  <p>The <dfn element-attr for="input"><code data-x="attr-input-required">required</code></dfn>
+  attribute is a <span>boolean attribute</span>. When specified, the element is <dfn
   data-x="concept-input-required"><i>required</i></dfn>.</p>
 
   <div w-nodev>
@@ -18,15 +18,15 @@
 
   <div class="example">
 
-   <p>The following form has two required fields, one for an e-mail address and one for a password.
+   <p>The following form has two required fields, one for an email address and one for a password.
    It also has a third field that is only considered valid if the user types the same password in
    the password field and this third field.</p>
 
-   <pre><code class="html" data-x="">&lt;h1>Create new account&lt;/h1>
+   <pre><code class="html">&lt;h1>Create new account&lt;/h1>
 &lt;form action="/newaccount" method=post
       oninput="up2.setCustomValidity(up2.value != up.value ? 'Passwords do not match.' : '')">
  &lt;p>
-  &lt;label for="username">E-mail address:&lt;/label>
+  &lt;label for="username">Email address:&lt;/label>
   &lt;input id="username" type=email required name=un>
  &lt;p>
   &lt;label for="password1">Password:&lt;/label>
@@ -47,7 +47,7 @@
    selected. Thus, in the following example, any of the radio buttons can be checked, not just the
    one marked as required:</p>
 
-   <pre><code class="html" data-x="">&lt;fieldset>
+   <pre><code class="html">&lt;fieldset>
  &lt;legend>Did the movie pass the Bechdel test?&lt;/legend>
  &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="no-characters"> No, there are not even two female characters in the movie. &lt;/label>
  &lt;p>&lt;label>&lt;input type="radio" name="bechdel" value="no-names"> No, the female characters never talk to each other. &lt;/label>

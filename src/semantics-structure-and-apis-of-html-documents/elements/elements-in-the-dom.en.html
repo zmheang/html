@@ -22,7 +22,7 @@
    <p>Consider the following <code>figure</code> element, which is given an <code
    data-x="attr-id">id</code> attribute:</p>
 
-   <pre><code class="html" data-x="">&lt;figure id="module-script-graph">
+   <pre><code class="html">&lt;figure id="module-script-graph">
   &lt;img src="module-script-graph.svg"
        alt="Module A depends on module B, which depends
             on modules C and D.">
@@ -32,7 +32,7 @@
    <p>A <span>hyperlink</span>-based <span data-x="referenced">reference</span> could be created
    using the <code>a</code> element, like so:</p>
 
-   <pre><code class="html" data-x="">As we can see in &lt;a href="#module-script-graph">figure 27&lt;/a>, ...</code></pre>
+   <pre><code class="html">As we can see in &lt;a href="#module-script-graph">figure 27&lt;/a>, ...</code></pre>
 
    <p>However, there are many other ways of <span data-x="referenced">referencing</span> the
    <code>figure</code> element, such as:</p>
@@ -53,9 +53,10 @@
   w-nodev>and which must be used by elements that have no additional requirements,</span> is
   the <code>HTMLElement</code> interface.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLElement</dfn> : <span>Element</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   // metadata attributes
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-title">title</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-lang">lang</span>;
@@ -64,14 +65,16 @@ interface <dfn>HTMLElement</dfn> : <span>Element</span> {
 
   // <span>user interaction</span>
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-hidden">hidden</span>;
-  void <span data-x="dom-click">click</span>();
+  undefined <span data-x="dom-click">click</span>();
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-accessKey">accessKey</span>;
   readonly attribute DOMString <span data-x="dom-accessKeyLabel">accessKeyLabel</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-draggable">draggable</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-spellcheck">spellcheck</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-autocapitalize">autocapitalize</span>;
 
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-innerText">innerText</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-innerText">innerText</span>;
+
+  <span>ElementInternals</span> <span data-x="dom-attachInternals">attachInternals</span>();
 };
 
 <span>HTMLElement</span> includes <span>GlobalEventHandlers</span>;
@@ -79,9 +82,10 @@ interface <dfn>HTMLElement</dfn> : <span>Element</span> {
 <span>HTMLElement</span> includes <span>ElementContentEditable</span>;
 <span>HTMLElement</span> includes <span>HTMLOrSVGElement</span>;
 
-// Note: <a href="#customized-built-in-element-restrictions">intentionally</a> not [<span>HTMLConstructor</span>]
 [Exposed=Window]
-interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</code></pre>
+interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> {
+  // Note: <a href="#customized-built-in-element-restrictions">intentionally</a> no [<span>HTMLConstructor</span>]
+};</code></pre>
 
   <p>The <code>HTMLElement</code> interface holds methods and attributes related to a number of
   disparate features, and the members of this interface are therefore described in various different
@@ -125,19 +129,28 @@ interface <dfn>HTMLUnknownElement</dfn> : <span>HTMLElement</span> { };</code></
   a linear transition of the element's prototype chain, from <code>HTMLElement</code> to a subclass,
   instead of a lateral one, from <code>HTMLUnknownElement</code> to an unrelated subclass.</p>
 
-  </div>
-
   <p>Features shared between HTML and SVG elements use the <code>HTMLOrSVGElement</code> interface
   mixin: <ref spec=SVG></p>
 
-  <pre><code class="idl" data-x="">interface mixin <dfn>HTMLOrSVGElement</dfn> {
+  <pre><code class="idl">interface mixin <dfn>HTMLOrSVGElement</dfn> {
   [SameObject] readonly attribute <span>DOMStringMap</span> <span data-x="dom-dataset">dataset</span>;
-  attribute DOMString <span data-x="dom-HTMLOrSVGElement-nonce">nonce</span>;
+  attribute DOMString <span data-x="dom-HTMLOrSVGElement-nonce">nonce</span>; // <a href="#nonce-does-not-update-dom">intentionally no [CEReactions]</a>
 
+  [<span>CEReactions</span>] attribute boolean <span data-x="dom-fe-autofocus">autofocus</span>;
   [<span>CEReactions</span>] attribute long <span data-x="dom-tabindex">tabIndex</span>;
-  void <span data-x="dom-focus">focus</span>(optional <span>FocusOptions</span> options);
-  void <span data-x="dom-blur">blur</span>();
+  undefined <span data-x="dom-focus">focus</span>(optional <span>FocusOptions</span> options = {});
+  undefined <span data-x="dom-blur">blur</span>();
 };</code></pre>
+
+  </div>
+
+  <div class="example">
+   <p>An example of an element that is neither an HTML nor SVG element is one created as
+   follows:</p>
+
+   <pre><code class="html">const el = document.createElementNS("some namespace", "example");
+console.assert(el.constructor === Element);</code></pre>
+  </div>
 
   <div w-nodev>
 

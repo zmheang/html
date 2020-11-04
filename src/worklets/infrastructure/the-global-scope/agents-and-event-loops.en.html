@@ -1,0 +1,30 @@
+  <h5 id="worklet-agents-and-event-loops">Agents and event loops</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>Each <code>WorkletGlobalScope</code> is contained in its own <span>worklet agent</span>, which
+  has its corresponding <span data-x="concept-agent-event-loop">event loop</span>. However, in
+  practice, implementation of these agents and event loops is expected to be different from most
+  others.</p>
+
+  <p>A <span>worklet agent</span> exists for each <code>WorkletGlobalScope</code> since, in theory,
+  an implementation could use a separate thread for each <code>WorkletGlobalScope</code> instance,
+  and allowing this level of parallelism is best done using agents. However, because their
+  [[CanBlock]] value is false, there is no requirement that agents and threads are one-to-one. This
+  allows implementations the freedom to execute scripts loaded into a worklet on any thread,
+  including one running code from other agents with [[CanBlock]] of false, such as the thread of a
+  <span>similar-origin window agent</span> ("the main thread"). Contrast this with <span
+  data-x="dedicated worker agent">dedicated worker agents</span>, whose true value for [[CanBlock]]
+  effectively requires them to get a dedicated operating system thread.</p>
+
+  <p>Worklet <span data-x="event loop">event loops</span> are also somewhat special. They are only
+  used for <span data-x="concept-task">tasks</span> associated with <code
+  data-x="dom-Worklet-addModule">addModule()</code>, tasks wherein the user agent invokes
+  author-defined methods, and <span data-x="microtask">microtasks</span>. Thus, even though the <a
+  href="#event-loop-processing-model">event loop processing model</a> specifies that all event loops
+  run continuously, implementations can achieve observably-equivalent results using a simpler
+  strategy, which just <span data-x="es-invoking-callback-functions">invokes</span> author-provided
+  methods and then relies on that process to <span>perform a microtask checkpoint</span>.</p>
+
+  <div w-nodev>
+

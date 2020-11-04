@@ -1,0 +1,86 @@
+  <h5>Integration with the JavaScript agent formalism</h5>
+
+  <p>JavaScript defines the concept of an <span>agent</span>. This section gives the mapping of that
+  language-level concept on to the web platform.</p>
+
+  <div class="note">
+   <p>Conceptually, the <span>agent</span> concept is an architecture-independent, idealized
+   "thread" in which JavaScript code runs. Such code can involve multiple globals/<span
+   data-x="concept-global-object-realm">realms</span> that can synchronously access each other, and
+   thus needs to run in a single execution thread.</p>
+
+   <p w-nodev>Two <code>Window</code> objects having the same <span>agent</span> does not indicate
+   they can directly access all objects created in each other's realms. They would have to be
+   <span>same origin-domain</span>; see <span>IsPlatformObjectSameOrigin</span>.</p>
+  </div>
+
+  <p>The following types of agents exist on the web platform:</p>
+
+  <dl>
+   <dt><dfn export>Similar-origin window agent</dfn></dt>
+   <dd>
+    <p>Contains various <code>Window</code> objects which can potentially reach each other, either
+    directly or by using <code data-x="dom-document-domain">document.domain</code>.</p>
+
+    <p>If the encompassing <span>agent cluster</span>'s <span>cross-origin isolated</span> is true,
+    then all the <code>Window</code> objects will be <span>same origin</span>, can reach each other
+    directly, and <code data-x="dom-document-domain">document.domain</code> will no-op.</p>
+
+    <p class="note">Two <code>Window</code> objects that are <span>same origin</span> can be in
+    different <span data-x="similar-origin window agent">similar-origin window agents</span>, for
+    instance if they are each in their own <span>browsing context group</span>.</p>
+   </dd>
+
+   <dt><dfn export>Dedicated worker agent</dfn></dt>
+   <dd><p>Contains a single <code>DedicatedWorkerGlobalScope</code>.</p></dd>
+
+   <dt><dfn export>Shared worker agent</dfn></dt>
+   <dd><p>Contains a single <code>SharedWorkerGlobalScope</code>.</p></dd>
+
+   <dt><dfn export>Service worker agent</dfn></dt>
+   <dd><p>Contains a single <code>ServiceWorkerGlobalScope</code>.</p></dd>
+
+   <dt><dfn export>Worklet agent</dfn></dt>
+   <dd>
+    <p>Contains a single <code>WorkletGlobalScope</code> object.</p>
+
+    <p class="note">Although a given worklet can have multiple realms, each such realm needs its own
+    agent, as each realm can be executing code independently and at the same time as the others.</p>
+   </dd>
+  </dl>
+
+  <p>Only <span data-x="shared worker agent">shared</span> and <span data-x="dedicated worker
+  agent">dedicated worker agents</span> allow the use of JavaScript <code>Atomics</code> APIs to
+  potentially <span data-x="forward progress">block</span>.</p>
+
+  <div w-nodev>
+
+  <p>To <dfn>create an agent</dfn>, given a boolean <var>canBlock</var>:</p>
+
+  <ol>
+   <li><p>Let <var>signifier</var> be a new unique internal value.</p></li>
+
+   <li><p>Let <var>candidateExecution</var> be a new <span>candidate execution</span>.</p></li>
+
+   <li><p>Let <var>agent</var> be a new <span>agent</span> whose [[CanBlock]] is
+   <var>canBlock</var>, [[Signifier]] is <var>signifier</var>, [[CandidateExecution]] is
+   <var>candidateExecution</var>, and [[IsLockFree1]], [[IsLockFree2]], and [[LittleEndian]] are set
+   at the implementation's discretion.</p></li>
+
+   <li><p>Set <var>agent</var>'s <span data-x="concept-agent-event-loop">event loop</span> to a new
+   <span>event loop</span>.</p></li>
+
+   <li><p>Return <var>agent</var>.</p></li>
+  </ol>
+
+  <p>The <dfn export>relevant agent</dfn> for a <span>platform object</span>
+  <var>platformObject</var> is <var>platformObject</var>'s <span
+  data-x="concept-relevant-realm">relevant Realm</span>'s <span>agent</span>. <span class="XXX"
+  data-x="">This pointer is not yet defined in the JavaScript specification; see <a
+  href="https://github.com/tc39/ecma262/issues/1357">tc39/ecma262#1357</a>.</span></p>
+
+  <p class="note">The agent equivalent of the <span>current Realm Record</span> is the
+  <span>surrounding agent</span>.</p>
+
+  </div>
+

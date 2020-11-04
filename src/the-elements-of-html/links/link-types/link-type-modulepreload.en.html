@@ -25,7 +25,8 @@
 
   <div w-nodev>
 
-  <p>The appropriate times to fetch the resource for such a link are:</p>
+  <p>The appropriate times to <span>fetch and process the linked resource</span> for such a link
+  are:</p>
 
   <ul>
    <li><p>When the <span>external resource link</span> is created on a <code>link</code> element
@@ -44,13 +45,15 @@
   <p class="note">Unlike some other link relations, changing the relevant attributes (such as <code
   data-x="attr-link-as">as</code>, <code data-x="attr-link-crossorigin">crossorigin</code>, and
   <code data-x="attr-link-referrerpolicy">referrerpolicy</code>) of such a <code>link</code>
-  attribute does not trigger a new fetch. This is because the document's <span
+  does not trigger a new fetch. This is because the document's <span
   data-x="concept-document-module-map">module map</span> has already been populated by a previous
   fetch, and so re-fetching would be pointless.</p>
 
   <div w-nodev>
 
-  <p id="modulepreload-obtain-steps">To obtain the resource for such a link:</p>
+  <p>The <span>fetch and process the linked resource</span> algorithm for <code
+  data-x="rel-modulepreload">modulepreload</code> links, given a <code>link</code> element
+  <var>el</var>, is as follows:</p>
 
   <ol>
    <li><p>If the <code data-x="attr-link-href">href</code> attribute's value is the empty string,
@@ -62,10 +65,10 @@
    it is in no state.</p></li>
 
    <li><p>If <var>destination</var> is not <span
-   data-x="concept-script-like-destination">script-like</span>, then <span>queue a task</span> on
-   the <span>networking task source</span> to <span data-x="concept-event-fire">fire an event</span>
-   named <code data-x="event-error">error</code> at the <code>link</code> element, and
-   return.</p></li>
+   data-x="concept-script-like-destination">script-like</span>, then <span>queue an element
+   task</span> on the <span>networking task source</span> given the <code>link</code> element to
+   <span data-x="concept-event-fire">fire an event</span> named <code
+   data-x="event-error">error</code> at the <code>link</code> element, and return.</p></li>
 
    <li><p><span data-x="parse a url">Parse</span> the <span>URL</span> given by the <code
    data-x="attr-link-href">href</code> attribute, relative to the element's <span>node
@@ -75,8 +78,8 @@
    <li><p>Let <var>settings object</var> be the <code>link</code> element's <span>node
    document</span>'s <span>relevant settings object</span>.</p></li>
 
-   <li><p>Let <var>credentials mode</var> be the <span>module script credentials mode</span> for the
-   <code data-x="attr-link-crossorigin">crossorigin</code> attribute.</p></li>
+   <li><p>Let <var>credentials mode</var> be the <span>CORS settings attribute credentials
+   mode</span> for the <code data-x="attr-link-crossorigin">crossorigin</code> attribute.</p></li>
 
    <li><p>Let <var>cryptographic nonce</var> be the current value of the element's
    <span>[[CryptographicNonce]]</span> internal slot.</p></li>
@@ -97,35 +100,16 @@
    mode</var>, and <span data-x="concept-script-fetch-options-referrer-policy">referrer
    policy</span> is <var>referrer policy</var>.</p></li>
 
-   <li><p><span>Fetch a single module script</span> given <var>url</var>, <var>settings
-   object</var>, <var>destination</var>, <var>options</var>, <var>settings object</var>, "<code
-   data-x="">client</code>", and with the <var>top-level module fetch</var> flag set. Wait until
-   algorithm asynchronously completes with <var>result</var>.</p></li>
+   <li><p><span>Fetch a modulepreload module script graph</span> given <var>url</var>,
+   <var>destination</var>, <var>settings object</var>, and <var>options</var>. Wait until the
+   algorithm asynchronously completes with <var>result</var>.</p>
 
-   <li><p>If <var>result</var> is null, <span data-x="concept-event-fire">fire an event</span>
+   <li><p>If <var>result</var> is null, then <span data-x="concept-event-fire">fire an event</span>
    named <code data-x="event-error">error</code> at the <code>link</code> element, and
    return.</p></li>
 
    <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
    data-x="event-load">load</code> at the <code>link</code> element.</p></li>
-
-   <li>
-    <p>Optionally, perform the following steps:</p>
-
-    <ol>
-     <li><p>Let <var>visited set</var> be « <var>url</var> ».</p></li>
-
-     <li><p><span data-x="fetch the descendants of and instantiate a module script">Fetch the
-     descendants of and instantiate</span> <var>result</var> given <var>settings object</var>,
-     <var>destination</var>, and <var>visited set</var>.</p></li>
-    </ol>
-
-    <p class="note">Generally, performing these steps will be beneficial for performance, as it
-    allows pre-loading the modules that will invariably be requested later, when <span>fetch a
-    module script graph</span> is called. However, user agents might wish to skip them in
-    bandwidth-constrained situations, or situations where the relevant fetches are already in
-    flight.</p>
-   </li>
   </ol>
 
   </div>
@@ -133,7 +117,7 @@
   <div class="example" id="example-modulepreload-manifest">
    <p>The following snippet shows the top part of an application with several modules preloaded:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
+   <pre><code class="html">&lt;!DOCTYPE html>
 &lt;html lang="en">
 &lt;title>IRCFog&lt;/title>
 
@@ -147,10 +131,10 @@
 
    <p>Assume that the module graph for the application is as follows:</p>
 
-   <img src="images/ircfog-modules.svg" width="301" height="151" alt="The module graph is rooted at app.mjs, which depends on irc.mjs and fog-machine.mjs. In turn, irc.mjs depends on helpers.mjs.">
+   <img src="/images/ircfog-modules.svg" width="301" height="151" alt="The module graph is rooted at app.mjs, which depends on irc.mjs and fog-machine.mjs. In turn, irc.mjs depends on helpers.mjs.">
 
    <p>Here we see the application developer has used <code
-   data-x="rel-modulepreload">modulepreload</code> all of the modules in their module graph,
+   data-x="rel-modulepreload">modulepreload</code> to declare all of the modules in their module graph,
    ensuring that the user agent initiates fetches for them all. Without such preloading, the user
    agent might need to go through multiple network roundtrips before discovering <code
    data-x="">helpers.mjs</code>, if technologies such as HTTP/2 Server Push are not in play. In
@@ -164,7 +148,7 @@
    time, so that when <code>import()</code> is called, the module is already ready (but not
    evaluated) in the <span>module map</span>:</p>
 
-   <pre><code class="html" data-x="">&lt;link rel="modulepreload" href="awesome-viewer.mjs">
+   <pre><code class="html">&lt;link rel="modulepreload" href="awesome-viewer.mjs">
 
 &lt;button onclick="import('./awesome-viewer.mjs').then(m => m.view())">
   View awesome thing

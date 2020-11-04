@@ -10,11 +10,18 @@
    <dd><span>Phrasing content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-p">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-p">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLParagraphElement</dfn> : <span>HTMLElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLParagraphElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
+  // <a href="#HTMLParagraphElement-partial">also has obsolete members</a>
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLParagraphElement</code>.</dd>
   </dl>
@@ -28,10 +35,10 @@ interface <dfn>HTMLParagraphElement</dfn> : <span>HTMLElement</span> {};</code><
 
   <div class="example">
    <p>The following examples are conforming HTML fragments:</p>
-   <pre><code class="html" data-x="">&lt;p&gt;The little kitten gently seated herself on a piece of
+   <pre><code class="html">&lt;p&gt;The little kitten gently seated herself on a piece of
 carpet. Later in her life, this would be referred to as the time the
 cat sat on the mat.&lt;/p&gt;</code></pre>
-   <pre><code class="html" data-x="">&lt;fieldset&gt;
+   <pre><code class="html">&lt;fieldset&gt;
  &lt;legend&gt;Personal information&lt;/legend&gt;
  &lt;p&gt;
    &lt;label&gt;Name: &lt;input name="n"&gt;&lt;/label&gt;
@@ -39,7 +46,7 @@ cat sat on the mat.&lt;/p&gt;</code></pre>
  &lt;/p&gt;
  &lt;p&gt;&lt;label&gt;Address: &lt;textarea name="a"&gt;&lt;/textarea&gt;&lt;/label&gt;&lt;/p&gt;
 &lt;/fieldset&gt;</code></pre>
-   <pre><code class="html" data-x="">&lt;p&gt;There was once an example from Femley,&lt;br&gt;
+   <pre><code class="html">&lt;p&gt;There was once an example from Femley,&lt;br&gt;
 Whose markup was of dubious quality.&lt;br&gt;
 The validator complained,&lt;br&gt;
 So the author was pained,&lt;br&gt;
@@ -53,7 +60,7 @@ To move the error from the markup to the rhyming.&lt;/p&gt;</code></pre>
 
    <p>The following example is technically correct:</p>
 
-<pre><code class="html" data-x="">&lt;section&gt;
+<pre><code class="html">&lt;section&gt;
  &lt;!-- ... --&gt;
  &lt;p&gt;Last modified: 2001-04-23&lt;/p&gt;
  &lt;p&gt;Author: fred@example.com&lt;/p&gt;
@@ -61,7 +68,7 @@ To move the error from the markup to the rhyming.&lt;/p&gt;</code></pre>
 
    <p>However, it would be better marked-up as:</p>
 
-<pre><code class="html" data-x="">&lt;section&gt;
+<pre><code class="html">&lt;section&gt;
  &lt;!-- ... --&gt;
  &lt;footer&gt;Last modified: 2001-04-23&lt;/footer&gt;
  &lt;address&gt;Author: fred@example.com&lt;/address&gt;
@@ -69,7 +76,7 @@ To move the error from the markup to the rhyming.&lt;/p&gt;</code></pre>
 
    <p>Or:</p>
 
-<pre><code class="html" data-x="">&lt;section&gt;
+<pre><code class="html">&lt;section&gt;
  &lt;!-- ... --&gt;
  &lt;footer&gt;
   &lt;p&gt;Last modified: 2001-04-23&lt;/p&gt;
@@ -104,7 +111,7 @@ To move the error from the markup to the rhyming.&lt;/p&gt;</code></pre>
 
     <p>The markup for the above example could therefore be:</p>
 
-    <pre><code class="html" data-x="">&lt;p>For instance, this fantastic sentence has bullets relating to&lt;/p>
+    <pre><code class="html">&lt;p>For instance, this fantastic sentence has bullets relating to&lt;/p>
 &lt;ul>
  &lt;li>wizards,
  &lt;li>faster-than-light travel, and
@@ -122,7 +129,7 @@ To move the error from the markup to the rhyming.&lt;/p&gt;</code></pre>
 
     <p>Thus for instance the above example could become the following:</p>
 
-    <pre><code class="html" data-x="">&lt;div>For instance, this fantastic sentence has bullets relating to
+    <pre><code class="html">&lt;div>For instance, this fantastic sentence has bullets relating to
 &lt;ul>
  &lt;li>wizards,
  &lt;li>faster-than-light travel, and

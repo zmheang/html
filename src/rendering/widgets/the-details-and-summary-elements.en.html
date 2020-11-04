@@ -1,6 +1,6 @@
   <h4>The <code>details</code> and <code>summary</code> elements</h4>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 summary {
   display: list-item;
@@ -11,16 +11,19 @@ details[open] > summary {
   list-style-type: disclosure-open;
 }</code></pre>
 
-  <p>The <code>details</code> element is expected to render as a <span>block box</span>. The
-  element's shadow tree is expected to take the element's first <code>summary</code> element child,
-  if any, and place it in a first <span>block box</span> container, and then take the element's
-  remaining descendants, if any, and place them in a second <span>block box</span> container.</p>
+  <p>The <code>details</code> element is expected to render as a <span>block box</span>. The element
+  is also expected to have an internal <span>shadow tree</span> with two <span
+  data-x="concept-slot">slots</span>. The first <span data-x="concept-slot">slot</span> is expected
+  to take the <code>details</code> element's first <code>summary</code> element child, if any. The
+  second <span data-x="concept-slot">slot</span> is expected to take the <code>details</code>
+  element's remaining descendants, if any.</p>
 
-  <p>The first container is expected to allow the user to request the details be shown or
-  hidden.</p>
+  <p>The <code>details</code> element's first <code>summary</code> element child, if any, is
+  expected to allow the user to request the details be shown or hidden.</p>
 
-  <p>The second container is expected to be removed from the rendering when the <code>details</code>
-  element does not have an <code data-x="attr-details-open">open</code> attribute.</p>
+  <p>The <code>details</code> element's second <span data-x="concept-slot">slot</span> is expected
+  to be removed from the rendering when the <code>details</code> element does not have an <code
+  data-x="attr-details-open">open</code> attribute.</p>
 
   <!-- https://mail.gnome.org/archives/usability/2006-June/msg00015.html -->
 

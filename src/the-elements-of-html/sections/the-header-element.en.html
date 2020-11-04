@@ -11,6 +11,15 @@
    descendants.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd>If the nearest ancestor <span>sectioning content</span> or <span>sectioning root</span>
+   element is <span>the body element</span>: <a
+   href="https://w3c.github.io/html-aria/#el-header">for authors</a>; <a
+   href="https://w3c.github.io/html-aam/#el-header-ancestorbody">for implementers</a>.</dd>
+   <dd>Otherwise: <a
+   href="https://w3c.github.io/html-aria/#el-header">for authors</a>; <a
+   href="https://w3c.github.io/html-aam/#el-header">for implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -27,7 +36,7 @@
 
   <p>Here are some sample headers. This first one is for a game:</p>
 
-   <pre><code class="html" data-x="">&lt;header&gt;
+   <pre><code class="html">&lt;header&gt;
  &lt;p&gt;Welcome to...&lt;/p&gt;
  &lt;h1&gt;Voidwars!&lt;/h1&gt;
 &lt;/header&gt;</code></pre>
@@ -35,7 +44,7 @@
    <p>The following snippet shows how the element can be used to mark
    up a specification's header:</p>
 
-   <pre><code class="html" data-x="">&lt;header&gt;
+   <pre><code class="html">&lt;header&gt;
  &lt;hgroup&gt;
   &lt;h1&gt;Fullscreen API&lt;/h1&gt;
   &lt;h2&gt;Living Standard &mdash; Last Updated 19 October 2015&lt;/h2&gt;
@@ -61,7 +70,7 @@
   <code>header</code> element, because the <code>header</code> element doesn't take part in the
   <span>outline</span> algorithm.</p>
 
-   <pre><code class="html" data-x="">&lt;body>
+   <pre><code class="html">&lt;body>
  &lt;header>
   &lt;h1>Little Green Guys With Guns&lt;/h1>
   &lt;nav>

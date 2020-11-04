@@ -1,4 +1,4 @@
-  <h4 data-dfn-type="element" data-lt="a">The <dfn><code>a</code></dfn> element</h4>
+  <h4 element data-lt="a">The <dfn><code>a</code></dfn> element</h4>
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
@@ -9,7 +9,9 @@
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>Where <span>phrasing content</span> is expected.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
-   <dd><span>Transparent</span>, but there must be no <span>interactive content</span> or <code>a</code> element descendants.</dd>
+   <dd><span>Transparent</span>, but there must be no <span>interactive content</span> descendant,
+   <code>a</code> element descendant, or descendant with the <code
+   data-x="attr-tabindex">tabindex</code> attribute specified.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-hyperlink-href">href</code></dd>
@@ -20,11 +22,20 @@
    <dd><code data-x="attr-hyperlink-hreflang">hreflang</code></dd>
    <dd><code data-x="attr-hyperlink-type">type</code></dd>
    <dd><code data-x="attr-hyperlink-referrerpolicy">referrerpolicy</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd>If the element has an <code data-x="attr-hyperlink-href">href</code> attribute: <a
+   href="https://w3c.github.io/html-aria/#el-a">for authors</a>; <a
+   href="https://w3c.github.io/html-aam/#el-a">for implementers</a>.</dd>
+   <dd>Otherwise: <a
+   href="https://w3c.github.io/html-aria/#el-a-no-href">for authors</a>; <a
+   href="https://w3c.github.io/html-aam/#el-a-no-href">for implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-target">target</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-download">download</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-a-ping">ping</span>;
@@ -36,6 +47,8 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-text">text</span>;
 
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-referrerPolicy">referrerPolicy</span>;
+
+  // <a href="#HTMLAnchorElement-partial">also has obsolete members</a>
 };
 <span>HTMLAnchorElement</span> includes <span>HTMLHyperlinkElementUtils</span>;</code></pre>
    </dd>
@@ -69,7 +82,7 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
    <p>If a site uses a consistent navigation toolbar on every page, then the link that would
    normally link to the page itself could be marked up using an <code>a</code> element:</p>
 
-   <pre><code class="html" data-x="">&lt;nav>
+   <pre><code class="html">&lt;nav>
  &lt;ul>
   &lt;li> &lt;a href="/">Home&lt;/a> &lt;/li>
   &lt;li> &lt;a href="/news">News&lt;/a> &lt;/li>
@@ -102,7 +115,6 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
    image map processing must be performed, as follows:</p>
 
     <ol>
-
      <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C%21DOCTYPE%20html%3E%0A...%3Ca%20href%3D%22%23%22%3E%3Cimg%20ismap%20usemap%3D%22%23a%22%20src%3D/resources/images/smallcats%3E%3C/a%3E%0A%3Cmap%20name%3Da%3E%3Carea%20shape%3Drect%20coords%3D0%2C0%2C50%2C50%20href%3Db%3E%3C/map%3E -->
 
      <li>Let <var>x</var> and <var>y</var> be zero.</li>
@@ -122,9 +134,7 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
      <var>x</var> expressed as a base-ten integer using <span>ASCII digits</span>, a U+002C COMMA
      character (,), and the value of <var>y</var> expressed as a base-ten integer using <span>ASCII
      digits</span>.</li>
-
     </ol>
-
    </li>
 
    <li><p><span data-x="following hyperlinks">Follow the hyperlink</span> or <span
@@ -141,44 +151,43 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
    <dt><var>a</var> . <code subdfn data-x="dom-a-text">text</code></dt>
 
    <dd>
-
     <p>Same as <code>textContent</code>.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The IDL attributes <dfn><code data-x="dom-a-download">download</code></dfn>, <dfn
-  data-dfn-for="a" data-dfn-type="element-attr" data-export=""><code
-  data-x="dom-a-ping">ping</code></dfn>, <dfn><code data-x="dom-a-target">target</code></dfn>,
-  <dfn><code data-x="dom-a-rel">rel</code></dfn>, <dfn><code
-  data-x="dom-a-hreflang">hreflang</code></dfn>, and <dfn><code
-  data-x="dom-a-type">type</code></dfn>, must <span>reflect</span> the respective content attributes
-  of the same name.</p>
+  <p>The IDL attributes <dfn attribute for="HTMLAnchorElement"><code
+  data-x="dom-a-download">download</code></dfn>, <dfn for="a" element-attr><code
+  data-x="dom-a-ping">ping</code></dfn>, <dfn attribute for="HTMLAnchorElement"><code
+  data-x="dom-a-target">target</code></dfn>, <dfn attribute for="HTMLAnchorElement"><code
+  data-x="dom-a-rel">rel</code></dfn>, <dfn><code data-x="dom-a-hreflang">hreflang</code></dfn>, and
+  <dfn><code data-x="dom-a-type">type</code></dfn>, must <span>reflect</span> the respective content
+  attributes of the same name.</p>
 
-  <p>The IDL attribute <dfn><code data-x="dom-a-rellist">relList</code></dfn> must
-  <span>reflect</span> the <code data-x="attr-hyperlink-rel">rel</code> content attribute.</p>
+  <p>The IDL attribute <dfn attribute for="HTMLAnchorElement"><code
+  data-x="dom-a-rellist">relList</code></dfn> must <span>reflect</span> the <code
+  data-x="attr-hyperlink-rel">rel</code> content attribute.</p>
 
   <p>The IDL attribute <dfn><code data-x="dom-a-referrerPolicy">referrerPolicy</code></dfn> must
   <span>reflect</span> the <code data-x="attr-hyperlink-referrerpolicy">referrerpolicy</code>
   content attribute, <span>limited to only known values</span>.</p>
 
-  <p>The <dfn><code data-x="dom-a-text">text</code></dfn> IDL attribute, on getting, must return the
-  same value as the <code>textContent</code> IDL attribute on the element, and on setting, must act
-  as if the <code>textContent</code> IDL attribute on the element had been set to the new value.</p>
+  <p>The <dfn attribute for="HTMLAnchorElement"><code data-x="dom-a-text">text</code></dfn>
+  attribute's getter must return this element's <span>descendant text content</span>.</p>
+
+  <p>The <code data-x="dom-a-text">text</code> attribute's setter must <span>string replace
+  all</span> with the given value within this element.</p>
 
   </div>
 
   <div class="example">
-
-   <p>The <code>a</code> element may be wrapped around entire paragraphs, lists, tables, and so
-   forth, even entire sections, so long as there is no interactive content within (e.g. buttons or
+   <p>The <code>a</code> element can be wrapped around entire paragraphs, lists, tables, and so
+   forth, even entire sections, so long as there is no interactive content within (e.g., buttons or
    other links). This example shows how this can be used to make an entire advertising block into a
    link:</p>
 
-   <pre><code class="html" data-x="">&lt;aside class="advertising">
+   <pre><code class="html">&lt;aside class="advertising">
  &lt;h1>Advertising&lt;/h1>
  &lt;a href="https://ad.example.com/?adid=1929&amp;amp;pubid=1422">
   &lt;section>
@@ -195,7 +204,40 @@ interface <dfn>HTMLAnchorElement</dfn> : <span>HTMLElement</span> {
   &lt;/section>
  &lt;/a>
 &lt;/aside></code></pre>
+  </div>
 
+  <div class="example">
+   <p>The following example shows how a bit of script can be used to effectively make an entire row
+   in a job listing table a hyperlink:</p>
+
+   <pre><code class="html">&lt;table>
+ &lt;tr>
+  &lt;th>Position
+  &lt;th>Team
+  &lt;th>Location
+ &lt;tr>
+  &lt;td>&lt;a href="/jobs/manager">Manager&lt;/a>
+  &lt;td>Remotees
+  &lt;td>Remote
+ &lt;tr>
+  &lt;td>&lt;a href="/jobs/director">Director&lt;/a>
+  &lt;td>Remotees
+  &lt;td>Remote
+ &lt;tr>
+  &lt;td>&lt;a href="/jobs/astronaut">Astronaut&lt;/a>
+  &lt;td>Architecture
+  &lt;td>Remote
+&lt;/table>
+&lt;script>
+document.querySelector("table").onclick = ({ target }) => {
+  if (target.parentElement.localName === "tr") {
+    const link = target.parentElement.querySelector("a");
+    if (link) {
+      link.click();
+    }
+  }
+}
+&lt;/script></code></pre>
   </div>
 
 

@@ -1,0 +1,117 @@
+  <h4>Browsing context group switches due to cross-origin opener policy</h4>
+
+  <p>A <dfn data-x="coop-enforcement-result">cross-origin opener policy enforcement result</dfn> is
+  a <span>struct</span> with the following <span data-x="struct item">items</span>:</p>
+
+  <ul>
+   <li><p>A boolean <dfn data-x="coop-enforcement-bcg-switch">needs a browsing context group
+   switch</dfn>.</p></li>
+
+   <li><p>An <span>origin</span> <dfn data-x="coop-enforcement-origin">origin</dfn>.</p></li>
+
+   <li><p>A <span>cross-origin opener policy</span> <dfn
+   data-x="coop-enforcement-coop">cross-origin opener policy</dfn>.</p></li>
+  </ul>
+
+  <p>To <dfn data-x="coop-enforce">enforce a response's cross-origin opener policy</dfn>, given a
+  <span>browsing context</span> <var>browsingContext</var>, an <span>origin</span>
+  <var>responseOrigin</var>, a <span>cross-origin opener policy</span> <var>responseCOOP</var>, and
+  a <span data-x="coop-enforcement-result">cross-origin opener policy enforcement result</span>
+  <var>currentCOOPEnforcementResult</var>:</p>
+
+  <ol>
+   <li><p>Let <var>newCOOPEnforcementResult</var> be a new <span
+   data-x="coop-enforcement-result">cross-origin opener policy enforcement result</span> whose <span
+   data-x="coop-enforcement-bcg-switch">needs a browsing context group switch</span> is
+   <var>currentCOOPEnforcementResult</var>'s <span data-x="coop-enforcement-bcg-switch">needs a
+   browsing context group switch</span>, <span data-x="coop-enforcement-origin">origin</span> is
+   <var>responseOrigin</var>, and <span data-x="coop-enforcement-coop">cross-origin opener
+   policy</span> is <var>responseCOOP</var>.</p></li>
+
+   <li><p>Let <var>isInitialAboutBlank</var> be false.</p></li>
+
+   <li><p>If <var>browsingContext</var>'s only entry in its <span>session history</span> is the
+   <code>about:blank</code> <code>Document</code> that was added when <var>browsingContext</var> was
+   <span data-x="creating a new browsing context">created</span>, then set
+   <var>isInitialAboutBlank</var> to true.</p></li>
+
+   <li><p>If the result of <span data-x="matching-coop">matching</span>
+   <var>currentCOOPEnforcementResult</var>'s <span
+   data-x="coop-enforcement-coop">cross-origin opener policy</span>,
+   <var>currentCOOPEnforcementResult</var>'s <span
+   data-x="coop-enforcement-origin">origin</span>,
+   <var>responseCOOP</var>, and <var>responseOrigin</var> is true, then return
+   <var>newCOOPEnforcementResult</var>.</p></li>
+
+   <li>
+    <p>If all of the following are true:</p>
+
+    <ul class="brief">
+     <li><p><var>isInitialAboutBlank</var></p></li>
+
+     <li><p><var>currentCOOPEnforcementResult</var>'s <span
+     data-x="coop-enforcement-coop">cross-origin opener policy</span> is "<code
+     data-x="coop-same-origin-allow-popups">same-origin-allow-popups</code>"</p></li>
+
+     <li><p><var>responseCOOP</var> is "<code
+     data-x="coop-unsafe-none">unsafe-none</code>"</p></li>
+    </ul>
+
+    <p>then return <var>newCOOPEnforcementResult</var>.</p>
+   </li>
+
+   <li><p>Set <var>newCOOPEnforcementResult</var>'s <span data-x="coop-enforcement-bcg-switch">needs
+   a browsing context group switch</span> to true.</p></li>
+
+   <li><p>Return <var>newCOOPEnforcementResult</var>.</p></li>
+  </ol>
+
+  <p>To <dfn data-x="obtain-browsing-context-navigation">obtain a browsing context to use for a
+  navigation response</dfn>, given a <span data-x="browsing context">browsing context</span>
+  <var>browsingContext</var>, a <span>sandboxing flag set</span> <var>sandboxFlags</var>, and a
+  <span>cross-origin opener policy</span> <var>navigationCOOP</var>:</p>
+
+  <ol>
+   <li><p>Assert: <var>browsingContext</var> is a <span>top-level browsing context</span>.</p></li>
+
+   <li><p>Let <var>newBrowsingContext</var> be the result of <span>creating a new top-level browsing
+   context</span>.</p></li>
+
+   <li><p>If <var>navigationCOOP</var> is "<code
+   data-x="coop-same-origin-plus-COEP">same-origin-plus-COEP</code>", then set
+   <var>newBrowsingContext</var>'s <span data-x="tlbc group">group</span>'s <span data-x="bcg
+   cross-origin isolated">cross-origin isolated</span> to true.</p></li>
+
+   <li>
+    <p>If <var>sandboxFlags</var> is not empty, then:</p>
+    <ol>
+     <li><p>Assert: <var>navigationCOOP</var> is "<code
+     data-x="coop-unsafe-none">unsafe-none</code>".</p></li>
+
+     <li><p>Assert: <var>newBrowsingContext</var>'s <span>popup sandboxing flag set</span>
+     <span data-x="list is empty">is empty</span>.</p></li>
+
+     <li><p>Set <var>newBrowsingContext</var>'s <span>popup sandboxing flag set</span> to
+     a <span data-x="list clone">clone</span> of <var>sandboxFlags</var>.</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p><span data-x="a browsing context is discarded">Discard</span> <var>browsingContext</var>.</p>
+
+    <p class="note">This has no effect on <var>browsingContext</var>'s <span data-x="tlbc
+    group">group</span>, unless <var>browsingContext</var> was its sole <span>top-level browsing
+    context</span>. In that case, the user agent might delete the <span>browsing context
+    group</span> which no longer contains any <span data-x="browsing context">browsing
+    contexts</span>.</p>
+   </li>
+
+   <li><p>Return <var>newBrowsingContext</var>.</p></li>
+  </ol>
+
+  <p class="XXX">The impact of swapping browsing context groups following a navigation is not
+  fully defined. It is currently under discussion in <a
+  href="https://github.com/whatwg/html/issues/5350">issue #5350</a>.</p>
+
+
+

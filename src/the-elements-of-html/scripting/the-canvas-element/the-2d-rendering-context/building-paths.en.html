@@ -21,56 +21,45 @@
    <dt><var>path</var> . <code data-x="dom-context-2d-moveTo">moveTo</code>(<var>x</var>, <var>y</var>)</dt>
 
    <dd>
-
     <p>Creates a new subpath with the given point.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-closePath">closePath</code>()</dt>
    <dt><var>path</var> . <code data-x="dom-context-2d-closePath">closePath</code>()</dt>
 
    <dd>
-
     <p>Marks the current subpath as closed, and starts a new subpath with a point the same as the
     start and end of the newly closed subpath.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-lineTo">lineTo</code>(<var>x</var>, <var>y</var>)</dt>
    <dt><var>path</var> . <code data-x="dom-context-2d-lineTo">lineTo</code>(<var>x</var>, <var>y</var>)</dt>
 
    <dd>
-
     <p>Adds the given point to the current subpath, connected to the previous one by a straight
     line.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-quadraticCurveTo">quadraticCurveTo</code>(<var>cpx</var>, <var>cpy</var>, <var>x</var>, <var>y</var>)</dt>
    <dt><var>path</var> . <code data-x="dom-context-2d-quadraticCurveTo">quadraticCurveTo</code>(<var>cpx</var>, <var>cpy</var>, <var>x</var>, <var>y</var>)</dt>
 
    <dd>
-
     <p>Adds the given point to the current subpath, connected to the previous one by a quadratic
     B&eacute;zier curve with the given control point.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-bezierCurveTo">bezierCurveTo</code>(<var>cp1x</var>, <var>cp1y</var>, <var>cp2x</var>, <var>cp2y</var>, <var>x</var>, <var>y</var>)</dt>
    <dt><var>path</var> . <code data-x="dom-context-2d-bezierCurveTo">bezierCurveTo</code>(<var>cp1x</var>, <var>cp1y</var>, <var>cp2x</var>, <var>cp2y</var>, <var>x</var>, <var>y</var>)</dt>
 
    <dd>
-
     <p>Adds the given point to the current subpath, connected to the previous one by a cubic
     B&eacute;zier curve with the given control points.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-arcTo">arcTo</code>(<var>x1</var>, <var>y1</var>, <var>x2</var>, <var>y2</var>, <var>radius</var>)</dt>
    <dt><var>path</var> . <code data-x="dom-context-2d-arcTo">arcTo</code>(<var>x1</var>, <var>y1</var>, <var>x2</var>, <var>y2</var>, <var>radius</var>)</dt>
 
    <dd>
-
     <p>Adds an arc with the given control points and radius to the current subpath, connected to the
     previous point by a straight line.</p>
 
@@ -222,14 +211,12 @@ try {
 }
 
 -->
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-arc">arc</code>(<var>x</var>, <var>y</var>, <var>radius</var>, <var>startAngle</var>, <var>endAngle</var> [, <var>anticlockwise</var> ] )</dt>
    <dt><var>path</var> . <code data-x="dom-context-2d-arc">arc</code>(<var>x</var>, <var>y</var>, <var>radius</var>, <var>startAngle</var>, <var>endAngle</var> [, <var>anticlockwise</var> ] )</dt>
 
    <dd>
-
     <p>Adds points to the subpath such that the arc described by the circumference of the circle
     described by the arguments, starting at the given start angle and ending at the given end angle,
     going in the given direction (defaulting to clockwise), is added to the path, connected to the
@@ -392,14 +379,12 @@ try {
   c.restore();
 }
 -->
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-ellipse">ellipse</code>(<var>x</var>, <var>y</var>, <var>radiusX</var>, <var>radiusY</var>, <var>rotation</var>, <var>startAngle</var>, <var>endAngle</var> [, <var>anticlockwise</var>] )</dt>
    <dt><var>path</var> . <code data-x="dom-context-2d-ellipse">ellipse</code>(<var>x</var>, <var>y</var>, <var>radiusX</var>, <var>radiusY</var>, <var>rotation</var>, <var>startAngle</var>, <var>endAngle</var> [, <var>anticlockwise</var>] )</dt>
 
    <dd>
-
     <p>Adds points to the subpath such that the arc described by the circumference of the ellipse
     described by the arguments, starting at the given start angle and ending at the given end angle,
     going in the given direction (defaulting to clockwise), is added to the path, connected to the
@@ -407,18 +392,14 @@ try {
 
     <p>Throws an <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> if the given
     radius is negative.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-rect">rect</code>(<var>x</var>, <var>y</var>, <var>w</var>, <var>h</var>)</dt>
    <dt><var>path</var> . <code data-x="dom-context-2d-rect">rect</code>(<var>x</var>, <var>y</var>, <var>w</var>, <var>h</var>)</dt>
 
    <dd>
-
     <p>Adds a new closed subpath to the path, representing the given rectangle.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -556,17 +537,17 @@ try {
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-context-2d-arc">arc(<var>x</var>, <var>y</var>, <var>radius</var>,
-  <var>startAngle</var>, <var>endAngle</var>, <var>anticlockwise</var>)</code></dfn> method, when
-  invoked, must run the <span>ellipse method steps</span> with this, <var>x</var>, <var>y</var>,
-  <var>radius</var>, <var>radius</var>, 0, <var>startAngle</var>, <var>endAngle</var>, and
-  <var>anticlockwise</var>.</p>
+  <p>The <dfn method for="CanvasPath"><code data-x="dom-context-2d-arc">arc(<var>x</var>,
+  <var>y</var>, <var>radius</var>, <var>startAngle</var>, <var>endAngle</var>,
+  <var>anticlockwise</var>)</code></dfn> method, when invoked, must run the <span>ellipse method
+  steps</span> with this, <var>x</var>, <var>y</var>, <var>radius</var>, <var>radius</var>, 0,
+  <var>startAngle</var>, <var>endAngle</var>, and <var>anticlockwise</var>.</p>
 
   <p class="note">This makes it equivalent to <code data-x="dom-context-2d-ellipse">ellipse()</code>
   except that both radii are equal and <var>rotation</var> is 0.</p>
 
-  <p>The <dfn><code data-x="dom-context-2d-ellipse">ellipse(<var>x</var>, <var>y</var>,
-  <var>radiusX</var>, <var>radiusY</var>, <var>rotation</var>, <var>startAngle</var>,
+  <p>The <dfn method for="CanvasPath"><code data-x="dom-context-2d-ellipse">ellipse(<var>x</var>,
+  <var>y</var>, <var>radiusX</var>, <var>radiusY</var>, <var>rotation</var>, <var>startAngle</var>,
   <var>endAngle</var>, <var>anticlockwise</var>)</code></dfn> method, when invoked, must run the
   <span>ellipse method steps</span> with this, <var>x</var>, <var>y</var>, <var>radiusX</var>,
   <var>radiusY</var>, <var>rotation</var>, <var>startAngle</var>, <var>endAngle</var>, and
@@ -618,8 +599,9 @@ try {
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-context-2d-rect">rect(<var>x</var>, <var>y</var>, <var>w</var>,
-  <var>h</var>)</code></dfn> method, when invoked, must run these steps:</p>
+  <p>The <dfn method for="CanvasPath"><code data-x="dom-context-2d-rect">rect(<var>x</var>,
+  <var>y</var>, <var>w</var>, <var>h</var>)</code></dfn> method, when invoked, must run these
+  steps:</p>
 
   <ol>
    <li><p>If any of the arguments are infinite or NaN, then return.</p></li>

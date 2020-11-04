@@ -1,6 +1,6 @@
-  <h4 id="structuredserializeinternal" data-noexport="" data-lt="StructuredSerializeInternal"
-  data-dfn-type="abstract-op"><dfn>StructuredSerializeInternal</dfn> ( <var>value</var>,
-  <var>forStorage</var> [ , <var>memory</var> ] )</h4>
+  <h4 id="structuredserializeinternal" noexport data-lt="StructuredSerializeInternal"
+  abstract-op><dfn>StructuredSerializeInternal</dfn> ( <var>value</var>, <var>forStorage</var> [ ,
+  <var>memory</var> ] )</h4>
 
   <p>The <span>StructuredSerializeInternal</span> abstract operation takes as input a JavaScript
   value <var>value</var> and serializes it to a <span data-x="JavaScript
@@ -27,7 +27,7 @@
 
    <li><p>If <span data-x="js-Type">Type</span>(<var>value</var>) is Undefined, Null, Boolean,
    Number, BigInt, or String, then return { [[Type]]: "primitive",
-   [[Value]]: <var>value</var> }. <ref spec=JSBIGINT></p></li>
+   [[Value]]: <var>value</var> }.</p></li>
 
    <li><p>If <span data-x="js-Type">Type</span>(<var>value</var>) is Symbol, then throw a
    <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
@@ -43,7 +43,7 @@
 
    <li><p>Otherwise, if <var>value</var> has a [[BigIntData]]
    internal slot, then set <var>serialized</var> to { [[Type]]: "BigInt", [[BigIntData]]:
-   <var>value</var>.[[BigIntData]] }. <ref spec=JSBIGINT></p></li>
+   <var>value</var>.[[BigIntData]] }.</p></li>
 
    <li><p>Otherwise, if <var>value</var> has a [[StringData]] internal slot, then set
    <var>serialized</var> to { [[Type]]: "String", [[StringData]]: <var>value</var>.[[StringData]]
@@ -68,13 +68,24 @@
       <p>If ! <span>IsSharedArrayBuffer</span>(<var>value</var>) is true, then:
 
       <ol>
+       <li><p>Let <var>agentCluster</var> be the <span>surrounding agent</span>'s
+       <span>agent cluster</span>.</p></li>
+
+       <li>
+        <p>If <var>agentCluster</var>'s <span>cross-origin isolated</span> is false, then throw a
+        <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p>
+
+        <p class="note">This check is only needed when serializing (and not when deserializing) as
+        <span>cross-origin isolated</span> cannot change over time and a
+        <code>SharedArrayBuffer</code> cannot leave an <span>agent cluster</span>.</p>
+       </li>
+
        <li><p>If <var>forStorage</var> is true, then throw a
        <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
 
        <li><p>Set <var>serialized</var> to { [[Type]]: "SharedArrayBuffer", [[ArrayBufferData]]:
        <var>value</var>.[[ArrayBufferData]], [[ArrayBufferByteLength]]: <var>size</var>,
-       [[AgentCluster]]: the <span>current Realm Record</span>'s corresponding <span>agent
-       cluster</span> }.</p></li>
+       [[AgentCluster]]: <var>agentCluster</var> }.</p></li>
       </ol>
      </li>
 
@@ -158,6 +169,40 @@
    </li>
 
    <li>
+    <p>Otherwise, if <var>value</var> has an [[ErrorData]] internal slot and <var>value</var> is not
+    a <span>platform object</span>, then:</p>
+    <!-- "is not a platform object" check is needed because DOMExceptions can have [[ErrorData]]
+         too -->
+
+    <ol>
+     <li><p>Let <var>name</var> be ? <span data-x="js-Get">Get</span>(<var>value</var>,
+     "name").</p></li>
+
+     <li><p>If <var>name</var> is not one of "Error", "EvalError", "RangeError", "ReferenceError",
+     "SyntaxError", "TypeError", or "URIError", then set <var>name</var> to "Error".</p></li>
+
+     <li><p>Let <var>valueMessageDesc</var> be ? <var>value</var>.[[GetOwnProperty]]("<code
+     data-x="">message</code>").</p></li>
+
+     <li><p>Let <var>message</var> be undefined if
+     <span>IsDataDescriptor</span>(<var>valueMessageDesc</var>) is false, and
+     ? <span>ToString</span>(<var>valueMessageDesc</var>.[[Value]]) otherwise.</p></li>
+
+     <li><p>Set <var>serialized</var> to { [[Type]]: "Error", [[Name]]: <var>name</var>,
+     [[Message]]: <var>message</var> }.</p></li>
+
+     <li>
+      <p>User agents should attach a serialized representation of any interesting accompanying
+      data which are not yet specified, notably the <code data-x="">stack</code> property, to
+      <var>serialized</var>.</p>
+
+      <p class="note">See the <cite>Error Stacks</cite> proposal for in-progress work on
+      specifying this data. <ref spec=JSERRORSTACKS></p>
+     </li>
+    </ol>
+   </li>
+
+   <li>
     <p>Otherwise, if <var>value</var> is an Array exotic object, then:</p>
     <!-- IsArray supports proxies too, which we cannot -->
 
@@ -206,8 +251,10 @@
    </li>
 
    <li>
-    <p>Otherwise, if <var>value</var> is an exotic object, then throw a
-    <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p>
+    <p>Otherwise, if <var>value</var> is an exotic object and <var>value</var> is not the
+    <span>%Object.prototype%</span> intrinsic object associated with any <span>JavaScript
+    realm</span>, then throw a <span>"<code>DataCloneError</code>"</span>
+    <code>DOMException</code>.</p>
 
     <p class="example">For instance, a proxy object.</p>
    </li>
@@ -221,6 +268,10 @@
 
      <li><p>Set <var>deep</var> to true.</p></li>
     </ol>
+
+    <p class="note"><span>%Object.prototype%</span> will end up being handled via this step and
+    subsequent steps. The end result is that its exoticness is ignored, and after deserialization
+    the result will be an empty object (not an <span>immutable prototype exotic object</span>).
    </li>
 
    <li><p><span data-x="map set">Set</span> <var>memory</var>[<var>value</var>] to
@@ -301,12 +352,12 @@
 
      <li>
       <p>Otherwise, if <var>value</var> is a <span>platform object</span> that is a <span
-      data-x="serializable objects">serializable object</span>, then perform the appropriate
-      <span>serialization steps</span> given <var>value</var>, <var>serialized</var>, and
-      <var>forStorage</var>.</p>
+      data-x="serializable objects">serializable object</span>, then perform the <span>serialization
+      steps</span> for <var>value</var>'s <span>primary interface</span>, given <var>value</var>,
+      <var>serialized</var>, and <var>forStorage</var>.</p>
 
       <p>The <span>serialization steps</span> may need to perform a <dfn
-      data-export="">sub-serialization</dfn>. This is an operation which takes as input a value
+      export>sub-serialization</dfn>. This is an operation which takes as input a value
       <var>subValue</var>, and returns <span>StructuredSerializeInternal</span>(<var>subValue</var>,
       <var>forStorage</var>, <var>memory</var>). (In other words, a <span>sub-serialization</span>
       is a specialization of <span>StructuredSerializeInternal</span> to be consistent within this
@@ -314,57 +365,26 @@
      </li>
 
      <li>
-      <p>Otherwise:
+      <p>Otherwise, for each <var>key</var> in !
+      <span>EnumerableOwnPropertyNames</span>(<var>value</var>, <var>key</var>):</p>
 
       <ol>
-       <li><p>Let <var>enumerableKeys</var> be a new empty <span data-x="js-List">List</span>.</p></li>
-
        <li>
-        <p>For each <var>key</var> in ! <var>value</var>.[[OwnPropertyKeys]]():</p>
+        <p>If ! <span>HasOwnProperty</span>(<var>value</var>, <var>key</var>) is true, then:</p>
 
         <ol>
-         <li>
-          <p>If <span data-x="js-Type">Type</span>(<var>key</var>) is String, then:</p>
+         <li><p>Let <var>inputValue</var> be ? <var>value</var>.[[Get]](<var>key</var>,
+         <var>value</var>).</p></li>
 
-          <ol>
-           <li><p>Let <var>valueDesc</var> be !
-           <var>value</var>.[[GetOwnProperty]](<var>key</var>).</p></li>
+         <li><p>Let <var>outputValue</var> be ?
+         <span>StructuredSerializeInternal</span>(<var>inputValue</var>, <var>forStorage</var>,
+         <var>memory</var>).</p></li>
 
-           <li><p>If <var>valueDesc</var>.[[Enumerable]] is true, then <span data-x="list
-           append">append</span> <var>key</var> to <var>enumerableKeys</var>.</p></li>
-          </ol>
-         </li>
-        </ol>
-       </li>
-
-       <li>
-        <p>For each <var>key</var> in <var>enumerableKeys</var>:</p>
-
-        <ol>
-         <li>
-          <p>If ! <span>HasOwnProperty</span>(<var>value</var>, <var>key</var>) is true, then:</p>
-
-          <ol>
-           <li><p>Let <var>inputValue</var> be ? <var>value</var>.[[Get]](<var>key</var>,
-           <var>value</var>).</p></li>
-
-           <li><p>Let <var>outputValue</var> be ?
-           <span>StructuredSerializeInternal</span>(<var>inputValue</var>, <var>forStorage</var>,
-           <var>memory</var>).</p></li>
-
-           <li><p><span data-x="list append">Append</span> { [[Key]]: <var>key</var>, [[Value]]:
-           <var>outputValue</var> } to <var>serialized</var>.[[Properties]].</p></li>
-          </ol>
-         </li>
+         <li><p><span data-x="list append">Append</span> { [[Key]]: <var>key</var>, [[Value]]:
+         <var>outputValue</var> } to <var>serialized</var>.[[Properties]].</p></li>
         </ol>
        </li>
       </ol>
-
-      <p class="note">The key collection performed above is very similar to the JavaScript
-      specification's <span>EnumerableOwnProperties</span> operation, but crucially it uses the
-      deterministic ordering provided by the [[OwnPropertyKeys]] internal method, instead of
-      reordering the keys in an unspecified manner as <span>EnumerableOwnProperties</span> does.
-      <ref spec=JAVASCRIPT></p>
      </li>
     </ol>
    </li>
@@ -378,7 +398,7 @@
    that create circular references. For example, when we pass the following JavaScript object into
    <span>StructuredSerializeInternal</span>:</p>
 
-  <pre><code class="js" data-x="">const o = {};
+  <pre><code class="js">const o = {};
 o.myself = o;</code></pre>
 
   <p>it produces the following result:</p>

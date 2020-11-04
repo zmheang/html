@@ -22,7 +22,6 @@
   <p>These values are defined as the result of running the following algorithm:</p>
 
   <ol>
-
    <li><p>If the element has no <code data-x="attr-fe-autocomplete">autocomplete</code> attribute,
    then jump to the step labeled <i>default</i>.</p></li>
 
@@ -35,7 +34,6 @@
    <li><p>Let <var>index</var> be the index of the last token in <var>tokens</var>.</p></li>
 
    <li>
-
     <p>If the <var>index</var>th token in <var>tokens</var> is not an <span>ASCII
     case-insensitive</span> match for one of the tokens given in the first column of the following
     table, or if the number of tokens in <var>tokens</var> is greater than the maximum
@@ -102,6 +100,10 @@
        <td>Normal
       <tr>
        <td>"<code data-x="attr-fe-autocomplete-current-password">current-password</code>"
+       <td>3
+       <td>Normal
+      <tr>
+       <td>"<code data-x="attr-fe-autocomplete-one-time-code">one-time-code</code>"
        <td>3
        <td>Normal
       <tr>
@@ -274,7 +276,6 @@
        <td>4
        <td>Contact
     </table>
-
    </li>
 
    <li><p>If <var>category</var> is Off or Automatic but the element's <code
@@ -303,7 +304,6 @@
    <li><p>Decrement <var>index</var> by one.</p></li>
 
    <li>
-
     <p>If <var>category</var> is Contact and the <var>index</var>th token in <var>tokens</var> is an <span>ASCII case-insensitive</span> match for one of the strings in
     the following list, then run the substeps that follow:</p>
 
@@ -318,7 +318,6 @@
     <p>The substeps are:</p>
 
     <ol>
-
      <li><p>Let <var>contact</var> be the matching string from the list above.</p></li>
 
      <li><p>Insert <var>contact</var> at the start of <var>scope
@@ -334,13 +333,10 @@
      entry, then skip to the step labeled <i>done</i>.</p></li>
 
      <li><p>Decrement <var>index</var> by one.</p></li>
-
     </ol>
-
    </li>
 
    <li>
-
     <p>If the <var>index</var>th token in <var>tokens</var> is an <span>ASCII
     case-insensitive</span> match for one of the strings in the following list, then run the
     substeps that follow:</p>
@@ -353,7 +349,6 @@
     <p>The substeps are:</p>
 
     <ol>
-
      <li><p>Let <var>mode</var> be the matching string from the list above.</p></li>
 
      <li><p>Insert <var>mode</var> at the start of <var>scope
@@ -369,9 +364,7 @@
      entry, then skip to the step labeled <i>done</i>.</p></li>
 
      <li><p>Decrement <var>index</var> by one.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>If the <var>index</var>th entry in <var>tokens</var> is not the first entry, then jump to
@@ -412,7 +405,6 @@
    otherwise.</p></li>
 
    <li>
-
     <p>If <var>form</var> is not null and <var>form</var>'s <code
     data-x="attr-form-autocomplete">autocomplete</code> attribute is in the <span
     data-x="attr-form-autocomplete-off-state">off</span> state, then let the element's
@@ -420,9 +412,7 @@
 
     <p>Otherwise, let the element's <span>autofill field name</span> be "<code
     data-x="attr-fe-autocomplete-on">on</code>".</p>
-
    </li>
-
   </ol>
 
   <hr>
@@ -430,9 +420,8 @@
   <p>For the purposes of autofill, a <dfn>control's data</dfn> depends on the kind of control:</p>
 
   <dl>
-
    <dt>An <code>input</code> element with its <code data-x="attr-input-type">type</code> attribute
-   in the <span data-x="attr-input-type-email">E-mail</span> state and with the <code
+   in the <span data-x="attr-input-type-email">Email</span> state and with the <code
    data-x="attr-input-multiple">multiple</code> attribute specified</dt>
 
    <dd>The element's <span data-x="concept-fe-values">value<em>s</em></span>.</dd>
@@ -459,7 +448,6 @@
    <dd>The <code>option</code> element in the <code>select</code> element's <span
    data-x="concept-select-option-list">list of options</span> that has its <span
    data-x="concept-option-selectedness">selectedness</span> set to true.</dd>
-
   </dl>
 
   <hr>
@@ -473,7 +461,6 @@
    <dt>When wearing the <span>autofill expectation mantle</span>...
 
    <dd>
-
     <p>When an element's <span>autofill field name</span> is "<code
     data-x="attr-fe-autocomplete-off">off</code>", the user agent should not remember the <span>control's
     data</span>, and should not offer past values to the user.</p>
@@ -486,7 +473,7 @@
 
      <p>Banks frequently do not want UAs to prefill login information:</p>
 
-     <pre><code class="html" data-x="">&lt;p>&lt;label>Account: &lt;input type="text" name="ac" autocomplete="off">&lt;/label>&lt;/p>
+     <pre><code class="html">&lt;p>&lt;label>Account: &lt;input type="text" name="ac" autocomplete="off">&lt;/label>&lt;/p>
 &lt;p>&lt;label>PIN: &lt;input type="password" name="pin" autocomplete="off">&lt;/label>&lt;/p></code></pre>
 
     </div>
@@ -499,7 +486,7 @@
 
      <p>For example, suppose a user visits a page with this control:</p>
 
-     <pre><code class="html" data-x="">&lt;select name="country">
+     <pre><code class="html">&lt;select name="country">
  &lt;option>Afghanistan
  &lt;option>Albania
  &lt;option>Algeria
@@ -545,20 +532,16 @@
     data-x="attr-fe-autocomplete-shipping">shipping</code>". Both addresses might be suggested,
     however, for address-related form controls whose <span>autofill hint set</span> does not contain
     either keyword.</p>
-
    </dd>
 
    <dt>When wearing the <span>autofill anchor mantle</span>...
 
    <dd>
-
     <p>When the <span>autofill field name</span> is not the empty string, then the user agent must
     act as if the user had specified the <span>control's data</span> for the given <span>autofill
     hint set</span>, <span>autofill scope</span>, and <span>autofill field name</span>
     combination.</p>
-
    </dd>
-
   </dl>
 
   <p>When the user agent <dfn data-x="concept-fe-autofill">autofills form controls</dfn>, elements
@@ -591,7 +574,7 @@
    <p>This requirement interacts with the <span>autofill anchor mantle</span> also. Consider the
    following markup snippet:</p>
 
-   <pre><code class="html" data-x="">&lt;form>
+   <pre><code class="html">&lt;form>
  &lt;input type=hidden autocomplete="nickname" value="TreePlate">
  &lt;input type=text autocomplete="nickname">
 &lt;/form></code></pre>
@@ -645,7 +628,7 @@
    <p>For example, if the user agent knows that the user's middle name is "Ines", and attempts to
    prefill a form control that looks like this:</p>
 
-   <pre><code class="html" data-x="">&lt;input name=middle-initial maxlength=1 autocomplete="additional-name"></code></pre>
+   <pre><code class="html">&lt;input name=middle-initial maxlength=1 autocomplete="additional-name"></code></pre>
 
    <p>...then the user agent could convert "Ines" to "I" and prefill it that way.</p>
 
@@ -660,7 +643,7 @@
    <table>
     <tr>
      <td>
-      <pre><code class="html" data-x="">&lt;input name=b type=month autocomplete="bday"></code></pre>
+      <pre><code class="html">&lt;input name=b type=month autocomplete="bday"></code></pre>
      <td>
       2012-07
      <td>
@@ -671,7 +654,7 @@
       <span data-x="attr-input-type-month">Month</span> state.)
     <tr>
      <td>
-      <pre><code class="html" data-x="">&lt;select name=c autocomplete="bday">
+      <pre><code class="html">&lt;select name=c autocomplete="bday">
  &lt;option>Jan
  &lt;option>Feb
  <em>...</em>
@@ -688,21 +671,21 @@
       the user agent's supported languages, or through some other similar mechanism.
     <tr>
      <td>
-      <pre><code class="html" data-x="">&lt;input name=a type=number min=1 max=12 autocomplete="bday-month"></code></pre>
+      <pre><code class="html">&lt;input name=a type=number min=1 max=12 autocomplete="bday-month"></code></pre>
      <td>
       7
      <td>
       User agent converts "July" to a month number in the range 1..12, like the field.
     <tr>
      <td>
-      <pre><code class="html" data-x="">&lt;input name=a type=number min=0 max=11 autocomplete="bday-month"></code></pre>
+      <pre><code class="html">&lt;input name=a type=number min=0 max=11 autocomplete="bday-month"></code></pre>
      <td>
       6
      <td>
       User agent converts "July" to a month number in the range 0..11, like the field.
     <tr>
      <td>
-      <pre><code class="html" data-x="">&lt;input name=a type=number min=1 max=11 autocomplete="bday-month"></code></pre>
+      <pre><code class="html">&lt;input name=a type=number min=1 max=11 autocomplete="bday-month"></code></pre>
      <td>
      <td>
       User agent doesn't fill in the field, since it can't make a good guess as to what the form expects.
@@ -795,9 +778,10 @@
 
   </table>
 
-  <p>The <dfn><code data-x="dom-fe-autocomplete">autocomplete</code></dfn> IDL attribute, on getting,
-  must return the element's <span>IDL-exposed autofill value</span>, and on setting, must
-  <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLInputElement,HTMLSelectElement,HTMLTextAreaElement"><code
+  data-x="dom-fe-autocomplete">autocomplete</code></dfn> IDL attribute, on getting, must return the
+  element's <span>IDL-exposed autofill value</span>, and on setting, must <span>reflect</span> the
+  content attribute of the same name.</p>
 
   </div>
 

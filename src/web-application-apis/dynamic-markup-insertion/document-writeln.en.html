@@ -5,28 +5,26 @@
    <dt><var>document</var> . <code subdfn data-x="dom-document-writeln">writeln</code>(<var>text</var>...)</dt>
 
    <dd>
-
     <p>Adds the given string(s) to the <code>Document</code>'s input stream, followed by a newline
-    character. If necessary, calls the <code data-x="dom-document-open">open(<var>type</var>,
-    <var>replace</var>)</code> method implicitly first.</p>
+    character. If necessary, calls the <code data-x="dom-document-open">open()</code> method
+    implicitly first.</p>
 
     <p>Throws an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> when
     invoked on <span>XML documents</span>.</p>
 
     <p>Throws an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> if the
     parser is currently executing a <span>custom element constructor</span>.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-document-writeln">document.writeln(...)</code></dfn> method, when
-  invoked, must run the <span>document write steps</span> with this <code>Document</code> object and
-  a string that is the concatanation of all arguments passed and U+000A LINE FEED.</p>
+  <p>The <dfn method for="Document"><code
+  data-x="dom-document-writeln">document.writeln(...)</code></dfn> method, when invoked, must run
+  the <span>document write steps</span> with this <code>Document</code> object and a string that is
+  the concatanation of all arguments passed and U+000A LINE FEED.</p>
 
   </div>
 
 
-
+  <!-- We anticipate adding XMLSerializer here in the future, thus the id="". When we do that, add

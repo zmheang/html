@@ -13,8 +13,9 @@
   authors can set both continuous linear ranges (such as 9pm to 11pm) and discontinuous ranges
   spanning midnight (such as 11pm to 1am).</p>
 
-  <p>The <dfn><code data-x="attr-input-min">min</code></dfn> and <dfn><code data-x="attr-input-max">max</code></dfn> attributes indicate the allowed range of values for
-  the element.</p>
+  <p>The <dfn element-attr for="input"><code data-x="attr-input-min">min</code></dfn> and <dfn
+  element-attr for="input"><code data-x="attr-input-max">max</code></dfn> attributes indicate the
+  allowed range of values for the element.</p>
 
   <div w-nodev>
 
@@ -102,7 +103,7 @@
 
    <p>The following date control limits input to dates that are before the 1980s:</p>
 
-   <pre><code class="html" data-x="">&lt;input name=bday type=date max="1979-12-31"></code></pre>
+   <pre><code class="html">&lt;input name=bday type=date max="1979-12-31"></code></pre>
 
   </div>
 
@@ -110,7 +111,7 @@
 
    <p>The following number control limits input to whole numbers greater than zero:</p>
 
-   <pre><code class="html" data-x="">&lt;input name=quantity required="" type="number" min="1" value="1"></code></pre>
+   <pre><code class="html">&lt;input name=quantity required="" type="number" min="1" value="1"></code></pre>
 
   </div>
 
@@ -119,7 +120,7 @@
    <p>The following time control limits input to those minutes that occur between 9pm and 6am,
    defaulting to midnight:</p>
 
-   <pre><code class="html" data-x="">&lt;input name="sleepStart" type=time min="21:00" max="06:00" step="60" value="00:00"></code></pre>
+   <pre><code class="html">&lt;input name="sleepStart" type=time min="21:00" max="06:00" step="60" value="00:00"></code></pre>
 
   </div>
 

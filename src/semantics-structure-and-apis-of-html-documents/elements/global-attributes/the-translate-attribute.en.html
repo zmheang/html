@@ -3,10 +3,10 @@
   <!-- v2: a way to translate the declensions of the word(s), but keep the actual roots the same
            for examples, see https://www.w3.org/Bugs/Public/show_bug.cgi?id=17954 -->
 
-  <p>The <dfn><code data-x="attr-translate">translate</code></dfn> attribute is an <span>enumerated
-  attribute</span> that is used to specify whether an element's attribute values and the values of
-  its <code>Text</code> node children are to be translated when the page is localized, or whether to
-  leave them unchanged.</p>
+  <p>The <dfn element-attr for="html-global"><code data-x="attr-translate">translate</code></dfn>
+  attribute is an <span>enumerated attribute</span> that is used to specify whether an element's
+  attribute values and the values of its <code>Text</code> node children are to be translated when
+  the page is localized, or whether to leave them unchanged.</p>
 
   <p>The attribute's keywords are the empty string, <code data-x="">yes</code>, and <code
   data-x="">no</code>. The empty string and the <code data-x="">yes</code> keyword map to the
@@ -63,18 +63,18 @@
   </ul>
 
   <p>Other specifications may define other attributes that are also <span>translatable
-  attributes</span>. For example, ARIA would define the <code
+  attributes</span>. For example, <cite>ARIA</cite> would define the <code
   data-x="attr-aria-label">aria-label</code> attribute as translatable.</p>
 
   <div w-nodev>
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-translate">translate</code></dfn> IDL attribute must, on getting,
-  return true if the element's <span>translation mode</span> is <span>translate-enabled</span>, and
-  false otherwise. On setting, it must set the content attribute's value to "<code
-  data-x="">yes</code>" if the new value is true, and set the content attribute's value to "<code
-  data-x="">no</code>" otherwise.</p>
+  <p>The <dfn attribute for="HTMLElement"><code data-x="dom-translate">translate</code></dfn> IDL
+  attribute must, on getting, return true if the element's <span>translation mode</span> is
+  <span>translate-enabled</span>, and false otherwise. On setting, it must set the content
+  attribute's value to "<code data-x="">yes</code>" if the new value is true, and set the content
+  attribute's value to "<code data-x="">no</code>" otherwise.</p>
 
   </div>
 
@@ -83,7 +83,7 @@
    <p>In this example, everything in the document is to be translated when the page is localized,
    except the sample keyboard input and sample program output:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;html lang=en> &lt;!-- default on the document element is translate=yes -->
  &lt;head>
   &lt;title>The Bee Game&lt;/title> &lt;!-- implied translate=yes inherited from ancestors -->

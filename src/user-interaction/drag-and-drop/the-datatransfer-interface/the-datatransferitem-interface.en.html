@@ -3,72 +3,59 @@
   <p>Each <code>DataTransferItem</code> object is associated with a <code>DataTransfer</code>
   object.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>DataTransferItem</dfn> {
   readonly attribute DOMString <span data-x="dom-DataTransferItem-kind">kind</span>;
   readonly attribute DOMString <span data-x="dom-DataTransferItem-type">type</span>;
-  void <span data-x="dom-DataTransferItem-getAsString">getAsString</span>(<span>FunctionStringCallback</span>? _callback);<!--
+  undefined <span data-x="dom-DataTransferItem-getAsString">getAsString</span>(<span>FunctionStringCallback</span>? _callback);<!--
 DND-v3:  <span>Blob</span> <span data-x="dom-DataTransferItem-getAsBlob">getAsBlob</span>();-->
   <span>File</span>? <span data-x="dom-DataTransferItem-getAsFile">getAsFile</span>();<!--
-DND-v4:  void <span data-x="dom-DataTransferItem-getAsObject">getAsObject</span>(<span>FunctionObjectCallback</span> _callback);-->
+DND-v4:  undefined <span data-x="dom-DataTransferItem-getAsObject">getAsObject</span>(<span>FunctionObjectCallback</span> _callback);-->
 };
 
-callback <dfn>FunctionStringCallback</dfn> = void (DOMString data);<!--
+callback <dfn>FunctionStringCallback</dfn> = undefined (DOMString data);<!--
 
 // DND-v4:
-callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></code></pre>
+callback <dfn>FunctionObjectCallback</dfn> = undefined (any data);--></code></pre>
 
   <dl class="domintro">
 
    <dt><var>item</var> . <code subdfn data-x="dom-DataTransferItem-kind">kind</code></dt>
    <dd>
-
     <p>Returns <span>the drag data item kind</span>, one of: "string",
     <!-- DND-v3: "blob", --> "file"<!-- DND-v4: , "object" -->.</p>
-
    </dd>
 
    <dt><var>item</var> . <code subdfn data-x="dom-DataTransferItem-type">type</code></dt>
    <dd>
-
     <p>Returns <span>the drag data item type string</span>.</p>
-
    </dd>
 
    <dt><var>item</var> . <code subdfn data-x="dom-DataTransferItem-getAsString">getAsString</code>(<var>callback</var>)</dt>
    <dd>
-
     <p>Invokes the callback with the string data as the argument, if <span>the drag data item
-    kind</span> is <i>Plain Unicode string</i>.</p>
-
+    kind</span> is <i>text</i>.</p>
    </dd>
 
 <!-- DND-v3:
    <dt><var>file</var> = <var>item</var> . <code subdfn data-x="dom-DataTransferItem-getAsBlob">getAsBlob</code>()</dt>
    <dd>
-
     <p>Returns a <code>Blob</code> object, if <span>the drag data item kind</span> is <i>Blob</i> or <i>File</i>.</p>
-
    </dd>
 -->
 
    <dt><var>file</var> = <var>item</var> . <code subdfn data-x="dom-DataTransferItem-getAsFile">getAsFile</code>()</dt>
    <dd>
-
     <p>Returns a <code>File</code> object, if <span>the drag data item kind</span> is <i>File</i>.</p>
-
    </dd>
 
 <!-- DND-v4:
    <dt><var>file</var> = <var>item</var> . <code subdfn data-x="dom-DataTransferItem-getAsObject">getAsObject</code>()</dt>
    <dd>
-
     <p>Invokes the callback with the cloned object data as the argument, if <span>the drag data item
-    kind</span> is <i>Plain Unicode string</i> or <i>Object</i>.</p>
-
+    kind</span> is <i>text</i> or <i>Object</i>.</p>
    </dd>
 -->
-
   </dl>
 
   <div w-nodev>
@@ -96,7 +83,7 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></code></pre>
    <thead>
     <tr> <th> Kind <th> String
    <tbody>
-    <tr> <td> <i>Plain Unicode string</i> <td> "<code data-x="">string</code>"
+    <tr> <td> <i>Text</i> <td> "<code data-x="">string</code>"
 <!-- DND-v3:    <tr> <td> <i>Blob</i> <td> "<code data-x="">blob</code>"-->
     <tr> <td> <i>File</i> <td> "<code data-x="">file</code>"
 <!-- DND-v4:    <tr> <td> <i>Object</i> <td> "<code data-x="">object</code>"-->
@@ -110,20 +97,18 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></code></pre>
   <p>The <dfn><code data-x="dom-DataTransferItem-getAsString">getAsString(<var>callback</var>)</code></dfn> method must run the following steps:</p>
 
   <ol>
-
    <li><p>If the <var>callback</var> is null, return.</p></li>
 
    <li><p>If the <code>DataTransferItem</code> object is not in the <i
    data-x="concept-dnd-rw">read/write mode</i> or the <i data-x="concept-dnd-ro">read-only mode</i>,
    return. The callback is never invoked.</p></li>
 
-   <li><p>If <span>the drag data item kind</span> is not <i>Plain Unicode string</i>, then return.
+   <li><p>If <span>the drag data item kind</span> is not <i>text</i>, then return.
    The callback is never invoked.</p></li>
 
    <li><p>Otherwise, <span>queue a task</span> to invoke <var>callback</var>, passing the
    actual data of the item represented by the <code>DataTransferItem</code> object as the
    argument.</p></li>
-
   </ol>
 
 <!--DND-v3:
@@ -131,13 +116,11 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></code></pre>
   the following steps:</p>
 
   <ol>
-
    <li><p>If the <code>DataTransferItem</code> object is not in the <i
    data-x="concept-dnd-rw">read/write mode</i> or the <i data-x="concept-dnd-ro">read-only mode</i>,
    return null.</p></li>
 
    <li>
-
 --><!--DND-v4:
     <p>If <span>the drag data item kind</span> is <i>Object</i>, return null.</p></li>
 --><!--DND-v3:
@@ -155,9 +138,7 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></code></pre>
     <p>Otherwise, <span>the drag data item kind</span> is <i>Blob</i>; return a new
     <code>Blob</code> object representing the actual data of the item represented by the
     <code>DataTransferItem</code> object.</p>
-
    </li>
-
   </ol>
 -->
 
@@ -165,7 +146,6 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></code></pre>
   method must run the following steps:</p>
 
   <ol>
-
    <li><p>If the <code>DataTransferItem</code> object is not in the <i
    data-x="concept-dnd-rw">read/write mode</i> or the <i data-x="concept-dnd-ro">read-only mode</i>,
    then return null.</p></li>
@@ -174,20 +154,17 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></code></pre>
 
    <li><p>Return a new <code>File</code> object representing the actual data of the item represented
    by the <code>DataTransferItem</code> object.</p>
-
   </ol>
 
 <!--DND-v4:
   <p>The <dfn><code data-x="dom-DataTransferItem-getAsObject">getAsObject(<var>callback</var>)</code></dfn> method must run the following steps:</p>
 
   <ol>
-
    <li><p>If the <code>DataTransferItem</code> object is not in the <i
    data-x="concept-dnd-rw">read/write mode</i> or the <i data-x="concept-dnd-ro">read-only mode</i>,
    return null.</p></li>
 
    <li>
-
     <p>Let <var>data</var> be the actual data of the item represented by the
     <code>DataTransferItem</code> object.</p>
 
@@ -202,12 +179,10 @@ callback <dfn>FunctionObjectCallback</dfn> = void (any data);--></code></pre>
 
     <p>If <span>the drag data item kind</span> is <i>Object</i>, then <var>data</var> is the object
     that is the actual data.</p>
-
    </li>
 
    <li><span>Queue a task</span> to invoke <var>callback</var>, passing a <span>structured
    clone</span> of <var>data</var> as the argument.</p></li>
-
   </ol>
 -->
 

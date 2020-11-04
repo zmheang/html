@@ -17,7 +17,7 @@
    <p>For example, in the following case it's ok to remove the "<code data-x="">&lt;html></code>"
    tag:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 <strong>&lt;html></strong>
   &lt;head>
     &lt;title>Hello&lt;/title>
@@ -29,7 +29,7 @@
 
    <p>Doing so would make the document look like this:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 
   &lt;head>
     &lt;title>Hello&lt;/title>
@@ -43,7 +43,7 @@
    element</span> is ignored by the parser. The following example would also have the exact same
    DOM:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>&lt;head>
+   <pre><code class="html">&lt;!DOCTYPE HTML>&lt;head>
     &lt;title>Hello&lt;/title>
   &lt;/head>
   &lt;body>
@@ -54,7 +54,7 @@
    <p>However, in the following example, removing the start tag moves the comment to before the
    <code>html</code> element:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;html>
   <strong>&lt;!-- where is this comment in the DOM? --></strong>
   &lt;head>
@@ -67,7 +67,7 @@
 
    <p>With the tag removed, the document actually turns into the same as this:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;!-- where is this comment in the DOM? -->
 <small>&lt;html></small>
   &lt;head>
@@ -120,7 +120,7 @@
    <code>body</code> element start tag, can't be omitted, because they are surrounded by
    whitespace:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;html><strong>
   </strong>&lt;head><strong>
     </strong>&lt;title>Hello&lt;/title><strong>
@@ -136,15 +136,15 @@
    <p>Usually, however, whitespace isn't an issue. If we first remove the whitespace we don't care
    about:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>&lt;html>&lt;head>&lt;title>Hello&lt;/title>&lt;/head>&lt;body>&lt;p>Welcome to this example.&lt;/p>&lt;/body>&lt;/html></code></pre>
+   <pre><code class="html">&lt;!DOCTYPE HTML>&lt;html>&lt;head>&lt;title>Hello&lt;/title>&lt;/head>&lt;body>&lt;p>Welcome to this example.&lt;/p>&lt;/body>&lt;/html></code></pre>
 
    <p>Then we can omit a number of tags without affecting the DOM:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>&lt;title>Hello&lt;/title>&lt;p>Welcome to this example.&lt;/p></code></pre>
+   <pre><code class="html">&lt;!DOCTYPE HTML>&lt;title>Hello&lt;/title>&lt;p>Welcome to this example.&lt;/p></code></pre>
 
    <p>At that point, we can also add some whitespace back:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;title>Hello&lt;/title>
 &lt;p>Welcome to this example.&lt;/p></code></pre>
 
@@ -152,7 +152,7 @@
    parser-implied positions; the only whitespace text node that results from this is the newline at
    the end of the <code>head</code> element:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 <small>&lt;html>&lt;head></small>&lt;title>Hello&lt;/title>
 <small>&lt;/head>&lt;body></small>&lt;p>Welcome to this example.&lt;/p><small>&lt;/body>&lt;/html></small></code></pre>
 
@@ -190,7 +190,7 @@
 
    <p>We can thus simplify the earlier example further:
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>&lt;title>Hello&lt;/title>&lt;p>Welcome to this example.<small>&lt;/p></small></code></pre>
+   <pre><code class="html">&lt;!DOCTYPE HTML>&lt;title>Hello&lt;/title>&lt;p>Welcome to this example.</code></pre>
 
   </div>
 
@@ -285,7 +285,7 @@
 
    <p>Take this example:</p>
 
-   <pre><code class="html" data-x="">&lt;table>
+   <pre><code class="html">&lt;table>
  &lt;caption>37547 TEE Electric Powered Rail Car Train Functions (Abbreviated)&lt;/caption>
  &lt;colgroup>&lt;col>&lt;col>&lt;col>&lt;/colgroup>
  &lt;thead>
@@ -326,7 +326,7 @@
 
    <p>The exact same table, modulo some whitespace differences, could be marked up as follows:</p>
 
-   <pre><code class="html" data-x="">&lt;table>
+   <pre><code class="html">&lt;table>
  &lt;caption>37547 TEE Electric Powered Rail Car Train Functions (Abbreviated)
  &lt;colgroup>&lt;col>&lt;col>&lt;col>
  &lt;thead>
@@ -360,7 +360,7 @@
    <p>Since the cells take up much less room this way, this can be made even terser by having each
    row on one line:</p>
 
-   <pre><code class="html" data-x="">&lt;table>
+   <pre><code class="html">&lt;table>
  &lt;caption>37547 TEE Electric Powered Rail Car Train Functions (Abbreviated)
  &lt;colgroup>&lt;col>&lt;col>&lt;col>
  &lt;thead>
@@ -386,13 +386,13 @@
    <p>Returning to the earlier example with all the whitespace removed and then all the optional
    tags removed:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>&lt;title>Hello&lt;/title>&lt;p>Welcome to this example.</code></pre>
+   <pre><code class="html">&lt;!DOCTYPE HTML>&lt;title>Hello&lt;/title>&lt;p>Welcome to this example.</code></pre>
 
    <p>If the <code>body</code> element in this example had to have a <code
    data-x="attr-class">class</code> attribute and the <code>html</code> element had to have a <code
    data-x="attr-lang">lang</code> attribute, the markup would have to become:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>&lt;html lang="en">&lt;title>Hello&lt;/title>&lt;body class="demo">&lt;p>Welcome to this example.</code></pre>
+   <pre><code class="html">&lt;!DOCTYPE HTML>&lt;html lang="en">&lt;title>Hello&lt;/title>&lt;body class="demo">&lt;p>Welcome to this example.</code></pre>
 
   </div>
 

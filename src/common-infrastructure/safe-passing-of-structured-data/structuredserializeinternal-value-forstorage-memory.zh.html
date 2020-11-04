@@ -1,6 +1,6 @@
-  <h4 id="structuredserializeinternal" data-noexport="" data-lt="StructuredSerializeInternal"
-  data-dfn-type="abstract-op"><dfn>StructuredSerializeInternal</dfn> ( <var>value</var>，
-  <var>forStorage</var> [ ，<var>memory</var> ] )</h4>
+  <h4 id="structuredserializeinternal" noexport data-lt="StructuredSerializeInternal"
+  abstract-op><dfn>StructuredSerializeInternal</dfn> ( <var>value</var>, <var>forStorage</var> [ ,
+  <var>memory</var> ] )</h4>
 
   <p><span>StructuredSerializeInternal</span> 抽象操作接受一个 JavaScript 值 <var>value</var> 作为输入，
   把它序列化为一个 <span data-x="JavaScript Realm">领域</span> 无关的形式，在这里表示为一个
@@ -24,7 +24,7 @@
    <li><p>令<var>deep</var> 为 false。</p></li>
 
    <li><p>如果 <span data-x="js-Type">Type</span>(<var>value</var>) 为 Undefined，Null，Boolean，
-   String 或 Number，则返回 { [[Type]]: "primitive"，[[Value]]: <var>value</var> }。</p></li>
+   Number，BigInt 或 String，则返回 { [[Type]]: "primitive"，[[Value]]: <var>value</var> }。</p></li>
 
    <li><p>如果 <span data-x="js-Type">Type</span>(<var>value</var>) 为 Symbol，则抛出一个
    <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
@@ -37,6 +37,9 @@
    <li><p>否则，如果 <var>value</var> 有一个 [[NumberData]] 内部槽，则把
    <var>serialized</var> 设置为 { [[Type]]: "Number",[[NumberData]]: <var>value</var>.[[NumberData]]
    }。</p></li>
+
+   <li><p>否则，如果 <var>value</var> 有一个 [[BigIntData]] 内部槽，则把
+   <var>serialized</var> 设置为 { [[Type]]: "BigInt", [[BigIntData]]: <var>value</var>.[[BigIntData]] }。</p></li>
 
    <li><p>否则，如果 <var>value</var> 有一个 [[StringData]] 内部槽，则把
    <var>serialized</var> 设置为 { [[Type]]: "String",[[StringData]]: <var>value</var>.[[StringData]]
@@ -61,13 +64,24 @@
       <p>如果 ! <span>IsSharedArrayBuffer</span>(<var>value</var>) 为 true，则：
 
       <ol>
+       <li><p>令 <var>agentCluster</var> 为 <span>surrounding agent</span> 的
+       <span>agent cluster</span>。</p></li>
+
+       <li>
+        <p>如果 <var>agentCluster</var> 的 <span data-x="cross-origin isolated">跨域隔离</span> 为 false，则抛出一个
+        <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p>
+
+        <p class="note">该检查只在序列化时需要（反序列化时不需要）。因为
+        <span data-x="cross-origin isolated">跨域隔离</span> 不会随着时间改变，而且
+        <code>SharedArrayBuffer</code> 不能离开 <span>agent cluster</span>。</p>
+       </li>
+
        <li><p>如果 <var>forStorage</var> 为 true，则抛出一个
        <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p></li>
 
        <li><p>把 <var>serialized</var> 设置为 { [[Type]]: "SharedArrayBuffer",[[ArrayBufferData]]:
        <var>value</var>.[[ArrayBufferData]],[[ArrayBufferByteLength]]: <var>size</var>,
-       [[AgentCluster]]: <span data-x="current Realm Record">当前领域记录</span> 对应的
-       <span data-x="agent cluster">代理集群</span> }。</p></li>
+       [[AgentCluster]]: <var>agentCluster</var> }。</p></li>
       </ol>
      </li>
 
@@ -148,6 +162,36 @@
    </li>
 
    <li>
+    <p>否则，如果 <var>value</var> 有 [[ErrorData]] 内部槽且 <var>value</var> 不是 <span data-x="platform object">平台对象</span>，那么：</p>
+    <!-- "is not a platform object" check is needed because DOMExceptions can have [[ErrorData]]
+         too -->
+
+    <ol>
+     <li><p>令 <var>name</var> 为 ? <span data-x="js-Get">Get</span>(<var>value</var>,
+     "name")。</p></li>
+
+     <li><p>如果 <var>name</var> 不是 "Error", "EvalError", "RangeError", "ReferenceError",
+     "SyntaxError", "TypeError" 或 "URIError"，则设置 <var>name</var> 为 "Error"。</p></li>
+
+     <li><p>令 <var>valueMessageDesc</var> 为 ? <var>value</var>.[[GetOwnProperty]]("<code
+     data-x="">message</code>")。</p></li>
+
+     <li><p>如果 <span>IsDataDescriptor</span>(<var>valueMessageDesc</var>) 为 false，
+     令 <var>message</var> 为 undefined，否则为 ? <span>ToString</span>(<var>valueMessageDesc</var>.[[Value]])。</p></li>
+
+     <li><p>设置 <var>serialized</var> 为 { [[Type]]: "Error", [[Name]]: <var>name</var>,
+     [[Message]]: <var>message</var> }。</p></li>
+
+     <li>
+      <p>用户代理应该把任何有用的还没标准化的附加数据都加到序列化表示 <var>serialized</var> 里，尤其是
+      <code data-x="">stack</code> 属性。</p>
+
+      <p class="note">该数据正在标准化，见 <cite>Error Stacks</cite> 提案。<ref spec=JSERRORSTACKS></p>
+     </li>
+    </ol>
+   </li>
+
+   <li>
     <p>否则，如果 <var>value</var> 是一个外来 Array 对象，那么：</p>
     <!-- IsArray supports proxies too，which we cannot -->
 
@@ -195,8 +239,9 @@
    </li>
 
    <li>
-    <p>否则，如果 <var>value</var> 是一个外来对象，则抛出一个
-    <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p>
+    <p>否则，如果 <var>value</var> 是一个外来对象且 <var>value</var> 不是
+    关联到任何 <span data-x="JavaScript realm">JavaScript realm</span> 的 <span>%Object.prototype%</span> intrinsic 对象，
+    则抛出一个 <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p>
 
     <p class="example">例如代理对象。</p>
    </li>
@@ -210,6 +255,9 @@
 
      <li><p>设置<var>deep</var> 为 true。</p></li>
     </ol>
+
+    <p class="note"><span>%Object.prototype%</span> 最终会被本步骤或后续步骤处理。
+    最终结果是它的外来属性被忽略，反序列化后结果将是一个空对象（而不是 <span data-x="immutable prototype exotic object">prototype 外部对象不变量</span>）。
    </li>
 
    <li><p><span data-x="map set">设置</span> <var>memory</var>[<var>value</var>] 为
@@ -293,11 +341,12 @@
       <p>否则，如果 <var>value</var> 是一个
       <span data-x="serializable objects">可序列化的</span>
       <span data-x="platform object">平台对象</span>，则给定
-      <var>value</var>，<var>serialized</var>，和 <var>forStorage</var> 执行适当的
+      <var>value</var>，<var>serialized</var>，和 <var>forStorage</var>，
+      为 <var>value</var> 的 <span>primary interface</span> 执行
       <span data-x="serialization steps">序列化步骤</span>。</p>
 
       <p><span data-x="serialization steps">序列化步骤</span> 可能需要执行一个 <dfn
-      data-export="" data-x="sub-serialization">字序列化</dfn>。
+      export data-x="sub-serialization">字序列化</dfn>。
       该操作接受 <var>subValue</var> 值作为输入，返回 <span>StructuredSerializeInternal</span>
       (<var>subValue</var>, <var>forStorage</var>,<var>memory</var>)。
       （换句话说，<span data-x="sub-serialization">子序列化</span> 是
@@ -305,57 +354,21 @@
      </li>
 
      <li>
-      <p>否则：
+      <p>否则，对 ! <span>EnumerableOwnPropertyNames</span>(<var>value</var>, <var>key</var>) 里的每个 <var>key</var> ：</p>
 
       <ol>
-       <li><p>令 <var>enumerableKeys</var> 为一个新的空 <span data-x="js-List">列表</span>。</p></li>
-
        <li>
-        <p>对 <var>value</var>.[[OwnPropertyKeys]]() 中的每一个 <var>key</var>：</p>
+        <p>如果 ! <span>HasOwnProperty</span>(<var>value</var>, <var>key</var>) 为 true，则：</p>
 
         <ol>
-         <li>
-          <p>如果 <span data-x="js-Type">Type</span>(<var>key</var>) 为 String，则：</p>
+         <li><p>令 <var>inputValue</var> 为 ? <var>value</var>.[[Get]](<var>key</var>, <var>value</var>)。</p></li>
 
-          <ol>
-           <li><p>令<var>valueDesc</var> 为 !
-           <var>value</var>.[[GetOwnProperty]](<var>key</var>)。</p></li>
+         <li><p>令 <var>outputValue</var> 为 ? <span>StructuredSerializeInternal</span>(<var>inputValue</var>, <var>forStorage</var>, <var>memory</var>)。</p></li>
 
-           <li><p>如果 <var>valueDesc</var>.[[Enumerable]] 为 true，则 <span data-x="list
-           append">追加</span> <var>key</var> 到 <var>enumerableKeys</var>。</p></li>
-          </ol>
-         </li>
-        </ol>
-       </li>
-
-       <li>
-        <p>对 <var>enumerableKeys</var> 中的每一个 <var>key</var> ：</p>
-
-        <ol>
-         <li>
-          <p>如果 ! <span>HasOwnProperty</span>(<var>value</var>,<var>key</var>) 为 true，则：</p>
-
-          <ol>
-           <li><p>令<var>inputValue</var> 为 ? <var>value</var>.[[Get]](<var>key</var>,
-           <var>value</var>)。</p></li>
-
-           <li><p>令<var>outputValue</var> 为 ?
-           <span>StructuredSerializeInternal</span>(<var>inputValue</var>,<var>forStorage</var>,
-           <var>memory</var>)。</p></li>
-
-           <li><p><span data-x="list append">追加</span> { [[Key]]: <var>key</var>,[[Value]]:
-           <var>outputValue</var> } 到 <var>serialized</var>.[[Properties]]。</p></li>
-          </ol>
-         </li>
+         <li><p>把 { [[Key]]: <var>key</var>, [[Value]]: <var>outputValue</var> } <span data-x="list append">加到</span> <var>serialized</var>.[[Properties]]。</p></li>
         </ol>
        </li>
       </ol>
-
-      <p class="note">
-      上面执行的键的集合非常类似于 JavaScript 规范的 <span>EnumerableOwnProperties</span> 操作，
-      但最关键的是它使用 [[OwnPropertyKeys]] 内部方法提供的确定性排序，
-      而不是像 <span>EnumerableOwnProperties</span> 那样以非未定义的方式对键进行重新排序。
-      <ref spec=JAVASCRIPT></p>
      </li>
     </ol>
    </li>
@@ -378,7 +391,7 @@ o.myself = o;</pre>
   [[Properties]]: «
     {
       [[Key]]: "myself",
-      [[Value]]: <i>&lt;一个指向整个结构的指针></i>
+      [[Value]]: <i>&lt;a pointer to this whole structure></i>
     }
   »
 }</samp></pre>

@@ -6,11 +6,15 @@
    <dd><span>Sectioning content</span>.</dd>
    <dd><span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
-   <dd>Where <span>flow content</span> is expected.</dd>
+   <dd>Where <span>sectioning content</span> is expected.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
    <dd><span>Flow content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-aside">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-aside">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -32,7 +36,7 @@
    <p>The following example shows how an aside is used to mark up background material on Switzerland
    in a much longer news story on Europe.</p>
 
-   <pre><code class="html" data-x="">&lt;aside>
+   <pre><code class="html">&lt;aside>
  &lt;h1>Switzerland&lt;/h1>
  &lt;p>Switzerland, a land-locked country in the middle of geographic
  Europe, has not joined the geopolitical European Union, though it is
@@ -46,7 +50,7 @@
    <p>The following example shows how an aside is used to mark up a pull quote in a longer
    article.</p>
 
-   <pre><code class="html" data-x="">...
+   <pre><code class="html">...
 
 &lt;p>He later joined a large company, continuing on the same work.
 &lt;q>I love my job. People ask me what I do for fun when I'm not at
@@ -72,7 +76,7 @@ isn't his only passion. He also enjoys other pleasures.&lt;/p>
    <p>The following extract shows how <code>aside</code> can be used for blogrolls and other side
    content on a blog:</p>
 
-   <pre><code class="html" data-x="">&lt;body>
+   <pre><code class="html">&lt;body>
  &lt;header>
   &lt;h1>My wonderful blog&lt;/h1>
   &lt;p>My tagline&lt;/p>
@@ -132,11 +136,9 @@ isn't his only passion. He also enjoys other pleasures.&lt;/p>
   &lt;/footer>
  &lt;/article>
  &lt;footer>
-  &lt;nav>
-   &lt;a href="/archives">Archives&lt;/a> &mdash;
-   &lt;a href="/about">About me&lt;/a> &mdash;
-   &lt;a href="/copyright">Copyright&lt;/a>
-  &lt;/nav>
+  &lt;p>&lt;a href="/archives">Archives&lt;/a> -
+   &lt;a href="/about">About me&lt;/a> -
+   &lt;a href="/copyright">Copyright&lt;/a>&lt;/p>
  &lt;/footer>
 &lt;/body></code></pre>
 

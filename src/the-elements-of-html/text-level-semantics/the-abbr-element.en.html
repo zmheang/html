@@ -12,14 +12,19 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd>Also, the <code data-x="attr-abbr-title">title</code> attribute <span data-x="attr-abbr-title">has special semantics</span> on this element.</dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-abbr">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-abbr">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
 
   <p>The <code>abbr</code> element <span>represents</span> an abbreviation or acronym, optionally
-  with its expansion. The <dfn><code data-x="attr-abbr-title">title</code></dfn> attribute may be
-  used to provide an expansion of the abbreviation. The attribute, if specified, must contain an
-  expansion of the abbreviation, and nothing else.</p>
+  with its expansion. The <dfn element-attr for="abbr"><code
+  data-x="attr-abbr-title">title</code></dfn> attribute may be used to provide an expansion of the
+  abbreviation. The attribute, if specified, must contain an expansion of the abbreviation, and
+  nothing else.</p>
 
   <div class="example">
 
@@ -27,19 +32,19 @@
    This paragraph <span data-x="defining term">defines the term</span> "Web Hypertext Application
    Technology Working Group".</p>
 
-   <pre><code class="html" data-x="">&lt;p>The &lt;dfn id=whatwg>&lt;abbr
+   <pre><code class="html">&lt;p>The &lt;dfn id=whatwg>&lt;abbr
 title="Web Hypertext Application Technology Working Group">WHATWG&lt;/abbr>&lt;/dfn>
-is a loose unofficial collaboration of Web browser manufacturers and
+is a loose unofficial collaboration of web browser manufacturers and
 interested parties who wish to develop new technologies designed to
 allow authors to write and deploy Applications over the World Wide
 Web.&lt;/p></code></pre>
 
    <p>An alternative way to write this would be:</p>
 
-   <pre><code class="html" data-x="">&lt;p>The &lt;dfn id=whatwg>Web Hypertext Application Technology
+   <pre><code class="html">&lt;p>The &lt;dfn id=whatwg>Web Hypertext Application Technology
 Working Group&lt;/dfn> (&lt;abbr
 title="Web Hypertext Application Technology Working Group">WHATWG&lt;/abbr>)
-is a loose unofficial collaboration of Web browser manufacturers and
+is a loose unofficial collaboration of web browser manufacturers and
 interested parties who wish to develop new technologies designed to
 allow authors to write and deploy Applications over the World Wide
 Web.&lt;/p></code></pre>
@@ -51,7 +56,7 @@ Web.&lt;/p></code></pre>
    <p>This paragraph has two abbreviations. Notice how only one is defined; the other, with no
    expansion associated with it, does not use the <code>abbr</code> element.</p>
 
-   <pre><code class="html" data-x="">&lt;p>The
+   <pre><code class="html">&lt;p>The
 &lt;abbr title="Web Hypertext Application Technology Working Group">WHATWG&lt;/abbr>
 started working on HTML5 in 2004.&lt;/p></code></pre>
 
@@ -61,7 +66,7 @@ started working on HTML5 in 2004.&lt;/p></code></pre>
 
    <p>This paragraph links an abbreviation to its definition.</p>
 
-   <pre><code class="html" data-x="">&lt;p>The &lt;a href="#whatwg">&lt;abbr
+   <pre><code class="html">&lt;p>The &lt;a href="#whatwg">&lt;abbr
 title="Web Hypertext Application Technology Working Group">WHATWG&lt;/abbr>&lt;/a>
 community does not have much representation from Asia.&lt;/p></code></pre>
 
@@ -72,7 +77,7 @@ community does not have much representation from Asia.&lt;/p></code></pre>
    <p>This paragraph marks up an abbreviation without giving an expansion, possibly as a hook to
    apply styles for abbreviations (e.g. smallcaps).</p>
 
-   <pre><code class="html" data-x="">&lt;p>Philip` and Dashiva both denied that they were going to
+   <pre><code class="html">&lt;p>Philip` and Dashiva both denied that they were going to
 get the issue counts from past revisions of the specification to
 backfill the &lt;abbr>WHATWG&lt;/abbr> issue graph.&lt;/p></code></pre>
 
@@ -85,13 +90,13 @@ backfill the &lt;abbr>WHATWG&lt;/abbr> issue graph.&lt;/p></code></pre>
 
    <p>Here the plural is outside the element, so the expansion is in the singular:</p>
 
-   <pre><code class="html" data-x="">&lt;p>Two &lt;abbr title="Working Group">WG&lt;/abbr>s worked on
+   <pre><code class="html">&lt;p>Two &lt;abbr title="Working Group">WG&lt;/abbr>s worked on
 this specification: the &lt;abbr>WHATWG&lt;/abbr> and the
 &lt;abbr>HTMLWG&lt;/abbr>.&lt;/p></code></pre>
 
    <p>Here the plural is inside the element, so the expansion is in the plural:</p>
 
-   <pre><code class="html" data-x="">&lt;p>Two &lt;abbr title="Working Groups">WGs&lt;/abbr> worked on
+   <pre><code class="html">&lt;p>Two &lt;abbr title="Working Groups">WGs&lt;/abbr> worked on
 this specification: the &lt;abbr>WHATWG&lt;/abbr> and the
 &lt;abbr>HTMLWG&lt;/abbr>.&lt;/p></code></pre>
 

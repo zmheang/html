@@ -1,0 +1,110 @@
+  <h5 id="rel-alternate">Link type "<dfn id="link-type-alternate"
+  for="link/rel,a/rel,area/rel" attr-value><code data-x="rel-alternate">alternate</code></dfn>"</h5>
+
+  <p><code data-x="rel-alternate">alternate</code> 关键字可用于 <code>link</code>, <code>a</code> 和 <code>area</code> 元素。</p>
+
+  <p>该关键的含义取决于其他属性的值。</p>
+
+  <dl class="switch">
+
+   <dt>如果是一个 <code>link</code> 元素且 <code data-x="attr-link-rel">rel</code> 属性包含关键字 <code data-x="rel-stylesheet">stylesheet</code></dt>
+
+   <dd>
+    <p><code data-x="rel-alternate">alternate</code> 关键字会更改 <code data-x="rel-stylesheet">stylesheet</code> 关键字的含义（见它的说明）。
+    <code data-x="rel-alternate">alternate</code> 关键字自己不会创建链接。</p>
+
+    <div class="example">
+
+     <p>下面的这些 <code>link</code> 元素提供了一些样式表：</p>
+
+     <pre><code class="html">&lt;!-- a persistent style sheet -->
+&lt;link rel="stylesheet" href="default.css">
+
+&lt;!-- the preferred alternate style sheet -->
+&lt;link rel="stylesheet" href="green.css" title="Green styles">
+
+&lt;!-- some alternate style sheets -->
+&lt;link rel="alternate stylesheet" href="contrast.css" title="High contrast">
+&lt;link rel="alternate stylesheet" href="big.css" title="Big fonts">
+&lt;link rel="alternate stylesheet" href="wide.css" title="Wide screen"></code></pre>
+
+    </div>
+   </dd>
+
+
+   <dt>如果 <code data-x="rel-alternate">alternate</code> 关键字用于 <code
+   data-x="attr-hyperlink-type">type</code> 属性值为 <code data-x="">application/rss+xml</code> 或 <code data-x="">application/atom+xml</code></dt> 的情况
+
+   <dd>
+    <p>该关键字创建了一个 <span data-x="hyperlink">超链接</span> 指向聚合 feed（不一定需要发布和当前页面同样的内容）。</p>
+
+    <div w-nodev>
+
+    <p>为了 feed 自动发现，用户代理应该考虑文档里所有使用了 <code data-x="rel-alternate">alternate</code> 关键字，
+    并且 <code data-x="attr-hyperlink-type">type</code> 属性值为 <code data-x="">application/rss+xml</code> 或 <code
+    data-x="">application/atom+xml</code> 的 <code>link</code> 元素。
+    如果用户代理有默认 feed 聚合的概念，应该默认使用（<span data-x="tree order">按照树序</span>）第一个这样的元素。</p>
+
+    </div>
+
+    <div class="example">
+     <p>下面的 <code>link</code> 元素给出了一个博客的 feed 聚合：</p>
+
+     <pre><code class="html">&lt;link rel="alternate" type="application/atom+xml" href="posts.xml" title="Cool Stuff Blog">
+&lt;link rel="alternate" type="application/atom+xml" href="posts.xml?category=robots" title="Cool Stuff Blog: robots category">
+&lt;link rel="alternate" type="application/atom+xml" href="comments.xml" title="Cool Stuff Blog: Comments"></code></pre>
+
+     <p>这样的 <code>link</code> 元素应该用于用户代理自动发现 feed，且第一个（如果可用的话）为默认值。</p>
+
+     <p>下面的例子使用 <code>a</code> 元素给用户提供了多种不同的 feed 聚合：</p>
+
+     <pre><code class="html">&lt;p>You can access the planets database using Atom feeds:&lt;/p>
+&lt;ul>
+ &lt;li>&lt;a href="recently-visited-planets.xml" rel="alternate" type="application/atom+xml">Recently Visited Planets&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="known-bad-planets.xml" rel="alternate" type="application/atom+xml">Known Bad Planets&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="unexplored-planets.xml" rel="alternate" type="application/atom+xml">Unexplored Planets&lt;/a>&lt;/li>
+&lt;/ul></code></pre>
+
+     <p>这些链接不会被用于 feed 自动发现。</p>
+    </div>
+   </dd>
+
+
+   <dt>否则</dt>
+
+   <dd>
+    <p>该关键字将创建一个 <span data-x="hyperlink">超链接</span> 指向当前文档的另一种表示。</p>
+
+    <p>被引用文档的特征由 <code data-x="attr-hyperlink-hreflang">hreflang</code> 和 <code
+    data-x="attr-hyperlink-type">type</code> 属性给出。</p>
+
+    <p>如果 <code data-x="rel-alternate">alternate</code> 关键字和
+    <code data-x="attr-hyperlink-hreflang">hreflang</code> 属性一起使用，
+    且该属性的值与 <span data-x="document element">文档元素</span> 的 <span data-x="language">语言</span> 不同，
+    它表示被引用文档是一个翻译版本。</p>
+
+    <p>如果 <code data-x="rel-alternate">alternate</code> 关键字和
+    <code data-x="attr-hyperlink-type">type</code> 属性一起使用，它表示被引用文档是当前文档的另一种格式的版本。</p>
+
+    <p><code data-x="attr-hyperlink-hreflang">hreflang</code> 和 <code
+    data-x="attr-hyperlink-type">type</code> 属性可以和 <code data-x="rel-alternate">alternate</code> 关键字一起使用。</p>
+
+    <div class="example">
+
+     <p>下面的例子展示了如何指定当前页面的其他格式版本，其他语言版本，以及为其他媒体准备的版本：</p>
+
+     <pre><code class="html">&lt;link rel=alternate href="/en/html" hreflang=en type=text/html title="English HTML">
+&lt;link rel=alternate href="/fr/html" hreflang=fr type=text/html title="French HTML">
+&lt;link rel=alternate href="/en/html/print" hreflang=en type=text/html media=print title="English HTML (for printing)">
+&lt;link rel=alternate href="/fr/html/print" hreflang=fr type=text/html media=print title="French HTML (for printing)">
+&lt;link rel=alternate href="/en/pdf" hreflang=en type=application/pdf title="English PDF">
+&lt;link rel=alternate href="/fr/pdf" hreflang=fr type=application/pdf title="French PDF"></code></pre>
+
+    </div>
+
+    <p>这一关系具有传递性 &mdash; 也就是说如果一篇文档使用 "<code data-x="rel-alternate">alternate</code>" 链接到另外两篇文档，
+    那么意味着那两篇文档是第一篇文档的替代表示，也意味着那两篇文档互相为替代表示。</p>
+   </dd>
+  </dl>
+
+

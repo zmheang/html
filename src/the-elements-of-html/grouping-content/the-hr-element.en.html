@@ -9,11 +9,18 @@
    <dd><span data-x="concept-content-nothing">Nothing</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-hr">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-hr">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLHRElement</dfn> : <span>HTMLElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLHRElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
+  // <a href="#HTMLHRElement-partial">also has obsolete members</a>
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLHRElement</code>.</dd>
   </dl>
@@ -27,7 +34,7 @@ interface <dfn>HTMLHRElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    <p>The following fictional extract from a project manual shows two sections that use the
    <code>hr</code> element to separate topics within the section.</p>
 
-   <pre><code class="html" data-x="">&lt;section>
+   <pre><code class="html">&lt;section>
  &lt;h1>Communication&lt;/h1>
  &lt;p>There are various methods of communication. This section
  covers a few of the important ones used by the project.&lt;/p>
@@ -77,7 +84,7 @@ interface <dfn>HTMLHRElement</dfn> : <span>HTMLElement</span> {};</code></pre>
 
    <!-- ISBN 1-4050-0020-1; bottom of page 14 -->
 
-   <pre lang="en-GB"><code class="html" data-x="">&lt;p>Dudley was ninety-two, in his second life, and fast approaching
+   <pre lang="en-GB"><code class="html">&lt;p>Dudley was ninety-two, in his second life, and fast approaching
 time for another rejuvenation. Despite his body having the physical
 age of a standard fifty-year-old, the prospect of a long degrading
 campaign within academia was one he regarded with dread. For a

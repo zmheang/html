@@ -1,14 +1,38 @@
   <h4 id="read-ua-inline"><dfn data-x="navigate-ua-inline">Page load processing model for inline
   content that doesn't have a DOM</dfn></h4>
 
-  <p>When the user agent is to display a user agent page inline in a <span>browsing context</span>,
-  the user agent should create a <code>Document</code> object, mark it as being an <span
-  data-x="HTML documents">HTML document</span>, set its <span
-  data-x="concept-document-content-type">content type</span> to "<code data-x="">text/html</code>",
-  <span>initialize the <code>Document</code> object</span>, and then either associate that
-  <code>Document</code> with a custom rendering that is not rendered using the normal
-  <code>Document</code> rendering rules, or mutate that <code>Document</code> until it represents
-  the content the user agent wants to render.</p>
+  <p>When the user agent is to display a user agent page inline, provided a <span>browsing
+  context</span> <var>browsingContext</var>, the user agent should:</p>
+
+  <ol>
+   <li>
+    <p>Let <var>navigationParams</var> be a new <span>navigation params</span> whose <span
+    data-x="navigation-params-request">request</span> is null, <span
+    data-x="navigation-params-response">response</span> is null, <span
+    data-x="navigation-params-origin">origin</span> is a new <span
+    data-x="concept-origin-opaque">opaque origin</span>, <span
+    data-x="navigation-params-sandboxing">final sandboxing flag set</span> is an empty set, <span
+    data-x="navigation-params-coop">cross-origin opener policy</span> is "<code
+    data-x="coop-unsafe-none">unsafe-none</code>", <span
+    data-x="navigation-params-reserved-environment">reserved environment</span> is null, <span
+    data-x="navigation-params-browsing-context">browsing context</span> is
+    <var>browsingContext</var>, and <span data-x="navigation-params-bc-switch-needed">browsing
+    context switch needed</span> is false.</p>
+
+    <p class="XXX">The algorithm called in the next step is not prepared to deal with a null <span
+    data-x="navigation-params-response">response</span>. Probably we should synthesize one
+    instead.</p>
+   </li>
+
+   <li><p>Let <var>document</var> be the result of <span
+   data-x="create-the-document-object">creating and initializing a <code>Document</code>
+   object</span> given "<code data-x="">html</code>", "<code data-x="">text/html</code>", and
+   <var>navigationParams</var>.</p></li>
+
+   <li><p>Either associate <var>document</var> with a custom rendering that is not rendered using
+   the normal <code>Document</code> rendering rules, or mutate <var>document</var> until it
+   represents the content the user agent wants to render.</p>
+  </ol>
 
   <!-- next two paragraphs are similar to the navigate-text section, keep them in sync -->
 
@@ -20,8 +44,8 @@
   passing in the newly-created <code>Document</code>.</p>
 
   <p>After creating the <code>Document</code> object, but potentially before the page has been
-  completely set up, the user agent must <span>update the session history with the new
-  page</span>.</p>
+  completely set up, the user agent must <span>update the session history with the new page</span>
+  given <var>navigationParams</var>.</p>
 
 
 

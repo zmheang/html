@@ -26,18 +26,23 @@
    <dd><code data-x="attr-media-controls">controls</code></dd>
    <dd><code data-x="attr-dim-width">width</code></dd>
    <dd><code data-x="attr-dim-height">height</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-video">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-video">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre class="idl">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-dim-width">width</span>;
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-dim-height">height</span>;
   readonly attribute unsigned long <span data-x="dom-video-videoWidth">videoWidth</span>;
   readonly attribute unsigned long <span data-x="dom-video-videoHeight">videoHeight</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-video-poster">poster</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-video-playsInline">playsInline</span>;
-};</pre>
+};</code></pre>
    </dd>
    <dd w-nohtml>Uses <code>HTMLVideoElement</code>.</dd>
   </dl>
@@ -51,13 +56,13 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <p><code>video</code> 元素表面上只有视频数据，但其中也可能包含一些音频数据。</p>
 
-  <p><code data-x="attr-media-src">src</code>，<code data-x="attr-media-preload">preload</code>，
-  <code data-x="attr-media-autoplay">autoplay</code>，<code data-x="attr-media-loop">loop</code>，
-  <code data-x="attr-media-muted">muted</code>，以及 <code
+  <p><code data-x="attr-media-src">src</code>，<code data-x="attr-media-crossorigin">crossorigin</code>，
+  <code data-x="attr-media-preload">preload</code>， <code data-x="attr-media-autoplay">autoplay</code>，
+  <code data-x="attr-media-loop">loop</code>， <code data-x="attr-media-muted">muted</code>，以及 <code
   data-x="attr-media-controls">controls</code> 属性是<span data-x="media element
   attributes">媒体元素的共有属性</span>。</p>
 
-  <p><dfn><code data-x="attr-video-poster">poster</code></dfn> 属性提供图片文件的 <span>URL</span>，用于在浏览器没有视频数据可用时显示。该属性的值必需是一个<span data-x="valid non-empty URL potentially surrounded by
+  <p><dfn element-attr for="video"><code data-x="attr-video-poster">poster</code></dfn> 属性提供图片文件的 <span>URL</span>，用于在浏览器没有视频数据可用时显示。该属性的值必需是一个<span data-x="valid non-empty URL potentially surrounded by
   spaces">可能由空格包裹的合法的非空 URL</span>。</p>
 
   <div w-nodev>
@@ -67,7 +72,6 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
   to the base URL. -->
 
   <ol>
-
    <li><p>如果 <code>video</code> 元素已经有一个此类型的算法实例在运行，在不改变当前 <span>poster
    frame</span> 的情况下终止该算法实例。</p></li>
 
@@ -77,7 +81,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
    data-x="attr-video-poster">poster</code> 属性的值。如果解析失败，那么便没有 <span>poster frame</span>；返回。</p></li>
 
    <li><p>新建一个<span data-x="concept-request">请求</span>，其
-   <span data-x="concept-request-url">url</span> 是 <span>resulting URL record</span>，<span data-x="concept-request-client">客户端</span>是元素的<span data-x="node document">节点文档</span>的<code data-x="Window">窗口</code>对象的<span data-x="environment settings object">环境设置对象</span>，<span data-x="concept-request-destination">请求目的</span>是"<code data-x="">image</code>"，<span data-x="concept-request-credentials-mode">凭据模式</span>是 "<code data-x="">include</code>"，并且设置其 <span data-x="use-URL-credentials flag">use-URL-credentials 标志位</span>。
+   <span data-x="concept-request-url">url</span> 是 <span>resulting URL record</span>，<span data-x="concept-request-client">客户端</span>是元素的<span data-x="node document">节点文档</span> 的 <span data-x="relevant settings object">相关设置对象</span>，<span data-x="concept-request-destination">请求目的</span>是"<code data-x="">image</code>"，<span data-x="concept-request-credentials-mode">凭据模式</span>是 "<code data-x="">include</code>"，并且设置其 <span data-x="use-URL-credentials flag">use-URL-credentials 标志位</span>。
 
    <!--FETCH--><li><p><span data-x="concept-fetch">获取</span><var>请求</var>。这个请求应当<span data-x="delay the load event">延迟文档节点的加载事件</span>。</p></li>
 
@@ -91,7 +95,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <p class="note"><code data-x="attr-video-poster">poster</code> 属性提供的图片（<i data-x="poster frame">poster frame</i>），旨在为用户提供一个该视频的大体印象。</p>
 
-  <p><dfn><code data-x="attr-video-playsinline">playsinline</code></dfn> 属性是一个<span data-x="boolean attribute">布尔属性</span>。如果展现该属性，则表明希望浏览器默认以“内联”的形式播放视频，”内联“是指限制在视频元素所在的区域播放，而不是直接全屏播放或者位于一个独立的可随意调整大小的窗口中。</p>
+  <p><dfn element-attr for="video"><code data-x="attr-video-playsinline">playsinline</code></dfn> 属性是一个<span data-x="boolean attribute">布尔属性</span>。如果展现该属性，则表明希望浏览器默认以“内联”的形式播放视频，”内联“是指限制在视频元素所在的区域播放，而不是直接全屏播放或者位于一个独立的可随意调整大小的窗口中。</p>
 
   <p class="note">没有显式地声明 <code data-x="attr-video-playsinline">playsinline</code> 属性并不意味着视频会默认全屏播放，这完全由浏览器决定。实际上大多数浏览器更倾向于默认以“内联”的形式播放视频，因此在那些浏览器中，加不加 <code
   data-x="attr-video-playsinline">playsinline</code> 属性都是一样的。</p>
@@ -195,7 +199,8 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <p><dfn><code data-x="dom-video-videoWidth">videoWidth</code></dfn> IDL 属性必须返回以 <span data-x="'px'">CSS 像素</span>为单位的视频<span data-x="concept-video-intrinsic-width">固有宽度</span>。 <dfn><code data-x="dom-video-videoHeight">videoHeight</code></dfn> IDL 属性必须返回以 <span data-x="'px'">CSS 像素</span>为单位的视频<span data-x="concept-video-intrinsic-height">固有高度</span>。如果一个元素的 <code data-x="dom-media-readyState">readyState</code> 属性是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么两个属性都必须返回 0。</p>
 
-  <p id="dimUpdate">无论何时，当视频的<span data-x="concept-video-intrinsic-width">固有宽度</span>或者<span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，那么浏览器必须<span data-x="queue a task">启动一项任务</span>来<span data-x="concept-event-fire">触发</span><span data-x="media element">媒体元素上的</span> <code data-x="event-media-resize">resize</code> 事件。</p>
+  <p id="dimUpdate">无论何时，当视频的<span data-x="concept-video-intrinsic-width">固有宽度</span>或者<span data-x="concept-video-intrinsic-height">固有高度</span>改变时，（比如因为 <span data-x="dom-VideoTrack-selected">selected video track</span> 改变），如果此时元素的 <code data-x="dom-media-readyState">readyState</code> 属性不是 <code data-x="dom-media-HAVE_NOTHING">HAVE_NOTHING</code>，
+  那么浏览器必须 <span data-x="queue a media element task">入队一个媒体元素任务</span>（指定元素为 <span data-x="media element">媒体元素</span>）来<span data-x="concept-event-fire">触发</span><span data-x="media element">媒体元素上的</span> <code data-x="event-media-resize">resize</code> 事件。</p>
 
   </div>
 
@@ -221,10 +226,6 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <p>video 元素的<span data-x="default object size">默认尺寸大小</span>是宽 300 <span data-x="'px'">像素</span>，高 150 <span data-x="'px'">像素</span>。 <ref spec=CSSIMAGES></p>
 
-  <p>A <code>video</code> element is said to <dfn>intersect the viewport</dfn> when it is
-  <span>being rendered</span> and its associated CSS layout box intersects the
-  <span>viewport</span>.</p>
-
   <hr>
 
   <p>浏览器应当提供控制字幕的显隐，音频以及其他视频附加数据的功能，并且这些功能应该不会影响页面的正常渲染。</p>
@@ -235,7 +236,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-video-poster">poster</code></dfn> IDL attribute must
+  <p>The <dfn attribute for="HTMLVideoElement"><code data-x="dom-video-poster">poster</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-video-poster">poster</code> content attribute.</p>
 
   <p>The <dfn><code data-x="dom-video-playsInline">playsInline</code></dfn> IDL attribute must
@@ -248,7 +249,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
 
    <p>以下示例说明当视频播放失败时如何检测：</p>
 
-   <pre>&lt;script>
+   <pre><code class="html">&lt;script>
  function failed(e) {
    // video playback failed - show a message saying why
    switch (e.target.error.code) {
@@ -271,7 +272,7 @@ interface <dfn>HTMLVideoElement</dfn> : <span>HTMLMediaElement</span> {
  }
 &lt;/script>
 &lt;p>&lt;video src="tgif.vid" autoplay controls onerror="failed(event)">&lt;/video>&lt;/p>
-&lt;p>&lt;a href="tgif.vid">Download the video file&lt;/a>.&lt;/p></pre>
+&lt;p>&lt;a href="tgif.vid">Download the video file&lt;/a>.&lt;/p></code></pre>
 
   </div>
 

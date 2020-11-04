@@ -1,0 +1,133 @@
+  <h4>Sites</h4>
+
+  <p>A <dfn>scheme-and-host</dfn> is a <span>tuple</span> of a <span
+  data-x="concept-url-scheme">scheme</span> and a <span data-x="concept-host">host</span>.</p>
+
+  <p>A <dfn export>site</dfn> is an <span data-x="concept-origin-opaque">opaque origin</span> or a
+  <span>scheme-and-host</span>.</p>
+
+  <p>To <dfn export>obtain a site</dfn>, given an origin <var>origin</var>, run these steps:</p>
+
+  <ol>
+   <li><p>If <var>origin</var> is an <span data-x="concept-origin-opaque">opaque origin</span>, then
+   return <var>origin</var>.</p></li>
+
+   <li><p>If <var>origin</var>'s <span data-x="concept-origin-host">host</span>'s <span>registrable
+   domain</span> is null, then return (<var>origin</var>'s <span
+   data-x="concept-origin-scheme">scheme</span>, <var>origin</var>'s <span
+   data-x="concept-origin-host">host</span>).</p></li>
+
+   <li><p>Return (<var>origin</var>'s <span data-x="concept-origin-scheme">scheme</span>,
+   <var>origin</var>'s <span data-x="concept-origin-host">host</span>'s <span>registrable
+   domain</span>).</p></li>
+  </ol>
+
+  <p>Two <span data-x="origin">origins</span>, <var>A</var> and <var>B</var>, are said to be <dfn
+  export>schemelessly same site</dfn> if the following algorithm returns true:</p>
+
+  <ol>
+   <li><p>If <var>A</var> and <var>B</var> are the same <span data-x="concept-origin-opaque">opaque
+   origin</span>, then return true.</p></li>
+
+   <li>
+    <p>If <var>A</var> and <var>B</var> are both <span data-x="concept-origin-tuple">tuple
+    origins</span>, then:</p>
+
+    <ol>
+     <li><p>Let <var>hostA</var> be <var>A</var>'s <span
+     data-x="concept-origin-host">host</span>, and let <var>hostB</var> be <var>B</var>'s <span
+     data-x="concept-origin-host">host</span>.</p></li>
+
+     <li><p>If <var>hostA</var> <span data-x="host equals">equals</span> <var>hostB</var> and
+     <var>hostA</var>'s <span>registrable domain</span> is null, then return true.</p></li>
+
+     <li><p>If <var>hostA</var>'s <span>registrable domain</span> <span data-x="host
+     equals">equals</span> <var>hostB</var>'s <span>registrable domain</span> and is non-null, then
+     return true.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Return false.</p></li>
+  </ol>
+
+  <p>Two <span data-x="origin">origins</span>, <var>A</var> and <var>B</var>, are said to be <dfn
+  export>same site</dfn> if both of the following statements are true:</p>
+
+  <ul>
+   <li><p><var>A</var> and <var>B</var> are <span>schemelessly same site</span></p></li>
+
+   <li><p><var>A</var> and <var>B</var> are either both <span data-x="concept-origin-opaque">opaque
+   origins</span>, or both <span data-x="concept-origin-tuple">tuple origins</span> with the same
+   <span data-x="concept-origin-scheme">scheme</span></p></li>
+  </ul>
+
+  <p class="note">Unlike the <span>same origin</span> and <span>same origin-domain</span> concepts,
+  for <span>schemelessly same site</span> and <span>same site</span>, the <span
+  data-x="concept-origin-port">port</span> and <span data-x="concept-origin-domain">domain</span>
+  components are ignored.</p>
+
+  <p class="warning">For the reasons <a
+  href="https://url.spec.whatwg.org/#warning-avoid-psl">explained in <cite>URL</cite></a>, the
+  <span>same site</span> and <span>schemelessly same site</span> concepts should be avoided when
+  possible, in favor of <span>same origin</span> checks.</p>
+
+  <div class="example" id="example-same-site">
+  <p>Given that <code data-x="">wildlife.museum</code>, <code data-x="">museum</code>, and
+  <code data-x="">com</code> are <span data-x="public suffix">public suffixes</span> and that
+  <code data-x="">example.com</code> is not:</p>
+
+   <table>
+    <tr>
+     <th><var>A</var>
+     <th><var>B</var>
+     <th><span>schemelessly same site</span>
+     <th><span>same site</span>
+    <tr>
+     <td>("<code data-x="">https</code>", "<code data-x="">example.com</code>")
+     <td>("<code data-x="">https</code>", "<code data-x="">sub.example.com</code>")
+     <td>✅
+     <td>✅
+    <tr>
+     <td>("<code data-x="">https</code>", "<code data-x="">example.com</code>")
+     <td>("<code data-x="">https</code>", "<code data-x="">sub.other.example.com</code>")
+     <td>✅
+     <td>✅
+    <tr>
+     <td>("<code data-x="">https</code>", "<code data-x="">example.com</code>")
+     <td>("<code data-x="">http</code>", "<code data-x="">non-secure.example.com</code>")
+     <td>✅
+     <td>❌
+    <tr>
+     <td>("<code data-x="">https</code>", "<code data-x="">r.wildlife.museum</code>")
+     <td>("<code data-x="">https</code>", "<code data-x="">sub.r.wildlife.museum</code>")
+     <td>✅
+     <td>✅
+    <tr>
+     <td>("<code data-x="">https</code>", "<code data-x="">r.wildlife.museum</code>")
+     <td>("<code data-x="">https</code>", "<code data-x="">sub.other.r.wildlife.museum</code>")
+     <td>✅
+     <td>✅
+    <tr>
+     <td>("<code data-x="">https</code>", "<code data-x="">r.wildlife.museum</code>")
+     <td>("<code data-x="">https</code>", "<code data-x="">other.wildlife.museum</code>")
+     <td>❌
+     <td>❌
+    <tr>
+     <td>("<code data-x="">https</code>", "<code data-x="">r.wildlife.museum</code>")
+     <td>("<code data-x="">https</code>", "<code data-x="">wildlife.museum</code>")
+     <td>❌
+     <td>❌
+    <tr>
+     <td>("<code data-x="">https</code>", "<code data-x="">wildlife.museum</code>")
+     <td>("<code data-x="">https</code>", "<code data-x="">wildlife.museum</code>")
+     <td>✅
+     <td>✅
+   </table>
+
+   <p>(Here we have omitted the <span data-x="concept-origin-port">port</span> and <span
+   data-x="concept-origin-domain">domain</span> components since they are not considered.)</p>
+  </div>
+
+  </div>
+
+

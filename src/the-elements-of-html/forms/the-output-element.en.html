@@ -15,11 +15,16 @@
    <dd><code data-x="attr-output-for">for</code></dd>
    <dd><code data-x="attr-fae-form">form</code></dd>
    <dd><code data-x="attr-fe-name">name</code> <!-- variant --> </dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-output">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-output">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-output-htmlFor">htmlFor</span>;
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-fae-form">form</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-fe-name">name</span>;
@@ -33,7 +38,7 @@ interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
   readonly attribute DOMString <span data-x="dom-cva-validationMessage">validationMessage</span>;
   boolean <span data-x="dom-cva-checkValidity">checkValidity</span>();
   boolean <span data-x="dom-cva-reportValidity">reportValidity</span>();
-  void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
+  undefined <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
 
   readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
 };</code></pre>
@@ -47,12 +52,12 @@ interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
   <p class="note">This element can be contrasted with the <code>samp</code> element, which is the
   appropriate element for quoting the output of other programs run previously.</p>
 
-  <p>The <dfn><code data-x="attr-output-for">for</code></dfn> content attribute allows an explicit
-  relationship to be made between the result of a calculation and the elements that represent the
-  values that went into the calculation or that otherwise influenced the calculation. The <code
-  data-x="attr-output-for">for</code> attribute, if specified, must contain a string consisting of
-  an <span>unordered set of unique space-separated tokens</span> that are
-  <span>case-sensitive</span>, each of which must have the value of an <span
+  <p>The <dfn element-attr for="output"><code data-x="attr-output-for">for</code></dfn> content
+  attribute allows an explicit relationship to be made between the result of a calculation and the
+  elements that represent the values that went into the calculation or that otherwise influenced the
+  calculation. The <code data-x="attr-output-for">for</code> attribute, if specified, must contain a
+  string consisting of an <span>unordered set of unique space-separated tokens</span>, none of which
+  are <span>identical to</span> another token and each of which must have the value of an <span
   data-x="concept-id">ID</span> of an element in the same <span>tree</span>.</p>
 
   <p>The <code data-x="attr-fae-form">form</code> attribute is used to explicitly associate the
@@ -64,89 +69,85 @@ interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
 
   <div w-nodev>
 
-  <p>The element has a <dfn data-x="concept-output-mode">value mode flag</dfn> which is either <i
-  data-x="concept-output-mode-value">value</i> or <i
-  data-x="concept-output-mode-default">default</i>. Initially, the <span
-  data-x="concept-output-mode">value mode flag</span> must be set to <i
-  data-x="concept-output-mode-default">default</i>.</p>
+  <p>The element has a <dfn data-x="concept-output-default-value-override">default value
+  override</dfn> (null or a string). Initially it must be null.</p>
 
-  <p>The element also has a <dfn data-x="concept-output-defaultValue">default value</dfn>.
-  Initially, the <span data-x="concept-output-defaultValue">default value</span> must be the empty
-  string.</p>
+  <p>The element's <dfn data-x="concept-output-default-value">default value</dfn> is determined by
+  the following steps:</p>
 
-  <p>When the <span data-x="concept-output-mode">value mode flag</span> is in mode <dfn><i
-  data-x="concept-output-mode-default">default</i></dfn>, the contents of the element represent both
-  the value of the element and its <span data-x="concept-output-defaultValue">default value</span>.
-  When the <span data-x="concept-output-mode">value mode flag</span> is in mode <dfn><i
-  data-x="concept-output-mode-value">value</i></dfn>, the contents of the element represent the
-  value of the element only, and the <span data-x="concept-output-defaultValue">default value</span>
-  is only accessible using the <code data-x="dom-output-defaultValue">defaultValue</code> IDL
-  attribute.</p>
+  <ol>
+   <li><p>If this element's <span data-x="concept-output-default-value-override">default value
+   override</span> is non-null, then return it.</p></li>
 
-  <p>Whenever the element's descendants are changed in any way, if the <span
-  data-x="concept-output-mode">value mode flag</span> is in mode <i
-  data-x="concept-output-mode-default">default</i>, the element's <span
-  data-x="concept-output-defaultValue">default value</span> must be set to the value of the
-  element's <code>textContent</code> IDL attribute.</p>
+   <li><p>Return this element's <span>descendant text content</span>.</p></li>
+  </ol>
 
   <p>The <span data-x="concept-form-reset-control">reset algorithm</span> for <code>output</code>
-  elements is to set the element's <span data-x="concept-output-mode">value mode flag</span> to <i
-  data-x="concept-output-mode-default">default</i> and then to set the element's
-  <code>textContent</code> IDL attribute to the value of the element's <span
-  data-x="concept-output-defaultValue">default value</span> (thus replacing the element's child
-  nodes).</p>
+  elements is to run these steps:
+
+  <ol>
+   <li><p><span>String replace all</span> with this element's <span
+   data-x="concept-output-default-value">default value</span> within this element.</p></li>
+
+   <li><p>Set this element's <span data-x="concept-output-default-value-override">default value
+   override</span> to null.</p></li>
+  </ol>
 
   </div>
 
   <dl class="domintro">
-
    <dt><var>output</var> . <code subdfn data-x="dom-output-value">value</code> [ = <var>value</var> ]</dt>
-
    <dd>
-
     <p>Returns the element's current value.</p>
 
     <p>Can be set, to change the value.</p>
-
    </dd>
 
    <dt><var>output</var> . <code subdfn data-x="dom-output-defaultValue">defaultValue</code> [ = <var>value</var> ]</dt>
-
    <dd>
-
     <p>Returns the element's current default value.</p>
 
     <p>Can be set, to change the default value.</p>
-
    </dd>
 
    <dt><var>output</var> . <code subdfn data-x="dom-output-type">type</code></dt>
-
    <dd>
-
     <p>Returns the string "<code data-x="">output</code>".</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-output-value">value</code></dfn> IDL attribute must act like the
-  element's <code>textContent</code> IDL attribute, except that on setting, in addition, before the
-  child nodes are changed, the element's <span data-x="concept-output-mode">value mode flag</span>
-  must be set to <i data-x="concept-output-mode-value">value</i>.</p>
+  <p>The <dfn attribute for="HTMLOutputElement"><code data-x="dom-output-value">value</code></dfn>
+  attribute's getter must return this element's <span>descendant text content</span>.</p>
 
-  <p>The <dfn><code data-x="dom-output-defaultValue">defaultValue</code></dfn> IDL attribute, on
-  getting, must return the element's <span data-x="concept-output-defaultValue">default
-  value</span>. On setting, the attribute must set the element's <span
-  data-x="concept-output-defaultValue">default value</span>, and, if the element's <span
-  data-x="concept-output-mode">value mode flag</span> is in the mode <i
-  data-x="concept-output-mode-default">default</i>, set the element's <code>textContent</code> IDL
-  attribute as well.</p>
+  <p>The <code data-x="dom-output-value">value</code> attribute's setter must run these steps:</p>
 
-  <p>The <dfn><code data-x="dom-output-type">type</code></dfn> attribute must return the string
-  "<code data-x="">output</code>".</p>
+  <ol>
+   <li><p>Set this element's <span data-x="concept-output-default-value-override">default value
+   override</span> to its <span data-x="concept-output-default-value">default value</span>.</p></li>
+
+   <li><p><span>String replace all</span> with the given value within this element.</p></li>
+  </ol>
+
+  <p>The <dfn><code data-x="dom-output-defaultValue">defaultValue</code></dfn> attribute's getter
+  must return the result of running this element's <span
+  data-x="concept-output-default-value">default value</span>.</p>
+
+  <p>The <code data-x="dom-output-defaultValue">defaultValue</code> attribute's setter must run
+  these steps:</p>
+
+  <ol>
+   <li><p>If this element's <span data-x="concept-output-default-value-override">default value
+   override</span> is null, then <span>string replace all</span> with the given value within this
+   element and return.</p></li>
+
+   <li><p>Set this element's <span data-x="concept-output-default-value-override">default value
+   override</span> to the given value.</p></li>
+  </ol>
+
+  <p>The <dfn attribute for="HTMLOutputElement"><code data-x="dom-output-type">type</code></dfn>
+  attribute's getter must return "<code data-x="">output</code>".</p>
 
   <p>The <dfn><code data-x="dom-output-htmlFor">htmlFor</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-output-for">for</code> content attribute.</p>
@@ -168,7 +169,7 @@ interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
 
    <p>A simple calculator could use <code>output</code> for its display of calculated results:</p>
 
-   <pre><code class="html" data-x="">&lt;form onsubmit="return false" oninput="o.value = a.valueAsNumber + b.valueAsNumber">
+   <pre><code class="html">&lt;form onsubmit="return false" oninput="o.value = a.valueAsNumber + b.valueAsNumber">
  &lt;input id=a type=number step=any> +
  &lt;input id=b type=number step=any> =
  &lt;output id=o for="a b">&lt;/output>
@@ -181,7 +182,7 @@ interface <dfn>HTMLOutputElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, an <code>output</code> element is used to report the results of a calculation performed by a remote
    server, as they come in:</p>
 
-   <pre><code class="html" data-x="">&lt;output id="result">&lt;/output>
+   <pre><code class="html">&lt;output id="result">&lt;/output>
 &lt;script>
  var primeSource = new WebSocket('ws://primes.example.net/');
  primeSource.onmessage = function (event) {

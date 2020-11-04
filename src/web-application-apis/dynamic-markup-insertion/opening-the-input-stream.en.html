@@ -1,18 +1,13 @@
   <h4>Opening the input stream</h4>
 
   <dl class="domintro">
-   <dt><var>document</var> = <var>document</var> . <code subdfn data-x="dom-document-open">open</code>( [ <var>type</var> [, <var>replace</var> ] ] )</dt>
+   <dt><var>document</var> = <var>document</var> . <code subdfn data-x="dom-document-open">open</code>( )</dt>
    <dd>
     <p>Causes the <code>Document</code> to be replaced in-place, as if it was a new
     <code>Document</code> object, but reusing the previous object, which is then returned.</p>
 
     <p>The resulting <code>Document</code> has an HTML parser associated with it, which can be given
-    data to parse using <code data-x="dom-document-write">document.write()</code>. (The
-    <var>type</var> argument is ignored.)</p>
-
-    <p>If the <var>replace</var> argument is present and has the value "<code
-    data-x="">replace</code>", the existing entries in the session history for the
-    <code>Document</code> object are removed.</p>
+    data to parse using <code data-x="dom-document-write">document.write()</code>.</p>
 
     <p>The method has no effect if the <code>Document</code> is still being parsed.</p>
 
@@ -30,14 +25,16 @@
   <div w-nodev>
 
   <p><code>Document</code> objects have an <dfn>ignore-opens-during-unload counter</dfn>, which is
-  used to prevent scripts from invoking the <code
-  data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> method
-  (directly or indirectly) while the document is <span data-x="unload a document">being
-  unloaded</span>. Initially, the counter must be set to zero.</p> <!--
-  https://www.hixie.ch/tests/adhoc/dom/level0/document/open/unload/ -->
+  used to prevent scripts from invoking the <code data-x="dom-document-open">document.open()</code>
+  method (directly or indirectly) while the document is <span data-x="unload a document">being
+  unloaded</span>. Initially, the counter must be set to zero.</p>
 
-  <p>The <dfn>document open steps</dfn>, given a <var>document</var> and <var>replaceInput</var>,
-  are as follows:</p>
+  <p><code>Document</code> objects have an <dfn>active parser was aborted</dfn> boolean, which is
+  used to prevent scripts from invoking the <code data-x="dom-document-open">document.open()</code>
+  and <code data-x="dom-document-write">document.write()</code> methods (directly or indirectly)
+  after the document's <span>active parser</span> has been aborted. It is initially false.</p>
+
+  <p>The <dfn>document open steps</dfn>, given a <var>document</var>, are as follows:</p>
 
   <ol>
    <li><p>If <var>document</var> is an <span data-x="XML documents">XML document</span>, then throw
@@ -47,125 +44,93 @@
    than 0, then throw an <span>"<code>InvalidStateError</code>"</span>
    <code>DOMException</code>.</p></li>
 
-   <li><p>If <var>document</var> is not an <span>active document</span>, then return
-   <var>document</var>.</p></li>
+   <li><p>Let <var>entryDocument</var> be the <span>entry global object</span>'s <span
+   data-x="concept-document-window">associated <code>Document</code></span>.</p></li>
 
-   <li><p>If <var>document</var>'s <span>origin</span> is not <span>same origin</span> to the
-   <span>origin</span> of the <span>responsible document</span> specified by the <span>entry
-   settings object</span>, then throw a <span>"<code>SecurityError</code>"</span>
-   <code>DOMException</code>.</p></li>
+   <li><p>If <var>document</var>'s <span>origin</span> is not <span>same origin</span> to
+   <var>entryDocument</var>'s <span>origin</span>, then throw a
+   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li>
     <p>If <var>document</var> has an <span>active parser</span> whose <span>script nesting
     level</span> is greater than 0, then return <var>document</var>.</p>
 
-    <p class="note">This basically causes <code
-    data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> to be
-    ignored when it's called in an inline script found during parsing, while still letting it have
-    an effect when called from a non-parser task such as a timer callback or event handler.</p>
+    <p class="note">This basically causes <code data-x="dom-document-open">document.open()</code> to
+    be ignored when it's called in an inline script found during parsing, while still letting it
+    have an effect when called from a non-parser task such as a timer callback or event handler.</p>
    </li>
 
    <li>
     <p>Similarly, if <var>document</var>'s <span>ignore-opens-during-unload counter</span> is
     greater than 0, then return <var>document</var>.</p>
 
-    <p class="note">This basically causes <code
-    data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> to be
-    ignored when it's called from a <code data-x="event-beforeunload">beforeunload</code>, <code
+    <p class="note">This basically causes <code data-x="dom-document-open">document.open()</code> to
+    be ignored when it's called from a <code data-x="event-beforeunload">beforeunload</code>, <code
     data-x="event-pagehide">pagehide</code>, or <code data-x="event-unload">unload</code> event
     handler while the <code>Document</code> is being unloaded.</p>
    </li>
 
-   <li><p>Let <var>replace</var> be false.
-
    <li>
-    <p>If <var>replaceInput</var> is an <span>ASCII case-insensitive</span> match for "<code
-    data-x="">replace</code>", then set <var>replace</var> to true.</p>
+    <p>If <var>document</var>'s <span>active parser was aborted</span> is true, then return
+    <var>document</var>.</p>
 
-    <p>Otherwise, if <var>document</var>'s <span>browsing context</span>'s <span>session
-    history</span> contains only one <code>Document</code> object, and that was the
-    <code>about:blank</code> <code>Document</code> created when <var>document</var>'s <span>browsing
-    context</span> was <span data-x="creating a new browsing context">created</span>, and that
-    <code>Document</code> object has never had the <span>unload a document</span> algorithm invoked
-    on it (e.g., by a previous call to <code
-    data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code>), then set
-    <var>replace</var> to true.</p>
+    <p class="note">This notably causes <code data-x="dom-document-open">document.open()</code> to
+    be ignored if it is called after a <span data-x="navigate">navigation</span> has started, but
+    only during the initial parse. See <a href="https://github.com/whatwg/html/issues/4723">issue
+    #4723</a> for more background.</p>
    </li>
 
-   <li><p>Set <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state
-   to false.</p></li>
+   <li>
+    <p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> is
+    non-null and there is an existing attempt to <span>navigate</span> <var>document</var>'s <span
+    data-x="concept-document-bc">browsing context</span>, then <span>stop document loading</span>
+    given <var>document</var>.</p>
 
-   <li><p><span>Prompt to unload</span> <var>document</var>. If the user <span>refused to allow the
-   document to be unloaded</span>, then return <var>document</var>.</p></li>
-
-   <li><p><span data-x="unload a document">Unload</span> <var>document</var>, with the
-   <var>recycle</var> parameter set to true.</p></li>
-
-   <li><p><span data-x="abort a document">Abort</span> <var>document</var>.</p></li>
+    <p class="XXX"><a href="https://github.com/whatwg/html/issues/3447">Issue #3447</a> looks into
+    the distinction between an ongoing instance of the <span>navigate</span> algorithm versus tasks
+    to <span>navigate</span> that are still queued. For the purpose of implementing this step, both
+    an ongoing instance of the <span>navigate</span> algorithm and tasks queued to
+    <span>navigate</span> should be counted towards "an existing attempt to <span>navigate</span>,"
+    at least until that issue is resolved.</p>
+   </li>
 
    <li><p>For each <span>shadow-including inclusive descendant</span> <var>node</var> of
-   <var>document</var>, <span>remove all event listeners</span> with <var>node</var>.</p></li>
+   <var>document</var>, <span>erase all event listeners and handlers</span> given
+   <var>node</var>.</p></li>
 
-   <li><p>Remove any <span data-x="concept-task">tasks</span> associated with <var>document</var> in
-   any <span>task source</span>.</p></li>
-   <!-- removes callbacks that fired between this algorithm starting and the times and databases
-        being aborted in the "unload" step above -->
+   <li><p>If <var>document</var> is the <span data-x="concept-document-window">associated
+   <code>Document</code></span> of <var>document</var>'s <span>relevant global object</span>, then
+   <span>erase all event listeners and handlers</span> given <var>document</var>'s <span>relevant
+   global object</span>.</p></li>
 
    <li><p><span data-x="concept-node-replace-all">Replace all</span> with null within
    <var>document</var>, without firing any mutation events.</p></li>
 
    <li>
-    <p>Let <var>realm execution context</var> be the result of <span>creating a new JavaScript
-    realm</span> with the following customizations:</p>
+    <p>If <var>document</var> is <span>fully active</span>, then:</p>
 
-    <ul>
-     <li><p>For the global object, create a new <code>Window</code> object
-     <var>window</var>.</p></li>
+    <ol>
+     <li><p>Let <var>newURL</var> be a copy of <var>entryDocument</var>'s <span
+     data-x="concept-document-url">URL</span>.</p></li>
 
-     <li><p>For the global <b>this</b> binding, use <var>document</var>'s <span>browsing
-     context</span>'s associated <code>WindowProxy</code>.</p></li>
-    </ul>
+     <li><p>If <var>entryDocument</var> is not <var>document</var>, then set <var>newURL</var>'s
+     <span data-x="concept-url-fragment">fragment</span> to null.</p></li>
 
-    <p class="&#x0058;&#x0058;&#x0058;">This is not universally implemented and can perhaps be
-    removed; see <a href="https://github.com/whatwg/html/issues/1698">issue #1698</a>.</p>
+     <li><p>Run the <span>URL and history update steps</span> with <var>document</var> and
+     <var>newURL</var>.</p></li>
+    </ol>
    </li>
-
-   <li><p><span>Set up a window environment settings object</span> with <var>realm execution
-   context</var>.</p></li>
-
-   <li><p><span>Set the active document</span> of <var>document</var>'s <span>browsing
-   context</span> to <var>document</var> with <var>window</var>.</p></li>
-
-   <li><p>Replace <var>document</var>'s singleton objects with new instances of those objects,
-   created in <var>window</var>'s <span data-x="concept-global-object-realm">Realm</span>. (This
-   includes in particular the <code>History</code>, <code>ApplicationCache</code>, and
-   <code>Navigator</code>, objects, the various <code>BarProp</code> objects, the two
-   <code>Storage</code> objects, the various <code>HTMLCollection</code> objects, and objects
-   defined by other specifications, like <code>Selection</code>. It also includes all the Web IDL
-   prototypes in the JavaScript binding, including <var>document</var>'s prototype.)</p></li>
-
-   <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E...%3Ciframe%20src%3D%22document%22%3E%3C%2Fiframe%3E%0A%3Cscript%3Eonload%20%3D%20function%20()%20%7B%20f%20%3D%20document.getElementsByTagName('iframe')%5B0%5D%3B%20d%20%3D%20f.contentWindow.document%3B%20%7D%3C%2Fscript%3E%0A%3Cinput%20type%3Dbutton%20onclick%3D%22w(d.documentElement.innerHTML)%22%20value%3D%22dump%22%3E%0A%3Cinput%20type%3Dbutton%20onclick%3D%22d.open()%3B%20d.write('%3Cscript%3Evar%20x%20%3D%20new%20XMLHttpRequest()%3Bx.open(%26quot%3BGET%26quot%3B%2C%20%26quot%3BGET%26quot%3B)%3Bx.onreadystatechange%3Dfunction()%20%7B%20alert(x.readyState)%3B%20%7D%3Bx.send(null)%3B%3C%2Fscript%3E')%3Bd.close()%3B%20setTimeout(function()%20%7B%20d.open()%3B%20d.write('%3Cp%3Etest%3C%2Fp%3E')%3B%20d.close()%20%7D%2C%200)%3B%22%20value%3D%22xhr%22%3E%0A%3Cinput%20type%3Dbutton%20onclick%3D%22d.onclick%20%3D%20function()%20%7B%20w('click')%20%7D%22%20value%3D%22add%20click%20handler%22%3E%0A%3Cinput%20type%3Dbutton%20onclick%3D%22d.open()%3B%20d.write('%3Cp%3Etest%3C%2Fp%3E')%3B%20d.close()%22%20value%3D%22replace%22%3E%0A%3Cinput%20type%3Dbutton%20onclick%3D%22d.open()%3B%20d.write('%3Cp%3E%3Cscript%3Ei%20%3D%200%3B%20setTimeout(%26quot%3Bparent.w(i%2B%2B)%26quot%3B%2C%202000)%3C%2Fscript%3E%3C%2Fp%3E')%3B%20d.close()%22%20value%3D%22replace%20with%20timer%22%3E -->
-   <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E%0D%0A...%3Ciframe%3E%3C%2Fiframe%3E%0D%0A%3Cscript%3E%0D%0Aonload%20%3D%20function%20()%20%7B%0D%0A%20frames%5B0%5D.test%20%3D%201%0D%0A%20w(frames%5B0%5D.test)%3B%0D%0A%20var%20a%20%3D%20frames%5B0%5D.document.location.assign%3B%0D%0A%20w(a)%3B%0D%0A%20w(frames%5B0%5D.document.location.assign%20%3D%3D%3D%20a)%3B%0D%0A%20frames%5B0%5D.document.open()%3B%0D%0A%20frames%5B0%5D.document.write('%3Cscript%3Edocument.write(test)%3C%5C%2Fscript%3E')%3B%0D%0A%20frames%5B0%5D.document.close()%3B%0D%0A%20w(frames%5B0%5D.test)%3B%0D%0A%20w(frames%5B0%5D.document.location.assign%20%3D%3D%3D%20a)%3B%0D%0A%7D%0D%0A%3C%2Fscript%3E -->
-
-   <li><p>If <var>document</var> is <span>ready for post-load tasks</span>, then set
-   <var>document</var>'s <span>reload override flag</span> and set <var>document</var>'s
-   <span>reload override buffer</span> to the empty string.</p></li>
-
-   <li><p>Set <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state
-   back to true.</p></li>
-
-   <li><p>Change <var>document</var>'s <span data-x="concept-document-url">URL</span> to the
-   <span data-x="concept-document-url">URL</span> of the <span>responsible document</span> specified
-   by the <span>entry settings object</span>.</p></li>
 
    <!-- <span>the document's referrer</span> stays the same -->
 
    <li><p>If <var>document</var>'s <span>iframe load in progress</span> flag is set, then set
    <var>document</var>'s <span>mute iframe load</span> flag.</p></li>
 
+   <li><p>Set <var>document</var> to <span>no-quirks mode</span>.</p></li>
+
    <li><p>Create a new <span>HTML parser</span> and associate it with <var>document</var>. This is a
    <dfn>script-created parser</dfn> (meaning that it can be closed by the <code
-   data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> and <code
+   data-x="dom-document-open">document.open()</code> and <code
    data-x="dom-document-close">document.close()</code> methods, and that the tokenizer will wait for
    an explicit call to <code data-x="dom-document-close">document.close()</code> before emitting an
    end-of-file token). The encoding <span data-x="concept-encoding-confidence">confidence</span> is
@@ -174,54 +139,33 @@
    <li><p>Set the <span>current document readiness</span> of <var>document</var> to "<code
    data-x="">loading</code>".</p></li>
 
-   <li><p>Remove any <span data-x="concept-task">tasks</span> queued by the <span>history traversal
-   task source</span> that are associated with any <code>Document</code> objects in the
-   <span>top-level browsing context</span>'s <span>document family</span>.</p></li>
-
-   <li>
-    <p>Remove all the entries in the <span>browsing context</span>'s <span>session history</span>
-    after the <span>current entry</span>. If the <span>current entry</span> is the last entry in the
-    session history, then no entries are removed.</p>
-
-    <p class="note">This <a href="#history-notes">doesn't necessarily have to affect</a> the user
-    agent's user interface.</p>
-   </li>
-
-   <li><p>Remove any earlier entries whose <code>Document</code> object is
-   <var>document</var>.</p></li>
-
-   <li><p>If <var>replace</var> is false, then add a new entry, just before the last entry,
-   and associate with the new entry the text that was parsed by the previous parser associated with
-   <var>document</var>, as well as the state of <var>document</var> at the start of these steps.
-   This allows the user to step backwards in the session history to see the page before it was blown
-   away by the <code data-x="dom-document-open">document.open(<var>type</var>,
-   <var>replace</var>)</code> call. This new entry does not have a <code>Document</code> object, so
-   a new one will be created if the session history is traversed to that entry.</p></li>
-
-   <li><p>Set <var>document</var>'s <span>fired unload</span> flag to false. (It could have been set
-   to true during the <span data-x="unload a document">unload</span> step above.)</p></li>
-
    <li><p>Finally, set the <span>insertion point</span> to point at just before the end of the
    <span>input stream</span> (which at this point will be empty).</p></li>
 
    <li><p>Return <var>document</var>.</p></li>
   </ol>
 
-  <p>The <dfn data-x="dom-document-open"><code>open(<var>type</var>,
-  <var>replace</var>)</code></dfn> method must return the result of running the <span>document open
-  steps</span> with this <code>Document</code> object and <var>replace</var>.
+  <p class="note">The <span>document open steps</span> do not affect whether a <code>Document</code>
+  is <span>ready for post-load tasks</span> or <span>completely loaded</span>.</p>
 
-  <p class="note">The <var>type</var> argument is ignored. Also, the <code
-  data-x="dom-document-open">document.open(<var>type</var>, <var>replace</var>)</code> method does
-  not affect whether a <code>Document</code> is <span>ready for post-load tasks</span> or
-  <span>completely loaded</span>.</p>
+  <p>The <dfn data-x="dom-document-open"><code>open(<var>unused1</var>,
+  <var>unused2</var>)</code></dfn> method must return the result of running the <span>document open
+  steps</span> with this <code>Document</code> object.
+
+  <p class="note" id="dom-document-open-unused-arguments">The <var>unused1</var> and
+  <var>unused2</var> arguments are ignored, but kept in the IDL to allow code that calls the
+  function with one or two arguments to continue working. They are necessary due to Web IDL
+  <span>overload resolution algorithm</span> rules, which would throw a <code>TypeError</code>
+  exception for such calls had the arguments not been there. <a
+  href="https://github.com/heycam/webidl/issues/581">heycam/webidl issue #581</a> investigates
+  changing the algorithm to allow for their removal. <ref spec=WEBIDL></p>
 
   <p>The <dfn data-x="dom-document-open-window"><code>open(<var>url</var>, <var>name</var>,
   <var>features</var>)</code></dfn> method must run these steps:</p>
 
   <ol>
    <li><p>If this <code>Document</code> object is not an <span>active document</span>, then throw an
-   <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code> exception.</p></li>
+   <span>"<code>InvalidAccessError</code>"</span> <code>DOMException</code> exception.</p></li>
 
    <li><p>Return the result of running the <span>window open steps</span> with <var>url</var>,
    <var>name</var>, and <var>features</var>.</p></li>

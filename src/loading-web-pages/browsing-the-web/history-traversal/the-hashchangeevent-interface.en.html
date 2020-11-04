@@ -1,8 +1,9 @@
   <h5>The <code>HashChangeEvent</code> interface</h5>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- Constructor(DOMString type, optional <span>HashChangeEventInit</span> eventInitDict)]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>HashChangeEvent</dfn> : <span>Event</span> {
+  constructor(DOMString type, optional <span>HashChangeEventInit</span> eventInitDict = {});
+
   readonly attribute USVString <span data-x="dom-HashChangeEvent-oldURL">oldURL</span>;
   readonly attribute USVString <span data-x="dom-HashChangeEvent-newURL">newURL</span>;
 };
@@ -17,22 +18,17 @@ dictionary <dfn>HashChangeEventInit</dfn> : <span>EventInit</span> {
    <dt><var>event</var> . <code subdfn data-x="dom-HashChangeEvent-oldURL">oldURL</code></dt>
 
    <dd>
-
     <p>Returns the <span>URL</span> of the <span>session history entry</span> that was previously
     current.</p>
-
    </dd>
 
 
    <dt><var>event</var> . <code subdfn data-x="dom-HashChangeEvent-newURL">newURL</code></dt>
 
    <dd>
-
     <p>Returns the <span>URL</span> of the <span>session history entry</span> that is now
     current.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>

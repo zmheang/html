@@ -1,17 +1,15 @@
   <h4 id="appcache">Application caches</h4> <!--APPCACHE-->
 
-  <p>An <dfn data-export="">application cache</dfn> is a set of cached resources consisting of:</p>
+  <p>An <dfn export>application cache</dfn> is a set of cached resources consisting of:</p>
 
   <ul>
 
    <li>
-
     <p>One or more resources (including their out-of-band metadata, such as HTTP headers, if any),
     identified by URLs, each falling into one (or more) of the following categories:</p>
 
     <dl>
-
-     <dt><dfn data-x="concept-appcache-master">Master entries</dfn>
+     <dt><dfn data-x="concept-appcache-primary">Primary entries</dfn>
 
      <dd><p class="note">These are documents that were added to the cache because a <span>browsing
      context</span> was <span data-x="navigate">navigated</span> to that document and the document
@@ -21,10 +19,10 @@
 
      <dt><dfn data-x="concept-appcache-manifest">The manifest</dfn>
 
-     <dd><p class="note">This is the resource corresponding to the URL that was given in a master
+     <dd><p class="note">This is the resource corresponding to the URL that was given in a primary
      entry's <code>html</code> element's <code data-x="attr-html-manifest">manifest</code> attribute.
      The manifest is fetched and processed during the <span>application cache download
-     process</span>. All the <span data-x="concept-appcache-master">master entries</span> have the
+     process</span>. All the <span data-x="concept-appcache-primary">primary entries</span> have the
      <span data-x="same origin">same origin</span> as the manifest.</p>
 
 
@@ -41,7 +39,6 @@
      data-x="concept-appcache-manifest">manifest</span> in a <span
      data-x="concept-appcache-manifest-fallback">fallback section</span>.</p>
 
-
     </dl>
 
     <p><span data-x="concept-appcache-explicit">Explicit entries</span> and <span
@@ -53,11 +50,9 @@
     <p class="note">A URL in the list can be flagged with multiple different types, and thus an
     entry can end up being categorized as multiple entries. For example, an entry can be a manifest
     entry and an explicit entry at the same time, if the manifest is listed within the manifest.</p>
-
    </li>
 
    <li>
-
     <p>Zero or more <dfn data-x="concept-appcache-fallback-ns">fallback namespaces</dfn>, each of
     which is mapped to a <span data-x="concept-appcache-fallback">fallback entry</span>.</p>
 
@@ -66,22 +61,18 @@
     be replaced by the corresponding <span data-x="concept-appcache-fallback">fallback entry</span>
     if not. Each namespace URL has the <span>same origin</span> as <span
     data-x="concept-appcache-manifest">the manifest</span>.</p>
-
    </li>
 
    <li>
-
     <p>Zero or more URLs that form the <dfn data-x="concept-appcache-onlinesafelist">online
     safelist namespaces</dfn>.</p>
 
     <p class="note">These are used as prefix match patterns, and declare URLs for which the user
     agent will ignore the application cache, instead fetching them normally (i.e. from the network
     or local HTTP cache as appropriate).</p>
-
    </li>
 
    <li>
-
     <p>An <dfn data-x="concept-appcache-onlinesafelist-wildcard">online safelist wildcard
     flag</dfn>, which is either <i>open</i> or <i>blocking</i>.</p>
 
@@ -89,15 +80,12 @@
     be implicitly treated as being in the <span data-x="concept-appcache-onlinesafelist">online
     safelist namespaces</span>; the <i>blocking</i> state indicates that URLs not listed
     explicitly in the manifest are to be treated as unavailable.</p>
-
    </li>
 
    <li>
-
     <p>A <dfn data-x="concept-appcache-mode">cache mode flag</dfn>, which is either in the <dfn
     data-x="concept-appcache-mode-fast"><i>fast</i></dfn> state or the <dfn
     data-x="concept-appcache-mode-prefer-online"><i>prefer-online</i></dfn> state.</p>
-
    </li>
 
   </ul>
@@ -130,9 +118,9 @@
   group">group</span> to be <i>complete</i>.</p>
 
   <p>Each <span>application cache group</span> has a <dfn
-  data-x="concept-appcache-pending-masters">list of pending master entries</dfn>. Each entry in this
+  data-x="concept-appcache-pending-primary-entries">list of pending primary entries</dfn>. Each entry in this
   list consists of a resource and a corresponding <code>Document</code> object. It is used during
-  the <span>application cache download process</span> to ensure that new master entries are cached
+  the <span>application cache download process</span> to ensure that new primary entries are cached
   even if the <span>application cache download process</span> was already running for their
   <span>application cache group</span> when they were loaded.</p>
 

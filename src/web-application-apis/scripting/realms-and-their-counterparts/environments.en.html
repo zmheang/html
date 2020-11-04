@@ -1,0 +1,66 @@
+  <h5>Environments</h5>
+
+  <p>An <dfn export>environment</dfn> is an object that identifies the settings of a current or
+  potential execution environment. An <span>environment</span> has the following fields:</p>
+
+  <dl>
+   <dt>An <dfn data-x="concept-environment-id" export
+   for="environment">id</dfn></dt>
+   <dd><p>An opaque string that uniquely identifies this <span>environment</span>.</p></dd>
+
+   <dt>A <dfn data-x="concept-environment-creation-url" export
+   for="environment">creation URL</dfn></dt>
+   <dd>
+    <p>A <span>URL</span> that represents the location of the resource with which this
+    <span>environment</span> is associated.</p>
+
+    <p class="note">In the case of an <span>environment settings object</span>, this URL might be
+    distinct from the <span>environment settings object</span>'s <span>responsible
+    document</span>'s <span data-x="concept-document-url">URL</span>, due to mechanisms such as
+    <code data-x="dom-history-pushstate">history.pushState()</code>.</p>
+   </dd>
+
+   <dt>A <dfn id="concept-environment-top-level-creation-url" export
+   for="environment">top-level creation URL</dfn></dt>
+   <dd><p>Null or a <span>URL</span> that represents the <span
+   data-x="concept-environment-creation-url">creation URL</span> of the "top-level"
+   <span>environment</span>. It is null for workers and worklets.</p></dd>
+
+   <dt>A <dfn id="concept-environment-top-level-origin" export
+   for="environment">top-level origin</dfn></dt>
+   <dd>
+    <p>A <span class="XXX" data-x="">for now</span> <span>implementation-defined</span> value, null,
+    or an <span>origin</span>. For a "top-level" potential execution environment it is null (i.e.,
+    when there is no response yet); otherwise it is the "top-level" <span>environment</span>'s <span
+    data-x="concept-settings-object-origin">origin</span>. For a dedicated worker or worklet it is
+    the <span>top-level origin</span> of its creator. For a shared or service worker it is an
+    <span>implementation-defined</span> value.</p>
+
+    <p class="note">This is distinct from the <span>top-level creation URL</span>'s <span
+    data-x="concept-url-origin">origin</span> when sandboxing, workers, and worklets are
+    involved.</p>
+   </dd>
+
+   <dt>A <dfn data-x="concept-environment-target-browsing-context" export
+   for="environment">target browsing context</dfn></dt>
+   <dd><p>Null or a target <span>browsing context</span> for a <span
+   data-x="navigation-request">navigation request</span>.</p></dd>
+
+   <dt>An <dfn data-x="concept-environment-active-service-worker" export
+   for="environment">active service worker</dfn></dt>
+   <dd><p>Null or a <span data-x="dfn-service-worker">service worker</span> that <span
+   data-x="dfn-control">controls</span> the <span>environment</span>.</p></dd>
+
+   <dt>An <dfn data-x="concept-environment-execution-ready-flag" export
+   for="environment">execution ready flag</dfn></dt>
+   <dd><p>A flag that indicates whether the environment setup is done. It is initially
+   unset.</p></dd>
+  </dl>
+
+  <p>Specifications may define <dfn export>environment discarding steps</dfn> for environments. The
+  steps take an <span>environment</span> as input.</p>
+
+  <p class="note">The <span data-x="environment discarding steps">environment discarding
+  steps</span> are run for only a select few environments: the ones that will
+  never become execution ready because, for example, they failed to load.</p>
+

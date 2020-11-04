@@ -1,0 +1,59 @@
+  <h4 id="garbage-collection-and-browsing-contexts">Discarding browsing contexts</h4>
+
+  <p>To <dfn export data-x="discard a document" data-lt="discard a document">discard</dfn> a
+  <code>Document</code> <var>document</var>:</p>
+
+  <ol>
+   <li><p>Set <var>document</var>'s <i data-x="concept-document-salvageable">salvageable</i> state
+   to false.</p></li>
+
+   <li><p>Run any <span>unloading document cleanup steps</span> for <var>document</var> that
+   are defined by this specification and <span>other applicable specifications</span>.</p></li>
+
+   <li><p><span data-x="abort a document">Abort</span> <var>document</var>.</p></li>
+
+   <li><p>Remove any <span data-x="concept-task">tasks</span> associated with
+   <var>document</var> in any <span>task source</span>, without running those tasks.</p></li>
+
+   <li><p><span data-x="a browsing context is discarded">Discard</span> all the <span data-x="child
+   browsing context">child browsing contexts</span> of <var>document</var>.</p></li>
+
+   <li><p>For each <span>session history entry</span> <var>entry</var> whose <span
+   data-x="she-document">document</span> is equal to <var>document</var>, set <var>entry</var>'s
+   <span data-x="she-document">document</span> to null.</p></li>
+
+   <li><p>Set <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> to
+   null.</p></li>
+
+   <li><p><span data-x="list remove">Remove</span> <var>document</var> from the
+   <span>owner set</span> of each <code>WorkerGlobalScope</code> object whose set <span
+   data-x="list contains">contains</span> <var>document</var>.</p></li>
+
+   <li><p><span data-x="list iterate">For each</span> <var>workletGlobalScope</var> in
+   <var>document</var>'s <span data-x="concept-Document-worklet-global-scopes">worklet global
+   scopes</span>, <span data-x="terminate a worklet global scope">terminate</span>
+   <var>workletGlobalScope</var>.</p></li>
+  </ol>
+
+  <p>To <dfn export data-x="a browsing context is discarded">discard</dfn> a <span>browsing
+  context</span> <var>browsingContext</var>, run these steps:</p>
+
+  <ol>
+   <li><p><span data-x="discard a document">Discard</span> all <code>Document</code> objects for all
+   the entries in <var>browsingContext</var>'s <span>session history</span>.</p></li>
+
+   <li><p>If <var>browsingContext</var> is a <span>top-level browsing context</span>, then
+   <span data-x="bcg remove">remove</span> <var>browsingContext</var>.</p></li>
+  </ol>
+
+  <p>User agents may <span data-x="a browsing context is discarded">discard</span> <span
+  data-x="top-level browsing context">top-level browsing contexts</span> at any time (typically, in
+  response to user requests, e.g., when a user force-closes a window containing one or more <span
+  data-x="top-level browsing context">top-level browsing contexts</span>). Other <span
+  data-x="browsing context">browsing contexts</span> must be discarded once their
+  <code>WindowProxy</code> object is eligible for garbage collection, in addition to the other
+  places where this specification requires them to be discarded.</p>
+
+  </div>
+
+

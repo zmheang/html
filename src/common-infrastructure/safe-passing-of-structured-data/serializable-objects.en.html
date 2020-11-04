@@ -2,21 +2,19 @@
 
   <p><span>Serializable objects</span> support being serialized, and later deserialized, in a way
   that is independent of any given <span>JavaScript Realm</span>. This allows them to be stored on
-  disk and later restored, or cloned across document and worker boundaries (including across
-  documents of different <span data-x="origin">origins</span> or in different <span data-x="event
-  loop">event loops</span>).</p>
+  disk and later restored, or cloned across <span>agent</span> and even <span>agent cluster</span>
+  boundaries.</p>
 
   <p>Not all objects are <span>serializable objects</span>, and not all aspects of objects that are
   <span>serializable objects</span> are necessarily preserved when they are serialized.</p>
 
   <p><span data-x="platform object">Platform objects</span> can be <span>serializable objects</span>
-  if they implement only interfaces decorated with the <dfn data-export=""
-  data-dfn-type="extended-attribute" data-lt="Serializable"
-  data-x="Serializable"><code>[Serializable]</code></dfn> IDL <span>extended attribute</span>. Such
-  interfaces must also define the following algorithms:</p>
+  if their <span>primary interface</span> is decorated with the <dfn extended-attribute
+  data-lt="Serializable" data-x="Serializable"><code>[Serializable]</code></dfn> IDL <span>extended
+  attribute</span>. Such interfaces must also define the following algorithms:</p>
 
   <dl>
-   <dt><dfn data-export="">serialization steps</dfn>, taking a <span>platform object</span>
+   <dt><dfn export>serialization steps</dfn>, taking a <span>platform object</span>
    <var>value</var>, a <span>Record</span> <var>serialized</var>, and a boolean
    <var>forStorage</var></dt>
    <dd>
@@ -34,7 +32,7 @@
     it is not relevant to the algorithm.</p>
    </dd>
 
-   <dt><dfn data-export="">deserialization steps</dfn>, taking a <span>Record</span>
+   <dt><dfn export>deserialization steps</dfn>, taking a <span>Record</span>
    <var>serialized</var> and a <span>platform object</span> <var>value</var></dt>
    <dd>
     <p>A set of steps that deserializes the data in <var>serialized</var>, using it to set up
@@ -54,12 +52,15 @@
   and deserialized by these steps. Typically the steps are very symmetric.</p>
 
   <p>The <code data-x="Serializable">[Serializable]</code> extended attribute must take no
-  arguments, and must not appear on anything other than an interface. It must appear only once on an
-  interface. It must not be used on a callback interface. If it appears on a partial interface or an
-  interface that is really a mixin, then it must also appear on the original or mixed-in-to
-  interface, and any supplied <span>serialization steps</span> and <span>deserialization
-  steps</span> for the partial interface or mixin should be understood as being appended to those of
-  the original or mixed-in-to interface.</p>
+  arguments, and must only appear on an interface. It must not appear more than once on an
+  interface.</p>
+
+  <p>For a given <span>platform object</span>, only the object's <span>primary interface</span> is
+  considered during the (de)serialization process. Thus, if inheritance is involved in defining the
+  interface, each <code data-x="Serializable">[Serializable]</code>-annotated interface in the
+  inheritance chain needs to define standalone <span>serialization steps</span> and
+  <span>deserialization steps</span>, including taking into account any important data that might
+  come from inherited interfaces.</p>
 
   <div class="example">
    <p>Let's say we were defining a platform object <code data-x="">Person</code>, which had

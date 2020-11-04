@@ -13,11 +13,16 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-time-datetime">datetime</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-time">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-time">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+<pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-time-dateTime">dateTime</span>;
 };</code></pre>
    </dd>
@@ -29,9 +34,9 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
   attribute. The kind of content is limited to various kinds of dates, times, time-zone offsets, and
   durations, as described below.</p>
 
-  <p>The <dfn><code data-x="attr-time-datetime">datetime</code></dfn> attribute may be present. If
-  present, its value must be a representation of the element's contents in a machine-readable
-  format.</p>
+  <p>The <dfn element-attr for="time"><code data-x="attr-time-datetime">datetime</code></dfn>
+  attribute may be present. If present, its value must be a representation of the element's contents
+  in a machine-readable format.</p>
 
   <p>A <code>time</code> element that does not have a <code
   data-x="attr-time-datetime">datetime</code> content attribute must not have any element
@@ -45,55 +50,45 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
   syntaxes.</p>
 
   <dl>
-
    <dt>A <span>valid month string</span></dt>
 
    <dd>
-
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11&lt;/time></code></pre>
-
+    <pre class="example"><code class="html">&lt;time>2011-11&lt;/time></code></pre>
    </dd>
 
 
    <dt>A <span>valid date string</span></dt>
 
    <dd>
-
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18&lt;/time></code></pre>
-
+    <pre class="example"><code class="html">&lt;time>2011-11-18&lt;/time></code></pre>
    </dd>
 
 
    <dt>A <span>valid yearless date string</span></dt>
 
    <dd>
-
-    <pre class="example"><code class="html" data-x="">&lt;time>11-18&lt;/time></code></pre>
-
+    <pre class="example"><code class="html">&lt;time>11-18&lt;/time></code></pre>
    </dd>
 
 
    <dt>A <span>valid time string</span></dt>
 
    <dd>
-
-    <pre class="example"><code class="html" data-x="">&lt;time>14:54&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>14:54:39&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>14:54:39.929&lt;/time></code></pre>
-
+    <pre class="example"><code class="html">&lt;time>14:54&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>14:54:39&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>14:54:39.929&lt;/time></code></pre>
    </dd>
 
 
    <dt>A <span>valid local date and time string</span></dt>
 
    <dd>
-
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54:39&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54:39.929&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54:39&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54:39.929&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54:39&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54:39.929&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54:39&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54:39.929&lt;/time></code></pre>
 
     <p class="note">Times with dates but without a time zone offset are useful for specifying events
     that are observed at the same specific time in each time zone, throughout a day. For example,
@@ -101,19 +96,17 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
     moment across all time zones. For events that occur at the same time across all time zones, for
     example a videoconference meeting, a <span>valid global date and time string</span> is likely
     more useful.</p>
-
    </dd>
 
 
    <dt>A <span>valid time-zone offset string</span></dt>
 
    <dd>
-
-    <pre class="example"><code class="html" data-x="">&lt;time>Z&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>+0000&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>+00:00&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>-0800&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>-08:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>Z&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>+0000&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>+00:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>-0800&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>-08:00&lt;/time></code></pre>
 
     <p class="note">For times without dates (or times referring to events that recur on multiple
     dates), specifying the geographic location that controls the time is usually more useful than
@@ -122,53 +115,51 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
     boundaries of those time zones are redrawn, as happened with Samoa at the end of 2011. There
     exists a time zone database that describes the boundaries of time zones and what rules apply
     within each such zone, known as the <i>time zone database</i>. <ref spec=TZDATABASE></p>
-
    </dd>
 
 
    <dt>A <span>valid global date and time string</span></dt>
 
    <dd>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54Z&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54:39Z&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54:39.929Z&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54Z&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54:39Z&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54:39.929Z&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54+0000&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54:39+0000&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54:39.929+0000&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54+0000&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54:39+0000&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54:39.929+0000&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54+00:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54:39+00:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T14:54:39.929+00:00&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54+00:00&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54:39+00:00&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T14:54:39.929+00:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T06:54-0800&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T06:54:39-0800&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T06:54:39.929-0800&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T06:54-0800&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T06:54:39-0800&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T06:54:39.929-0800&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T06:54-08:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T06:54:39-08:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18T06:54:39.929-08:00&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T06:54-08:00&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T06:54:39-08:00&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18T06:54:39.929-08:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54Z&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54:39Z&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54:39.929Z&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54Z&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54:39Z&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54:39.929Z&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54+0000&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54:39+0000&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54:39.929+0000&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54+0000&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54:39+0000&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54:39.929+0000&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54+00:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54:39+00:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 14:54:39.929+00:00&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54+00:00&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54:39+00:00&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 14:54:39.929+00:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 06:54-0800&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 06:54:39-0800&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 06:54:39.929-0800&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 06:54-0800&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 06:54:39-0800&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 06:54:39.929-0800&lt;/time></code></pre>
-
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 06:54-08:00&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 06:54:39-08:00&lt;/time></code></pre>
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-11-18 06:54:39.929-08:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 06:54-08:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 06:54:39-08:00&lt;/time></code></pre>
+    <pre class="example"><code class="html">&lt;time>2011-11-18 06:54:39.929-08:00&lt;/time></code></pre>
 
     <p class="note">Times with dates and a time zone offset are useful for specifying specific
     events, or recurring virtual events where the time is not anchored to a specific geographic
@@ -177,40 +168,32 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
     world is observing daylight saving time or not. For events where the precise time varies by the
     local time zone offset of a specific geographic location, a <span>valid local date and time
     string</span> combined with that geographic location is likely more useful.</p>
-
    </dd>
 
 
    <dt>A <span>valid week string</span></dt>
 
    <dd>
-
-    <pre class="example"><code class="html" data-x="">&lt;time>2011-W47&lt;/time></code></pre>
-
+    <pre class="example"><code class="html">&lt;time>2011-W47&lt;/time></code></pre>
    </dd>
 
 
    <dt>Four or more <span>ASCII digits</span>, at least one of which is not U+0030 DIGIT ZERO (0)</dt>
 
    <dd>
+    <pre class="example"><code class="html">&lt;time>2011&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>2011&lt;/time></code></pre>
-
-    <pre class="example"><code class="html" data-x="">&lt;time>0001&lt;/time></code></pre>
-
+    <pre class="example"><code class="html">&lt;time>0001&lt;/time></code></pre>
    </dd>
 
 
    <dt>A <span>valid duration string</span></dt>
 
    <dd>
+    <pre class="example"><code class="html">&lt;time>PT4H18M3S&lt;/time></code></pre>
 
-    <pre class="example"><code class="html" data-x="">&lt;time>PT4H18M3S&lt;/time></code></pre>
-
-    <pre class="example"><code class="html" data-x="">&lt;time>4h 18m 3s&lt;/time></code></pre>
-
+    <pre class="example"><code class="html">&lt;time>4h 18m 3s&lt;/time></code></pre>
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -219,7 +202,6 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
   element's <span>datetime value</span> by using the following algorithm:</p>
 
   <ol>
-
    <li><p>If <span data-x="parse a month string">parsing a month string</span> from the element's
    <span>datetime value</span> returns a <span data-x="concept-month">month</span>, that is the
    machine-readable equivalent; return.</p></li>
@@ -263,7 +245,6 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
    that is the machine-readable equivalent; return.</p></li>
 
    <li><p>There is no machine-readable equivalent.</p></li>
-
   </ol>
 
   <p class="note">The algorithms referenced above are intended to be designed such that for any
@@ -283,7 +264,7 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
    following shows a hypothetical way of encoding an event using a variant on hCalendar that uses
    the <code>time</code> element:</p>
 
-   <pre><code class="html" data-x="">&lt;div class="vevent">
+   <pre><code class="html">&lt;div class="vevent">
  &lt;a class="url" href="http://www.web2con.com/">http://www.web2con.com/&lt;/a>
  &lt;span class="summary">Web 2.0 Conference&lt;/span>:
  &lt;time class="dtstart" datetime="2005-10-05">October 5&lt;/time> -
@@ -298,7 +279,7 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
    <p>Here, a fictional microdata vocabulary based on the Atom vocabulary is used with the
    <code>time</code> element to mark up a blog post's publication date.</p>
 
-   <pre><code class="html" data-x="">&lt;article itemscope itemtype="https://n.example.org/rfc4287">
+   <pre><code class="html">&lt;article itemscope itemtype="https://n.example.org/rfc4287">
  &lt;h1 itemprop="title">Big tasks&lt;/h1>
  &lt;footer>Published &lt;time itemprop="published" datetime="2009-08-29">two days ago&lt;/time>.&lt;/footer>
  &lt;p itemprop="content">Today, I went out and bought a bike for my kid.&lt;/p>
@@ -311,7 +292,7 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, another article's publication date is marked up using <code>time</code>, this
    time using the schema.org microdata vocabulary:</p>
 
-   <pre><code class="html" data-x="">&lt;article itemscope itemtype="http://schema.org/BlogPosting">
+   <pre><code class="html">&lt;article itemscope itemtype="http://schema.org/BlogPosting">
  &lt;h1 itemprop="headline">Small tasks&lt;/h1>
  &lt;footer>Published &lt;time itemprop="datePublished" datetime="2009-08-30">yesterday&lt;/time>.&lt;/footer>
  &lt;p itemprop="articleBody">I put a bike bell on her bike.&lt;/p>
@@ -324,11 +305,11 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
    <p>In the following snippet, the <code>time</code> element is used to encode a date in the
    ISO8601 format, for later processing by a script:</p>
 
-   <pre><code class="html" data-x="">&lt;p>Our first date was &lt;time datetime="2006-09-23">a Saturday&lt;/time>.&lt;/p></code></pre>
+   <pre><code class="html">&lt;p>Our first date was &lt;time datetime="2006-09-23">a Saturday&lt;/time>.&lt;/p></code></pre>
 
    <p>In this second snippet, the value includes a time:</p>
 
-   <pre><code class="html" data-x="">&lt;p>We stopped talking at &lt;time datetime="2006-09-24T05:00-07:00">5am the next morning&lt;/time>.&lt;/p></code></pre>
+   <pre><code class="html">&lt;p>We stopped talking at &lt;time datetime="2006-09-24T05:00-07:00">5am the next morning&lt;/time>.&lt;/p></code></pre>
 
    <p>A script loaded by the page (and thus privy to the page's internal convention of marking up
    dates and times using the <code>time</code> element) could scan through the page and look at all
@@ -341,7 +322,7 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
    <p>For example, this element conveys the string "Friday" with the additional semantic that the
    18th of November 2011 is the meaning that corresponds to "Friday":</p>
 
-   <pre><code class="html" data-x="">Today is &lt;time datetime="2011-11-18">Friday&lt;/time>.</code></pre>
+   <pre><code class="html">Today is &lt;time datetime="2011-11-18">Friday&lt;/time>.</code></pre>
 
   </div>
 
@@ -349,7 +330,7 @@ interface <dfn>HTMLTimeElement</dfn> : <span>HTMLElement</span> {
 
    <p>In this example, a specific time in the Pacific Standard Time timezone is specified:</p>
 
-   <pre><code class="html" data-x="">Your next meeting is at &lt;time datetime="2011-11-18T15:00-08:00">3pm&lt;/time>.</code></pre>
+   <pre><code class="html">Your next meeting is at &lt;time datetime="2011-11-18T15:00-08:00">3pm&lt;/time>.</code></pre>
 
   </div>
 

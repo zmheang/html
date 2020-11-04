@@ -1,6 +1,6 @@
   <h4 id="navigator.online"><span id="browser-state">Browser state</span></h4>
 
-  <pre><code class="idl" data-x="">interface mixin <dfn>NavigatorOnLine</dfn> {
+  <pre><code class="idl">interface mixin <dfn>NavigatorOnLine</dfn> {
   readonly attribute boolean <span data-x="dom-navigator-onLine">onLine</span>;
 };</code></pre>
 
@@ -26,20 +26,18 @@
 
   <p>When the value that would be returned by the <code
   data-x="dom-navigator-onLine">navigator.onLine</code> attribute of a <code>Window</code> or
-  <code>WorkerGlobalScope</code> changes from true to false, the user agent must <span>queue a
-  task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
-  data-x="event-offline">offline</code> at the <code>Window</code> or <code>WorkerGlobalScope</code>
-  object.</p>
+  <code>WorkerGlobalScope</code> <var>global</var> changes from true to false, the user agent must
+  <span>queue a global task</span> on the <span>networking task source</span> given
+  <var>global</var> to <span data-x="concept-event-fire">fire an event</span> named <code
+  data-x="event-offline">offline</code> at <var>global</var>.</p>
 
   <p>On the other hand, when the value that would be returned by the <code
   data-x="dom-navigator-onLine">navigator.onLine</code> attribute of a <code>Window</code> or
-  <code>WorkerGlobalScope</code> changes from false to true, the user agent must <span>queue a
-  task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
+  <code>WorkerGlobalScope</code> <var>global</var> changes from false to true, the user agent must
+  <span>queue a global task</span> on the <span>networking task source</span> given
+  <var>global</var> to <span data-x="concept-event-fire">fire an event</span> named <code
   data-x="event-online">online</code> at the <code>Window</code> or <code>WorkerGlobalScope</code>
   object.</p>
-
-  <p>The <span>task source</span> for these <span data-x="concept-task">tasks</span> is the
-  <span>networking task source</span>.</p>
 
   </div>
 
@@ -50,7 +48,7 @@
 
    <p>In this example, an indicator is updated as the browser goes online and offline.</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
  &lt;head>
   &lt;title>Online status&lt;/title>

@@ -1,21 +1,32 @@
   <h5 id="event-handler-attributes">Event handlers</h5>
 
-  <!--test: <a href="https://software.hixie.ch/utilities/js/live-dom-viewer/?%3C!DOCTYPE%20html%3E%0A...%3Cscript%3E%0Aw(a%3Ddocument.implementation.createDocument(null%2C%20null%2C%20null))%3B%0Aw(a.appendChild(a.createElementNS('http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml'%2C%20'html')))%3B%0Aw(b%3Da.firstChild.appendChild(a.createElementNS('http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml'%2C%20'body')))%3B%0Aw(b.test%20%3D%20w)%3B%0Aw(b.setAttribute('onclick'%2C%20'test(%22fire%3A%20%22%20%2B%20event)'))%3B%0Aw(b.onclick)%3B%0Aw(e%3Da.createEvent('Event'))%3B%0Aw(e.initEvent('click'%2C%20false%2C%20false))%3B%0Aw(b.dispatchEvent(e))%3B%0A%3C%2Fscript%3E">test</a>-->
+  <p>Many objects can have <dfn export data-lt="event handler">event handlers</dfn> specified. These
+  act as non-capture <span data-x="event listener">event listeners</span> for the object on which
+  they are specified. <ref spec=DOM></p>
 
-  <p>Many objects can have <dfn data-export="" data-lt="event handler">event handlers</dfn>
-  specified. These act as non-capture event listeners for the object on which they are specified.
-  <ref spec=DOM></p>
+  <div w-nodev>
 
-  <p>An <span data-x="event handlers">event handler</span> has a name, which always starts with
-  "<code data-x="">on</code>" and is followed by the name of the event for which it is intended.</p>
+  <p>An <span data-x="event handlers">event handler</span> is a <span>struct</span> with two <span
+  data-x="struct item">items</span>:</p>
 
-  <p>An <span data-x="event handlers">event handler</span> has a value, which is either null, or is
-  a callback object<span w-nodev>, or is an <span>internal raw uncompiled handler</span></span>.
-  The <code>EventHandler</code> callback function type describes how this is exposed to scripts.
-  <span w-nodev>Initially, an <span data-x="event handlers">event handler</span>'s value must be set
-  to null.</span></p>
+  <ul>
+   <li><p>a <dfn data-x="event handler value">value</dfn>, which is either null<span
+   w-nodev>,</span><span w-dev> or</span> a callback object<span w-nodev>, or an <span>internal raw
+   uncompiled handler</span></span>. The <code>EventHandler</code> callback function type describes
+   how this is exposed to scripts. <span w-nodev>Initially, an <span data-x="event handlers">event
+   handler</span>'s <span data-x="event handler value">value</span> must be set to
+   null.</span></p></li>
 
-  <p>Event handlers are exposed in one of two ways.</p>
+   <li><p>a <dfn data-x="event handler listener">listener</dfn>, which is either null or an
+   <span>event listener</span><span w-nodev> responsible for running <span>the event handler
+   processing algorithm</span></span>. <span w-nodev>Initially, an <span data-x="event
+   handlers">event handler</span>'s <span data-x="event handler listener">listener</span> must be
+   set to null.</span></p></li>
+  </ul>
+
+  </div>
+
+  <p>Event handlers are exposed in two ways.</p>
 
   <p>The first way, common to all event handlers, is as an <span data-x="event handler IDL
   attributes">event handler IDL attribute</span>.</p>
@@ -24,39 +35,146 @@
   attribute</span>. Event handlers on <span>HTML elements</span> and some of the event handlers on
   <code>Window</code> objects are exposed in this way.</p>
 
-  <div w-nodev>
+  <p>For both of these two ways, the <span data-x="event handlers">event handler</span> is exposed
+  through a <dfn data-x="event handler name">name</dfn>, which is a string that always starts with
+  "<code data-x="">on</code>" and is followed by the name of the event for which the handler is
+  intended.</p>
 
   <hr>
 
-  <p>An <dfn data-x="event handler IDL attributes" data-export="">event handler IDL attribute</dfn>
-  is an IDL attribute for a specific <span data-x="event handlers">event handler</span>. The name of
-  the IDL attribute is the same as the name of the <span data-x="event handlers">event
+  <p>Most of the time, the object that exposes an <span data-x="event handlers">event handler</span>
+  is the same as the object on which the corresponding <span>event listener</span> is added.
+  However, the <code>body</code> and <code>frameset</code> elements expose several <span>event
+  handlers</span> that act upon the element's <code>Window</code> object, if one exists. In either
+  case, we call the object an <span data-x="event handlers">event handler</span> acts upon the <dfn
+  data-x="event handler target">target</dfn> of that <span data-x="event handlers">event
   handler</span>.</p>
 
-  <p><span>Event handler IDL attributes</span>, on setting, must set the corresponding <span
-  data-x="event handlers">event handler</span> to their new value, and on getting, must return the
-  result of <span>getting the current value of the event handler</span> in question.</p>
+  <div w-nodev>
 
-  <p>If an <span data-x="event handler IDL attributes">event handler IDL attribute</span> exposes an
-  <span data-x="event handlers">event handler</span> of an object that doesn't exist, it must always
-  return null on getting and must do nothing on setting.</p>
+  <p>To <dfn data-x="determining the target of an event handler">determine the target of an event
+  handler</dfn>, given an <code>EventTarget</code> object <var>eventTarget</var> on which the <span
+  data-x="event handlers">event handler</span> is exposed, and an <span>event handler name</span>
+  <var>name</var>, the following steps are taken:</p>
 
-  <p class="note">This can happen in particular for <span data-x="event handler IDL attributes">event
-  handler IDL attribute</span> on <code>body</code> elements that do not have corresponding
-  <code>Window</code> objects.</p>
+  <ol>
+   <li><p>If <var>eventTarget</var> is not a <code>body</code> element or a <code>frameset</code>
+   element, then return <var>eventTarget</var>.</p></li>
 
-  <p class="note">Certain event handler IDL attributes have additional requirements, in particular
-  the <code data-x="handler-MessagePort-onmessage">onmessage</code> attribute of
-  <code>MessagePort</code> objects.</p>
+   <li><p>If <var>name</var> is not the name of an attribute member of the
+   <code>WindowEventHandlers</code> interface mixin and the <span><code>Window</code>-reflecting
+   body element event handler set</span> does not <span data-x="list contains">contain</span>
+   <var>name</var>, then return <var>eventTarget</var>.</p></li>
+
+   <li>
+    <p>If <var>eventTarget</var>'s <span>node document</span> is not an <span>active
+    document</span>, then return null.</p>
+
+    <p class="note">This could happen if this object is a <code>body</code> element without
+    a corresponding <code>Window</code> object, for example.</p>
+
+    <p class="note">This check does not necessarily prevent <code>body</code> and
+    <code>frameset</code> elements that are not <span>the body element</span> of their <span>node
+    document</span> from reaching the next step. In particular, a <code>body</code> element created
+    in an <span>active document</span> (perhaps with <code
+    data-x="dom-Document-createElement">document.createElement()</code>) but not
+    <span>connected</span> will also have its corresponding <code>Window</code> object as the <span
+    data-x="event handler target">target</span> of several <span>event handlers</span> exposed
+    through it.</p>
+   </li>
+
+   <li><p>Return <var>eventTarget</var>'s <span>node document</span>'s <span>relevant global
+   object</span>.</p></li>
+  </ol>
 
   <hr>
+
+  <p>Each <code>EventTarget</code> object that has one or more <span>event handlers</span> specified
+  has an associated <dfn>event handler map</dfn>, which is a <span data-x="ordered map">map</span>
+  of strings representing <span data-x="event handler name">names</span> of <span>event
+  handlers</span> to <span>event handlers</span>.</p>
+
+  <p>When an <code>EventTarget</code> object that has one or more <span>event handlers</span>
+  specified is created, its <span>event handler map</span> must be initialized such that it contains
+  an <span data-x="map entry">entry</span> for each <span data-x="event handlers">event
+  handler</span> that has that object as <span data-x="event handler target">target</span>, with
+  <span data-x="struct item">items</span> in those <span>event handlers</span> set to their initial
+  values.</p>
+
+  <p class="note">The order of the <span data-x="map entry">entries</span> of <span>event handler
+  map</span> could be arbitrary. It is not observable through any algorithms that operate on the
+  map.</p>
+
+  <p class="note"><span data-x="map entry">Entries</span> are not created in the <span>event handler
+  map</span> of an object for <span>event handlers</span> that are merely exposed on that object,
+  but have some other object as their <span data-x="event handler target">targets</span>.</p>
 
   </div>
 
-  <p>An <dfn data-x="event handler content attributes" data-export="">event handler content
-  attribute</dfn> is a content attribute for a specific <span data-x="event handlers">event
-  handler</span>. The name of the content attribute is the same as the name of the <span
+  <hr>
+
+  <p>An <dfn data-x="event handler IDL attributes" export>event handler IDL attribute</dfn> is an
+  IDL attribute for a specific <span data-x="event handlers">event handler</span>. The name of the
+  IDL attribute is the same as the <span data-x="event handler name">name</span> of the <span
   data-x="event handlers">event handler</span>.</p>
+
+  <div w-nodev>
+
+  <p>The getter of an <span data-x="event handler IDL attributes">event handler IDL attribute</span>
+  with name <var>name</var>, when called, must run these steps:</p>
+
+  <ol>
+   <li><p>Let <var>eventTarget</var> be the result of <span>determining the target of an event
+   handler</span> given this object and <var>name</var>.</p></li>
+
+   <li><p>If <var>eventTarget</var> is null, then return null.</p></li>
+
+   <li><p>Return the result of <span>getting the current value of the event handler</span> given
+   <var>eventTarget</var> and <var>name</var>.</p>
+  </ol>
+
+  <p>The setter of an <span data-x="event handler IDL attributes">event handler IDL attribute</span>
+  with name <var>name</var>, when called, must run these steps:</p>
+
+  <ol>
+   <li><p>Let <var>eventTarget</var> be the result of <span>determining the target of an event
+   handler</span> given this object and <var>name</var>.</p></li>
+
+   <li><p>If <var>eventTarget</var> is null, then return.</p></li>
+
+   <li><p>If the given value is null, then <span>deactivate an event handler</span> given
+   <var>eventTarget</var> and <var>name</var>.</p></li>
+
+   <li>
+    <p>Otherwise:</p>
+
+    <ol>
+     <li><p>Let <var>handlerMap</var> be <var>eventTarget</var>'s <span>event handler
+     map</span>.</p></li>
+
+     <li><p>Let <var>eventHandler</var> be <var>handlerMap</var>[<var>name</var>].</p></li>
+
+     <li><p>Set <var>eventHandler</var>'s <span data-x="event handler value">value</span> to the
+     given value.</p></li>
+
+     <li><p><span>Activate an event handler</span> given <var>eventTarget</var> and
+     <var>name</var>.</p></li>
+    </ol>
+   </li>
+  </ol>
+
+  <p class="note">Certain <span>event handler IDL attributes</span> have additional requirements, in
+  particular the <code data-x="handler-MessagePort-onmessage">onmessage</code> attribute of
+  <code>MessagePort</code> objects.</p>
+
+  </div>
+
+  <hr>
+
+  <p>An <dfn data-x="event handler content attributes" export>event handler content attribute</dfn>
+  is a content attribute for a specific <span data-x="event handlers">event handler</span>. The name
+  of the content attribute is the same as the <span data-x="event handler name">name</span> of the
+  <span data-x="event handlers">event handler</span>.</p>
 
   <p><span>Event handler content attributes</span>, when specified, must contain valid JavaScript
   code which, when parsed, would match the <i data-x="js-prod-FunctionBody">FunctionBody</i>
@@ -64,39 +182,112 @@
 
   <div w-nodev>
 
-  <p>When an <span data-x="event handler content attributes">event handler content attribute</span>
-  is set, execute the following steps:</p>
+  <p>The following <span data-x="concept-element-attributes-change-ext">attribute change
+  steps</span> are used to synchronize between <span>event handler content attributes</span> and
+  <span>event handlers</span>: <ref spec=DOM></p>
 
   <ol>
-   <li><p>If the <span>Should element's inline behavior be blocked by Content Security
-   Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when executed upon the
-   attribute's <span>element</span>, "<code data-x="">script attribute</code>", and the attribute's
-   value, then return. <ref spec="CSP"></p></li>
+   <li><p>If <var>namespace</var> is not null, or <var>localName</var> is not the name of an <span
+   data-x="event handler content attributes">event handler content attribute</span> on
+   <var>element</var>, then return.</p></li>
 
-   <li><p>Set the corresponding <span data-x="event handlers">event handler</span> to an
-   <span>internal raw uncompiled handler</span> consisting of the attribute's new value and the
-   script location where the attribute was set to this value</p></li>
+   <li><p>Let <var>eventTarget</var> be the result of <span>determining the target of an event
+   handler</span> given <var>element</var> and <var>localName</var>.</p></li>
+
+   <li><p>If <var>eventTarget</var> is null, then return.</p></li>
+
+   <li><p>If <var>value</var> is null, then <span>deactivate an event handler</span> given
+   <var>eventTarget</var> and <var>localName</var>.</p></li>
+
+   <li>
+    <p>Otherwise:</p>
+
+    <ol>
+     <li><p>If the <span>Should element's inline behavior be blocked by Content Security
+     Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when executed upon
+     <var>element</var>, "<code data-x="">script attribute</code>", and <var>value</var>, then
+     return. <ref spec=CSP></p></li>
+
+     <li><p>Let <var>handlerMap</var> be <var>eventTarget</var>'s <span>event handler
+     map</span>.</p></li>
+
+     <li><p>Let <var>eventHandler</var> be <var>handlerMap</var>[<var>localName</var>].</p></li>
+
+     <li><p>Let <var>location</var> be the script location that triggered the execution of these
+     steps.</p></li>
+
+     <li><p>Set <var>eventHandler</var>'s <span data-x="event handler value">value</span> to the
+     <span>internal raw uncompiled handler</span> <var>value</var>/<var>location</var>.</p></li>
+
+     <li><p><span>Activate an event handler</span> given <var>eventTarget</var> and
+     <var>localName</var>.</p></li>
+    </ol>
+   </li>
   </ol>
 
-  <p>When an event handler content attribute is removed, the user agent must set the corresponding
-  <span data-x="event handlers">event handler</span> to null.</p>
-  <!--
-  https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=245 onload
-  https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=247 onclick
-  see https://www.w3.org/Bugs/Public/show_bug.cgi?id=7626#c5 for reasoning
-  -->
+  <p class="note">Per the DOM Standard, these steps are run even if <var>oldValue</var> and
+  <var>value</var> are identical (setting an attribute to its current value), but <em>not</em> if
+  <var>oldValue</var> and <var>value</var> are both null (removing an attribute that doesn't
+  currently exist). <ref spec=DOM></p>
 
   <hr>
 
-  <p>When an <span data-x="event handlers">event handler</span> <var>H</var> of an
-  <code>EventTarget</code> object <var>T</var> is first set to a non-null value, then:
+  <p>To <dfn>deactivate an event handler</dfn> given an <code>EventTarget</code> object
+  <var>eventTarget</var> and a string <var>name</var> that is the <span data-x="event handler
+  name">name</span> of an <span data-x="event handlers">event handler</span>, run these steps:</p>
 
   <ol>
+   <li><p>Let <var>handlerMap</var> be <var>eventTarget</var>'s <span>event handler
+   map</span>.</p></li>
+
+   <li><p>Let <var>eventHandler</var> be <var>handlerMap</var>[<var>name</var>].</p></li>
+
+   <li><p>Set <var>eventHandler</var>'s <span data-x="event handler value">value</span> to
+   null.</p></li>
+
+   <li><p>Let <var>listener</var> be <var>eventHandler</var>'s <span data-x="event handler
+   listener">listener</span>.</p></li>
+
+   <li><p>If <var>listener</var> is not null, then <span>remove an event listener</span> with
+   <var>eventTarget</var> and <var>listener</var>.</p></li>
+
+   <li><p>Set <var>eventHandler</var>'s <span data-x="event handler listener">listener</span> to
+   null.</p></li>
+  </ol>
+
+  <p>To <dfn>erase all event listeners and handlers</dfn> given an <code>EventTarget</code> object
+  <var>eventTarget</var>, run these steps:</p>
+
+  <ol>
+   <li><p>If <var>eventTarget</var> has an associated <span>event handler map</span>, then for each
+   <var>name</var> → <var>eventHandler</var> of <var>eventTarget</var>'s associated <span>event
+   handler map</span>, <span>deactivate an event handler</span> given <var>eventTarget</var> and
+   <var>name</var>.</p></li>
+
+   <li><p><span>Remove all event listeners</span> given <var>eventTarget</var>.</p></li>
+  </ol>
+
+  <p class="note">This algorithm is used to define <code
+  data-x="dom-document-open">document.open()</code>.</p>
+
+  <p>To <dfn>activate an event handler</dfn> given an <code>EventTarget</code> object
+  <var>eventTarget</var> and a string <var>name</var> that is the <span data-x="event handler
+  name">name</span> of an <span data-x="event handlers">event handler</span>, run these steps:</p>
+
+  <ol>
+   <li><p>Let <var>handlerMap</var> be <var>eventTarget</var>'s <span>event handler
+   map</span>.</p></li>
+
+   <li><p>Let <var>eventHandler</var> be <var>handlerMap</var>[<var>name</var>].</p></li>
+
+   <li><p>If <var>eventHandler</var>'s <span data-x="event handler listener">listener</span> is not
+   null, then return.</p></li>
+
    <li>
     <p>Let <var>callback</var> be the result of creating a Web IDL <code
     data-x="dom-EventListener">EventListener</code> instance representing a reference to a function
     of one argument that executes the steps of <span>the event handler processing algorithm</span>,
-    given <var>H</var> and its argument.</p>
+    given <var>eventTarget</var>, <var>name</var>, and its argument.</p>
 
     <p>The <code data-x="dom-EventListener">EventListener</code>'s <span>callback context</span> can
     be arbitrary; it does not impact the steps of <span>the event handler processing
@@ -104,31 +295,49 @@
 
     <p class="note">The callback is emphatically <em>not</em> the <span data-x="event
     handlers">event handler</span> itself. Every event handler ends up registering the same
-    callback, the algorithm defined below, which takes care of invoking the right callback, and
-    processing the callback's return value.</p>
+    callback, the algorithm defined below, which takes care of invoking the right code, and
+    processing the code's return value.</p>
    </li>
 
    <li>
     <p>Let <var>listener</var> be a new <span>event listener</span> whose <span data-x="event
-    listener type">type</span> is the <dfn data-export="">event handler event type</dfn>
-    corresponding to <var>H</var> and <span data-x="event listener callback">callback</span> is
+    listener type">type</span> is the <dfn export>event handler event type</dfn> corresponding to
+    <var>eventHandler</var> and <span data-x="event listener callback">callback</span> is
     <var>callback</var>.</p>
 
     <p class="note">To be clear, an <span>event listener</span> is different from an <code
     data-x="dom-EventListener">EventListener</code>.</p>
    </li>
 
-   <li><p><span>Add an event listener</span> with <var>T</var> and <var>listener</var>.</p></li>
+   <li><p><span>Add an event listener</span> with <var>eventTarget</var> and
+   <var>listener</var>.</p></li>
+
+   <li><p>Set <var>eventHandler</var>'s <span data-x="event handler listener">listener</span> to
+   <var>listener</var>.</p></li>
   </ol>
 
-  <p class="note">This only happens the first time the <span data-x="event handlers">event
-  handler</span>'s value is set. Since listeners are called in the order they were registered, the
-  order of event listeners for a particular event type will always be first the event listeners
-  registered with <code data-x="dom-EventTarget-addEventListener">addEventListener()</code> before
-  the first time the <span data-x="event handlers">event handler</span> was set to a non-null value,
-  then the callback to which it is currently set, if any, and finally the event listeners registered
-  with <code data-x="dom-EventTarget-addEventListener">addEventListener()</code> <em>after</em> the
-  first time the <span data-x="event handlers">event handler</span> was set to a non-null value.</p>
+  <div class="note">
+   <p>The event listener registration happens only if the <span data-x="event handlers">event
+   handler</span>'s <span data-x="event handler value">value</span> is being set to non-null, and
+   the <span data-x="event handlers">event handler</span> is not already activated. Since listeners
+   are called in the order they were registered, assuming no <span data-x="deactivate an event
+   handler">deactivation</span> occurred, the order of event listeners for a particular event type
+   will always be:</p>
+
+   <ol>
+    <li><p>the event listeners registered with <code
+    data-x="dom-EventTarget-addEventListener">addEventListener()</code> before the first time the
+    <span data-x="event handlers">event handler</span>'s <span data-x="event handler
+    value">value</span> was set to non-null</p></li>
+
+    <li><p>then the callback to which it is currently set, if any</p></li>
+
+    <li><p>and finally the event listeners registered with <code
+    data-x="dom-EventTarget-addEventListener">addEventListener()</code> <em>after</em> the first
+    time the <span data-x="event handlers">event handler</span>'s <span data-x="event handler
+    value">value</span> was set to non-null.</p></li>
+   </ol>
+  </div>
 
   </div>
 
@@ -138,7 +347,7 @@
    this example is clicked by the user, the page will show four alerts, with the text "ONE", "TWO",
    "THREE", and "FOUR" respectively.</p>
 
-   <pre><code class="html" data-x="">&lt;button id="test">Start Demo&lt;/button>
+   <pre><code class="html">&lt;button id="test">Start Demo&lt;/button>
 &lt;script>
  var button = document.getElementById('test');
  button.addEventListener('click', function () { alert('ONE') }, false);
@@ -148,6 +357,23 @@
  button.addEventListener('click', function () { alert('FOUR') }, false);
 &lt;/script></code></pre>
 
+   <p>However, in the following example, the event handler is <span data-x="deactivate an event
+   handler">deactivated</span> after its initial activation (and its event listener is removed),
+   before being reactivated at a later time. The page will show five alerts with "ONE", "TWO",
+   "THREE", "FOUR", and "FIVE" respectively, in order.</p>
+
+   <pre><code class="html">&lt;button id="test">Start Demo&lt;/button>
+&lt;script>
+ var button = document.getElementById('test');
+ button.addEventListener('click', function () { alert('ONE') }, false);
+ button.setAttribute('onclick', "alert('NOT CALLED')"); // event handler is activated here
+ button.addEventListener('click', function () { alert('TWO') }, false);
+ button.onclick = null;                                 // but deactivated here
+ button.addEventListener('click', function () { alert('THREE') }, false);
+ button.onclick = function () { alert('FOUR'); };       // and re-activated here
+ button.addEventListener('click', function () { alert('FIVE') }, false);
+&lt;/script></code></pre>
+
   </div>
 
   <div w-nodev>
@@ -155,77 +381,67 @@
   <p class="note">The interfaces implemented by the event object do not influence whether an <span
   data-x="event handlers">event handler</span> is triggered or not.</p>
 
-  <p><dfn>The event handler processing algorithm</dfn> for an <span data-x="event handlers">event
-  handler</span> <var>H</var> and an <code>Event</code> object <var>E</var> is as
-  follows:</p>
+  <p><dfn>The event handler processing algorithm</dfn> for an <code>EventTarget</code> object
+  <var>eventTarget</var>, a string <var>name</var> representing the <span data-x="event handler
+  name">name</span> of an <span data-x="event handlers">event handler</span>, and an
+  <code>Event</code> object <var>event</var> is as follows:</p>
 
   <ol>
-
-   <li>
-
-    <p>Let <var>callback</var> be the result of <span>getting the current value of the
-    event handler</span> <var>H</var>.</p>
-
-   </li>
+   <li><p>Let <var>callback</var> be the result of <span>getting the current value of the event
+   handler</span> given <var>eventTarget</var> and <var>name</var>.</p></li>
 
    <li><p>If <var>callback</var> is null, then return.</p></li>
 
-   <li><p>Let <var>special error event handling</var> be true if <var>E</var> is an
-   <code>ErrorEvent</code> object, <var>E</var>'s <code data-x="dom-Event-type">type</code> is <code
-   data-x="event-error">error</code>, and <var>E</var>'s <code
+   <li><p>Let <var>special error event handling</var> be true if <var>event</var> is an
+   <code>ErrorEvent</code> object, <var>event</var>'s <code data-x="dom-Event-type">type</code> is
+   <code data-x="event-error">error</code>, and <var>event</var>'s <code
    data-x="dom-Event-currentTarget">currentTarget</code> implements the
    <code>WindowOrWorkerGlobalScope</code> mixin. Otherwise, let <var>special error event
    handling</var> be false.</p></li>
 
    <li>
-
-    <p>Process the <code>Event</code> object <var>E</var> as follows:</p>
+    <p>Process the <code>Event</code> object <var>event</var> as follows:</p>
 
     <dl class="switch">
 
      <dt>If <var>special error event handling</var> is true</dt>
 
      <dd>
-
       <p><span data-x="es-invoking-callback-functions">Invoke</span> <var>callback</var> with five
-      arguments, the first one having the value of <var>E</var>'s <code
+      arguments, the first one having the value of <var>event</var>'s <code
       data-x="dom-ErrorEvent-message">message</code> attribute, the second having the value of
-      <var>E</var>'s <code data-x="dom-ErrorEvent-filename">filename</code> attribute, the third
-      having the value of <var>E</var>'s <code data-x="dom-ErrorEvent-lineno">lineno</code>
-      attribute, the fourth having the value of <var>E</var>'s <code
+      <var>event</var>'s <code data-x="dom-ErrorEvent-filename">filename</code> attribute, the third
+      having the value of <var>event</var>'s <code data-x="dom-ErrorEvent-lineno">lineno</code>
+      attribute, the fourth having the value of <var>event</var>'s <code
       data-x="dom-ErrorEvent-colno">colno</code> attribute, the fifth having the value of
-      <var>E</var>'s <code data-x="dom-ErrorEvent-error">error</code> attribute, and with the <i
-      data-x="dfn-callback-this-value">callback this value</i> set to <var>E</var>'s <code
+      <var>event</var>'s <code data-x="dom-ErrorEvent-error">error</code> attribute, and with the <i
+      data-x="dfn-callback-this-value">callback this value</i> set to <var>event</var>'s <code
       data-x="dom-Event-currentTarget">currentTarget</code>. Let <var>return value</var> be the
       callback's return value. <ref spec=WEBIDL></p>
-
      </dd>
 
      <dt>Otherwise</dt>
 
      <dd>
-
       <p><span data-x="es-invoking-callback-functions">Invoke</span> <var>callback</var>
-      with one argument, the value of which is the <code>Event</code> object <var>E</var>,
-      with the <i data-x="dfn-callback-this-value">callback this value</i> set to <var>E</var>'s <code data-x="dom-Event-currentTarget">currentTarget</code>. Let <var>return value</var> be the callback's return value. <ref spec=WEBIDL></p>
-
+      with one argument, the value of which is the <code>Event</code> object <var>event</var>,
+      with the <i data-x="dfn-callback-this-value">callback this value</i> set to <var>event</var>'s
+      <code data-x="dom-Event-currentTarget">currentTarget</code>. Let <var>return value</var> be
+      the callback's return value. <ref spec=WEBIDL></p>
      </dd>
-
     </dl>
 
     <p>If an exception gets thrown by the callback, end these steps and allow the exception to
     propagate. (It will propagate to the <span data-x="concept-event-dispatch">DOM event dispatch
     logic</span>, which will then <span>report the exception</span>.)</p>
-
    </li>
 
    <li>
-
     <p>Process <var>return value</var> as follows:</p>
 
     <dl class="switch">
 
-     <dt>If <var>E</var> is a <code>BeforeUnloadEvent</code> object and <var>E</var>'s <code
+     <dt>If <var>event</var> is a <code>BeforeUnloadEvent</code> object and <var>event</var>'s <code
      data-x="dom-Event-type">type</code> is <code
      data-x="event-beforeunload">beforeunload</code></dt>
      <!-- It is possible to get a BeforeUnloadEvent object whose type is not beforeunload via
@@ -241,36 +457,34 @@
       <p>If <var>return value</var> is not null, then:</p>
 
       <ol>
-       <li><p>Set <var>E</var>'s <span>canceled flag</span>.</p></li>
+       <li><p>Set <var>event</var>'s <span>canceled flag</span>.</p></li>
 
-       <li><p>If <var>E</var>'s <code data-x="dom-BeforeUnloadEvent-returnValue">returnValue</code>
-       attribute's value is the empty string, then set <var>E</var>'s <code
+       <li><p>If <var>event</var>'s <code
+       data-x="dom-BeforeUnloadEvent-returnValue">returnValue</code> attribute's value is the empty
+       string, then set <var>event</var>'s <code
        data-x="dom-BeforeUnloadEvent-returnValue">returnValue</code> attribute's value to
        <var>return value</var>.</p></li>
       </ol>
      </dd>
 
      <dt>If <var>special error event handling</var> is true</dt>
-     <dd><p>If <var>return value</var> is true, then set <var>E</var>'s <span>canceled
+     <dd><p>If <var>return value</var> is true, then set <var>event</var>'s <span>canceled
      flag</span>.</p></dd>
 
      <dt>Otherwise</dt>
      <dd>
-      <p>If <var>return value</var> is false, then set <var>E</var>'s <span>canceled
+      <p>If <var>return value</var> is false, then set <var>event</var>'s <span>canceled
       flag</span>.</p>
 
-      <p class="note">If we've gotten to this "Otherwise" clause because <var>E</var>'s <code
+      <p class="note">If we've gotten to this "Otherwise" clause because <var>event</var>'s <code
       data-x="dom-Event-type">type</code> is <code
-      data-x="event-beforeunload">beforeunload</code> but <var>E</var> is <em>not</em> a
+      data-x="event-beforeunload">beforeunload</code> but <var>event</var> is <em>not</em> a
       <code>BeforeUnloadEvent</code> object, then <var>return value</var> will never be false, since
       in such cases <var>return value</var> will have been coerced into either null or a <code
       data-x="idl-DOMString">DOMString</code>.</p>
      </dd>
-
     </dl>
-
    </li>
-
   </ol>
 
   </div>
@@ -280,7 +494,7 @@
   <p>The <code>EventHandler</code> callback function type represents a callback used for event
   handlers.<span w-nodev> It is represented in Web IDL as follows:</span></p>
 
-  <pre><code class="idl" data-x="">[TreatNonObjectAsNull]
+  <pre><code class="idl">[<span>LegacyTreatNonObjectAsNull</span>]
 callback <dfn>EventHandlerNonNull</dfn> = any (<span>Event</span> event);
 typedef <span>EventHandlerNonNull</span>? <dfn>EventHandler</dfn>;</code></pre>
 
@@ -291,7 +505,7 @@ typedef <span>EventHandlerNonNull</span>? <dfn>EventHandler</dfn>;</code></pre>
 
    <p>For example, the following document fragment:</p>
 
-   <pre><code class="html" data-x="">&lt;body onload="alert(this)" onclick="alert(this)"></code></pre>
+   <pre><code class="html">&lt;body onload="alert(this)" onclick="alert(this)"></code></pre>
 
    <p>...leads to an alert saying "<code data-x="">[object&nbsp;Window]</code>" when the document is
    loaded, and an alert saying "<code data-x="">[object&nbsp;HTMLBodyElement]</code>" whenever the
@@ -317,18 +531,18 @@ typedef <span>EventHandlerNonNull</span>? <dfn>EventHandler</dfn>;</code></pre>
   <p>For historical reasons, the <code data-x="handler-onerror">onerror</code> handler has different
   arguments:</p>
 
-  <pre><code class="idl" data-x="">[TreatNonObjectAsNull]
+  <pre><code class="idl">[<span>LegacyTreatNonObjectAsNull</span>]
 callback <dfn>OnErrorEventHandlerNonNull</dfn> = any ((<span>Event</span> or DOMString) event, optional DOMString source, optional unsigned long lineno, optional unsigned long colno, optional any error);
 typedef <span>OnErrorEventHandlerNonNull</span>? <dfn>OnErrorEventHandler</dfn>;</code></pre>
 
   <div class="example">
-   <pre><code class="js" data-x="">window.onerror = (message, source, lineno, colno, error) => { &hellip; };</code></pre>
+   <pre><code class="js">window.onerror = (message, source, lineno, colno, error) => { &hellip; };</code></pre>
   </div>
 
   <p>Similarly, the <code data-x="handler-window-onbeforeunload">onbeforeunload</code> handler has a
   different return value:<span w-dev> it will be cast to a string.</span></p>
 
-  <pre><code class="idl" data-x="">[TreatNonObjectAsNull]
+  <pre><code class="idl">[<span>LegacyTreatNonObjectAsNull</span>]
 callback <dfn>OnBeforeUnloadEventHandlerNonNull</dfn> = DOMString? (<span>Event</span> event);
 typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEventHandler</dfn>;</code></pre>
 
@@ -349,36 +563,36 @@ typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEvent
   </ul>
 
   <p>When the user agent is to <dfn data-x="getting the current value of the event handler">get the
-  current value of the event handler</dfn> <var>H</var>, it must run these steps:</p>
+  current value of the event handler</dfn> given an <code>EventTarget</code> object
+  <var>eventTarget</var> and a string <var>name</var> that is the <span data-x="event handler
+  name">name</span> of an <span data-x="event handlers">event handler</span>, it must run these
+  steps:</p>
 
   <ol>
+   <li><p>Let <var>handlerMap</var> be <var>eventTarget</var>'s <span>event handler
+   map</span>.</p></li>
+
+   <li><p>Let <var>eventHandler</var> be <var>handlerMap</var>[<var>name</var>].</p></li>
 
    <li>
-
-    <p>If <var>H</var>'s value is an <span>internal raw uncompiled handler</span>, run these
-    substeps:</p>
+    <p>If <var>eventHandler</var>'s <span data-x="event handler value">value</span> is an
+    <span>internal raw uncompiled handler</span>, then:</p>
 
     <ol>
-
-     <li>
-
-      <p>If <var>H</var> is an element's <span data-x="event handlers">event
-      handler</span>, then let <var>element</var> be the element, and <var>document</var> be the element's <span>node document</span>.</p>
-
-      <p>Otherwise, <var>H</var> is a <code>Window</code> object's <span data-x="event handlers">event handler</span>:
-      let <var>element</var> be null, and let <var>document</var> be <var>H</var>'s <span
-      data-x="concept-document-window">associated <code>Document</code></span>.</p>
-
-     </li>
+     <li><p>If <var>eventTarget</var> is an element, then let <var>element</var> be
+     <var>eventTarget</var>, and <var>document</var> be <var>element</var>'s <span>node
+     document</span>. Otherwise, <var>eventTarget</var> is a <code>Window</code> object, let
+     <var>element</var> be null, and <var>document</var> be <var>eventTarget</var>'s <span
+     data-x="concept-document-window">associated <code>Document</code></span>.</p></li>
 
      <li><p>If <span data-x="concept-n-noscript">scripting is disabled</span> for
      <var>document</var>, then return null.</p></li>
 
-     <li><p>Let <var>body</var> be the uncompiled script body in the <span>internal raw
-     uncompiled handler</span>.</p></li>
+     <li><p>Let <var>body</var> be the uncompiled script body in <var>eventHandler</var>'s <span
+     data-x="event handler value">value</span>.</p></li>
 
      <li><p>Let <var>location</var> be the location where the script body originated, as
-     given by the <span>internal raw uncompiled handler</span>.</p></li>
+     given by <var>eventHandler</var>'s <span data-x="event handler value">value</span>.</p></li>
 
      <li><p>If <var>element</var> is not null and <var>element</var> has a
      <span>form owner</span>, let <var>form owner</var> be that <span>form owner</span>.
@@ -388,13 +602,18 @@ typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEvent
      <var>document</var>.</p></li>
 
      <li>
-
       <p>If <var>body</var> is not parsable as <i data-x="js-prod-FunctionBody">FunctionBody</i>
       or if parsing detects an <span>early error</span>, then follow these substeps:</p>
 
       <ol>
+       <li>
+        <p>Set <var>eventHandler</var>'s <span data-x="event handler value">value</span> to
+        null.</p>
 
-       <li><p>Set <var>H</var>'s value to null.</p></li>
+        <p class="note">This does not <span data-x="deactivate an event handler">deactivate</span>
+        the event handler, which additionally <span data-x="remove an event listener">removes</span>
+        the event handler's <span data-x="event handler listener">listener</span> (if present).</p>
+       </li>
 
        <li><p><span>Report the error</span> for the appropriate <span
        data-x="concept-script">script</span> and with the appropriate position (line number and
@@ -404,18 +623,7 @@ typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEvent
        to a developer console.</p></li>
 
        <li><p>Return null.</p></li>
-
       </ol>
-
-     </li>
-
-     <li>
-
-      <p>If <var>body</var> begins with a <span>Directive Prologue</span> that contains a <span>Use
-      Strict Directive</span> then let <var>strict</var> be true, otherwise let <var>strict</var>
-      be false.</p> <!-- we can't defer to 10.1.1 since we're not using a Function constructor but
-      doing it ourselves. -->
-
      </li>
 
      <li>
@@ -424,29 +632,44 @@ typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEvent
       execution context</span>.</p>
 
       <p class="note">This is necessary so the subsequent invocation of <span
-      data-x="js-FunctionCreate">FunctionCreate</span> takes place in the correct <span>JavaScript
-      Realm</span>.</p>
+      data-x="js-OrdinaryFunctionCreate">OrdinaryFunctionCreate</span> takes place in the correct
+      <span>JavaScript Realm</span>.</p>
      </li>
 
      <li>
-
       <p>Let <var>function</var> be the result of calling <span
-      data-x="js-FunctionCreate">FunctionCreate</span>, with arguments:</p>
+      data-x="js-OrdinaryFunctionCreate">OrdinaryFunctionCreate</span>, with arguments:</p>
 
       <dl>
+       <dt><var>functionPrototype</var></dt>
 
-       <dt><var>kind</var></dt>
+       <dd><span>%Function.prototype%</span></dd>
 
-       <dd>Normal</dd>
+       <dt><var>sourceText</var></dt>
+
+       <dd>
+        <dl class="switch">
+         <dt>If <var>name</var> is <code data-x="handler-onerror">onerror</code> and
+         <var>eventTarget</var> is a <code>Window</code> object</dt>
+
+         <dd>The string formed by concatenating "<code data-x="">function </code>", <var>name</var>,
+         "<code data-x="">(event, source, lineno, colno, error) {</code>", U+000A LF,
+         <var>body</var>, U+000A LF, and "<code data-x="">}</code>".</dd>
+
+         <dt>Otherwise</dt>
+
+         <dd>The string formed by concatenating "<code data-x="">function </code>", <var>name</var>,
+         "<code data-x="">(event) {</code>", U+000A LF, <var>body</var>, U+000A LF, and "<code
+        data-x="">}</code>".</dd>
+        </dl>
+       </dd>
 
        <dt><var>ParameterList</var></dt>
 
        <dd>
-
         <dl class="switch">
-
-         <dt>If <var>H</var> is an <code data-x="handler-onerror">onerror</code> <span
-         data-x="event handlers">event handler</span> of a <code>Window</code> object</dt>
+         <dt>If <var>name</var> is <code data-x="handler-onerror">onerror</code> and
+         <var>eventTarget</var> is a <code>Window</code> object</dt>
 
          <dd>Let the function have five arguments, named <code data-x="">event</code>, <code
          data-x="">source</code>, <code data-x="">lineno</code>, <code data-x="">colno</code>, and
@@ -455,67 +678,84 @@ typedef <span>OnBeforeUnloadEventHandlerNonNull</span>? <dfn>OnBeforeUnloadEvent
          <dt>Otherwise</dt>
 
          <dd>Let the function have a single argument called <code data-x="">event</code>.</dd>
-
         </dl>
-
        </dd>
 
        <dt><var>Body</var></dt>
 
        <dd>The result of parsing <var>body</var> above.</dd>
 
+       <dt><var>thisMode</var></dt>
+
+       <dd>non-lexical-this</dd>
+
        <dt><var>Scope</var></dt>
 
        <dd>
-
         <ol>
+         <li><p>Let <var>realm</var> be <var>settings object</var>'s <span
+         data-x="environment settings object's Realm">Realm</span>.</p></li>
+
+         <li><p>Let <var>scope</var> be <var>realm</var>.[[GlobalEnv]].</p></li>
 
          <li>
-
-          <p>If <var>H</var> is an element's <span data-x="event handlers">event
-          handler</span>, then let <var>Scope</var> be <span
+          <p>If <var>eventHandler</var> is an element's <span data-x="event handlers">event
+          handler</span>, then set <var>scope</var> to <span
           data-x="js-NewObjectEnvironment">NewObjectEnvironment</span>(<var>document</var>,
-          the <var>global environment</var>).</p>
+          <var>scope</var>).</p>
 
-          <p>Otherwise, <var>H</var> is a <code>Window</code> object's <span data-x="event
-          handlers">event handler</span>: let <var>Scope</var> be the <var>global environment</var>.</p>
-
+          <p>(Otherwise, <var>eventHandler</var> is a <code>Window</code> object's <span
+          data-x="event handlers">event handler</span>.)</p>
          </li>
 
-         <li><p>If <var>form owner</var> is not null, let <var>Scope</var> be
-         <span data-x="js-NewObjectEnvironment">NewObjectEnvironment</span>(<var>form owner</var>,
-         <var>Scope</var>).</p></li>
+         <li><p>If <var>form owner</var> is not null, then set <var>scope</var> to <span
+         data-x="js-NewObjectEnvironment">NewObjectEnvironment</span>(<var>form owner</var>,
+         <var>scope</var>).</p></li>
 
-         <li><p>If <var>element</var> is not null, let <var>Scope</var> be <span
+         <li><p>If <var>element</var> is not null, then set <var>scope</var> to <span
          data-x="js-NewObjectEnvironment">NewObjectEnvironment</span>(<var>element</var>,
-         <var>Scope</var>).</p></li>
+         <var>scope</var>).</p></li>
 
+         <li><p>Return <var>scope</var>.</p></li>
         </ol>
-
        </dd>
-
-       <dt><var>Strict</var></dt>
-
-       <dd>The value of <var>strict</var>.</dd>
-
       </dl>
-
      </li>
 
      <li><p>Remove <var>settings object</var>'s <span>realm execution context</span> from the
      <span>JavaScript execution context stack</span>.</p></li>
 
-     <!-- SCRIPT EXEC, sorta -->
-     <li><p>Set <var>H</var>'s value to the result of creating a Web IDL callback function whose
-     object reference is <var>function</var> and whose <span>callback context</span> is
-     <var>settings object</var>.</p></li>
+     <li>
+      <p>Set <var>function</var>.[[ScriptOrModule]] to null.</p>
 
+      <div class="note">
+       <p>This is done because the default behavior, of associating the created function
+       with the nearest <span data-x="concept-script">script</span> on the stack, can lead to
+       path-dependent results. For example, an event handler which is first invoked by user
+       interaction would end up with null [[ScriptOrModule]] (since then this algorithm would be
+       first invoked when the <span>active script</span> is null), whereas one that is first invoked
+       by dispatching an event from script would have its [[ScriptOrModule]] set to that script.</p>
+
+       <p>Instead, we just always set [[ScriptOrModule]] to null. This is more intuitive anyway; the
+       idea that the first script which dispatches an event is somehow responsible for the event
+       handler code is dubious.</p>
+
+       <p>In practice, this only affects the resolution of relative URLs via <code>import()</code>,
+       which consult the <span data-x="concept-script-base-url">base URL</span> of the associated
+       script. Nulling out [[ScriptOrModule]] means that <span>HostResolveImportedModule</span> and
+       <span>HostImportModuleDynamically</span> will fall back to the <span>current settings
+       object</span>'s <span>API base URL</span>.</p>
+      </div>
+     </li>
+
+     <li><p>Set <var>eventHandler</var>'s <span data-x="event handler value">value</span> to the
+     result of creating a Web IDL <code>EventHandler</code> callback function object whose object
+     reference is <var>function</var> and whose <span>callback context</span> is <var>settings
+     object</var>.</p></li>
     </ol>
-
    </li>
 
-   <li><p>Return <var>H</var>'s value.</p></li>
-
+   <li><p>Return <var>eventHandler</var>'s <span data-x="event handler value">value</span>.</p></li>
   </ol>
 
   </div>

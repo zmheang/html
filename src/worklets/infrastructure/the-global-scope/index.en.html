@@ -1,0 +1,20 @@
+  <h4 id="worklets-global">The global scope</h4>
+
+  <p>Subclasses of <code subdfn>WorkletGlobalScope</code> are used to create <span data-x="global
+  object">global objects</span> wherein code loaded into a particular <code>Worklet</code> can
+  execute.</p>
+
+  <pre><code class="idl">[Exposed=Worklet, SecureContext]
+interface <dfn interface>WorkletGlobalScope</dfn> {};</code></pre>
+
+  <p class="note">Other specifications are intended to subclass <code>WorkletGlobalScope</code>,
+  adding APIs to register a class, as well as other APIs specific for their worklet type.</p>
+
+  <div w-nodev>
+
+  <p>Each <code>WorkletGlobalScope</code> has an associated <dfn
+  data-x="concept-WorkletGlobalScope-module-map">module map</dfn>. It is a <span>module map</span>,
+  initially empty.</p>
+
+  </div>
+

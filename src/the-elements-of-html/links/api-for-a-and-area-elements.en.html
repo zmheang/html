@@ -1,6 +1,6 @@
   <h4>API for <code>a</code> and <code>area</code> elements</h4>
 
-  <pre><code class="idl" data-x="">interface mixin <dfn>HTMLHyperlinkElementUtils</dfn> {
+  <pre><code class="idl">interface mixin <dfn>HTMLHyperlinkElementUtils</dfn> {
   [<span>CEReactions</span>] stringifier attribute USVString <span data-x="dom-hyperlink-href">href</span>;
   readonly attribute USVString <span data-x="dom-hyperlink-origin">origin</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-hyperlink-protocol">protocol</span>;
@@ -133,8 +133,8 @@
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-hyperlink-href">href</code></dfn> attribute's getter must run these
-  steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-href">href</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>
@@ -154,8 +154,8 @@
   <p>The <code data-x="dom-hyperlink-href">href</code> attribute's setter must set this element's
   <code data-x="attr-hyperlink-href">href</code> content attribute's value to the given value.
 
-  <p>The <dfn><code data-x="dom-hyperlink-origin">origin</code></dfn> attribute's getter must run
-  these steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-origin">origin</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>
@@ -168,8 +168,8 @@
    data-x="concept-url-origin">origin</span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-hyperlink-protocol">protocol</code></dfn> attribute's getter must
-  run these steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-protocol">protocol</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>
@@ -203,8 +203,8 @@
    <li><p><span>Update <code>href</code></span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-hyperlink-username">username</code></dfn> attribute's getter must
-  run these steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-username">username</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>
@@ -233,8 +233,8 @@
    <li><p><span>Update <code>href</code></span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-hyperlink-password">password</code></dfn> attribute's getter must
-  run these steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-password">password</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>
@@ -264,8 +264,8 @@
    <li><p><span>Update <code>href</code></span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-hyperlink-host">host</code></dfn> attribute's getter must run these
-  steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-host">host</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>
@@ -304,8 +304,8 @@
    <li><p><span>Update <code>href</code></span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-hyperlink-hostname">hostname</code></dfn> attribute's getter must
-  run these steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-hostname">hostname</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>
@@ -339,8 +339,8 @@
    <li><p><span>Update <code>href</code></span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-hyperlink-port">port</code></dfn> attribute's getter must run these
-  steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-port">port</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>
@@ -376,8 +376,8 @@
    <li><p><span>Update <code>href</code></span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-hyperlink-pathname">pathname</code></dfn> attribute's getter must
-  run these steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-pathname">pathname</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>
@@ -420,8 +420,8 @@
    <li><p><span>Update <code>href</code></span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-hyperlink-search">search</code></dfn> attribute's getter must run
-  these steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-search">search</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>
@@ -471,8 +471,8 @@
    <li><p><span>Update <code>href</code></span>.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-hyperlink-hash">hash</code></dfn> attribute's getter must run these
-  steps:</p>
+  <p>The <dfn attribute for="HTMLHyperlinkElementUtils"><code
+  data-x="dom-hyperlink-hash">hash</code></dfn> attribute's getter must run these steps:</p>
 
   <ol>
    <li><p><span>Reinitialize url</span>.</p></li>

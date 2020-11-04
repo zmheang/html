@@ -89,6 +89,17 @@
 
   <div w-nodev>
 
+  <p>The <span>linked resource fetch setup steps</span> for this type of linked resource, given a
+  <code>link</code> element <var>el</var> and <span data-x="concept-request">request</span>
+  <var>request</var>, are:</p>
+
+  <ol>
+   <li><p>Set <var>request</var>'s <span data-x="concept-request-destination">destination</span> to
+   "<code data-x="">image</code>".</p></li>
+
+   <li><p>Return true.</p></li>
+  </ol>
+
   <p>In the absence of a <code>link</code> with the <code data-x="rel-icon">icon</code> keyword, for
   <code>Document</code> objects whose <span data-x="concept-document-url">URL</span>'s
   <span data-x="concept-url-scheme">scheme</span> is an <span>HTTP(S) scheme</span>, user agents may
@@ -119,7 +130,7 @@
 
    <p>The following snippet shows the top part of an application with several icons.</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
  &lt;head>
   &lt;title>lsForums &mdash; Inbox&lt;/title>

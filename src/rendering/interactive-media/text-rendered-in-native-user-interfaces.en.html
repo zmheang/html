@@ -2,7 +2,7 @@
 
   <p>User agents are expected to honor the Unicode semantics of text that is exposed in user
   interfaces, for example supporting the bidirectional algorithm in text shown in dialogs, title
-  bars, pop-up menus, and tooltips. Text from the contents of elements is expected to be rendered in
+  bars, popup menus, and tooltips. Text from the contents of elements is expected to be rendered in
   a manner that honors <span>the directionality</span> of the element from which the text was
   obtained. Text from attributes is expected to be rendered in a manner that honours the
   <span>directionality of the attribute</span>.</p>
@@ -13,7 +13,7 @@
    languages being text for which a left-to-right direction is important given the punctuation in
    some of their names:</p>
 
-   <pre><code class="html" data-x="">&lt;p dir="rtl" lang="he">
+   <pre><code class="html">&lt;p dir="rtl" lang="he">
  &lt;label>
   <span data-x="" dir="rtl" lang="he">&#x5d1;&#x5d7;&#x5e8; &#x5e9;&#x5e4;&#x5ea; &#x5ea;&#x5db;&#x5e0;&#x5d5;&#x5ea;:</span>
   &lt;select>
@@ -40,7 +40,7 @@
    data-x="attr-dir">dir</code> attribute, as the following example demonstrates. Consider this
    markup:</p>
 
-   <pre><code class="html" data-x=""><bdo dir=ltr>&lt;table>
+   <pre><code class="html"><bdo dir=ltr>&lt;table>
  &lt;tr>
   &lt;th abbr="(&#x05D0;" dir=ltr>A
   &lt;th abbr="(&#x05D0;" dir=rtl>A
@@ -56,7 +56,7 @@
    <p>However, if instead the attribute was not a <span>directionality-capable attribute</span>, the
    results would be different:</p>
 
-   <pre><code class="html" data-x=""><bdo dir=ltr>&lt;table>
+   <pre><code class="html"><bdo dir=ltr>&lt;table>
  &lt;tr>
   &lt;th data-abbr="(&#x05D0;" dir=ltr>A
   &lt;th data-abbr="(&#x05D0;" dir=rtl>A
@@ -85,7 +85,7 @@
 
    <p>Thus, the following script:</p>
 
-   <pre><code class="js" data-x="">alert('\u05DC\u05DE\u05D3 HTML \u05D4\u05D9\u05D5\u05DD!')</code></pre>
+   <pre><code class="js">alert('\u05DC\u05DE\u05D3 HTML \u05D4\u05D9\u05D5\u05DD!')</code></pre>
 
    <p>...would always result in a message reading
         "<bdo lang="" data-x="" dir=rtl>&#x05DC;&#x05DE;&#x05D3;&nbsp;LMTH&nbsp;&#x05D4;&#x05D9;&#x05D5;&#x05DD;!</bdo>"
@@ -99,7 +99,7 @@
 
    <p>For a more complex example, consider the following script:</p>
 
-   <pre class="bad"><code class="js" data-x="">/* Warning: this script does not handle right-to-left scripts correctly */
+   <pre class="bad"><code class="js">/* Warning: this script does not handle right-to-left scripts correctly */
 var s;
 if (s = prompt('What is your name?')) {
   alert(s + '! Ok, Fred, ' + s + ', and Wilma will get the car.');
@@ -116,7 +116,7 @@ if (s = prompt('What is your name?')) {
    directionality) to render left-to-right, the string can be prefixed with a U+200E LEFT-TO-RIGHT
    MARK character:</p>
 
-   <pre><code class="js" data-x="">var s;
+   <pre><code class="js">var s;
 if (s = prompt('What is your name?')) {
   alert('<strong>\u200E</strong>' + s + '! Ok, Fred, ' + s + ', and Wilma will get the car.');
 }</code></pre>

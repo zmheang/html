@@ -1,0 +1,42 @@
+  <h3 id="coep">Cross-origin embedder policies</h3>
+
+  <p>An <dfn export>embedder policy value</dfn> controls the fetching of cross-origin resources
+  without explicit permission from resource owners. There are two such values:</p>
+
+  <dl>
+   <dt>"<dfn data-x="coep-unsafe-none" export for="embedder policy value"><code
+   data-x="">unsafe-none</code></dfn>"</dt>
+   <dd><p>This is the default value. When this value is used, cross-origin resources can be fetched
+   without giving explicit permission through the <span>CORS protocol</span> or the
+   `<code>Cross-Origin-Resource-Policy</code>` header.</p></dd>
+
+   <dt>"<dfn data-x="coep-require-corp" export for="embedder policy value"><code
+   data-x="">require-corp</code></dfn>"</dt>
+   <dd><p>When this value is used, fetching cross-origin resources requires the server's
+   explicit permission through the <span>CORS protocol</span> or the
+   `<code>Cross-Origin-Resource-Policy</code>` header.</p></dd>
+  </dl>
+
+  <p>An <dfn export>embedder policy</dfn> consists of:</p>
+
+  <ul>
+   <li><p>A <dfn data-x="embedder-policy-value" for="embedder policy"
+   export>value</dfn>, which is an <span>embedder policy value</span>, initially "<code
+   data-x="coep-unsafe-none">unsafe-none</code>".</p></li>
+
+   <li><p>A <dfn data-x="embedder-policy-reporting-endpoint" for="embedder policy"
+   export>reporting endpoint</dfn> string, initially the empty string.</p></li>
+
+   <li><p>A <dfn data-x="embedder-policy-report-only-value" for="embedder policy"
+   export>report only value</dfn>, which is an <span>embedder policy value</span>, initially
+   "<code data-x="coep-unsafe-none">unsafe-none</code>".</p></li>
+
+   <li><p>A <dfn data-x="embedder-policy-report-only-reporting-endpoint" for="embedder
+   policy" export>report only reporting endpoint</dfn> string, initially the empty
+   string.</p></li>
+  </ul>
+
+  <p>The <dfn export>"<code>coep</code>" report type</dfn> is a <span>report type</span> whose value
+  is "<code data-x="">coep</code>". It is <span>visible to
+  <code>ReportingObserver</code>s</span>.</p>
+

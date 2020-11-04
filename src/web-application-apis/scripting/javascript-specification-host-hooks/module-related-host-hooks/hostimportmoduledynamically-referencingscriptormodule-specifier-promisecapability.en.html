@@ -1,0 +1,85 @@
+  <h6><dfn>HostImportModuleDynamically</dfn>(<var>referencingScriptOrModule</var>,
+  <var>specifier</var>, <var>promiseCapability</var>)</h6>
+
+  <p>JavaScript contains an <span>implementation-defined</span> <span
+  data-x="js-HostImportModuleDynamically">HostImportModuleDynamically</span> abstract operation.
+  User agents must use the following implementation: <ref spec=JAVASCRIPT></p>
+
+  <ol>
+   <li><p>Let <var>settings object</var> be the <span>current settings object</span>.</p></li>
+
+   <li>
+    <p>If <var>settings object</var>'s <span data-x="concept-settings-object-global">global
+    object</span> implements <code>WorkletGlobalScope</code>, then:</p>
+
+    <ol>
+     <li><p>Let <var>completion</var> be Completion { [[Type]]: throw, [[Value]]: a new
+     <code>TypeError</code>, [[Target]]: empty }.</p></li>
+
+     <li><p>Perform <span>FinishDynamicImport</span>(<var>referencingScriptOrModule</var>,
+     <var>specifier</var>, <var>promiseCapability</var>, <var>completion</var>).</p></li>
+
+     <li><p>Return.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Let <var>base URL</var> be <var>settings object</var>'s <span>API base
+   URL</span>.</p></li>
+
+   <li><p>Let <var>fetch options</var> be the <span>default classic script fetch
+   options</span>.</p></li>
+
+   <li>
+    <p>If <var>referencingScriptOrModule</var> is not null, then:</p>
+
+    <ol>
+     <li><p>Let <var>referencing script</var> be
+     <var>referencingScriptOrModule</var>.[[HostDefined]].</p>
+
+     <li><p>Set <var>settings object</var> to <var>referencing script</var>'s <span>settings
+     object</span>.</p></li>
+
+     <li><p>Set <var>base URL</var> to <var>referencing script</var>'s <span
+     data-x="concept-script-base-url">base URL</span>.</p></li>
+
+     <li><p>Set <var>fetch options</var> to the <span>descendant script fetch options</span> for
+     <var>referencing script</var>'s <span data-x="concept-script-script-fetch-options">fetch
+     options</span>.</p></li>
+    </ol>
+
+    <p class="note">As explained above for <span>HostResolveImportedModule</span>, in the common
+    case, <var>referencingScriptOrModule</var> is non-null.</p>
+   </li>
+
+   <li><p><span>Fetch an import() module script graph</span> given <var>specifier</var>, <var>base
+   URL</var>, <var>settings object</var>, and <var>fetch options</var>. Wait until the algorithm
+   asynchronously completes with <var>result</var>.</p></li>
+
+   <li>
+    <p>If <var>result</var> is null, then:</p>
+
+    <ol>
+     <li><p>Let <var>completion</var> be Completion { [[Type]]: throw, [[Value]]: a new
+     <code>TypeError</code>, [[Target]]: empty }.</p></li>
+
+     <li><p>Perform <span>FinishDynamicImport</span>(<var>referencingScriptOrModule</var>,
+     <var>specifier</var>, <var>promiseCapability</var>, <var>completion</var>).</p></li>
+
+     <li><p>Return.</p></li>
+    </ol>
+   </li>
+
+   <li><p><span data-x="run a module script">Run the module script</span> <var>result</var>, with
+   the rethrow errors boolean set to true.</p></li>
+
+   <li><p>If running the module script throws an exception, then perform
+   <span>FinishDynamicImport</span>(<var>referencingScriptOrModule</var>, <var>specifier</var>,
+   <var>promiseCapability</var>, the thrown exception completion).</p></li>
+
+   <li><p>Otherwise, perform
+   <span>FinishDynamicImport</span>(<var>referencingScriptOrModule</var>, <var>specifier</var>,
+   <var>promiseCapability</var>, <span>NormalCompletion</span>(undefined)).</p></li>
+
+   <li><p>Return undefined.</p></li>
+  </ol>
+

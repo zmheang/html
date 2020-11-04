@@ -22,11 +22,11 @@
     locale-dependent value that the UA uses to label the button itself if the attribute is
     absent.</p></li>
 
-    <li><p>Otherwise, if the element is a <span>labeled control</span>, then the
-    <span data-x="command-facet-Label">Label</span> is the string given by the
-    <code>textContent</code> of the first <code>label</code> element in <span>tree order</span>
-    whose <span>labeled control</span> is the element in question. (In DOM terms, this is the
-    string given by <code data-x=""><var>element</var>.labels[0].textContent</code>.)</p></li>
+    <li><p>Otherwise, if the element is a <span>labeled control</span>, then the <span
+    data-x="command-facet-Label">Label</span> is the <span>descendant text content</span> of the
+    first <code>label</code> element in <span>tree order</span> whose <span>labeled control</span>
+    is the element in question. (In JavaScript terms, this is given by <code
+    data-x=""><var>element</var>.labels[0].textContent</code>.)</p></li>
 
     <li><p>Otherwise, if the <code data-x="attr-input-value">value</code> attribute is present, then
     the <span data-x="command-facet-Label">Label</span> is the value of that attribute.</p></li>
@@ -35,7 +35,15 @@
 
   </ul>
 
-  <p>The <span data-x="command-facet-AccessKey">AccessKey</span> of the command is the element's
+  <div class="note">
+    <p>Even though the <code data-x="attr-input-value">value</code> attribute on
+    <code>input</code> elements in the <span data-x="attr-input-type-image">Image Button</span>
+    state is non-conformant, the attribute can still contribute to the <span
+    data-x="command-facet-Label">Label</span> determination, if it is present and the Image Button's
+    <code data-x="attr-input-alt">alt</code> attribute is missing.</p>
+  </div>
+
+  <p>The <span data-x="command-facet-AccessKey">Access Key</span> of the command is the element's
   <span>assigned access key</span>, if any.</p>
 
   <p>The <span data-x="command-facet-HiddenState">Hidden State</span> of the command is true (hidden)

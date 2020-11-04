@@ -18,9 +18,11 @@ build: update-progress html
 		-e 's/=\/\?images\//=\/html\/images\//g' \
 		-e 's/=\/\?demos\//=\/html\/demos\//g' \
 		-e 's/=\/\?entities.json/=\/html\/entities.json/g' \
+		-e 's/href=\/dev\/styles\.css/href=\/html\/dev\/styles\.css/g' \
+		-e 's/href=\/styles\.css/href=\/html\/styles\.css/g' \
 		$(RESULTS)
 	sed -i -r \
-		-e 's/standard.css>/standard.css><link rel=stylesheet href=\/html\/resources\/zh-cn.css>/' \
+		-e 's/<body>/<link rel=stylesheet href=\/html\/resources\/zh-cn.css><body>/' \
 		-e 's/issue-url=[^ ]+\s+src=[^ ]+/issue-url=https:\/\/github.com\/whatwg-cn\/html\/issues\/new src=\/html\/resources\/file-issue.js/' \
 		-e 's/\/html-dfn\.js/\/html\/resources\/html-dfn.js/' \
 		-e '$$a\<script src=\/html\/resources\/zh-cn.js></script>' \
@@ -33,12 +35,15 @@ html:
 	git clone https://github.com/whatwg/html.git --depth=1
 	rm -rf html/.git
 
-update-en: html
-	mv html/source source
+update-en: clean-html html
+	cp html/source source
 	rm -rf src/SUMMARY.en.md
 	find src/ -name "*.en.html" -delete
 	find src/ -type d -empty -delete
 	node ./bin/split.js
+
+clean-html:
+	rm -rf html
 
 update-progress:
 	data=`bash ./bin/progress.sh | awk -F: '{print $$2}'`; \

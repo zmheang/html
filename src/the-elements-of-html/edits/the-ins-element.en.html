@@ -13,6 +13,10 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-mod-cite">cite</code></dd>
    <dd><code data-x="attr-mod-datetime">datetime</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-ins">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-ins">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLModElement</code>.</dd>
   </dl>
@@ -23,7 +27,7 @@
 
    <p>The following represents the addition of a single paragraph:</p>
 
-   <pre><code class="html" data-x="">&lt;aside>
+   <pre><code class="html">&lt;aside>
  &lt;ins>
   &lt;p> I like fruit. &lt;/p>
  &lt;/ins>
@@ -32,7 +36,7 @@
    <p>As does the following, because everything in the <code>aside</code> element here counts as
    <span>phrasing content</span> and therefore there is just one <span>paragraph</span>:</p>
 
-   <pre><code class="html" data-x="">&lt;aside>
+   <pre><code class="html">&lt;aside>
  &lt;ins>
   Apples are &lt;em>tasty&lt;/em>.
  &lt;/ins>
@@ -52,7 +56,7 @@
    inserted in two parts. The first <code>ins</code> element in this example thus crosses a
    paragraph boundary, which is considered poor form.</p>
 
-   <pre class="bad"><code class="html" data-x="">&lt;aside>
+   <pre class="bad"><code class="html">&lt;aside>
  &lt;!-- don't do this -->
  &lt;ins datetime="2005-03-16 00:00Z">
   &lt;p> I like fruit. &lt;/p>
@@ -66,7 +70,7 @@
    <p>Here is a better way of marking this up. It uses more elements, but none of the elements cross
    implied paragraph boundaries.</p>
 
-   <pre><code class="html" data-x="">&lt;aside>
+   <pre><code class="html">&lt;aside>
  &lt;ins datetime="2005-03-16 00:00Z">
   &lt;p> I like fruit. &lt;/p>
  &lt;/ins>

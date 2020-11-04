@@ -2,7 +2,7 @@
 
   <dl class="domintro">
 
-   <dt><var>window</var> . <code subdfn data-x="dom-window-postMessage">postMessage</code>(<var>message</var>, <var>targetOrigin</var> [, <var>transfer</var> ] )</dt>
+   <dt><var>window</var> . <code subdfn data-x="dom-window-postMessage-options">postMessage</code>(<var>message</var> [, <var>options</var> ] )</dt>
 
    <dd>
 
@@ -11,19 +11,24 @@
     也可以包含数据对象比如 <code>File</code> <code>Blob</code>，<code>FileList</code>，
     以及 <code data-x="idl-ArrayBuffer">ArrayBuffer</code> 对象。</p>
 
-    <p><var>transfer</var> 中列出的对象会被传输，而非仅仅克隆，
-    这意味着在发送的一方不再能用了。</p>
+    <p><var>options</var> 的 <code data-x="dom-PostMessageOptions-transfer">transfer</code> 成员中的对象会被转移（不是克隆），
+    意味着它们在发送侧不再可用。</p>
 
-    <p>如果目标 window 的域不符合给定的域，该消息会被丢弃以避免信息泄露。
-    给任意域发送消息时，要把目标域设为 "<code data-x="">*</code>"。
-    限制只给 same-origin 目标发送消息时，不需要显式地声明域，
-    把目标域设为 "<code data-x="">/</code>" 即可。</p>
+    <p>可以用 <var>options</var> 的 <code data-x="dom-WindowPostMessageOptions-targetOrigin">targetOrigin</code> 成员来指定目标源。
+    如果没有指定，默认为 "<code data-x="">/</code>"。这个默认值限制了消息只能发送到同源目标。</p>
+
+    <p>为避免信息泄露，如果目标窗口的源不匹配给定的源消息会被丢弃。如果要无视目标源直接发送消息，需要设置目标源为 "<code data-x="">*</code>"。</p>
 
     <p>如果 <var>transfer</var> 数组包含重复的对象，或者 <var>message</var> 不可克隆时，
     抛出一个 <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>。</p>
 
    </dd>
 
+   <dt><var>window</var> . <code data-x="dom-window-postMessage">postMessage</code>(<var>message</var>, <var>targetOrigin</var> [, <var>transfer</var> ] )</dt>
+
+   <dd><p>这是 <code data-x="dom-window-postMessage-options">postMessage()</code> 的另一个版本，以目标源作为参数。调用
+   <code data-x="">window.postMessage(message, target, transfer)</code> 等价于
+   <code data-x="">window.postMessage(message, {targetOrigin, transfer})</code>。</p></dd>
   </dl>
 
   <p class="note">给刚导航到新 <code>Document</code> 的 <span>browsing context</span> 上的
@@ -35,13 +40,9 @@
 
   <div w-nodev>
 
-  <p><dfn><code data-x="dom-window-postMessage">postMessage(<var>message</var>,
-  <var>targetOrigin</var>, <var>transfer</var>)</code></dfn> 方法在一个
-  <code>Window</code> 对象上被调用时，必须执行以下步骤：</p>
+  <p>给定 <var>targetWindow</var>, <var>message</var> 和 <var>options</var> 的 <dfn data-x="window post message steps">窗口发送消息步骤</dfn> 如下：</p>
 
   <ol> <!-- a lot of this is similar or identical to port.postMessage -->
-
-   <li><p>令 <var>targetWindow</var> 为当前 <code>Window</code> 对象。</p>
 
    <li><p>令 <var>targetRealm</var> 为 <var>targetWindow</var> 的 <span
    data-x="concept-global-object-realm">Realm</span>。</p></li>
@@ -52,6 +53,9 @@
    relevant would mean that the MessageEvent's source property always points to the "calling"
    window, in same-origin cases. See discussion at
    https://github.com/whatwg/html/issues/1542#issuecomment-233502636 -->
+
+   <li><p>令 <var>targetOrigin</var> 为 <var>options</var>["<code
+   data-x="dom-WindowPostMessageOptions-targetOrigin">targetOrigin</code>"]。</p></li>
 
    <li><p>如果 <var>targetOrigin</var> 是一个 U+002F SOLIDUS 字符 (/)，则将
    <var>targetOrigin</var> 设置为 <var>incumbentSettings</var> 的 <span
@@ -72,13 +76,16 @@
     </ol>
    </li>
 
+   <li><p>令 <var>transfer</var> 为 <var>options</var>["<code
+   data-x="dom-PostMessageOptions-transfer">transfer</code>"]。</p></li>
+
    <li><p>令 <var>serializeWithTransferResult</var> 为
    <span>StructuredSerializeWithTransfer</span>(<var>message</var>, <var>transfer</var>)。
    重新抛出任何异常。</p></li>
 
    <li>
-    <p>在 <span data-x="posted message task source">已发布消息队列源</span> 中
-    <span data-x="Queue a task">排一个任务</span> 执行以下步骤：</p>
+    <p>在 <dfn data-x="posted message task source">已发送消息任务源</dfn> 上给定 <var>targetWindow</var>
+     <span data-x="Queue a global task">入队一个全局任务</span> 来执行以下步骤：</p>
 
     <ol>
      <li><p>如果 <var>targetOrigin</var> 参数不是单个 U+002A ASTERISK 字符 (*) 且
@@ -124,6 +131,30 @@
      <code data-x="dom-MessageEvent-ports">ports</code> 属性初始化为 <var>newPorts</var>。</p></li>
     </ol>
    </li>
+  </ol>
+
+  <p>在 <code>Window</code> 上调用 <dfn><code data-x="dom-window-postMessage-options">postMessage(<var>message</var>,
+  <var>options</var>)</code></dfn> 方法时，必须执行以下步骤：</p>
+  <ol>
+   <li><p>令 <var>targetWindow</var> 为这个 <code>Window</code> 对象。</p></li>
+
+   <li><p>给定 <var>targetWindow</var>，<var>message</var> 和 <var>options</var>，
+   执行 <span data-x="window post message steps">窗口发送消息步骤</span>。</p></li>
+  </ol>
+
+  <p>在 <code>Window</code> 上调用 <dfn><code data-x="dom-window-postMessage">postMessage(<var>message</var>,
+  <var>targetOrigin</var>, <var>transfer</var>)</code></dfn> 方法时，必须执行以下步骤：</p>
+
+  <ol>
+   <li><p>令 <var>targetWindow</var> 为这个 <code>Window</code> 对象。</p></li>
+
+   <li><p>令 <var>options</var> 为 «[ "<code
+   data-x="dom-WindowPostMessageOptions-targetOrigin">targetOrigin</code>" →
+   <var>targetOrigin</var>, "<code data-x="dom-PostMessageOptions-transfer">transfer</code>" →
+   <var>transfer</var> ]»。</p></li>
+
+   <li><p>给定 <var>targetWindow</var>，<var>message</var> 和 <var>options</var>，
+   执行 <span data-x="window post message steps">窗口发送消息步骤</span>。</p></li>
   </ol>
 
   </div>

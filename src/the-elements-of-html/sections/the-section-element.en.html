@@ -6,11 +6,15 @@
    <dd><span>Sectioning content</span>.</dd>
    <dd><span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
-   <dd>Where <span>flow content</span> is expected.</dd>
+   <dd>Where <span>sectioning content</span> is expected.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
    <dd><span>Flow content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-section">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-section">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -20,7 +24,7 @@
   heading.</p>
 
   <p class="example">Examples of sections would be chapters, the various tabbed pages in a tabbed
-  dialog box, or the numbered sections of a thesis. A Web site's home page could be split into
+  dialog box, or the numbered sections of a thesis. A web site's home page could be split into
   sections for an introduction, news items, and contact information.</p>
 
   <p class="note">Authors are encouraged to use the <code>article</code> element instead of the
@@ -35,10 +39,10 @@
 
   <div class="example">
 
-   <p>In the following example, we see an article (part of a larger Web page) about apples,
+   <p>In the following example, we see an article (part of a larger web page) about apples,
    containing two short sections.</p>
 
-   <pre><code class="html" data-x="">&lt;article>
+   <pre><code class="html">&lt;article>
  &lt;hgroup>
   &lt;h1>Apples&lt;/h1>
   &lt;h2>Tasty, delicious fruit!&lt;/h2>
@@ -68,7 +72,7 @@
    one for the description of the ceremony. (The markup in this example features an uncommon style
    sometimes used to minimize the amount of <span>inter-element whitespace</span>.)</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE Html>
+   <pre><code class="html">&lt;!DOCTYPE Html>
 &lt;Html Lang=En
  >&lt;Head
    >&lt;Title
@@ -119,7 +123,7 @@
    <p>In this example, a book author has marked up some sections as chapters and some as appendices,
    and uses CSS to style the headers in these two classes of section differently.</p>
 
-   <pre><code class="html" data-x="">&lt;style>
+   <pre><code class="html">&lt;style>
  section { border: double medium; margin: 2em; }
  section.chapter h1 { font: 2em Roboto, Helvetica Neue, sans-serif; }
  section.appendix h1 { font: small-caps 2em Roboto, Helvetica Neue, sans-serif; }

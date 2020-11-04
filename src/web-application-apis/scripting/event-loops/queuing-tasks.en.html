@@ -1,0 +1,129 @@
+  <h5>Queuing tasks</h5>
+
+  <p>To <dfn export>queue a task</dfn> on a <span>task source</span> <var>source</var>, which
+  performs a series of steps <var>steps</var>, optionally given an event loop <var>event loop</var>
+  and a document <var>document</var>:</p>
+
+  <ol>
+   <li><p>If <var>event loop</var> was not given, set <var>event loop</var> to the <span>implied
+   event loop</span>.</p></li>
+
+   <li><p>If <var>document</var> was not given, set <var>document</var> to the <span>implied
+   document</span>.</p></li>
+
+   <li><p>Let <var>task</var> be a new <span data-x="concept-task">task</span>.</p></li>
+
+   <li><p>Set <var>task</var>'s <span data-x="concept-task-steps">steps</span> to
+   <var>steps</var>.</p></li>
+
+   <li><p>Set <var>task</var>'s <span data-x="concept-task-source">source</span> to
+   <var>source</var>.</p></li>
+
+   <li><p>Set <var>task</var>'s <span data-x="concept-task-document">document</span> to the
+   <var>document</var>.</p></li>
+
+   <li><p>Set <var>task</var>'s <span>script evaluation environment settings object set</span> to an
+   empty <span>set</span>.</p></li>
+
+   <li><p>Let <var>queue</var> be the <span>task queue</span> to which <var>source</var> is
+   associated on <var>event loop</var>.</p></li>
+
+   <li><p><span data-x="list append">Append</span> <var>task</var> to <var>queue</var>.</p></li>
+  </ol>
+
+  <p>To <dfn export>queue a global task</dfn> on a <span>task source</span> <var>source</var>, with
+  a <span>global object</span> <var>global</var> and a series of steps <var>steps</var>:</p>
+
+  <ol>
+   <li><p>Let <var>event loop</var> be <var>global</var>'s <span>relevant agent</span>'s <span
+   data-x="concept-agent-event-loop">event loop</span>.</p></li>
+
+   <li><p>Let <var>document</var> be <var>global</var>'s <span
+   data-x="concept-document-window">associated <code>Document</code></span>, if <var>global</var> is
+   a <code>Window</code> object; otherwise null.</p>
+
+   <li><p><span>Queue a task</span> given <var>source</var>, <var>event loop</var>,
+   <var>document</var>, and <var>steps</var>.</p></li>
+  </ol>
+
+  <p>To <dfn export>queue an element task</dfn> on a <span>task source</span> <var>source</var>,
+  with an element <var>element</var> and a series of steps <var>steps</var>:</p>
+
+  <ol>
+   <li><p>Let <var>global</var> be <var>element</var>'s <span>relevant global
+   object</span>.</p></li>
+
+   <li><p><span>Queue a global task</span> given <var>source</var>, <var>global</var>, and
+   <var>steps</var>.</p></li>
+  </ol>
+
+  <p>To <dfn export>queue a microtask</dfn> which performs a series of steps <var>steps</var>,
+  optionally given an event loop <var>event loop</var> and a document <var>document</var>:</p>
+
+  <ol>
+   <li><p>If <var>event loop</var> was not given, set <var>event loop</var> to the <span>implied
+   event loop</span>.</p></li>
+
+   <li><p>If <var>document</var> was not given, set <var>document</var> to the <span>implied
+   document</span>.</p></li>
+
+   <li><p>Let <var>microtask</var> be a new <span data-x="concept-task">task</span>.</p></li>
+
+   <li><p>Set <var>microtask</var>'s <span data-x="concept-task-steps">steps</span> to
+   <var>steps</var>.</p></li>
+
+   <li><p>Set <var>microtask</var>'s <span data-x="concept-task-source">source</span> to the
+   <dfn>microtask task source</dfn>.</p></li>
+
+   <li><p>Set <var>microtask</var>'s <span data-x="concept-task-document">document</span> to
+   <var>document</var>.</p></li>
+
+   <li><p>Set <var>task</var>'s <span>script evaluation environment settings object set</span> to an
+   empty <span>set</span>.</p></li>
+
+   <li><p><span>Enqueue</span> <var>task</var> on <var>event loop</var>'s <span>microtask
+   queue</span>.</p></li>
+  </ol>
+
+  <p class="note">It is possible for a <span>microtask</span> to be moved to a regular <span>task
+  queue</span>, if, during its initial execution, it <span data-x="spin the event loop">spins the
+  event loop</span>. This is the only case in which the <span
+  data-x="concept-task-source">source</span>, <span data-x="concept-task-document">document</span>,
+  and <span>script evaluation environment settings object set</span> of the microtask are consulted;
+  they are ignored by the <span>perform a microtask checkpoint</span> algorithm.</p>
+
+  <p>The <dfn>implied event loop</dfn> when queuing a task is the one that can deduced from the
+  context of the calling algorithm. This is generally unambiguous, as most specification algorithms
+  only ever involve a single <span>agent</span> (and thus a single <span>event loop</span>). The
+  exception is algorithms involving or specifying cross-agent communication (e.g., between a window
+  and a worker); for those cases, the <span>implied event loop</span> concept must not be relied
+  upon and specifications must explicitly provide an <span>event loop</span> when <span
+  data-x="queue a task">queuing a task</span> or <span data-x="queue a
+  microtask">microtask</span>.</p>
+
+  <p>The <dfn>implied document</dfn> when queuing a task on an <span>event loop</span> <var>event
+  loop</var> is determined as follows:</p>
+
+  <ol>
+   <li><p>If <var>event loop</var> is not a <span>window event loop</span>, then return
+   null.</p></li>
+
+   <li><p>If the task is being queued in the context of an element, then return the element's
+   <span>node document</span>.</p></li>
+
+   <li><p>If the task is being queued in the context of a <span>browsing context</span>, then return
+   the browsing context's <span>active document</span>.</p></li>
+
+   <li><p>If the task is being queued by or for a <span data-x="concept-script">script</span>, then
+   return the script's <span>settings object</span>'s <span>responsible document</span>.</p></li>
+
+   <li><p>Assert: this step is never reached, because one of the previous conditions must be true.
+   <span class="&#x0058;&#x0058;&#x0058;">Really?</span></p></li>
+  </ol>
+
+  <p class="&#x0058;&#x0058;&#x0058;">Both <span>implied event loop</span> and <span>implied
+  document</span> are vaguely-defined and have a lot of action-at-a-distance. Perhaps we can come up
+  with a more explicit architecture, while still avoiding all callers needing to explicitly specify
+  the event loop and document.</p>
+
+

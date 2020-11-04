@@ -1,6 +1,6 @@
-  <h4 id="structureddeserialize" data-export="" data-lt="StructuredDeserialize"
-  data-dfn-type="abstract-op"><dfn>StructuredDeserialize</dfn> ( <var>serialized</var>，
-  <var>targetRealm</var> [ ，<var>memory</var> ] )</h4>
+  <h4 id="structureddeserialize" data-lt="StructuredDeserialize"
+  abstract-op><dfn>StructuredDeserialize</dfn> ( <var>serialized</var>, <var>targetRealm</var> [ ,
+  <var>memory</var> ] )</h4>
 
   <p><span>StructuredDeserialize</span> 抽象操作接受一个 <span data-x="Record">记录</span>
   <var>serialized</var> 作为输入，它由之前的 <span>StructuredSerialize</span> 或
@@ -25,47 +25,6 @@
 
    <li><p>令<var>value</var> 为一个未初始化的值。</p></li>
 
-   <li>
-    <p>如果 <var>serialized</var> 包含一个 [[TransferConsumed]] 字段，则：</p>
-
-    <ol>
-     <li><p>断言： <var>serialized</var>.[[TransferConsumed]] 为 false。
-     （一定不能进入这种情况：在同一个序列化上调用多次 <span>StructuredDeserialize</span>，而那个序列化又包含了传输数据容器。）</p></li>
-
-     <li><p>设置 <var>serialized</var>.[[TransferConsumed]] 为 true。</p></li>
-
-     <li>
-      <p>如果 <var>serialized</var>.[[Type]] 是 "ArrayBuffer"，则设置 <var>value</var> 为一个新的
-      <var>targetRealm</var> 中的 ArrayBuffer 对象，其 [[ArrayBufferData]] 内部槽值为
-      <var>serialized</var>.[[ArrayBufferData]]，其 [[ArrayBufferByteLength]] 内部槽值为
-      <var>serialized</var>.[[ArrayBufferByteLength]]。</p>
-
-      <p class="note">在反序列化期间可以访问 [[ArrayBufferData]] 占用的原始内存的情况下，
-      此步骤不大可能会引发异常，因为不需要分配新的内存：
-      只是把 [[ArrayBufferData]] 占用的内存转移到新的 ArrayBuffer 中。
-      例如当源和目标 Realm 都在同一进程中时，就属于这种情况。
-     </li>
-
-     <li>
-      <p>否则：</p>
-
-      <ol>
-       <li><p>令 <var>interfaceName</var> 为 <var>serialized</var>.[[Type]]。</p></li>
-
-       <li><p>如果由 <var>interfaceName</var> 标识的接口没有暴露在
-       <var>targetRealm</var> 中，则抛出一个 <span>"<code>DataCloneError</code>"</span>
-       <code>DOMException</code>。</p></li>
-
-       <li><p>设置 <var>value</var> 为一个在 <var>targetRealm</var> 中创建的
-       新的由 <var>interfaceName</var> 标识的接口的实例。</p></li>
-
-       <li><p>给定 <var>serialized</var> 和 <var>value</var>，为 <var>interfaceName</var> 标识的接口
-       执行适当的 <span data-x="transfer-receiving steps">接收步骤</span>。</p></li>
-      </ol>
-     </li>
-    </ol>
-   </li>
-
    <li><p>否则，如果 <var>serialized</var>.[[Type]] 是 "primitive"，则设置 <var>value</var> 为
    <var>serialized</var>.[[Value]]。</p>
 
@@ -76,6 +35,10 @@
    <li><p>否则，如果 <var>serialized</var>.[[Type]] 是 "Number"，则设置 <var>value</var>
    为一个 <var>targetRealm</var> 中的新的 Number 对象，其 [[NumberData]] 内部槽值为
    <var>serialized</var>.[[NumberData]]。</p></li>
+
+   <li><p>否则，如果 <var>serialized</var>.[[Type]] 是 "BigInt"，则设置 <var>value</var>
+   为一个 <var>targetRealm</var> 中的新的 BigInt 对象，其 [[BigIntData]] 内部槽的值为
+   <var>serialized</var>.[[BigIntData]]。</p></li>
 
    <li><p>否则，如果 <var>serialized</var>.[[Type]] 是 "String"，则设置 <var>value</var>
    为一个 <var>targetRealm</var> 中的新的 String 对象，其 [[StringData]] 内部槽值为
@@ -167,9 +130,9 @@
     <p>否则，如果 <var>serialized</var>.[[Type]] 是 "Array"，则：</p>
 
     <ol>
-     <li><p>令<var>outputProto</var> 为 <var>targetRealm</var> 中的 <span>%ArrayPrototype%</span> 固有对象。</p></li>
+     <li><p>令<var>outputProto</var> 为 <var>targetRealm</var>.[[Intrinsics]].[[<span>%Array.prototype%</span>]]。</p></li>
 
-     <li><p>设置 <var>value</var> 为 ! <span>ArrayCreate</span>(<var>serialized</var>.[[Length]],
+     <li><p>设置 <var>value</var> 为 ! <span>ArrayCreate</span>(<var>serialized</var>.[[Length]]，
      <var>outputProto</var>)。</p></li>
 
      <li><p>设置<var>deep</var> 为 true。</p></li>
@@ -187,12 +150,52 @@
    </li>
 
    <li>
+    <p>否则，如果 <var>serialized</var>.[[Type]] 是 "Error"，则：</p>
+
+    <ol>
+     <li><p>令 <var>prototype</var> 为 <span>%Error.prototype%</span>。</p></li>
+
+     <li><p>如果 <var>serialized</var>.[[Name]] 是 "EvalError"，则设置 <var>prototype</var> 为
+     <span>%EvalError.prototype%</span>。</p></li>
+
+     <li><p>如果 <var>serialized</var>.[[Name]] 是 "RangeError"，则设置 <var>prototype</var>
+     为 <span>%RangeError.prototype%</span>。</p></li>
+
+     <li><p>如果 <var>serialized</var>.[[Name]] 是 "ReferenceError"，则设置
+     <var>prototype</var> 为 <span>%ReferenceError.prototype%</span>。</p></li>
+
+     <li><p>如果 <var>serialized</var>.[[Name]] 是 "SyntaxError"，则设置 <var>prototype</var>
+     为 <span>%SyntaxError.prototype%</span>。</p></li>
+
+     <li><p>如果 <var>serialized</var>.[[Name]] 是 "TypeError"，则设置 <var>prototype</var> 为
+     <span>%TypeError.prototype%</span>。</p></li>
+
+     <li><p>如果 <var>serialized</var>.[[Name]] 是 "URIError"，则设置 <var>prototype</var> 为
+     <span>%URIError.prototype%</span>。</p></li>
+
+     <li><p>令 <var>message</var> 为 <var>serialized</var>.[[Message]]。</p></li>
+
+     <li><p>设置 <var>value</var> 为 ! <span>ObjectCreate</span>(<var>prototype</var>, «
+     [[ErrorData]] »)。</p></li>
+
+     <li><p>令 <var>messageDesc</var> 为 <span>PropertyDescriptor</span>{ [[Value]]:
+     <var>message</var>, [[Writable]]: true, [[Enumerable]]: false, [[Configurable]]: true
+     }。</p></li>
+
+     <li><p>如果 <var>message</var> 不是 undefined，则执行 !
+     <span>OrdinaryDefineOwnProperty</span>(<var>value</var>, "<code data-x="">message</code>",
+     <var>messageDesc</var>)。</p></li>
+
+     <li><p><var>serialized</var> 上面任何有用的附加数据都应该反序列化后再附加到<var>value</var> 上。</p></li>
+    </ol>
+
+   <li>
     <p>否则：</p>
 
     <ol>
      <li><p>令 <var>interfaceName</var> 为 <var>serialized</var>.[[Type]]。</p></li>
 
-     <li><p>如果 <var>interfaceName</var> 标识的接口没有暴露在
+     <li><p>如果 <var>interfaceName</var> 标识的接口没有 <span data-x="idl-exposed">暴露</span> 在
      <var>targetRealm</var> 中，则抛出一个 <span>"<code>DataCloneError</code>"</span>
      <code>DOMException</code>。</p></li>
 
@@ -285,7 +288,7 @@
         执行适当的 <span data-x="deserialization steps">反序列化步骤</span>。</p>
 
         <p><span data-x="deserialization steps">反序列化步骤</span> 可能会执行一个 <dfn
-        data-export="" data-x="sub-deserialization">子反序列化</dfn>。该操作接受
+        export data-x="sub-deserialization">子反序列化</dfn>。该操作接受
         先前序列化后的 <span>Record</span> <var>subSerialized</var> 作为输入，返回
         <span>StructuredDeserialize</span>(<var>subSerialized</var>,<var>targetRealm</var>,
         <var>memory</var>)。（换句话说，<span data-x="sub-deserialization">子反序列化</span> 是

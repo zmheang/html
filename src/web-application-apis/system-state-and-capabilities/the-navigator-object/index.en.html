@@ -2,14 +2,14 @@
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-navigator">navigator</code></dfn> attribute of the
-  <code>Window</code> interface must return an instance of the <code>Navigator</code> interface,
-  which represents the identity and state of the user agent (the client), and allows Web pages to
-  register themselves as potential protocol handlers:</p>
+  <p>The <dfn attribute for="Window"><code data-x="dom-navigator">navigator</code></dfn> attribute
+  of the <code>Window</code> interface must return an instance of the <code>Navigator</code>
+  interface, which represents the identity and state of the user agent (the client), and allows web
+  pages to register themselves as potential protocol handlers:</p>
 
   </div>
 
-  <pre><code class="idl" data-x="">[Exposed=Window]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>Navigator</dfn> {
   // objects implementing this interface also implement the interfaces given below
 };
@@ -20,10 +20,6 @@ interface <dfn>Navigator</dfn> {
 <span>Navigator</span> includes <span>NavigatorCookies</span>;
 <span>Navigator</span> includes <span>NavigatorPlugins</span>;
 <span>Navigator</span> includes <span>NavigatorConcurrentHardware</span>;</code></pre>
-
-<!-- v2:
-  geolocator mozIsLocallyAvailable preference
--->
 
   <div w-nodev>
 

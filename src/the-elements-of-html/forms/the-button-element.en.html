@@ -10,10 +10,11 @@
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>Where <span>phrasing content</span> is expected.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
-   <dd><span>Phrasing content</span>, but there must be no <span>interactive content</span> descendant.</dd>
+   <dd><span>Phrasing content</span>, but there must be no <span>interactive content</span>
+   descendant and no descendant with the <code data-x="attr-tabindex">tabindex</code> attribute
+   specified.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
-   <dd><code data-x="attr-fe-autofocus">autofocus</code></dd>
    <dd><code data-x="attr-fe-disabled">disabled</code></dd>
    <dd><code data-x="attr-fae-form">form</code></dd>
    <dd><code data-x="attr-fs-formaction">formaction</code></dd>
@@ -24,12 +25,16 @@
    <dd><code data-x="attr-fe-name">name</code></dd>
    <dd><code data-x="attr-button-type">type</code></dd>
    <dd><code data-x="attr-button-value">value</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-button">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-button">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
-  [<span>CEReactions</span>] attribute boolean <span data-x="dom-fe-autofocus">autofocus</span>;
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-fe-disabled">disabled</span>;
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-fae-form">form</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-fs-formAction">formAction</span>;
@@ -46,7 +51,7 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   readonly attribute DOMString <span data-x="dom-cva-validationMessage">validationMessage</span>;
   boolean <span data-x="dom-cva-checkValidity">checkValidity</span>();
   boolean <span data-x="dom-cva-reportValidity">reportValidity</span>();
-  void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
+  undefined <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
 
   readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
 };</code></pre>
@@ -58,10 +63,11 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
 
   <p>The element is a <span data-x="concept-button">button</span>.</p>
 
-  <p>The <dfn><code data-x="attr-button-type">type</code></dfn> attribute controls the behavior of
-  the button when it is activated. It is an <span>enumerated attribute</span>. The following table
-  lists the keywords and states for the attribute &mdash; the keywords in the left column map to the
-  states in the cell in the second column on the same row as the keyword.</p>
+  <p>The <dfn element-attr for="button"><code data-x="attr-button-type">type</code></dfn> attribute
+  controls the behavior of the button when it is activated. It is an <span>enumerated
+  attribute</span>. The following table lists the keywords and states for the attribute &mdash; the
+  keywords in the left column map to the states in the cell in the second column on the same row as
+  the keyword.</p>
 
   <table>
    <thead>
@@ -105,7 +111,6 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   data-x="concept-fe-disabled">disabled</span>, and do nothing otherwise:</p>
 
   <dl>
-
    <dt> <dfn data-x="attr-button-type-submit-state">Submit Button</dfn> </dt>
 
    <dd><p>If the element has a <span>form owner</span> and the element's <span>node document</span> is
@@ -121,7 +126,6 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
    <dt> <dfn data-x="attr-button-type-button-state">Button</dfn>
 
    <dd><p>Do nothing.</p></dd>
-
   </dl>
 
   </div>
@@ -130,9 +134,8 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   <code>button</code> element with its <span>form owner</span>. The <code
   data-x="attr-fe-name">name</code> attribute represents the element's name. The <code
   data-x="attr-fe-disabled">disabled</code> attribute is used to make the control non-interactive and
-  to prevent its value from being submitted. The <code data-x="attr-fe-autofocus">autofocus</code>
-  attribute controls focus. The <code data-x="attr-fs-formaction">formaction</code>, <code
-  data-x="attr-fs-formenctype">formenctype</code>, <code
+  to prevent its value from being submitted. The <code data-x="attr-fs-formaction">formaction</code>,
+  <code data-x="attr-fs-formenctype">formenctype</code>, <code
   data-x="attr-fs-formmethod">formmethod</code>, <code
   data-x="attr-fs-formnovalidate">formnovalidate</code>, and <code
   data-x="attr-fs-formtarget">formtarget</code> attributes are <span>attributes for form
@@ -149,10 +152,11 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   data-x="attr-button-type">type</code> attribute is not in the <span
   data-x="attr-button-type-submit-state">Submit Button</span> state.</p>
 
-  <p>The <dfn><code data-x="attr-button-value">value</code></dfn> attribute gives the element's value
-  for the purposes of form submission. The element's <span data-x="concept-fe-value">value</span> is
-  the value of the element's <code data-x="attr-button-value">value</code> attribute, if there is
-  one, or the empty string otherwise.</p>
+  <p>The <dfn element-attr for="button"><code data-x="attr-button-value">value</code></dfn>
+  attribute gives the element's value for the purposes of form submission. The element's <span
+  data-x="concept-fe-value">value</span> is the value of the element's <code
+  data-x="attr-button-value">value</code> attribute, if there is one, or the empty string
+  otherwise.</p>
 
   <p class="note">A button (and its value) is only included in the form submission if the button
   itself was used to initiate the form submission.</p>
@@ -161,12 +165,12 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-button-value">value</code></dfn> IDL attribute must
-  <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLButtonElement"><code data-x="dom-button-value">value</code></dfn>
+  IDL attribute must <span>reflect</span> the content attribute of the same name.</p>
 
-  <p>The <dfn><code data-x="dom-button-type">type</code></dfn> IDL attribute must
-  <span>reflect</span> the content attribute of the same name, <span>limited to only known
-  values</span>.</p>
+  <p>The <dfn attribute for="HTMLButtonElement"><code data-x="dom-button-type">type</code></dfn> IDL
+  attribute must <span>reflect</span> the content attribute of the same name, <span>limited to only
+  known values</span>.</p>
 
   <p>The <code data-x="dom-cva-willValidate">willValidate</code>, <code
   data-x="dom-cva-validity">validity</code>, and <code
@@ -176,9 +180,8 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
   data-x="dom-cva-setCustomValidity">setCustomValidity()</code> methods, are part of the
   <span>constraint validation API</span>. The <code data-x="dom-lfe-labels">labels</code> IDL
   attribute provides a list of the element's <code>label</code>s. The <code
-  data-x="dom-fe-autofocus">autofocus</code>, <code data-x="dom-fe-disabled">disabled</code>, <code
-  data-x="dom-fae-form">form</code>, and <code data-x="dom-fe-name">name</code> IDL attributes are
-  part of the element's forms API.</p>
+  data-x="dom-fe-disabled">disabled</code>, <code data-x="dom-fae-form">form</code>, and
+  <code data-x="dom-fe-name">name</code> IDL attributes are part of the element's forms API.</p>
 
   </div>
 
@@ -186,7 +189,7 @@ interface <dfn>HTMLButtonElement</dfn> : <span>HTMLElement</span> {
 
    <p>The following button is labeled "Show hint" and pops up a dialog box when activated:</p>
 
-   <pre><code class="html" data-x="">&lt;button type=button
+   <pre><code class="html">&lt;button type=button
         onclick="alert('This 15-20 minute piece was composed by George Gershwin.')">
  Show hint
 &lt;/button></code></pre>

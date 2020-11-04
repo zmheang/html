@@ -14,7 +14,6 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-fe-autocomplete">autocomplete</code></dd>
-   <dd><code data-x="attr-fe-autofocus">autofocus</code></dd>
    <dd><code data-x="attr-textarea-cols">cols</code></dd>
    <dd><code data-x="attr-fe-dirname">dirname</code></dd>
    <dd><code data-x="attr-fe-disabled">disabled</code></dd>
@@ -27,13 +26,17 @@
    <dd><code data-x="attr-textarea-required">required</code></dd>
    <dd><code data-x="attr-textarea-rows">rows</code></dd>
    <dd><code data-x="attr-textarea-wrap">wrap</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-textarea">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-textarea">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-fe-autocomplete">autocomplete</span>;
-  [<span>CEReactions</span>] attribute boolean <span data-x="dom-fe-autofocus">autofocus</span>;
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-textarea-cols">cols</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-textarea-dirName">dirName</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-fe-disabled">disabled</span>;
@@ -49,7 +52,7 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
 
   readonly attribute DOMString <span data-x="dom-textarea-type">type</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-textarea-defaultValue">defaultValue</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-textarea-value">value</span>;
+  attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-textarea-value">value</span>;
   readonly attribute unsigned long <span data-x="dom-textarea-textLength">textLength</span>;
 
   readonly attribute boolean <span data-x="dom-cva-willValidate">willValidate</span>;
@@ -57,17 +60,17 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   readonly attribute DOMString <span data-x="dom-cva-validationMessage">validationMessage</span>;
   boolean <span data-x="dom-cva-checkValidity">checkValidity</span>();
   boolean <span data-x="dom-cva-reportValidity">reportValidity</span>();
-  void <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
+  undefined <span data-x="dom-cva-setCustomValidity">setCustomValidity</span>(DOMString error);
 
   readonly attribute <span>NodeList</span> <span data-x="dom-lfe-labels">labels</span>;
 
-  void <span data-x="dom-textarea/input-select">select</span>();
+  undefined <span data-x="dom-textarea/input-select">select</span>();
   attribute unsigned long <span data-x="dom-textarea/input-selectionStart">selectionStart</span>;
   attribute unsigned long <span data-x="dom-textarea/input-selectionEnd">selectionEnd</span>;
   attribute DOMString <span data-x="dom-textarea/input-selectionDirection">selectionDirection</span>;
-  void <span data-x="dom-textarea/input-setRangeText">setRangeText</span>(DOMString replacement);
-  void <span data-x="dom-textarea/input-setRangeText">setRangeText</span>(DOMString replacement, unsigned long start, unsigned long end, optional <span>SelectionMode</span> selectionMode = "preserve");
-  void <span data-x="dom-textarea/input-setSelectionRange">setSelectionRange</span>(unsigned long start, unsigned long end, optional DOMString direction);
+  undefined <span data-x="dom-textarea/input-setRangeText">setRangeText</span>(DOMString replacement);
+  undefined <span data-x="dom-textarea/input-setRangeText">setRangeText</span>(DOMString replacement, unsigned long start, unsigned long end, optional <span>SelectionMode</span> selectionMode = "preserve");
+  undefined <span data-x="dom-textarea/input-setSelectionRange">setSelectionRange</span>(unsigned long start, unsigned long end, optional DOMString direction);
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLTextAreaElement</code>.</dd>
@@ -87,16 +90,16 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p>The <dfn><code data-x="attr-textarea-readonly">readonly</code></dfn> attribute is a
-  <span>boolean attribute</span> used to control whether the text can be edited by the user or
-  not.</p>
+  <p>The <dfn element-attr for="textarea"><code
+  data-x="attr-textarea-readonly">readonly</code></dfn> attribute is a <span>boolean
+  attribute</span> used to control whether the text can be edited by the user or not.</p>
 
   <div class="example">
 
    <p>In this example, a text control is marked read-only because it represents a read-only
    file:</p>
 
-   <pre><code class="html" data-x="">Filename: &lt;code>/etc/bash.bashrc&lt;/code>
+   <pre><code class="html">Filename: &lt;code>/etc/bash.bashrc&lt;/code>
 &lt;textarea name="buffer" readonly>
 # System-wide .bashrc file for interactive bash(1) shells.
 
@@ -121,16 +124,18 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   data-x="attr-textarea-readonly">readonly</code> attribute specified.</p>
 
   <p>When a <code>textarea</code> is <span data-x="concept-fe-mutable">mutable</span>, its <span
-  data-x="concept-textarea-raw-value">raw value</span> should be editable by the user: the user agent
-  should allow the user to edit, insert, and remove text, and to insert and remove line breaks in
-  the form of U+000A LINE FEED (LF) characters. Any time the user causes the element's <span
-  data-x="concept-textarea-raw-value">raw value</span> to change, the user agent must <span>queue a
-  task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
-  data-x="event-input">input</code> at the <code>textarea</code> element, with the <code
-  data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true. User agents may wait for
-  a suitable break in the user's interaction before queuing the task; for example, a user agent
-  could wait for the user to have not hit a key for 100ms, so as to only fire the event when the
-  user pauses, instead of continuously for each keystroke.</p>
+  data-x="concept-textarea-raw-value">raw value</span> should be editable by the user: the user
+  agent should allow the user to edit, insert, and remove text, and to insert and remove line breaks
+  in the form of U+000A LINE FEED (LF) characters. Any time the user causes the element's <span
+  data-x="concept-textarea-raw-value">raw value</span> to change, the user agent must <span>queue an
+  element task</span> on the <span>user interaction task source</span> given the
+  <code>textarea</code> element to <span data-x="concept-event-fire">fire an event</span> named
+  <code data-x="event-input">input</code> at the <code>textarea</code> element, with the <code
+  data-x="dom-Event-bubbles">bubbles</code> and <code data-x="dom-Event-composed">composed</code>
+  attributes initialized to true. User agents may wait for a suitable break in the user's
+  interaction before queuing the task; for example, a user agent could wait for the user to have not
+  hit a key for 100ms, so as to only fire the event when the user pauses, instead of continuously
+  for each keystroke.</p>
   <!-- same text is present in the <input> section -->
 
   <p>A <code>textarea</code> element's <span data-x="concept-fe-dirty">dirty value flag</span> must
@@ -141,8 +146,8 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   elements must propagate the <span data-x="concept-textarea-raw-value">raw value</span> and <span
   data-x="concept-fe-dirty">dirty value flag</span> from the node being cloned to the copy.</p>
 
-  <p>The <span>child text content change steps</span> for <code>textarea</code> elements must, if
-  the element's <span data-x="concept-fe-dirty">dirty value flag</span> is false, set the element's
+  <p>The <span>children changed steps</span> for <code>textarea</code> elements must, if the
+  element's <span data-x="concept-fe-dirty">dirty value flag</span> is false, set the element's
   <span data-x="concept-textarea-raw-value">raw value</span> to its <span>child text
   content</span>.</p>
 
@@ -163,27 +168,27 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   then run the following steps:</p>
 
   <ol>
-
    <li><p>Set the element's <code data-x="attr-dir">dir</code> attribute to "<code
    data-x="attr-dir-ltr">ltr</code>" if the user selected a left-to-right writing direction, and
    "<code data-x="attr-dir-rtl">rtl</code>" if the user selected a right-to-left writing
    direction.</p></li>
 
-   <li><p><span>Queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
+   <li><p><span>Queue an element task</span> on the <span>user interaction task source</span> given
+   the <code>textarea</code> element to <span data-x="concept-event-fire">fire an event</span> named
    <code data-x="event-input">input</code> at the <code>textarea</code> element, with the <code
-   data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p></li>
-
+   data-x="dom-Event-bubbles">bubbles</code> and <code data-x="dom-Event-composed">composed</code>
+   attributes initialized to true.</p></li>
   </ol>
 
   </div>
 
-  <p>The <dfn><code data-x="attr-textarea-cols">cols</code></dfn> attribute specifies the expected
-  maximum number of characters per line. If the <code data-x="attr-textarea-cols">cols</code>
-  attribute is specified, its value must be a <span>valid non-negative integer</span> greater than
-  zero. <span w-nodev>If applying the <span>rules for parsing non-negative integers</span> to
-  the attribute's value results in a number greater than zero, then the element's <dfn
-  data-x="attr-textarea-cols-value">character width</dfn> is that value; otherwise, it is
-  20.</span></p>
+  <p>The <dfn element-attr for="textarea"><code data-x="attr-textarea-cols">cols</code></dfn>
+  attribute specifies the expected maximum number of characters per line. If the <code
+  data-x="attr-textarea-cols">cols</code> attribute is specified, its value must be a <span>valid
+  non-negative integer</span> greater than zero. <span w-nodev>If applying the <span>rules for
+  parsing non-negative integers</span> to the attribute's value results in a number greater than
+  zero, then the element's <dfn data-x="attr-textarea-cols-value">character width</dfn> is that
+  value; otherwise, it is 20.</span></p>
 
   <div w-nodev>
 
@@ -195,12 +200,13 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p>The <dfn><code data-x="attr-textarea-rows">rows</code></dfn> attribute specifies the number of
-  lines to show. If the <code data-x="attr-textarea-rows">rows</code> attribute is specified, its
-  value must be a <span>valid non-negative integer</span> greater than zero. <span w-nodev>If
-  applying the <span>rules for parsing non-negative integers</span> to the attribute's value results
-  in a number greater than zero, then the element's <dfn data-x="attr-textarea-rows-value">character
-  height</dfn> is that value; otherwise, it is 2.</span></p>
+  <p>The <dfn element-attr for="textarea"><code data-x="attr-textarea-rows">rows</code></dfn>
+  attribute specifies the number of lines to show. If the <code
+  data-x="attr-textarea-rows">rows</code> attribute is specified, its value must be a <span>valid
+  non-negative integer</span> greater than zero. <span w-nodev>If applying the <span>rules for
+  parsing non-negative integers</span> to the attribute's value results in a number greater than
+  zero, then the element's <dfn data-x="attr-textarea-rows-value">character height</dfn> is that
+  value; otherwise, it is 2.</span></p>
 
   <div w-nodev>
 
@@ -209,9 +215,11 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p>The <dfn><code data-x="attr-textarea-wrap">wrap</code></dfn> attribute is an <span>enumerated
-  attribute</span> with two keywords and states: the <dfn><code data-x="attr-textarea-wrap-soft">soft</code></dfn> keyword which maps to the <span
-  data-x="attr-textarea-wrap-soft-state">Soft</span> state, and the <dfn><code data-x="attr-textarea-wrap-hard">hard</code></dfn> keyword which maps to the <span
+  <p>The <dfn element-attr for="textarea"><code data-x="attr-textarea-wrap">wrap</code></dfn>
+  attribute is an <span>enumerated attribute</span> with two keywords and states: the <dfn><code
+  data-x="attr-textarea-wrap-soft">soft</code></dfn> keyword which maps to the <span
+  data-x="attr-textarea-wrap-soft-state">Soft</span> state, and the <dfn><code
+  data-x="attr-textarea-wrap-hard">hard</code></dfn> keyword which maps to the <span
   data-x="attr-textarea-wrap-hard-state">Hard</span> state. The <i data-x="missing value
   default">missing value default</i> and <i data-x="invalid value default">invalid value default</i>
   are the <span data-x="attr-textarea-wrap-soft-state">Soft</span> state.</p>
@@ -247,21 +255,10 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   data-x="attr-textarea-wrap">wrap</code> attribute, additional line breaks are inserted to wrap the
   text at the given width.</p>
 
-  <p>The algorithm for obtaining the element's <span data-x="concept-fe-api-value">API value</span>
-  is to return the element's <span data-x="concept-textarea-raw-value">raw value</span> with the
-  <span>textarea line break normalization transformation</span> applied. The
-  <!--en-GB--><dfn id="textarea-line-break-normalisation-transformation">textarea line break
-  normalization transformation</dfn> is the following algorithm, as applied to a string:</p>
-
-  <ol>
-
-   <li><p>Replace every U+000D CARRIAGE RETURN U+000A LINE FEED (CRLF) character pair with a single
-   U+000A LINE FEED (LF) character.</p></li>
-
-   <li><p>Replace every remaining U+000D CARRIAGE RETURN character with a single U+000A LINE FEED
-   (LF) character.</p></li>
-
-  </ol>
+  <!--en-GB--><p id="textarea-line-break-normalisation-transformation">The algorithm for obtaining
+  the element's <span data-x="concept-fe-api-value">API value</span> is to return the element's
+  <span data-x="concept-textarea-raw-value">raw value</span>, with <span data-x="normalize
+  newlines">newlines normalized</span>.</p>
 
   <p>The element's <span data-x="concept-fe-value">value</span> is defined to be the element's <span
   data-x="concept-textarea-raw-value">raw value</span> with the <span>textarea wrapping
@@ -269,7 +266,6 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   algorithm, as applied to a string:</p>
 
   <ol>
-
    <li><p>Replace every occurrence of a U+000D CARRIAGE RETURN (CR) character not followed by a
    U+000A LINE FEED (LF) character, and every occurrence of a U+000A LINE FEED (LF) character not
    preceded by a U+000D CARRIAGE RETURN (CR) character, by a two-character string consisting of a
@@ -277,33 +273,36 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
 
    <li><p>If the element's <code data-x="attr-textarea-wrap">wrap</code> attribute is in the <span
    data-x="attr-textarea-wrap-hard-state">Hard</span> state, insert U+000D CARRIAGE RETURN U+000A
-   LINE FEED (CRLF) character pairs into the string using a UA-defined algorithm so that each line
-   has no more than <span data-x="attr-textarea-cols-value">character width</span> characters. For
-   the purposes of this requirement, lines are delimited by the start of the string, the end of the
-   string, and U+000D CARRIAGE RETURN U+000A LINE FEED (CRLF) character pairs.</p></li>
-
+   LINE FEED (CRLF) character pairs into the string using an <span>implementation-defined</span>
+   algorithm so that each line has no more than <span data-x="attr-textarea-cols-value">character
+   width</span> characters. For the purposes of this requirement, lines are delimited by the start
+   of the string, the end of the string, and U+000D CARRIAGE RETURN U+000A LINE FEED (CRLF)
+   character pairs.</p></li>
   </ol>
 
   </div>
 
-  <p>The <dfn><code data-x="attr-textarea-maxlength">maxlength</code></dfn> attribute is a <span
+  <p>The <dfn element-attr for="textarea"><code
+  data-x="attr-textarea-maxlength">maxlength</code></dfn> attribute is a <span
   data-x="attr-fe-maxlength">form control <code data-x="">maxlength</code> attribute</span>.</p>
 
   <p>If the <code>textarea</code> element has a <span>maximum allowed value length</span>, then the
-  element's children must be such that the <span>JavaScript string length</span> of the value of the
-  element's <code>textContent</code> IDL attribute with the <span>textarea line break normalization
-  transformation</span> applied is equal to or less than the element's <span>maximum allowed value
+  element's children must be such that the <span>length</span> of the value of the element's
+  <span>descendant text content</span> with <span data-x="normalize newlines">newlines
+  normalized</span> is equal to or less than the element's <span>maximum allowed value
   length</span>.</p>
 
-  <p>The <dfn><code data-x="attr-textarea-minlength">minlength</code></dfn> attribute is a <span
+  <p>The <dfn element-attr for="textarea"><code
+  data-x="attr-textarea-minlength">minlength</code></dfn> attribute is a <span
   data-x="attr-fe-minlength">form control <code data-x="">minlength</code> attribute</span>.</p>
 
   <!-- we allow the default to be smaller than the minimum, so that you can have incomplete, but not
   empty, input already in the form, like a template that needs to be filled in -->
 
-  <p>The <dfn><code data-x="attr-textarea-required">required</code></dfn> attribute is a
-  <span>boolean attribute</span>. When specified, the user will be required to enter a value before
-  submitting the form.</p>
+  <p>The <dfn element-attr for="textarea"><code
+  data-x="attr-textarea-required">required</code></dfn> attribute is a <span>boolean
+  attribute</span>. When specified, the user will be required to enter a value before submitting the
+  form.</p>
 
   <div w-nodev>
 
@@ -318,10 +317,10 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
 
   <!-- substantially similar text in the <input> section -->
 
-  <p>The <dfn><code data-x="attr-textarea-placeholder">placeholder</code></dfn> attribute represents
-  a <em>short</em> hint (a word or short phrase) intended to aid the user with data entry when the
-  control has no value. A hint could be a sample value or a brief description of the expected
-  format.</p>
+  <p>The <dfn element-attr for="textarea"><code
+  data-x="attr-textarea-placeholder">placeholder</code></dfn> attribute represents a <em>short</em>
+  hint (a word or short phrase) intended to aid the user with data entry when the control has no
+  value. A hint could be a sample value or a brief description of the expected format.</p>
 
   <p>The <code data-x="attr-textarea-placeholder">placeholder</code> attribute should not be used as
   an alternative to a <code>label</code>. For a longer hint or other advisory text, the <code
@@ -340,9 +339,13 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   <span>focused</span> (e.g. by displaying it inside a blank unfocused control). All U+000D CARRIAGE
   RETURN U+000A LINE FEED character pairs (CRLF) in the hint, as well as all other U+000D CARRIAGE
   RETURN (CR) and U+000A LINE FEED (LF) characters in the hint, must be treated as line breaks when
-  rendering the hint.
+  rendering the hint.</p>
 
-  </p>
+  <p>If a user agent normally doesn't show this hint to the user when the control is
+  <span>focused</span>, then the user agent should nonetheless show the hint for the control if it
+  was focused as a result of the <code data-x="attr-fe-autofocus">autofocus</code> attribute, since
+  in that case the user will not have had an opportunity to examine the control before focusing
+  it.</p>
 
   </div>
 
@@ -354,7 +357,6 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   non-interactive and to prevent its value from being submitted.
   The <code data-x="attr-fae-form">form</code> attribute is used to explicitly associate the
   <code>textarea</code> element with its <span>form owner</span>.
-  The <code data-x="attr-fe-autofocus">autofocus</code> attribute controls focus.
   The <code data-x="attr-fe-autocomplete">autocomplete</code> attribute controls how the user agent
   provides autofill behavior.
   </p>
@@ -364,26 +366,22 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
    <dt><var>textarea</var> . <code subdfn data-x="dom-textarea-type">type</code></dt>
 
    <dd>
-
     <p>Returns the string "<code data-x="">textarea</code>".</p>
-
    </dd>
 
    <dt><var>textarea</var> . <code subdfn data-x="dom-textarea-value">value</code></dt>
 
    <dd>
-
     <p>Returns the current value of the element.</p>
 
     <p>Can be set, to change the value.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-textarea-cols">cols</code></dfn>, <dfn><code
+  <p>The <dfn attribute for="HTMLTextAreaElement"><code
+  data-x="dom-textarea-cols">cols</code></dfn>, <dfn><code
   data-x="dom-textarea-placeholder">placeholder</code></dfn>, <dfn><code
   data-x="dom-textarea-required">required</code></dfn>, <dfn><code
   data-x="dom-textarea-rows">rows</code></dfn>, and <dfn><code
@@ -396,24 +394,26 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   IDL attribute must <span>reflect</span> the <code data-x="attr-fe-dirname">dirname</code> content
   attribute. The <dfn><code data-x="dom-textarea-maxLength">maxLength</code></dfn> IDL attribute
   must <span>reflect</span> the <code data-x="attr-textarea-maxlength">maxlength</code> content
-  attribute, <span>limited to only non-negative numbers</span>. The
-  <dfn><code data-x="dom-textarea-minLength">minLength</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-textarea-minlength">minlength</code> content attribute,
-  <span>limited to only non-negative numbers</span>. The
-  <dfn><code data-x="dom-textarea-readOnly">readOnly</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-textarea-readonly">readonly</code> content
-  attribute.</p>
+  attribute, <span>limited to only non-negative numbers</span>. The <dfn><code
+  data-x="dom-textarea-minLength">minLength</code></dfn> IDL attribute must <span>reflect</span> the
+  <code data-x="attr-textarea-minlength">minlength</code> content attribute, <span>limited to only
+  non-negative numbers</span>. The <dfn><code data-x="dom-textarea-readOnly">readOnly</code></dfn>
+  IDL attribute must <span>reflect</span> the <code data-x="attr-textarea-readonly">readonly</code>
+  content attribute.</p>
 
-  <p>The <dfn><code data-x="dom-textarea-type">type</code></dfn> IDL attribute must return the value
-  "<code data-x="">textarea</code>".</p>
+  <p>The <dfn attribute for="HTMLTextAreaElement"><code data-x="dom-textarea-type">type</code></dfn>
+  IDL attribute must return the value "<code data-x="">textarea</code>".</p>
 
-  <p>The <dfn><code data-x="dom-textarea-defaultValue">defaultValue</code></dfn> IDL attribute must,
-  on getting, return the element's <span>child text content</span>. On setting, it must act as the
-  setter for the element's <code>textContent</code> IDL attribute.</p>
+  <p>The <dfn><code data-x="dom-textarea-defaultValue">defaultValue</code></dfn> attribute's getter
+  must return the element's <span>child text content</span>.
 
-  <p>The <dfn><code data-x="dom-textarea-value">value</code></dfn> IDL attribute must, on getting,
-  return the element's <span data-x="concept-fe-api-value">API value</span>. On setting, it must
-  perform the following steps:</p>
+  <p>The <code data-x="dom-textarea-defaultValue">defaultValue</code> attribute's setter must
+  <span>string replace all</span> with the given value within this element.</p>
+
+  <p>The <dfn attribute for="HTMLTextAreaElement"><code
+  data-x="dom-textarea-value">value</code></dfn> IDL attribute must, on getting, return the
+  element's <span data-x="concept-fe-api-value">API value</span>. On setting, it must perform the
+  following steps:</p>
 
   <ol>
    <li><p>Let <var>oldAPIValue</var> be this element's <span
@@ -433,8 +433,8 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   </ol>
 
   <p>The <dfn><code data-x="dom-textarea-textLength">textLength</code></dfn> IDL attribute must
-  return the <span>JavaScript string length</span> of the element's <span
-  data-x="concept-fe-api-value">API value</span>.</p>
+  return the <span>length</span> of the element's <span data-x="concept-fe-api-value">API
+  value</span>.</p>
 
   <p>The <code data-x="dom-cva-willValidate">willValidate</code>, <code
   data-x="dom-cva-validity">validity</code>, and <code
@@ -450,9 +450,9 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
   data-x="dom-textarea/input-selectionDirection">selectionDirection</code>, <code
   data-x="dom-textarea/input-setRangeText">setRangeText()</code>, and <code
   data-x="dom-textarea/input-setSelectionRange">setSelectionRange()</code> methods and IDL attributes
-  expose the element's text selection. The <code data-x="dom-fe-autofocus">autofocus</code>, <code
-  data-x="dom-fe-disabled">disabled</code>, <code data-x="dom-fae-form">form</code>, and <code
-  data-x="dom-fe-name">name</code> IDL attributes are part of the element's forms API.</p>
+  expose the element's text selection. The <code data-x="dom-fe-disabled">disabled</code>,
+  <code data-x="dom-fae-form">form</code>, and <code data-x="dom-fe-name">name</code> IDL attributes
+  are part of the element's forms API.</p>
 
   </div>
 
@@ -461,22 +461,22 @@ interface <dfn>HTMLTextAreaElement</dfn> : <span>HTMLElement</span> {
    <p>Here is an example of a <code>textarea</code> being used for unrestricted free-form text input
    in a form:</p>
 
-   <pre><code class="html" data-x="">&lt;p>If you have any comments, please let us know: &lt;textarea cols=80 name=comments>&lt;/textarea>&lt;/p></code></pre>
+   <pre><code class="html">&lt;p>If you have any comments, please let us know: &lt;textarea cols=80 name=comments>&lt;/textarea>&lt;/p></code></pre>
 
    <p>To specify a maximum length for the comments, one can use the <code
    data-x="attr-textarea-maxlength">maxlength</code> attribute:</p>
 
-   <pre><code class="html" data-x="">&lt;p>If you have any short comments, please let us know: &lt;textarea cols=80 name=comments maxlength=200>&lt;/textarea>&lt;/p></code></pre>
+   <pre><code class="html">&lt;p>If you have any short comments, please let us know: &lt;textarea cols=80 name=comments maxlength=200>&lt;/textarea>&lt;/p></code></pre>
 
    <p>To give a default value, text can be included inside the element:</p>
 
-   <pre><code class="html" data-x="">&lt;p>If you have any comments, please let us know: &lt;textarea cols=80 name=comments>You rock!&lt;/textarea>&lt;/p></code></pre>
+   <pre><code class="html">&lt;p>If you have any comments, please let us know: &lt;textarea cols=80 name=comments>You rock!&lt;/textarea>&lt;/p></code></pre>
 
    <p>You can also give a minimum length. Here, a letter needs to be filled out by the user; a
    template (which is shorter than the minimum length) is provided, but is insufficient to submit
    the form:</p>
 
-   <pre><code class="html" data-x="">&lt;textarea required minlength="500">Dear Madam Speaker,
+   <pre><code class="html">&lt;textarea required minlength="500">Dear Madam Speaker,
 
 Regarding your letter dated ...
 
@@ -489,7 +489,7 @@ Yours Sincerely,
    <p>A placeholder can be given as well, to suggest the basic form to the user, without providing
    an explicit template:</p>
 
-   <pre><code class="html" data-x="">&lt;textarea placeholder="Dear Francine,
+   <pre><code class="html">&lt;textarea placeholder="Dear Francine,
 
 They closed the parks this week, so we won't be able to
 meet your there. Should we just have dinner?
@@ -500,7 +500,7 @@ Daddy">&lt;/textarea></code></pre>
    <p>To have the browser submit <span>the directionality</span> of the element along with the
    value, the <code data-x="attr-fe-dirname">dirname</code> attribute can be specified:</p>
 
-   <pre><code class="html" data-x="">&lt;p>If you have any comments, please let us know (you may use either English or Hebrew for your comments):
+   <pre><code class="html">&lt;p>If you have any comments, please let us know (you may use either English or Hebrew for your comments):
 &lt;textarea cols=80 name=comments dirname=comments.dir>&lt;/textarea>&lt;/p></code></pre>
 
   </div>

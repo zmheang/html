@@ -6,11 +6,15 @@
    <dd><span>Sectioning content</span>.</dd>
    <dd><span>Palpable content</span>.</dd>
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
-   <dd>Where <span>flow content</span> is expected.</dd>
+   <dd>Where <span>sectioning content</span> is expected.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
    <dd><span>Flow content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-article">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-article">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -49,7 +53,7 @@
    <p>This example shows a blog post using the <code>article</code> element, with some schema.org
    annotations:</p>
 
-   <pre><code class="html" data-x="">&lt;article itemscope itemtype="http://schema.org/BlogPosting">
+   <pre><code class="html">&lt;article itemscope itemtype="http://schema.org/BlogPosting">
  &lt;header>
   &lt;h1 itemprop="headline">The Very First Rule of Life&lt;/h1>
   &lt;p>&lt;time itemprop="datePublished" datetime="2009-10-09">3 days ago&lt;/time>&lt;/p>
@@ -65,7 +69,7 @@
 
    <p>Here is that same blog post, but showing some of the comments:</p>
 
-   <pre><code class="html" data-x="">&lt;article itemscope itemtype="http://schema.org/BlogPosting">
+   <pre><code class="html">&lt;article itemscope itemtype="http://schema.org/BlogPosting">
  &lt;header>
   &lt;h1 itemprop="headline">The Very First Rule of Life&lt;/h1>
   &lt;p>&lt;time itemprop="datePublished" datetime="2009-10-09">3 days ago&lt;/time>&lt;/p>
@@ -112,10 +116,10 @@
    widgets are implemented as <span data-x="customized built-in element">customized built-in
    elements</span> in order to get specific styling and scripted behavior.</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;html lang=en>
 &lt;title>eHome Portal&lt;/title>
-&lt;script src="/scripts/widgets.js">
+&lt;script src="/scripts/widgets.js">&lt;/script>
 &lt;link rel=stylesheet href="/styles/main.css">
 &lt;article is="stock-widget">
  &lt;h1>Stocks&lt;/h1>

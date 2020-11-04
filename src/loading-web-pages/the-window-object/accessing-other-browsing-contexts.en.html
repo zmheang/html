@@ -5,33 +5,35 @@
    <dt><var>window</var> . <code subdfn data-x="dom-length">length</code></dt>
 
    <dd>
-
     <p>Returns the number of <span data-x="document-tree child browsing
     context">document-tree child browsing contexts</span>.</p>
-
    </dd>
 
    <dt><var>window</var>[<var>index</var>]</dt>
 
    <dd>
-
     <p>Returns the indicated <span>document-tree child browsing context</span>.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
   <p id="number-of-child-browsing-contexts">The <dfn>number of document-tree child browsing
-  contexts</dfn> of a <code>Window</code> object <var>W</var> is the number of <span
-  data-x="document-tree child browsing context">document-tree child browsing contexts</span> of
-  <var>W</var>'s <span data-x="concept-document-window">associated <code>Document</code></span>'s
-  <span data-x="concept-document-bc">browsing context</span>.</p>
+  contexts</dfn> of a <code>Window</code> object <var>W</var> is the result of running these
+  steps:</p>
 
-  <p>The <dfn><code data-x="dom-length">length</code></dfn> IDL attribute's getter must return the
-  <span>number of document-tree child browsing contexts</span> of this <code>Window</code>
-  object.</p>
+  <ol>
+   <li><p>If <var>W</var>'s <span data-x="window bc">browsing context</span> is null, then return
+   0.</p></li>
+
+   <li><p>Return the number of <span data-x="document-tree child browsing context">document-tree
+   child browsing contexts</span> of <var>W</var>'s <span data-x="window bc">browsing
+   context</span>.</p></li>
+  </ol>
+
+  <p>The <dfn attribute for="Window"><code data-x="dom-length">length</code></dfn> IDL attribute's
+  getter must return the <span>number of document-tree child browsing contexts</span> of this
+  <code>Window</code> object.</p>
 
   <p class="note">Indexed access to <span data-x="document-tree child browsing
   context">document-tree child browsing contexts</span> is defined through the <a

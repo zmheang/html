@@ -6,10 +6,15 @@
    <b>this</b>.</p></li>
 
    <li><p>If ! <span>IsPlatformObjectSameOrigin</span>(<var>W</var>) is true, then return ?
-   <span>OrdinarySet</span>(<var>W</var>, <b>this</b>, <var>Receiver</var>).</p></li>
-   <!-- https://github.com/tc39/ecma262/issues/394 -->
+   <span>OrdinarySet</span>(<b>this</b>, <var>P</var>, <var>V</var>, <var>Receiver</var>).</p></li>
 
    <li><p>Return ? <span>CrossOriginSet</span>(<b>this</b>, <var>P</var>, <var>V</var>,
    <var>Receiver</var>).</p></li>
   </ol>
+
+  <p class="note"><b>this</b> is passed rather than <var>W</var> as <span>OrdinarySet</span> and
+  <span>CrossOriginSet</span> will invoke the <a
+  href="#windowproxy-getownproperty">[[GetOwnProperty]]</a> internal method.
+  <span>OrdinarySet</span> will also invoke the <a
+  href="#windowproxy-defineownproperty">[[DefineOwnProperty]]</a> internal method.</p>
 

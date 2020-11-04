@@ -1,4 +1,5 @@
-  <h5>Link type "<dfn><code data-x="rel-preload">preload</code></dfn>"</h5>
+  <h5>Link type "<dfn for="link/rel" attr-value><code
+  data-x="rel-preload">preload</code></dfn>"</h5>
 
   <p>The <code data-x="rel-preload">preload</code> keyword may be used with <code>link</code>
   elements. This keyword creates an <span data-x="external resource link">external resource
@@ -13,10 +14,46 @@
   data-x="concept-request-destination">destination</span>), as it is highly likely that the user
   will require this resource for the current navigation. <span w-nodev>User agents must implement
   the processing model of the <code data-x="rel-preload">preload</code> keyword described in
-  <cite>Preload</cite>, as well as in this specification's <span data-x="concept-link-obtain">obtain
-  the resource</span> algorithm.</span> <ref spec=PRELOAD></p>
+  <cite>Preload</cite>, as well as in this specification's <span>fetch and process the linked
+  resource</span> algorithm.</span> <ref spec=PRELOAD></p>
 
   <p>There is no default type for resources given by the <code data-x="rel-preload">preload</code>
   keyword.</p>
+
+  <p>The <span>linked resource fetch setup steps</span> for this type of linked resource, given a
+  <code>link</code> element <var>el</var> and <span data-x="concept-request">request</span>
+  <var>request</var>, are:</p>
+
+  <ol>
+   <li><p>Let <var>as</var> be the current state of <var>el</var>'s <code
+   data-x="attr-link-as">as</code> attribute.</p></li>
+
+   <li><p>If <var>as</var> does not represent a state, return false.</p></li>
+
+   <li><p>Set <var>request</var>'s <span data-x="concept-request-destination">destination</span> to
+   the result of <span data-x="concept-potential-destination-translate">translating</span>
+   <var>as</var>.</p></li>
+
+   <li>
+    <p>If <var>as</var> is "<code data-x="">image</code>", then:</p>
+
+    <ol>
+     <li><p>Let <var>selected source</var> and <var>selected pixel density</var> be the URL and
+     pixel density that results from <span data-x="select an image source">selecting an image
+     source</span> given <var>el</var>, respectively.</p></li>
+
+     <li><p>If <var>selected source</var> is null, then return false.</p></li>
+
+     <li><p><span data-x="parse a url">Parse</span> <var>selected source</var>, relative to
+     <var>el</var>'s <span>node document</span>. If that fails, then return false. Otherwise, let
+     <var>url</var> be the <span>resulting URL record</span>.</p></li>
+
+     <li><p>Set <var>request</var>'s <span data-x="concept-request-url">url</span> to
+     <var>url</var>.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Return true.</p></li>
+  </ol>
 
 

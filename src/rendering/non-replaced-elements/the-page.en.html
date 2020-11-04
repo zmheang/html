@@ -1,6 +1,6 @@
   <h4>The page</h4>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 html, body { display: block; }</code></pre>
 
@@ -12,6 +12,7 @@ html, body { display: block; }</code></pre>
   none of the attributes for a property are found, or if the value of the attribute that was found
   cannot be parsed successfully, then a default value of 8px is expected to be used for that
   property instead.</p>
+
   <table>
    <thead>
     <tr>
@@ -52,8 +53,8 @@ html, body { display: block; }</code></pre>
   </table>
 
   <p>If the <code>body</code> element's <span>node document</span>'s <span
-  data-x="concept-document-bc">browsing context</span> is a <span>nested browsing context</span>,
-  and the <span>browsing context container</span> of that <span>nested browsing context</span> is a
+  data-x="concept-document-bc">browsing context</span> is a <span>child browsing context</span>,
+  and the <span data-x="bc-container">container</span> of that <span>browsing context</span> is a
   <code>frame</code> or <code>iframe</code> element, then the <dfn>container frame element</dfn> of
   the <code>body</code> element is that <code>frame</code> or <code>iframe</code> element.
   Otherwise, there is no <span>container frame element</span>.</p>
@@ -66,21 +67,22 @@ html, body { display: block; }</code></pre>
 
   <hr>
 
-  <p>If a <code>Document</code> is in a <span>nested browsing context</span>, it is expected to be
-  positioned and sized to fit inside the <span>content box</span> of its <span>browsing context
-  container</span>. If a <span>browsing context</span>'s <span>browsing context container</span> is
-  not <span>being rendered</span>, the <span>browsing context</span> is expected to have a
+  <p>If a <code>Document</code>'s <span data-x="concept-document-bc">browsing context</span> is a
+  <span>child browsing context</span>, then it is expected to be positioned and sized to fit inside
+  the <span>content box</span> of the <span data-x="bc-container">container</span> of that
+  <span>browsing context</span>. If the <span data-x="bc-container">container</span> is not
+  <span>being rendered</span>, the <span>browsing context</span> is expected to have a
   <span>viewport</span> with zero width and zero height.</p>
 
-  <p>If the <code>Document</code> is in a <span>nested browsing context</span>, and the
-  <span>browsing context container</span> of that <span>nested browsing context</span> is a
-  <code>frame</code> or <code>iframe</code> element, and that element has a <code
-  data-x="">scrolling</code> attribute, and that attribute's value is an <span>ASCII
+  <p>If a <code>Document</code>'s <span data-x="concept-document-bc">browsing context</span> is a
+  <span>child browsing context</span>, the <span data-x="bc-container">container</span> of that
+  <span>browsing context</span> is a <code>frame</code> or <code>iframe</code> element, that element
+  has a <code data-x="">scrolling</code> attribute, and that attribute's value is an <span>ASCII
   case-insensitive</span> match for the string "<code data-x="">off</code>", "<code
   data-x="">noscroll</code>", or "<code data-x="">no</code>", then the user agent is expected to
-  prevent any scroll bars from being shown for the <span>viewport</span> of the
-  <span>nested browsing context</span>, regardless of the <span>'overflow'</span> property that
-  applies to that <span>viewport</span>.</p>
+  prevent any scrollbars from being shown for the <span>viewport</span> of the
+  <code>Document</code>'s <span data-x="concept-document-bc">browsing context</span>, regardless of
+  the <span>'overflow'</span> property that applies to that <span>viewport</span>.</p>
 
   <hr>
 

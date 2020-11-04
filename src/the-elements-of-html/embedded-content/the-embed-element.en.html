@@ -1,4 +1,4 @@
-  <h4 data-dfn-type="element" data-lt="embed">The <dfn><code>embed</code></dfn> element</h4>
+  <h4 element data-lt="embed">The <dfn><code>embed</code></dfn> element</h4>
 
 <!-- (v2?)
  we have all kinds of quirks we should define if they come up during
@@ -34,16 +34,23 @@
    <dd><code data-x="attr-dim-width">width</code></dd>
    <dd><code data-x="attr-dim-height">height</code></dd>
    <dd>Any other attribute that has no namespace (see prose).</dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-embed">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-embed">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLEmbedElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-embed-src">src</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-embed-type">type</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-dim-width">width</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-dim-height">height</span>;
   <span>Document</span>? <span data-x="dom-media-getSVGDocument">getSVGDocument</span>();
+
+  // <a href="#HTMLEmbedElement-partial">also has obsolete members</a>
 };</code></pre>
     <div w-nodev>
     <p>Depending on the type of content instantiated by the
@@ -57,21 +64,27 @@ interface <dfn>HTMLEmbedElement</dfn> : <span>HTMLElement</span> {
   <p>The <code>embed</code> element provides an integration point for an external (typically
   non-HTML) application or interactive content.</p>
 
-  <p>The <dfn><code data-x="attr-embed-src">src</code></dfn> attribute gives the <span>URL</span> of
-  the resource being embedded. The attribute, if present, must contain a <span>valid non-empty URL
-  potentially surrounded by spaces</span>.</p>
+  <p>The <dfn element-attr for="embed"><code data-x="attr-embed-src">src</code></dfn> attribute
+  gives the <span>URL</span> of the resource being embedded. The attribute, if present, must contain
+  a <span>valid non-empty URL potentially surrounded by spaces</span>.</p>
+
+  <p class="warning">Authors should avoid referencing untrusted resources, as such a resource can be
+  used to instantiate plugins or run scripts, even if the author has used features such as the Flash
+  "allowScriptAccess" parameter.</p> <!-- for example, if the user doesn't have flash installed but
+  does have java installed, and the remote site unexpectedly returns java instead of flash, then
+  java will run, and it will ignore the allowScriptAccess thing -->
 
   <p>If the <code data-x="attr-itemprop">itemprop</code> attribute is specified on an
   <code>embed</code> element, then the <code data-x="attr-embed-src">src</code> attribute must also
   be specified.</p>
 
-  <p>The <dfn><code data-x="attr-embed-type">type</code></dfn> attribute, if present, gives the
-  <span>MIME type</span> by which the plugin to instantiate is selected. The value must be a
-  <span>valid MIME type string</span>. If both the <code data-x="attr-embed-type">type</code>
-  attribute and the <code data-x="attr-embed-src">src</code> attribute are present, then the <code
-  data-x="attr-embed-type">type</code> attribute must specify the same type as the <span
-  data-x="Content-Type">explicit Content-Type metadata</span> of the resource given by the <code
-  data-x="attr-embed-src">src</code> attribute.</p>
+  <p>The <dfn element-attr for="embed"><code data-x="attr-embed-type">type</code></dfn> attribute,
+  if present, gives the <span>MIME type</span> by which the plugin to instantiate is selected. The
+  value must be a <span>valid MIME type string</span>. If both the <code
+  data-x="attr-embed-type">type</code> attribute and the <code data-x="attr-embed-src">src</code>
+  attribute are present, then the <code data-x="attr-embed-type">type</code> attribute must specify
+  the same type as the <span data-x="Content-Type">explicit Content-Type metadata</span> of the
+  resource given by the <code data-x="attr-embed-src">src</code> attribute.</p>
 
   <div w-nodev>
 
@@ -124,188 +137,210 @@ interface <dfn>HTMLEmbedElement</dfn> : <span>HTMLElement</span> {
   remaining <span data-x="concept-embed-active">potentially active</span> and has its <code
   data-x="attr-embed-type">src</code> attribute set, changed, or removed or its <code
   data-x="attr-embed-type">type</code> attribute set, changed, or removed, the user agent must
-  <span>queue a task</span> using the <dfn>embed task source</dfn> to run <span>the
-  <code>embed</code> element setup steps</span>.</p>
+  <span>queue an element task</span> on the <dfn>embed task source</dfn> given the element
+  to run <span>the <code>embed</code> element setup steps</span> for that element.</p>
 
-  <p><dfn>The <code>embed</code> element setup steps</dfn> are as follows:</p>
+  <p><dfn>The <code>embed</code> element setup steps</dfn> for a given <code>embed</code> element
+  <var>element</var> are as follows:</p>
 
   <ol>
-
    <li><p>If another <span data-x="concept-task">task</span> has since been queued to run <span>the
-   <code>embed</code> element setup steps</span> for this element, then return.</p></li>
+   <code>embed</code> element setup steps</span> for <var>element</var>, then return.</p></li>
 
-   <li><p>If the <span>Should element be blocked <i lang="la">a priori</i> by Content Security
-   Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when executed on the element,
-   then return. <ref spec="CSP"></p></li>
+   <li><p>If the <span>Should plugin element be blocked <i lang="la">a priori</i> by Content
+   Security Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when executed on
+   <var>element</var>, then return. <ref spec=CSP></p></li>
 
    <li>
+    <p>If <var>element</var> has a <code data-x="attr-embed-src">src</code> attribute set, then:</p>
 
-    <dl class="switch">
+    <ol>
+     <li><p>Let <var>url</var> be the result of <span data-x="parse a url">parsing</span> the value
+     of <var>element</var>'s <code data-x="attr-embed-src">src</code> attribute, relative to
+     <var>element</var>'s <span>node document</span>.</p></li>
 
-     <dt>If the element has a <code data-x="attr-embed-src">src</code> attribute set</dt>
+     <li><p>If <var>url</var> is failure, then return.</p></li>
 
-     <dd>
+     <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
+     <span data-x="concept-request-url">url</span> is <var>url</var>, <span
+     data-x="concept-request-client">client</span> is <var>element</var>'s <span>node
+     document</span>'s <span>relevant settings object</span>, <span
+     data-x="concept-request-destination">destination</span> is "<code data-x="">embed</code>",
+     <span data-x="concept-request-credentials-mode">credentials mode</span> is "<code
+     data-x="">include</code>", <span data-x="concept-request-mode">mode</span> is "<code
+     data-x="">navigate</code>", and whose <span>use-URL-credentials flag</span> is set.</p></li>
 
-      <p>The user agent must <span data-x="parse a url">parse</span> the value of the element's
-      <code data-x="attr-embed-src">src</code> attribute, relative to the element's <span>node
-      document</span>. If that is successful, the user agent should run these steps:
+     <li>
+      <p><span data-x="concept-fetch">Fetch</span> <var>request</var>.</p>
 
-      <ol>
-       <!-- identical for <embed>/<object> -->
-       <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
-       <span data-x="concept-request-url">url</span> is the <span>resulting URL record</span>,
-       <span data-x="concept-request-client">client</span> is the element's <span>node
-       document</span>'s <code>Window</code> object's <span>environment settings object</span>,
-       <span data-x="concept-request-destination">destination</span> is "<code
-       data-x="">embed</code>", <span data-x="concept-request-credentials-mode">credentials
-       mode</span> is "<code data-x="">include</code>", and whose <span>use-URL-credentials
-       flag</span> is set.</p></li>
+      <p>Fetching the resource must <span>delay the load event</span> of <var>element</var>'s
+      <span>node document</span>.</p>
 
-       <!--FETCH--><li><p><span data-x="concept-fetch">Fetch</span> <var>request</var>.</p></li>
-      </ol>
-
-      <p>The <span data-x="concept-task">task</span> that is <span
-      data-x="queue a task">queued</span> by the <span>networking task source</span> once the
-      resource has been fetched must run the following steps:</p>
-      <!-- Note that this doesn't happen when the base URL changes. -->
+      <p>To <span>process response</span> for the <span data-x="concept-response">response</span>
+      <var>response</var>:</p>
 
       <ol>
-
        <li><p>If another <span data-x="concept-task">task</span> has since been queued to run
-       <span>the <code>embed</code> element setup steps</span> for this element, then return.</p></li>
+       <span>the <code>embed</code> element setup steps</span> for <var>element</var>, then
+       return.</p></li>
+
+       <li><p>If <var>response</var> is a <span>network error</span>, then <span
+       data-x="concept-event-fire">fire an event</span> named <code
+       data-x="event-load">load</code> at <var>element</var>, and return.</p></li>
+
+       <li><p>Let <var>type</var> be the result of determining the <span
+       data-x="concept-embed-type">type of content</span> given <var>element</var> and
+       <var>response</var>.</p></li>
 
        <li>
+        <p>Switch on <var>type</var>:</p>
 
-        <p>Determine the <dfn data-x="concept-embed-type">type of the content</dfn> being embedded, as
-        follows (stopping at the first substep that determines the type):</p>
+        <dl class="switch">
+         <dt>null</dt>
+         <dd>
+          <ol>
+           <li><p><span>Display no plugin</span> for <var>element</var>.</p></li>
+          </ol>
+         </dd>
 
-        <ol>
+         <dt><code>image/svg+xml</code></dt>
+         <dd>
+          <ol>
+           <li><p>If <var>element</var>'s <span>nested browsing context</span> is null, then
+           <span>create a new nested browsing context</span> for <var>element</var>.</p></li>
+           <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2291 - dynamic changes
+                to 'name' don't do anything -->
 
-         <li><p>If the element has a <code data-x="attr-embed-type">type</code> attribute, and that
-attribute's value is a type that a <span>plugin</span> supports, then the value of the
-         <code data-x="attr-embed-type">type</code> attribute is the <span
-         data-x="concept-embed-type">content's type</span>.</p></li>
+           <li>
+            <p><span>Navigate</span> <var>element</var>'s <span>nested browsing context</span> to
+            <var>response</var>, with <var data-x="navigation-hh">historyHandling</var> set to
+            "<code data-x="hh-replace">replace</code>" and the <span>source browsing context</span>
+            set to <var>element</var>'s <span>node document</span>'s <span
+            data-x="concept-document-bc">browsing context</span>.</p>
 
-         <li>
+            <p class="note"><var>element</var>'s <code data-x="attr-embed-src">src</code> attribute
+            does not get updated if the browsing context gets further navigated to other
+            locations.</p>
+           </li>
 
-          <!-- if we get to this point we know we can successfully parsed the URL, since this algorithm is
-          only used after fetching the resource in the steps above -->
+           <li><p><var>element</var> now <span>represents</span> its <span>nested browsing
+           context</span>.</p></li>
+          </ol>
+         </dd>
 
-          <p>Otherwise, if applying the <span>URL parser</span> algorithm to the <span>URL</span> of
-          the specified resource (after any redirects) results in a <span>URL record</span> whose
-          <span data-x="concept-url-path">path</span> component matches a pattern that a
-          <span>plugin</span> supports, then the <span data-x="concept-embed-type">content's
-          type</span> is the type that that plugin can handle.</p>
-
-          <p class="example">For example, a plugin might say that it can handle resources with <span
-          data-x="concept-url-path">path</span> components that end with the four character string
-          "<code data-x="">.swf</code>".</p>
-
-          <!-- it's sad that we have to do extension sniffing. sigh. -->
-          <!-- see also <object> which has a similar step -->
-
-         </li>
-
-         <li><p>Otherwise, if the specified resource has <span data-x="Content-Type">explicit
-         Content-Type metadata</span>, then that is the <span data-x="concept-embed-type">content's
-         type</span>.</p></li>
-
-         <li><p>Otherwise, the content has no <span data-x="concept-embed-type">type</span> and there
-         can be no appropriate <span>plugin</span> for it.</p></li>
-
-         <!-- This algorithm is a monument to bad design. Go legacy! -->
-
-        </ol>
-
+         <dt>Otherwise</dt>
+         <dd>
+          <ol>
+           <li><p><span>Display a plugin</span> for <var>element</var>, given <var>type</var> and
+           <var>response</var>.</p></li>
+          </ol>
+         </dd>
+        </dl>
        </li>
-
-       <li>
-
-        <p>If the previous step determined that the <span data-x="concept-embed-type">content's
-        type</span> is <code data-x="">image/svg+xml</code>, then run the following substeps:</p>
-
-        <ol>
-
-         <li><p>If the <code>embed</code> element's <span>nested browsing context</span> is null,
-         set the element's <span>nested browsing context</span> to a <span data-x="creating a new
-         browsing context">newly-created browsing context</span>, and, if the element has a <code
-         data-x="attr-embed-name">name</code> attribute, set the <span>browsing context name</span>
-         of the element's new <span>nested browsing context</span> to the value of this
-         attribute.</p>
-         <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2291 - dynamic changes to 'name' don't do anything -->
-
-         <li><p><span>Navigate</span><!--DONAV embed--> the <span>nested browsing context</span> to
-         the fetched resource, with <span>replacement enabled</span>, and with the
-         <code>embed</code> element's <span>node document</span>'s <span
-         data-x="concept-document-bc">browsing context</span> as the <span>source browsing
-         context</span>. (The <code data-x="attr-embed-src">src</code> attribute of the
-         <code>embed</code> element doesn't get updated if the browsing context gets further
-         navigated to other locations.)</p></li>
-
-         <li><p>The <code>embed</code> element now <span>represents</span> its <span>nested browsing
-         context</span>.</p></li>
-
-        </ol>
-
-       </li>
-
-       <li>
-
-        <p>Otherwise, find and instantiate an appropriate <span>plugin</span> based on the <span
-        data-x="concept-embed-type">content's type</span>, and hand that <span>plugin</span> the
-        content of the resource, replacing any previously instantiated plugin for the element. The
-        <code>embed</code> element now represents this <span>plugin</span> instance.</p>
-
-       </li>
-
-       <li><p>Once the resource or plugin has completely loaded, <span>queue a task</span> to <span
-       data-x="concept-event-fire">fire an event</span> named <code data-x="event-load">load</code>
-       at the element.</p></li>
-
       </ol>
-
-      <p>Whether the resource is fetched successfully or not (e.g. whether the response status was
-      an <span>ok status</span>) must be ignored when determining the <span
-      data-x="concept-embed-type">content's type</span> and when handing the resource to the
-      plugin.</p>
-
-      <p class="note">This allows servers to return data for plugins even with error responses (e.g.
-      HTTP 500 Internal Server Error codes can still contain plugin data).</p>
-
-      <p>Fetching the resource must <span>delay the load event</span> of the element's <span>node document</span>.</p>
-      <!-- if we add load/error events, then replace the previous paragraph with the text one: -->
-      <!-- similar text in various places -->
-      <!--<p>Fetching the resource must <span>delay the load event</span> of the element's <span>node document</span>
-      until the final <span data-x="concept-task">task</span> that is <span data-x="queue a
-      task">queued</span> by the <span>networking task source</span> once the resource has been
-      <span data-x="fetch">fetched</span> has been run.</p>-->
-
-     </dd>
-
-     <dt>If the element has no <code data-x="attr-embed-src">src</code> attribute set</dt>
-
-     <dd>
-
-      <p>The user agent should find and instantiate an appropriate <span>plugin</span> based on the
-      value of the <code data-x="attr-embed-type">type</code> attribute. The <code>embed</code>
-      element now represents this <span>plugin</span> instance.</p>
-
-      <p>Once the plugin is completely loaded, <span>queue a task</span> to <span
-      data-x="concept-event-fire">fire an event</span> named <code data-x="event-load">load</code>
-      at the element.</p>
-
-     </dd>
-
-    </dl>
-
+     </li>
+    </ol>
    </li>
 
+   <li>
+    <p>Otherwise:</p>
+
+    <ol>
+     <li><p>Let <var>type</var> be the value of <var>element</var>'s <code
+     data-x="attr-embed-type">type</code> attribute.</p></li>
+
+     <li><p>If <var>type</var> is a type that a <span>plugin</span> supports, then <span>display a
+     plugin</span> for <var>element</var> given <var>type</var>.</p></li>
+
+     <li><p>Otherwise, <span>display no plugin</span> for <var>element</var>.</p></li>
+    </ol>
+   </li>
   </ol>
 
-  <p>The <code>embed</code> element has no <span>fallback content</span>. If the user agent can't
-  find a suitable plugin when attempting to find and instantiate one for the algorithm above, then
-  the user agent must use a default plugin. This default could be as simple as saying "Unsupported
-  Format".</p>
+  <p>To determine the <dfn data-x="concept-embed-type">type of the content</dfn> given an
+  <code>embed</code> element <var>element</var> and a <span
+  data-x="concept-response">response</span> <var>response</var>, run the following steps:</p>
+
+  <ol>
+   <li><p>If <var>element</var> has a <code data-x="attr-embed-type">type</code> attribute, and that
+   attribute's value is a type that a <span>plugin</span> supports, then return the value of the
+   <code data-x="attr-embed-type">type</code> attribute.</p></li>
+
+   <li>
+    <p>If the <span data-x="concept-url-path">path</span> component of <var>response</var>'s
+    <span data-x="concept-response-url">url</span> matches a pattern that a <span>plugin</span>
+    supports, then return the type that that plugin can handle.</p>
+
+    <p class="example">For example, a plugin might say that it can handle URLs with <span
+    data-x="concept-url-path">path</span> components that end with the four character string
+    "<code data-x="">.swf</code>".</p>
+
+    <!-- it's sad that we have to do extension sniffing. sigh. -->
+    <!-- see also <object> which has a similar step -->
+   </li>
+
+   <li><p>If <var>response</var> has <span data-x="Content-Type">explicit Content-Type
+   metadata</span>, and that value is a type that a <span>plugin</span> supports, then return that
+   value.</p></li>
+
+   <li><p>Return null.</p></li>
+  </ol>
+  <!-- This algorithm is a monument to bad design. Go legacy! -->
+
+  <p class="note">It is intentional that the above algorithm allows <var>response</var> to have a
+  non-<span>ok status</span>. This allows servers to return data for plugins even with error
+  responses (e.g., HTTP 500 Internal Server Error codes can still contain plugin data).</p>
+
+  <p>To <dfn>display a plugin</dfn> for an <code>embed</code> element <var>element</var>, given a
+  string <var>type</var> and optionally  a <span data-x="concept-response">response</span>
+  <var>response</var>:</p>
+
+  <ol>
+   <li>
+    <p>If <var>element</var>'s <span>nested browsing context</span> is not null, then:</p>
+
+    <ol>
+     <li><p><span data-x="a browsing context is discarded">Discard</span> <var>element</var>'s
+     <span>nested browsing context</span>.</p></li>
+
+     <li><p>Set <var>element</var>'s <span>nested browsing context</span> to null.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Find and instantiate an appropriate <span>plugin</span> based on <var>type</var>,
+   replacing any previously-instantiated plugin for <var>element</var>. If <var>response</var> was
+   given, forward it to the plugin.</p></li>
+
+   <li><p><var>element</var> now <span>represents</span> this <span>plugin</span> instance.</p></li>
+
+   <li><p>Once the plugin, and <var>response</var> if given, are completely loaded, <span>queue an
+   element task</span> on the <span>DOM manipulation task source</span> give <var>element</var> to
+   <span data-x="concept-event-fire">fire an event</span> named <code
+   data-x="event-load">load</code> at <var>element</var>.</p></li>
+  </ol>
+
+  <p>To <dfn>display no plugin</dfn> for an <code>embed</code> element <var>element</var>:</p>
+
+  <ol>
+   <li>
+    <p>If <var>element</var>'s <span>nested browsing context</span> is not null, then:</p>
+
+    <ol>
+     <li><p><span data-x="a browsing context is discarded">Discard</span> <var>element</var>'s
+     <span>nested browsing context</span>.</p></li>
+
+     <li><p>Set <var>element</var>'s <span>nested browsing context</span> to null.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Display an indication that no <span>plugin</span> could be found for <var>element</var>,
+   replacing any previously-instantiated plugin for <var>element</var>.</p></li>
+
+   <li><p><var>element</var> now <span>represents</span> nothing.</p></li>
+  </ol>
+
+  <p class="note">The <code>embed</code> element has no <span>fallback content</span>; its
+  descendants are ignored.</p>
 
   <p>Whenever an <code>embed</code> element that was <span data-x="concept-embed-active">potentially
   active</span> stops being <span data-x="concept-embed-active">potentially active</span>, any
@@ -326,17 +361,7 @@ attribute's value is a type that a <span>plugin</span> supports, then the value 
   agents should convey the danger of overriding the sandbox to the user if an option to do so is
   provided.</p>
 
-  <p>When an <code>embed</code> element has a non-null <span>nested browsing context</span>: if the
-  <code>embed</code> element's <span>nested browsing context</span>'s <span>active document</span>
-  is not <span>ready for post-load tasks</span>, and when anything is <span data-x="delay the load
-  event">delaying the load event</span> of the <code>embed</code> element's <span>browsing
-  context</span>'s <span>active document</span>, and when the <code>embed</code> element's
-  <span>browsing context</span> is in the <span>delaying <code data-x="event-load">load</code>
-  events mode</span>, the <code>embed</code> must <span>delay the load event</span> of its
-  document.</p>
-
-  <p>The <span>task source</span> for the <span data-x="concept-task">tasks</span> mentioned in this
-  section is the <span>DOM manipulation task source</span>.</p>
+  <p>The <code>embed</code> element <span>potentially delays the load event</span>.</p>
 
   </div>
 
@@ -367,8 +392,10 @@ attribute's value is a type that a <span>plugin</span> supports, then the value 
 
   <div w-nodev>
 
-  <p>The IDL attributes <dfn><code data-x="dom-embed-src">src</code></dfn> and <dfn><code data-x="dom-embed-type">type</code></dfn> each must <span>reflect</span> the respective
-  content attributes of the same name.</p>
+  <p>The IDL attributes <dfn attribute for="HTMLEmbedElement"><code
+  data-x="dom-embed-src">src</code></dfn> and <dfn attribute for="HTMLEmbedElement"><code
+  data-x="dom-embed-type">type</code></dfn> each must <span>reflect</span> the respective content
+  attributes of the same name.</p>
 
   </div>
 
@@ -376,7 +403,7 @@ attribute's value is a type that a <span>plugin</span> supports, then the value 
 
    <p>Here's a way to embed a resource that requires a proprietary plugin, like Flash:</p>
 
-   <pre><code class="html" data-x="">&lt;embed src="catgame.swf"></code></pre>
+   <pre><code class="html">&lt;embed src="catgame.swf"></code></pre>
 
    <p>If the user does not have the plugin (for example if the plugin vendor doesn't support the
    user's platform), then the user will be unable to use the resource.</p>
@@ -384,12 +411,12 @@ attribute's value is a type that a <span>plugin</span> supports, then the value 
    <p>To pass the plugin a parameter "quality" with the value "high", an attribute can be
    specified:</p>
 
-   <pre><code class="html" data-x="">&lt;embed src="catgame.swf" quality="high"></code></pre>
+   <pre><code class="html">&lt;embed src="catgame.swf" quality="high"></code></pre>
 
    <p>This would be equivalent to the following, when using an <code>object</code> element
    instead:</p>
 
-   <pre><code class="html" data-x="">&lt;object data="catgame.swf">
+   <pre><code class="html">&lt;object data="catgame.swf">
  &lt;param name="quality" value="high">
 &lt;/object></code></pre>
 

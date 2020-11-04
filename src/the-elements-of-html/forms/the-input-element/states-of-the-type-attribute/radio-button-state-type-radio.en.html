@@ -63,13 +63,20 @@
 
   </ul>
 
-  <p>The <span>input activation behavior</span> is to <span data-x="concept-event-fire">fire an
-  event</span> named <code data-x="event-input">input</code> at the element, with the <code
-  data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, and then <span
-  data-x="concept-event-fire">fire an event</span> named <code data-x="event-change">change</code>
-  at the element, with the <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to
-  true.</p>
-  <!-- It's not cancelable. Once this fires, the control is checked, end of story. -->
+  <p>The <span>input activation behavior</span> is to run the following steps:</p>
+  <ol>
+   <li><p>If the element is not <span>connected</span>, then return.</p></li>
+
+   <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
+   data-x="event-input">input</code> at the element with the <code
+   data-x="dom-Event-bubbles">bubbles</code> and <code data-x="dom-Event-composed">composed</code>
+   attributes initialized to true.</p></li>
+
+   <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
+   data-x="event-change">change</code> at the element with the <code
+   data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p></li>
+  </ol>
+  <!-- These are not cancelable. Once this fires, the control is checked, end of story. -->
 
   <p><strong>Constraint validation</strong>: If an element in the <i data-x="radio button
   group">radio button group</i> is <i data-x="concept-input-required">required</i>, and all of the
@@ -82,7 +89,7 @@
    data-x="concept-input-required">required</span> and <span
    data-x="concept-fe-disabled">disabled</span>:</p>
 
-   <pre><code class="html" data-x="">&lt;form>
+   <pre><code class="html">&lt;form>
  &lt;p>&lt;label>&lt;input type="radio" name="dog-type" value="pupper" required disabled> Pupper&lt;/label>
  &lt;p>&lt;label>&lt;input type="radio" name="dog-type" value="doggo"> Doggo&lt;/label>
  &lt;p>&lt;button>Make your choice&lt;/button>

@@ -13,11 +13,13 @@
   <p>For simple cases, though, where a shared worker would be an unreasonable overhead, authors can
   use the simple channel-based broadcast mechanism described in this section.</p>
 
-  <pre><code class="idl" data-x="">[<span data-x="dom-BroadcastChannel">Constructor</span>(DOMString name), Exposed=(Window,Worker)]
+  <pre><code class="idl">[Exposed=(Window,Worker)]
 interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
+  <span data-x="dom-BroadcastChannel">constructor</span>(DOMString name);
+
   readonly attribute DOMString <span data-x="dom-BroadcastChannel-name">name</span>;
-  void <span data-x="dom-BroadcastChannel-postMessage">postMessage</span>(any message);
-  void <span data-x="dom-BroadcastChannel-close">close</span>();
+  undefined <span data-x="dom-BroadcastChannel-postMessage">postMessage</span>(any message);
+  undefined <span data-x="dom-BroadcastChannel-close">close</span>();
   attribute <span>EventHandler</span> <span data-x="handler-BroadcastChannel-onmessage">onmessage</span>;
   attribute <span>EventHandler</span> <span data-x="handler-BroadcastChannel-onmessageerror">onmessageerror</span>;
 };</code></pre>
@@ -27,72 +29,61 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
    <dt><var>broadcastChannel</var> = new <code subdfn data-x="dom-BroadcastChannel">BroadcastChannel</code>(<var>name</var>)</dt>
 
    <dd>
-
     <p>Returns a new <code>BroadcastChannel</code> object via which messages for the given channel
     name can be sent and received.</p>
-
    </dd>
 
    <dt><var>broadcastChannel</var> . <code subdfn data-x="dom-BroadcastChannel-name">name</code></dt>
 
    <dd>
-
     <p>Returns the channel name (as passed to the constructor).</p>
-
    </dd>
 
    <dt><var>broadcastChannel</var> . <code subdfn data-x="dom-BroadcastChannel-postMessage">postMessage</code>(<var>message</var>)</dt>
 
    <dd>
-
     <p>Sends the given message to other <code>BroadcastChannel</code> objects set up for this channel. Messages can be structured objects, e.g. nested objects and arrays.</p>
-
    </dd>
 
    <dt><var>broadcastChannel</var> . <code subdfn data-x="dom-BroadcastChannel-close">close</code>()</dt>
 
    <dd>
-
     <p>Closes the <code>BroadcastChannel</code> object, opening it up to garbage collection.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>A <code>BroadcastChannel</code> object has a <dfn>channel name</dfn>, a
-  <dfn><code>BroadcastChannel</code> settings object</dfn>, and a <dfn
+  <p>A <code>BroadcastChannel</code> object has a <dfn>channel name</dfn> and a <dfn
   data-x="concept-BroadcastChannel-closed">closed flag</dfn>.</p>
 
-  <p>The <dfn><code data-x="dom-BroadcastChannel">BroadcastChannel()</code></dfn> constructor, when
-  invoked, must create and return a <code>BroadcastChannel</code> object whose <span>channel
-  name</span> is the constructor's first argument, whose <span><code>BroadcastChannel</code>
-  settings object</span> is the <span>incumbent settings object</span>, and whose <span
-  data-x="concept-BroadcastChannel-closed">closed flag</span> is false.</p>
-
-  <p>The <dfn><code data-x="dom-BroadcastChannel-name">name</code></dfn> attribute must return the
-  <span>channel name</span>.</p>
-
-  <p>The <dfn><code
-  data-x="dom-BroadcastChannel-postMessage">postMessage(<var>message</var>)</code></dfn> method,
-  when invoked on a <code>BroadcastChannel</code> object, must run the following steps:</p>
+  <p>The <dfn><code data-x="dom-BroadcastChannel">new BroadcastChannel(<var>name</var>)</code></dfn>
+  constructor steps are:</p>
 
   <ol>
-   <li><p>Let <var>source</var> be this <code>BroadcastChannel</code>.</p></li>
+   <li><p>Set <span>this</span>'s <span>channel name</span> to <var>name</var>.</p></li>
 
-   <li><p>Let <var>sourceSettings</var> be <var>source</var>'s <span><code>BroadcastChannel</code>
-   settings object</span>.</p></li>
+   <li><p>Set <span>this</span>'s <span data-x="concept-BroadcastChannel-closed">closed flag</span>
+   to false.</p></li>
+  </ol>
 
-   <li><p>If <var>source</var>'s <span data-x="concept-BroadcastChannel-closed">closed flag</span>
-   is true, then throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p></li>
+  <p>The <dfn><code data-x="dom-BroadcastChannel-name">name</code></dfn> getter steps are to return
+  <span>this</span>'s <span>channel name</span>.</p>
 
-   <li><p>Let <var>sourceChannel</var> be <var>source</var>'s <span>channel name</span>.</p></li>
+  <p>The <dfn><code
+  data-x="dom-BroadcastChannel-postMessage">postMessage(<var>message</var>)</code></dfn> method
+  steps are:</p>
 
-   <li><p>Let <var>targetRealm</var> be a user-agent defined Realm.</p></li>
+  <ol>
+   <li><p>If <span>this</span>'s <span data-x="concept-BroadcastChannel-closed">closed flag</span>
+   is true, then throw an <span>"<code>InvalidStateError</code>"</span>
+   <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>serialized</var> be <span>StructuredSerialize</span>(<var>message</var>). Rethrow
    any exceptions.</p></li>
+
+   <li><p>Let <var>sourceOrigin</var> be <span>this</span>'s <span>relevant settings object</span>'s
+   <span data-x="concept-settings-object-origin">origin</span>.</p></li>
 
    <li>
     <p>Let <var>destinations</var> be a list of <code>BroadcastChannel</code> objects that
@@ -100,46 +91,43 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
 
     <ul>
      <li>
-      <p>Their <span><code>BroadcastChannel</code> settings object</span> specifies either:</p>
+      <p>Their <span>relevant global object</span> is either:</p>
 
       <ul>
-       <li><p>a <span data-x="concept-settings-object-global">global object</span> that is a
-       <code>Window</code> object and a <span>responsible document</span> that is <span>fully
-       active</span>, or</p></li>
+       <li><p>a <code>Window</code> object whose <span data-x="concept-document-window">associated
+       <code>Document</code></span> is <span>fully active</span>, or</p></li>
 
-       <li><p>a <span data-x="concept-settings-object-global">global object</span> that is a
-       <code>WorkerGlobalScope</code> object whose <span
+       <li><p>a <code>WorkerGlobalScope</code> object whose <span
        data-x="dom-WorkerGlobalScope-closing">closing</span> flag is false and whose
        <span>worker</span> is not a <span>suspendable worker</span>.</p></li>
       </ul>
      </li>
 
-     <li><p>Their <span><code>BroadcastChannel</code> settings object</span>'s <span
+     <li><p>Their <span>relevant settings object</span>'s <span
      data-x="concept-settings-object-origin">origin</span> is <span>same origin</span> with
-     <var>sourceSettings</var>'s <span
-     data-x="concept-settings-object-origin">origin</span>.</p></li>
+     <var>sourceOrigin</var>.</p></li>
 
-     <li><p>Their <span>channel name</span> is a <span>case-sensitive</span> match for
-     <var>sourceChannel</var>.</p></li>
-
-     <li><p>Their <span data-x="concept-BroadcastChannel-closed">closed flag</span> is
-     false.</p></li>
+     <li><p>Their <span>channel name</span> <span>is</span> <span>this</span>'s <span>channel
+     name</span>.</p></li>
     </ul>
    </li>
 
    <li><p>Remove <var>source</var> from <var>destinations</var>.</p></li>
 
    <li><p>Sort <var>destinations</var> such that all <code>BroadcastChannel</code> objects whose
-   <span data-x="BroadcastChannel settings object"><code>BroadcastChannel</code> settings
-   objects</span> specify the same <span>responsible event loop</span> are sorted in creation
-   order, oldest first. (This does not define a complete ordering. Within this constraint, user
-   agents may sort the list in any user-agent defined manner.)</p></li>
+   <span data-x="relevant agent">relevant agents</span> are the same are sorted in creation order,
+   oldest first. (This does not define a complete ordering. Within this constraint, user agents may
+   sort the list in any <span>implementation-defined</span> manner.)</p></li>
 
    <li>
-    <p>For each <code>BroadcastChannel</code> object <var>destination</var> in
-    <var>destinations</var>, <span>queue a task</span> that runs the following steps:</p>
+    <p>For each <var>destination</var> in <var>destinations</var>, <span>queue a global task</span>
+    on the <span>DOM manipulation task source</span> given <var>destination</var>'s <span>relevant
+    global object</span> to perform the following steps:</p>
 
     <ol>
+     <li><p>If <var>destination</var>'s <span data-x="concept-BroadcastChannel-closed">closed
+     flag</span> is true, then abort these steps.</p></li>
+
      <li><p>Let <var>targetRealm</var> be <var>destination</var>'s <span
      data-x="concept-relevant-realm">relevant Realm</span>.</p></li>
 
@@ -151,8 +139,8 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
       event</span> named <code data-x="event-messageerror">messageerror</code> at
       <var>destination</var>, using <code>MessageEvent</code>, with the <code
       data-x="dom-MessageEvent-origin">origin</code> attribute initialized to the <span
-      data-x="serialization of an origin">serialization</span> of <var>sourceSettings</var>'s <span
-      data-x="concept-settings-object-origin">origin</span>, and then return.</p>
+      data-x="serialization of an origin">serialization</span> of <var>sourceOrigin</var>, and then
+      abort these steps.</p>
      </li>
 
      <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
@@ -160,30 +148,22 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
      <code>MessageEvent</code>, with the <code data-x="dom-MessageEvent-data">data</code> attribute
      initialized to <var>data</var> and the <code data-x="dom-MessageEvent-origin">origin</code>
      attribute initialized to the <span data-x="serialization of an origin">serialization</span> of
-     <var>sourceSettings</var>'s <span
-     data-x="concept-settings-object-origin">origin</span>.</p></li>
+     <var>sourceOrigin</var>.</p></li>
     </ol>
-
-    <p>The <span data-x="concept-task">tasks</span> must use the <span>DOM manipulation task
-    source</span>, and, for those where the <span>event loop</span> specified by the target
-    <code>BroadcastChannel</code> object's <span><code>BroadcastChannel</code> settings
-    object</span> is a <span>browsing context</span> <span>event loop</span>, must be associated
-    with the <span>responsible document</span> specified by that target
-    <code>BroadcastChannel</code> object's <span><code>BroadcastChannel</code> settings
-    object</span>.</p>
    </li>
   </ol>
 
   <p>While a <code>BroadcastChannel</code> object whose <span
   data-x="concept-BroadcastChannel-closed">closed flag</span> is false has an event listener
-  registered for <code data-x="event-message">message</code> events, there must be a strong
-  reference from <span data-x="concept-settings-object-global">global object</span> specified by
-  the <code>BroadcastChannel</code> object's <span><code>BroadcastChannel</code> settings
-  object</span> to the <code>BroadcastChannel</code> object itself.</p>
+  registered for <code data-x="event-message">message</code> or <code
+  data-x="event-messageerror">messageerror</code> events, there must be a strong reference from the
+  <code>BroadcastChannel</code> object's <span>relevant global object</span> to the
+  <code>BroadcastChannel</code> object itself.</p>
 
-  <p>The <dfn><code data-x="dom-BroadcastChannel-close">close()</code></dfn> method must set the
-  <span data-x="concept-BroadcastChannel-closed">closed flag</span> of the
-  <code>BroadcastChannel</code> object on which it was invoked to true.</p>
+  <p>The <dfn><code data-x="dom-BroadcastChannel-close">close()</code></dfn> method steps are to set
+  <span>this</span>'s <span data-x="concept-BroadcastChannel-closed">closed flag</span> to true.</p>
+
+  </div>
 
   <p class="note">Authors are strongly encouraged to explicitly close <code>BroadcastChannel</code>
   objects when they are no longer needed, so that they can be garbage collected. Creating many
@@ -191,6 +171,8 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
   listener and without closing them can lead to an apparent memory leak, since the objects will
   continue to live for as long as they have an event listener (or until their page or worker is
   closed).</p>
+
+  <div w-nodev>
 
   <hr>
 
@@ -214,7 +196,7 @@ interface <dfn>BroadcastChannel</dfn> : <span>EventTarget</span> {
    <p>Suppose a page wants to know when the user logs out, even when the user does so from another
    tab at the same site:</p>
 
-   <pre><code class="js" data-x="">var authChannel = new BroadcastChannel('auth');
+   <pre><code class="js">var authChannel = new BroadcastChannel('auth');
 authChannel.onmessage = function (event) {
   if (event.data == 'logout')
     showLogout();

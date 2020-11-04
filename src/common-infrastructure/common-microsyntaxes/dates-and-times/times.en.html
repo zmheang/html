@@ -8,7 +8,6 @@
   following components in the given order:</p>
 
   <ol>
-
    <li>Two <span>ASCII digits</span>, representing <var>hour</var>, in the range
    0&nbsp;&le;&nbsp;<var>hour</var>&nbsp;&le;&nbsp;23</li>
 
@@ -21,7 +20,6 @@
    zero:
 
     <ol>
-
      <li>A U+003A COLON character (:)</li>
 
      <li>Two <span>ASCII digits</span>, representing the integer part of <var>second</var>,
@@ -30,19 +28,13 @@
      <li>If <var>second</var> is not an integer, or optionally if <var>second</var> is an integer:
 
       <ol>
-
        <li>A U+002E FULL STOP character (.)</li>
 
        <li>One, two, or three <span>ASCII digits</span>, representing the fractional part of <var>second</var></li>
-
       </ol>
-
      </li>
-
     </ol>
-
    </li>
-
   </ol>
 
   <p class="note">The <var>second</var> component cannot be 60 or 61; leap seconds cannot
@@ -55,7 +47,6 @@
   point and returns nothing.</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the string being parsed.</p></li>
 
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially
@@ -68,7 +59,6 @@
    <li><p>Let <var>time</var> be the time with hour <var>hour</var>, minute <var>minute</var>, and second <var>second</var>.</p></li>
 
    <li><p>Return <var>time</var>.</p></li>
-
   </ol>
 
   <p>The rules to <dfn>parse a time component</dfn>, given an <var>input</var> string and a
@@ -77,7 +67,6 @@
   aborted at that point and returns nothing.</p>
 
   <ol>
-
    <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
    <var>input</var> given <var>position</var>. If the collected sequence is not exactly two
    characters long, then fail. Otherwise, interpret the resulting sequence as a base-ten integer.
@@ -99,12 +88,10 @@
    <li><p>Let <var>second</var> be 0.</p></li>
 
    <li>
-
     <p>If <var>position</var> is not beyond the end of <var>input</var> and the character at
     <var>position</var> is U+003A (:), then:</p>
 
     <ol>
-
      <li><p>Advance <var>position</var> to the next character in <var>input</var>.</p></li>
 
      <li><p>If <var>position</var> is beyond the end of <var>input</var>, or at
@@ -120,13 +107,10 @@
 
      <li><p>If <var>second</var> is not a number in the range
      0&nbsp;&le;&nbsp;<var>second</var>&nbsp;&lt;&nbsp;60, then fail.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>Return <var>hour</var>, <var>minute</var>, and <var>second</var>.</p></li>
-
   </ol>
 
   </div>

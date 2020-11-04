@@ -15,7 +15,6 @@
   value. This algorithm will return either an integer or an error.</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the string being parsed.</p></li>
 
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially pointing at the
@@ -29,32 +28,26 @@
    <li><p>If <var>position</var> is past the end of <var>input</var>, return an error.</p></li>
 
    <li>
-
     <p>If the character indicated by <var>position</var> (the first character) is a U+002D
     HYPHEN-MINUS character (-):</p>
 
     <ol>
-
      <li>Let <var>sign</var> be "negative".</li>
 
      <li>Advance <var>position</var> to the next character.</li>
 
      <li>If <var>position</var> is past the end of <var>input</var>, return an error.</li>
-
     </ol>
 
     <p>Otherwise, if the character indicated by <var>position</var> (the first character) is a
     U+002B PLUS SIGN character (+):</p>
 
     <ol>
-
      <li>Advance <var>position</var> to the next character. (The "<code data-x="">+</code>" is
      ignored, but it is not conforming.)</li>
 
      <li>If <var>position</var> is past the end of <var>input</var>, return an error.</li>
-
     </ol>
-
    </li>
 
    <li><p>If the character indicated by <var>position</var> is not an <span data-x="ASCII
@@ -69,7 +62,6 @@
 
    <li><p>If <var>sign</var> is "positive", return <var>value</var>, otherwise return the result of
    subtracting <var>value</var> from zero.</p></li>
-
   </ol>
 
   </div>

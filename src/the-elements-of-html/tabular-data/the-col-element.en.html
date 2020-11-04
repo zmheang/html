@@ -12,6 +12,10 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-col-span">span</code></dd>
    <!-- v2: char, to specify the decimal character used in numeric data cells in the column (not header cells) -->
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-col">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-col">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLTableColElement</code>, as defined for <code>colgroup</code> elements.</dd>
   </dl>
@@ -21,18 +25,18 @@
   <span>represents</span> one or more <span data-x="concept-column">columns</span> in the <span
   data-x="concept-column-group">column group</span> represented by that <code>colgroup</code>.</p>
 
-  <p>The element may have a <dfn><code data-x="attr-col-span">span</code></dfn> content attribute
-  specified, whose value must be a <span>valid non-negative integer</span> greater than zero and
-  less than or equal to 1000.</p>
+  <p>The element may have a <dfn element-attr for="col"><code
+  data-x="attr-col-span">span</code></dfn> content attribute specified, whose value must be a
+  <span>valid non-negative integer</span> greater than zero and less than or equal to 1000.</p>
 
   <div w-nodev>
 
   <p>The <code>col</code> element and its <code data-x="attr-col-span">span</code> attribute take
   part in the <span>table model</span>.</p>
 
-  <p>The <dfn><code data-x="dom-col-span">span</code></dfn> IDL attribute must <span>reflect</span>
-  the content attribute of the same name. It is <span>clamped to the range</span> [1, 1000], and
-  its default value is 1.</p>
+  <p>The <dfn attribute for="HTMLTableColElement"><code data-x="dom-col-span">span</code></dfn> IDL
+  attribute must <span>reflect</span> the content attribute of the same name. It is <span>clamped to
+  the range</span> [1, 1000], and its default value is 1.</p>
 
   </div>
 

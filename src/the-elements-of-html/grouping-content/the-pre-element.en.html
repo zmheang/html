@@ -10,11 +10,18 @@
    <dd><span>Phrasing content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-pre">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-pre">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLPreElement</dfn> : <span>HTMLElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLPreElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
+  // <a href="#HTMLPreElement-partial">also has obsolete members</a>
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLPreElement</code>.</dd>
   </dl>
@@ -29,7 +36,7 @@ interface <dfn>HTMLPreElement</dfn> : <span>HTMLElement</span> {};</code></pre>
 
   <ul>
 
-   <li>Including an e-mail, with paragraphs indicated by blank lines, lists indicated by lines
+   <li>Including an email, with paragraphs indicated by blank lines, lists indicated by lines
    prefixed with a bullet, and so on.</li>
 
    <li>Including fragments of computer code, with structure indicated according to the conventions
@@ -60,7 +67,7 @@ interface <dfn>HTMLPreElement</dfn> : <span>HTMLElement</span> {};</code></pre>
 
    <p>In the following snippet, a sample of computer code is presented.</p>
 
-   <pre><code class="html" data-x="">&lt;p>This is the &lt;code>Panel&lt;/code> constructor:&lt;/p>
+   <pre><code class="html">&lt;p>This is the &lt;code>Panel&lt;/code> constructor:&lt;/p>
 &lt;pre>&lt;code>function Panel(element, canClose, closeHandler) {
   this.element = element;
   this.canClose = canClose;
@@ -74,7 +81,7 @@ interface <dfn>HTMLPreElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    <p>In the following snippet, <code>samp</code> and <code>kbd</code> elements are mixed in the
    contents of a <code>pre</code> element to show a session of Zork I.</p>
 
-   <pre><code class="html" data-x="">&lt;pre>&lt;samp>You are in an open field west of a big white house with a boarded
+   <pre><code class="html">&lt;pre>&lt;samp>You are in an open field west of a big white house with a boarded
 front door.
 There is a small mailbox here.
 
@@ -92,7 +99,7 @@ A leaflet.
    <p>The following shows a contemporary poem that uses the <code>pre</code> element to preserve its
    unusual formatting, which forms an intrinsic part of the poem itself.</p>
 
-   <pre><code class="html" data-x="">&lt;pre>                maxling
+   <pre><code class="html">&lt;pre>                maxling
 
 it is with a          heart
                heavy

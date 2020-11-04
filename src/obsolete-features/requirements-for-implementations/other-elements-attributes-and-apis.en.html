@@ -6,7 +6,7 @@
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLAnchorElement-partial">HTMLAnchorElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLAnchorElement-partial">HTMLAnchorElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-coords">coords</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-charset">charset</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-name">name</span>;
@@ -14,13 +14,17 @@
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-a-shape">shape</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-a-coords">coords</code></dfn>, <dfn><code data-x="dom-a-charset">charset</code></dfn>, <dfn><code data-x="dom-a-name">name</code></dfn>, <dfn><code data-x="dom-a-rev">rev</code></dfn>, and <dfn><code data-x="dom-a-shape">shape</code></dfn> IDL attributes of the
-  <code>a</code> element must <span>reflect</span> the respective
-  content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLAnchorElement"><code data-x="dom-a-coords">coords</code></dfn>,
+  <dfn attribute for="HTMLAnchorElement"><code data-x="dom-a-charset">charset</code></dfn>, <dfn
+  attribute for="HTMLAnchorElement"><code data-x="dom-a-name">name</code></dfn>, <dfn attribute
+  for="HTMLAnchorElement"><code data-x="dom-a-rev">rev</code></dfn>, and <dfn attribute
+  for="HTMLAnchorElement"><code data-x="dom-a-shape">shape</code></dfn> IDL attributes of the
+  <code>a</code> element must <span>reflect</span> the respective content attributes of the same
+  name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLAreaElement-partial">HTMLAreaElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLAreaElement-partial">HTMLAreaElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-area-noHref">noHref</span>;
 };</code></pre>
 
@@ -30,22 +34,22 @@
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLBodyElement-partial">HTMLBodyElement</span> {
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-body-text">text</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-body-link">link</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-body-vLink">vLink</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-body-aLink">aLink</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-body-bgColor">bgColor</span>;
+  <pre><code class="idl">partial interface <span id="HTMLBodyElement-partial">HTMLBodyElement</span> {
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-body-text">text</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-body-link">link</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-body-vLink">vLink</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-body-aLink">aLink</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-body-bgColor">bgColor</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-body-background">background</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-body-text">text</code></dfn> IDL attribute of the <code>body</code>
-  element must <span>reflect</span> the element's <code data-x="attr-body-text">text</code> content
-  attribute.</p>
+  <p>The <dfn attribute for="HTMLBodyElement"><code data-x="dom-body-text">text</code></dfn> IDL
+  attribute of the <code>body</code> element must <span>reflect</span> the element's <code
+  data-x="attr-body-text">text</code> content attribute.</p>
 
-  <p>The <dfn><code data-x="dom-body-link">link</code></dfn> IDL attribute of the <code>body</code>
-  element must <span>reflect</span> the element's <code data-x="attr-body-link">link</code> content
-  attribute.</p>
+  <p>The <dfn attribute for="HTMLBodyElement"><code data-x="dom-body-link">link</code></dfn> IDL
+  attribute of the <code>body</code> element must <span>reflect</span> the element's <code
+  data-x="attr-body-link">link</code> content attribute.</p>
 
   <p>The <dfn><code data-x="dom-body-aLink">aLink</code></dfn> IDL attribute of the <code>body</code>
   element must <span>reflect</span> the element's <code data-x="attr-body-alink">alink</code> content
@@ -59,33 +63,36 @@
   <code>body</code> element must <span>reflect</span> the element's <code
   data-x="attr-body-bgcolor">bgcolor</code> content attribute.</p>
 
-  <p>The <dfn><code data-x="dom-body-background">background</code></dfn> IDL attribute of the
-  <code>body</code> element must <span>reflect</span> the element's <code
-  data-x="attr-background">background</code> content attribute. (The <code
-  data-x="attr-background">background</code> content is <em>not</em> defined to contain a
-  <span>URL</span>, despite rules regarding its handling in the rendering section above.)</p>
+  <p>The <dfn attribute for="HTMLBodyElement"><code
+  data-x="dom-body-background">background</code></dfn> IDL attribute of the <code>body</code>
+  element must <span>reflect</span> the element's <code data-x="attr-background">background</code>
+  content attribute. (The <code data-x="attr-background">background</code> content is <em>not</em>
+  defined to contain a <span>URL</span>, despite rules regarding its handling in the rendering
+  section above.)</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLBRElement-partial">HTMLBRElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLBRElement-partial">HTMLBRElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-br-clear">clear</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-br-clear">clear</code></dfn> IDL attribute of the <code>br</code>
-  element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLBRElement"><code data-x="dom-br-clear">clear</code></dfn> IDL
+  attribute of the <code>br</code> element must <span>reflect</span> the content attribute of the
+  same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLTableCaptionElement-partial">HTMLTableCaptionElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLTableCaptionElement-partial">HTMLTableCaptionElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-caption-align">align</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-caption-align">align</code></dfn> IDL attribute of the
-  <code>caption</code> element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLTableCaptionElement"><code
+  data-x="dom-caption-align">align</code></dfn> IDL attribute of the <code>caption</code> element
+  must <span>reflect</span> the content attribute of the same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLTableColElement-partial">HTMLTableColElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLTableColElement-partial">HTMLTableColElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-col-align">align</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-col-ch">ch</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-col-chOff">chOff</span>;
@@ -93,12 +100,14 @@
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-col-width">width</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-col-align">align</code></dfn> and <dfn><code data-x="dom-col-width">width</code></dfn> IDL attributes of the <code>col</code> element must
-  <span>reflect</span> the respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLTableColElement"><code data-x="dom-col-align">align</code></dfn>
+  and <dfn attribute for="HTMLTableColElement"><code data-x="dom-col-width">width</code></dfn> IDL
+  attributes of the <code>col</code> element must <span>reflect</span> the respective content
+  attributes of the same name.</p>
 
-  <p>The <dfn><code data-x="dom-col-ch">ch</code></dfn> IDL attribute of the <code>col</code> element
-  must <span>reflect</span> the element's <code data-x="attr-col-char">char</code> content
-  attribute.</p>
+  <p>The <dfn attribute for="HTMLTableColElement"><code data-x="dom-col-ch">ch</code></dfn> IDL
+  attribute of the <code>col</code> element must <span>reflect</span> the element's <code
+  data-x="attr-col-char">char</code> content attribute.</p>
 
   <p>The <dfn><code data-x="dom-col-chOff">chOff</code></dfn> IDL attribute of the <code>col</code>
   element must <span>reflect</span> the element's <code data-x="attr-col-charoff">charoff</code>
@@ -116,79 +125,90 @@
   <p>The <code>dir</code> element must implement the <code>HTMLDirectoryElement</code>
   interface.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLDirectoryElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-dir-compact">compact</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-dir-compact">compact</code></dfn> IDL attribute of the
-  <code>dir</code> element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLDirectoryElement"><code
+  data-x="dom-dir-compact">compact</code></dfn> IDL attribute of the <code>dir</code> element must
+  <span>reflect</span> the content attribute of the same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLDivElement-partial">HTMLDivElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLDivElement-partial">HTMLDivElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-div-align">align</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-div-align">align</code></dfn> IDL attribute of the <code>div</code>
-  element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLDivElement"><code data-x="dom-div-align">align</code></dfn> IDL
+  attribute of the <code>div</code> element must <span>reflect</span> the content attribute of the
+  same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLDListElement-partial">HTMLDListElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLDListElement-partial">HTMLDListElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-dl-compact">compact</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-dl-compact">compact</code></dfn> IDL attribute of the <code>dl</code>
-  element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLDListElement"><code data-x="dom-dl-compact">compact</code></dfn>
+  IDL attribute of the <code>dl</code> element must <span>reflect</span> the content attribute of
+  the same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLEmbedElement-partial">HTMLEmbedElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLEmbedElement-partial">HTMLEmbedElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-embed-align">align</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-embed-name">name</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-embed-name">name</code></dfn> and <dfn><code data-x="dom-embed-align">align</code></dfn> IDL attributes of the <code>embed</code> element
-  must <span>reflect</span> the respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLEmbedElement"><code data-x="dom-embed-name">name</code></dfn> and
+  <dfn attribute for="HTMLEmbedElement"><code data-x="dom-embed-align">align</code></dfn> IDL
+  attributes of the <code>embed</code> element must <span>reflect</span> the respective content
+  attributes of the same name.</p>
 
   <hr>
 
   <p>The <code>font</code> element must implement the <code>HTMLFontElement</code> interface.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-font-color">color</span>;
+  [<span>HTMLConstructor</span>] constructor();
+
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-font-color">color</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-font-face">face</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-font-size">size</span>; <!-- yes, DOMString, not long (so says DOM2 HTML) -->
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-font-color">color</code></dfn>, <dfn><code data-x="dom-font-face">face</code></dfn>, and <dfn><code data-x="dom-font-size">size</code></dfn> IDL attributes of the <code>font</code> element must
-  <span>reflect</span> the respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLFontElement"><code data-x="dom-font-color">color</code></dfn>, <dfn
+  attribute for="HTMLFontElement"><code data-x="dom-font-face">face</code></dfn>, and <dfn attribute
+  for="HTMLFontElement"><code data-x="dom-font-size">size</code></dfn> IDL attributes of the
+  <code>font</code> element must <span>reflect</span> the respective content attributes of the same
+  name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLHeadingElement-partial">HTMLHeadingElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLHeadingElement-partial">HTMLHeadingElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-hx-align">align</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-hx-align">align</code></dfn> IDL attribute of the
-  <code>h1</code>&ndash;<code>h6</code> elements must <span>reflect</span> the content attribute of
-  the same name.</p>
+  <p>The <dfn attribute for="HTMLHeadingElement"><code data-x="dom-hx-align">align</code></dfn> IDL
+  attribute of the <code>h1</code>&ndash;<code>h6</code> elements must <span>reflect</span> the
+  content attribute of the same name.</p>
 
   <hr>
 
-  <p class="note">The <dfn><code data-x="dom-head-profile">profile</code></dfn> IDL attribute on
-  <code>head</code> elements (with the <code>HTMLHeadElement</code> interface) is intentionally
-  omitted. Unless so required by <span data-x="other applicable specifications">another applicable
-  specification</span>, implementations would therefore not support this attribute. (It is mentioned
-  here as it was defined in a previous version of the DOM specifications.)</p>
+  <p class="note">The <dfn attribute for="HTMLHeadElement"><code
+  data-x="dom-head-profile">profile</code></dfn> IDL attribute on <code>head</code> elements (with
+  the <code>HTMLHeadElement</code> interface) is intentionally omitted. Unless so required by <span
+  data-x="other applicable specifications">another applicable specification</span>, implementations
+  would therefore not support this attribute. (It is mentioned here as it was defined in a previous
+  version of <cite>DOM</cite>.)</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLHRElement-partial">HTMLHRElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLHRElement-partial">HTMLHRElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-hr-align">align</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-hr-color">color</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-hr-noShade">noShade</span>;
@@ -196,9 +216,12 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-hr-width">width</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-hr-align">align</code></dfn>, <dfn><code data-x="dom-hr-color">color</code></dfn>, <dfn><code data-x="dom-hr-size">size</code></dfn>,
-  and <dfn><code data-x="dom-hr-width">width</code></dfn> IDL attributes of the <code>hr</code>
-  element must <span>reflect</span> the respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLHRElement"><code data-x="dom-hr-align">align</code></dfn>, <dfn
+  attribute for="HTMLHRElement"><code data-x="dom-hr-color">color</code></dfn>, <dfn attribute
+  for="HTMLHRElement"><code data-x="dom-hr-size">size</code></dfn>, and <dfn attribute
+  for="HTMLHRElement"><code data-x="dom-hr-width">width</code></dfn> IDL attributes of the
+  <code>hr</code> element must <span>reflect</span> the respective content attributes of the same
+  name.</p>
 
   <p>The <dfn><code data-x="dom-hr-noShade">noShade</code></dfn> IDL attribute of the <code>hr</code>
   element must <span>reflect</span> the element's <code data-x="attr-hr-noshade">noshade</code>
@@ -206,28 +229,30 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLHtmlElement-partial">HTMLHtmlElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLHtmlElement-partial">HTMLHtmlElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-html-version">version</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-html-version">version</code></dfn> IDL attribute of the
-  <code>html</code> element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLHtmlElement"><code data-x="dom-html-version">version</code></dfn>
+  IDL attribute of the <code>html</code> element must <span>reflect</span> the content attribute of
+  the same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLIFrameElement-partial">HTMLIFrameElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLIFrameElement-partial">HTMLIFrameElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-align">align</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-scrolling">scrolling</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-frameBorder">frameBorder</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-iframe-longDesc">longDesc</span>;
 
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-iframe-marginHeight">marginHeight</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-iframe-marginWidth">marginWidth</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-iframe-marginHeight">marginHeight</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-iframe-marginWidth">marginWidth</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-iframe-align">align</code></dfn> and <dfn><code data-x="dom-iframe-scrolling">scrolling</code></dfn> IDL attributes of the
-  <code>iframe</code> element must <span>reflect</span> the respective content attributes of the
-  same name.</p>
+  <p>The <dfn attribute for="HTMLIFrameElement"><code data-x="dom-iframe-align">align</code></dfn>
+  and <dfn attribute for="HTMLIFrameElement"><code
+  data-x="dom-iframe-scrolling">scrolling</code></dfn> IDL attributes of the <code>iframe</code>
+  element must <span>reflect</span> the respective content attributes of the same name.</p>
 
   <p>The <dfn><code data-x="dom-iframe-frameBorder">frameBorder</code></dfn> IDL attribute of the
   <code>iframe</code> element must <span>reflect</span> the element's <code
@@ -248,7 +273,7 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLImageElement-partial">HTMLImageElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLImageElement-partial">HTMLImageElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-img-name">name</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-img-lowsrc">lowsrc</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-img-align">align</span>;
@@ -256,31 +281,37 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute unsigned long <span data-x="dom-img-vspace">vspace</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-img-longDesc">longDesc</span>;
 
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-img-border">border</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-img-border">border</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-img-name">name</code></dfn>, <dfn><code data-x="dom-img-align">align</code></dfn>, <dfn><code data-x="dom-img-border">border</code></dfn>, <dfn><code data-x="dom-img-hspace">hspace</code></dfn>, and <dfn><code data-x="dom-img-vspace">vspace</code></dfn> IDL attributes of the <code>img</code> element
-  must <span>reflect</span> the respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLImageElement"><code data-x="dom-img-name">name</code></dfn>, <dfn
+  attribute for="HTMLImageElement"><code data-x="dom-img-align">align</code></dfn>, <dfn attribute
+  for="HTMLImageElement"><code data-x="dom-img-border">border</code></dfn>, <dfn attribute
+  for="HTMLImageElement"><code data-x="dom-img-hspace">hspace</code></dfn>, and <dfn attribute
+  for="HTMLImageElement"><code data-x="dom-img-vspace">vspace</code></dfn> IDL attributes of the
+  <code>img</code> element must <span>reflect</span> the respective content attributes of the same
+  name.</p>
 
   <p>The <dfn><code data-x="dom-img-longDesc">longDesc</code></dfn> IDL attribute of the
   <code>img</code> element must <span>reflect</span> the element's <code
   data-x="attr-img-longdesc">longdesc</code> content attribute, which for the purposes of reflection
   is defined as containing a <span>URL</span>.</p>
 
-  <p>The <dfn><code data-x="dom-img-lowsrc">lowsrc</code></dfn> IDL attribute of the <code>img</code>
-  element must <span>reflect</span> the element's <code data-x="attr-img-lowsrc">lowsrc</code>
-  content attribute, which for the purposes of reflection is defined as containing a
-  <span>URL</span>.</p>
+  <p>The <dfn attribute for="HTMLImageElement"><code data-x="dom-img-lowsrc">lowsrc</code></dfn> IDL
+  attribute of the <code>img</code> element must <span>reflect</span> the element's <code
+  data-x="attr-img-lowsrc">lowsrc</code> content attribute, which for the purposes of reflection is
+  defined as containing a <span>URL</span>.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLInputElement-partial">HTMLInputElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLInputElement-partial">HTMLInputElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-input-align">align</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-input-useMap">useMap</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-input-align">align</code></dfn> IDL attribute of the
-  <code>input</code> element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLInputElement"><code data-x="dom-input-align">align</code></dfn> IDL
+  attribute of the <code>input</code> element must <span>reflect</span> the content attribute of the
+  same name.</p>
 
   <p>The <dfn><code data-x="dom-input-useMap">useMap</code></dfn> IDL attribute of the
   <code>input</code> element must <span>reflect</span> the element's <code
@@ -288,32 +319,37 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLLegendElement-partial">HTMLLegendElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLLegendElement-partial">HTMLLegendElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-legend-align">align</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-legend-align">align</code></dfn> IDL attribute of the
-  <code>legend</code> element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLLegendElement"><code data-x="dom-legend-align">align</code></dfn>
+  IDL attribute of the <code>legend</code> element must <span>reflect</span> the content attribute
+  of the same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLLIElement-partial">HTMLLIElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLLIElement-partial">HTMLLIElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-li-type">type</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-li-type">type</code></dfn> IDL attribute of the <code>li</code>
-  element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLLIElement"><code data-x="dom-li-type">type</code></dfn> IDL
+  attribute of the <code>li</code> element must <span>reflect</span> the content attribute of the
+  same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLLinkElement-partial">HTMLLinkElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLLinkElement-partial">HTMLLinkElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-charset">charset</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-rev">rev</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-link-target">target</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-link-charset">charset</code></dfn>, <dfn><code data-x="dom-link-rev">rev</code></dfn>, and <dfn><code data-x="dom-link-target">target</code></dfn> IDL attributes of the <code>link</code> element
-  must <span>reflect</span> the respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-charset">charset</code></dfn>,
+  <dfn attribute for="HTMLLinkElement"><code data-x="dom-link-rev">rev</code></dfn>, and <dfn
+  attribute for="HTMLLinkElement"><code data-x="dom-link-target">target</code></dfn> IDL attributes
+  of the <code>link</code> element must <span>reflect</span> the respective content attributes of
+  the same name.</p>
 
   <hr>
 
@@ -322,16 +358,17 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLMenuElement-partial">HTMLMenuElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLMenuElement-partial">HTMLMenuElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-menu-compact">compact</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-menu-compact">compact</code></dfn> IDL attribute of the
-  <code>menu</code> element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLMenuElement"><code data-x="dom-menu-compact">compact</code></dfn>
+  IDL attribute of the <code>menu</code> element must <span>reflect</span> the content attribute of
+  the same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLMetaElement-partial">HTMLMetaElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLMetaElement-partial">HTMLMetaElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-meta-scheme">scheme</span>;
 };</code></pre>
 
@@ -356,23 +393,24 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
    two different metadata names, one consisting of a combination of "eGMS.subject.keyword" and
    "LGCL", and the other consisting of a combination of "eGMS.subject.keyword" and "ORLY":</p>
 
-   <pre class="bad"><code class="html" data-x="">&lt;!-- this markup is invalid -->
+   <pre class="bad"><code class="html">&lt;!-- this markup is invalid -->
 &lt;meta name="eGMS.subject.keyword" scheme="LGCL" content="Abandoned vehicles">
 &lt;meta name="eGMS.subject.keyword" scheme="ORLY" content="Mah car: kthxbye"></code></pre>
 
    <p>The suggested processing of this markup, however, would be equivalent to the following:</p>
 
-   <pre><code class="html" data-x="">&lt;meta name="eGMS.subject.keyword" content="Abandoned vehicles">
+   <pre><code class="html">&lt;meta name="eGMS.subject.keyword" content="Abandoned vehicles">
 &lt;meta name="eGMS.subject.keyword" content="Mah car: kthxbye"></code></pre>
 
   </div>
 
-  <p>The <dfn><code data-x="dom-meta-scheme">scheme</code></dfn> IDL attribute of the
-  <code>meta</code> element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLMetaElement"><code data-x="dom-meta-scheme">scheme</code></dfn> IDL
+  attribute of the <code>meta</code> element must <span>reflect</span> the content attribute of the
+  same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLObjectElement-partial">HTMLObjectElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLObjectElement-partial">HTMLObjectElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-align">align</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-archive">archive</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-code">code</span>;
@@ -383,11 +421,19 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-codeBase">codeBase</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-object-codeType">codeType</span>;
 
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-object-border">border</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-object-border">border</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-object-align">align</code></dfn>, <dfn><code data-x="dom-object-archive">archive</code></dfn>, <dfn><code data-x="dom-object-border">border</code></dfn>, <dfn><code data-x="dom-object-code">code</code></dfn>, <dfn><code data-x="dom-object-declare">declare</code></dfn>, <dfn><code data-x="dom-object-hspace">hspace</code></dfn>, <dfn><code data-x="dom-object-standby">standby</code></dfn>, and <dfn><code data-x="dom-object-vspace">vspace</code></dfn> IDL attributes of the <code>object</code>
-  element must <span>reflect</span> the respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLObjectElement"><code data-x="dom-object-align">align</code></dfn>,
+  <dfn attribute for="HTMLObjectElement"><code data-x="dom-object-archive">archive</code></dfn>,
+  <dfn attribute for="HTMLObjectElement"><code data-x="dom-object-border">border</code></dfn>, <dfn
+  attribute for="HTMLObjectElement"><code data-x="dom-object-code">code</code></dfn>, <dfn attribute
+  for="HTMLObjectElement"><code data-x="dom-object-declare">declare</code></dfn>, <dfn attribute
+  for="HTMLObjectElement"><code data-x="dom-object-hspace">hspace</code></dfn>, <dfn attribute
+  for="HTMLObjectElement"><code data-x="dom-object-standby">standby</code></dfn>, and <dfn attribute
+  for="HTMLObjectElement"><code data-x="dom-object-vspace">vspace</code></dfn> IDL attributes of the
+  <code>object</code> element must <span>reflect</span> the respective content attributes of the
+  same name.</p>
 
   <p>The <dfn><code data-x="dom-object-codeBase">codeBase</code></dfn> IDL attribute of the
   <code>object</code> element must <span>reflect</span> the element's <code
@@ -400,31 +446,34 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLOListElement-partial">HTMLOListElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLOListElement-partial">HTMLOListElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-ol-compact">compact</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-ol-compact">compact</code></dfn> IDL attribute of the <code>ol</code>
-  element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLOListElement"><code data-x="dom-ol-compact">compact</code></dfn>
+  IDL attribute of the <code>ol</code> element must <span>reflect</span> the content attribute of
+  the same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLParagraphElement-partial">HTMLParagraphElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLParagraphElement-partial">HTMLParagraphElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-p-align">align</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-p-align">align</code></dfn> IDL attribute of the <code>p</code>
-  element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLParagraphElement"><code data-x="dom-p-align">align</code></dfn> IDL
+  attribute of the <code>p</code> element must <span>reflect</span> the content attribute of the
+  same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLParamElement-partial">HTMLParamElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLParamElement-partial">HTMLParamElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-param-type">type</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-param-valueType">valueType</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-param-type">type</code></dfn> IDL attribute of the <code>param</code>
-  element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLParamElement"><code data-x="dom-param-type">type</code></dfn> IDL
+  attribute of the <code>param</code> element must <span>reflect</span> the content attribute of the
+  same name.</p>
 
   <p>The <dfn><code data-x="dom-param-valueType">valueType</code></dfn> IDL attribute of the
   <code>param</code> element must <span>reflect</span> the element's <code
@@ -438,32 +487,34 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLPreElement-partial">HTMLPreElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLPreElement-partial">HTMLPreElement</span> {
   [<span>CEReactions</span>] attribute long <span data-x="dom-pre-width">width</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-pre-width">width</code></dfn> IDL attribute of the <code>pre</code>
-  element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLPreElement"><code data-x="dom-pre-width">width</code></dfn> IDL
+  attribute of the <code>pre</code> element must <span>reflect</span> the content attribute of the
+  same name.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLStyleElement-partial">HTMLStyleElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLStyleElement-partial">HTMLStyleElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-style-type">type</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-style-type">type</code></dfn> IDL attribute of the
-  <code>style</code> element must <span>reflect</span> the element's <code
+  <p>The <dfn attribute for="HTMLStyleElement"><code data-x="dom-style-type">type</code></dfn> IDL
+  attribute of the <code>style</code> element must <span>reflect</span> the element's <code
   data-x="attr-style-type">type</code> content attribute.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLScriptElement-partial">HTMLScriptElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLScriptElement-partial">HTMLScriptElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-script-charset">charset</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-script-event">event</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-script-htmlFor">htmlFor</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-script-charset">charset</code></dfn> and <dfn><code
+  <p>The <dfn attribute for="HTMLScriptElement"><code
+  data-x="dom-script-charset">charset</code></dfn> and <dfn><code
   data-x="dom-script-event">event</code></dfn> IDL attributes of the <code>script</code> element
   must <span>reflect</span> the respective content attributes of the same name.</p>
 
@@ -473,7 +524,7 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLTableElement-partial">HTMLTableElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLTableElement-partial">HTMLTableElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-table-align">align</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-table-border">border</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-table-frame">frame</span>;
@@ -481,13 +532,19 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-table-summary">summary</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-table-width">width</span>;
 
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-table-bgColor">bgColor</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-table-cellPadding">cellPadding</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-table-cellSpacing">cellSpacing</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-table-bgColor">bgColor</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-table-cellPadding">cellPadding</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-table-cellSpacing">cellSpacing</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-table-align">align</code></dfn>, <dfn><code data-x="dom-table-border">border</code></dfn>, <dfn><code data-x="dom-table-frame">frame</code></dfn>, <dfn><code data-x="dom-table-summary">summary</code></dfn>, <dfn><code data-x="dom-table-rules">rules</code></dfn>, and <dfn><code data-x="dom-table-width">width</code></dfn>, IDL attributes of the <code>table</code> element
-  must <span>reflect</span> the respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLTableElement"><code data-x="dom-table-align">align</code></dfn>,
+  <dfn attribute for="HTMLTableElement"><code data-x="dom-table-border">border</code></dfn>, <dfn
+  attribute for="HTMLTableElement"><code data-x="dom-table-frame">frame</code></dfn>, <dfn attribute
+  for="HTMLTableElement"><code data-x="dom-table-summary">summary</code></dfn>, <dfn attribute
+  for="HTMLTableElement"><code data-x="dom-table-rules">rules</code></dfn>, and <dfn attribute
+  for="HTMLTableElement"><code data-x="dom-table-width">width</code></dfn>, IDL attributes of the
+  <code>table</code> element must <span>reflect</span> the respective content attributes of the same
+  name.</p>
 
   <p>The <dfn><code data-x="dom-table-bgColor">bgColor</code></dfn> IDL attribute of the
   <code>table</code> element must <span>reflect</span> the element's <code
@@ -503,20 +560,22 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLTableSectionElement-partial">HTMLTableSectionElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLTableSectionElement-partial">HTMLTableSectionElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tbody-align">align</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tbody-ch">ch</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tbody-chOff">chOff</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tbody-vAlign">vAlign</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-tbody-align">align</code></dfn> IDL attribute of the
-  <code>tbody</code>, <code>thead</code>, and <code>tfoot</code> elements must <span>reflect</span>
-  the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLTableSectionElement"><code
+  data-x="dom-tbody-align">align</code></dfn> IDL attribute of the <code>tbody</code>,
+  <code>thead</code>, and <code>tfoot</code> elements must <span>reflect</span> the content
+  attribute of the same name.</p>
 
-  <p>The <dfn><code data-x="dom-tbody-ch">ch</code></dfn> IDL attribute of the <code>tbody</code>,
-  <code>thead</code>, and <code>tfoot</code> elements must <span>reflect</span> the elements' <code
-  data-x="attr-tbody-char">char</code> content attributes.</p>
+  <p>The <dfn attribute for="HTMLTableSectionElement"><code data-x="dom-tbody-ch">ch</code></dfn>
+  IDL attribute of the <code>tbody</code>, <code>thead</code>, and <code>tfoot</code> elements must
+  <span>reflect</span> the elements' <code data-x="attr-tbody-char">char</code> content
+  attributes.</p>
 
   <p>The <dfn><code data-x="dom-tbody-chOff">chOff</code></dfn> IDL attribute of the
   <code>tbody</code>, <code>thead</code>, and <code>tfoot</code> elements must <span>reflect</span>
@@ -528,7 +587,7 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLTableCellElement-partial">HTMLTableCellElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLTableCellElement-partial">HTMLTableCellElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tdth-align">align</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tdth-axis">axis</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tdth-height">height</span>;
@@ -539,16 +598,19 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-tdth-noWrap">noWrap</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tdth-vAlign">vAlign</span>;
 
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-tdth-bgColor">bgColor</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-tdth-bgColor">bgColor</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-tdth-align">align</code></dfn>, <dfn><code data-x="dom-tdth-axis">axis</code></dfn>, <dfn><code data-x="dom-tdth-height">height</code></dfn>, and <dfn><code data-x="dom-tdth-width">width</code></dfn> IDL attributes of the <code>td</code> and
-  <code>th</code> elements must <span>reflect</span> the respective content attributes of the same
-  name.</p>
+  <p>The <dfn attribute for="HTMLTableCellElement"><code data-x="dom-tdth-align">align</code></dfn>,
+  <dfn attribute for="HTMLTableCellElement"><code data-x="dom-tdth-axis">axis</code></dfn>, <dfn
+  attribute for="HTMLTableCellElement"><code data-x="dom-tdth-height">height</code></dfn>, and <dfn
+  attribute for="HTMLTableCellElement"><code data-x="dom-tdth-width">width</code></dfn> IDL
+  attributes of the <code>td</code> and <code>th</code> elements must <span>reflect</span> the
+  respective content attributes of the same name.</p>
 
-  <p>The <dfn><code data-x="dom-tdth-ch">ch</code></dfn> IDL attribute of the <code>td</code> and
-  <code>th</code> elements must <span>reflect</span> the elements' <code
-  data-x="attr-tdth-char">char</code> content attributes.</p>
+  <p>The <dfn attribute for="HTMLTableCellElement"><code data-x="dom-tdth-ch">ch</code></dfn> IDL
+  attribute of the <code>td</code> and <code>th</code> elements must <span>reflect</span> the
+  elements' <code data-x="attr-tdth-char">char</code> content attributes.</p>
 
   <p>The <dfn><code data-x="dom-tdth-chOff">chOff</code></dfn> IDL attribute of the <code>td</code>
   and <code>th</code> elements must <span>reflect</span> the elements' <code
@@ -568,21 +630,22 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLTableRowElement-partial">HTMLTableRowElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLTableRowElement-partial">HTMLTableRowElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tr-align">align</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tr-ch">ch</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tr-chOff">chOff</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-tr-vAlign">vAlign</span>;
 
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-tr-bgColor">bgColor</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-tr-bgColor">bgColor</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-tr-align">align</code></dfn> IDL attribute of the <code>tr</code>
-  element must <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLTableRowElement"><code data-x="dom-tr-align">align</code></dfn> IDL
+  attribute of the <code>tr</code> element must <span>reflect</span> the content attribute of the
+  same name.</p>
 
-  <p>The <dfn><code data-x="dom-tr-ch">ch</code></dfn> IDL attribute of the <code>tr</code> element
-  must <span>reflect</span> the element's <code data-x="attr-tr-char">char</code> content
-  attribute.</p>
+  <p>The <dfn attribute for="HTMLTableRowElement"><code data-x="dom-tr-ch">ch</code></dfn> IDL
+  attribute of the <code>tr</code> element must <span>reflect</span> the element's <code
+  data-x="attr-tr-char">char</code> content attribute.</p>
 
   <p>The <dfn><code data-x="dom-tr-chOff">chOff</code></dfn> IDL attribute of the <code>tr</code>
   element must <span>reflect</span> the element's <code data-x="attr-tr-charoff">charoff</code>
@@ -598,13 +661,15 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="HTMLUListElement-partial">HTMLUListElement</span> {
+  <pre><code class="idl">partial interface <span id="HTMLUListElement-partial">HTMLUListElement</span> {
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-ul-compact">compact</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-ul-type">type</span>;
 };</code></pre>
 
-  <p>The <dfn><code data-x="dom-ul-compact">compact</code></dfn> and <dfn><code data-x="dom-ul-type">type</code></dfn> IDL attributes of the <code>ul</code> element must
-  <span>reflect</span> the respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLUListElement"><code data-x="dom-ul-compact">compact</code></dfn>
+  and <dfn attribute for="HTMLUListElement"><code data-x="dom-ul-type">type</code></dfn> IDL
+  attributes of the <code>ul</code> element must <span>reflect</span> the respective content
+  attributes of the same name.</p>
 
   <hr>
 
@@ -614,19 +679,19 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="Document-partial">Document</span> {
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-document-fgColor">fgColor</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-document-linkColor">linkColor</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-document-vlinkColor">vlinkColor</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-document-alinkColor">alinkColor</span>;
-  [<span>CEReactions</span>] attribute [TreatNullAs=EmptyString] DOMString <span data-x="dom-document-bgColor">bgColor</span>;
+  <pre><code class="idl">partial interface <span id="Document-partial">Document</span> {
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-document-fgColor">fgColor</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-document-linkColor">linkColor</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-document-vlinkColor">vlinkColor</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-document-alinkColor">alinkColor</span>;
+  [<span>CEReactions</span>] attribute [<span>LegacyNullToEmptyString</span>] DOMString <span data-x="dom-document-bgColor">bgColor</span>;
 
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-document-anchors">anchors</span>;
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-document-applets">applets</span>;
 
-  void <span data-x="dom-document-clear">clear</span>();
-  void <span data-x="dom-document-captureEvents">captureEvents</span>();
-  void <span data-x="dom-document-releaseEvents">releaseEvents</span>();
+  undefined <span data-x="dom-document-clear">clear</span>();
+  undefined <span data-x="dom-document-captureEvents">captureEvents</span>();
+  undefined <span data-x="dom-document-releaseEvents">releaseEvents</span>();
 
   [SameObject] readonly attribute <span>HTMLAllCollection</span> <span data-x="dom-document-all">all</span>;
 };</code></pre>
@@ -664,41 +729,44 @@ interface <dfn>HTMLFontElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-document-anchors">anchors</code></dfn> attribute must return an
-  <code>HTMLCollection</code> rooted at the <code>Document</code> node, whose filter matches only
-  <code>a</code> elements with <code data-x="attr-a-name">name</code> attributes.</p>
+  <p>The <dfn attribute for="Document"><code data-x="dom-document-anchors">anchors</code></dfn>
+  attribute must return an <code>HTMLCollection</code> rooted at the <code>Document</code> node,
+  whose filter matches only <code>a</code> elements with <code data-x="attr-a-name">name</code>
+  attributes.</p>
 
-  <p>The <dfn><code data-x="dom-document-applets">applets</code></dfn> attribute must return an
-  <code>HTMLCollection</code> rooted at the <code>Document</code> node, whose filter matches
-  nothing. (It exists for historical reasons.)</p>
+  <p>The <dfn attribute for="Document"><code data-x="dom-document-applets">applets</code></dfn>
+  attribute must return an <code>HTMLCollection</code> rooted at the <code>Document</code> node,
+  whose filter matches nothing. (It exists for historical reasons.)</p>
 
-  <p>The <dfn><code data-x="dom-document-clear">clear()</code></dfn>, <dfn><code data-x="dom-document-captureEvents">captureEvents()</code></dfn>, and <dfn><code data-x="dom-document-releaseEvents">releaseEvents()</code></dfn> methods must do nothing.</p>
-
-  <hr>
-
-  <p>The <dfn><code data-x="dom-document-all">all</code></dfn> attribute must return an
-  <code>HTMLAllCollection</code> rooted at the <code>Document</code> node, whose filter matches all
-  elements.</p>
+  <p>The <dfn method for="Document"><code data-x="dom-document-clear">clear()</code></dfn>,
+  <dfn><code data-x="dom-document-captureEvents">captureEvents()</code></dfn>, and <dfn><code
+  data-x="dom-document-releaseEvents">releaseEvents()</code></dfn> methods must do nothing.</p>
 
   <hr>
 
-  <pre><code class="idl" data-x="">partial interface <span id="Window-partial">Window</span> {
-  void <span data-x="dom-window-captureEvents">captureEvents</span>();
-  void <span data-x="dom-window-releaseEvents">releaseEvents</span>();
+  <p>The <dfn attribute for="Document"><code data-x="dom-document-all">all</code></dfn> attribute
+  must return an <code>HTMLAllCollection</code> rooted at the <code>Document</code> node, whose
+  filter matches all elements.</p>
+
+  <hr>
+
+  <pre><code class="idl">partial interface <span id="Window-partial">Window</span> {
+  undefined <span data-x="dom-window-captureEvents">captureEvents</span>();
+  undefined <span data-x="dom-window-releaseEvents">releaseEvents</span>();
 
   [Replaceable, SameObject] readonly attribute <span>External</span> <span data-x="dom-external">external</span>;
 };</code></pre>
 
   <p>The <dfn><code data-x="dom-window-captureEvents">captureEvents()</code></dfn> and <dfn><code data-x="dom-window-releaseEvents">releaseEvents()</code></dfn> methods must do nothing.</p>
 
-  <p>The <dfn><code data-x="dom-external">external</code></dfn> attribute of the <code>Window</code>
-  interface must return an instance of the <code>External</code> interface:</p>
+  <p>The <dfn attribute for="Window"><code data-x="dom-external">external</code></dfn> attribute of
+  the <code>Window</code> interface must return an instance of the <code>External</code>
+  interface:</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- NoInterfaceObject]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>External</dfn> {
-  void <span data-x="dom-external-AddSearchProvider">AddSearchProvider</span>();
-  void <span data-x="dom-external-IsSearchProviderInstalled">IsSearchProviderInstalled</span>();
+  undefined <span data-x="dom-external-AddSearchProvider">AddSearchProvider</span>();
+  undefined <span data-x="dom-external-IsSearchProviderInstalled">IsSearchProviderInstalled</span>();
 };</code></pre>
 
   <p>The <dfn><code data-x="dom-external-AddSearchProvider">AddSearchProvider()</code></dfn> and

@@ -1,6 +1,6 @@
   <h5>Pragma directives</h5>
 
-  <p>When the <dfn data-export="" data-dfn-for="meta" data-dfn-type="element-attr"><code
+  <p>When the <dfn for="meta" element-attr><code
   data-x="attr-meta-http-equiv">http-equiv</code></dfn> attribute is specified on a
   <code>meta</code> element, the element is a pragma directive.</p>
 
@@ -99,7 +99,6 @@ people expect to have work and what is necessary.
   </div>
 
   <dl>
-
    <dt w-nodev><dfn data-x="attr-meta-http-equiv-content-language">Content language state</dfn>
    (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-content-language">content-language</code>"</code>)
 
@@ -114,7 +113,6 @@ people expect to have work and what is necessary.
     <!-- https://www.hixie.ch/tests/adhoc/html/meta/content-language/ -->
 
     <ol>
-
      <li><p>If the <code>meta</code> element has no <code data-x="attr-meta-content">content</code>
      attribute, then return.</p></li>
 
@@ -139,26 +137,21 @@ people expect to have work and what is necessary.
      <li><p>If <var>candidate</var> is the empty string, return.</p></li>
 
      <li>
-
       <p>Set the <span>pragma-set default language</span> to <var>candidate</var>.</p>
 
       <p class="note">If the value consists of multiple space-separated tokens, tokens after the
       first are ignored.</p>
-
      </li>
-
     </ol>
 
     <p class="note">This pragma is almost, but not quite, entirely unlike the HTTP `<code
     data-x="http-content-language">Content-Language</code>` header of the same name. <ref
     spec=HTTP></p>
-
    </dd>
 
    <dt><dfn data-x="attr-meta-http-equiv-content-type">Encoding declaration state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-content-type">content-type</code>"</code>)
 
    <dd>
-
     <p>The <span data-x="attr-meta-http-equiv-content-type">Encoding declaration state</span> is
     just an alternative form of setting the <code data-x="attr-meta-charset">charset</code>
     attribute: it is a <span>character encoding declaration</span>. <span w-nodev>This state's user
@@ -181,41 +174,35 @@ people expect to have work and what is necessary.
     used in <span>HTML documents</span>, but elements with an <code
     data-x="attr-meta-http-equiv">http-equiv</code> attribute in that state must not be used in
     <span>XML documents</span>.</p>
-
    </dd>
 
    <dt><dfn data-x="attr-meta-http-equiv-default-style">Default style state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-default-style">default-style</code>"</code>)
 
    <dd>
-
     <p>This pragma sets the <span data-x="CSS style sheet set name">name</span> of the default
     <span>CSS style sheet set</span>.</p>
 
     <div w-nodev>
 
     <ol>
-
      <li><p>If the <code>meta</code> element has no <code data-x="attr-meta-content">content</code>
      attribute, or if that attribute's value is the empty string, then return.</p></li>
 
      <li><p><span>Change the preferred CSS style sheet set name</span> with the name being the value
      of the element's <code data-x="attr-meta-content">content</code> attribute. <ref
      spec=CSSOM></p></li>
-
     </ol>
 
     </div>
-
    </dd>
 
    <dt><dfn data-x="attr-meta-http-equiv-refresh">Refresh state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-refresh">refresh</code>"</code>)
 
    <dd>
-
     <p>This pragma acts as timed redirect.</p>
 
-    <p>A <code>Document</code> object has an associated <dfn data-dfn-for="Document">will
-    declaratively refresh</dfn> (a boolean). It is initially false.</p>
+    <p>A <code>Document</code> object has an associated <dfn for="Document">will declaratively
+    refresh</dfn> (a boolean). It is initially false.</p>
 
     <div w-nodev>
 
@@ -349,16 +336,16 @@ people expect to have work and what is necessary.
         flag set</span> does not have the <span>sandboxed automatic features browsing context
         flag</span> set, then <span data-x="navigate">navigate</span><!--DONAV meta refresh-->
         <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> to
-        <var>urlRecord</var>, with <span>replacement enabled</span>, and with <var>document</var>'s
-        <span data-x="concept-document-bc">browsing context</span> as the <span>source browsing
-        context</span>.</p>
+        <var>urlRecord</var>, with <var data-x="navigation-hh">historyHandling</var> set to "<code
+        data-x="hh-replace">replace</code>" and the <span>source browsing context</span> set to
+        <var>document</var>'s <span data-x="concept-document-bc">browsing context</span>.</p>
 
         <p>For the purposes of the previous paragraph, a refresh is said to have come due as soon as
         the <em>later</em> of the following two conditions occurs:</p>
 
         <ul>
-         <li>At least <var>time</var> seconds have elapsed since <var>document</var> has
-         <span>completely loaded</span>, adjusted to take into account user or user agent
+         <li>At least <var>time</var> seconds have elapsed since <var>document</var>'s
+         <span>completely loaded time</span>, adjusted to take into account user or user agent
          preferences.</li>
          <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=774 -->
 
@@ -420,7 +407,7 @@ people expect to have work and what is necessary.
      <code>head</code> element, to ensure that the page automatically reloads from the server every
      five minutes:</p>
 
-     <pre><code class="html" data-x="">&lt;meta http-equiv="Refresh" content="300"></code></pre>
+     <pre><code class="html">&lt;meta http-equiv="Refresh" content="300"></code></pre>
 
     </div>
 
@@ -429,10 +416,9 @@ people expect to have work and what is necessary.
      <p>A sequence of pages could be used as an automated slide show by making each page refresh to
      the next page in the sequence, using markup such as the following:</p>
 
-     <pre><code class="html" data-x="">&lt;meta http-equiv="Refresh" content="20; URL=page4.html"></code></pre>
+     <pre><code class="html">&lt;meta http-equiv="Refresh" content="20; URL=page4.html"></code></pre>
 
     </div>
-
    </dd>
 
    <dt w-nodev><dfn data-x="attr-meta-http-equiv-set-cookie">Set-Cookie state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-set-cookie">set-cookie</code>"</code>)
@@ -447,7 +433,6 @@ people expect to have work and what is necessary.
    <dt><dfn data-x="attr-meta-http-equiv-x-ua-compatible">X-UA-Compatible state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-x-ua-compatible">x-ua-compatible</code>"</code>)
 
    <dd>
-
     <p>In practice, this pragma encourages Internet Explorer to more closely follow the
     specifications.</p>
 
@@ -457,16 +442,14 @@ people expect to have work and what is necessary.
     <span>ASCII case-insensitive</span> match for the string "<code data-x="">IE=edge</code>".</p>
 
     <p>User agents are required to ignore this pragma.</p>
-
    </dd>
 
 
-   <dt><dfn data-x="attr-meta-http-equiv-content-security-policy" data-export="" data-dfn-type="dfn">Content security policy state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-content-security-policy">content-security-policy</code>"</code>)
+   <dt><dfn export data-x="attr-meta-http-equiv-content-security-policy">Content security policy state</dfn> (<code data-x="">http-equiv="<code data-x="attr-meta-http-equiv-keyword-content-security-policy">content-security-policy</code>"</code>)
 
    <dd>
-
     <p>This pragma <span data-x="enforce the policy">enforces</span> a <span>Content Security
-    Policy</span> on a <code>Document</code>. <ref spec="CSP"></p>
+    Policy</span> on a <code>Document</code>. <ref spec=CSP></p>
 
     <div w-nodev>
 
@@ -502,7 +485,7 @@ people expect to have work and what is necessary.
     directive">sandbox</code> <span data-x="Content Security Policy directive">directives</span>.
     The <span>Content Security Policy</span> given in the <code
     data-x="attr-meta-content">content</code> attribute will be <span
-    data-x="enforce the policy">enforced</span> upon the current document. <ref spec="CSP"></p>
+    data-x="enforce the policy">enforced</span> upon the current document. <ref spec=CSP></p>
 
     <div class="example">
 
@@ -510,11 +493,10 @@ people expect to have work and what is necessary.
      execution of inline JavaScript, as well as blocking all plugin content, using a policy such
      as the following:
 
-     <pre><code class="html" data-x="">&lt;meta http-equiv="Content-Security-Policy" content="script-src 'self'; object-src 'none'"></code></pre>
+     <pre><code class="html">&lt;meta http-equiv="Content-Security-Policy" content="script-src 'self'; object-src 'none'"></code></pre>
 
     </div>
    </dd>
-
   </dl>
 
   <p>There must not be more than one <code>meta</code> element with any particular state in the

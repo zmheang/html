@@ -1,0 +1,49 @@
+  <h5 id="custom-elements-face-example">Creating a form-associated custom element</h5>
+
+  <!-- NON-NORMATIVE SECTION -->
+
+  <p>Adding a static <code data-x="">formAssociated</code> property, with a true value, makes an
+  <span>autonomous custom element</span> a <span>form-associated custom element</span>. The
+  <code>ElementInternals</code> interface helps you to implement functions and properties common
+  to form control elements.</p>
+
+  <pre><code class="js">class MyCheckbox extends HTMLElement {
+  static get formAssociated() { return true; }
+  static get observedAttributes() { return ['checked']; }
+
+  constructor() {
+    super();
+    this._internals = this.attachInternals();
+    this.addEventListener('click', this._onClick.bind(this));
+  }
+
+  get form() { return this._internals.form; }
+  get name() { return this.getAttribute('name'); }
+  get type() { return this.localName; }
+
+  get checked() { return this.getAttribute('checked'); }
+  set checked(flag) { this.toggleAttribute('checked', Boolean(flag)); }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    // name will always be "checked" due to observedAttributes
+    this._internals.setFormValue(this.checked ? 'on' : null);
+  }
+
+  _onClick(event) {
+    this.checked = !this.checked;
+  }
+}
+customElements.define('my-checkbox', MyCheckbox);</code></pre>
+
+  <p>You can use the custom element <code data-x="">my-checkbox</code> like a built-in
+  form-associated element. For example, putting it in <code>form</code> or <code>label</code>
+  associates the <code data-x="">my-checkbox</code> element with them, and submitting the
+  <code>form</code> will send data provided by <code data-x="">my-checkbox</code> implementation.
+  </p>
+
+  <pre><code class="html">&lt;form action="..." method="...">
+  &lt;label>&lt;my-checkbox name="agreed">&lt;/my-checkbox> I read the agreement.&lt;/label>
+  &lt;input type="submit">
+&lt;/form>
+</code></pre>
+

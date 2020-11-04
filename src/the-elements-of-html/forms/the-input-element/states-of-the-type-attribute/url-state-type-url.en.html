@@ -104,7 +104,7 @@
 
    <p>If a document contained the following markup:</p>
 
-   <pre><code class="html" data-x="">&lt;input type="url" name="location" list="urls"&gt;
+   <pre><code class="html">&lt;input type="url" name="location" list="urls"&gt;
 &lt;datalist id="urls"&gt;
  &lt;option label="MIME: Format of Internet Message Bodies" value="https://tools.ietf.org/html/rfc2045"&gt;
  &lt;option label="HTML" value="https://html.spec.whatwg.org/"&gt;
@@ -119,13 +119,13 @@
    data-x="">https://streams.spec.whatwg.org/</code> in the recent past, then the rendering might look
    like this:</p>
 
-   <p><img src="/images/sample-url.svg" width="480" height="150" alt="A text box with an icon on the left followed by the text &quot;spec.w&quot; and a cursor, with a drop down button on the right hand side; with, below, a drop down box containing a list of six URLs on the left, with the first four having grayed out labels on the right; and a scroll bar to the right of the drop down box, indicating further values are available."></p>
+   <p><img src="/images/sample-url.svg" width="480" height="150" alt="A text box with an icon on the left followed by the text &quot;spec.w&quot; and a cursor, with a drop down button on the right hand side; with, below, a drop down box containing a list of six URLs on the left, with the first four having grayed out labels on the right; and a scrollbar to the right of the drop down box, indicating further values are available."></p>
 
    <p>The first four URLs in this sample consist of the four URLs in the author-specified list that
-   match the text the user has entered, sorted in some UA-defined manner (maybe by how frequently
-   the user refers to those URLs). Note how the UA is using the knowledge that the values are URLs
-   to allow the user to omit the scheme part and perform intelligent matching on the domain
-   name.</p>
+   match the text the user has entered, sorted in some <span>implementation-defined</span> manner
+   (maybe by how frequently the user refers to those URLs). Note how the UA is using the knowledge
+   that the values are URLs to allow the user to omit the scheme part and perform intelligent
+   matching on the domain name.</p>
 
    <p>The last two URLs (and probably many more, given the scrollbar's indications of more values
    being available) are the matches from the user agent's session history data. This data is not

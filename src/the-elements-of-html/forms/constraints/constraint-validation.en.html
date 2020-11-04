@@ -7,18 +7,15 @@
   invalid and for which no script has claimed responsibility:</p>
 
   <ol>
-
    <li><p>Let <var>controls</var> be a list of all the <span
    data-x="category-submit">submittable elements</span> whose <span>form owner</span> is <var>form</var>, in <span>tree order</span>.</p></li>
 
    <li><p>Let <var>invalid controls</var> be an initially empty list of elements.</p></li>
 
    <li>
-
     <p>For each element <var>field</var> in <var>controls</var>, in <span>tree order</span>:</p>
 
     <ol>
-
      <li><p>If <var>field</var> is not a <span>candidate for constraint validation</span>,
      then move on to the next element.</p></li>
 
@@ -27,9 +24,7 @@
 
      <li><p>Otherwise, add <var>field</var> to <var>invalid
      controls</var>.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>If <var>invalid controls</var> is empty, then return a <i>positive</i> result.</p></li>
@@ -38,7 +33,6 @@
    elements.</p></li>
 
    <li>
-
     <p>For each element <var>field</var> in <var>invalid controls</var>, if any, in <span>tree
     order</span>:</p>
 
@@ -50,38 +44,47 @@
      <li><p>If <var>notCanceled</var> is true, then add <var>field</var> to <var>unhandled invalid
      controls</var>.</p></li>
     </ol>
-
    </li>
 
    <li><p>Return a <i>negative</i> result with the list of elements in the <var>unhandled
    invalid controls</var> list.</p></li>
-
   </ol>
 
   <p>If a user agent is to <dfn>interactively validate the constraints</dfn> of <code>form</code>
   element <var>form</var>, then the user agent must run the following steps:</p>
 
   <ol>
-
    <li><p><span>Statically validate the constraints</span> of <var>form</var>, and let
    <var>unhandled invalid controls</var> be the list of elements returned if the result was
    <i>negative</i>.</p></li>
 
    <li><p>If the result was <i>positive</i>, then return that result.</p></li>
 
-   <li><p>Report the problems with the constraints of at least one of the elements given in
-   <var>unhandled invalid controls</var> to the user. User agents may focus one of those elements in
-   the process, by running the <span>focusing steps</span> for that element, and may change the
-   scrolling position of the document, or perform some other action that brings the element to the
-   user's attention. User agents may report more than one constraint violation. User agents may
-   coalesce related constraint violation reports if appropriate (e.g. if multiple radio buttons in a
-   <span data-x="radio button group">group</span> are marked as required, only one error need be
-   reported). If one of the controls is not <span>being rendered</span> (e.g. it has the <code
-   data-x="attr-hidden">hidden</code> attribute set) then user agents may report a script
-   error.</p></li>
+   <li>
+    <p>Report the problems with the constraints of at least one of the elements given in
+    <var>unhandled invalid controls</var> to the user.</p>
+
+    <ul>
+     <li><p>User agents may focus one of those elements in the process, by running the
+     <span>focusing steps</span> for that element, and may change the scrolling position of the
+     document, or perform some other action that brings the element to the user's attention. For
+     elements that are <span data-x="form-associated custom element">form-associated custom
+     elements</span>, user agents should use their <span data-x="face-validation-anchor">validation
+     anchor</span> instead, for the purposes of these actions.</p></li>
+
+     <li><p>User agents may report more than one constraint violation.</p></li>
+
+     <li><p>User agents may coalesce related constraint violation reports if appropriate (e.g. if
+     multiple radio buttons in a <span data-x="radio button group">group</span> are marked as
+     required, only one error need be reported).</p></li>
+
+     <li><p>If one of the controls is not <span>being rendered</span> (e.g. it has the <code
+     data-x="attr-hidden">hidden</code> attribute set) then user agents may report a script
+     error.</p></li>
+    </ul>
+   </li>
 
    <li><p>Return a <i>negative</i> result.</p></li>
-
   </ol>
 
   </div>

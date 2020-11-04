@@ -22,12 +22,19 @@
 
   <div w-nodev>
 
-  <p>The <span>input activation behavior</span> is to <span data-x="concept-event-fire">fire an
-  event</span> named <code data-x="event-input">input</code> at the element, with the <code
-  data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, and then <span
-  data-x="concept-event-fire">fire an event</span> named <code data-x="event-change">change</code>
-  at the element, with the <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to
-  true.</p>
+  <p>The <span>input activation behavior</span> is to run the following steps:</p>
+  <ol>
+   <li><p>If the element is not <span>connected</span>, then return.</p></li>
+
+   <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
+   data-x="event-input">input</code> at the element with the <code
+   data-x="dom-Event-bubbles">bubbles</code> and <code data-x="dom-Event-composed">composed</code>
+   attributes initialized to true.</p></li>
+
+   <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
+   data-x="event-change">change</code> at the element with the <code
+   data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p></li>
+  </ol>
   <!-- These are not cancelable. Once this fires, the control is checked, end of story. -->
 
   <p><strong>Constraint validation</strong>: If the element is <i
@@ -42,12 +49,9 @@
    <dt><var>input</var> . <code subdfn data-x="dom-input-indeterminate">indeterminate</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>When set, overrides the rendering of <span data-x="attr-input-type-checkbox">checkbox</span>
     controls so that the current value is not visible.</p>
-
    </dd>
-
   </dl>
 
   <div class="bookkeeping">

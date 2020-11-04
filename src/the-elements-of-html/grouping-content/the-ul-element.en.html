@@ -10,11 +10,18 @@
    <dd>Zero or more <code>li</code> and <span data-x="script-supporting elements">script-supporting</span> elements.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-ul">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-ul">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLUListElement</dfn> : <span>HTMLElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLUListElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
+  // <a href="#HTMLUListElement-partial">also has obsolete members</a>
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLUListElement</code>.</dd>
   </dl>
@@ -33,7 +40,7 @@ interface <dfn>HTMLUListElement</dfn> : <span>HTMLElement</span> {};</code></pre
    <code>ol</code> section to see an example of the same items using the <code>ol</code>
    element.</p>
 
-   <pre><code class="html" data-x="">&lt;p>I have lived in the following countries:&lt;/p>
+   <pre><code class="html">&lt;p>I have lived in the following countries:&lt;/p>
 &lt;ul>
  &lt;li>Norway
  &lt;li>Switzerland
@@ -46,7 +53,7 @@ interface <dfn>HTMLUListElement</dfn> : <span>HTMLElement</span> {};</code></pre
    given in order of the size of their current account balance in 2007, without changing the meaning
    of the document whatsoever:</p>
 
-   <pre><code class="html" data-x="">&lt;p>I have lived in the following countries:&lt;/p>
+   <pre><code class="html">&lt;p>I have lived in the following countries:&lt;/p>
 &lt;ul>
  &lt;li>Switzerland
  &lt;li>Norway

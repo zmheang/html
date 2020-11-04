@@ -5,9 +5,12 @@
 
   <ul class="brief">
    <li><code data-x="attr-accesskey">accesskey</code></li>
+   <li><code data-x="attr-autocapitalize">autocapitalize</code></li>
+   <li><code data-x="attr-fe-autofocus">autofocus</code></li>
    <li><code data-x="attr-contenteditable">contenteditable</code></li>
    <li><code data-x="attr-dir">dir</code></li>
    <li><code data-x="attr-draggable">draggable</code></li>
+   <li><code data-x="attr-enterkeyhint">enterkeyhint</code></li>
    <li><code data-x="attr-hidden">hidden</code></li>
    <li><code data-x="attr-is">is</code></li>
    <li><code data-x="attr-itemid">itemid</code></li>
@@ -37,12 +40,12 @@
    <span data-x="the directionality">方向</span> 是 '<span data-x="concept-rtl">rtl</span>'，
    通过 "<code data-x="">bogus</code>" 元素间接地继承自 <code>div</code> 元素。</p>
 
-   <pre class="bad">&lt;div xmlns="http://www.w3.org/1999/xhtml" dir="rtl">
+   <pre class="bad"><code class="html">&lt;div xmlns="http://www.w3.org/1999/xhtml" dir="rtl">
  &lt;bogus xmlns="https://example.net/ns" dir="ltr">
   &lt;span xmlns="http://www.w3.org/1999/xhtml">
   &lt;/span>
  &lt;/bogus>
-&lt;/div></pre>
+&lt;/div></code></pre>
 
   </div>
 
@@ -51,9 +54,9 @@
   <hr>
 
   <p>WHATWG DOM 标准为任何命名空间下的任何元素的
-  <dfn data-x="attr-class" id="classes"><code>class</code></dfn>，
-  <dfn data-x="attr-id" id="the-id-attribute"><code>id</code></dfn>，和
-  <dfn data-x="attr-slot"><code>slot</code></dfn> 属性定义了用户代理的要求。<ref spec=DOM></p>
+  <dfn element-attr for="global" data-x="attr-class" id="classes"><code>class</code></dfn>，
+  <dfn element-attr for="global" data-x="attr-id" id="the-id-attribute"><code>id</code></dfn>，和
+  <dfn element-attr for="global" data-x="attr-slot"><code>slot</code></dfn> 属性定义了用户代理的要求。<ref spec=DOM></p>
 
   <p><code data-x="attr-class">class</code>，<code data-x="attr-id">id</code>，和 <code
   data-x="attr-slot">slot</code> 属性可以在任何 <span data-x="HTML elements">HTML 元素</span> 上指定。</p>
@@ -129,12 +132,13 @@
    <li><code data-x="handler-onclick">onclick</code></li>
    <li><code data-x="handler-onclose">onclose</code></li>
    <li><code data-x="handler-oncontextmenu">oncontextmenu</code></li>
+   <li><code data-x="handler-oncopy">oncopy</code></li>
    <li><code data-x="handler-oncuechange">oncuechange</code></li>
+   <li><code data-x="handler-oncut">oncut</code></li>
    <li><code data-x="handler-ondblclick">ondblclick</code></li>
    <li><code data-x="handler-ondrag">ondrag</code></li>
    <li><code data-x="handler-ondragend">ondragend</code></li>
    <li><code data-x="handler-ondragenter">ondragenter</code></li>
-   <li><code data-x="handler-ondragexit">ondragexit</code></li>
    <li><code data-x="handler-ondragleave">ondragleave</code></li>
    <li><code data-x="handler-ondragover">ondragover</code></li>
    <li><code data-x="handler-ondragstart">ondragstart</code></li>
@@ -144,6 +148,7 @@
    <li><code data-x="handler-onended">onended</code></li>
    <li><code data-x="handler-onerror">onerror</code>*</li>
    <li><code data-x="handler-onfocus">onfocus</code>*</li>
+   <li><code data-x="handler-onformdata">onformdata</code></li>
    <li><code data-x="handler-oninput">oninput</code></li>
    <li><code data-x="handler-oninvalid">oninvalid</code></li>
    <li><code data-x="handler-onkeydown">onkeydown</code></li>
@@ -152,7 +157,6 @@
    <li><code data-x="handler-onload">onload</code>*</li>
    <li><code data-x="handler-onloadeddata">onloadeddata</code></li>
    <li><code data-x="handler-onloadedmetadata">onloadedmetadata</code></li>
-   <li><code data-x="handler-onloadend">onloadend</code></li>
    <li><code data-x="handler-onloadstart">onloadstart</code></li>
    <li><code data-x="handler-onmousedown">onmousedown</code></li>
    <li><code data-x="handler-onmouseenter">onmouseenter</code></li>
@@ -161,7 +165,7 @@
    <li><code data-x="handler-onmouseout">onmouseout</code></li>
    <li><code data-x="handler-onmouseover">onmouseover</code></li>
    <li><code data-x="handler-onmouseup">onmouseup</code></li>
-   <li><code data-x="handler-onwheel">onwheel</code></li>
+   <li><code data-x="handler-onpaste">onpaste</code></li>
    <li><code data-x="handler-onpause">onpause</code></li>
    <li><code data-x="handler-onplay">onplay</code></li>
    <li><code data-x="handler-onplaying">onplaying</code></li>
@@ -173,6 +177,7 @@
    <li><code data-x="handler-onseeked">onseeked</code></li>
    <li><code data-x="handler-onseeking">onseeking</code></li>
    <li><code data-x="handler-onselect">onselect</code></li>
+   <li><code data-x="handler-onslotchange">onslotchange</code></li>
    <li><code data-x="handler-onstalled">onstalled</code></li>
    <li><code data-x="handler-onsubmit">onsubmit</code></li>
    <li><code data-x="handler-onsuspend">onsuspend</code></li>
@@ -180,6 +185,7 @@
    <li><code data-x="handler-ontoggle">ontoggle</code></li>
    <li><code data-x="handler-onvolumechange">onvolumechange</code></li>
    <li><code data-x="handler-onwaiting">onwaiting</code></li>
+   <li><code data-x="handler-onwheel">onwheel</code></li>
   </ul>
 
   <p class="note">用星号标记的属性在用于 <code>body</code> 元素时有不同的含义，
@@ -212,7 +218,7 @@
 
   <hr>
 
-  <p>在 <span data-x="XML documents">XML 文档</span> 中的任何元素上，XML 规范也遵循
+  <p>在 <span data-x="XML documents">XML 文档</span> 中的任何元素上，<cite>XML</cite> 也遵循
   <span data-x="XML namespace">XML 命名空间</span> 中的 <code data-x="attr-xml-space">xml:space</code> 属性的使用。
   该属性在 <span data-x="HTML elements">HTML 元素</span> 上没有作用，因为 HTML 的默认行为就是保留空白。 <ref spec=XML></p>
 

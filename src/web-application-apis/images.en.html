@@ -1,10 +1,10 @@
   <h3 split-filename="imagebitmap-and-animations">Images</h3>
 
-  <pre><code class="idl" data-x="">[Exposed=(Window,Worker), <span>Serializable</span>, <span>Transferable</span>]
+  <pre><code class="idl">[Exposed=(Window,Worker), <span>Serializable</span>, <span>Transferable</span>]
 interface <dfn>ImageBitmap</dfn> {
   readonly attribute unsigned long <span data-x="dom-ImageBitmap-width">width</span>;
   readonly attribute unsigned long <span data-x="dom-ImageBitmap-height">height</span>;
-  void <span data-x="dom-ImageBitmap-close">close</span>();
+  undefined <span data-x="dom-ImageBitmap-close">close</span>();
 };
 
 typedef (<span>CanvasImageSource</span> or
@@ -39,7 +39,6 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
    <dt><var>promise</var> = self . <code data-x="dom-createImageBitmap">createImageBitmap</code>(<var>image</var>, <var>sx</var>, <var>sy</var>, <var>sw</var>, <var>sh</var> [, <var>options</var> ])</dt>
 
    <dd>
-
     <p>Takes <var>image</var>, which can be an <code>img</code> element, an <span>SVG
     <code>image</code></span> element, a <code>video</code> element, a <code>canvas</code>
     element, a <code>Blob</code> object, an <code>ImageData</code> object, or another
@@ -74,36 +73,28 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
     image (e.g. a <code>video</code> that is <span>CORS-cross-origin</span>, or a
     <code>canvas</code> being drawn on by a script in a worker from another
     <span>origin</span>).</p>
-
    </dd>
 
    <dt><var>imageBitmap</var> . <code subdfn data-x="dom-ImageBitmap-close">close</code>()</dt>
 
    <dd>
-
     <p>Releases <var>imageBitmap</var>'s underlying <span
     data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>.</p>
-
    </dd>
 
    <dt><var>imageBitmap</var> . <code subdfn data-x="dom-ImageBitmap-width">width</code></dt>
 
    <dd>
-
     <p>Returns the <span>intrinsic width</span> of the image, in <span data-x="'px'">CSS
     pixels</span>.</p>
-
    </dd>
 
    <dt><var>imageBitmap</var> . <code subdfn data-x="dom-ImageBitmap-height">height</code></dt>
 
    <dd>
-
     <p>Returns the <span>intrinsic height</span> of the image, in <span data-x="'px'">CSS
     pixels</span>.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -129,12 +120,12 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
   are:</p>
 
   <ol>
+   <li><p>If <var>value</var>'s <span data-x="concept-canvas-origin-clean">origin-clean</span>
+   flag is not set, then throw a <span>"<code>DataCloneError</code>"</span>
+   <code>DOMException</code>.
+
    <li><p>Set <var>serialized</var>.[[BitmapData]] to a copy of <var>value</var>'s <span
    data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>.</p></li>
-
-   <li><p>Set <var>serialized</var>.[[OriginClean]] to true if <var>value</var>'s <span
-   data-x="concept-canvas-origin-clean">origin-clean</span> flag is set, and false
-   otherwise.</p></li>
   </ol>
 
   <p>Their <span>deserialization steps</span>, given <var>serialized</var> and <var>value</var>,
@@ -143,20 +134,17 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
   <ol>
    <li><p>Set <var>value</var>'s <span data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>
    to <var>serialized</var>.[[BitmapData]].</p></li>
-
-   <li><p>If <var>serialized</var>.[[OriginClean]] is true, set <var>value</var>'s <span
-   data-x="concept-canvas-origin-clean">origin-clean</span> flag.</p></li>
   </ol>
 
   <p>Their <span>transfer steps</span>, given <var>value</var> and <var>dataHolder</var>, are:</p>
 
   <ol>
+   <li><p>If <var>value</var>'s <span data-x="concept-canvas-origin-clean">origin-clean</span>
+   flag is not set, then throw a <span>"<code>DataCloneError</code>"</span>
+   <code>DOMException</code>.
+
    <li><p>Set <var>dataHolder</var>.[[BitmapData]] to <var>value</var>'s <span
    data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>.</p></li>
-
-   <li><p>Set <var>dataHolder</var>.[[OriginClean]] to true if <var>value</var>'s <span
-   data-x="concept-canvas-origin-clean">origin-clean</span> flag is set, and false
-   otherwise.</p></li>
 
    <li><p>Unset <var>value</var>'s <span data-x="concept-ImageBitmap-bitmap-data">bitmap
    data</span>.</p></li>
@@ -168,9 +156,6 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
   <ol>
    <li><p>Set <var>value</var>'s <span data-x="concept-ImageBitmap-bitmap-data">bitmap data</span>
    to <var>dataHolder</var>.[[BitmapData]].</p></li>
-
-   <li><p>If <var>dataHolder</var>.[[OriginClean]] is true, set <var>value</var>'s <span
-   data-x="concept-canvas-origin-clean">origin-clean</span> flag.</p></li>
   </ol>
 
   <hr>
@@ -388,12 +373,10 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
   the user agent must run the following steps:</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the <span data-x="concept-ImageBitmap-bitmap-data">bitmap
    data</span> being transformed.</p></li>
 
    <li>
-
     <p>If <var>sx</var>, <var>sy</var>, <var>sw</var> and <var>sh</var> are specified, let
     <var>sourceRectangle</var> be a rectangle whose corners are the four points (<var>sx</var>,
     <var>sy</var>), (<var>sx</var>+<var>sw</var>, <var>sy</var>),(<var>sx</var>+<var>sw</var>,
@@ -405,7 +388,6 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
     <p class="note">If either <var>sw</var> or <var>sh</var> are negative, then
     the top-left corner of this rectangle will be to the left or above the (<var>sx</var>,
     <var>sy</var>) point.</p>
-
    </li>
 
    <li><p>Clip <var>sourceRectangle</var> to the dimensions of <var>input</var>.</p></li>
@@ -469,7 +451,6 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
    choice of scaling algorithm.</p></li>
 
    <li>
-
     <p>If the value of the <dfn><code
     data-x="dom-ImageBitmapOptions-imageOrientation">imageOrientation</code></dfn> member of
     <var>options</var> is "<dfn><code data-x="dom-ImageOrientation-flipY">flipY</code></dfn>",
@@ -478,18 +459,15 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
 
     <p class="note">If the value is "<dfn><code
     data-x="dom-ImageOrientation-none">none</code></dfn>", no extra step is required.</p>
-
    </li>
 
    <li>
-
     <p>If <var>image</var> is an <code>img</code> element or a <code>Blob</code> object, let
     <var>val</var> be the value of the <dfn><code
     data-x="dom-ImageBitmapOptions-colorSpaceConversion">colorSpaceConversion</code></dfn> member
     of <var>options</var>, and then run these substeps:</p>
 
     <ol>
-
      <li><p>If <var>val</var> is "<dfn><code
      data-x="dom-ColorSpaceConversion-default">default</code></dfn>",
      the color space conversion behavior is implementation-specific, and should be chosen according
@@ -500,22 +478,18 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
      without performing any color space conversions. This means that the image decoding algorithm
      must ignore color profile metadata embedded in the source data as well as the display device
      color profile.</p></li>
-
     </ol>
 
     <p class="note">The native color space of canvas is currently unspecified, but this is expected
     to change in the future.</p>
-
    </li>
 
    <li>
-
     <p>Let <var>val</var> be the value of <dfn><code
     data-x="dom-ImageBitmapOptions-premultiplyAlpha">premultiplyAlpha</code></dfn> member of
     <var>options</var>, and then run these substeps:</p>
 
     <ol>
-
      <li><p>If <var>val</var> is "<dfn><code
      data-x="dom-PremultiplyAlpha-default">default</code></dfn>", the alpha premultiplication
      behavior is implementation-specific, and should be chosen according to implementation deems
@@ -530,13 +504,10 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
      data-x="dom-PremultiplyAlpha-none">none</code></dfn>", the <var>output</var> that is not
      premultiplied by alpha must be left untouched and that is premultiplied by alpha must have
      its color components divided by alpha.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>Return <var>output</var>.</p></li>
-
   </ol>
 
   <p>When the <dfn><code data-x="dom-ImageBitmap-close">close()</code></dfn> method is called, the
@@ -572,7 +543,7 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
    pixels</span>.</p></li>
   </ol>
 
-  <p>The <span>ResizeQuality</span> enumeration is used to express a preference for the
+  <p>The <code>ResizeQuality</code> enumeration is used to express a preference for the
   interpolation quality to use when scaling images.</p>
 
   <p>The "<dfn><code data-x="dom-ResizeQuality-pixelated">pixelated</code></dfn>" value indicates
@@ -601,7 +572,7 @@ dictionary <dfn>ImageBitmapOptions</dfn> {
 
    <p>Using this API, a sprite sheet can be precut and prepared:</p>
 
-   <pre><code class="js" data-x="">var sprites = {};
+   <pre><code class="js">var sprites = {};
 function loadMySprites() {
   var image = new Image();
   image.src = 'mysprites.png';

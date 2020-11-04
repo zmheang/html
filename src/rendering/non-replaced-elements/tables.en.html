@@ -1,6 +1,6 @@
   <h4>Tables</h4>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 table { display: table; }<!-- see also unicode-bidi:isolate rules -->
 caption { display: table-caption; }<!-- see also unicode-bidi:isolate rules -->
@@ -30,7 +30,6 @@ caption { text-align: center; }
 thead, tbody, tfoot, table > tr { vertical-align: middle; }
 tr, td, th { vertical-align: inherit; }
 
-table, td, th { border-color: gray; }
 thead, tbody, tfoot, tr { border-color: inherit; }
 table[rules=none i], table[rules=groups i], table[rules=rows i],
 table[rules=cols i], table[rules=all i], table[frame=void i],
@@ -62,7 +61,7 @@ table[rules=all i] > tfoot > tr > td, table[rules=all i] > tfoot > tr > th {
 
   <p>The following rules are also expected to apply, as <span>presentational hints</span>:</p>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 table[align=left i] { float: left; }
 table[align=right i] { float: right; }
@@ -203,7 +202,7 @@ table[rules=rows i] > tbody > tr, table[rules=rows i] > tfoot > tr {
 
   <p>In <span>quirks mode</span>, the following rules are also expected to apply:</p>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 table {
   font-weight: initial;
@@ -233,9 +232,9 @@ table {
 
   <p>In <span>HTML documents</span>, the following rules are also expected to apply:</p>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
-:matches(table, thead, tbody, tfoot, tr) > form { display: none !important; }</code></pre>
+:is(table, thead, tbody, tfoot, tr) > form { display: none !important; }</code></pre>
 
   <hr>
 
@@ -259,8 +258,12 @@ table {
   <code>table</code> element.</p>
 
   <p>The <code>col</code> element's <code data-x="attr-col-width">width</code> attribute <span>maps
-  to the dimension property (ignoring zero)</span> <span>'width'</span> on the <code>col</code>
+  to the dimension property</span> <span>'width'</span> on the <code>col</code>
   element.</p>
+
+  <p>The <code>thead</code>, <code>tbody</code>, and <code>tfoot</code> elements' <code
+  data-x="attr-tbody-height">height</code> attribute <span>maps to the dimension property</span>
+  <span>'height'</span> on the element.</p>
 
   <p>The <code>tr</code> element's <code data-x="attr-tr-height">height</code> attribute <span>maps
   to the dimension property (ignoring zero)</span> <span>'height'</span> on the <code>tr</code>

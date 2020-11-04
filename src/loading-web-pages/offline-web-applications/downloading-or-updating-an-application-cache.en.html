@@ -4,7 +4,7 @@
   <dfn>application cache download process</dfn> for an <span>absolute URL</span> purported to
   identify a <span data-x="concept-appcache-manifest">manifest</span>, or for an <span>application
   cache group</span>, potentially given a particular <span>cache host</span>, and potentially given
-  a <span data-x="concept-appcache-master">master</span> resource, the user agent must run the steps
+  a <span data-x="concept-appcache-primary">primary</span> resource, the user agent must run the steps
   below. These steps are always run <span>in parallel</span> with the <span>event loop</span>
   <span data-x="concept-task">tasks</span>.</p>
 
@@ -15,7 +15,7 @@
   display of such an interface. (Such events are delayed until after the <code
   data-x="event-load">load</code> event has fired.)
 
-  The goal of this is to allow Web applications to provide more
+  The goal of this is to allow web applications to provide more
   seamless update mechanisms, hiding from the user the mechanics of the application cache mechanism.
   User agents may display user interfaces independent of this, but are encouraged to not show
   prominent update progress notifications for applications that cancel the relevant events.</p>
@@ -23,7 +23,6 @@
   <p>The <span>application cache download process</span> steps are as follows:
 
   <ol>
-
    <li><p>Optionally, wait until the permission to start the <span>application cache download
    process</span> has been obtained from the user and until the user agent is confident that the
    network is available. This could include doing nothing until the user explicitly opts-in to
@@ -32,13 +31,10 @@
    severely space-constrained devices or in highly privacy-sensitive environments).</p></li>
 
    <li>
-
     <p>Atomically, so as to avoid race conditions, perform the following substeps:</p>
 
     <ol>
-
      <li>
-
       <p>Pick the appropriate substeps:</p>
 
       <dl class="switch">
@@ -47,20 +43,17 @@
        <span data-x="concept-appcache-manifest">manifest</span></dt>
 
        <dd>
-
         <p>Let <var>manifest URL</var> be that <span>absolute URL</span>.</p>
 
         <p>If there is no <span>application cache group</span> identified by <var>manifest
         URL</var>, then create a new <span>application cache group</span> identified by <var>manifest URL</var>. Initially, it has no <span data-x="application
         cache">application caches</span>. One will be created later in this algorithm.</p>
-
        </dd>
 
 
        <dt>If these steps were invoked with an <span>application cache group</span></dt>
 
        <dd>
-
         <p>Let <var>manifest URL</var> be the <span>absolute URL</span> of the <span
         data-x="concept-appcache-manifest">manifest</span> used to identify the <span>application
         cache group</span> to be updated.</p>
@@ -70,19 +63,16 @@
         <span>application cache download process</span>. This can happen if another instance of this
         algorithm found the manifest to be 404 or 410 while this algorithm was waiting in the first
         step above.</p>
-
        </dd>
-
       </dl>
-
      </li>
 
      <li><p>Let <var>cache group</var> be the <span>application cache group</span>
      identified by <var>manifest URL</var>.</p></li>
 
-     <li><p>If these steps were invoked with a <span data-x="concept-appcache-master">master</span>
-     resource, then add the resource, along with the resource's <code>Document</code>, to <var>cache group</var>'s <span data-x="concept-appcache-pending-masters">list of pending
-     master entries</span>.</p></li>
+     <li><p>If these steps were invoked with a <span data-x="concept-appcache-primary">primary</span>
+     resource, then add the resource, along with the resource's <code>Document</code>, to <var>cache group</var>'s <span data-x="concept-appcache-pending-primary-entries">list of pending
+     primary entries</span>.</p></li>
 
      <li>
       <p>If these steps were invoked with a <span>cache host</span>, and the <span
@@ -148,7 +138,6 @@
     <p>If <var>cache group</var> already has an <span>application cache</span> in it, then
     this is an <dfn data-x="concept-appcache-upgrade">upgrade attempt</dfn>. Otherwise, this is a
     <dfn data-x="concept-appcache-cache">cache attempt</dfn>.</p>
-
    </li>
 
    <li>
@@ -178,7 +167,6 @@
    flag</span> is set.</p></li>
 
    <li>
-
     <!--FETCH--><p><i>Fetching the manifest</i>: Let <var>manifest</var> be the result of <span
     data-x="concept-fetch">fetching</span> <var>request</var>. HTTP caching semantics should be
     honored for this request.<!--TODO: unclear if we still need this last sentence--></p>
@@ -197,16 +185,13 @@
     different types will probably be distinguished on the basis of the file signatures (for the
     current format, that is the "<code data-x="">CACHE&nbsp;MANIFEST</code>" string at the top of the
     file).</p>
-
    </li>
 
    <li>
-
     <p>If <i>fetching the manifest</i> fails due to a 404 or 410 response status, then run these
     substeps:</p>
 
     <ol>
-
      <li><p>Mark <var>cache group</var> as <span
      data-x="concept-appcache-obsolete">obsolete</span>. This <var>cache group</var> no
      longer exists for any purpose other than the processing of <code>Document</code> objects
@@ -235,7 +220,7 @@
 
      <li>
       <p>For each entry in <var>cache group</var>'s <span
-      data-x="concept-appcache-pending-masters">list of pending master entries</span>, create a
+      data-x="concept-appcache-pending-primary-entries">list of pending primary entries</span>, create a
       <span data-x="concept-task">task</span> to run these steps and append it to <var>task
       list</var>:</p>
 
@@ -266,30 +251,24 @@
      data-x="queue a post-load task">queue that task as a post-load task</span>.</p></li>
 
      <li><p>Abort the <span>application cache download process</span>.</p></li>
-
     </ol>
-
    </li>
 
    <li>
-
     <p>Otherwise, if <i>fetching the manifest</i> fails in some other way (e.g. the server returns
     another 4xx or 5xx response, or there is a DNS error, or the connection times out, or the user
     cancels the download, or the parser for manifests fails when checking the magic signature), or
     if the server returned a redirect, then run the <span>cache failure steps</span>. <ref
     spec=HTTP></p>
-
    </li>
 
    <li>
-
     <p>If this is an <span data-x="concept-appcache-upgrade">upgrade attempt</span> and the newly
     downloaded <var>manifest</var> is byte-for-byte identical to the manifest found in the
     <span data-x="concept-appcache-newer">newest</span> <span>application cache</span> in <var>cache
     group</var>, or the response status is <code data-x="">304</code>, then run these substeps:</p>
 
     <ol>
-
      <li><p>Let <var>cache</var> be the <span data-x="concept-appcache-newer">newest</span>
      <span>application cache</span> in <var>cache group</var>.</p></li>
 
@@ -297,9 +276,8 @@
      data-x="concept-task">tasks</span>.</p>
 
      <li>
-
       <p>For each entry in <var>cache group</var>'s <span
-      data-x="concept-appcache-pending-masters">list of pending master entries</span>, wait for the
+      data-x="concept-appcache-pending-primary-entries">list of pending primary entries</span>, wait for the
       resource for this entry to have either completely downloaded or failed.</p>
 
       <p>If the download failed (e.g. the server returns a 4xx or 5xx response, or there is a DNS
@@ -322,14 +300,13 @@
 
       <p>Otherwise, associate the <code>Document</code> for this entry with <var>cache</var>; store the resource for this entry in <var>cache</var>, if it
       isn't already there, and categorize its entry as a <span
-      data-x="concept-appcache-master">master entry</span>. If applying the <span>URL parser</span>
+      data-x="concept-appcache-primary">primary entry</span>. If applying the <span>URL parser</span>
       algorithm to the resource's <span>URL</span> results in a <span>URL record</span> that has a
       non-null <span data-x="concept-url-fragment">fragment</span> component, the <span>URL</span>
       used for the entry in <var>cache</var> must instead be the <span>absolute URL</span>
       obtained from applying the <span data-x="concept-url-serializer">URL serializer</span>
       algorithm to the <span>URL record</span> with the <i>exclude fragment flag</i> set
       (application caches never include <span data-x="concept-url-fragment">fragments</span>).</p>
-
      </li>
 
      <li>
@@ -350,7 +327,7 @@
      </li>
 
      <li><p>Empty <var>cache group</var>'s <span
-     data-x="concept-appcache-pending-masters">list of pending master entries</span>.</p></li>
+     data-x="concept-appcache-pending-primary-entries">list of pending primary entries</span>.</p></li>
 
      <li><p>If appropriate, remove any user interface indicating that an update for this cache is in
      progress.</p></li>
@@ -362,9 +339,7 @@
      data-x="queue a post-load task">queue that task as a post-load task</span>.</p></li>
 
      <li><p>Abort the <span>application cache download process</span>.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>Let <var>new cache</var> be a newly created <span>application cache</span> in
@@ -372,7 +347,7 @@
    flag</span> to <i>incomplete</i>.</p></li>
 
    <li><p>For each entry in <var>cache group</var>'s <span
-   data-x="concept-appcache-pending-masters">list of pending master entries</span>, associate the
+   data-x="concept-appcache-pending-primary-entries">list of pending primary entries</span>, associate the
    <code>Document</code> for this entry with <var>new cache</var>.</p></li>
 
    <li><p>Set the <span data-x="concept-appcache-status">status</span> of <var>cache
@@ -405,16 +380,15 @@
    each flagged with "fallback entry".</p></li>
 
    <li><p>If this is an <span data-x="concept-appcache-upgrade">upgrade attempt</span>, then add all
-   the URLs of <span data-x="concept-appcache-master">master entries</span> in the <span
+   the URLs of <span data-x="concept-appcache-primary">primary entries</span> in the <span
    data-x="concept-appcache-newer">newest</span> <span>application cache</span> in <var>cache group</var> whose <span data-x="concept-appcache-completeness">completeness
-   flag</span> is <i>complete</i> to <var>file list</var>, each flagged with "master
+   flag</span> is <i>complete</i> to <var>file list</var>, each flagged with "primary
    entry".</p></li>
 
    <li><p>If any URL is in <var>file list</var> more than once, then merge the entries into
    one entry for that URL, that entry having all the flags that the original entries had.</p></li>
 
    <li>
-
     <p>For each URL in <var>file list</var>, run the following steps. These steps may be
     run in parallel for two or more of the URLs at a time. If, while running these steps, the
     <code>ApplicationCache</code> object's <code data-x="dom-appcache-abort">abort()</code> method
@@ -423,16 +397,13 @@
     instead.</p>
 
     <ol>
-
      <li>
-
       <p>If the resource URL being processed was flagged as neither an "explicit entry" nor or a
       "fallback entry", then the user agent may skip this URL.</p>
 
       <p class="note">This is intended to allow user agents to expire resources not listed in the
       manifest from the cache. Generally, implementers are urged to use an approach that expires
       lesser-used resources first.</p>
-
      </li>
 
      <li>
@@ -479,7 +450,6 @@
      also honored.</p></li>
 
      <li>
-
       <p>If the previous step fails (e.g. the server returns a 4xx or 5xx response, or there is a
       DNS error, or the connection times out, or the user cancels the download), or if the server
       returned a redirect, or if the resource is labeled with the "no-store" cache directive, then
@@ -490,7 +460,6 @@
        <dt>If the URL being processed was flagged as an "explicit entry" or a "fallback entry"</dt>
 
        <dd>
-
         <p>If these steps are being run in parallel for any other URLs in <var>file
         list</var>, then abort this algorithm for those other URLs. Run the <span>cache failure
         steps</span>.</p>
@@ -500,7 +469,6 @@
         differ from any URL that the networking model will allow access to, leaving orphan entries;
         or would allow resources to be stored under URLs different than their true URLs. All of
         these situations are bad.</p>
-
        </dd>
 
        <dt>If the error was a 404 or 410 HTTP response</dt>
@@ -508,22 +476,17 @@
        <dt>If the resource was labeled with the "no-store" cache directive</dt>
 
        <dd>
-
         <p>Skip this resource. It is dropped from the cache.</p>
-
        </dd>
 
        <dt>Otherwise</dt>
 
        <dd>
-
         <p>Copy the resource and its metadata from the <span
         data-x="concept-appcache-newer">newest</span> <span>application cache</span> in <var>cache group</var> whose <span data-x="concept-appcache-completeness">completeness
         flag</span> is <i>complete</i>, and act as if that was the fetched resource, ignoring the
         resource obtained from the network.</p>
-
        </dd>
-
       </dl>
 
       <p>User agents may warn the user of these errors as an aid to development.</p>
@@ -535,11 +498,9 @@
       <p class="note">Except for the "no-store" directive, HTTP caching rules that would cause a
       file to be expired or otherwise not cached are ignored for the purposes of the
       <span>application cache download process</span>.</p>
-
      </li>
 
      <li>
-
       <p>Otherwise, the fetching succeeded. Store the resource in the <var>new
       cache</var>.</p>
 
@@ -547,7 +508,6 @@
       the user agent may prompt the user or try to resolve the problem in some other manner (e.g.
       automatically pruning content in other caches). If the problem cannot be resolved, the user
       agent must run the <span>cache failure steps</span>.</p>
-
      </li>
 
      <li><p>If the URL being processed was flagged as an "explicit entry" in <var>file
@@ -558,8 +518,8 @@
      list</var>, then categorize the entry as a <span data-x="concept-appcache-fallback">fallback
      entry</span>.</p></li>
 
-     <li><p>If the URL being processed was flagged as an "master entry" in <var>file
-     list</var>, then categorize the entry as a <span data-x="concept-appcache-master">master
+     <li><p>If the URL being processed was flagged as a "primary entry" in <var>file
+     list</var>, then categorize the entry as a <span data-x="concept-appcache-primary">primary
      entry</span>.</p></li>
 
      <li><p>As an optimization, if the resource is an HTML or XML file whose <span>document
@@ -567,9 +527,7 @@
      data-x="attr-html-manifest">manifest</code> attribute whose value doesn't match the manifest
      URL of the application cache being processed, then the user agent should mark the entry as
      being <span data-x="concept-appcache-foreign">foreign</span>.</p>
-
     </ol>
-
    </li>
 
    <li>
@@ -607,9 +565,8 @@
    <var>new cache</var>.</p></li>
 
    <li>
-
     <p>For each entry in <var>cache group</var>'s <span
-    data-x="concept-appcache-pending-masters">list of pending master entries</span>, wait for the
+    data-x="concept-appcache-pending-primary-entries">list of pending primary entries</span>, wait for the
     resource for this entry to have either completely downloaded or failed.</p>
 
     <p>If the download failed (e.g. the server returns a 4xx or 5xx response, or there is a DNS
@@ -617,7 +574,6 @@
     labeled with the "no-store" cache directive, then run these substeps:</p>
 
     <ol>
-
      <li><p>Unassociate the <code>Document</code> for this entry from <var>new
      cache</var>.</p></li>
 
@@ -638,14 +594,12 @@
      </li>
 
      <li>
-
       <p>If this is a <span data-x="concept-appcache-cache">cache attempt</span> and this entry is
       the last entry in <var>cache group</var>'s <span
-      data-x="concept-appcache-pending-masters">list of pending master entries</span>, then run these
+      data-x="concept-appcache-pending-primary-entries">list of pending primary entries</span>, then run these
       further substeps:</p>
 
       <ol>
-
        <li><p>Discard <var>cache group</var> and its only <span>application cache</span>,
        <var>new cache</var>.</p>
 
@@ -653,20 +607,16 @@
        in progress.</p></li>
 
        <li><p>Abort the <span>application cache download process</span>.</p></li>
-
       </ol>
-
      </li>
 
      <li><p>Otherwise, remove this entry from <var>cache group</var>'s <span
-     data-x="concept-appcache-pending-masters">list of pending master entries</span>.</p></li>
-
+     data-x="concept-appcache-pending-primary-entries">list of pending primary entries</span>.</p></li>
     </ol>
 
     <p>Otherwise, store the resource for this entry in <var>new cache</var>, if it isn't
-    already there, and categorize its entry as a <span data-x="concept-appcache-master">master
+    already there, and categorize its entry as a <span data-x="concept-appcache-primary">primary
     entry</span>.</p>
-
    </li>
 
    <li><p>Let <var>request</var> be a new <span data-x="concept-request">request</span> whose
@@ -679,7 +629,6 @@
    flag</span> is set.</p></li>
 
    <li>
-
     <!--FETCH--><p>Let <var>second manifest</var> be the result of <span
     data-x="concept-fetch">fetching</span> <var>request</var>. HTTP caching semantics should again
     be honored for this request.</p>
@@ -688,24 +637,19 @@
     headers on the manifest in such a way that the user agent would simply not contact the network
     for this second request; otherwise, the user agent would not notice if the cache had changed
     during the cache update process.</p>
-
    </li>
 
    <li>
-
     <p>If the previous step failed for any reason, or if the fetching attempt involved a redirect,
     or if <var>second manifest</var> and <var>manifest</var> are not byte-for-byte
     identical, then schedule a rerun of the entire algorithm with the same parameters after a short
     delay, and run the <span>cache failure steps</span>.</p>
-
    </li>
 
    <li>
-
     <p>Otherwise, store <var>manifest</var> in <var>new cache</var>, if it's not
     there already, and categorize its entry as <span data-x="concept-appcache-manifest">the
     manifest</span>.</p>
-
    </li>
 
    <li><p>Set the <span data-x="concept-appcache-completeness">completeness flag</span> of <var>new cache</var> to <i>complete</i>.</p></li>
@@ -714,7 +658,6 @@
    data-x="concept-task">tasks</span>.</p>
 
    <li>
-
     <p>If this is a <span data-x="concept-appcache-cache">cache attempt</span>, then for each
     <span>cache host</span> associated with an <span>application cache</span> in <var>cache
     group</var>, create a <span data-x="concept-task">task</span> to run these steps and append it
@@ -746,7 +689,6 @@
      progress</span>, then display some sort of user interface indicating to the user that a new
      version is available and that they can activate it by reloading the page.</p></li>
     </ol>
-
    </li>
 
    <li><p>If appropriate, remove any user interface indicating that an update for this cache is in
@@ -757,25 +699,21 @@
 
    <li><p>For each <span data-x="concept-task">task</span> in <var>task list</var>, <span
    data-x="queue a post-load task">queue that task as a post-load task</span>.</p></li>
-
   </ol>
 
   <p>The <dfn>cache failure steps</dfn> are as follows:</p>
 
   <ol>
-
    <li><p>Let <var>task list</var> be an empty list of <span
    data-x="concept-task">tasks</span>.</p>
 
    <li>
-
     <p>For each entry in <var>cache group</var>'s <span
-    data-x="concept-appcache-pending-masters">list of pending master entries</span>, run the
+    data-x="concept-appcache-pending-primary-entries">list of pending primary entries</span>, run the
     following further substeps. These steps may be run in parallel for two or more entries at a
     time.</p>
 
     <ol>
-
      <li><p>Wait for the resource for this entry to have either completely downloaded or failed.</p>
 
      <li><p>Unassociate the <code>Document</code> for this entry from its <span>application
@@ -797,9 +735,7 @@
        user agent failed to save the application for offline use.</p></li>
       </ol>
      </li>
-
     </ol>
-
    </li>
 
    <li>
@@ -820,7 +756,7 @@
    </li>
 
    <li><p>Empty <var>cache group</var>'s <span
-   data-x="concept-appcache-pending-masters">list of pending master entries</span>.</p></li>
+   data-x="concept-appcache-pending-primary-entries">list of pending primary entries</span>.</p></li>
 
    <li><p>If <var>cache group</var> has an <span>application cache</span> whose <span
    data-x="concept-appcache-completeness">completeness flag</span> is <i>incomplete</i>, then discard
@@ -838,7 +774,6 @@
    data-x="queue a post-load task">queue that task as a post-load task</span>.</p></li>
 
    <li><p>Abort the <span>application cache download process</span>.</p></li>
-
   </ol>
 
   <p>Attempts to fetch resources as part of the <span>application cache download process</span> may
@@ -865,7 +800,6 @@
   the appropriate steps from the following list:</p>
 
   <dl>
-
    <dt>If <var>target</var>'s <span>node document</span> is
    <span>ready for post-load tasks</span></dt>
 
@@ -875,7 +809,6 @@
 
    <dd><p>Add <var>task</var> to <var>target</var>'s <span>node document</span>'s list
    of <span>pending application cache download process tasks</span>.</p></dd>
-
   </dl>
 
   <p>When the steps above say to <dfn>queue a progress post-load task</dfn> <var>task</var>, where
@@ -884,7 +817,6 @@
   the following steps:</p>
 
   <ol>
-
    <li><p>If there is a <var>task</var> in <var>target</var>'s <span>node document</span>'s list
    of <span>pending application cache download process tasks</span> that is labeled as a
    <i>progress task</i>, then remove that task from the list.</p></li>
@@ -892,7 +824,6 @@
    <li><p>Label <var>task</var> as a <i>progress task</i>.</p></li>
 
    <li><p><span>Queue a post-load task</span> <var>task</var>.</p></li>
-
   </ol>
 
   <p>The <span>task source</span> for these <span data-x="concept-task">tasks</span> is the

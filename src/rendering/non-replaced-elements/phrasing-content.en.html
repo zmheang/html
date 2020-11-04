@@ -1,6 +1,6 @@
   <h4>Phrasing content</h4>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 cite, dfn, em, i, var { font-style: italic; }
 b, strong { font-weight: bolder; }
@@ -19,8 +19,6 @@ rt { display: ruby-text; }
 :visited { color: #551A8B; }
 :link:active, :visited:active { color: #FF0000; }
 :link, :visited { text-decoration: underline; cursor: pointer; }
-a:link[rel~=help i], a:visited[rel~=help i],
-area:link[rel~=help i], area:visited[rel~=help i] { cursor: help; }
 
 :focus { outline: auto; }
 
@@ -41,7 +39,7 @@ nobr wbr { white-space: normal; }</span></code></pre>
   <p>The following rules are also expected to apply, as
   <span>presentational hints</span>:</p>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 br[clear=left i] { clear: left; }
 br[clear=right i] { clear: right; }
@@ -68,8 +66,8 @@ br[clear=all i], br[clear=both i] { clear: both; }</code></pre>
 
   <p>User agents are expected to support the <span>'clear'</span> property on inline elements (in
   order to render <code>br</code> elements with <code data-x="attr-br-clear">clear</code>
-  attributes) in the manner described in the non-normative note to this effect in the CSS
-  specification.</p> <!-- section 9.5.2 of CSS2.1 -->
+  attributes) in the manner described in the non-normative note to this effect in <cite>CSS</cite>.
+  </p> <!-- section 9.5.2 of CSS2.1 -->
 
   <p>The initial value for the <span>'color'</span> property is expected to be black. The initial
   value for the <span>'background-color'</span> property is expected to be 'transparent'. The
@@ -109,7 +107,6 @@ br[clear=all i], br[clear=both i] { clear: both; }</code></pre>
   hints">presentational hint</span> setting the element's <span>'font-size'</span> property:</p>
 
   <ol>
-
    <li><p>Let <var>input</var> be the attribute's value.</p></li>
 
    <li><p>Let <var>position</var> be a pointer into <var>input</var>, initially pointing at the
@@ -138,13 +135,11 @@ br[clear=all i], br[clear=both i] { clear: both; }</code></pre>
    number.</p></li>
 
    <li>
-
     <!-- basefont support would go here, but we removed it -->
 
     <p>If <var>mode</var> is <i>relative-plus</i>, then increment <var>value</var> by 3. If
     <var>mode</var> is <i>relative-minus</i>, then let <var>value</var> be the result of subtracting
     <var>value</var> from 3.</p>
-
    </li>
 
    <li><p>If <var>value</var> is greater than 7, let it be 7.</p></li>
@@ -152,7 +147,6 @@ br[clear=all i], br[clear=both i] { clear: both; }</code></pre>
    <li><p>If <var>value</var> is less than 1, let it be 1.</p></li>
 
    <li>
-
     <p>Set <span>'font-size'</span> to the keyword corresponding to the value of <var>value</var>
     according to the following table:</p>
 
@@ -161,43 +155,30 @@ br[clear=all i], br[clear=both i] { clear: both; }</code></pre>
       <tr>
        <th><var>value</var>
        <th><span>'font-size'</span> keyword
-       <th>Notes
      <tbody>
       <tr>
        <td>1
        <td>'x-small'
-       <td>
       <tr>
        <td>2
        <td>'small'
-       <td>
       <tr>
        <td>3
        <td>'medium'
-       <td>
       <tr>
        <td>4
        <td>'large'
-       <td>
       <tr>
        <td>5
        <td>'x-large'
-       <td>
       <tr>
        <td>6
        <td>'xx-large'
-       <td>
       <tr>
        <td>7
-       <td>'x<!---->xx-large'
-       <td><i>see below</i>
+       <td>'xxx-large'
     </table>
-
-    <p class="tablenote"><small>The 'x<!---->xx-large' value is a non-CSS value used here to
-    indicate a font size 50% larger than 'xx-large'.</small></p>
-
    </li>
-
   </ol>
 
 

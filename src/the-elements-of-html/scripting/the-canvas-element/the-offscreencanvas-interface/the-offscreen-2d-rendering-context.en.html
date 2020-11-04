@@ -1,8 +1,8 @@
   <h6>The offscreen 2D rendering context</h6>
 
-  <pre><code class="idl" data-x="">[Exposed=(Window,Worker)]
+  <pre><code class="idl">[Exposed=(Window,Worker)]
 interface <dfn>OffscreenCanvasRenderingContext2D</dfn> {
-  void <span data-x="offscreencontext2d-commit">commit</span>();
+  undefined <span data-x="offscreencontext2d-commit">commit</span>();
   readonly attribute <span>OffscreenCanvas</span> <span data-x="offscreencontext2d-canvas">canvas</span>;
 };
 
@@ -15,9 +15,11 @@ interface <dfn>OffscreenCanvasRenderingContext2D</dfn> {
 <span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasFilters</span>;
 <span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasRect</span>;
 <span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasDrawPath</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasText</span>;
 <span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasDrawImage</span>;
 <span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasImageData</span>;
 <span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasPathDrawingStyles</span>;
+<span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasTextDrawingStyles</span>;
 <span>OffscreenCanvasRenderingContext2D</span> includes <span>CanvasPath</span>;</code></pre>
 
   <p>The <code>OffscreenCanvasRenderingContext2D</code> object is a rendering context for drawing to
@@ -26,8 +28,6 @@ interface <dfn>OffscreenCanvasRenderingContext2D</dfn> {
   differences:</p>
 
   <ul>
-   <li><p><span data-x="CanvasText">text rendering</span> is not supported;</p></li>
-   <!-- Text rendering may be added in the future -->
    <li><p>there is no support for <span data-x="CanvasUserInterface">user interface</span>
    features;</p></li>
    <li><p>its <code data-x="offscreencontext2d-canvas">canvas</code> attribute refers to an
@@ -66,7 +66,8 @@ interface <dfn>OffscreenCanvasRenderingContext2D</dfn> {
     <p>Copies the rendering context's <span data-x="offscreencontext2d-bitmap">bitmap</span> to
     the bitmap of the <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code>
     element</span> of the <span>associated <code>OffscreenCanvas</code> object</span>. The copy
-    operation is asynchronous.</p>
+    operation is synchronous. Calling this method is not needed for the transfer, since it happens
+    automatically during the <span>event loop</span> execution.</p>
    </dd>
 
    <dt><var>offscreenCanvas</var> = <var>offscreenCanvasRenderingContext2D</var> . <code subdfn
@@ -117,7 +118,6 @@ interface <dfn>OffscreenCanvasRenderingContext2D</dfn> {
    initialize the pixels to <span>opaque black</span>.</p></li>
 
    <li><p>Return <var>context</var>.</p></li>
-
   </ol>
 
   <p>The <dfn><code data-x="offscreencontext2d-commit">commit()</code></dfn> method, when invoked,
@@ -134,12 +134,10 @@ interface <dfn>OffscreenCanvasRenderingContext2D</dfn> {
     data-x="offscreencontext2d-origin-clean">origin-clean</span> flag.</p></li>
 
     <li>
-     <p><span>Queue a task</span> in the <span
-     data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>'s
-     <span>relevant settings object</span>'s <span>responsible event loop</span> (which will be a
-     <span>browsing context</span> <span>event loop</span>) to set the <span
-     data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>'s
-     <span>output bitmap</span> to be a reference to <var>image</var>.</p>
+     <p><span>Queue an element task</span> on the <span>DOM manipulation task source</span> given
+     the <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>
+     to set the <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code>
+     element</span>'s <span>output bitmap</span> to be a reference to <var>image</var>.</p>
 
      <p class="note">If <var>image</var> has different dimensions than the bitmap previously
      referenced as the <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code>
@@ -151,22 +149,22 @@ interface <dfn>OffscreenCanvasRenderingContext2D</dfn> {
   </ol>
 
   <p class="note">Implementations are encouraged to short-circuit the graphics update steps of
-  the <span>browsing context</span> <span>event loop</span> for the purposes of updating the
-  contents of a <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code>
-  element</span> to the display. This could mean, for example, that the <code
+  the <span>window event loop</span> for the purposes of updating the contents of a <span
+  data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span> to the
+  display. This could mean, for example, that the <code
   data-x="offscreencontext2d-commit">commit()</code> method can copy the bitmap contents directly
   to a graphics buffer that is mapped to the physical display location of the <span
   data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>. This or
   similar short-circuiting approaches can significantly reduce display latency, especially in cases
-  where the <code data-x="offscreencontext2d-commit">commit()</code> method is invoked from a worker
-  and the <span>event loop</span> of the <span
-  data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>'s
-  <span>browsing context</span> is busy. However, such shortcuts can not have any
-  script-observable side-effects. This means that the committed bitmap still needs to be sent to
-  the <span data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>, in
-  case the element is used as a <code>CanvasImageSource</code>, as an
-  <code>ImageBitmapSource</code>, or in case <code data-x="dom-canvas-toDataURL">toDataURL()</code>
-  or <code data-x="dom-canvas-toBlob">toBlob()</code> are called on it.</p>
+  where the <code data-x="offscreencontext2d-commit">commit()</code> method is invoked from a
+  <span>worker event loop</span> and the <span>window event loop</span> of the <span
+  data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span> is busy.
+  However, such shortcuts can not have any script-observable side-effects. This means that the
+  committed bitmap still needs to be sent to the <span
+  data-x="offscreencanvas-placeholder">placeholder <code>canvas</code> element</span>, in case the
+  element is used as a <code>CanvasImageSource</code>, as an <code>ImageBitmapSource</code>, or in
+  case <code data-x="dom-canvas-toDataURL">toDataURL()</code> or <code
+  data-x="dom-canvas-toBlob">toBlob()</code> are called on it.</p>
 
   <p>The <dfn><code data-x="offscreencontext2d-canvas">canvas</code></dfn> attribute, on getting,
   must return this <code>OffscreenCanvasRenderingContext2D</code>'s <span>associated

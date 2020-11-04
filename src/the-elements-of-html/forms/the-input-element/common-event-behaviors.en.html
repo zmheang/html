@@ -26,13 +26,15 @@
   to which these events <span data-x="concept-input-apply">apply</span>, and for which the user
   interface involves both interactive manipulation and an explicit commit action, then when the user
   changes the element's <span data-x="concept-fe-value">value</span>, the user agent must
-  <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
+  <span>queue an element task</span> on the <span>user interaction task source</span> given the
+  <code>input</code> element to <span data-x="concept-event-fire">fire an event</span> named <code
   data-x="event-input">input</code> at the <code>input</code> element, with the <code
-  data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, and any time the user
-  commits the change, the user agent must <span>queue a task</span> to <span
-  data-x="concept-event-fire">fire an event</span> named <code data-x="event-change">change</code>
-  at the <code>input</code> element, with the <code data-x="dom-Event-bubbles">bubbles</code>
-  attribute initialized to true.</p>
+  data-x="dom-Event-bubbles">bubbles</code> and <code data-x="dom-Event-composed">composed</code>
+  attributes initialized to true, and any time the user commits the change, the user agent must
+  <span>queue an element task</span> on the <span>user interaction task source</span> given the
+  <code>input</code> element to <span data-x="concept-event-fire">fire an event</span> named <code
+  data-x="event-change">change</code> at the <code>input</code> element, with the <code
+  data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p>
 
   <p class="example">An example of a user interface involving both interactive manipulation and a
   commit action would be a <span data-x="attr-input-type-range">Range</span> controls that use a
@@ -45,9 +47,11 @@
   to which these events <span data-x="concept-input-apply">apply</span>, and for which the user
   interface involves an explicit commit action but no intermediate manipulation, then any time the
   user commits a change to the element's <span data-x="concept-fe-value">value</span>, the user
-  agent must <span>queue a task</span> to first <span data-x="concept-event-fire">fire an
+  agent must <span>queue an element task</span> on the <span>user interaction task source</span>
+  given the <code>input</code> element to first <span data-x="concept-event-fire">fire an
   event</span> named <code data-x="event-input">input</code> at the <code>input</code> element, with
-  the <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, and then <span
+  the <code data-x="dom-Event-bubbles">bubbles</code> and <code
+  data-x="dom-Event-composed">composed</code> attributes initialized to true, and then <span
   data-x="concept-event-fire">fire an event</span> named <code data-x="event-change">change</code>
   at the <code>input</code> element, with the <code data-x="dom-Event-bubbles">bubbles</code>
   attribute initialized to true.</p>
@@ -67,11 +71,13 @@
   <p>For <code>input</code> elements without a defined <span>input activation behavior</span>, but
   to which these events <span data-x="concept-input-apply">apply</span>, any time the user causes
   the element's <span data-x="concept-fe-value">value</span> to change without an explicit commit
-  action, the user agent must <span>queue a task</span> to <span data-x="concept-event-fire">fire an
+  action, the user agent must <span>queue an element task</span> on the <span>user interaction task
+  source</span> given the <code>input</code> element to <span data-x="concept-event-fire">fire an
   event</span> named <code data-x="event-input">input</code> at the <code>input</code> element, with
-  the <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true. The
-  corresponding <code data-x="event-change">change</code> event, if any, will be fired when
-  the control <a href="#unfocus-causes-change-event">loses focus</a>.</p>
+  the <code data-x="dom-Event-bubbles">bubbles</code> and <code
+  data-x="dom-Event-composed">composed</code> attributes initialized to true. The corresponding
+  <code data-x="event-change">change</code> event, if any, will be fired when the control <a
+  href="#unfocus-causes-change-event">loses focus</a>.</p>
 
   <p class="example">Examples of a user changing the element's <span
   data-x="concept-fe-value">value</span> would include the user typing into a text control, pasting
@@ -86,18 +92,20 @@
   without a commit step.</p>
 
   <p>In the case of <span data-x="concept-task">tasks</span> that just fire an <code
-  data-x="event-input">input</code> event, user agents may wait for a suitable break in the
-  user's interaction before <span data-x="queue a task">queuing</span> the tasks; for example, a
+  data-x="event-input">input</code> event, user agents may wait for a suitable break in the user's
+  interaction before <span data-x="queue an element task">queuing</span> the tasks; for example, a
   user agent could wait for the user to have not hit a key for 100ms, so as to only fire the event
   when the user pauses, instead of continuously for each keystroke. <!-- similar text is present in
   the <textarea> section -->
 
   <p>When the user agent is to change an <code>input</code> element's <span
   data-x="concept-fe-value">value</span> on behalf of the user (e.g. as part of a form prefilling
-  feature), the user agent must <span>queue a task</span> to first update the <span
+  feature), the user agent must <span>queue an element task</span> on the <span>user interaction
+  task source</span> given the <code>input</code> element to first update the <span
   data-x="concept-fe-value">value</span> accordingly, then <span data-x="concept-event-fire">fire an
   event</span> named <code data-x="event-input">input</code> at the <code>input</code> element, with
-  the <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, then <span
+  the <code data-x="dom-Event-bubbles">bubbles</code> and <code
+  data-x="dom-Event-composed">composed</code> attributes initialized to true, then <span
   data-x="concept-event-fire">fire an event</span> named <code data-x="event-change">change</code>
   at the <code>input</code> element, with the <code data-x="dom-Event-bubbles">bubbles</code>
   attribute initialized to true.</p>
@@ -106,9 +114,6 @@
   controls by scripts. (This is to make it easier to update the values of form controls in response
   to the user manipulating the controls, without having to then filter out the script's own changes
   to avoid an infinite loop.)</p>
-
-  <p>The <span>task source</span> for these <span data-x="concept-task">tasks</span> is the
-  <span>user interaction task source</span>.</p>
 
   </div>
 

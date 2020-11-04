@@ -5,7 +5,7 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   readonly attribute <span>WorkerGlobalScope</span> <span data-x="dom-WorkerGlobalScope-self">self</span>;
   readonly attribute <span>WorkerLocation</span> <span data-x="dom-WorkerGlobalScope-location">location</span>;
   readonly attribute <span>WorkerNavigator</span> <span data-x="dom-worker-navigator">navigator</span>;
-  void <span data-x="dom-WorkerGlobalScope-importScripts">importScripts</span>(USVString... urls);
+  undefined <span data-x="dom-WorkerGlobalScope-importScripts">importScripts</span>(USVString... urls);
 
   attribute <span>OnErrorEventHandler</span> <span data-x="handler-WorkerGlobalScope-onerror">onerror</span>;
   attribute <span>EventHandler</span> <span data-x="handler-WorkerGlobalScope-onlanguagechange">onlanguagechange</span>;
@@ -16,7 +16,7 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
 };</pre>
 
   <p id="the-worker's-documents"><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn
-  id="concept-WorkerGlobalScope-owner-set" data-export="" data-for="WorkerGlobalScope">owner
+  id="concept-WorkerGlobalScope-owner-set" export data-for="WorkerGlobalScope">owner
   set</dfn> （<code>Document</code> 和 <code>WorkerGlobalScope</code> 对象的 <span data-x="set">集合</span>）。
   初始为空，当创建或获取 Worker 时填充。</p>
 
@@ -24,20 +24,20 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   <code>SharedWorkerGlobalScope</code> 对象。</p>
 
   <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn id="the-workers-workers"
-  data-export="" data-for="WorkerGlobalScope">worker set</dfn> （
+  export data-for="WorkerGlobalScope">worker set</dfn> （
   <code>WorkerGlobalScope</code> 对象的 <span data-x="set">集合</span>）。
   它初始为空，当创建或获取其他 Worker 时填充。</p>
 
-  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-type">type</dfn> （"<code
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn export
+  for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-type">type</dfn> （"<code
   data-x="">classic</code>" 或 "<code data-x="">module</code>"）。在创建时设置。
 
-  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-url">url</dfn> （null 或一个
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn export
+  for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-url">url</dfn> （null 或一个
   <span>URL</span>）。初始值为 null。
 
-  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-name">名称</dfn>（一个字符串）。在创建过程中设置。
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn export
+  for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-name">名称</dfn>（一个字符串）。在创建过程中设置。
 
   <p class="note"><span data-x="concept-WorkerGlobalScope-name">名称</span> 可以对每个
   <code>WorkerGlobalScope</code> 的子类有不同的语义。
@@ -47,22 +47,24 @@ interface <dfn>WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   构造器获得一个通用共享 Worker 的引用。
   对于 <code>ServiceWorkerGlobalScope</code> 对象，名字没有意义（同样地，它也根本没有通过 JavaScript API 暴露出来）。</p>
 
-  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-https-state">HTTPS 状态</dfn>
-  （一个 <span data-x="HTTPS state value">HTTPS 状态值</span>）。
-  初始值为 "<code data-x="">none</code>"。
-
-  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-referrer-policy">referrer
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn export
+  for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-referrer-policy">referrer
   策略</dfn> （一个 <span data-x="referrer policy">referrer 策略</span>）。初始值为空字符串。
 
-  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-csp-list">CSP 列表</dfn>。
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn export
+  for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-embedder-policy">嵌入策略</dfn>
+  （一个 <span data-x="embedder policy">嵌入策略</span>）。</p>
+
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn export
+  for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-csp-list">CSP 列表</dfn>。
   初始值为空列表。
 
-  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn data-export=""
-  data-dfn-for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-module-map">模块映射</dfn>。
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn export
+  for="WorkerGlobalScope" data-x="concept-WorkerGlobalScope-module-map">模块映射</dfn>。
   初始值为空的 <span data-x="module map">模块映射</span>。</p>
+
+  <p><code>WorkerGlobalScope</code> 对象有一个与之关联的 <dfn export for="WorkerGlobalScope"
+  data-x="concept-WorkerGlobalScope-cross-origin-isolated-capability">跨域隔离能力</dfn> 布尔，初始为 false。</p>
 
   <dl class="domintro">
    <dt><var>workerGlobal</var> . <code subdfn data-x="dom-WorkerGlobalScope-self">self</code></dt>

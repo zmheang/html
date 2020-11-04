@@ -1,16 +1,22 @@
   <h4 id="read-media"><dfn data-x="navigate-media">媒体的页面加载处理模型</dfn></h4>
 
-  <p>在 <span data-x="browsing context">浏览上下文</span> 中加载图片、视频或音频资源时，
-  用户代理应该创建一个 <code>Document</code> 对象，把它标记为 <span data-x="HTML
-  documents">HTML 文档</span>，设置其
-  <span data-x="concept-document-content-type">内容类型</span> 为
-  资源的 <span data-x="Content-Type sniffing">计算后的 MIME 类型</span>
-  （<span data-x="navigate">导航</span> 算法中的 <var>type</var>），
-  <span data-x="initialize the Document object">初始化 <code>Document</code> 对象</span>，
-  添加一个 <code>html</code> 元素到 <code>Document</code> 中，
-  添加一个 <code>head</code> 元素和一个 <code>body</code> 元素到
-  <code>html</code> 元素，为媒体添加一个 <var>host element</var>（见下文）到 <code>body</code> 元素，
-  然后为 <var>host element</var> 元素设置适当的属性到图片、视频或音频资源的地址。</p>
+  <p>给定 <span data-x="navigation params">导航参数</span> <var>navigationParams</var> 和字符串 <var>type</var>，
+  加载图片、视频或音频资源时用户代理应该：</p>
+
+  <ol>
+   <li><p>令 <var>document</var> 为给定 "<code data-x="">html</code>"，<var>type</var> 和 <var>navigationParams</var>
+   <span data-x="create-the-document-object">创建和初始化 <code>Document</code> 对象</span> 的结果。</p></li>
+
+   <li><p>加一个 <code>html</code> 元素到 <var>document</var>。</p></li>
+
+   <li><p>加一个 <code>head</code> 元素到 <code>html</code> 元素。</p></li>
+
+   <li><p>加一个 <code>body</code> 元素到 <code>html</code> 元素。</p></li>
+
+   <li><p>为媒体加一个 <var>host element</var>（见下文）到 <code>body</code> 元素。</p></li>
+
+   <li><p>把 <var>host element</var> 元素的适当属性（见下文）设为图片、视频或音频资源的地址。</p></li>
+  </ol>
 
   <p>要为媒体创建的 <var>host element</var> 元素由下表中每行的第二个单元格给出，
   同行的第一个单元格是媒体的描述。 要设置的属性是同行的第三个单元格。 </p>
@@ -41,7 +47,7 @@
   data-x="concept-appcache-init">应用缓存选择算法</span>。</p>
 
   <p>在创建 <code>Document</code> 对象后，页面完全结束加载之前，
-  用户代理必须 <span data-x="update the session history with the new page">用新的页面更新会话历史</span>。</p>
+  用户代理必须用 <var>navigationParams</var> <span data-x="update the session history with the new page">更新会话历史到新页面</span>。</p>
 
   <p>用户代理可能会添加内容到 <code>Document</code> 的 <code>head</code> 元素，
   或者添加属性到 <var>host element</var> 元素，例如链接一个样式表，

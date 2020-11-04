@@ -10,17 +10,15 @@
   strongly encouraged to study the matter in more detail. However, this section attempts to provide
   a quick introduction to some common pitfalls in HTML application development.</p>
 
-  <p>The security model of the Web is based on the concept of "origins", and correspondingly many of
-  the potential attacks on the Web involve cross-origin actions. <ref spec=ORIGIN></p>
+  <p>The security model of the web is based on the concept of "origins", and correspondingly many of
+  the potential attacks on the web involve cross-origin actions. <ref spec=ORIGIN></p>
 
   <dl>
-
    <dt>Not validating user input</dt>
    <dt>Cross-site scripting (XSS)</dt>
    <dt>SQL injection</dt>
 
    <dd>
-
     <p>When accepting untrusted input, e.g. user-generated content such as text comments, values in
     URL parameters, messages from third-party sites, etc, it is imperative that the data be
     validated before use, and properly escaped when displayed. Failing to do this can allow a
@@ -40,7 +38,7 @@
      <p>For example, suppose a page looked at its URL's query string to determine what to display,
      and the site then redirected the user to that page to display a message, as in:</p>
 
-     <pre><code class="html" data-x="">&lt;ul>
+     <pre><code class="html">&lt;ul>
  &lt;li>&lt;a href="message.cgi?say=Hello">Say Hello&lt;/a>
  &lt;li>&lt;a href="message.cgi?say=Welcome">Say Welcome&lt;/a>
  &lt;li>&lt;a href="message.cgi?say=Kittens">Say Kittens&lt;/a>
@@ -81,14 +79,12 @@
      get redirected to a hostile site.</li>
 
     </ul>
-
    </dd>
 
 
    <dt>Cross-site request forgery (CSRF)</dt>
 
    <dd>
-
     <p>If a site allows a user to make form submissions with user-specific side-effects, for example
     posting messages on a forum under the user's name, making purchases, or applying for a passport,
     it is important to verify that the request was made by the user intentionally, rather than by
@@ -98,7 +94,6 @@
 
     <p>Sites can prevent such attacks by populating forms with user-specific hidden tokens, or by
     checking `<code data-x="http-origin">Origin</code>` headers on all requests.</p>
-
    </dd>
 
 
@@ -106,7 +101,6 @@
    <dt>Clickjacking</dt>
 
    <dd>
-
     <p>A page that provides users with an interface to perform actions that the user might not wish
     to perform needs to be designed so as to avoid the possibility that users can be tricked into
     activating the interface.</p>
@@ -121,9 +115,7 @@
     their interface if they detect that they are not in a frame (e.g. by comparing the <code
     data-x="dom-window">window</code> object to the value of the <code data-x="dom-top">top</code>
     attribute).</p>
-
    </dd>
-
   </dl>
 <!--REMOVE-TOPIC:Security-->
 

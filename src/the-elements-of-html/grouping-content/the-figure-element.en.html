@@ -13,6 +13,10 @@
    <dd>Or: <span>flow content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-figure">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-figure">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -59,14 +63,14 @@
   <div class="example">
    <p>This example shows the <code>figure</code> element to mark up a code listing.</p>
 
-   <pre><code class="html" data-x="">&lt;p>In &lt;a href="#l4">listing 4&lt;/a> we see the primary core interface
+   <pre><code class="html">&lt;p>In &lt;a href="#l4">listing 4&lt;/a> we see the primary core interface
 API declaration.&lt;/p>
 &lt;figure id="l4">
  &lt;figcaption>Listing 4. The primary core interface API declaration.&lt;/figcaption>
  &lt;pre>&lt;code>interface PrimaryCore {
  boolean verifyDataLine();
- void sendData(in sequence&amp;lt;byte> data);
- void initSelfDestruct();
+ undefined sendData(sequence&amp;lt;byte> data);
+ undefined initSelfDestruct();
 }&lt;/code>&lt;/pre>
 &lt;/figure>
 &lt;p>The API is designed to use UTF-8.&lt;/p></code></pre>
@@ -76,7 +80,7 @@ API declaration.&lt;/p>
    <p>Here we see a <code>figure</code> element to mark up a photo that is the main content of the
    page (as in a gallery).</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;html lang="en">
 &lt;title>Bubbles at work &mdash; My Gallery&trade;&lt;/title>
 &lt;figure>
@@ -93,7 +97,7 @@ API declaration.&lt;/p>
    video that are. The first image is literally part of the example's second sentence, so it's not a
    self-contained unit, and thus <code>figure</code> would be inappropriate.</p>
 
-   <pre><code class="html" data-x="">&lt;h2>Malinko's comics&lt;/h2>
+   <pre><code class="html">&lt;h2>Malinko's comics&lt;/h2>
 
 &lt;p>This case centered on some sort of "intellectual property"
 infringement related to a comic (see Exhibit A). The suit started
@@ -123,7 +127,7 @@ included with Exhibit B.
   <div class="example">
    <p>Here, a part of a poem is marked up using <code>figure</code>.</p>
 
-   <pre><code class="html" data-x="">&lt;figure>
+   <pre><code class="html">&lt;figure>
  &lt;p>'Twas brillig, and the slithy toves&lt;br>
  Did gyre and gimble in the wabe;&lt;br>
  All mimsy were the borogoves,&lt;br>
@@ -137,7 +141,7 @@ included with Exhibit B.
    <code>figure</code> elements are used to provide both a group caption and individual captions for
    each figure in the group:</p>
 
-   <pre><code class="html" data-x="">&lt;figure>
+   <pre><code class="html">&lt;figure>
  &lt;figcaption>The castle through the ages: 1423, 1858, and 1999 respectively.&lt;/figcaption>
  &lt;figure>
   &lt;figcaption>Etching. Anonymous, ca. 1423.&lt;/figcaption>
@@ -159,7 +163,7 @@ included with Exhibit B.
    data-x="attr-title">title</code> attributes in place of the nested
    <code>figure</code>/<code>figcaption</code> pairs):</p>
 
-   <pre><code class="html" data-x="">&lt;figure>
+   <pre><code class="html">&lt;figure>
  &lt;img src="castle1423.jpeg" title="Etching. Anonymous, ca. 1423."
       alt="The castle has one tower, and a tall wall around it.">
  &lt;img src="castle1858.jpeg" title="Oil-based paint on canvas. Maria Towle, 1858."
@@ -175,7 +179,7 @@ included with Exhibit B.
 
    <!-- from http://www.reuters.com/article/us-usa-fiscal-idUSBRE98N11220131017 -->
 
-   <pre><code class="html" data-x="">&lt;article>
+   <pre><code class="html">&lt;article>
  &lt;h1>Fiscal negotiations stumble in Congress as deadline nears&lt;/h1>
  &lt;figure>
   &lt;img src="obama-reid.jpeg" alt="Obama and Reid sit together smiling in the Oval Office.">

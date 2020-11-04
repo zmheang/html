@@ -1,16 +1,28 @@
   <h4 id="read-plugin"><dfn data-x="navigate-plugin">Page load processing model for content that uses plugins</dfn></h4>
 
-  <p>When a resource that requires an external resource to be rendered is to be loaded in a
-  <span>browsing context</span>, the user agent should create a <code>Document</code> object, mark
-  it as being an <span data-x="HTML documents">HTML document</span> and mark it as being a
-  <dfn>plugin document</dfn>, set its <span data-x="concept-document-content-type">content
-  type</span> to the <span data-x="Content-Type sniffing">computed MIME type</span> of the
-  resource (<var>type</var> in the <span>navigate</span> algorithm), <span>initialize the
-  <code>Document</code> object</span>, append an <code>html</code> element to the
-  <code>Document</code>, append a <code>head</code> element and a <code>body</code> element to the
-  <code>html</code> element, append an <code>embed</code> to the <code>body</code> element, and
-  set the <code data-x="attr-embed-src">src</code> attribute of the <code>embed</code> element to
-  the address of the resource.</p>
+  <p>When a resource that requires an external resource to be rendered is to be loaded, provided
+  <span>navigation params</span> <var>navigationParams</var> and a string <var>type</var>, the user
+  agent should:
+
+  <ol>
+   <li><p>Let <var>document</var> be the result of <span
+   data-x="create-the-document-object">creating and initializing a <code>Document</code>
+   object</span> given "<code data-x="">html</code>", <var>type</var>, and
+   <var>navigationParmas</var>.</p></li>
+
+   <li><p>Mark <var>document</var> as being a <dfn>plugin document</dfn></p></li>
+
+   <li><p>Append an <code>html</code> element to <var>document</var>.</p></li>
+
+   <li><p>Append a <code>head</code> element to the <code>html</code> element.</p></li>
+
+   <li><p>Append a <code>body</code> element to the <code>html</code> element.</p></li>
+
+   <li><p>Append an <code>embed</code> to the <code>body</code> element</p></li>
+
+   <li><p>Set the <code data-x="attr-embed-src">src</code> attribute of the <code>embed</code>
+   element to the address of the resource.</p></li>
+  </ol>
 
   <p class="note">The term <span>plugin document</span> is used by
   <cite>Content Security Policy</cite> as part of the mechanism that ensures <code>iframe</code>s
@@ -26,7 +38,8 @@
   passing in the newly-created <code>Document</code>.</p>
 
   <p>After creating the <code>Document</code> object, but potentially before the page has finished
-  fully loading, the user agent must <span>update the session history with the new page</span>.</p>
+  fully loading, the user agent must <span>update the session history with the new page</span> given
+  <var>navigationParams</var>.</p>
 
   <p>User agents may add content to the <code>head</code> element of the <code>Document</code>, or
   attributes to the <code>embed</code> element, e.g. to link to a style sheet or to give the

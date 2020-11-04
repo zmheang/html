@@ -1,0 +1,31 @@
+  <h4>Browsing sessions</h4>
+
+  <div class="XXX">
+
+  <p>A <dfn export>browsing session</dfn> is …. See <a
+  href="https://github.com/whatwg/html/issues/4782">whatwg/html issue #4782</a> and <a
+  href="https://github.com/whatwg/html/issues/5350">whatwg/html issue #5350</a> for defining
+  <span>browsing session</span>. It is roughly analogous to a <span>top-level browsing
+  context</span> except that it cannot be replaced due to a `<code
+  data-x="http-cross-origin-opener-policy">Cross-Origin-Opener-Policy</code>` header or
+  navigation.</p>
+
+  <p>A <span>top-level browsing context</span> has an associated <dfn  export data-x="tlbc browsing
+  session" for="top-level browsing context">browsing session</dfn> which is a <span>browsing
+  session</span>.</p>
+
+  <p>The <dfn export for="environment settings object" data-x="environment browsing
+  session">browsing session</dfn> of an <span>environment settings object</span>
+  <var>environment</var> is the result of running these steps:</p>
+
+  <ol>
+   <li><p>Assert: <var>environment</var> has a <span>responsible document</span>.</p></li>
+
+   <li><p>Return <var>environment</var>'s <span>responsible document</span>'s <span
+   data-x="concept-document-bc">browsing context</span>'s <span>top-level browsing context</span>'s
+   <span data-x="tlbc browsing session">browsing session</span>.</p></li>
+  </ol>
+
+  </div>
+
+

@@ -1,0 +1,108 @@
+  <h5><span id="obtaining-a-resource-from-a-link-element"></span>从 <code>link</code> 元素获取和处理资源</h5>
+
+  <p id="concept-link-obtain">所有 <span data-x="external resource link">外部资源链接</span>
+  都有一个 <dfn data-x="fetch and process the linked resource">获取和处理链接资源</dfn> 算法，
+  该算法接受一个 <code>link</code> 元素 <var>el</var> 作为参数。
+  还有一个 <dfn data-x="linked resource fetch setup steps">链接资源获取配置步骤</dfn>，
+  它接受 <code>link</code> 元素 <var>el</var> 和 <span data-x="concept-request">请求</span> <var>request</var>。
+  每个链接类型可能提供它们自己的 <span data-x="fetch and process the linked resource">获取和处理链接资源</span> 算法，
+  但除非特别说明，它们都使用 <span data-x="default fetch and process the linked resource">默认的获取和处理链接资源</span> 算法。
+  类似地，每个链接类型也可能提供它自己的 <span data-x="linked resource fetch setup steps">链接资源获取配置步骤</span>，
+  但除非特别说明，这些步骤只返回 true。</p>
+
+  <p>给定 <code>link</code> 元素 <var>el</var>，
+  <dfn data-x="default fetch and process the linked resource">默认的获取和处理链接资源</dfn> 如下：</p>
+
+  <ol>
+
+   <li><p>如果 <code data-x="attr-link-href">href</code> 属性的值是空字符串，则中止这些步骤。</p></li>
+
+   <li><p>给定 <code data-x="attr-link-href">href</code> 属性，相对于该元素的 <span data-x="node document">节点文档</span>
+   <span data-x="parse a url">解析</span> <span>URL</span>。如果失败则返回。否则，令 <var>url</var> 为
+   <span data-x="resulting URL record">结果 URL 记录</span>。</p></li>
+
+   <li><p>令 <var>corsAttributeState</var> 为该元素的 <code data-x="attr-link-crossorigin">crossorigin</code> 内容属性的当前状态。</p></li>
+
+   <li><p>令<var>request</var> 为给定 <var>url</var>，空字符串，以及 <var>corsAttributeState</var>
+   <span data-x="create a potential-CORS request">创建一个可能跨域的请求</span> 的结果。
+
+   <li><p>设置 <var>request</var> 的 <span data-x="synchronous flag">异步标志</span>。</p></li>
+
+   <li><p>设置<var>request</var>的 <span data-x="concept-request-client">client</span> 为
+   <code>link</code> 元素的 <span data-x="node document">节点文档</span> 的 <span data-x="relevant settings object">相关设置对象</span>。
+
+   <li><p>设置<var>request</var> 的
+   <span data-x="concept-request-nonce-metadata">nonce 元数据</span> 为
+   <code>link</code> 元素的 <span>[[CryptographicNonce]]</span> 内部槽的当前值。</p></li>
+
+   <li><p>设置<var>request</var>的
+   <span data-x="concept-request-integrity-metadata">完整性元数据</span>
+   为 <code>link</code> 元素的 <code data-x="attr-link-integrity">integrity</code>
+   内容属性的当前值。</p></li>
+
+   <li><p>设置<var>request</var>的
+   <span data-x="concept-request-referrer-policy">referrer policy</span> 为
+   <code>link</code> 元素的 <code data-x="attr-link-referrerpolicy">referrerpolicy</code>
+   属性的为当前状态。</p></li>
+
+   <li><p>执行 <span data-x="linked resource fetch setup steps">链接资源获取配置步骤</span>
+   并传入 <var>el</var> 和 <var>request</var>。如果结果为 false 就返回。</p></li>
+
+   <li>
+    <p><span data-x="in parallel">并行地</span> 执行以下步骤：</p>
+
+    <ol>
+     <!--FETCH--><li><p>令 <var>response</var> 为 <span data-x="concept-fetch">获取</span> <var>request</var> 的结果。</p></li>
+
+     <li><p>令 <var>success</var> 为 true。</p></li>
+
+     <li>
+      <p>如果 <var>response</var> 是 <span data-x="network error">网络错误</span> 或它的
+      <span data-x="concept-response-status">状态</span> 不是 <span data-x="ok status">OK</span>，
+      这是 <var>success</var> 为 false。</p>
+
+      <p class="note">注意内容相关错误比如 CSS 解析错误或 PNG 解码错误不影响 <var>success</var>。</p>
+     </li>
+
+     <li>
+      <p>如果 <var>success</var> 为 true，等待 <span data-x="external resource link">链接资源</span> 的
+      <span data-x="critical subresources">关键子资源</span> 结束加载。</p>
+
+      <p class="XXX">定义链接类型的 <span data-x="critical subresources">关键子资源</span> 的标准（比如 CSS）
+      应该描述这些如何获取和处理这些子资源。本标准描述描述等待 <span data-x="external resource link">链接资源</span> 的
+      <span data-x="critical subresources">关键子资源</span> 获取和处理时，假设它得到了正确地处理。</p>
+     </li>
+
+     <li>在 <span data-x="networking task source">网络任务源</span> 上 <span data-x="Queue an element task">入队</span>
+     一个元素为 <var>el</var> 的元素任务，用来 <span data-x="process the linked resource">处理链接资源</span>（
+     给它传入 <var>el</var>，<var>success</var> 和 <var>response</var>）。</li>
+    </ol>
+   </li>
+  </ol>
+
+  <p>用户代理在需要这些资源时才会去 <span data-x="fetch and process the linked resource">获取和处理</span>，
+  而不是预先获取所有未应用的 <span data-x="external resource link">外部资源</span>。</p>
+
+  <!-- the next few paragraph are similar to text in the <style> element section -->
+  <p>和 <span data-x="fetch and process the linked resource">获取和处理链接资源</span> 算法类似，所有
+  <span data-x="external resource link">外部资源链接</span> 都有对应的
+  <dfn data-x="process the linked resource">处理链接资源</dfn> 算法，
+  接受一个 <code>link</code> 元素 <var>el</var>，布尔值 <var>success</var> 和 <span data-x="concept-response">响应</span> <var>response</var>。
+  除非个别链接类型提供了它自己的 <span data-x="process the linked resource">处理链接资源</span> 算法，
+  就是用给定 <code>link</code> 元素 <var>el</var> 和布尔值 <var>success</var> （忽略 <var>response</var>）的
+  <dfn data-x="default process the linked resource">默认的处理链接资源</dfn> 算法：</p>
+
+  <ol>
+   <li><p>如果 <var>success</var> 为 true，在 <var>el</var> 上 <span data-x="concept-event-fire">触发</span>
+   名为 <code data-x="event-load">load</code> 的事件。</p></li>
+
+   <li><p>否则，在 <var>el</var> 上 <span data-x="concept-event-fire">触发</span>
+   名为 <code data-x="event-error">error</code> 的事件。</p></li>
+  </ol>
+
+  <p>除非给定的 <code data-x="attr-link-rel">rel</code> 关键字另有说明，
+  在获取该资源及其 <span data-x="critical subresources">关键子资源</span> 的所有尝试完成之前，
+  必须 <span data-x="delay the load event">推迟</span> 该元素的
+  <span data-x="node document">节点文档</span> 的 load 事件。
+  （用户代理还没尝试获取的资源不会 <span data-x="delay the load event">推迟 load 事件</span>，比如因为它在等待需要的资源。）</p>
+

@@ -2,10 +2,10 @@
 
   <!-- NON-NORMATIVE SECTION -->
 
-  <p>In order to enable users to continue interacting with Web applications and documents even when
+  <p>In order to enable users to continue interacting with web applications and documents even when
   their network connection is unavailable &mdash; for instance, because they are traveling outside
   of their ISP's coverage area &mdash; authors can provide a manifest which lists the files that are
-  needed for the Web application to work offline and which causes the user's browser to keep a copy
+  needed for the web application to work offline and which causes the user's browser to keep a copy
   of the files for use offline.</p>
 
   <p>To illustrate this, consider a simple clock applet consisting of an HTML page "<code
@@ -14,9 +14,9 @@
 
   <p>Before adding the manifest, these three files might look like this:</p>
 
-  <pre><code class="html" data-x="">EXAMPLE offline/clock/clock1.html</code></pre>
-  <pre><code class="css" data-x="">EXAMPLE offline/clock/clock.css</code></pre>
-  <pre><code class="js" data-x="">EXAMPLE offline/clock/clock.js</code></pre>
+  <pre><code class="html">EXAMPLE offline/clock/clock1.html</code></pre>
+  <pre><code class="css">EXAMPLE offline/clock/clock.css</code></pre>
+  <pre><code class="js">EXAMPLE offline/clock/clock.js</code></pre>
 
   <p>If the user tries to open the "<code data-x="">clock1.html</code>" page while offline, though,
   the user agent (unless it happens to have it still in the local cache) will fail with an
@@ -30,7 +30,7 @@
   <p>With a small change to the HTML file, the manifest (served as <code>text/cache-manifest</code>)
   is linked to the application:</p>
 
-  <pre><code class="html" data-x="">EXAMPLE offline/clock/clock2.html</code></pre>
+  <pre><code class="html">EXAMPLE offline/clock/clock2.html</code></pre>
 
   <p>Now, if the user goes to the page, the browser will cache the files and make them available
   even when the user is offline.</p>

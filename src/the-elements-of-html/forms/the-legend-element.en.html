@@ -6,15 +6,22 @@
    <dt><span data-x="concept-element-contexts">Contexts in which this element can be used</span>:</dt>
    <dd>As the <span>first child</span> of a <code>fieldset</code> element.</dd>
    <dt><span data-x="concept-element-content-model">Content model</span>:</dt>
-   <dd><span>Phrasing content</span>.</dd>
+   <dd><span>Phrasing content</span>, optionally intermixed with <span>heading content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-legend">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-legend">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLLegendElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-legend-form">form</span>;
+
+  // <a href="#HTMLLegendElement-partial">also has obsolete members</a>
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLLegendElement</code>.</dd>
@@ -29,21 +36,18 @@ interface <dfn>HTMLLegendElement</dfn> : <span>HTMLElement</span> {
    <dt><var>legend</var> . <code subdfn data-x="dom-legend-form">form</code></dt>
 
    <dd>
-
     <p>Returns the element's <code>form</code> element, if any, or null otherwise.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-legend-form">form</code></dfn> IDL attribute's behavior depends on
-  whether the <code>legend</code> element is in a <code>fieldset</code> element or not. If the
-  <code>legend</code> has a <code>fieldset</code> element as its parent, then the <code
-  data-x="dom-legend-form">form</code> IDL attribute must return the same value as the <code
-  data-x="dom-fae-form">form</code> IDL attribute on that <code>fieldset</code> element. Otherwise,
-  it must return null.</p>
+  <p>The <dfn attribute for="HTMLLegendElement"><code data-x="dom-legend-form">form</code></dfn> IDL
+  attribute's behavior depends on whether the <code>legend</code> element is in a
+  <code>fieldset</code> element or not. If the <code>legend</code> has a <code>fieldset</code>
+  element as its parent, then the <code data-x="dom-legend-form">form</code> IDL attribute must
+  return the same value as the <code data-x="dom-fae-form">form</code> IDL attribute on that
+  <code>fieldset</code> element. Otherwise, it must return null.</p>
 
   </div>
 

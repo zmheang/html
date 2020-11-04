@@ -11,7 +11,6 @@
   three possible default behaviors for each element:</p>
 
   <dl>
-
    <dt><dfn data-x="concept-spellcheck-default-true">true-by-default</dfn>
 
    <dd>The element will be checked for spelling and grammar if its contents are editable and
@@ -27,19 +26,18 @@
 
    <dd>The element's default behavior is the same as its parent element's. Elements that have no
    parent element cannot have this as their default behavior.
-
   </dl>
 
   <hr>
 
   </div>
 
-  <p>The <dfn><code data-x="attr-spellcheck">spellcheck</code></dfn> attribute is an <span>enumerated
-  attribute</span> whose keywords are the empty string, <code data-x="">true</code> and <code
-  data-x="">false</code>. The empty string and the <code data-x="">true</code> keyword map to the
-  <i>true</i> state. The <code data-x="">false</code> keyword maps to the <i>false</i> state. In
-  addition, there is a third state, the <i>default</i> state, which is the <i
-  data-x="missing value default">missing value default</i> and the <i
+  <p>The <dfn element-attr for="html-global"><code data-x="attr-spellcheck">spellcheck</code></dfn>
+  attribute is an <span>enumerated attribute</span> whose keywords are the empty string, <code
+  data-x="">true</code> and <code data-x="">false</code>. The empty string and the <code
+  data-x="">true</code> keyword map to the <i>true</i> state. The <code data-x="">false</code>
+  keyword maps to the <i>false</i> state. In addition, there is a third state, the <i>default</i>
+  state, which is the <i data-x="missing value default">missing value default</i> and the <i
   data-x="invalid value default">invalid value default</i>.</p>
 
   <p class="note">The <i>true</i> state indicates that the element is to have its spelling and
@@ -59,30 +57,28 @@
    <dt><var>element</var> . <code subdfn data-x="dom-spellcheck">spellcheck</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns true if the element is to have its spelling and grammar checked; otherwise, returns
     false.</p>
 
     <p>Can be set, to override the default and set the <code
     data-x="attr-spellcheck">spellcheck</code> content attribute.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-spellcheck">spellcheck</code></dfn> IDL attribute, on getting, must
-  return true if the element's <code data-x="attr-spellcheck">spellcheck</code> content attribute is
-  in the <i>true</i> state, or if the element's <code data-x="attr-spellcheck">spellcheck</code>
-  content attribute is in the <i>default</i> state and the element's <span
-  data-x="concept-spellcheck-default">default behavior</span> is <span
-  data-x="concept-spellcheck-default-true">true-by-default</span>, or if the element's <code
-  data-x="attr-spellcheck">spellcheck</code> content attribute is in the <i>default</i> state and the
-  element's <span data-x="concept-spellcheck-default">default behavior</span> is <span
-  data-x="concept-spellcheck-default-inherit">inherit-by-default</span> and the element's parent
-  element's <code data-x="dom-spellcheck">spellcheck</code> IDL attribute would return true;
-  otherwise, if none of those conditions applies, then the attribute must instead return false.</p>
+  <p>The <dfn attribute for="HTMLElement"><code data-x="dom-spellcheck">spellcheck</code></dfn> IDL
+  attribute, on getting, must return true if the element's <code
+  data-x="attr-spellcheck">spellcheck</code> content attribute is in the <i>true</i> state, or if
+  the element's <code data-x="attr-spellcheck">spellcheck</code> content attribute is in the
+  <i>default</i> state and the element's <span data-x="concept-spellcheck-default">default
+  behavior</span> is <span data-x="concept-spellcheck-default-true">true-by-default</span>, or if
+  the element's <code data-x="attr-spellcheck">spellcheck</code> content attribute is in the
+  <i>default</i> state and the element's <span data-x="concept-spellcheck-default">default
+  behavior</span> is <span data-x="concept-spellcheck-default-inherit">inherit-by-default</span> and
+  the element's parent element's <code data-x="dom-spellcheck">spellcheck</code> IDL attribute would
+  return true; otherwise, if none of those conditions applies, then the attribute must instead
+  return false.</p>
 
   <p class="note">The <code data-x="dom-spellcheck">spellcheck</code> IDL attribute is not affected
   by user preferences that override the <code data-x="attr-spellcheck">spellcheck</code> content
@@ -104,7 +100,7 @@
    data-x="attr-input-type">type</code> attributes are in the <span
    data-x="attr-input-type-text">Text</span>, <span data-x="attr-input-type-search">Search</span>,
    <span data-x="attr-input-type-url">URL</span>, or <span
-   data-x="attr-input-type-email">E-mail</span> states and that are <i
+   data-x="attr-input-type-email">Email</span> states and that are <i
    data-x="concept-fe-mutable">mutable</i> (i.e. that do not have the <code
    data-x="attr-input-readonly">readonly</code> attribute specified and that are not <span
    data-x="concept-fe-disabled">disabled</span>).</li>
@@ -130,7 +126,6 @@
   algorithm:</p>
 
   <ol>
-
    <!-- user override -->
 
    <li>If the user has disabled the checking for this text, then the checking is disabled.</li>
@@ -169,7 +164,6 @@
    is enabled.</li>
 
    <li>Otherwise, checking is disabled.</li>
-
   </ol>
 
   <p>If the checking is enabled for a word/sentence/text, the user agent should indicate spelling
@@ -188,7 +182,7 @@
    <p>The element with ID "a" in the following example would be the one used to determine if the
    word "Hello" is checked for spelling errors. In this example, it would not be.</p>
 
-   <pre><code class="html" data-x="">&lt;div contenteditable="true">
+   <pre><code class="html">&lt;div contenteditable="true">
  &lt;span spellcheck="false" id="a">Hell&lt;/span>&lt;em>o!&lt;/em>
 &lt;/div></code></pre>
 
@@ -196,7 +190,7 @@
    space character in the attribute's value on the <code>input</code> element causes the attribute
    to be ignored, so the ancestor's value is used instead, regardless of the default).</p>
 
-   <pre class="bad"><code class="html" data-x="">&lt;p spellcheck="true">
+   <pre class="bad"><code class="html">&lt;p spellcheck="true">
  &lt;label>Name: &lt;input spellcheck=" false" id="b">&lt;/label>
 &lt;/p></code></pre>
 

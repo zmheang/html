@@ -12,11 +12,16 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-map-name">name</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-map">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-map">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLMapElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-map-name">name</span>;
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-map-areas">areas</span>;
 };</code></pre>
@@ -28,35 +33,33 @@ interface <dfn>HTMLMapElement</dfn> : <span>HTMLElement</span> {
   <code>area</code> element descendants, defines an <span>image map</span>. The element
   <span>represents</span> its children.</p>
 
-  <p>The <dfn><code data-x="attr-map-name">name</code></dfn> attribute gives the map a name so that
-  it can be <span>referenced</span>. The attribute must be present and must have a non-empty value
-  with no <span>ASCII whitespace</span>. The value of the <code data-x="attr-map-name">name</code>
-  attribute must not be equal to the value of the <code data-x="attr-map-name">name</code> attribute
-  of another <code>map</code> element in the same <span>tree</span>. If the <code
-  data-x="attr-id">id</code> attribute is also specified, both attributes must have the same
-  value.</p>
+  <p>The <dfn element-attr for="map"><code data-x="attr-map-name">name</code></dfn> attribute gives
+  the map a name so that it can be <span>referenced</span>. The attribute must be present and must
+  have a non-empty value with no <span>ASCII whitespace</span>. The value of the <code
+  data-x="attr-map-name">name</code> attribute must not be equal to the value of the <code
+  data-x="attr-map-name">name</code> attribute of another <code>map</code> element in the same
+  <span>tree</span>. If the <code data-x="attr-id">id</code> attribute is also specified, both
+  attributes must have the same value.</p>
 
   <dl class="domintro">
 
    <dt><var>map</var> . <code subdfn data-x="dom-map-areas">areas</code></dt>
 
    <dd>
-
     <p>Returns an <code>HTMLCollection</code> of the <code>area</code> elements in the
     <code>map</code>.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-map-areas">areas</code></dfn> attribute must return an
-  <code>HTMLCollection</code> rooted at the <code>map</code> element, whose filter matches only
-  <code>area</code> elements.</p>
+  <p>The <dfn attribute for="HTMLMapElement"><code data-x="dom-map-areas">areas</code></dfn>
+  attribute must return an <code>HTMLCollection</code> rooted at the <code>map</code> element, whose
+  filter matches only <code>area</code> elements.</p>
 
-  <p>The IDL attribute <dfn><code data-x="dom-map-name">name</code></dfn> must <span>reflect</span>
-  the content attribute of the same name.</p>
+  <p>The IDL attribute <dfn attribute for="HTMLMapElement"><code
+  data-x="dom-map-name">name</code></dfn> must <span>reflect</span> the content attribute of the
+  same name.</p>
 
   </div>
 
@@ -66,7 +69,7 @@ interface <dfn>HTMLMapElement</dfn> : <span>HTMLElement</span> {
    This example is of a page with an image map at the top of the page and a corresponding set of
    text links at the bottom.</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;HTML LANG="EN">
 &lt;TITLE>Babies&trade;: Toys&lt;/TITLE>
 &lt;HEADER>

@@ -17,17 +17,14 @@
    tracks</span> (<span data-x="text track">text tracks</span> corresponding to data in the
    <span>media resource</span>), in the order defined by the <span>media resource</span>'s format
    specification.</li>
-
   </ol>
 
   <p>A <span>text track</span> consists of:</p>
 
   <dl>
-
    <dt><dfn data-x="text track kind">The kind of text track</dfn>
 
    <dd>
-
     <p>This decides how the track is handled by the user agent. The kind is represented by a string.
     The possible strings are:</p>
 
@@ -41,13 +38,11 @@
 
     <p>The <span data-x="text track kind">kind of track</span> can change dynamically, in the case of
     a <span>text track</span> corresponding to a <code>track</code> element.</p>
-
    </dd>
 
    <dt><dfn data-x="text track label">A label</dfn>
 
    <dd>
-
     <p>This is a human-readable string intended to identify the track for the user.</p>
 
     <p>The <span data-x="text track label">label of a track</span> can change dynamically, in the
@@ -57,18 +52,16 @@
     generate an appropriate label from the text track's other properties (e.g. the kind of text
     track and the text track's language) for use in its user interface. This automatically-generated
     label is not exposed in the API.</p>
-
    </dd>
 
    <dt><dfn data-x="text track in-band metadata track dispatch type">An in-band metadata track dispatch type</dfn>
 
    <dd>
-
     <p>This is a string extracted from the <span>media resource</span> specifically for in-band
     metadata tracks to enable such tracks to be dispatched to different scripts in the document.</p>
 
-    <p class="example">For example, a traditional TV station broadcast streamed on the Web and
-    augmented with Web-specific interactive features could include text tracks with metadata for ad
+    <p class="example">For example, a traditional TV station broadcast streamed on the web and
+    augmented with web-specific interactive features could include text tracks with metadata for ad
     targeting, trivia game data during game shows, player states during sports games, recipe
     information during food programs, and so forth. As each program starts and ends, new tracks
     might be added or removed from the stream, and as each one is added, the user agent could bind
@@ -78,105 +71,83 @@
     track dispatch type">in-band metadata track dispatch type</span> is the empty string. How this
     value is populated for different media formats is described in <span>steps to expose a
     media-resource-specific text track</span>.</p>
-
    </dd>
 
    <dt><dfn data-x="text track language">A language</dfn>
 
    <dd>
-
     <p>This is a string (a BCP 47 language tag) representing the language of the text track's cues.
     <ref spec=BCP47></p>
 
     <p>The <span data-x="text track language">language of a text track</span> can change dynamically,
     in the case of a <span>text track</span> corresponding to a <code>track</code> element.</p>
-
    </dd>
 
    <dt><dfn data-x="text track readiness state">A readiness state</dfn>
 
    <dd>
-
     <p>One of the following:</p>
 
     <dl>
-
      <dt><dfn data-x="text track not loaded">Not loaded</dfn>
 
      <dd>
-
       <p>Indicates that the text track's cues have not been obtained.</p>
-
      </dd>
 
      <dt><dfn data-x="text track loading">Loading</dfn>
 
      <dd>
-
       <p>Indicates that the text track is loading and there have been no fatal errors encountered so
       far. Further cues might still be added to the track by the parser.</p>
-
      </dd>
 
      <dt><dfn data-x="text track loaded">Loaded</dfn>
 
      <dd>
-
       <p>Indicates that the text track has been loaded with no fatal errors.</p>
-
      </dd>
 
      <dt><dfn data-x="text track failed to load">Failed to load</dfn>
 
      <dd>
-
       <p>Indicates that the text track was enabled, but when the user agent attempted to obtain it,
       this failed in some way (e.g. <span>URL</span> could not be <span data-x="parse a
       url">parsed</span>, network error, unknown text track format). Some or all of the cues are
       likely missing and will not be obtained.</p>
-
      </dd>
-
     </dl>
 
     <p>The <span data-x="text track readiness state">readiness state</span> of a <span>text
     track</span> changes dynamically as the track is obtained.</p>
-
    </dd>
 
    <dt><dfn data-x="text track mode">A mode</dfn>
 
    <dd>
-
     <p>One of the following:</p>
 
     <dl>
-
      <dt><dfn data-x="text track disabled">Disabled</dfn>
 
      <dd>
-
       <p>Indicates that the text track is not active. Other than for the purposes of exposing the
       track in the DOM, the user agent is ignoring the text track. No cues are active, no events are
       fired, and the user agent will not attempt to obtain the track's cues.</p>
-
      </dd>
 
      <dt><dfn data-x="text track hidden">Hidden</dfn>
 
      <dd>
-
       <p>Indicates that the text track is active, but that the user agent is not actively displaying
       the cues. If no attempt has yet been made to obtain the track's cues, the user agent will
       perform such an attempt momentarily. The user agent is maintaining a list of which cues are
       active, and events are being fired accordingly.</p>
-
      </dd>
 
      <dt><dfn data-x="text track showing">Showing</dfn>
 
      <dd>
-
       <p>Indicates that the text track is active. If no attempt has yet been made to obtain the
       track's cues, the user agent will perform such an attempt momentarily. The user agent is
       maintaining a list of which cues are active, and events are being fired accordingly. In
@@ -190,17 +161,13 @@
       data-x="dom-TextTrack-kind-chapters">chapters</code>, the user agent is making available to
       the user a mechanism by which the user can navigate to any point in the <span>media
       resource</span> by selecting a cue.</p>
-
      </dd>
-
     </dl>
-
    </dd>
 
    <dt><dfn data-x="text track list of cues">A list of zero or more cues</dfn>
 
    <dd>
-
     <p>A list of <span data-x="text track cue">text track cues</span>, along with <dfn>rules for
     updating the text track rendering</dfn>. For example, for WebVTT, the <span>rules for updating
     the display of WebVTT text tracks</span>. <ref spec=WEBVTT> </p>
@@ -209,9 +176,7 @@
     dynamically, either because the <span>text track</span> has <span data-x="text track not
     loaded">not yet been loaded</span> or is still <span data-x="text track loading">loading</span>,
     or due to DOM manipulation.</p>
-
    </dd>
-
   </dl>
 
   <p>Each <span>text track</span> has a corresponding <code>TextTrack</code> object.</p>
@@ -258,7 +223,6 @@
   following steps for the <span>media element</span>:</p>
 
   <ol>
-
    <li><p>If the <span>media element</span>'s <span>pending text track change notification
    flag</span> is set, return.</p></li>
 
@@ -266,11 +230,10 @@
    flag</span>.</p></li>
 
    <li>
-
-    <p><span>Queue a task</span> to run these steps:</p>
+    <p><span>Queue a media element task</span> given the <span>media element</span> to run these
+    steps:</p>
 
     <ol>
-
      <li><p>Unset the <span>media element</span>'s <span>pending text track change notification
      flag</span>.</p></li>
 
@@ -278,14 +241,11 @@
      data-x="event-media-change">change</code> at the <span>media element</span>'s <code
      data-x="dom-media-textTracks">textTracks</code> attribute's <code>TextTrackList</code>
      object.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>If the <span>media element</span>'s <span>show poster flag</span> is not set, run the
    <i data-x="time marches on">time marches on</i> steps.</p></li>
-
   </ol>
 
   <p>The <span>task source</span> for the <span data-x="concept-task">tasks</span> listed in this
@@ -300,7 +260,6 @@
   <p>Each <span>text track cue</span> consists of:</p>
 
   <dl>
-
    <dt><dfn data-x="text track cue identifier">An identifier</dfn>
    <dd>
     <p>An arbitrary string.</p>
@@ -329,7 +288,6 @@
     <p>Additional fields, as needed for the format, including the actual data of the cue. For example, WebVTT has a <span>text track cue
     writing direction</span> and so forth. <ref spec=WEBVTT></p>
    </dd>
-
   </dl>
 
   <p class="note">The <span>text track cue start time</span> and <span>text track cue end
@@ -351,10 +309,8 @@
   <p>In addition, each <span>text track cue</span> has two pieces of dynamic information:</p>
 
   <dl>
-
    <dt>The <dfn data-x="text track cue active flag">active flag</dfn>
    <dd>
-
     <p>This flag must be initially unset. The flag is used to ensure events are fired appropriately
     when the cue becomes active or inactive, and to make sure the right cues are rendered.</p>
 
@@ -374,13 +330,10 @@
 
    <dt>The <dfn data-x="text track cue display state">display state</dfn>
    <dd>
-
     <p>This is used as part of the rendering model, to keep cues in a consistent position. It must
     initially be empty. Whenever the <span>text track cue active flag</span> is unset, the user
     agent must empty the <span>text track cue display state</span>.</p>
-
    </dd>
-
   </dl>
 
   <p>The <span data-x="text track cue">text track cues</span> of a <span>media element</span>'s

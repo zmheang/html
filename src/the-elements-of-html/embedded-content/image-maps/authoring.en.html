@@ -7,10 +7,10 @@
 
   <p>An image, in the form of an <code>img</code> element or an <code>object</code> element
   representing an image, may be associated with an image map (in the form of a <code>map</code>
-  element) by specifying a <dfn><code data-x="attr-hyperlink-usemap">usemap</code></dfn> attribute on
-  the <code>img</code> or <code>object</code> element. The <code
-  data-x="attr-hyperlink-usemap">usemap</code> attribute, if specified, must be a <span>valid
-  hash-name reference</span> to a <code>map</code> element.</p>
+  element) by specifying a <dfn element-attr><code
+  data-x="attr-hyperlink-usemap">usemap</code></dfn> attribute on the <code>img</code> or
+  <code>object</code> element. The <code data-x="attr-hyperlink-usemap">usemap</code> attribute, if
+  specified, must be a <span>valid hash-name reference</span> to a <code>map</code> element.</p>
 
   <div class="example">
 
@@ -20,7 +20,7 @@
 
    <p>If we wanted just the colored areas to be clickable, we could do it as follows:</p>
 
-   <pre><code class="html" data-x="">&lt;p>
+   <pre><code class="html">&lt;p>
  Please select a shape:
  &lt;img src="shapes.png" usemap="#shapes"
       alt="Four shapes are available: a red hollow box, a green circle, a blue triangle, and a yellow four-pointed star.">

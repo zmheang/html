@@ -1,22 +1,21 @@
   <h4 id="custom-elements-core-concepts">核心概念</h4>
 
-  <p><dfn>custom element</dfn> 是 <span data-x="concept-element-custom">自定义的</span> 元素。
+  <p><dfn export>custom element</dfn> 是 <span data-x="concept-element-custom">自定义的</span> 元素。
   非形式化地，这意味着它的构造器和原型链由作者而不是用户代理定义。
-  作者提供的构造函数称为 <dfn data-export="" data-x="custom element constructor">custom element 构造器</dfn>。</p>
+  作者提供的构造函数称为 <dfn export data-x="custom element constructor">custom element 构造器</dfn>。</p>
 
   <p>可以定义两种不同的 <span data-x="custom element">custom elements</span>：</p>
 
   <ol>
-
-   <li><p><dfn data-export="" data-x="autonomous custom element">自主的 custom element</dfn> 定义时不包含 <code
+   <li><p><dfn export data-x="autonomous custom element">自主的 custom element</dfn> 定义时不包含 <code
    data-x="">extends</code> 选项。这类 custom elements 的 局部名 等于它们
    <span data-x="concept-custom-element-definition-name">定义的名称</span>。</p></li>
 
-   <li><p><dfn data-export="" data-x="customized built-in element">定制内建元素</dfn> 定义时包含 <code
+   <li><p><dfn export data-x="customized built-in element">定制内建元素</dfn> 定义时包含 <code
    data-x="">extends</code> 选项。这类 custom elements 的 局部名 等于它们
    在 <code data-x="">extends</code> 选项中传入的值，它们的 <span
    data-x="concept-custom-element-definition-name">定义的名称</span> 被用于
-   <dfn><code data-x="attr-is">is</code></dfn> 属性的值，因此它必须是一个
+   <dfn element-attr for="html-global"><code data-x="attr-is">is</code></dfn> 属性的值，因此它必须是一个
    <span data-x="valid custom element name">合法的 custom element 名</span>。</p></li>
 
   </ol>
@@ -29,16 +28,29 @@
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">类别</span>：</dt>
-   <dd><span>Flow content</span>。</dd>
-   <dd><span>Phrasing content</span>。</dd>
-   <dd><span>Palpable content</span>。</dd>
+   <dd><span data-x="flow content">流式内容</span>。</dd>
+   <dd><span data-x="phrasing content">短语内容</span>。</dd>
+   <dd><span data-x="palpable content">可感知内容</span>。</dd>
+   <dd><span data-x="form-associated custom element">表单相关的 custom element</span>：<span data-x="category-listed">在列表中的</span>, <span data-x="category-label">可加标签的</span>, <span data-x="category-submit">可提交的</span> 和 <span data-x="category-reset">可重置的</span> <span data-x="form-associated element">表单相关元素</span>。</dd>
    <dt><span data-x="concept-element-contexts">该元素可使用的上下文</span>：</dt>
-   <dd>应该出现 <span>phrasing content</span> 的地方。</dd>
+   <dd>应该出现 <span data-x="phrasing content">短语内容</span> 的地方。</dd>
    <dt><span data-x="concept-element-content-model">内容模型</span>：</dt>
-   <dd><span>Transparent</span>。</dd>
+   <dd><span data-x="transparent">透明的</span>。</dd>
    <dt><span data-x="concept-element-attributes">内容属性</span>：</dt>
-   <dd>除 <code data-x="attr-is">is</code> 之外的 <span data-x="Global attributes">全局属性</span>。</dd>
+   <dd>除 <code data-x="attr-is">is</code> 之外的 <span data-x="Global attributes">全局属性</span><!-- no-annotate --></dd>
+   <dd><span data-x="form-associated custom element">表单相关元素</span> 的 <code data-x="attr-fae-form">form</code></dd>
+   <dd><span data-x="form-associated custom element">表单相关元素</span> 的 <code data-x="attr-fe-disabled">disabled</code></dd>
+   <dd><span data-x="form-associated custom element">表单相关元素</span> 的 <code data-x="attr-face-readonly">readonly</code></dd>
+   <dd><span data-x="form-associated custom element">表单相关元素</span> 的 <code data-x="attr-fe-name">name</code></dd>
    <dd>任何其他没有命名空间的属性。</dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">可访问性相关</span>：</dt>
+   <dd><span data-x="form-associated custom element">表单相关的 custom element</span>：<a
+   href="https://w3c.github.io/html-aria/#el-form-associated-custom-element">使用方版本</a>；<a
+   href="https://w3c.github.io/html-aam/#el-form-associated-custom-element">实现方版本</a>。</dd>
+   <dd>其他的：<a
+   href="https://w3c.github.io/html-aria/#el-autonomous-custom-element">使用方版本</a>；<a
+   href="https://w3c.github.io/html-aam/#el-autonomous-custom-element">实现方版本</a>。</dd>
    <dt><span data-x="concept-element-dom">DOM 接口</span>：</dt>
    <dd>由元素作者提供（继承自 <code>HTMLElement</code>）</dd>
   </dl>
@@ -59,7 +71,32 @@
 
   <hr>
 
-  <p><dfn data-export="" data-x="valid custom element name">合法的 custom element 名</dfn> <var>name</var> 是一个满足下列所有要求的字符序列：</p>
+  <p>一个 <span data-x="autonomous custom element">自主的 custom element</span>，如果与一个
+  <span data-x="concept-custom-element-definition-form-associated">form-associated</span> 字段为 true
+  的 <span data-x="custom element definition">Custom Element 定义</span> 相关联，
+  就称为 <dfn export data-x="form-associated custom element">表单相关的 custom element</dfn>。</p>
+
+  <p><code data-x="attr-fe-name">name</code> 属性表示 <span data-x="form-associated custom element">表单相关的 custom element</span> 的名字。
+  <code data-x="attr-fe-disabled">disabled</code> 属性用来让 <span data-x="form-associated custom element">表单相关的 custom element</span>
+  不可交互并阻止它的 <span data-x="face-submission-value">提交数据</span> 被提交。
+  <code data-x="attr-fae-form">form</code> 属性用来明确地把
+  <span data-x="form-associated custom element">表单相关的 custom element</span> 和它的 <span data-x="form owner">表单 owner</span> 相关联。</p>
+
+  <p><dfn data-x="attr-face-readonly"><code>readonly</code></dfn> 属性指定该元素
+  <span data-x="barred from constraint validation">禁止约束验证</span>。用户代理不会给这个属性提供任何其他行为，
+  但 custom element 作者应该利用它是否存在来以某种方式让控件变得不可编辑，类似内置控件的
+  <span data-x="attr-input-readonly">readonly</span> 属性那样。</p>
+
+  <p><strong>强校验</strong>：如果 <span data-x="form-associated custom element">表单相关的 custom element</span> 的指定了
+  <code data-x="attr-face-readonly">readonly</code> 属性，该元素就 <span data-x="barred from constraint validation">禁止了约束验证</span>。</p>
+
+  <p><span data-x="form-associated custom element">表单相关的 custom element</span> 的 <span data-x="concept-form-reset-control">重置算法</span>
+  是用这个元素 <span data-x="enqueue a custom element callback reaction">入队一个 Custom Element 反应</span>，回调名为 "<code
+  data-x="">formResetCallback</code>"，参数列表为空。</p>
+
+  <hr>
+
+  <p><dfn export data-x="valid custom element name">合法的 custom element 名</dfn> 是满足以下要求的一串字符 <var>name</var>：</p>
 
   <ul>
    <li>
@@ -97,7 +134,7 @@
     </ul>
 
     <p class="note">上述名字列表总结了所有包含横线的元素名，包括
-    <cite>SVG</cite> 和 <cite>MathML</cite>
+    <cite>SVG 2</cite> 和 <cite>MathML</cite>
     <span data-x="other applicable specifications">相关标准</span>。
     <ref spec=SVG> <ref spec=MATHML></p>
    </li>
@@ -127,16 +164,16 @@
   <p><dfn data-x="custom element definition">Custom Element 定义</dfn> 描述了一个 <span>custom element</span> 的组成：</p>
 
   <dl>
-   <dt><dfn data-x="concept-custom-element-definition-name" data-export=""
-   data-dfn-for="custom element definition">name</dfn></dt>
+   <dt><dfn data-x="concept-custom-element-definition-name" export
+   for="custom element definition">name</dfn></dt>
    <dd>一个 <span data-x="valid custom element name">合法的 Custom Element 名称</span></dd>
 
-   <dt><dfn data-x="concept-custom-element-definition-local-name" data-export=""
-   data-dfn-for="custom element definition">局部名</dfn></dt>
+   <dt><dfn data-x="concept-custom-element-definition-local-name" export
+   for="custom element definition">局部名</dfn></dt>
    <dd>一个 局部名</dd>
 
-   <dt><dfn data-x="concept-custom-element-definition-constructor" data-export=""
-   data-dfn-for="custom element definition">constructor</dfn></dt>
+   <dt><dfn data-x="concept-custom-element-definition-constructor" export
+   for="custom element definition">constructor</dfn></dt>
    <dd>一个Web IDL <code data-x="idl-Function">Function</code> 回调函数类型的值，包装了
    <span data-x="custom element constructor">custom element 构造器</span></dd>
 
@@ -144,29 +181,44 @@
    <dd>一个 <code data-x="">sequence&lt;DOMString></code></dd>
 
    <dt><dfn data-x="concept-custom-element-definition-lifecycle-callbacks">生命周期回调</dfn>列表</dt>
-   <dd>一个映射，其四个键是字符串 "<code data-x="">connectedCallback</code>"，
-   "<code data-x="">disconnectedCallback</code>"， "<code data-x="">adoptedCallback</code>"，和
-   "<code data-x="">attributeChangedCallback</code>"。相应的值是 Web IDL
-   <code data-x="idl-Function">Function</code> 回调函数类型的值，或者 null。默认每一项的值都是null。</dd>
+   <dd>一个映射，其键是字符串 "<code data-x="">connectedCallback</code>"，
+   "<code data-x="">disconnectedCallback</code>"，
+   "<code data-x="">adoptedCallback</code>"，
+   "<code data-x="">attributeChangedCallback</code>"，
+   "<code data-x="">formAssociatedCallback</code>"，
+   "<code data-x="">formDisabledCallback</code>",
+   "<code data-x="">formResetCallback</code>" 和 "<code data-x="">formStateRestoreCallback</code>"。
+   相应的值是 Web IDL <code data-x="idl-Function">Function</code> 回调函数类型的值，或者 null。默认每一项的值都是null。</dd>
 
    <dt>一个<dfn data-x="concept-custom-element-definition-construction-stack">construction
    stack</dfn></dt>
    <dd>一个初始为空的列表，由 <span data-x="concept-upgrade-an-element">元素升级</span> 算法和
    和 <a href="#html-element-constructors">HTML 元素构造器</a> 操作。列表中每一项都将是一个元素或者一个
    <dfn data-x="concept-already-constructed-marker"><i>已经构造的</i> 标记</dfn>。</dd>
+
+   <dt><dfn data-x="concept-custom-element-definition-form-associated">表单相关</dfn> 布尔</dt>
+   <dd>如果为真，用户代理会把和这个 <span data-x="custom element definition">custom element 定义</span> 关联的元素当作
+   <span data-x="form-associated custom element">表单相关的 custom elements</span> 处理。</dd>
+
+   <dt><dfn data-x="concept-custom-element-definition-disable-internals">disable 内部</dfn> 布尔</dt>
+   <dd>控制 <code data-x="dom-attachInternals">attachInternals()</code>。
+
+   <dt><dfn data-x="concept-custom-element-definition-disable-shadow" export
+   for="custom element definition">禁用 shadow</dfn> 布尔</dt>
+   <dd>控制 <code data-x="dom-Element-attachShadow">attachShadow()</code>。
   </dl>
 
   <p>给定一个 <var>document</var>，<var>namespace</var>，<var>localName</var>，以及 <var>is</var>，
-  <dfn data-export="" data-x="look up a custom element definition">查找一个 custom element 的定义</dfn> 应执行下列步骤（
+  <dfn export data-x="look up a custom element definition">查找一个 custom element 的定义</dfn> 应执行下列步骤（
   返回一个 <span data-x="custom element definition">custom element 定义</span> 或 null）：</p>
 
   <ol>
-   <li><p>如果 <var>namespace</var> 不是 <span>HTML namespace</span>，返回 null。</p></li>
+   <li><p>如果 <var>namespace</var> 不是 <span data-x="html namespace">HTML 命名空间</span>，返回 null。</p></li>
 
-   <li><p>如果 <var>document</var> 没有 <span data-x="concept-document-bc">浏览环境</span>，返回 null。</p></li>
+   <li><p>如果 <var>document</var> 的 <span data-x="concept-document-bc">浏览环境</span> 是 null，返回 null。</p></li>
 
-   <li><p>令 <var>registry</var> 为 <var>document</var> 的 <span
-   data-x="concept-document-bc">浏览环境</span> 所在 <code>Window</code> 的
+   <li><p>令 <var>registry</var> 为 <var>document</var> 的
+   <span data-x="relevant global object">相关全局对象</span> 的
    <code>CustomElementRegistry</code> 对象。</p></li>
 
    <li><p>如果在 <var>registry</var> 中有一个 <span data-x="custom element definition">custom element 定义</span> 的

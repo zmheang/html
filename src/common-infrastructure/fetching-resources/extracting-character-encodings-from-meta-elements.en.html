@@ -22,7 +22,6 @@
    might not be any).</p></li>
 
    <li>
-
     <p>Process the next character as follows:</p>
 
     <dl class="switch">
@@ -41,19 +40,16 @@
      <dd>Return the result of <span>getting an encoding</span> from the substring that consists of
      this character up to but not including the first <span>ASCII whitespace</span> or U+003B
      SEMICOLON character (;), or the end of <var>s</var>, whichever comes first.</dd>
-
     </dl>
-
    </li>
-
   </ol>
 
-  <p class="note">This algorithm is distinct from those in the HTTP specification (for example, HTTP
-  doesn't allow the use of single quotes and requires supporting a backslash-escape mechanism that
-  is not supported by this algorithm<!-- not to mention not having any rules for error-handling,
-  which is of course why we're having to define it ourselves -->). While the algorithm is used in
-  contexts that, historically, were related to HTTP, the syntax as supported by implementations
-  diverged some time ago. <ref spec=HTTP></p>
+  <p class="note">This algorithm is distinct from those in the HTTP specifications (for example,
+  HTTP doesn't allow the use of single quotes and requires supporting a backslash-escape mechanism
+  that is not supported by this algorithm<!-- not to mention not having any rules for
+  error-handling, which is of course why we're having to define it ourselves -->). While the
+  algorithm is used in contexts that, historically, were related to HTTP, the syntax as supported by
+  implementations diverged some time ago. <ref spec=HTTP></p>
 
   </div>
 

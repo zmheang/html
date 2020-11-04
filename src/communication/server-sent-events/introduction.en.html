@@ -2,13 +2,13 @@
 
   <!-- NON-NORMATIVE SECTION -->
 
-  <p>To enable servers to push data to Web pages over HTTP or using dedicated server-push protocols,
+  <p>To enable servers to push data to web pages over HTTP or using dedicated server-push protocols,
   this specification introduces the <code>EventSource</code> interface.</p>
 
   <p>Using this API consists of creating an <code>EventSource</code> object and registering an event
   listener.</p>
 
-  <pre><code class="js" data-x="">var source = new EventSource('updates.cgi');
+  <pre><code class="js">var source = new EventSource('updates.cgi');
 source.onmessage = function (event) {
   alert(event.data);
 };</code></pre>
@@ -40,7 +40,7 @@ data: 113411</pre>
   <p>The script to handle such a stream would look like this (where <code data-x="">addHandler</code>
   and <code data-x="">removeHandler</code> are functions that take one argument, the event):</p>
 
-  <pre><code class="js" data-x="">var source = new EventSource('updates.cgi');
+  <pre><code class="js">var source = new EventSource('updates.cgi');
 source.addEventListener('add', addHandler, false);
 source.addEventListener('remove', removeHandler, false);</code></pre>
 

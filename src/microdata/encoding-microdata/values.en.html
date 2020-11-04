@@ -9,19 +9,15 @@
    <dt>If the element also has an <code data-x="attr-itemscope">itemscope</code> attribute</dt>
 
    <dd>
-
     <p>The value is the <span data-x="concept-item">item</span> created by the element.</p>
-
    </dd>
 
 
    <dt>If the element is a <code>meta</code> element</dt>
 
    <dd>
-
     <p>The value is the value of the element's <code data-x="attr-meta-content">content</code>
     attribute, if any, or the empty string if there is no such attribute.</p>
-
    </dd>
 
 
@@ -29,79 +25,64 @@
    <code>img</code>, <code>source</code>, <code>track</code>, or <code>video</code> element</dt>
 
    <dd>
-
     <p>The value is the <span>resulting URL string</span> that results from <span data-x="parse a
     url">parsing</span> the value of the element's <code data-x="">src</code> attribute relative to
     the <span>node document</span> of the element at the time the attribute is set, or the empty
     string if there is no such attribute or if <span data-x="parse a url">parsing</span> it results
     in an error.</p>
-
    </dd>
 
 
    <dt>If the element is an <code>a</code>, <code>area</code>, or <code>link</code> element</dt>
 
    <dd>
-
     <p>The value is the <span>resulting URL string</span> that results from <span data-x="parse a
     url">parsing</span> the value of the element's <code data-x="">href</code> attribute relative to
     the <span>node document</span> of the element at the time the attribute is set, or the empty
     string if there is no such attribute or if <span data-x="parse a url">parsing</span> it results
     in an error.</p>
-
    </dd>
 
 
    <dt>If the element is an <code>object</code> element</dt>
 
    <dd>
-
     <p>The value is the <span>resulting URL string</span> that results from <span data-x="parse a
     url">parsing</span> the value of the element's <code data-x="">data</code> attribute relative to
     the <span>node document</span> of the element at the time the attribute is set, or the empty
     string if there is no such attribute or if <span data-x="parse a url">parsing</span> it results
     in an error.</p>
-
    </dd>
 
 
    <dt>If the element is a <code>data</code> element</dt>
 
    <dd>
-
     <p>The value is the value of the element's <code data-x="attr-data-value">value</code> attribute,
     if it has one, or the empty string otherwise.</p>
-
    </dd>
 
 
    <dt>If the element is a <code>meter</code> element</dt>
 
    <dd>
-
     <p>The value is the value of the element's <code data-x="attr-meter-value">value</code> attribute,
     if it has one, or the empty string otherwise.</p>
-
    </dd>
 
 
    <dt>If the element is a <code>time</code> element</dt>
 
    <dd>
-
     <p>The value is the element's <span>datetime value</span>.</p>
-
    </dd>
 
 
    <dt>Otherwise</dt>
 
    <dd>
-
-    <p>The value is the element's <code>textContent</code>.</p>
-
+    <p>The value is the element's <span>descendant text content</span>.</p>
    </dd>
-
   </dl>
 
   <p>The <dfn>URL property elements</dfn> are the <code>a</code>, <code>area</code>,

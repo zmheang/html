@@ -15,16 +15,14 @@
   to buy two tickets for the same flight without really noticing.</p>
 
   <p>To address this, this specification introduces the <code
-  data-x="dom-sessionStorage">sessionStorage</code> IDL attribute. Sites can add data to the session
-  storage, and it will be accessible to any page from the same site opened in that window.</p> <!--
-  we're not using xrefs here because this is just an intro -->
+  data-x="dom-sessionStorage">sessionStorage</code> getter. Sites can add data to the session
+  storage, and it will be accessible to any page from the same site opened in that window.</p>
 
   <div class="example">
-
    <p>For example, a page could have a checkbox that the user ticks to
    indicate that they want insurance:</p>
 
-   <pre><code class="html" data-x="">&lt;label>
+   <pre><code class="html">&lt;label>
  &lt;input type="checkbox" onchange="sessionStorage.insurance = checked ? 'true' : ''">
   I want insurance on this trip.
 &lt;/label></code></pre>
@@ -32,11 +30,10 @@
    <p>A later page could then check, from script, whether the user had checked the checkbox or
    not:</p>
 
-   <pre><code class="js" data-x="">if (sessionStorage.insurance) { ... }</code></pre>
+   <pre><code class="js">if (sessionStorage.insurance) { ... }</code></pre>
 
    <p>If the user had multiple windows opened on the site, each one would have its own individual
    copy of the session storage object.</p>
-
   </div>
 
   <!--
@@ -55,22 +52,21 @@
   -->
 
   <p>The second storage mechanism is designed for storage that spans multiple windows, and lasts
-  beyond the current session. In particular, Web applications might wish to store megabytes of user
+  beyond the current session. In particular, web applications might wish to store megabytes of user
   data, such as entire user-authored documents or a user's mailbox, on the client side for
   performance reasons.</p>
 
   <p>Again, cookies do not handle this case well, because they are transmitted with every
   request.</p>
 
-  <p>The <code data-x="dom-localStorage">localStorage</code> IDL attribute is used to access a page's
-  local storage area.</p>
+  <p>The <code data-x="dom-localStorage">localStorage</code> getter is used to access a page's local
+  storage area.</p>
 
   <div class="example">
-
    <p>The site at example.com can display a count of how many times the user has loaded its page by
    putting the following at the bottom of its page:</p>
 
-   <pre><code class="html" data-x="">&lt;p>
+   <pre><code class="html">&lt;p>
   You have viewed this page
   &lt;span id="count">an untold number of&lt;/span>
   time(s).
@@ -81,10 +77,17 @@
   localStorage.pageLoadCount = parseInt(localStorage.pageLoadCount) + 1;
   document.getElementById('count').textContent = localStorage.pageLoadCount;
 &lt;/script></code></pre>
-
   </div>
 
   <p>Each site has its own separate storage area.</p>
+
+  <p class="warning">The <code data-x="dom-localStorage">localStorage</code> getter provides access
+  to shared state. This specification does not define the interaction with other browsing contexts
+  in a multiprocess user agent, and authors are encouraged to assume that there is no locking
+  mechanism. A site could, for instance, try to read the value of a key, increment its value, then
+  write it back out, using the new value as a unique identifier for the session; if the site does
+  this twice in two different browser windows at the same time, it might end up using the same
+  "unique" identifier for both sessions, with potentially disastrous effects.</p>
 
 
 

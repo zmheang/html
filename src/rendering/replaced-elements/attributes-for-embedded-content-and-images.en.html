@@ -2,9 +2,9 @@
 
   <p>The following CSS rules are expected to apply as <span>presentational hints</span>:</p>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
-iframe[frameborder=0], iframe[frameborder=no i] { border: none; }
+iframe[frameborder='0'], iframe[frameborder=no i] { border: none; }
 
 embed[align=left i], iframe[align=left i], img[align=left i],
 input[type=image i][align=left i], object[align=left i] {
@@ -51,13 +51,13 @@ input[type=image i][align=bottom i], object[align=bottom i] {
   agent is expected to act as if the element's <span>'vertical-align'</span> property was set to a
   value that aligns the vertical middle of the element with the parent element's baseline.</p>
 
-  <p>The <code data-x="">hspace</code> attribute of <code>embed</code>, <code>iframe</code>,
+  <p>The <code data-x="">hspace</code> attribute of <code>embed</code>,
   <code>img</code>, or <code>object</code> elements, and <code>input</code> elements with a <code
   data-x="attr-input-type">type</code> attribute in the <span data-x="attr-input-type-image">Image
   Button</span> state, <span data-x="maps to the dimension property">maps to the dimension
   properties</span> <span>'margin-left'</span> and <span>'margin-right'</span> on the element.</p>
 
-  <p>The <code data-x="">vspace</code> attribute of <code>embed</code>, <code>iframe</code>,
+  <p>The <code data-x="">vspace</code> attribute of <code>embed</code>,
   <code>img</code>, or <code>object</code> elements, and <code>input</code> elements with a <code
   data-x="attr-input-type">type</code> attribute in the <span data-x="attr-input-type-image">Image
   Button</span> state, <span data-x="maps to the dimension property">maps to the dimension
@@ -85,6 +85,22 @@ input[type=image i][align=bottom i], object[align=bottom i] {
   property">map to the dimension properties</span> <span>'width'</span> and <span>'height'</span> on
   the element respectively.</p>
 
+  <p>The <span>intrinsic aspect ratio</span> for an <code>img</code> element <var>img</var> is
+  computed as follows:</p>
+
+  <ol>
+   <li><p>If <var>img</var>'s <span>current request</span> is <span
+   data-x="img-available">available</span> and has an <span>intrinsic aspect ratio</span>, then
+   use that intrinsic aspect ratio.</p></li>
+
+   <li><p>If <var>img</var>'s <code data-x="attr-dim-width">width</code> and <code
+   data-x="attr-dim-height">height</code> attribute values, when parsed using the <span>rules for
+   parsing dimension values</span>, are both not an error, not a percentage, and non-zero, then use
+   the ratio resulting from dividing the <code data-x="attr-dim-width">width</code> attribute value
+   by the <code data-x="attr-dim-height">height</code> attribute value.</p></li>
+
+   <li><p>Otherwise, <var>img</var> has no <span>intrinsic aspect ratio</span>.</p></li>
+   </ol>
   </div>
 
 

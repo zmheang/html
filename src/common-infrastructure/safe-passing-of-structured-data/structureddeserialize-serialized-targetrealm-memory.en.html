@@ -1,6 +1,6 @@
-  <h4 id="structureddeserialize" data-export="" data-lt="StructuredDeserialize"
-  data-dfn-type="abstract-op"><dfn>StructuredDeserialize</dfn> ( <var>serialized</var>,
-  <var>targetRealm</var> [ , <var>memory</var> ] )</h4>
+  <h4 id="structureddeserialize" data-lt="StructuredDeserialize"
+  abstract-op><dfn>StructuredDeserialize</dfn> ( <var>serialized</var>, <var>targetRealm</var> [ ,
+  <var>memory</var> ] )</h4>
 
   <p>The <span>StructuredDeserialize</span> abstract operation takes as input a <span>Record</span>
   <var>serialized</var>, which was previously produced by <span>StructuredSerialize</span> or
@@ -39,7 +39,7 @@
 
    <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "BigInt", then set <var>value</var> to a
    new BigInt object in <var>targetRealm</var> whose [[BigIntData]] internal slot value is
-   <var>serialized</var>.[[BigIntData]]. <ref spec=JSBIGINT></p></li>
+   <var>serialized</var>.[[BigIntData]].</p></li>
 
    <li><p>Otherwise, if <var>serialized</var>.[[Type]] is "String", then set <var>value</var> to a
    new String object in <var>targetRealm</var> whose [[StringData]] internal slot value is
@@ -133,8 +133,8 @@
     <p>Otherwise, if <var>serialized</var>.[[Type]] is "Array", then:</p>
 
     <ol>
-     <li><p>Let <var>outputProto</var> be the <span>%ArrayPrototype%</span> intrinsic object in
-     <var>targetRealm</var>.</p></li>
+     <li><p>Let <var>outputProto</var> be
+     <var>targetRealm</var>.[[Intrinsics]].[[<span>%Array.prototype%</span>]].</p></li>
 
      <li><p>Set <var>value</var> to ! <span>ArrayCreate</span>(<var>serialized</var>.[[Length]],
      <var>outputProto</var>).</p></li>
@@ -154,14 +154,56 @@
    </li>
 
    <li>
+    <p>Otherwise, if <var>serialized</var>.[[Type]] is "Error", then:</p>
+
+    <ol>
+     <li><p>Let <var>prototype</var> be <span>%Error.prototype%</span>.</p></li>
+
+     <li><p>If <var>serialized</var>.[[Name]] is "EvalError", then set <var>prototype</var> to
+     <span>%EvalError.prototype%</span>.</p></li>
+
+     <li><p>If <var>serialized</var>.[[Name]] is "RangeError", then set <var>prototype</var>
+     to <span>%RangeError.prototype%</span>.</p></li>
+
+     <li><p>If <var>serialized</var>.[[Name]] is "ReferenceError", then set
+     <var>prototype</var> to <span>%ReferenceError.prototype%</span>.</p></li>
+
+     <li><p>If <var>serialized</var>.[[Name]] is "SyntaxError", then set <var>prototype</var>
+     to <span>%SyntaxError.prototype%</span>.</p></li>
+
+     <li><p>If <var>serialized</var>.[[Name]] is "TypeError", then set <var>prototype</var> to
+     <span>%TypeError.prototype%</span>.</p></li>
+
+     <li><p>If <var>serialized</var>.[[Name]] is "URIError", then set <var>prototype</var> to
+     <span>%URIError.prototype%</span>.</p></li>
+
+     <li><p>Let <var>message</var> be <var>serialized</var>.[[Message]].</p></li>
+
+     <li><p>Set <var>value</var> to ! <span>ObjectCreate</span>(<var>prototype</var>, «
+     [[ErrorData]] »).</p></li>
+
+     <li><p>Let <var>messageDesc</var> be <span>PropertyDescriptor</span>{ [[Value]]:
+     <var>message</var>, [[Writable]]: true, [[Enumerable]]: false, [[Configurable]]: true
+     }.</p></li>
+
+     <li><p>If <var>message</var> is not undefined, then perform !
+     <span>OrdinaryDefineOwnProperty</span>(<var>value</var>, "<code data-x="">message</code>",
+     <var>messageDesc</var>).</p></li>
+
+     <li><p>Any interesting accompanying data attached to <var>serialized</var> should be
+     deserialized and attached to <var>value</var>.</p></li>
+    </ol>
+   </li>
+
+   <li>
     <p>Otherwise:</p>
 
     <ol>
      <li><p>Let <var>interfaceName</var> be <var>serialized</var>.[[Type]].</p></li>
 
-     <li><p>If the interface identified by <var>interfaceName</var> is not exposed in
-     <var>targetRealm</var>, then throw a <span>"<code>DataCloneError</code>"</span>
-     <code>DOMException</code>.</p></li>
+     <li><p>If the interface identified by <var>interfaceName</var> is not
+     <span data-x="idl-exposed">exposed</span> in <var>targetRealm</var>, then throw a
+     <span>"<code>DataCloneError</code>"</span> <code>DOMException</code>.</p></li>
 
      <li><p>Set <var>value</var> to a new instance of the interface identified by
      <var>interfaceName</var>, created in <var>targetRealm</var>.</p>
@@ -252,7 +294,7 @@
         by <var>serialized</var>.[[Type]], given <var>serialized</var> and <var>value</var>.</p>
 
         <p>The <span>deserialization steps</span> may need to perform a <dfn
-        data-export="">sub-deserialization</dfn>. This is an operation which takes as input a
+        export>sub-deserialization</dfn>. This is an operation which takes as input a
         previously-serialized <span>Record</span> <var>subSerialized</var>, and returns
         <span>StructuredDeserialize</span>(<var>subSerialized</var>, <var>targetRealm</var>,
         <var>memory</var>). (In other words, a <span>sub-deserialization</span> is a specialization

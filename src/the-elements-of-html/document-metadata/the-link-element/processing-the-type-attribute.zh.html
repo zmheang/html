@@ -5,14 +5,14 @@
   例如空字符串）。 如果忽略了该属性，但 <span data-x="external resource link">
   外部资源链接</span> 类型定义有默认值，则用户代理必须假定该资源属于那种类型。
   如果 UA 对指定的链接关系不支持给定的 <span data-x="MIME type">MIME 类型</span>，
-  那么 UA 不应 <span data-x="concept-link-obtain">获取</span> 该资源；如果 UA
+  那么 UA 不应 <span data-x="fetch and process the linked resource">获取和处理</span> 该资源；如果 UA
   对指定的链接关系支持给定的 <span data-x="MIME type">MIME 类型</span>，
   那么 UA 应该按照 <span data-x="external resource link">外部资源链接</span> 的特定类型所指定的
-  适当时机 <span data-x="concept-link-obtain">获取</span> 该资源。
+  适当时机 <span data-x="fetch and process the linked resource">获取和处理</span> 该资源。
   如果忽略了该属性，且 <span data-x="external resource link">外部资源链接</span>
   类型没有定义默认值，但如果已知类型且支持的话用户代理会
-  <span data-x="concept-link-obtain">获取</span> 该资源，
-  那么用户代理就应该假设支持该资源并且 <span data-x="concept-link-obtain">获取</span> 它。</p>
+  <span data-x="fetch and process the linked resource">获取和处理</span> 该资源，
+  那么用户代理就应该假设支持该资源并且 <span data-x="fetch and process the linked resource">获取和处理</span> 它。</p>
 
   <p>用户代理不得将 <code data-x="attr-link-type">type</code> 属性当做权威的
   &mdash; 也就是说获取该资源时用户代理不得使用 <code data-x="attr-link-type">type</code>
@@ -39,9 +39,9 @@
 
    <p>如果一个文档包含如下标记的样式表链接：</p>
 
-   <pre>&lt;link rel="stylesheet" href="A" type="text/plain"&gt;
+   <pre><code class="html">&lt;link rel="stylesheet" href="A" type="text/plain"&gt;
 &lt;link rel="stylesheet" href="B" type="text/css"&gt;
-&lt;link rel="stylesheet" href="C"&gt;</pre>
+&lt;link rel="stylesheet" href="C"&gt;</code></pre>
 
    <p>那么一个只支持 CSS 样式表的满足规范的 UA 会获取 B 和 C 文件，
    并跳过 A （因为 <code>text/plain</code> 不是 CSS 样式表的 <span>MIME type</span>）。</p>

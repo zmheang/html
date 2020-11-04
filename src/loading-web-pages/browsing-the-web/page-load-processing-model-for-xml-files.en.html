@@ -1,14 +1,16 @@
   <h4 id="read-xml"><dfn data-x="navigate-xml">Page load processing model for XML files</dfn></h4>
 
-  <p>When faced with displaying an XML file inline, user agents must follow the requirements defined
-  in the XML and Namespaces in XML recommendations, RFC 7303, DOM, and other relevant specifications
-  to create a <code>Document</code> object and a corresponding <span>XML parser</span>. <ref spec=XML> <ref spec=XMLNS> <ref spec=RFC7303> <ref spec=DOM></p>
+  <p>When faced with displaying an XML file inline, provided <span>navigation params</span>
+  <var>navigationParams</var> and a string <var>type</var>, user agents must follow the requirements
+  defined in <cite>XML</cite> and <cite>Namespaces in XML</cite>, <cite>XML Media Types</cite>,
+  <cite>DOM</cite>, and other relevant specifications to <span
+  data-x="create-the-document-object">create and initialize a <code>Document</code> object</span>
+  given "<code data-x="">xml</code>", <var>type</var>, and <var>navigationParams</var>. They must
+  also create a corresponding <span>XML parser</span>. <ref spec=XML> <ref spec=XMLNS> <ref
+  spec=RFC7303> <ref spec=DOM></p>
 
   <p class="note">At the time of writing, the XML specification community had not actually yet
   specified how XML and the DOM interact.</p> <!--XMLPARSE-->
-
-  <p>After the <code>Document</code> is created, the user agent must <span>initialize the
-  <code>Document</code> object</span>.</p>
 
   <p>The actual HTTP headers and other metadata, not the headers as mutated or implied by the
   algorithms given in this specification, are the ones that must be used when determining the
@@ -16,7 +18,7 @@
   encoding is established, the <span>document's character encoding</span> must be set to that
   character encoding.</p>
 
-  <p>If the <span>document element</span>, as parsed according to the XML specifications cited
+  <p>If the <span>document element</span>, as parsed according to <cite>XML</cite> cited
   above, is found to be an <code>html</code> element with an attribute <code
   data-x="attr-html-manifest">manifest</code> whose value is not the empty string, then, as soon as
   the element is <span data-x="node is inserted into a document">inserted into the document</span>,
@@ -38,19 +40,12 @@
   data-x="">&lt;?xml-stylesheet?></code> PIs) will be fetched from the network and cannot be
   cached.</p><!-- v2: fix this somehow -->
 
-  <p>User agents may examine the namespace of the root <code>Element</code> node of this
-  <code>Document</code> object to perform namespace-based dispatch to alternative processing tools,
-  e.g. determining that the content is actually a syndication feed and passing it to a feed handler.
-  If such processing is to take place, abort the steps in this section, and jump to <a
-  href="#navigate-non-Document">the next step</a> (labeled <i>non-document content</i>) in the
-  <span>navigate</span> steps above.</p>
+  <p>Then, with the newly created <code>Document</code>, the user agent must <span>update the
+  session history with the new page</span> given <var>navigationParams</var>. User agents may do
+  this before the complete document has been parsed (thus achieving <i>incremental rendering</i>),
+  and must do this before any scripts are to be executed.</p>
 
-  <p>Otherwise, then, with the newly created <code>Document</code>, the user agent must <span>update
-  the session history with the new page</span>. User agents may do this before the complete document
-  has been parsed (thus achieving <i>incremental rendering</i>), and must do this before any scripts
-  are to be executed.</p>
-
-  <p>Error messages from the parse process (e.g. XML namespace well-formedness errors) may be
+  <p>Error messages from the parse process (e.g., XML namespace well-formedness errors) may be
   reported inline by mutating the <code>Document</code>.</p>
 
 

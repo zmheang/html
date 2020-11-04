@@ -1,109 +1,129 @@
-  <h5>Definitions</h5>
+  <h5 w-nodev>Definitions</h5>
 
   <p>To coordinate events, user interaction, scripts, rendering, networking, and so forth, user
-  agents must use <dfn data-x="event loop" data-lt="event loop" data-export="">event loops</dfn> as
-  described in this section. There are two kinds of event loops: those for <span
-  data-x="browsing context">browsing contexts</span>, and those for <a
-  href="#workers">workers</a>.</p>
+  agents must use <dfn data-x="event loop" data-lt="event loop" export>event loops</dfn> as
+  described in this section. Each <span>agent</span> has an associated <dfn export for="agent"
+  data-x="concept-agent-event-loop">event loop</dfn>, which is unique to that agent.</p>
 
-  <p>There must be at least one <span>browsing context</span> <span>event loop</span> per user
-  agent, and at most one per <span>unit of related similar-origin browsing contexts</span>.</p>
+  <p>The <span data-x="concept-agent-event-loop">event loop</span> of a <span>similar-origin window
+  agent</span> is known as a <dfn>window event loop</dfn>. The <span
+  data-x="concept-agent-event-loop">event loop</span> of a <span>dedicated worker agent</span>,
+  <span>shared worker agent</span>, or <span>service worker agent</span> is known as a <dfn>worker
+  event loop</dfn>. And the <span data-x="concept-agent-event-loop">event loop</span> of a
+  <span>worklet agent</span> is known as a <dfn>worklet event loop</dfn>.</p>
 
-  <p class="note">When there is more than one <span>event loop</span> for a <span>unit of related
-  browsing contexts</span>, complications arise when a <span>browsing context</span> in that group
-  is <span data-x="navigate">navigated</span> such that it switches from one <span>unit of related
-  similar-origin browsing contexts</span> to another. This specification does not currently describe
-  how to handle these complications.</p>
+  <div class="note">
+   <p><span data-x="event loop">Event loops</span> do not necessarily correspond to implementation
+   threads. For example, multiple <span data-x="window event loop">window event loops</span> could
+   be cooperatively scheduled in a single thread.</p>
 
-  <p>A <span>browsing context</span> <span>event loop</span> always has at least one <span>browsing
-  context</span>. If such an <span>event loop</span>'s <span data-x="browsing context">browsing
-  contexts</span> all go away, then the <span>event loop</span> goes away as well. A <span>browsing
-  context</span> always has an <span>event loop</span> coordinating its activities.</p>
+   <p>However, for the various worker <span data-x="agent">agents</span> that are allocated with
+   [[CanBlock]] set to true, the JavaScript specification does place requirements on them regarding
+   <span>forward progress</span>, which effectively amount to requiring dedicated per-agent threads
+   in those cases.</p>
+  </div>
 
-  <p><a href="#worker-event-loop">Worker event loops</a> are simpler: each worker has one
-  <span>event loop</span>, and the <span data-x="run a worker">worker processing model</span>
-  manages the <span>event loop</span>'s lifetime.</p>
+  <div w-nodev>
 
   <hr>
 
   <p>An <span>event loop</span> has one or more <dfn data-x="task queue">task queues</dfn>. A
-  <span>task queue</span> is an ordered list of <dfn data-x="concept-task" data-lt="task"
-  data-export="">tasks</dfn>, which are algorithms that are responsible for such work as:</p>
+  <span>task queue</span> is a <span>set</span> of <span data-x="concept-task">tasks</span>.</p>
+
+  <p class="note"><span data-x="task queue">Task queues</span> are <span data-x="set">sets</span>,
+  not <span data-x="queue">queues</span>, because <a href="#step1">step one of the event loop
+  processing model</a> grabs the first <span data-x="concept-task-runnable"><em>runnable</em></span>
+  <span data-x="concept-task">task</span> from the chosen queue, instead of <span
+  data-x="dequeue">dequeuing</span> the first task.</p>
+
+  <p class="note">The <span>microtask queue</span> is not a <span>task queue</span>.</p>
+
+  <p>Tasks encapsulate algorithms that are responsible for such work as:</p>
 
   <dl>
-
    <dt>Events</dt>
-
    <dd>
-
     <p>Dispatching an <code>Event</code> object at a particular
     <code>EventTarget</code> object is often done by a dedicated task.</p>
 
-    <p class="note">Not all events are dispatched using the <span>task queue</span>, many are
+    <p class="note">Not all events are dispatched using the <span>task queue</span>; many are
     dispatched during other tasks.</p>
-
    </dd>
 
-
    <dt>Parsing</dt>
-
    <dd><p>The <span>HTML parser</span> tokenizing one or more bytes, and then processing any
    resulting tokens, is typically a task.</p></dd>
 
-
    <dt>Callbacks</dt>
-
    <dd><p>Calling a callback is often done by a dedicated task.</p></dd>
 
 
    <dt>Using a resource</dt>
-
    <dd><p>When an algorithm <span data-x="concept-fetch">fetches</span> a resource, if the fetching
    occurs in a non-blocking fashion then the processing of the resource once some or all of the
    resource is available is performed by a task.</p></dd>
 
-
    <dt>Reacting to DOM manipulation</dt>
-
    <dd><p>Some elements have tasks that trigger in response to DOM manipulation, e.g. when that
    element is <span data-x="node is inserted into a document">inserted into the document</span>.</p>
-
   </dl>
 
-  <p>Each <span data-x="concept-task">task</span> in a <span>browsing context</span> <span>event
-  loop</span> is associated with a <code>Document</code>; if the task was queued in the context of
-  an element, then it is the element's <span>node document</span>; if the task was queued in the context
-  of a <span>browsing context</span>, then it is the <span>browsing context</span>'s <span>active
-  document</span> at the time the task was queued; if the task was queued by or for a <span
-  data-x="concept-script">script</span> then the document is the <span>responsible document</span>
-  specified by the script's <span>settings object</span>.</p>
+  <p>Formally, a <dfn data-x="concept-task" data-lt="task" export>task</dfn> is a
+  <span>struct</span> which has:</p>
 
-  <p>A <span data-x="concept-task">task</span> is intended for a specific <span>event loop</span>:
-  the <span>event loop</span> that is handling <span data-x="concept-task">tasks</span> for the
-  <span data-x="concept-task">task</span>'s associated <code>Document</code> or <a
-  href="#workers">worker</a>.</p>
+  <dl>
+   <dt><dfn data-x="concept-task-steps">Steps</dfn></dt>
+   <dd>A series of steps specifying the work to be done by the task.</dd>
 
-  <p>When a user agent is to <dfn data-export="">queue a task</dfn>, it must add the given task to
-  one of the <span data-x="task queue">task queues</span> of the relevant <span>event
-  loop</span>.</p>
+   <dt>A <dfn data-x="concept-task-source">source</dfn></dt>
+   <dd>One of the <span data-x="task source">task sources</span>, used to group and serialize
+   related tasks.</dd>
 
-  <p>Each <span data-x="concept-task">task</span> is defined as coming from a specific <dfn
-  data-export="">task source</dfn>. All the tasks from one particular <span>task source</span> and
-  destined to a particular <span>event loop</span> (e.g. the callbacks generated by timers of a
-  <code>Document</code>, the events fired for mouse movements over that <code>Document</code>, the
-  tasks queued for the parser of that <code>Document</code>) must always be added to the same
-  <span>task queue</span>, but <span data-x="concept-task">tasks</span> from different <span
-  data-x="task source">task sources</span> may be placed in different <span data-x="task queue">task
-  queues</span>.</p>
+   <dt>A <dfn data-x="concept-task-document">document</dfn></dt>
+   <dd>A <code>Document</code> associated with the task, or null for tasks that are not in a
+   <span>window event loop</span>.</dd>
+
+   <dt>A <dfn export>script evaluation environment settings object set</dfn></dt>
+   <dd>A <span>set</span> of <span data-x="environment settings object">environment settings
+   objects</span> used for tracking script evaluation during the task.</dd>
+  </dl>
+
+  <p>A <span data-x="concept-task">task</span> is <dfn data-x="concept-task-runnable">runnable</dfn>
+  if its <span data-x="concept-task-document">document</span> is either null or <span>fully
+  active</span>.</p>
+
+  <p>Per its <span data-x="concept-task-source">source</span> field, each <span
+  data-x="concept-task">task</span> is defined as coming from a specific <dfn export>task
+  source</dfn>. For each <span>event loop</span>, every <span>task source</span> must be associated
+  with a specific <span>task queue</span>.</p>
+
+  <p class="note">Essentially, <span data-x="task source">task sources</span> are used within
+  standards to separate logically-different types of tasks, which a user agent might wish to
+  distinguish between. <span data-x="task queue">Task queues</span> are used by user agents to
+  coalesce task sources within a given <span>event loop</span>.</p>
 
   <p class="example">For example, a user agent could have one <span>task queue</span> for mouse and
-  key events (the <span>user interaction task source</span>), and another for everything else. The
-  user agent could then give keyboard and mouse events preference over other tasks three quarters of
-  the time, keeping the interface responsive but not starving other task queues, and never
-  processing events from any one <span>task source</span> out of order.</p>
+  key events (to which the <span>user interaction task source</span> is associated), and another to
+  which all other <span data-x="task source">task sources</span> are associated. Then, using the
+  freedom granted in the initial step of the <a href="#event-loop-processing-model">event loop
+  processing model</a>, it could give keyboard and mouse events preference over other tasks
+  three-quarters of the time, keeping the interface responsive but not starving other task queues.
+  Note that in this setup, the processing model still enforces that the user agent would never
+  process events from any one <span>task source</span> out of order.</p>
 
-  <p>Each <span>event loop</span> has a <dfn>currently running task</dfn>. Initially, this is null.
-  It is used to handle reentrancy. Each <span>event loop</span> also has a <dfn>performing a
-  microtask checkpoint</dfn> flag, which must initially be false. It is used to prevent reentrant
-  invocation of the <span>perform a microtask checkpoint</span> algorithm.</p>
+  <hr>
+
+  <p>Each <span>event loop</span> has a <dfn>currently running task</dfn>, which is either a <span
+  data-x="concept-task">task</span> or null. Initially, this is null. It is used to handle
+  reentrancy.</p>
+
+  <p>Each <span>event loop</span> has a <dfn>microtask queue</dfn>, which is a <span>queue</span> of
+  <span data-x="microtask">microtasks</span>, initially empty. A <dfn export>microtask</dfn> is a
+  colloquial way of referring to a <span data-x="concept-task">task</span> that was created via the
+  <span>queue a microtask</span> algorithm.</p>
+
+  <p>Each <span>event loop</span> has a <dfn>performing a microtask checkpoint</dfn> boolean,
+  which is initially false. It is used to prevent reentrant invocation of the <span>perform a
+  microtask checkpoint</span> algorithm.</p>
+
 

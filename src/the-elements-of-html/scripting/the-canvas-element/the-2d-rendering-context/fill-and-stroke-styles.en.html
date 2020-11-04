@@ -5,29 +5,24 @@
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-fillStyle">fillStyle</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the current style used for filling shapes.</p>
 
     <p>Can be set, to change the fill style.</p>
 
     <p>The style can be either a string containing a CSS color, or a <code>CanvasGradient</code> or
     <code>CanvasPattern</code> object. Invalid values are ignored.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-strokeStyle">strokeStyle</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the current style used for stroking shapes.</p>
 
     <p>Can be set, to change the stroke style.</p>
 
     <p>The style can be either a string containing a CSS color, or a <code>CanvasGradient</code> or
     <code>CanvasPattern</code> object. Invalid values are ignored.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -130,39 +125,32 @@
    <dt><var>gradient</var> . <code subdfn data-x="dom-canvasgradient-addColorStop">addColorStop</code>(<var>offset</var>, <var>color</var>)</dt>
 
    <dd>
-
     <p>Adds a color stop with the given color to the gradient at the given offset. 0.0 is the offset
     at one end of the gradient, 1.0 is the offset at the other end.</p>
 
     <p>Throws an <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> if the offset
     is out of range. Throws a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> if
     the color cannot be parsed.</p>
-
    </dd>
 
    <dt><var>gradient</var> = <var>context</var> . <code subdfn data-x="dom-context-2d-createLinearGradient">createLinearGradient</code>(<var>x0</var>, <var>y0</var>, <var>x1</var>, <var>y1</var>)</dt>
 
    <dd>
-
     <p>Returns a <code>CanvasGradient</code> object that represents a
     linear gradient that paints along the line given by the
     coordinates represented by the arguments.</p>
-
    </dd>
 
    <dt><var>gradient</var> = <var>context</var> . <code subdfn data-x="dom-context-2d-createRadialGradient">createRadialGradient</code>(<var>x0</var>, <var>y0</var>, <var>r0</var>, <var>x1</var>, <var>y1</var>, <var>r1</var>)</dt>
 
    <dd>
-
     <p>Returns a <code>CanvasGradient</code> object that represents a
     radial gradient that paints along the cone given by the circles
     represented by the arguments.</p>
 
     <p>If either of the radii are negative, throws an
     <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> exception.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -229,12 +217,10 @@
   <p>Radial gradients must be rendered by following these steps:</p>
 
   <ol>
-
    <li><p>If <var>x<sub>0</sub></var>&nbsp;=&nbsp;<var>x<sub>1</sub></var> and <var>y<sub>0</sub></var>&nbsp;=&nbsp;<var>y<sub>1</sub></var> and <var>r<sub>0</sub></var>&nbsp;=&nbsp;<var>r<sub>1</sub></var>, then the radial gradient must
    paint nothing. Return.</p></li>
 
    <li>
-
     <p>Let <span data-x="">x(<var>&omega;</var>)&nbsp;=&nbsp;(<var>x<sub>1</sub></var>-<var>x<sub>0</sub></var>)<var>&omega;</var>&nbsp;+&nbsp;<var>x<sub>0</sub></var></span></p>
 
     <p>Let <span data-x="">y(<var>&omega;</var>)&nbsp;=&nbsp;(<var>y<sub>1</sub></var>-<var>y<sub>0</sub></var>)<var>&omega;</var>&nbsp;+&nbsp;<var>y<sub>0</sub></var></span></p>
@@ -244,14 +230,12 @@
     <p>Let the color at <var>&omega;</var> be the color at that position on the gradient
     (with the colors coming from the <a href="#interpolation">interpolation and extrapolation</a>
     described above).</p>
-
    </li>
 
    <li><p>For all values of <var>&omega;</var> where <span data-x="">r(<var>&omega;</var>)&nbsp;&gt;&nbsp;0</span>, starting with the value of <var>&omega;</var> nearest to positive infinity and ending with the value of <var>&omega;</var> nearest to negative infinity, draw the circumference of the circle with
    radius <span data-x="">r(<var>&omega;</var>)</span> at position (<span data-x="">x(<var>&omega;</var>)</span>, <span data-x="">y(<var>&omega;</var>)</span>), with the
    color at <var>&omega;</var>, but only painting on the parts of the bitmap that have not
    yet been painted on by earlier circles in this step for this rendering of the gradient.</p></li>
-
   </ol>
 
   <p class="note">This effectively creates a cone, touched by the two circles defined in the
@@ -277,7 +261,6 @@
    <dt><var>pattern</var> = <var>context</var> . <code subdfn data-x="dom-context-2d-createPattern">createPattern</code>(<var>image</var>, <var>repetition</var>)</dt>
 
    <dd>
-
     <p>Returns a <code>CanvasPattern</code> object that uses the given image and repeats in the
     direction(s) given by the <var>repetition</var> argument.</p>
 
@@ -287,18 +270,14 @@
 
     <p>If the image isn't yet fully decoded, then nothing is drawn. If the image is a canvas with no
     data, throws an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.</p>
-
    </dd>
 
    <dt><var>pattern</var> . <code subdfn data-x="dom-canvaspattern-setTransform">setTransform</code>(<var>transform</var>)</dt>
 
    <dd>
-
     <p>Sets the transformation matrix that will be used when rendering the pattern during a fill or
     stroke painting operation.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -317,9 +296,9 @@
    <li><p>If <var>repetition</var> is the empty string, then set it to "<code
    data-x="">repeat</code>".</p>
 
-   <li><p>If <var>repetition</var> is not a <span>case-sensitive</span> match for one of
-   "<code data-x="">repeat</code>", "<code data-x="">repeat-x</code>", "<code
-   data-x="">repeat-y</code>", or "<code data-x="">no-repeat</code>", then throw a
+   <li><p>If <var>repetition</var> is not <span>identical to</span> one of "<code
+   data-x="">repeat</code>", "<code data-x="">repeat-x</code>", "<code data-x="">repeat-y</code>",
+   or "<code data-x="">no-repeat</code>", then throw a
    <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Let <var>pattern</var> be a new <code>CanvasPattern</code> object with the image
@@ -358,11 +337,9 @@
   determine what is rendered:</p>
 
   <ol>
-
    <li><p>Create an infinite <span>transparent black</span> bitmap.</p></li>
 
    <li>
-
     <p>Place a copy of the image on the bitmap, anchored such that its top left corner is at the
     origin of the coordinate space, with one coordinate space unit per <span data-x="'px'">CSS
     pixel</span> of the image, then place repeated copies of this image horizontally to the left and
@@ -383,7 +360,6 @@
     pixel's coordinates to the original image's dimensions. (That is, the filter uses 'repeat'
     behavior, regardless of the value of the pattern's repetition behavior.)</p> <!-- drawImage()
     has similar paragraphs with different rules -->
-
    </li>
 
    <li><p>Transform the resulting bitmap according to the pattern's transformation matrix.</p></li>
@@ -396,7 +372,6 @@
 
    <li><p>The resulting bitmap is what is to be rendered, with the same origin and same
    scale.</p></li>
-
   </ol>
 
   <hr>

@@ -1,4 +1,4 @@
-  <h4 data-dfn-type="element" data-lt="style">The <dfn><code>style</code></dfn> element</h4>
+  <h4 element data-lt="style">The <dfn><code>style</code></dfn> element</h4>
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
@@ -12,12 +12,19 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-style-media">media</code></dd>
    <dd>Also, the <code data-x="attr-style-title">title</code> attribute <span data-x="attr-style-title">has special semantics</span> on this element.</dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-style">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-style">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-style-media">media</span>;
+
+  // <a href="#HTMLStyleElement-partial">also has obsolete members</a>
 };
 <span>HTMLStyleElement</span> includes <span>LinkStyle</span>;</code></pre>
    </dd>
@@ -29,11 +36,12 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
   model. The element does not <span data-x="represents">represent</span> content for the
   user.</p>
 
-  <p>The <dfn><code data-x="attr-style-media">media</code></dfn> attribute says which media the
-  styles apply to. The value must be a <span>valid media query list</span>. <span w-nodev>The user
-  agent must apply the styles when the <code data-x="attr-style-media">media</code> attribute's
-  value <span>matches the environment</span> and the other relevant conditions apply, and must not
-  apply them otherwise.</span></p><!-- note similar text in <link> element section -->
+  <p>The <dfn element-attr for="style"><code data-x="attr-style-media">media</code></dfn> attribute
+  says which media the styles apply to. The value must be a <span>valid media query list</span>.
+  <span w-nodev>The user agent must apply the styles when the <code
+  data-x="attr-style-media">media</code> attribute's value <span>matches the environment</span> and
+  the other relevant conditions apply, and must not apply them otherwise.</span></p><!-- note
+  similar text in <link> element section -->
 
   <div w-nodev>
 
@@ -47,13 +55,13 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
   attribute is omitted, is "<code data-x="">all</code>", meaning that by default styles apply to all
   media.</p>
 
-  <p id="title-on-style">The <dfn><code data-x="attr-style-title">title</code></dfn> attribute on
-  <code>style</code> elements defines <span data-x="CSS style sheet set">CSS style sheet
-  sets</span>. If the <code>style</code> element has no <code data-x="attr-style-title">title</code>
-  attribute, then it has no title; the <code data-x="attr-title">title</code> attribute of ancestors
-  does not apply to the <code>style</code> element. If the <code>style</code> element is not
-  <span>in a document tree</span>, then the <code data-x="attr-style-title">title</code> attribute
-  is ignored. <ref spec=CSSOM></p>
+  <p id="title-on-style">The <dfn element-attr for="style"><code
+  data-x="attr-style-title">title</code></dfn> attribute on <code>style</code> elements defines
+  <span data-x="CSS style sheet set">CSS style sheet sets</span>. If the <code>style</code> element
+  has no <code data-x="attr-style-title">title</code> attribute, then it has no title; the <code
+  data-x="attr-title">title</code> attribute of ancestors does not apply to the <code>style</code>
+  element. If the <code>style</code> element is not <span>in a document tree</span>, then the <code
+  data-x="attr-style-title">title</code> attribute is ignored. <ref spec=CSSOM></p>
 
   <p class="note">The <code data-x="attr-style-title">title</code> attribute on <code>style</code>
   elements, like the <code data-x="attr-link-title">title</code> attribute on <code>link</code>
@@ -73,21 +81,19 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
   <!-- note that a browsing context isn't needed:
        https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2739 -->
 
-  <ul>
-   <li><p>The element is popped off the <span>stack of open elements</span> of an <span>HTML
-   parser</span> or <span>XML parser</span>.</p></li>
+  <ul> <li><p>The element is popped off the <span>stack of open elements</span> of an <span>HTML
+  parser</span> or <span>XML parser</span>.</p></li>
 
    <li><p>The element is not on the <span>stack of open elements</span> of an <span>HTML
    parser</span> or <span>XML parser</span>, and it <span>becomes connected</span> or <span
    data-x="becomes disconnected">disconnected</span>.</p></li>
 
-   <li><p>The element's <span>child text content change steps</span> run.</p></li>
+   <li><p>The element's <span>children changed steps</span> run.</p></li>
   </ul>
 
-  <p>The <dfn data-export="">update a <code>style</code> block</dfn> algorithm is as follows:</p>
+  <p>The <dfn export>update a <code>style</code> block</dfn> algorithm is as follows:</p>
 
   <ol>
-
    <li><p>Let <var>element</var> be the <code>style</code> element.</p></li>
 
    <li><p>If <var>element</var> has an <span>associated CSS style sheet</span>, <span
@@ -112,14 +118,12 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
    <li><p>If the <span>Should element's inline behavior be blocked by Content Security
    Policy?</span> algorithm returns "<code data-x="">Blocked</code>" when executed upon the
    <code>style</code> element, "<code data-x="">style</code>", and the <code>style</code>
-   element's <span>child text content</span>, then return. <ref spec="CSP"></p></li>
+   element's <span>child text content</span>, then return. <ref spec=CSP></p></li>
 
    <li>
-
     <p><span>Create a CSS style sheet</span> with the following properties:</p>
 
     <dl>
-
      <dt><span data-x="concept-css-style-sheet-type">type</span></dt>
      <dd><p><code>text/css</code></p></dd>
 
@@ -129,24 +133,20 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
      <dt><span data-x="concept-css-style-sheet-media">media</span></dt>
 
      <dd>
-
       <p>The <code data-x="attr-style-media">media</code> attribute of <var>element</var>.</p>
 
       <p class="note">This is a reference to the (possibly absent at this time) attribute, rather
-      than a copy of the attribute's current value. The CSSOM specification defines what happens
+      than a copy of the attribute's current value. <cite>CSSOM</cite> defines what happens
       when the attribute is dynamically set, changed, or removed.</p>
-
      </dd>
 
      <dt><span data-x="concept-css-style-sheet-title">title</span></dt>
 
      <dd>
-
       <p>The <code data-x="attr-style-title">title</code> attribute of <var>element</var>, if
       <var>element</var> is <span>in a document tree</span>, or the empty string otherwise.</p>
 
       <p class="note">Again, this is a <em>reference</em> to the attribute.</p>
-
      </dd>
 
      <dt><span data-x="concept-css-style-sheet-alternate-flag">alternate flag</span></dt>
@@ -167,37 +167,65 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
      <dd>
       <p>Left uninitialized.</p>
 
-      <p class="&#x0058;&#x0058;&#x0058;">This doesn't seem right. Presumably we should be using the
-      element's <span>child text content</span>? Tracked as <a
+      <p class="XXX">This doesn't seem right. Presumably we should be using the element's
+      <span>child text content</span>? Tracked as <a
       href="https://github.com/whatwg/html/issues/2997">issue #2997</a>.</p>
      </dd>
-
     </dl>
 
     <!-- <p>All <span data-x="URL">URLs</span> found by the styling language's processor must be
     <span data-x="parse a url">parsed</span>, relative to the element's node document (or as defined
     by the styling language), when the processor is invoked.</p>--><!-- so dynamic changes to the
     base URL don't affect the CSS -->
-
    </li>
-
   </ol>
 
-  <!-- the next few paragraph are similar to text in the <link> section -->
+  <!-- the following steps are similar to the text in the <link> element's default process the
+  linked resource algorithm -->
   <p>Once the attempts to obtain the style sheet's <span>critical subresources</span>, if any, are
   complete, or, if the style sheet has no <span>critical subresources</span>, once the style sheet
-  has been parsed and processed, the user agent must, if the loads were successful or there were
-  none, <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named
-  <code data-x="event-load">load</code> at the <code>style</code> element, or, if one of the style
-  sheet's <span>critical subresources</span> failed to completely load for any reason (e.g. DNS
-  error, HTTP 404 response, a connection being prematurely closed, unsupported Content-Type),
-  <span>queue a task</span> to <span data-x="concept-event-fire">fire an event</span> named <code
-  data-x="event-error">error</code> at the <code>style</code> element. Non-network errors in
-  processing the style sheet or its subresources (e.g. CSS parse errors, PNG decoding errors) are
-  not failures for the purposes of this paragraph.</p>
+  has been parsed and processed, the user agent must run these steps:</p>
 
-  <p>The <span>task source</span> for these <span data-x="concept-task">tasks</span> is the <span>DOM
-  manipulation task source</span>.</p>
+  <ol>
+   <li><p>Let <var>element</var> be the <code>style</code> element associated with the style sheet
+   in question.</p></li>
+
+   <li><p>Let <var>success</var> be true.</p></li>
+
+   <li>
+    <p>If the attempts to obtain any of the style sheet's <span>critical subresources</span> failed
+    for any reason (e.g., DNS error, HTTP 404 response, a connection being prematurely closed,
+    unsupported Content-Type), set <var>success</var> to false.</p>
+
+    <p class="note">Note that content-specific errors, e.g., CSS parse errors or PNG decoding
+    errors, do not affect <var>success</var>.</p>
+   </li>
+
+   <li>
+    <p><span>Queue an element task</span> on the <span>networking task source</span> given
+    <var>element</var> and the following steps:</p>
+
+    <ol>
+     <li><p>If <var>success</var> is true, <span data-x="concept-event-fire">fire an event</span>
+     named <code data-x="event-load">load</code> at <var>element</var>.</p></li>
+
+     <li><p>Otherwise, <span data-x="concept-event-fire">fire an event</span> named <code
+     data-x="event-error">error</code> at <var>element</var>.</p></li>
+
+     <li>
+      <p>If <var>element</var> <span>contributes a script-blocking style sheet</span>:</p>
+
+      <ol>
+       <li><p>Assert: <var>element</var>'s <span>node document</span>'s <span>script-blocking style
+       sheet counter</span> is greater than 0.</p></li>
+
+       <li><p>Decrement <var>element</var>'s <span>node document</span>'s <span>script-blocking
+       style sheet counter</span> by 1.</p></li>
+      </ol>
+     </li>
+    </ol>
+   </li>
+  </ol>
 
   <p>The element must <span>delay the load event</span> of the element's <span>node document</span> until all the
   attempts to obtain the style sheet's <span>critical subresources</span>, if any, are complete.</p>
@@ -205,12 +233,12 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
   </div>
 
   <p class="note">This specification does not specify a style system, but CSS is expected to be
-  supported by most Web browsers. <ref spec=CSS></p>
+  supported by most web browsers. <ref spec=CSS></p>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-style-media">media</code></dfn> IDL attribute must
-  <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLStyleElement"><code data-x="dom-style-media">media</code></dfn> IDL
+  attribute must <span>reflect</span> the content attribute of the same name.</p>
 
   </div>
 
@@ -222,7 +250,7 @@ interface <dfn>HTMLStyleElement</dfn> : <span>HTMLElement</span> {
    text, while leaving titles of works and Latin words in their default italics. It shows how using
    appropriate elements enables easier restyling of documents.</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
+   <pre><code class="html">&lt;!DOCTYPE html>
 &lt;html lang="en-US">
  &lt;head>
   &lt;title>My favorite book&lt;/title>

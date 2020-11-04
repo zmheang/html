@@ -1,10 +1,10 @@
   <h4>Plugins</h4>
 
-  <p>The term <dfn>plugin</dfn> refers to a user-agent defined set of content handlers used by the
-  user agent that can take part in the user agent's rendering of a <code>Document</code> object, but
-  that neither act as <span data-x="child browsing context">child browsing contexts</span> of the
-  <code>Document</code> nor introduce any <code>Node</code> objects to the <code>Document</code>'s
-  DOM.</p>
+  <p>The term <dfn>plugin</dfn> refers to an <span>implementation-defined</span> set of content
+  handlers used by the user agent that can take part in the user agent's rendering of a
+  <code>Document</code> object, but that neither act as <span data-x="child browsing context">child
+  browsing contexts</span> of the <code>Document</code> nor introduce any <code>Node</code> objects
+  to the <code>Document</code>'s DOM.</p>
 
   <p>Typically such content handlers are provided by third parties, though a user agent can also
   designate built-in content handlers as plugins.</p>
@@ -34,8 +34,8 @@
   <p>A plugin can be <dfn data-x="concept-plugin-secure">secured</dfn> if it honors the semantics of
   the <code data-x="attr-iframe-sandbox">sandbox</code> attribute.</p>
 
-  <p class="example">For example, a secured plugin would prevent its contents from creating pop-up
-  windows when the plugin is instantiated inside a sandboxed <code>iframe</code>.</p>
+  <p class="example">For example, a secured plugin would prevent its contents from creating popups
+  when the plugin is instantiated inside a sandboxed <code>iframe</code>.</p>
 
   <div w-nodev>
 
@@ -44,12 +44,12 @@
   privileges as the user agent itself, vulnerabilities in the third-party software become as
   dangerous as those in the user agent.</p>
 
-  <p>Since different users having different sets of <span data-x="plugin">plugins</span> provides a
-  fingerprinting vector that increases the chances of users being uniquely identified, user agents
-  are encouraged to support the exact same set of <span data-x="plugin">plugins</span> for each
-  user.
-  <!--INSERT FINGERPRINT-->
-  </p>
+  <p>
+  <!--INSERT TRACKING-->
+  Since different users having different sets of <span data-x="plugin">plugins</span> provides a
+  tracking vector that increases the chances of users being uniquely identified, user agents are
+  encouraged to support the exact same set of <span data-x="plugin">plugins</span> for each
+  user.</p>
 
   </div>
 

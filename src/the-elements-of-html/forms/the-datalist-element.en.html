@@ -11,11 +11,16 @@
    <dd>Or: Zero or more <code>option</code> and <span data-x="script-supporting elements">script-supporting</span> elements.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-datalist">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-datalist">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLDataListElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [SameObject] readonly attribute <span>HTMLCollection</span> <span data-x="dom-datalist-options">options</span>;
 };</code></pre>
    </dd>
@@ -32,12 +37,12 @@ interface <dfn>HTMLDataListElement</dfn> : <span>HTMLElement</span> {
 
   <div class="example">
 
-   <pre><code class="html" data-x="">&lt;label>
- Sex:
- &lt;input name=sex list=sexes>
- &lt;datalist id=sexes>
-  &lt;option value="Female">
-  &lt;option value="Male">
+   <pre><code class="html">&lt;label>
+ Animal:
+ &lt;input name=animal list=animals>
+ &lt;datalist id=animals>
+  &lt;option value="Cat">
+  &lt;option value="Dog">
  &lt;/datalist>
 &lt;/label></code></pre>
 
@@ -50,17 +55,17 @@ interface <dfn>HTMLDataListElement</dfn> : <span>HTMLElement</span> {
 
   <div class="example">
 
-   <pre><code class="html" data-x="">&lt;label>
- Sex:
- &lt;input name=sex list=sexes>
+   <pre><code class="html">&lt;label>
+ Animal:
+ &lt;input name=animal list=animals>
 &lt;/label>
-&lt;datalist id=sexes>
+&lt;datalist id=animals>
  &lt;label>
   or select from the list:
-  &lt;select name=sex>
+  &lt;select name=animal>
    &lt;option value="">
-   &lt;option>Female
-   &lt;option>Male
+   &lt;option>Cat
+   &lt;option>Dog
   &lt;/select>
  &lt;/label>
 &lt;/datalist></code></pre>
@@ -84,12 +89,12 @@ interface <dfn>HTMLDataListElement</dfn> : <span>HTMLElement</span> {
     <p>Returns an <code>HTMLCollection</code> of the <code>option</code> elements of the
     <code>datalist</code> element.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-datalist-options">options</code></dfn> IDL attribute must return an
+  <p>The <dfn attribute for="HTMLDataListElement"><code
+  data-x="dom-datalist-options">options</code></dfn> IDL attribute must return an
   <code>HTMLCollection</code> rooted at the <code>datalist</code> node, whose filter matches
   <code>option</code> elements.</p>
 

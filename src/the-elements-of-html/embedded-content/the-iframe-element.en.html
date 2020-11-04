@@ -1,4 +1,4 @@
-  <h4 split-filename="iframe-embed-object" data-dfn-type="element" data-lt="iframe">The
+  <h4 split-filename="iframe-embed-object" element data-lt="iframe">The
   <dfn><code>iframe</code></dfn> element</h4>
 
   <dl class="element">
@@ -20,30 +20,35 @@
    <dd><code data-x="attr-iframe-sandbox">sandbox</code></dd>
    <dd><code data-x="attr-iframe-allow">allow</code></dd>
    <dd><code data-x="attr-iframe-allowfullscreen">allowfullscreen</code></dd>
-   <dd><code data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code></dd>
-   <dd><code data-x="attr-iframe-allowusermedia">allowusermedia</code></dd>
    <dd><code data-x="attr-dim-width">width</code></dd>
    <dd><code data-x="attr-dim-height">height</code></dd>
    <dd><code data-x="attr-iframe-referrerpolicy">referrerpolicy</code></dd>
+   <dd><code data-x="attr-iframe-loading">loading</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-iframe">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-iframe">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-iframe-src">src</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-srcdoc">srcdoc</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-name">name</span>;
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-iframe-sandbox">sandbox</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-allow">allow</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-iframe-allowFullscreen">allowFullscreen</span>;
-  [<span>CEReactions</span>] attribute boolean <span data-x="dom-iframe-allowPaymentRequest">allowPaymentRequest</span>;
-  [<span>CEReactions</span>] attribute boolean <span data-x="dom-iframe-allowUserMedia">allowUserMedia</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-dim-width">width</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-dim-height">height</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-referrerPolicy">referrerPolicy</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-iframe-loading">loading</span>;
   readonly attribute <span>Document</span>? <span data-x="dom-iframe-contentDocument">contentDocument</span>;
   readonly attribute <span>WindowProxy</span>? <span data-x="dom-iframe-contentWindow">contentWindow</span>;
   <span>Document</span>? <span data-x="dom-media-getSVGDocument">getSVGDocument</span>();
+
+  // <a href="#HTMLIFrameElement-partial">also has obsolete members</a>
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLIFrameElement</code>.</dd>
@@ -51,30 +56,29 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
   <!-- INTRO -->
 
-  <p>The <code>iframe</code> element <span>represents</span> a <span>nested browsing
+  <p>The <code>iframe</code> element <span>represents</span> its <span>nested browsing
   context</span>.</p>
 
 
   <!-- SRC/SRCDOC -->
 
-  <p>The <dfn><code data-x="attr-iframe-src">src</code></dfn> attribute gives the <span>URL</span>
-  of a page that the <span>nested browsing context</span> is to contain. The attribute, if present,
-  must be a <span>valid non-empty URL potentially surrounded by spaces</span>. If the <code
-  data-x="attr-itemprop">itemprop</code> attribute is specified on an <code>iframe</code> element,
-  then the <code data-x="attr-iframe-src">src</code> attribute must also be specified.</p>
+  <p>The <dfn element-attr for="iframe"><code data-x="attr-iframe-src">src</code></dfn> attribute
+  gives the <span>URL</span> of a page that the element's <span>nested browsing context</span> is to
+  contain. The attribute, if present, must be a <span>valid non-empty URL potentially surrounded by
+  spaces</span>. If the <code data-x="attr-itemprop">itemprop</code> attribute is specified on an
+  <code>iframe</code> element, then the <code data-x="attr-iframe-src">src</code> attribute must
+  also be specified.</p>
 
-  <p>The <dfn data-export="" data-dfn-for="iframe" data-dfn-type="element-attr"><code
-  data-x="attr-iframe-srcdoc">srcdoc</code></dfn> attribute gives the content of the page that the
-  <span>nested browsing context</span> is to contain. The value of the attribute is the source of
-  <dfn data-export="">an <code>iframe</code> <code data-x="attr-iframe-srcdoc">srcdoc</code>
-  document</dfn>.</p>
+  <p>The <dfn for="iframe" element-attr><code data-x="attr-iframe-srcdoc">srcdoc</code></dfn>
+  attribute gives the content of the page that the element's <span>nested browsing context</span> is
+  to contain. The value of the attribute is the source of <dfn export>an <code>iframe</code> <code
+  data-x="attr-iframe-srcdoc">srcdoc</code> document</dfn>.</p>
 
   <p>The <code data-x="attr-iframe-srcdoc">srcdoc</code> attribute, if present, must have a value
   using <span>the HTML syntax</span> that consists of the following syntactic components, in the
   given order:</p>
 
   <ol>
-
    <li>Any number of <span data-x="syntax-comments">comments</span> and <span>ASCII
    whitespace</span>.</li>
 
@@ -88,7 +92,6 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
    <li>Any number of <span data-x="syntax-comments">comments</span> and <span>ASCII
    whitespace</span>.</li>
-
   </ol>
 
   <p class="note">The above requirements apply in <span>XML documents</span> as well.
@@ -100,7 +103,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    users of user agents that support this feature with an extra layer of protection from script
    injection in the blog post comments:</p>
 
-   <pre><code class="html" data-x="">&lt;article>
+   <pre><code class="html">&lt;article>
  &lt;h1>I got my own magazine!&lt;/h1>
  &lt;p>After much effort, I've finally found a publisher, and so now I
  have my own magazine! Isn't that awesome?! The first issue will come
@@ -167,12 +170,16 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
   <hr> <!-- SRC/SRCDOC PROCESSING MODEL -->
 
-  <p>When an <code>iframe</code> element is <span data-x="node is inserted into a document">inserted
-  into a document</span> that has a <span data-x="concept-document-bc">browsing context</span>, the
-  user agent must <span data-x="creating a new browsing context">create a new browsing
-  context</span>, set the element's <span>nested browsing context</span> to the newly-created
-  <span>browsing context</span>, and then <span>process the <code>iframe</code> attributes</span>
-  for the "first time".</p>
+  <p>When an <code>iframe</code> element <var>element</var> is <span data-x="node is inserted into a
+  document">inserted into a document</span> whose <span data-x="concept-document-bc">browsing
+  context</span> is non-null, the user agent must run these steps:
+
+  <ol>
+   <li><p><span>Create a new nested browsing context</span> for <var>element</var>.</p></li>
+
+   <li><p><span>Process the <code>iframe</code> attributes</span> for <var>element</var>, with <var
+   data-x="process-iframe-initial-insertion">initialInsertion</var> set to true.</p></li>
+  </ol>
 
   <p>When an <code>iframe</code> element is <span data-x="node is removed from a document">removed
   from a document</span>, the user agent must <span data-x="a browsing context is
@@ -180,8 +187,8 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   and then set the element's <span>nested browsing context</span> to null.</p>
 
   <p class="note">This happens without any <code data-x="event-unload">unload</code> events firing
-  (the <span>nested browsing context</span> and its <code>Document</code> are <em><span data-x="a
-  browsing context is discarded">discarded</span></em>, not <em><span data-x="unload a
+  (the element's <span>nested browsing context</span> and its <code>Document</code> are <em><span
+  data-x="a browsing context is discarded">discarded</span></em>, not <em><span data-x="unload a
   document">unloaded</span></em>).</p>
 
   <!-- START of section that's very similar to <frame> -->
@@ -196,64 +203,72 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   must <span>process the <code>iframe</code> attributes</span>.</p> <!-- It doesn't happen when the
   base URL is changed, though. -->
 
-  <p>When the user agent is to <dfn>process the <code>iframe</code> attributes</dfn>, it must run
-  the first appropriate steps from the following list:</p>
-
-  <dl class="switch">
-
-   <dt>If the <code data-x="attr-iframe-srcdoc">srcdoc</code> attribute is specified</dt>
-
-   <dd>
-
-    <p><span>Navigate</span><!--DONAV iframe--> the element's <span>nested browsing context</span>
-    to a new <span data-x="concept-response">response</span> whose <span
-    data-x="concept-response-url-list">url list</span> consists of <code>about:srcdoc</code>, <span
-    data-x="concept-response-header-list">header list</span> consists of `<code
-    data-x="">Content-Type</code>`/`<code>text/html</code>, <span
-    data-x="concept-response-body">body</span> is the value of the attribute, <span
-    data-x="concept-response-csp-list">CSP list</span> is the <span
-    data-x="concept-document-csp-list">CSP list</span> of the <code>iframe</code> element's <span>node
-    document</span>, <span data-x="concept-response-https-state">HTTPS state</span> is the <span
-    data-x="concept-document-https-state">HTTPS state</span> of the <code>iframe</code> element's
-    <span>node document</span>.
-
-    <p>The resulting <code>Document</code> must be considered <span>an <code>iframe</code> <code
-    data-x="attr-iframe-srcdoc">srcdoc</code> document</span>.</p>
-
-   </dd>
-
-   <dt>Otherwise, if the element has no <code data-x="attr-iframe-src">src</code> attribute
-   specified, and the user agent is processing the <code>iframe</code>'s attributes for the "first
-   time"</dt>
-
-   <dd>
-
-    <p><span>Queue a task</span> to run the <span>iframe load event steps</span>.</p>
-
-    <p>The <span>task source</span> for this <span data-x="concept-task">task</span> is the
-    <span>DOM manipulation task source</span>.</p>
-
-   </dd>
-
-   <dt>Otherwise</dt>
-
-   <dd><p>Run the <span>otherwise steps for <code>iframe</code> or <code>frame</code>
-   elements</span>.</p></dd>
-
-  </dl>
-
-  <p>The <dfn>otherwise steps for <code>iframe</code> or <code>frame</code> elements</dfn> are as
-  follows:</p>
+  <p>To <dfn>process the <code>iframe</code> attributes</dfn> for an element <var>element</var>,
+  with an optional boolean <dfn
+  data-x="process-iframe-initial-insertion"><var>initialInsertion</var></dfn> (default false):</p>
 
   <ol>
    <li>
-    <p>If the element has no <code data-x="attr-iframe-src">src</code> attribute specified, or its
-    value is the empty string, let <var>url</var> be the <span>URL</span>
+    <p>If <var>element</var>'s <code data-x="attr-iframe-srcdoc">srcdoc</code> attribute is
+    specified, then:</p>
+
+    <ol>
+     <li><p>Set <var>element</var>'s <span>current navigation was lazy loaded</span> boolean to
+     false.</p></li>
+
+     <li>
+      <p>If the <span>will lazy load element steps</span> given <var>element</var> return true,
+      then:</p>
+
+      <ol>
+       <li><p>Set <var>element</var>'s <span>lazy load resumption steps</span> to the rest of this
+       algorithm starting with the step labeled <i>navigate to the srcdoc resource</i>.</p></li>
+
+       <li><p>Set <var>element</var>'s <span>current navigation was lazy loaded</span> boolean to
+       true.</p></li>
+
+       <li><p><span>Start intersection-observing a lazy loading element</span> for
+       <var>element</var>.</p></li>
+
+       <li><p>Return.</p></li>
+      </ol>
+     </li>
+
+     <li>
+      <p><i>Navigate to the srcdoc resource</i>: <span>navigate an <code>iframe</code> or
+      <code>frame</code></span> given <var>element</var> and a new <span
+      data-x="concept-response">response</span> whose <span data-x="concept-response-url-list">url
+      list</span> consists of <code>about:srcdoc</code>, <span
+      data-x="concept-response-header-list">header list</span> consists of `<code
+      data-x="">Content-Type</code>`/`<code>text/html</code>`, <span
+      data-x="concept-response-body">body</span> is the value of <var>element</var>'s <code
+      data-x="attr-iframe-srcdoc">srcdoc</code> attribute, and <span
+      data-x="concept-response-csp-list">CSP list</span> is a <span data-x="list clone">clone</span>
+      of <var>element</var>'s <span>node document</span>'s <span
+      data-x="concept-document-csp-list">CSP list</span>.</p>
+
+      <p>The resulting <code>Document</code> must be considered <span>an <code>iframe</code> <code
+      data-x="attr-iframe-srcdoc">srcdoc</code> document</span>.</p>
+     </li>
+    </ol>
+   </li>
+
+   <li><p>Otherwise, if <var>initialInsertion</var> is false, run the <span>otherwise steps for
+   <code>iframe</code> or <code>frame</code> elements</span> given <var>element</var>.</p></li>
+  </ol>
+
+  <p>The <dfn>otherwise steps for <code>iframe</code> or <code>frame</code> elements</dfn>, given an
+  element <var>element</var>, are:</p>
+
+  <ol>
+   <li>
+    <p>If <var>element</var> has no <code data-x="attr-iframe-src">src</code> attribute specified,
+    or its value is the empty string, let <var>url</var> be the <span>URL</span>
     "<code>about:blank</code>".</p>
     <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=2641 -->
 
-    <p>Otherwise, <span data-x="parse a url">parse</span> the value of the <code
-    data-x="attr-iframe-src">src</code> attribute, relative to the element's <span>node
+    <p>Otherwise, <span data-x="parse a url">parse</span> the value of <var>element</var>'s <code
+    data-x="attr-iframe-src">src</code> attribute, relative to <var>element</var>'s <span>node
     document</span>.</p>
 
     <p>If that is not successful, then let <var>url</var> be the <span>URL</span>
@@ -261,8 +276,9 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
     record</span>.</p>
    </li>
 
-   <li><p>If there exists an <span>ancestor browsing context</span> whose <span>active
-   document</span>'s <span data-x="concept-document-url">URL</span>, ignoring <span
+   <li><p>If there exists an <span>ancestor browsing context</span> of <var>element</var>'s
+   <span>nested browsing context</span> whose <span>active document</span>'s <span
+   data-x="concept-document-url">URL</span>, ignoring <span
    data-x="concept-url-fragment">fragments</span>, is equal to <var>url</var>, then return.</p></li>
    <!-- https://www.hixie.ch/tests/adhoc/html/frames/iframes/ 008.html and 009.html -->
    <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1969 -->
@@ -270,34 +286,59 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
    <li><p>Let <var>resource</var> be a new <span data-x="concept-request">request</span> whose <span
    data-x="concept-request-url">url</span> is <var>url</var> and whose <span
-   data-x="concept-request-referrer-policy">referrer policy</span> is the current state of the
-   element's <code data-x="attr-iframe-referrerpolicy">referrerpolicy</code> content
+   data-x="concept-request-referrer-policy">referrer policy</span> is the current state of
+   <var>element</var>'s <code data-x="attr-iframe-referrerpolicy">referrerpolicy</code> content
    attribute.</p></li>
 
-   <li><p><span>Navigate</span><!--DONAV iframe--> the element's <span>nested browsing
-   context</span> to <var>resource</var>.</p></li>
+   <li><p>If <var>element</var> is an <code>iframe</code> element, then set <var>element</var>'s
+   <span>current navigation was lazy loaded</span> boolean to false.</p></li>
+
+   <li>
+    <p>If <var>element</var> is an <code>iframe</code> element, and the <span>will lazy load element
+    steps</span> given <var>element</var> return true, then:</p>
+
+    <ol>
+     <li><p>Set <var>element</var>'s <span>lazy load resumption steps</span> to the rest of this
+     algorithm starting with the step labeled <i>navigate to the resource</i>.</p></li>
+
+     <li><p>Set <var>element</var>'s <span>current navigation was lazy loaded</span> boolean to
+     true.</p></li>
+
+     <li><p><span>Start intersection-observing a lazy loading element</span> for
+     <var>element</var>.</p></li>
+
+     <li><p>Return.</p></li>
+    </ol>
+   </li>
+
+   <li><p><i>Navigate to the resource</i>: <span>navigate an <code>iframe</code> or
+   <code>frame</code></span> given <var>element</var> and <var>resource</var>.</p></li>
   </ol>
 
-  <p>Any <span data-x="navigate">navigation</span> required of the user agent in the <span>process
-  the <code>iframe</code> attributes</span> algorithm must use the <code>iframe</code> element's
-  <span>node document</span>'s <span>browsing context</span> as the <span>source browsing
-  context</span>.</p>
+  <p>To <dfn>navigate an <code>iframe</code> or <code>frame</code></dfn> given an element
+  <var>element</var> and a resource <var>resource</var>:</p>
 
-  <p>Furthermore, if the <span>active document</span> of the element's <span>nested browsing
-  context</span> before such a <span data-x="navigate">navigation</span> was not <span>completely
-  loaded</span> at the time of the new <span data-x="navigate">navigation</span>, then the <span
-  data-x="navigate">navigation</span> must be completed with <span>replacement enabled</span>.</p>
+  <ol>
+   <li><p>Let <var>historyHandling</var> be "<code data-x="hh-default">default</code>".</p>
 
-  <p>Similarly, if the <span>nested browsing context</span>'s <span>session history</span> contained
-  only one <code>Document</code> when the <span>process the <code>iframe</code> attributes</span>
-  algorithm was invoked, and that was the <code>about:blank</code> <code>Document</code> created
-  when the <span>nested browsing context</span> was created, then any <span
-  data-x="navigate">navigation</span> required of the user agent in that algorithm must be completed
-  with <span>replacement enabled</span>.</p> <!-- see also the note near similar text for the
-  location.assign() method -->
+   <li><p>If <var>element</var>'s <span>nested browsing context</span>'s <span>session
+   history</span> contains only one <code>Document</code>, and that was the <code>about:blank</code>
+   <code>Document</code> created when <var>element</var>'s <span>nested browsing context</span> was
+   created, then set <var>historyHandling</var> to "<code
+   data-x="hh-replace">replace</code>".</p></li>
 
-  <p>When a <code>Document</code> in an <code>iframe</code> is marked as <span>completely
-  loaded</span>, the user agent must run the <span>iframe load event steps</span>.</p>
+   <li><p>If <var>element</var>'s <span>nested browsing context</span>'s <span>active
+   document</span> is not <span>completely loaded</span>, then set <var>historyHandling</var> to
+   "<code data-x="hh-replace">replace</code>".</p></li>
+
+   <li><p><span>Navigate</span><!--DONAV iframe or frame--> <var>element</var>'s <span>nested
+   browsing context</span> to <var>resource</var>, with <var
+   data-x="navigation-hh">historyHandling</var> set to <var>historyHandling</var> and the
+   <span>source browsing context</span> set to <var>element</var>'s <span>node document</span>'s
+   <span data-x="concept-document-bc">browsing context</span>.</p></li>
+  </ol>
+
+  <!-- see also the note near similar text for the location.assign() method -->
 
   <p class="note">A <code data-x="event-load">load</code> event is also fired at the
   <code>iframe</code> element when it is created if no other data is loaded in it.</p>
@@ -306,43 +347,56 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   iframe load</dfn> flag. When a <code>Document</code> is created, these flags must be unset for
   that <code>Document</code>.</p>
 
-  <p>The <dfn>iframe load event steps</dfn> are as follows:</p>
+  <p>To run the <dfn>iframe load event steps</dfn>, given an <code>iframe</code> element
+  <var>element</var>:</p>
 
   <ol>
+   <li><p>Assert: <var>element</var>'s <span>nested browsing context</span> is not null.</p></li>
 
-   <li><p>Let <var>child document</var> be the <span>active document</span> of the
-   <code>iframe</code> element's <span>nested browsing context</span> (which cannot be null at this
-   point).</p></li>
+   <li><p>Let <var>childDocument</var> be the <span>active document</span> of <var>element</var>'s
+   <span>nested browsing context</span>.</p></li>
 
-   <li><p>If <var>child document</var> has its <span>mute iframe load</span> flag set,
+   <li><p>If <var>childDocument</var> has its <span>mute iframe load</span> flag set, then
    return.</p></li>
 
-   <li><p>Set <var>child document</var>'s <span>iframe load in progress</span>
-   flag.</p></li>
+   <li><p>Set <var>childDocument</var>'s <span>iframe load in progress</span> flag.</p></li>
 
    <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
-   data-x="event-load">load</code> at the <code>iframe</code> element.</p></li>
+   data-x="event-load">load</code> at <var>element</var>.</p></li>
 
-   <li><p>Unset <var>child document</var>'s <span>iframe load in progress</span>
-   flag.</p></li>
-
+   <li><p>Unset <var>childDocument</var>'s <span>iframe load in progress</span> flag.</p></li>
   </ol>
 
   <p class="warning">This, in conjunction with scripting, can be used to probe the URL space of the
   local network's HTTP servers. User agents may implement <span data-x="origin">cross-origin</span>
   access control policies that are stricter than those described above to mitigate this attack, but
-  unfortunately such policies are typically not compatible with existing Web content.</p>
+  unfortunately such policies are typically not compatible with existing web content.</p>
 
-  <p>When the <code>iframe</code>'s <span>browsing context</span>'s <span>active document</span> is
-  not <span>ready for post-load tasks</span>, and when anything in the <code>iframe</code> is <span
-  data-x="delay the load event">delaying the load event</span> of the <code>iframe</code>'s
-  <span>browsing context</span>'s <span>active document</span>, and when the <code>iframe</code>'s
-  <span>browsing context</span> is in the <span>delaying <code data-x="event-load">load</code> events
-  mode</span>, the <code>iframe</code> must <span>delay the load event</span> of its document.</p>
+  <p>If an element type <dfn>potentially delays the load event</dfn>, then for each element
+  <var>element</var> of that type, the user agent must <span>delay the load event</span> of
+  <var>element</var>'s <span>node document</span> if <var>element</var>'s <span>nested browsing
+  context</span> is non-null and any of the following are true:
 
-  <p class="note">If, during the handling of the <code data-x="event-load">load</code> event, the
-  <span>browsing context</span> in the <code>iframe</code> is again <span
+  <ul>
+   <li><p><var>element</var>'s <span>nested browsing context</span>'s <span>active document</span>
+   is not <span>ready for post-load tasks</span>.</p></li>
+   <li><p>Anything is <span data-x="delay the load event">delaying the load event</span> of
+   <var>element</var>'s <span>nested browsing context</span>'s <span>active
+   document</span>.</p></li>
+   <li><p><var>element</var>'s <span>nested browsing context</span> is in the <span>delaying <code
+   data-x="event-load">load</code> events mode</span>.</p></li>
+  </ul>
+
+  <p class="note">If, during the handling of the <code data-x="event-load">load</code> event,
+  <var>element</var>'s <span>nested browsing context</span> is again <span
   data-x="navigate">navigated</span>, that will further <span>delay the load event</span>.</p>
+
+  <p>Each <code>iframe</code> element has an associated <dfn>current navigation was lazy
+  loaded</dfn> boolean, initially false. It is set and unset in the <span>process the
+  <code>iframe</code> attributes</span> algorithm.</p>
+
+  <p>An <code>iframe</code> element whose <span>current navigation was lazy loaded</span> boolean is
+  false <span>potentially delays the load event</span>.</p>
 
   </div>
 
@@ -355,35 +409,24 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   <code>about:blank</code> page.</p>
 
   <p class="note">If the user <span data-x="navigate">navigates</span> away from this page, the
-  <code>iframe</code>'s corresponding <code>WindowProxy</code> object will proxy new
-  <code>Window</code> objects for new <code>Document</code> objects, but the <code
+  <code>iframe</code>'s <span>nested browsing context</span>'s <code>WindowProxy</code> object will
+  proxy new <code>Window</code> objects for new <code>Document</code> objects, but the <code
   data-x="attr-iframe-src">src</code> attribute will not change.</p>
 
 
   <hr> <!-- NAME -->
 
-  <p>The <dfn><code data-x="attr-iframe-name">name</code></dfn> attribute, if present, must be a
-  <span>valid browsing context name</span>. The given value is used to name the <span>nested
-  browsing context</span>. <span w-nodev>When the browsing context is created, if the attribute
-  is present, the <span>browsing context name</span> must be set to the value of this attribute;
-  otherwise, the <span>browsing context name</span> must be set to the empty string.</span></p>
-
-  <div w-nodev>
-
-  <p>Whenever the <code data-x="attr-iframe-name">name</code> attribute is set, the nested
-  <span>browsing context</span>'s <span data-x="browsing context name">name</span> must be changed to
-  the new value. If the attribute is removed, the <span>browsing context name</span> must be set to
-  the empty string.</p>
-
-  </div>
+  <p>The <dfn element-attr for="iframe"><code data-x="attr-iframe-name">name</code></dfn> attribute,
+  if present, must be a <span>valid browsing context name</span>. The given value is used to name
+  the element's <span>nested browsing context</span> if present when that is created.</p>
 
 
   <hr> <!-- SANDBOX -->
 
-  <p>The <dfn><code data-x="attr-iframe-sandbox">sandbox</code></dfn> attribute, when specified,
-  enables a set of extra restrictions on any content hosted by the <code>iframe</code>. Its value
-  must be an <span>unordered set of unique space-separated tokens</span> that are <span>ASCII
-  case-insensitive</span>. The allowed values are <code
+  <p>The <dfn element-attr for="iframe"><code data-x="attr-iframe-sandbox">sandbox</code></dfn>
+  attribute, when specified, enables a set of extra restrictions on any content hosted by the
+  <code>iframe</code>. Its value must be an <span>unordered set of unique space-separated
+  tokens</span> that are <span>ASCII case-insensitive</span>. The allowed values are <code
   data-x="attr-iframe-sandbox-allow-forms">allow-forms</code>, <code
   data-x="attr-iframe-sandbox-allow-modals">allow-modals</code>, <code
   data-x="attr-iframe-sandbox-allow-orientation-lock">allow-orientation-lock</code>, <code
@@ -393,8 +436,9 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   <code data-x="attr-iframe-sandbox-allow-presentation">allow-presentation</code>, <code
   data-x="attr-iframe-sandbox-allow-same-origin">allow-same-origin</code>, <code
   data-x="attr-iframe-sandbox-allow-scripts">allow-scripts</code>, <code
-  data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code>, and <code
-  data-x="attr-iframe-sandbox-allow-top-navigation-by-user-activation">allow-top-navigation-by-user-activation</code>.</p>
+  data-x="attr-iframe-sandbox-allow-top-navigation">allow-top-navigation</code>, <code
+  data-x="attr-iframe-sandbox-allow-top-navigation-by-user-activation">allow-top-navigation-by-user-activation</code>,
+  and <code data-x="attr-iframe-sandbox-allow-downloads">allow-downloads</code>.</p>
 
   <p>When the attribute is set, the content is treated as being from a unique <span>origin</span>,
   forms, scripts, and various potentially annoying APIs are disabled, links are prevented from
@@ -405,8 +449,8 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   keyword allows the content to <span>navigate</span> its <span>top-level browsing context</span>;
   the <code
   data-x="attr-iframe-sandbox-allow-top-navigation-by-user-activation">allow-top-navigation-by-user-activation</code>
-  keyword behaves similarly but only allows such <span data-x="navigate">navigation</span> when
-  <span>triggered by user activation</span>; and the <code
+  keyword behaves similarly but allows such <span data-x="navigate">navigation</span> only when the
+  browsing context's <span>active window</span> has <span>transient activation</span>; and the <code
   data-x="attr-iframe-sandbox-allow-forms">allow-forms</code>, <code
   data-x="attr-iframe-sandbox-allow-modals">allow-modals</code>, <code
   data-x="attr-iframe-sandbox-allow-orientation-lock">allow-orientation-lock</code>, <code
@@ -435,9 +479,9 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   attribute and then reload itself, effectively breaking out of the sandbox altogether.</p>
 
   <p class="warning">These flags only take effect when the <span>nested browsing context</span> of
-  the <code>iframe</code> is <span data-x="navigate">navigated</span>. Removing them, or removing the
-  entire <code data-x="attr-iframe-sandbox">sandbox</code> attribute, has no effect on an
-  already-loaded page.</p>
+  the <code>iframe</code> element is <span data-x="navigate">navigated</span>. Removing them, or
+  removing the entire <code data-x="attr-iframe-sandbox">sandbox</code> attribute, has no effect on
+  an already-loaded page.</p>
 
   <p class="warning">Potentially hostile files should not be served from the same server as the file
   containing the <code>iframe</code> element. Sandboxing hostile content is of minimal help if an
@@ -463,13 +507,13 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   element's <code data-x="attr-iframe-sandbox">sandbox</code> attribute is set or changed while it
   has a <span>nested browsing context</span>, the user agent must <span data-x="parse a sandboxing
   directive">parse the sandboxing directive</span> using the attribute's value as the
-  <var>input</var> and the <code>iframe</code> element's <span>nested browsing context</span>'s
-  <span><code>iframe</code> sandboxing flag set</span> as the output.</p>
+  <var>input</var> and the <code>iframe</code> element's <span><code>iframe</code> sandboxing flag
+  set</span> as the output.</p>
 
   <p>When an <code>iframe</code> element's <code data-x="attr-iframe-sandbox">sandbox</code>
   attribute is removed while it has a non-null <span>nested browsing context</span>, the user agent
-  must empty the <code>iframe</code> element's <span>nested browsing context</span>'s
-  <span><code>iframe</code> sandboxing flag set</span> as the output.</p>
+  must empty the <code>iframe</code> element's <span><code>iframe</code> sandboxing flag
+  set</span>.</p>
 
   </div>
 
@@ -481,7 +525,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    forms disabled, and it cannot navigate any frames or windows other than itself (or any frames or
    windows it itself embeds).</p>
 
-   <pre><code class="html" data-x="">&lt;p>We're not scared of you! Here is your content, unedited:&lt;/p>
+   <pre><code class="html">&lt;p>We're not scared of you! Here is your content, unedited:&lt;/p>
 &lt;iframe sandbox src="https://usercontent.example.net/getusercontent.cgi?id=12193">&lt;/iframe></code></pre>
 
    <p class="warning">It is important to use a separate domain so that if the attacker convinces the
@@ -497,7 +541,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    its originating server. The sandbox is still useful, however, as it disables plugins and popups,
    thus reducing the risk of the user being exposed to malware and other annoyances.</p>
 
-   <pre><code class="html" data-x="">&lt;iframe sandbox="allow-same-origin allow-forms allow-scripts"
+   <pre><code class="html">&lt;iframe sandbox="allow-same-origin allow-forms allow-scripts"
         src="https://maps.example.com/embedded.html">&lt;/iframe></code></pre>
 
   </div>
@@ -506,15 +550,15 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
    <p>Suppose a file A contained the following fragment:</p>
 
-   <pre><code class="html" data-x="">&lt;iframe sandbox="allow-same-origin allow-forms" src=B>&lt;/iframe></code></pre>
+   <pre><code class="html">&lt;iframe sandbox="allow-same-origin allow-forms" src=B>&lt;/iframe></code></pre>
 
    <p>Suppose that file B contained an iframe also:</p>
 
-   <pre><code class="html" data-x="">&lt;iframe sandbox="allow-scripts" src=C>&lt;/iframe></code></pre>
+   <pre><code class="html">&lt;iframe sandbox="allow-scripts" src=C>&lt;/iframe></code></pre>
 
    <p>Further, suppose that file C contained a link:</p>
 
-   <pre><code class="html" data-x="">&lt;a href=D>Link&lt;/a></code></pre>
+   <pre><code class="html">&lt;a href=D>Link&lt;/a></code></pre>
 
    <p>For this example, suppose all the files were served as <code>text/html</code>.</p>
 
@@ -543,28 +587,30 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
   <hr> <!-- FEATURE POLICY ATTRIBUTES: ALLOW; ALLOW FULLSCREEN / PAYMENT REQUEST / USER MEDIA -->
 
-  <p>The <dfn><code data-x="attr-iframe-allow">allow</code></dfn> attribute, when specified,
-  determines the <span data-x="concept-container-policy">container policy</span> that will be used
-  when the <span data-x="concept-document-feature-policy">feature policy</span> for a
-  <span>Document</span> in the <code>iframe</code>'s <span>nested browsing context</span> is
-  initialized. Its value must be a <span data-x="concept-serialized-feature-policy">serialized
-  feature policy</span>. <ref spec="FEATUREPOLICY">
+  <p>The <dfn element-attr for="iframe"><code data-x="attr-iframe-allow">allow</code></dfn>
+  attribute, when specified, determines the <span data-x="concept-container-policy">container
+  policy</span> that will be used when the <span
+  data-x="concept-document-permissions-policy">permissions policy</span> for a <span>Document</span>
+  in the <code>iframe</code>'s <span>nested browsing context</span> is initialized. Its value must
+  be a <span data-x="concept-serialized-permissions-policy">serialized permissions policy</span>.
+  <ref spec=PERMISSIONSPOLICY></p>
 
   <div class="example">
    <p>In this example, an <code>iframe</code> is used to embed a map from an online navigation
    service. The <code data-x="attr-iframe-allow">allow</code> attribute is used to enable the
    Geolocation API within the nested context.</p>
 
-   <pre><code class="html" data-x="">&lt;iframe src="https://maps.example.com/" allow="geolocation">&lt;/iframe></code></pre>
+   <pre><code class="html">&lt;iframe src="https://maps.example.com/" allow="geolocation">&lt;/iframe></code></pre>
   </div>
 
-  <p>The <dfn><code data-x="attr-iframe-allowfullscreen">allowfullscreen</code></dfn> attribute is a
-  <span>boolean attribute</span>. When specified, it indicates that <code>Document</code> objects in
-  the <code>iframe</code> element's <span>browsing context</span> will be initialized with a
-  <span data-x="concept-document-feature-policy">feature policy</span> which allows the "<code
-  data-x="">fullscreen</code>" feature to be used from any <span>origin</span>. This is enforced by
-  the <span data-x="process-feature-policy-attributes">Process feature policy attributes</span>
-  algorithm. <ref spec="FEATUREPOLICY">
+  <p>The <dfn element-attr for="iframe"><code
+  data-x="attr-iframe-allowfullscreen">allowfullscreen</code></dfn> attribute is a <span>boolean
+  attribute</span>. When specified, it indicates that <code>Document</code> objects in the
+  <code>iframe</code> element's <span>nested browsing context</span> will be initialized with a
+  <span data-x="concept-document-permissions-policy">permissions policy</span> which allows the
+  "<code data-x="">fullscreen</code>" feature to be used from any <span>origin</span>. This is
+  enforced by the <span data-x="process-permissions-policy-attributes">process permissions policy
+  attributes</span> algorithm. <ref spec=PERMISSIONSPOLICY></p>
 
   <div class="example">
 
@@ -572,7 +618,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    data-x="attr-iframe-allowfullscreen">allowfullscreen</code> attribute is needed to enable the
    player to show its video fullscreen.</p>
 
-   <pre><code class="html" data-x="">&lt;article>
+   <pre><code class="html">&lt;article>
  &lt;header>
   &lt;p>&lt;img src="/usericons/1627591962735"> &lt;b>Fred Flintstone&lt;/b>&lt;/p>
   &lt;p>&lt;a href="/posts/3095182851" rel=bookmark>12:44&lt;/a> &mdash; &lt;a href="#acl-3095182851">Private Post&lt;/a>&lt;/p>
@@ -583,44 +629,24 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p>The <dfn><code data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code></dfn>
-  attribute is a <span>boolean attribute</span>. When specified, it indicates that
-  <code>Document</code> objects in the <code>iframe</code> element's <span>browsing context</span>
-  will be initialized with a <span data-x="concept-document-feature-policy">feature policy</span>
-  which allows the "<code data-x="">payment</code>" feature to be used to make payment requests from
-  any <span>origin</span>. This is enforced by the <span
-  data-x="process-feature-policy-attributes">Process feature policy attributes</span> algorithm.
-  <ref spec="FEATUREPOLICY">
-
-  <p>The <dfn><code data-x="attr-iframe-allowusermedia">allowusermedia</code></dfn> attribute is a
-  <span>boolean attribute</span>. When specified, it indicates that <code>Document</code> objects in
-  the <code>iframe</code> element's <span>browsing context</span> will be initialized with a <span
-  data-x="concept-document-feature-policy">feature policy</span> which allows the "<code
-  data-x="">camera</code>" and "<code data-x="">microphone</code>" features to be used to call
-  <code data-x="dom-MediaDevices-getUserMedia">getUserMedia()</code> from any <span>origin</span>.
-  This is enforced by the <span data-x="process-feature-policy-attributes">Process feature policy
-  attributes</span> algorithm. <ref spec="FEATUREPOLICY">
-
-  <p class="note">None of these attributes, <code data-x="attr-iframe-allow">allow</code>,
-  <code data-x="attr-iframe-allowfullscreen">allowfullscreen</code>, <code
-  data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code> or <code
-  data-x="attr-iframe-allowusermedia">allowusermedia</code>, can grant access to a feature in a
-  <span>nested browsing context</span> if the <code>iframe</code> element's <span>node
-  document</span> is not already allowed to use that feature.</p>
+  <p class="note">Neither <code data-x="attr-iframe-allow">allow</code> nor
+  <code data-x="attr-iframe-allowfullscreen">allowfullscreen</code> can grant access to a feature
+  in an <code>iframe</code> element's <span>nested browsing context</span> if the element's
+  <span>node document</span> is not already allowed to use that feature.</p>
 
   <div w-nodev>
    <p id="fullscreen-logic">To determine whether a <code>Document</code> object <var>document</var>
-   is <dfn data-export="">allowed to use</dfn> the policy-controlled-feature <var>feature</var>,
-   run these steps:</p>
+   is <dfn export>allowed to use</dfn> the policy-controlled-feature <var>feature</var>, run these
+   steps:</p>
 
    <ol>
-    <li><p>If <var>document</var> has no <span data-x="concept-document-bc">browsing context</span>,
-    then return false.</p></li>
+    <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span> is
+    null, then return false.</p></li>
 
     <li><p>If <var>document</var>'s <span data-x="concept-document-bc">browsing context</span>'s
     <span>active document</span> is not <var>document</var>, then return false.</p></li>
 
-    <li><p>If the result of running <span data-x="is-feature-enabled">Is feature enabled in document
+    <li><p>If the result of running <span data-x="is-feature-enabled">is feature enabled in document
     for origin</span> on <var>feature</var>, <var>document</var>, and <var>document</var>'s
     <span>origin</span> is "<code data-x="">Enabled</code>", then return true.</p></li>
 
@@ -629,12 +655,10 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   </div>
 
   <p class="warning">Because they only influence the <span
-  data-x="concept-document-feature-policy">feature policy</span> of the <span>nested browsing
-  context</span>'s <span>active document</span>, the <code data-x="attr-iframe-allow">allow</code>,
-  <code data-x="attr-iframe-allowfullscreen">allowfullscreen</code>, <code
-  data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code> and <code
-  data-x="attr-iframe-allowusermedia">allowusermedia</code> attributes only take effect when the
-  <span>nested browsing context</span> of the <code>iframe</code> is <span
+  data-x="concept-document-permissions-policy">permissions policy</span> of the <span>nested browsing
+  context</span>'s <span>active document</span>, the <code data-x="attr-iframe-allow">allow</code>
+  and <code data-x="attr-iframe-allowfullscreen">allowfullscreen</code> attributes only take effect
+  when the <span>nested browsing context</span> of the <code>iframe</code> is <span
   data-x="navigate">navigated</span>. Adding or removing them has no effect on an already-loaded
   document.</p>
 
@@ -645,7 +669,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   embedded content has specific dimensions (e.g. ad units have well-defined dimensions).</p>
 
   <p>An <code>iframe</code> element never has <span>fallback content</span>, as it will always
-  <span data-x="creating a new browsing context">create</span> a nested <span>browsing context</span>, regardless of whether the specified initial
+  <span>create a new nested browsing context</span>, regardless of whether the specified initial
   contents are successfully used.</p>
 
   <hr> <!-- REFERRERPOLICY ATTRIBUTE -->
@@ -654,6 +678,25 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   <span>referrer policy attribute</span>. Its purpose is to set the <span>referrer policy</span>
   used when <span data-x="process the iframe attributes">processing the <code>iframe</code>
   attributes</span>. <ref spec=REFERRERPOLICY></p>
+
+  <p>The <dfn data-x="attr-iframe-loading"><code>loading</code></dfn> attribute is a <span>lazy
+  loading attribute</span>. Its purpose is to indicate the policy for loading <code>iframe</code>
+  elements that are outside the viewport.</p>
+
+  <p>When the <code data-x="attr-iframe-loading">loading</code> attribute's state is changed to the
+  <span data-x="attr-loading-eager-state">Eager</span> state, the user agent must run these
+  steps:</p>
+
+  <ol>
+   <li><p>Let <var>resumptionSteps</var> be the <code>iframe</code> element's <span>lazy load
+   resumption steps</span>.</p></li>
+
+   <li><p>If <var>resumptionSteps</var> is null, then return.</p></li>
+
+   <li><p>Set the <code>iframe</code>'s <span>lazy load resumption steps</span> to null.</p></li>
+
+   <li><p>Invoke <var>resumptionSteps</var>.</p></li>
+  </ol>
 
   <hr> <!-- FALLBACK -->
 
@@ -669,7 +712,8 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
 
   <hr> <!-- DOM -->
 
-  <p>The IDL attributes <dfn><code data-x="dom-iframe-src">src</code></dfn>, <dfn><code
+  <p>The IDL attributes <dfn attribute for="HTMLIFrameElement"><code
+  data-x="dom-iframe-src">src</code></dfn>, <dfn><code
   data-x="dom-iframe-srcdoc">srcdoc</code></dfn>, <dfn><code
   data-x="dom-iframe-name">name</code></dfn>, <dfn><code
   data-x="dom-iframe-sandbox">sandbox</code></dfn>, and <dfn><code
@@ -685,17 +729,13 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
   must <span>reflect</span> the <code data-x="attr-iframe-allowfullscreen">allowfullscreen</code>
   content attribute.</p>
 
-  <p>The <dfn><code data-x="dom-iframe-allowPaymentRequest">allowPaymentRequest</code></dfn> IDL
-  attribute must <span>reflect</span> the <code
-  data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code> content attribute.</p>
-
-  <p>The <dfn><code data-x="dom-iframe-allowUserMedia">allowUserMedia</code></dfn> IDL attribute
-  must <span>reflect</span> the <code data-x="attr-iframe-allowusermedia">allowusermedia</code>
-  content attribute.</p>
-
   <p>The <dfn><code data-x="dom-iframe-referrerPolicy">referrerPolicy</code></dfn> IDL attribute
   must <span>reflect</span> the <code data-x="attr-iframe-referrerpolicy">referrerpolicy</code>
   content attribute, <span>limited to only known values</span>.</p>
+
+  <p>The <dfn><code data-x="dom-iframe-loading">loading</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-iframe-loading">loading</code> content attribute,
+  <span>limited to only known values</span>.</p>
 
   <p>The <dfn><code data-x="dom-iframe-contentDocument">contentDocument</code></dfn> IDL attribute,
   on getting, must return the <code>iframe</code> element's <span
@@ -713,7 +753,7 @@ interface <dfn>HTMLIFrameElement</dfn> : <span>HTMLElement</span> {
    <p>Here is an example of a page using an <code>iframe</code> to include advertising from an
    advertising broker:</p>
 
-   <pre><code class="html" data-x="">&lt;iframe src="https://ads.example.com/?customerid=923513721&amp;amp;format=banner"
+   <pre><code class="html">&lt;iframe src="https://ads.example.com/?customerid=923513721&amp;amp;format=banner"
         width="468" height="60">&lt;/iframe></code></pre>
 
   </div>

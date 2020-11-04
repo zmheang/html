@@ -10,19 +10,15 @@
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-beginPath">beginPath</code>()</dt>
 
    <dd>
-
     <p>Resets the <span>current default path</span>.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-fill">fill</code>( [ <var>fillRule</var> ] )</dt>
    <dt><var>context</var> . <code data-x="dom-context-2d-fill">fill</code>(<var>path</var> [, <var>fillRule</var> ] )</dt>
 
    <dd>
-
     <p>Fills the subpaths of the <span>current default path</span> or the given path with the
     current fill style, obeying the given fill rule.</p>
-
    </dd>
 
 
@@ -30,10 +26,8 @@
    <dt><var>context</var> . <code data-x="dom-context-2d-stroke">stroke</code>(<var>path</var>)</dt>
 
    <dd>
-
     <p>Strokes the subpaths of the <span>current default path</span> or the given path with the
     current stroke style.</p>
-
    </dd>
 
 
@@ -41,10 +35,8 @@
    <dt><var>context</var> . <code data-x="dom-context-2d-clip">clip</code>(<var>path</var> [, <var>fillRule</var> ] )</dt>
 
    <dd>
-
     <p>Further constrains the clipping region to the <span>current default path</span> or the given
     path, using the given fill rule to determine what points are in the path.</p>
-
    </dd>
 
 
@@ -52,10 +44,8 @@
    <dt><var>context</var> . <code data-x="dom-context-2d-isPointInPath">isPointInPath</code>(<var>path</var>, <var>x</var>, <var>y</var> [, <var>fillRule</var> ] )</dt>
 
    <dd>
-
     <p>Returns true if the given point is in the <span>current default path</span> or the given
     path, using the given fill rule to determine what points are in the path.</p>
-
    </dd>
 
 
@@ -63,18 +53,15 @@
    <dt><var>context</var> . <code data-x="dom-context-2d-isPointInStroke">isPointInStroke</code>(<var>path</var>, <var>x</var>, <var>y</var>)</dt>
 
    <dd>
-
     <p>Returns true if the given point would be in the region covered by the stroke of the
     <span>current default path</span> or the given path, given the current stroke style.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
   <p>The <dfn><code data-x="dom-context-2d-beginPath">beginPath()</code></dfn> method, when invoked,
-  must empty the list of subpaths in the context's <span>current default path</span> so that the it
+  must empty the list of subpaths in the context's <span>current default path</span> so that it
   once again has zero subpaths.</p>
 
   <p>Where the following method definitions use the term <i>intended path</i>, it means the
@@ -90,14 +77,14 @@
   the <span>current default path</span> when it is constructed, so applying it when it is painted as
   well would result in a double transformation.)</p>
 
-  <p>The <dfn><code data-x="dom-context-2d-fill">fill()</code></dfn> method, when invoked, must fill
-  all the subpaths of the intended path, using <code
+  <p>The <dfn method for="CanvasDrawPath"><code data-x="dom-context-2d-fill">fill()</code></dfn>
+  method, when invoked, must fill all the subpaths of the intended path, using <code
   data-x="dom-context-2d-fillStyle">fillStyle</code>, and using the <span>fill rule</span> indicated
   by the <var>fillRule</var> argument. Open subpaths must be implicitly closed when being filled
   (without affecting the actual subpaths).</p>
 
-  <p>The <dfn><code data-x="dom-context-2d-stroke">stroke()</code></dfn> method, when invoked, must
-  <span data-x="trace a path">trace</span> the intended path, using this
+  <p>The <dfn method for="CanvasDrawPath"><code data-x="dom-context-2d-stroke">stroke()</code></dfn>
+  method, when invoked, must <span data-x="trace a path">trace</span> the intended path, using this
   <code>CanvasPathDrawingStyles</code> object for the line styles, and then fill the resulting path
   using the <code data-x="dom-context-2d-strokeStyle">strokeStyle</code> attribute, using the <span
   data-x="dom-context-2d-fillRule-nonzero">nonzero winding rule</span>.</p>
@@ -118,12 +105,12 @@
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-context-2d-clip">clip()</code></dfn> method, when invoked, must
-  create a new <dfn>clipping region</dfn> by calculating the intersection of the current clipping
-  region and the area described by the intended path, using the <span>fill rule</span> indicated by
-  the <var>fillRule</var> argument. Open subpaths must be implicitly closed when computing the
-  clipping region, without affecting the actual subpaths. The new clipping region replaces the
-  current clipping region.</p>
+  <p>The <dfn method for="CanvasDrawPath"><code data-x="dom-context-2d-clip">clip()</code></dfn>
+  method, when invoked, must create a new <dfn>clipping region</dfn> by calculating the intersection
+  of the current clipping region and the area described by the intended path, using the <span>fill
+  rule</span> indicated by the <var>fillRule</var> argument. Open subpaths must be implicitly closed
+  when computing the clipping region, without affecting the actual subpaths. The new clipping region
+  replaces the current clipping region.</p>
 
   <p>When the context is initialized, the clipping region must be set to the largest infinite
   surface (i.e. by default, no clipping occurs).</p>
@@ -167,7 +154,7 @@
    <p>This <code>canvas</code> element has a couple of checkboxes. The path-related commands are
    highlighted:</p>
 
-   <pre><code class="html" data-x="">&lt;canvas height=400 width=750>
+   <pre><code class="html">&lt;canvas height=400 width=750>
  &lt;label>&lt;input type=checkbox id=showA> Show As&lt;/label>
  &lt;label>&lt;input type=checkbox id=showB> Show Bs&lt;/label>
  &lt;!-- ... -->

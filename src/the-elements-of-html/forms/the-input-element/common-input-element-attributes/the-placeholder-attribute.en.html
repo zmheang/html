@@ -2,11 +2,12 @@
 
   <!-- substantially similar text in the <textarea> section -->
 
-  <p>The <dfn><code data-x="attr-input-placeholder">placeholder</code></dfn> attribute represents a
-  <em>short</em> hint (a word or short phrase) intended to aid the user with data entry when the
-  control has no value. A hint could be a sample value or a brief description of the expected
-  format. The attribute, if specified, must have a value that contains no U+000A LINE FEED (LF) or
-  U+000D CARRIAGE RETURN (CR) characters.</p>
+  <p>The <dfn element-attr for="input"><code
+  data-x="attr-input-placeholder">placeholder</code></dfn> attribute represents a <em>short</em>
+  hint (a word or short phrase) intended to aid the user with data entry when the control has no
+  value. A hint could be a sample value or a brief description of the expected format. The
+  attribute, if specified, must have a value that contains no U+000A LINE FEED (LF) or U+000D
+  CARRIAGE RETURN (CR) characters.</p>
 
   <p>The <code data-x="attr-input-placeholder">placeholder</code> attribute should not be used as an
   alternative to a <code>label</code>. For a longer hint or other advisory text, the <code
@@ -38,7 +39,7 @@
    <p>Here is an example of a mail configuration user interface that uses the <code
    data-x="attr-input-placeholder">placeholder</code> attribute:</p>
 
-   <pre><code class="html" data-x="">&lt;fieldset>
+   <pre><code class="html">&lt;fieldset>
  &lt;legend>Mail Account&lt;/legend>
  &lt;p>&lt;label>Name: &lt;input type="text" name="fullname" placeholder="John Ratzenberger">&lt;/label>&lt;/p>
  &lt;p>&lt;label>Address: &lt;input type="email" name="address" placeholder="john@example.net">&lt;/label>&lt;/p>
@@ -54,12 +55,12 @@
    have a different directionality, Unicode's bidirectional-algorithm formatting characters can be
    used in the attribute value:</p>
 
-   <pre><code class="html" data-x="">&lt;input name=t1 type=tel placeholder="<strong>&amp;#x202B;</strong>&#x2009;<bdo dir=rtl>&#1585;&#1602;&#1605;&nbsp;&#1575;&#1604;&#1607;&#1575;&#1578;&#1601;&nbsp;1</bdo>&#x2009;<strong>&amp;#x202E;</strong>">
+   <pre><code class="html">&lt;input name=t1 type=tel placeholder="<strong>&amp;#x202B;</strong>&#x2009;<bdo dir=rtl>&#1585;&#1602;&#1605;&nbsp;&#1575;&#1604;&#1607;&#1575;&#1578;&#1601;&nbsp;1</bdo>&#x2009;<strong>&amp;#x202E;</strong>">
 &lt;input name=t2 type=tel placeholder="<strong>&amp;#x202B;</strong>&#x2009;<bdo dir=rtl>&#1585;&#1602;&#1605;&nbsp;&#1575;&#1604;&#1607;&#1575;&#1578;&#1601;&nbsp;2</bdo>&#x2009;<strong>&amp;#x202E;</strong>"></code></pre>
 
    <p>For slightly more clarity, here's the same example using numeric character references instead of inline Arabic:</p>
 
-   <pre><code class="html" data-x="">&lt;input name=t1 type=tel placeholder="<strong>&amp;#x202B;</strong>&amp;#1585;&amp;#1602;&amp;#1605;&nbsp;&amp;#1575;&amp;#1604;&amp;#1607;&amp;#1575;&amp;#1578;&amp;#1601;&nbsp;1<strong>&amp;#x202E;</strong>">
+   <pre><code class="html">&lt;input name=t1 type=tel placeholder="<strong>&amp;#x202B;</strong>&amp;#1585;&amp;#1602;&amp;#1605;&nbsp;&amp;#1575;&amp;#1604;&amp;#1607;&amp;#1575;&amp;#1578;&amp;#1601;&nbsp;1<strong>&amp;#x202E;</strong>">
 &lt;input name=t2 type=tel placeholder="<strong>&amp;#x202B;</strong>&amp;#1585;&amp;#1602;&amp;#1605;&nbsp;&amp;#1575;&amp;#1604;&amp;#1607;&amp;#1575;&amp;#1578;&amp;#1601;&nbsp;2<strong>&amp;#x202E;</strong>"></code></pre>
 
   </div>

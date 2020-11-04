@@ -24,17 +24,15 @@
   requirements.</p>
 
   <dl>
-
    <dt id="interactive">Web browsers and other interactive user agents</dt>
 
    <dd>
-
     <p>Web browsers that support <span>the XML syntax</span> must process elements and attributes
     from the <span>HTML namespace</span> found in XML documents as described in this specification,
     so that users can interact with them, unless the semantics of those elements have been
     overridden by other specifications.</p>
 
-    <p class="example">A conforming Web browser would, upon finding a <code>script</code> element in
+    <p class="example">A conforming web browser would, upon finding a <code>script</code> element in
     an XML document, execute the script contained in that element. However, if the element is found
     within a transformation expressed in XSLT (assuming the user agent also supports XSLT), then the
     processor would instead treat the <code>script</code> element as an opaque element that forms
@@ -45,22 +43,20 @@
     them.</p>
 
     <p>User agents that support scripting must also be conforming implementations of the IDL
-    fragments in this specification, as described in the Web IDL specification. <ref
+    fragments in this specification, as described in <cite>Web IDL</cite>. <ref
     spec=WEBIDL></p>
 
     <p class="note">Unless explicitly stated, specifications that override the semantics of HTML
     elements do not override the requirements on DOM objects representing those elements. For
     example, the <code>script</code> element in the example above would still implement the
     <code>HTMLScriptElement</code> interface.</p>
-
    </dd>
 
    <dt id="non-interactive">Non-interactive presentation user agents</dt>
 
    <dd>
-
     <p>User agents that process HTML and XML documents purely to render non-interactive versions of
-    them must comply to the same conformance criteria as Web browsers, except that they are exempt
+    them must comply to the same conformance criteria as web browsers, except that they are exempt
     from requirements regarding user interaction.</p>
 
     <p class="note">Typical examples of non-interactive presentation user agents are printers
@@ -72,13 +68,11 @@
     allowing forms to be dynamically submitted, and so forth. However, since the concept of "focus"
     is irrelevant when the user cannot interact with the document, the UA would not need to support
     any of the focus-related DOM APIs.</p>
-
    </dd>
 
    <dt id="renderingUA">Visual user agents that support the suggested default rendering</dt>
 
    <dd>
-
     <p>User agents, whether interactive or not, may be designated (possibly as a user option) as
     supporting the suggested default rendering defined by this specification.</p>
 
@@ -90,13 +84,11 @@
     <p>User agents that are designated as supporting the suggested default rendering must, while so
     designated, implement the rules <a href="#rendering">the rendering section</a> defines as the
     behavior that user agents are <em>expected</em> to implement.</p>
-
    </dd>
 
    <dt id="non-scripted">User agents with no scripting support</dt>
 
    <dd>
-
     <p>Implementations that do not support scripting (or which have their scripting features
     disabled entirely) are exempt from supporting the events and DOM interfaces mentioned in this
     specification. For the parts of this specification that are defined in terms of an events model
@@ -106,7 +98,6 @@
     <p class="note">Scripting can form an integral part of an application. Web browsers that do not
     support scripting, or that have scripting disabled, might be unable to fully convey the author's
     intent.</p>
-
    </dd>
 
 
@@ -142,13 +133,11 @@
      <p>To put it another way, there are three types of conformance criteria:</p>
 
      <ol>
-
       <li>Criteria that can be expressed in a DTD.</li>
 
       <li>Criteria that cannot be expressed by a DTD, but can still be checked by a machine.</li>
 
       <li>Criteria that can only be checked by a human.</li>
-
      </ol>
 
      <p>A conformance checker must check for the first two. A simple DTD-based validator only checks
@@ -170,14 +159,12 @@
     <p class="example">A tool that generates <span data-x="outline">document outlines</span> but
     increases the nesting level for each paragraph and does not increase the nesting level for each
     section would not be conforming.</p>
-
    </dd>
 
 
    <dt id="editors">Authoring tools and markup generators</dt>
 
    <dd>
-
     <p>Authoring tools and markup generators must generate <span>conforming documents</span>.
     Conformance criteria that apply to authors also apply to authoring tools, where appropriate.</p>
 
@@ -220,16 +207,14 @@
 
     <p>All authoring tools, whether WYSIWYG or not, should make a best effort attempt at enabling
     users to create well-structured, semantically rich, media-independent content.</p>
-
    </dd>
-
   </dl>
 
-  <p id="hardwareLimitations">User agents may impose implementation-specific limits on otherwise
-  unconstrained inputs, e.g. to prevent denial of service attacks, to guard against running out of
-  memory, or to work around platform-specific limitations.
-  <!--INSERT FINGERPRINT-->
-  </p>
+  <p id="hardwareLimitations">
+  <!--INSERT TRACKING-->
+  User agents may impose implementation-specific limits on otherwise unconstrained inputs, e.g., to
+  prevent denial of service attacks, to guard against running out of memory, or to work around
+  platform-specific limitations.</p>
 
   <p>For compatibility with existing content and prior specifications, this specification describes
   two authoring formats: one based on <span data-x="the XML syntax">XML</span>, and one using a <a

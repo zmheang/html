@@ -1,29 +1,31 @@
   <h4>Parallelism</h4>
 
-  <p>To run steps <dfn data-export="">in parallel</dfn> means those steps are to be run, one after
-  another, at the same time as other logic in the standard (e.g., at the same time as the
-  <span>event loop</span>). This standard does not define the precise mechanism by which this is
-  achieved, be it time-sharing cooperative multitasking, fibers, threads, processes, using different
-  hyperthreads, cores, CPUs, machines, etc. By contrast, an operation that is to run
-  <dfn>immediately</dfn> must interrupt the currently running task, run itself, and then resume the
-  previously running task.</p>
+  <p>To run steps <dfn export>in parallel</dfn> means those steps are to be run, one after another,
+  at the same time as other logic in the standard (e.g., at the same time as the <span>event
+  loop</span>). This standard does not define the precise mechanism by which this is achieved, be it
+  time-sharing cooperative multitasking, fibers, threads, processes, using different hyperthreads,
+  cores, CPUs, machines, etc. By contrast, an operation that is to run <dfn>immediately</dfn> must
+  interrupt the currently running task, run itself, and then resume the previously running task.</p>
+
+  <p class="note">For guidance on writing specifications that leverage parallelism, see <a
+  href="#event-loop-for-spec-authors">Dealing with the event loop from other specifications</a>.</p>
 
   <p>To avoid race conditions between different <span>in parallel</span> algorithms that operate on
   the same data, a <span>parallel queue</span> can be used.</p>
 
-  <p>A <dfn data-export="">parallel queue</dfn> represents a queue of algorithm steps that must be
-  run in series.</p>
+  <p>A <dfn export>parallel queue</dfn> represents a queue of algorithm steps that must be run in
+  series.</p>
 
   <p>A <span>parallel queue</span> has an <dfn>algorithm queue</dfn> (a <span>queue</span>),
   initially empty.</p>
 
   <p>To <dfn data-x="enqueue the following steps" data-lt="enqueue steps|enqueue the following
-  steps" data-export="" data-dfn-for="parallel queue">enqueue steps</dfn> to a <span>parallel
-  queue</span>, <span>enqueue</span> the algorithm steps to the <span>parallel queue</span>'s
-  <span>algorithm queue</span>.</p>
+  steps" export for="parallel queue">enqueue steps</dfn> to a <span>parallel queue</span>,
+  <span>enqueue</span> the algorithm steps to the <span>parallel queue</span>'s <span>algorithm
+  queue</span>.</p>
 
   <p>To <dfn data-x="starting a new parallel queue" data-lt="start a new parallel queue|starting a
-  new parallel queue" data-export="">start a new parallel queue</dfn>, run the following steps:</p>
+  new parallel queue" export>start a new parallel queue</dfn>, run the following steps:</p>
 
   <ol>
    <li><p>Let <var>parallelQueue</var> be a new <span>parallel queue</span>.</p></li>

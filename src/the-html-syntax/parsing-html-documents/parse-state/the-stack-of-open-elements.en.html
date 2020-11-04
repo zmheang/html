@@ -22,14 +22,13 @@
   elements</span>.</p>
 
   <p>The <dfn>adjusted current node</dfn> is the <i data-x="concept-frag-parse-context">context</i>
-  element if the parser was created by the <span>HTML fragment parsing algorithm</span> and the
-  <span>stack of open elements</span> has only one element in it (<span>fragment case</span>);
+  element if the parser was created as part of the <span>HTML fragment parsing algorithm</span> and
+  the <span>stack of open elements</span> has only one element in it (<span>fragment case</span>);
   otherwise, the <span>adjusted current node</span> is the <span>current node</span>.</p>
 
   <p>Elements in the <span>stack of open elements</span> fall into the following categories:</p>
 
   <dl>
-
    <dt><dfn>Special</dfn></dt>
    <dd>
     <p>The following elements have varying levels of special parsing rules: HTML's
@@ -74,7 +73,6 @@
 
    <dt><dfn>Ordinary</dfn></dt>
    <dd><p>All other elements found while parsing an HTML document.</p></dd>
-
   </dl>
 
   <p class="note">Typically, the <span>special</span> elements have the start and end tag tokens
@@ -91,7 +89,6 @@
   state:</p>
 
   <ol>
-
    <li><p>Initialize <var>node</var> to be the <span>current node</span> (the bottommost
    node of the stack).</p></li>
 
@@ -103,7 +100,6 @@
    elements</span> and return to step 2. (This will never fail, since the loop will always terminate
    in the previous step if the top of the stack &mdash; an <code>html</code> element &mdash; is
    reached.)</p></li>
-
   </ol>
 
   <p>The <span>stack of open elements</span> is said to <dfn data-x="has an element in scope">have a

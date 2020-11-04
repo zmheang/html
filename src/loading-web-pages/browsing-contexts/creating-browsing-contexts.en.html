@@ -1,0 +1,239 @@
+  <h4>Creating browsing contexts</h4>
+
+  <p>To <dfn>set the active document</dfn> of a <span>browsing context</span>
+  <var>browsingContext</var> to a <code>Document</code> object <var>document</var>, run these
+  steps:</p>
+
+  <ol>
+   <li>
+    <p>Let <var>window</var> be <var>document</var>'s <span>relevant global object</span>.</p>
+
+    <p class="XXX">Per this standard <var>document</var> can be created before <var>window</var>,
+    which does not make much sense. See <a href="https://github.com/whatwg/html/issues/2688">issue
+    #2688</a>.</p>
+   </li>
+
+   <li><p>Set <var>browsingContext</var>'s <span>active window</span> to <var>window</var>.</p></li>
+
+   <li><p>Set <var>window</var>'s <span data-x="concept-document-window">associated
+   <code>Document</code></span> to <var>document</var>.</p></li>
+
+   <li><p>Set <var>window</var>'s <span>relevant settings object</span>'s <span
+   data-x="concept-environment-execution-ready-flag">execution ready flag</span>.</p></li>
+  </ol>
+
+  <hr>
+
+  <p>A <span>browsing context</span> has an associated <dfn>creator origin</dfn> (null or returns an
+  <span>origin</span>), <dfn>creator URL</dfn> (null or returns a <span>URL</span>), and <dfn>creator
+  base URL</dfn> (null or returns a <span>URL</span>). These are all initially null.</p>
+
+  <div w-nodev>
+
+  <p>To <dfn data-x="determining the origin">determine the origin</dfn>, given <span>browsing
+  context</span> <var>browsingContext</var>, <span>URL</span> <var>url</var>, <span>sandboxing flag
+  set</span> <var>sandboxFlags</var>, and two <span data-x="origin">origins</span>
+  <var>invocationOrigin</var> and <var>activeDocumentNavigationOrigin</var>:</p>
+
+  <ol>
+   <li id="sandboxOrigin"><p>If <var>sandboxFlags</var> has its <span>sandboxed origin browsing
+   context flag</span> set, then return a new <span data-x="concept-origin-opaque">opaque
+   origin</span>.</p></li>
+
+   <li><p>If <var>url</var> is null, then return a new <span data-x="concept-origin-opaque">opaque
+   origin</span>.</p></li>
+
+   <li><p>If <var>activeDocumentNavigationOrigin</var> is not null, and <var>url</var>'s <span
+   data-x="concept-url-scheme">scheme</span> is "<code data-x="">javascript</code>", then return
+   <var>activeDocumentNavigationOrigin</var>.</p></li>
+
+   <li>
+    <p>If <var>invocationOrigin</var> is non-null and <var>url</var> is <code>about:blank</code>,
+    then return <var>invocationOrigin</var>.</p>
+
+    <p class="note">The result here is that two documents end up with the same underlying
+    <span>origin</span>, meaning that <code data-x="dom-document-domain">document.domain</code>
+    affects both.</p>
+   </li>
+
+   <li><p>If <var>url</var> is <code>about:srcdoc</code>, then return the <span>origin</span> of
+   <var>browsingContext</var>'s <span data-x="bc-container-document">container
+   document</span>.</p></li>
+
+   <li><p>Return <var>url</var>'s <span data-x="concept-url-origin">origin</span>.</p></li>
+  </ol>
+
+  <p>To <dfn data-x="creating a new browsing context">create a new browsing context</dfn>, given
+  null or a <code>Document</code> object <var>creator</var>, null or an element <var>embedder</var>,
+  and a <span>browsing context group</span> <var>group</var>, run these steps:</p>
+
+  <!-- Note: Do not append the new browsing context to group as we might be creating a nested
+       browsing context and not a top level browsing context -->
+
+  <ol>
+   <li><p>Let <var>browsingContext</var> be a new <span>browsing context</span>.</p></li>
+
+   <li id="creator-browsing-context"><p>If <var>creator</var> is non-null, then set
+   <var>browsingContext</var>'s <span>creator origin</span> to return <var>creator</var>'s
+   <span>origin</span>, <var>browsingContext</var>'s <span>creator URL</span> to return
+   <var>creator</var>'s <span data-x="concept-document-url">URL</span>, and
+   <var>browsingContext</var>'s <span>creator base URL</span> to return <var>creator</var>'s <span
+   data-x="document base URL">base URL</span>.</p></li>
+
+   <li><p>Let <var>sandboxFlags</var> be the result of <span>determining the creation sandboxing
+   flags</span> given <var>browsingContext</var> and <var>embedder</var>.</p></li>
+
+   <!--
+    This step does not need to use |embedder|, because determining the origin only consults the
+    container when the url argument is about:srcdoc. However, here we always pass about:blank.
+   -->
+   <li id="about-blank-origin"><p>Let <var>origin</var> be the result of <span>determining the
+   origin</span> given <var>browsingContext</var>, <code>about:blank</code>,
+   <var>sandboxFlags</var>, <var>browsingContext</var>'s <span>creator origin</span>, and
+   null.</p></li>
+
+   <li>
+    <p>Let <var>permissionsPolicy</var> be the result of <span>creating a permissions policy</span>
+    given <var>browsingContext</var> and <var>origin</var>. <ref spec="PERMISSIONSPOLICY"></p>
+
+    <p class=XXX>This needs to use <var>embedder</var>.</p>
+   </li>
+
+   <li><p>Let <var>agent</var> be the result of <span
+   data-x="obtain-similar-origin-window-agent">obtaining a similar-origin window agent</span> given
+   <var>origin</var>, <var>group</var>, and false.</p></li>
+
+   <li>
+    <p>Let <var>realm execution context</var> be the result of <span>creating a new JavaScript
+    realm</span> given <var>agent</var> and the following customizations:</p>
+
+    <ul>
+     <li><p>For the global object, create a new <code>Window</code> object.</p></li>
+
+     <li><p>For the global <b>this</b> binding, use <var>browsingContext</var>'s
+     <code>WindowProxy</code> object.</li>
+    </ul>
+   </li>
+
+   <li><p>Let <var>topLevelCreationURL</var> be <code>about:blank</code> if <var>embedder</var> is
+   null; otherwise <var>embedder</var>'s <span>relevant settings object</span>'s <span>top-level
+   creation URL</span>.</p></li>
+
+   <li><p>Let <var>topLevelOrigin</var> be <var>origin</var> if <var>embedder</var> is null;
+   otherwise <var>embedder</var>'s <span>relevant settings object</span>'s <span>top-level
+   origin</span>.</p></li>
+
+   <li><p>Let <var>settingsObject</var> be the result of <span data-x="set up a window environment
+   settings object">setting up a window environment settings object</span> with <var>realm execution
+   context</var>, null, <var>topLevelCreationURL</var>, and <var>topLevelOrigin</var>.</p></li>
+
+   <li><p>Let <var>coop</var> be "<code data-x="coop-unsafe-none">unsafe-none</code>".</p></li>
+
+   <li><p>If <var>creator</var> is non-null and <var>creator</var>'s <span>origin</span> is
+   <span>same origin</span> with <var>creator</var>'s <span>relevant settings object</span>'s
+   <span>top-level origin</span>, then set <var>coop</var> to <var>creator</var>'s <span
+   data-x="concept-document-bc">browsing context</span>'s <span>top-level browsing context</span>'s
+   <span>active document</span>'s <span data-x="concept-document-coop">cross-origin opener
+   policy</span>.</p></li>
+
+   <li><p>Let <var>document</var> be a new <code>Document</code>, marked as an <span data-x="HTML
+   documents">HTML document</span> in <span>quirks mode</span>, whose <span
+   data-x="concept-document-content-type">content type</span> is "<code data-x="">text/html</code>",
+   <span>origin</span> is <var>origin</var>, <span>active sandboxing flag set</span> is
+   <var>sandboxFlags</var>, <span data-x="concept-document-permissions-policy">permissions
+   policy</span> is <var>permissionsPolicy</var>, <span data-x="concept-document-coop">cross-origin
+   opener policy</span> is <var>coop</var>, and which is <span>ready for post-load
+   tasks</span>.</p></li>
+
+   <li><p>Ensure that <var>document</var> has a single child <code>html</code> node, which itself
+   has two empty child nodes: a <code>head</code> element, and a <code>body</code> element.</p></li>
+
+   <li><p><span>Set the active document</span> of <var>browsingContext</var> to
+   <var>document</var>.</p></li>
+
+   <li><p>If <var>browsingContext</var>'s <span>creator URL</span> is non-null, then set
+   <var>document</var>'s <span data-x="the document's referrer">referrer</span> to the <span
+   data-x="concept-url-serializer">serialization</span> of it.</p></li>
+
+   <li><p>If <var>creator</var> is non-null, then set <var>document</var>'s
+   <span data-x="concept-document-referrer-policy">referrer policy</span> to <var>creator</var>'s
+   <span data-x="concept-document-referrer-policy">referrer policy</span>.</p></li>
+
+   <li><p>If <var>creator</var> is non-null, then set <var>document</var>'s
+   <span data-x="concept-document-embedder-policy">embedder policy</span> to <var>creator</var>'s
+   <span data-x="concept-document-embedder-policy">embedder policy</span>.</p></li>
+
+   <li><p>Add <var>document</var> to <var>browsingContext</var>'s <span>session
+   history</span>.</p></li>
+
+   <li><p><span>Completely finish loading</span> <var>document</var>.</p></li>
+
+   <li><p>Return <var>browsingContext</var>.</p></li>
+  </ol>
+
+  <p>To <dfn data-x="creating a new top-level browsing context">create a new top-level browsing
+  context</dfn>:</p>
+
+  <ol>
+   <li><p>Let <var>group</var> be the result of <span>creating a new browsing context
+   group</span>.</p></li>
+
+   <li><p>Return <var>group</var>'s <span>browsing context set</span>[0].</p></li>
+  </ol>
+
+  <p class="note">This creates a <span>top-level browsing context</span>.</p>
+
+  <p>To <dfn data-x="creating a new auxiliary browsing context">create a new auxiliary browsing
+  context</dfn>, given a <span>browsing context</span> <var>opener</var>:</p>
+
+  <ol>
+   <li><p>Let <var>group</var> be <var>opener</var>'s <span>top-level browsing context</span>'s
+   <span data-x="tlbc group">group</span></p></li>
+
+   <li><p>Assert: <var>group</var> is non-null, as <span data-x="navigate">navigating</span> invokes
+   this directly.</p></li>
+
+   <li><p>Let <var>browsingContext</var> be the result of <span>creating a new browsing
+   context</span> with <var>opener</var>'s <span>active document</span>, null, and
+   <var>group</var>.</p></li>
+
+   <li><p><span data-x="bcg append">Append</span> <var>browsingContext</var> to
+   <var>group</var>.</p></li>
+
+   <li><p>Set <var>browsingContext</var>'s <span>opener browsing context</span> to
+   <var>opener</var>.</p></li>
+
+   <li id="copy-session-storage"><p><span>Legacy-clone a browsing session storage shed</span> with
+   <var>opener</var>'s <span data-x="tlbc browsing session">browsing session</span> and
+   <var>browsingContext</var>'s <span data-x="tlbc browsing session">browsing session</span>. <ref
+   spec=STORAGE></p></li>
+
+   <li><p>Return <var>browsingContext</var>.</p></li>
+  </ol>
+
+  <p class="note">This creates a <span>top-level browsing context</span> that is also an
+  <span>auxiliary browsing context</span>.</p>
+
+  <p>To <dfn id="creating-a-new-nested-browsing-context">create a new nested browsing context</dfn>,
+  given an element <var>element</var>:</p>
+
+  <ol>
+   <li><p>Let <var>group</var> be <var>element</var>'s <span>node document</span>'s <span
+   data-x="concept-document-bc">browsing context</span>'s <span>top-level browsing context</span>'s
+   <span data-x="tlbc group">group</span>.</p></li>
+
+   <li><p>Let <var>browsingContext</var> be the result of <span>creating a new browsing
+   context</span> with <var>element</var>'s <span>node document</span>, <var>element</var>, and
+   <var>group</var>.</p></li>
+
+   <li><p>Set <var>element</var>'s <span>nested browsing context</span> to
+   <var>browsingContext</var>.</p></li>
+
+   <li><p>If <var>element</var> has a <code data-x="">name</code> attribute, then set
+   <var>browsingContext</var>'s <span data-x="browsing context name">name</span> to the value of
+   this attribute.</p></li>
+  </ol>
+
+  </div>
+
+

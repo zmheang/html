@@ -6,13 +6,11 @@
   <span>normal elements</span>.</p>
 
   <dl>
-
    <dt><dfn>Void elements</dfn></dt>
 
    <dd><code>area</code>, <code>base</code>, <code>br</code>, <code>col</code>, <code>embed</code>,
    <code>hr</code>, <code>img</code>, <code>input</code>, <code>link</code>, <code>meta</code>,
    <code>param</code>, <code>source</code>, <code>track</code>, <code>wbr</code></dd>
-   <!-- see also other places that say VOIDLIST -->
    <!-- non-conforming elements treated as void by the parser are not listed here: basefont,
    bgsound, frame, keygen -->
 
@@ -24,7 +22,7 @@
    <dd><code>script</code>, <code>style</code></dd> <!-- iframe and noscript don't count as raw text
    for syntax purposes -->
 
-   <dt><dfn>escapable raw text elements</dfn></dt>
+   <dt><dfn>Escapable raw text elements</dfn></dt>
 
    <dd><code>textarea</code>, <code>title</code></dd>
 
@@ -35,7 +33,6 @@
    <dt><dfn>Normal elements</dfn></dt>
 
    <dd>All other allowed <span>HTML elements</span> are normal elements.</dd>
-
   </dl>
 
   <p><dfn data-x="syntax-tags">Tags</dfn> are used to delimit the start and end of elements in the
@@ -72,7 +69,7 @@
   element's end tag (as with other elements), and may consist of any <span
   data-x="syntax-text">text</span>, <span data-x="syntax-charref">character references</span>, <span
   data-x="syntax-elements">elements</span>, and <span data-x="syntax-comments">comments</span>, but
-  but the text must not contain the character U+003C LESS-THAN SIGN (&lt;) or an <span
+  the text must not contain the character U+003C LESS-THAN SIGN (&lt;) or an <span
   data-x="syntax-ambiguous-ampersand">ambiguous ampersand</span>.</p>
 
   <p><span>Raw text elements</span> can have <span data-x="syntax-text">text</span>, though it has <a
@@ -99,7 +96,7 @@
 
    <p>For instance, consider the following HTML fragment:</p>
 
-   <pre><code class="html" data-x="">&lt;p>
+   <pre><code class="html">&lt;p>
  &lt;svg>
   &lt;metadata>
    &lt;!-- this is invalid -->
@@ -110,9 +107,9 @@
 
    <p>The innermost element, <code data-x="">cdr:license</code>, is actually in the SVG namespace, as
    the "<code data-x="">xmlns:cdr</code>" attribute has no effect (unlike in XML). In fact, as the
-   comment in the fragment above says, the fragment is actually non-conforming. This is because the
-   SVG specification does not define any elements called "<code data-x="">cdr:license</code>" in the
-   SVG namespace.</p>
+   comment in the fragment above says, the fragment is actually non-conforming. This is because
+   <cite>SVG 2</cite> does not define any elements called "<code data-x="">cdr:license</code>" in
+   the SVG namespace.</p>
 
   </div>
 

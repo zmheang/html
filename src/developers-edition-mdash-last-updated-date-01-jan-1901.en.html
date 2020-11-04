@@ -1,10 +1,12 @@
     <h2 class="no-num no-toc" id="dev-edition-h2">Developer's Edition &mdash; Last Updated <span class="pubdate">[DATE: 01 Jan 1901]</span></h2>
    </hgroup>
    <nav w-nosplit w-nodev w-noreview>
+    <!-- Note: be sure to keep an even number of <a>s, for small screens where they appear in two columns. -->
     <div>
-     <a href="/"><span data-x=""><strong>One-Page Version</strong> <code data-x="">html.spec.whatwg.org</code></span></a>
-     <a href="/multipage/" id="multipage-link"><span data-x=""><strong>Multipage Version</strong> <code data-x="">/multipage</code></span></a>
-     <a href="/dev/"><span data-x=""><strong>Developer Version</strong> <code data-x="">/dev</code></span></a>
+     <a w-nohtml href="/" id="commit-snapshot-link"><span data-x=""><strong>One-Page Version</strong> <code data-x="">html.spec.whatwg.org</code></span></a>
+     <a w-nosnap href="/"><span data-x=""><strong>One-Page Version</strong> <code data-x="">html.spec.whatwg.org</code></span></a>
+     <a href="/multipage/" id="multipage-link" onclick="setLinkFragment(this);"><span data-x=""><strong>Multipage Version</strong> <code data-x="">/multipage</code></span></a>
+     <a href="/dev/" onclick="setLinkFragment(this);"><span data-x=""><strong>Developer Version</strong> <code data-x="">/dev</code></span></a>
      <a href="/print.pdf"><span data-x=""><strong>PDF Version</strong> <code data-x="">/print.pdf</code></span></a>
      <a href="https://github.com/whatwg/html/wiki/Translations"><span data-x=""><strong>Translations</strong> <code data-x="">日本語 • 简体中文</code></span></a>
     </div>
@@ -15,17 +17,14 @@
     <div>
      <a class="changes" href="https://github.com/whatwg/html"><span data-x=""><strong>Contribute on GitHub</strong> <code data-x="">whatwg/html repository</code></span></a>
      <a class="changes" href="https://github.com/whatwg/html/commits"><span data-x=""><strong>Commits</strong> <code data-x="">on GitHub</code></span></a>
+     <a w-nosnap class="changes" href="/commit-snapshots/[SHA]" id="commit-snapshot-link"><span data-x=""><strong>Snapshot</strong> <code data-x="">as of this commit</code></span></a>
      <a class="changes" href="https://twitter.com/htmlstandard"><span data-x=""><strong>Twitter Updates</strong> <code data-x="">@htmlstandard</code></span></a>
     </div>
     <div>
-     <!-- Seems like the least important thing left given that we want an even number of items for
-          small screens where they appear in two columns. Feel free to add back if we add/remove
-          something else.
-
-     <a class="feedback" href="https://www.w3.org/Bugs/Public/buglist.cgi?bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;component=HTML&amp;product=WHATWG"><span data-x=""><strong>Legacy Open Bugs</strong> <code data-x="">filed in Bugzilla</code></span></a>
-     -->
      <a class="feedback" href="https://github.com/whatwg/html/issues"><span data-x=""><strong>Open Issues</strong> <code data-x="">filed on GitHub</code></span></a>
      <a class="feedback" href="https://whatwg.org/newbug"><span data-x=""><strong>Open an Issue</strong> <code data-x="">whatwg.org/newbug</code></span></a>
+     <a class="feedback" href="https://github.com/web-platform-tests/wpt/tree/master/html"><span data-x=""><strong>Tests</strong> <code data-x="">web-platform-tests html/</code></span></a>
+     <a class="feedback" href="https://github.com/web-platform-tests/wpt/labels/html"><span data-x=""><strong>Issues for Tests</strong> <code data-x="">ongoing work</code></span></a>
     </div>
    </nav>
 

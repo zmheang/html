@@ -1,17 +1,20 @@
   <h5>Dedicated workers and the <code subdfn>Worker</code> interface</h5>
 
-  <pre><code class="idl" data-x="">[<span data-x="dom-Worker">Constructor</span>(USVString scriptURL, optional <span>WorkerOptions</span> options), Exposed=(Window,Worker)]
+  <pre><code class="idl">[Exposed=(Window,DedicatedWorker,SharedWorker)]
 interface <dfn>Worker</dfn> : <span>EventTarget</span> {
-  void <span data-x="dom-Worker-terminate">terminate</span>();
+  <span data-x="dom-Worker">constructor</span>(USVString scriptURL, optional <span>WorkerOptions</span> options = {});
 
-  void <span data-x="dom-Worker-postMessage">postMessage</span>(any message, optional sequence&lt;<span data-x="idl-object">object</span>&gt; transfer = []);
+  undefined <span data-x="dom-Worker-terminate">terminate</span>();
+
+  undefined <span data-x="dom-Worker-postMessage">postMessage</span>(any message, sequence&lt;<span data-x="idl-object">object</span>&gt; transfer);
+  undefined <span data-x="dom-Worker-postMessage-options">postMessage</span>(any message, optional <span>PostMessageOptions</span> options = {});
   attribute <span>EventHandler</span> <span data-x="handler-Worker-onmessage">onmessage</span>;
   attribute <span>EventHandler</span> <span data-x="handler-Worker-onmessageerror">onmessageerror</span>;
 };
 
 dictionary <dfn>WorkerOptions</dfn> {
   <span>WorkerType</span> type = "classic";
-  <span>RequestCredentials</span> credentials = "omit"; // credentials is only used if type is "module"
+  <span>RequestCredentials</span> credentials = "same-origin"; // credentials is only used if type is "module"
   DOMString name = "";
 };
 
@@ -33,7 +36,11 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
    <dt><var>worker</var> . <code subdfn data-x="dom-Worker-terminate">terminate</code>()</dt>
    <dd>Aborts <var>worker</var>'s associated global environment.</dd>
 
-   <dt><var>worker</var> . <code subdfn data-x="dom-Worker-postMessage">postMessage</code>(<var>message</var> [, <var>transfer</var> ])
+   <dt><var>worker</var> . <code subdfn
+   data-x="dom-Worker-postMessage">postMessage</code>(<var>message</var> [, <var>transfer</var> ] )
+   <dt><var>worker</var> . <code subdfn
+   data-x="dom-Worker-postMessage-options">postMessage</code>(<var>message</var> [, { <code
+   data-x="dom-PostMessageOptions-transfer">transfer</code> } ] )
    <dd>Clones <var>message</var> and transmits it to <var>worker</var>'s global environment.
    <var>transfer</var> can be passed as a list of objects that are to be transferred rather than
    cloned.</dd>
@@ -52,10 +59,15 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
   <p>All messages received by that port must immediately be retargeted at the <code>Worker</code>
   object.</p>
 
-  <p>The <dfn><code data-x="dom-Worker-postMessage">postMessage()</code></dfn> method on
-  <code>Worker</code> objects must act as if, when invoked, it immediately invoked <span
-  data-x="dom-MessagePort-postMessage">the method of the same name</span> on the port, with the same
-  arguments, and returned the same return value.</p>
+  <p>The <dfn><code data-x="dom-Worker-postMessage">postMessage(<var>message</var>,
+  <var>transfer</var>)</code></dfn> and <dfn><code
+  data-x="dom-Worker-postMessage-options">postMessage(<var>message</var>,
+  <var>options</var>)</code></dfn> methods on <code>Worker</code> objects act as if, when invoked,
+  they immediately invoked the respective <code
+  data-x="dom-MessagePort-postMessage">postMessage(<var>message</var>, <var>transfer</var>)</code>
+  and <code data-x="dom-MessagePort-postMessage-options">postMessage(<var>message</var>,
+  <var>options</var>)</code> on the port, with the same arguments, and returned the same return
+  value.</p>
 
   </div>
 
@@ -64,7 +76,7 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
    <p>The <code data-x="dom-Worker-postMessage">postMessage()</code>
    method's first argument can be structured data:</p>
 
-   <pre><code class="js" data-x="">worker.postMessage({opcode: 'activate', device: 1938, parameters: [23, 102]});</code></pre>
+   <pre><code class="js">worker.postMessage({opcode: 'activate', device: 1938, parameters: [23, 102]});</code></pre>
 
   </div>
 
@@ -90,7 +102,6 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
   steps:</p>
 
   <ol>
-
    <li><p>The user agent may throw a <span>"<code>SecurityError</code>"</span>
    <code>DOMException</code> if the request violates a policy decision (e.g. if the user agent is
    configured to not allow the page to start dedicated workers).</p></li>
@@ -113,9 +124,8 @@ enum <dfn>WorkerType</dfn> { "classic", "module" };
 
    <li><p>Let <var>worker</var> be a new <code>Worker</code> object.</p></li>
 
-   <li><p><span>Create a new <code>MessagePort</code> object</span> whose <span
-   data-x="concept-port-owner">owner</span> is <var>outside settings</var>. Let this be the
-   <var>outside port</var>.</p></li>
+   <li><p>Let <var>outside port</var> be a <span>new</span> <code>MessagePort</code> in <var>outside
+   settings</var>'s <span data-x="environment settings object's Realm">Realm</span>.</p></li>
 
    <li><p>Associate the <var>outside port</var> with <var>worker</var>.</p></li>
 

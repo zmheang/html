@@ -49,7 +49,7 @@ interface <dfn>HTMLMetaElement</dfn> : <span>HTMLElement</span> {
   或 <code data-x="attr-itemprop">itemprop</code>，那么必须也指定 <code data-x="attr-meta-content">content</code> 属性。
   否则必须忽略它。</p>
 
-  <p><dfn><code data-x="attr-meta-charset">charset</code></dfn> 属性指定了文档使用的字符编码。
+  <p><dfn element-attr for="meta"><code data-x="attr-meta-charset">charset</code></dfn> 属性指定了文档使用的字符编码。
   这是一个 <span data-x="character encoding declaration">字符编码声明</span>。如果在
   <span data-x="XML documents">XML 文档</span> 上指定了该属性，其值必须
   <span data-x="ASCII case-insensitive">ASCII 大小写不敏感地</span> 匹配 "<code data-x="">utf-8</code>"
@@ -60,11 +60,10 @@ interface <dfn>HTMLMetaElement</dfn> : <span>HTMLElement</span> {
 
   <p>每个文档必须存在不少于一个有 <code data-x="attr-meta-charset">charset</code> 属性的 <code>meta</code> 元素。</p>
 
-  <p><dfn data-export="" data-dfn-for="meta" data-dfn-type="element-attr"><code
-  data-x="attr-meta-content">content</code></dfn> 属性给出了文档元数据或编译指令的值。
+  <p><dfn for="meta" element-attr><code data-x="attr-meta-content">content</code></dfn> 属性给出了文档元数据或编译指令的值。
   允许的值取决于确切的上下文，见本规范的后续章节的描述。</p>
 
-  <p>如果 <code>meta</code> 元素有一个 <dfn><code data-x="attr-meta-name">name</code></dfn> 属性，
+  <p>如果 <code>meta</code> 元素有一个 <dfn element-attr for="meta"><code data-x="attr-meta-name">name</code></dfn> 属性，
   它设置了文档元数据。文档元数据以 name-value 对表达，<code>meta</code> 元素的
   <code data-x="attr-meta-name">name</code> 属性给出了名字，同一元素的 <code data-x="attr-meta-content">content</code> 属性
   给出了值。名字指定了要设置哪方面的元数据；合法的名字连同它的值的含义在后续章节描述。
@@ -72,7 +71,7 @@ interface <dfn>HTMLMetaElement</dfn> : <span>HTMLElement</span> {
 
   <div w-nodev>
 
-  <p><dfn><code data-x="dom-meta-name">name</code></dfn> 和 <dfn><code data-x="dom-meta-content">content</code></dfn> IDL 属性必须 <span data-x="reflect">反映</span>
+  <p><dfn attribute for="HTMLMetaElement"><code data-x="dom-meta-name">name</code></dfn> 和 <dfn attribute for="HTMLMetaElement"><code data-x="dom-meta-content">content</code></dfn> IDL 属性必须 <span data-x="reflect">反映</span>
   相应的同名内容属性。IDL 属性 <dfn><code data-x="dom-meta-httpEquiv">httpEquiv</code></dfn> 必须 <span data-x="reflect">反映</span>
   <code data-x="attr-meta-http-equiv">http-equiv</code> 内容属性。</p>
 

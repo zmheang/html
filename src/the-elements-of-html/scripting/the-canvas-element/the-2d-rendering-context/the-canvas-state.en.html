@@ -40,29 +40,25 @@
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-save">save</code>()</dt>
 
    <dd>
-
     <p>Pushes the current state onto the stack.</p>
-
    </dd>
 
    <dt><var>context</var> . <code subdfn data-x="dom-context-2d-restore">restore</code>()</dt>
 
    <dd>
-
     <p>Pops the top state on the stack, restoring the context to that state.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-context-2d-save">save()</code></dfn> method, when invoked, must push
-  a copy of the current drawing state onto the drawing state stack.</p>
+  <p>The <dfn method for="CanvasState"><code data-x="dom-context-2d-save">save()</code></dfn>
+  method, when invoked, must push a copy of the current drawing state onto the drawing state
+  stack.</p>
 
-  <p>The <dfn><code data-x="dom-context-2d-restore">restore()</code></dfn> method, when invoked,
-  must pop the top entry in the drawing state stack, and reset the drawing state it describes. If
-  there is no saved state, then the method must do nothing.</p>
+  <p>The <dfn method for="CanvasState"><code data-x="dom-context-2d-restore">restore()</code></dfn>
+  method, when invoked, must pop the top entry in the drawing state stack, and reset the drawing
+  state it describes. If there is no saved state, then the method must do nothing.</p>
 
   <p>When the user agent is to <dfn>reset the rendering context to its default state</dfn>, it must
   clear the drawing state stack and everything that <span>drawing state</span> consists of to

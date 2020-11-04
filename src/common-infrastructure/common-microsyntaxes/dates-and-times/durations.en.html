@@ -19,7 +19,6 @@
   <ul>
 
    <li>
-
     <!-- The ISO format -->
 
     <!-- NOTE: ISO durations also have a number of formats we do not
@@ -54,12 +53,10 @@
      character, representing a number of days.</p></li>
 
      <li>
-
       <p>A U+0054 LATIN CAPITAL LETTER T character followed by one or more of the following
       subcomponents, in the order given:</p>
 
       <ol>
-
        <li><p>One or more <span>ASCII digits</span> followed by a U+0048 LATIN CAPITAL LETTER H
        character, representing a number of hours.</p></li>
 
@@ -67,35 +64,26 @@
        character, representing a number of minutes.</p></li>
 
        <li>
-
         <p>The following components:</p>
 
         <ol>
-
          <li><p>One or more <span>ASCII digits</span>, representing a number of seconds.</p></li>
 
          <li><p>Optionally, a U+002E FULL STOP character (.) followed by one, two, or three
          <span>ASCII digits</span>, representing a fraction of a second.</p></li>
 
          <li><p>A U+0053 LATIN CAPITAL LETTER S character.</p></li>
-
         </ol>
-
        </li>
-
       </ol>
-
      </li>
-
     </ol>
 
     <p class="note">This, as with a number of other date- and time-related microsyntaxes defined in
     this specification, is based on one of the formats defined in ISO 8601. <ref spec=ISO8601></p>
-
    </li>
 
    <li>
-
     <p>One or more <span data-x="duration time component">duration time components</span>, each with
     a different <span>duration time component scale</span>, in any order; the sum of the represented
     seconds being equal to the number of seconds in <var>t</var>.</p>
@@ -103,7 +91,6 @@
     <p>A <dfn>duration time component</dfn> is a string consisting of the following components:</p>
 
     <ol>
-
      <li><p>Zero or more <span>ASCII whitespace</span>.</p></li>
 
      <li><p>One or more <span>ASCII digits</span>, representing a number of time units, scaled by
@@ -117,12 +104,10 @@
      <li><p>Zero or more <span>ASCII whitespace</span>.</p></li>
 
      <li>
-
       <p>One of the following characters, representing the <dfn>duration time component scale</dfn>
       of the time unit used in the numeric part of the <span>duration time component</span>:</p>
 
       <dl>
-
        <dt>U+0057 LATIN CAPITAL LETTER W character</dt>
        <dt>U+0077 LATIN SMALL LETTER W character</dt>
 
@@ -147,18 +132,14 @@
        <dt>U+0073 LATIN SMALL LETTER S character</dt>
 
        <dd>Seconds. The scale is 1.</dd>
-
       </dl>
-
      </li>
 
      <li><p>Zero or more <span>ASCII whitespace</span>.</p></li>
-
     </ol>
 
     <p class="note">This is not based on any of the formats in ISO 8601. It is intended to be a more
     human-readable alternative to the ISO 8601 duration format.</p>
-
    </li>
 
   </ul>
@@ -170,7 +151,6 @@
   "fails", this means that it is aborted at that point and returns nothing.</p>
 
   <ol>
-
    <!--MONTHS: this algorithm actually already parses months adequately, though it would need
    tweaking if we introduced a "mo" unit for the non-ISO variant. See other "MONTHS" annotations
    below. -->
@@ -184,7 +164,6 @@
    count</var> all be zero.</p></li>
 
    <li>
-
     <p>Let <var>M-disambiguator</var> be <i>minutes</i>.</p>
 
     <!--MONTHS: this note would change-->
@@ -192,7 +171,6 @@
     unit in ISO8601 durations, which use the same unit for months and minutes. Months are not
     allowed, but are parsed for future compatibility and to avoid misinterpreting ISO8601 durations
     that would be valid in other contexts.</p>
-
    </li>
 
    <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
@@ -207,11 +185,9 @@
    <var>input</var> given <var>position</var>.</p></li>
 
    <li>
-
     <p>While true:</p>
 
     <ol>
-
      <li><p>Let <var>units</var> be undefined. It will be assigned one of the following
      values: <i>years</i>, <i>months</i>, <i>weeks</i>, <i>days</i>, <i>hours</i>, <i>minutes</i>,
      and <i>seconds</i>.</p></li>
@@ -230,7 +206,6 @@
      pointed to by <var>position</var>.</p></li>
 
      <li>
-
       <p>If <var>next character</var> is a U+002E FULL STOP character (.), then let <var>N</var> equal zero. (Do not advance <var>position</var>. That is taken care
       of below.)</p>
 
@@ -240,7 +215,6 @@
       sequence as a base-ten integer, and let <var>N</var> be that number.</p>
 
       <p>Otherwise <var>next character</var> is not part of a number; fail.</p>
-
      </li>
 
      <li><p>If <var>position</var> is past the end of <var>input</var>, then
@@ -252,11 +226,9 @@
      (.) before, it will still be that character this time.)</p></li>
 
      <li>
-
       <p>If <var>next character</var> is U+002E (.), then:</p>
 
       <ol>
-
        <li><p><span>Collect a sequence of code points</span> that are <span>ASCII digits</span> from
        <var>input</var> given <var>position</var>. Let <var>s</var> be the resulting
        sequence.</p></li>
@@ -284,20 +256,17 @@
        character nor a U+0073 LATIN SMALL LETTER S character, then fail.</p></li>
 
        <li><p>Set <var>units</var> to <i>seconds</i>.</p></li>
-
       </ol>
 
       <p>Otherwise:</p>
 
       <ol>
-
        <li><p>If <var>next character</var> is <span>ASCII whitespace</span>, then <span>skip ASCII
        whitespace</span> within <var>input</var> given <var>position</var>, set <var>next
        character</var> to the character in <var>input</var> pointed to by <var>position</var>, and
        advance <var>position</var> to the next character.</p></li>
 
        <li>
-
         <!--MONTHS: this would probably be where we would add more
         logic to support a new unit like 'mo' -->
 
@@ -331,11 +300,8 @@
 
         <p>Otherwise if <var>next character</var> is none of the above characters, then
         fail.</p>
-
        </li>
-
       </ol>
-
      </li>
 
      <li><p>Increment <var>component count</var>.</p></li>
@@ -346,14 +312,12 @@
      12 and set <var>units</var> to <i>months</i>.</p></li>
 
      <li>
-
       <p>If <var>units</var> is <i>months</i>, add the product of <var>N</var> and
       <var>multiplier</var> to <var>months</var>.</p>
 
       <p>Otherwise:</p>
 
       <ol>
-
        <li><p>If <var>units</var> is <i>weeks</i>, multiply <var>multiplier</var>
        by 7 and set <var>units</var> to <i>days</i>.</p></li>
 
@@ -366,16 +330,12 @@
        <li><p>If <var>units</var> is <i>minutes</i>, multiply <var>multiplier</var> by 60 and set <var>units</var> to <i>seconds</i>.</p></li>
 
        <li><p>Forcibly, <var>units</var> is now <i>seconds</i>. Add the product of <var>N</var> and <var>multiplier</var> to <var>seconds</var>.</p></li>
-
       </ol>
-
      </li>
 
      <li><p><span>Skip ASCII whitespace</span> within <var>input</var> given
      <var>position</var>.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>If <var>component count</var> is zero,
@@ -385,7 +345,6 @@
    <li><p>If <var>months</var> is not zero, fail.</p></li>
 
    <li><p>Return the <span data-x="concept-duration">duration</span> consisting of <var>seconds</var> seconds.</p></li>
-
   </ol>
 
   </div>

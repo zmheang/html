@@ -4,7 +4,7 @@
   the <span data-x="attr-input-type-text">Text</span>, <span
   data-x="attr-input-type-search">Search</span>, <span
   data-x="attr-input-type-tel">Telephone</span>, <span data-x="attr-input-type-url">URL</span>, or
-  <span data-x="attr-input-type-email">E-mail</span> state, is expected to render as an
+  <span data-x="attr-input-type-email">Email</span> state, is expected to render as an
   <span>'inline-block'</span> box depicting a text control. Additionally, the
   <span>'line-height'</span> property, if it has a <span>computed value</span> equivalent to a value
   that is less than 1.0, must have a <span>used value</span> of 1.0.</p>
@@ -14,10 +14,11 @@
   <span>'inline-block'</span> box depicting a text control that obscures data entry.</p>
 
   <p>If these text controls provide a text selection, then, when the user changes the current
-  selection, the user agent is expected to <span>queue a task</span>, using the <span>user
-  interaction task source</span>, to <span data-x="concept-event-fire">fire an event</span> named
-  <code data-x="event-select">select</code> at the element, with the <code
-  data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p>
+  selection, the user agent is expected to <span>queue an element task</span> on the <span>user
+  interaction task source</span> given the <code>input</code> element to <span
+  data-x="concept-event-fire">fire an event</span> named <code data-x="event-select">select</code>
+  at the element, with the <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to
+  true.</p>
 
   <p>If an <code>input</code> element whose <code data-x="attr-input-type">type</code> attribute is
   in one of the above states has a <code data-x="attr-input-size">size</code> attribute, and parsing

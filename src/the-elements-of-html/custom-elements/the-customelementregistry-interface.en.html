@@ -15,15 +15,15 @@
   of the <code>Window</code> interface must return the <code>CustomElementRegistry</code> object for
   that <code>Window</code> object.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>CustomElementRegistry</dfn> {
-  [<span>CEReactions</span>] void <span data-x="dom-CustomElementRegistry-define">define</span>(DOMString name, <span>CustomElementConstructor</span> constructor, optional <span>ElementDefinitionOptions</span> options);
-  any <span data-x="dom-CustomElementRegistry-get">get</span>(DOMString name);
-  Promise&lt;void&gt; <span data-x="dom-CustomElementRegistry-whenDefined">whenDefined</span>(DOMString name);
-  [<span>CEReactions</span>] void <span data-x="dom-CustomElementRegistry-upgrade">upgrade</span>(<span>Node</span> root);
+  [<span>CEReactions</span>] undefined <span data-x="dom-CustomElementRegistry-define">define</span>(DOMString name, <span>CustomElementConstructor</span> constructor, optional <span>ElementDefinitionOptions</span> options = {});
+  (<span>CustomElementConstructor</span> or undefined) <span data-x="dom-CustomElementRegistry-get">get</span>(DOMString name);
+  Promise&lt;<span>CustomElementConstructor</span>&gt; <span data-x="dom-CustomElementRegistry-whenDefined">whenDefined</span>(DOMString name);
+  [<span>CEReactions</span>] undefined <span data-x="dom-CustomElementRegistry-upgrade">upgrade</span>(<span>Node</span> root);
 };
 
-callback <dfn>CustomElementConstructor</dfn> = any ();
+callback <dfn>CustomElementConstructor</dfn> = <span>HTMLElement</span> ();
 
 dictionary <dfn>ElementDefinitionOptions</dfn> {
   DOMString extends;
@@ -77,11 +77,11 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
    <dt><var>window</var> . <code data-x="dom-window-customElements">customElements</code> . <code
    subdfn data-x="dom-CustomElementRegistry-whenDefined">whenDefined</code>(<var>name</var>)</dt>
 
-   <dd>Returns a promise that will be fulfilled when a <span>custom element</span> becomes defined
-   with the given name. (If such a <span>custom element</span> is already defined, the returned
-   promise will be immediately fulfilled.) Returns a promise rejected with a
-   <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> if not given a <span>valid
-   custom element name</span>.</dd>
+   <dd>Returns a promise that will be fulfilled with the <span>custom element</span>'s constructor
+   when a <span>custom element</span> becomes defined with the given name. (If such a <span>custom
+   element</span> is already defined, the returned promise will be immediately fulfilled.) Returns a
+   promise rejected with a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code> if not
+   given a <span>valid custom element name</span>.</dd>
 
    <dt><var>window</var> . <code data-x="dom-window-customElements">customElements</code> . <code
    subdfn data-x="dom-CustomElementRegistry-upgrade">upgrade</code>(<var>root</var>)</dt>
@@ -141,6 +141,15 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
    <li><p>Set this <code>CustomElementRegistry</code>'s <span>element definition is running</span>
    flag.</p></li>
 
+   <li><p>Let <var>formAssociated</var> be false.</p></li>
+
+   <li><p>Let <var>disableInternals</var> be false.
+
+   <li><p>Let <var>disableShadow</var> be false.
+
+   <li><p>Let <var>observedAttributes</var> be an empty <code
+   data-x="">sequence&lt;DOMString></code>.</p></li>
+
    <li>
     <p>Run the following substeps while catching any exceptions:</p>
 
@@ -151,13 +160,13 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
      <li><p>If <span data-x="js-Type">Type</span>(<var>prototype</var>) is not Object, then throw a
      <code>TypeError</code> exception.</p></li>
 
-     <li><p>Let <var>lifecycleCallbacks</var> be a map with the four keys "<code
+     <li><p>Let <var>lifecycleCallbacks</var> be a map with the keys "<code
      data-x="">connectedCallback</code>", "<code data-x="">disconnectedCallback</code>", "<code
      data-x="">adoptedCallback</code>", and "<code data-x="">attributeChangedCallback</code>", each
      of which belongs to an entry whose value is null.</p>
 
      <li>
-      <p>For each of the four keys <var>callbackName</var> in <var>lifecycleCallbacks</var>, in the
+      <p>For each of the keys <var>callbackName</var> in <var>lifecycleCallbacks</var>, in the
       order listed in the previous step:</p>
 
       <ol>
@@ -171,9 +180,6 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
        conversion.</p></li>
       </ol>
      </li>
-
-     <li><p>Let <var>observedAttributes</var> be an empty <code
-     data-x="">sequence&lt;DOMString></code>.</p></li>
 
      <li>
       <p>If the value of the entry in <var>lifecycleCallbacks</var> with key "<code
@@ -190,6 +196,49 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
        <code data-x="">sequence&lt;DOMString></code>. Rethrow any exceptions from the
        conversion.</p></li>
       </ol>
+
+     <li><p>Let <var>disabledFeatures</var> be an empty <code
+     data-x="">sequence&lt;DOMString></code>.</p></li>
+
+     <li><p>Let <var>disabledFeaturesIterable</var> be <span
+     data-x="js-Get">Get</span>(<var>constructor</var>, "disabledFeatures"). Rethrow any
+     exceptions.</p></li>
+
+     <li><p>If <var>disabledFeaturesIterable</var> is not undefined, then set
+     <var>disabledFeatures</var> to the result of <span
+     data-x="concept-idl-convert">converting</span> <var>disabledFeaturesIterable</var> to a <code
+     data-x="">sequence&lt;DOMString></code>. Rethrow any exceptions from the conversion.</p></li>
+
+     <li><p>Set <var>disableInternals</var> to true if <var>disabledFeatures</var> <span
+     data-x="list contains">contains</span> "<code data-x="">internals</code>".</p></li>
+
+     <li><p>Set <var>disableShadow</var> to true if <var>disabledFeatures</var> <span data-x="list
+     contains">contains</span> "<code data-x="">shadow</code>".</p></li>
+
+     <li><p>Let <var>formAssociatedValue</var> be <span data-x="js-Get">Get</span>(
+     <var>constructor</var>, "formAssociated"). Rethrow any exceptions.</p></li>
+
+     <li><p>Set <var>formAssociated</var> to the result of
+     <span data-x="concept-idl-convert">converting</span> <var>formAssociatedValue</var> to a
+     <code data-x="">boolean</code>. Rethrow any exceptions from the conversion.</p></li>
+
+     <li>
+      <p>If <var>formAssociated</var> is true, for each of
+      "<code data-x="">formAssociatedCallback</code>", "<code data-x="">formResetCallback</code>",
+      "<code data-x="">formDisabledCallback</code>", and
+      "<code data-x="">formStateRestoreCallback</code>" <var>callbackName</var>:</p>
+
+      <ol>
+       <li><p>Let <var>callbackValue</var> be <span data-x="js-Get">Get</span>(<var>prototype</var>,
+       <var>callbackName</var>). Rethrow any exceptions.</p></li>
+
+       <li><p>If <var>callbackValue</var> is not undefined, then set the value of the entry in
+       <var>lifecycleCallbacks</var> with key <var>callbackName</var> to the result of <span
+       data-x="concept-idl-convert">converting</span> <var>callbackValue</var> to the Web IDL
+       <code data-x="idl-Function">Function</code> callback type. Rethrow any exceptions from the
+       conversion.</p></li>
+      </ol>
+     </li>
     </ol>
 
     <p>Then, perform the following substep, regardless of whether the above steps threw an exception
@@ -210,15 +259,21 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
    <span data-x="concept-custom-element-definition-constructor">constructor</span>
    <var>constructor</var>, <span
    data-x="concept-custom-element-definition-observed-attributes">observed attributes</span>
-   <var>observedAttributes</var>, and <span
+   <var>observedAttributes</var>, <span
    data-x="concept-custom-element-definition-lifecycle-callbacks">lifecycle callbacks</span>
-   <var>lifecycleCallbacks</var>.</p></li>
+   <var>lifecycleCallbacks</var>,
+   <span data-x="concept-custom-element-definition-form-associated">form-associated</span>
+   <var>formAssociated</var>, <span
+   data-x="concept-custom-element-definition-disable-internals">disable internals</span>
+   <var>disableInternals</var>, and <span
+   data-x="concept-custom-element-definition-disable-shadow">disable shadow</span>
+   <var>disableShadow</var>.</p></li>
 
    <li><p>Add <var>definition</var> to this <code>CustomElementRegistry</code>.</p></li>
 
-   <li><p>Let <var>document</var> be this <code>CustomElementRegistry</code>'s <span
-   data-x="concept-relevant-global">relevant global object</span>'s <span
-   data-x="concept-document-window">associated <code>Document</code></span>.</p></li>
+   <li><p>Let <var>document</var> be this <code>CustomElementRegistry</code>'s <span>relevant global
+   object</span>'s <span data-x="concept-document-window">associated
+   <code>Document</code></span>.</p></li>
 
    <li><p>Let <var>upgrade candidates</var> be all elements that are <span data-x="shadow-including
    descendant">shadow-including descendants</span> of <var>document</var>, whose namespace
@@ -241,7 +296,7 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
     <ol>
      <li><p>Let <var>promise</var> be the value of that entry.</p></li>
 
-     <li><p>Resolve <var>promise</var> with undefined.</p></li>
+     <li><p>Resolve <var>promise</var> with <var>constructor</var>.</p></li>
 
      <li><p>Delete the entry with key <var>name</var> from this
      <code>CustomElementRegistry</code>'s <span>when-defined promise map</span>.</p></li>
@@ -271,7 +326,8 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
 
    <li><p>If this <code>CustomElementRegistry</code> contains an entry with <span
    data-x="concept-custom-element-definition-name">name</span> <var>name</var>, then return a new
-   promise resolved with undefined.</p></li>
+   promise resolved with that entry's <span
+   data-x="concept-custom-element-definition-constructor">constructor</span>.</p></li>
 
    <li><p>Let <var>map</var> be this <code>CustomElementRegistry</code>'s <span>when-defined
    promise map</span>.</p></li>
@@ -295,7 +351,7 @@ dictionary <dfn>ElementDefinitionOptions</dfn> {
    dynamically-loaded article's contents until we're sure that all of the <span data-x="autonomous
    custom element">autonomous custom elements</span> it uses are defined.</p>
 
-   <pre><code class="js" data-x="">articleContainer.hidden = true;
+   <pre><code class="js">articleContainer.hidden = true;
 
 fetch(articleURL)
   .then(response => response.text())
@@ -335,7 +391,7 @@ fetch(articleURL)
    <span>connected</span>, but this method can be used if you need to upgrade before you're ready to
    connect the element.</p>
 
-   <pre><code class="js" data-x="">const el = document.createElement("spider-man");
+   <pre><code class="js">const el = document.createElement("spider-man");
 
 class SpiderMan extends HTMLElement {}
 customElements.define("spider-man", SpiderMan);

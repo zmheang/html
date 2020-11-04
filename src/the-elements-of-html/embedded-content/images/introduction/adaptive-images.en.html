@@ -14,7 +14,7 @@
   100&times;100 image called <code data-x="">a-square.png</code> is to be used. The markup for this
   would look like this:</p>
 
-  <pre><code class="html" data-x="">&lt;figure>
+  <pre><code class="html">&lt;figure>
  &lt;picture>
   &lt;source srcset="a-square.png" media="(max-width: 600px)">
   &lt;img src="a-rectangle.png" alt="Barney Frank wears a suit and glasses.">
@@ -30,7 +30,7 @@
   for the image when the image is loading. To avoid the layout having to be reflowed multiple times
   as the page is loading, CSS and CSS media queries can be used to provide the dimensions:</p>
 
-  <pre><code class="html" data-x="">&lt;style>
+  <pre><code class="html">&lt;style>
  #a { width: 300px; height: 150px; }
  @media (max-width: 600px) { #a { width: 100px; height: 100px; } }
 &lt;/style>
@@ -46,7 +46,7 @@
   data-x="attr-dim-height">height</code> attributes can be used to provide the width and height for
   legacy user agents, using CSS just for the user agents that support <code>picture</code>:</p>
 
-  <pre><code class="html" data-x="">&lt;style media="(max-width: 600px)">
+  <pre><code class="html">&lt;style media="(max-width: 600px)">
  #a { width: 100px; height: 100px; }
 &lt;/style>
 &lt;figure>
@@ -68,7 +68,7 @@
   <p>If the author wants the biggest image in legacy user agents, the markup could be as
   follows:</p>
 
-  <pre><code class="html" data-x="">&lt;picture>
+  <pre><code class="html">&lt;picture>
  &lt;source srcset="pear-mobile.jpeg" media="(max-width: 720px)">
  &lt;source srcset="pear-tablet.jpeg" media="(max-width: 1280px)">
  &lt;img src="pear-desktop.jpeg" alt="The pear is juicy.">
@@ -78,7 +78,7 @@
   <code>source</code> elements, overriding the <code data-x="attr-img-src">src</code> attribute
   entirely.</p>
 
-  <pre><code class="html" data-x="">&lt;picture>
+  <pre><code class="html">&lt;picture>
  &lt;source srcset="pear-mobile.jpeg" media="(max-width: 720px)">
  &lt;source srcset="pear-tablet.jpeg" media="(max-width: 1280px)">
  &lt;source srcset="pear-desktop.jpeg">
@@ -90,7 +90,7 @@
   data-x="attr-img-src">src</code> attribute can default to any image, including one that is neither
   the smallest nor biggest:</p>
 
-  <pre><code class="html" data-x="">&lt;picture>
+  <pre><code class="html">&lt;picture>
  &lt;source srcset="pear-mobile.jpeg" media="(max-width: 720px)">
  &lt;source srcset="pear-tablet.jpeg" media="(max-width: 1280px)">
  &lt;source srcset="pear-desktop.jpeg">
@@ -103,7 +103,7 @@
   (<span>viewport</span>) dimensions that an image is intended for. It is also possible to use <code
   data-x="">min-width</code> instead.</p>
 
-  <pre><code class="html" data-x="">&lt;picture>
+  <pre><code class="html">&lt;picture>
  &lt;source srcset="pear-desktop.jpeg" media="(min-width: 1281px)">
  &lt;source srcset="pear-tablet.jpeg" media="(min-width: 721px)">
  &lt;img src="pear-mobile.jpeg" alt="The pear is juicy.">

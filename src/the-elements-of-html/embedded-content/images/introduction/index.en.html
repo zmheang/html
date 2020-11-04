@@ -7,7 +7,7 @@
 
   <div class="example">
 
-<pre><code class="html" data-x="">&lt;h2>From today's featured article&lt;/h2>
+<pre><code class="html">&lt;h2>From today's featured article&lt;/h2>
 <strong>&lt;img src="/uploads/100-marie-lloyd.jpg" alt="" width="100" height="150"></strong>
 &lt;p>&lt;b>&lt;a href="/wiki/Marie_Lloyd">Marie Lloyd&lt;/a>&lt;/b> (1870&ndash;1922)
 was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code></pre>
@@ -20,13 +20,11 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
   <ul>
 
    <li>
-
     <p>Different users might have different environmental characteristics:</p>
 
     <ul>
 
      <li>
-
       <p>The users' physical screen size might be different from one another.</p>
 
       <div class="example">
@@ -51,11 +49,9 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
 
       <p class="note">This is only relevant when an image's rendered size depends on the
       <span>viewport</span> size.</p>
-
      </li>
 
      <li>
-
       <p>The users' screen pixel density might be different from one another.</p>
 
       <div class="example">
@@ -87,11 +83,9 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
         <text dominant-baseline="middle" x="50" y="10">3x</text>
        </svg>
       </div>
-
      </li>
 
      <li>
-
       <p>The users' zoom level might be different from one another, or might change for a single
       user over time.</p>
 
@@ -101,11 +95,9 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
       <p>The zoom level and the screen pixel density (the previous point) can both affect the number
       of physical screen pixels per <span data-x="'px'">CSS pixel</span>. This ratio is usually
       referred to as <dfn>device-pixel-ratio</dfn>.</p>
-
      </li>
 
      <li>
-
       <p>The users' screen orientation might be different from one another, or might change for a
       single user over time.</p>
 
@@ -124,32 +116,27 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
         <text text-anchor="middle" dominant-baseline="middle" x="40.5" y="18">Landscape</text>
        </svg>
       </div>
-
      </li>
 
      <li>
-
       <p>The users' network speed, network latency and bandwidth cost might be different from one
       another, or might change for a single user over time.</p>
 
       <p class="example">A user might be on a fast, low-latency and constant-cost connection while
       at work, on a slow, low-latency and constant-cost connection while at home, and on a
       variable-speed, high-latency and variable-cost connection anywhere else.</p>
-
      </li>
 
     </ul>
-
    </li>
 
    <li>
-
     <p>Authors might want to show the same image content but with different rendered size depending
     on, usually, the width of the <span>viewport</span>. This is usually referred to as
     <dfn>viewport-based selection</dfn>.</p>
 
     <div class="example">
-     <p>A Web page might have a banner at the top that always spans the entire <span>viewport</span>
+     <p>A web page might have a banner at the top that always spans the entire <span>viewport</span>
      width. In this case, the rendered size of the image depends on the physical size of the screen
      (assuming a maximised browser window).</p>
 
@@ -160,19 +147,19 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
       <!-- smartphone -->
       <rect width="6" fill="white" stroke="black" x="6" y="8" height="12" rx="1"/>
       <rect width="4" fill="#716966" x="7" y="9" height="2"/>
-      <image width="4" x="7" y="9" height="2" xlink:href="images/wolf.jpg"/>
+      <image width="4" x="7" y="9" height="2" xlink:href="/images/wolf.jpg"/>
 
       <!-- tablet -->
       <rect width="20" fill="white" stroke="black" x="25" y="6" height="14" rx="1"/>
       <line stroke="black" stroke-width="1.1" x1="26" y1="20"  x2="26" y2="6"/>
       <rect width="17" fill="#716966" x="27" y="7" height="8.5"/>
-      <image width="17" x="27" y="7" height="8.5" xlink:href="images/wolf.jpg"/>
+      <image width="17" x="27" y="7" height="8.5" xlink:href="/images/wolf.jpg"/>
 
      </svg>
     </div>
 
     <div class="example">
-     <p>Another Web page might have images in columns, with a single column for screens with a small
+     <p>Another web page might have images in columns, with a single column for screens with a small
      physical size, two columns for screens with medium physical size, and three columns for screens
      with big physical size, with the images varying in rendered size in each case to fill up the
      <span>viewport</span>. In this case, the rendered size of an image might be <em>bigger</em> in
@@ -187,7 +174,7 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
       <!-- narrow -->
       <rect width="12" fill="white" stroke="black" x="6" y="24" height="6" rx="1"/>
       <rect x="7" y="25" width="10" height="4.5" fill="#987b5a"/>
-      <image x="7" y="25" width="10" height="4.5" xlink:href="images/kettlebell.jpg"
+      <image x="7" y="25" width="10" height="4.5" xlink:href="/images/kettlebell.jpg"
       preserveAspectRatio="xMinYMin slice"/>
       <text text-anchor="middle" x="12" y="21">Narrow, 1 column</text>
 
@@ -195,7 +182,7 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
       <rect width="14" fill="white" stroke="black" x="32" y="10" height="20" rx="1"/>
       <line stroke="black" stroke-width="1.1" x1="32" y1="29"  x2="46" y2="29"/>
       <rect x="33" y="11" width="5.5" height="5.5" fill="#987b5a"/>
-      <image x="33" y="11" width="5.5" height="5.5" xlink:href="images/kettlebell.jpg"/>
+      <image x="33" y="11" width="5.5" height="5.5" xlink:href="/images/kettlebell.jpg"/>
       <rect x="39.5" y="11" width="5.5" height="5.5" fill="burlywood"/>
       <rect x="33" y="17.5" width="5.5" height="5.5" fill="silver"/>
       <text text-anchor="middle" x="39" y="7">Medium, 2 columns</text>
@@ -206,24 +193,22 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
       <line y2="30" stroke-linecap="round" stroke="black" x1="61" x2="109" y1="30"
       stroke-width="2"/>
       <rect x="67" y="4" width="10" height="10" fill="#987b5a"/>
-      <image x="67" y="4" width="10" height="10" xlink:href="images/kettlebell.jpg"/>
+      <image x="67" y="4" width="10" height="10" xlink:href="/images/kettlebell.jpg"/>
       <rect x="80" y="4" width="10" height="10" fill="burlywood"/>
       <rect x="93" y="4" width="10" height="10" fill="silver"/>
       <text text-anchor="middle" x="85" y="25">Wide, 3 columns</text>
      </svg>
     </div>
-
    </li>
 
    <li>
-
     <p>Authors might want to show different image content depending on the rendered size of the
     image. This is usually referred to as <dfn>art direction</dfn>.</p>
 
     <div class="example">
-     <p>When a Web page is viewed on a screen with a large physical size (assuming a maximised
+     <p>When a web page is viewed on a screen with a large physical size (assuming a maximised
      browser window), the author might wish to include some less relevant parts surrounding the
-     critical part of the image. When the same Web page is viewed on a screen with a small physical
+     critical part of the image. When the same web page is viewed on a screen with a small physical
      size, the author might wish to show only the critical part of the image.</p>
 
      <svg viewBox="0 0 52 25.6" height="160" role="img" aria-label="The upright-held phone shows a
@@ -233,32 +218,29 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
       <!-- smartphone -->
       <rect width="6" fill="white" stroke="black" x="6" y="8" height="12" rx="1"/>
       <rect width="4" fill="#716966" x="7" y="9" height="6"/>
-      <image width="4" x="7" y="9" height="6" xlink:href="images/wolf.jpg"
+      <image width="4" x="7" y="9" height="6" xlink:href="/images/wolf.jpg"
       preserveAspectRatio="xMidYMid slice"/>
 
       <!-- tablet -->
       <rect width="20" fill="white" stroke="black" x="25" y="6" height="14" rx="1"/>
       <line stroke="black" stroke-width="1.1" x1="26" y1="20"  x2="26" y2="6"/>
       <rect width="17" fill="#716966" x="27" y="7" height="8.5"/>
-      <image width="17" x="27" y="7" height="8.5" xlink:href="images/wolf.jpg"/>
+      <image width="17" x="27" y="7" height="8.5" xlink:href="/images/wolf.jpg"/>
 
      </svg>
     </div>
-
    </li>
 
    <li>
-
     <p>Authors might want to show the same image content but using different image formats,
     depending on which image formats the user agent supports. This is usually referred to as
     <dfn>image format-based selection</dfn>.</p>
 
-    <p class="example">A Web page might have some images in the JPEG, WebP and JPEG XR image
+    <p class="example">A web page might have some images in the JPEG, WebP and JPEG XR image
     formats, with the latter two having better compression abilities compared to JPEG. Since
     different user agents can support different image formats, with some formats offering better
     compression ratios, the author would like to serve the better formats to user agents that
     support them, while providing JPEG fallback for user agents that don't.<!--TODO: refs?--></p>
-
    </li>
 
   </ul>
@@ -273,7 +255,7 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
   <ul>
 
    <li><p>Some user agents aggressively download images specified in the HTML markup, before scripts
-   have had a chance to run, so that Web pages complete loading sooner. If a script changes which
+   have had a chance to run, so that web pages complete loading sooner. If a script changes which
    image to download, the user agent will potentially start two separate downloads, which can
    instead cause worse page loading performance.</p></li>
 
@@ -288,12 +270,10 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
   problems in a declarative manner.</p>
 
   <dl>
-
    <dt><span>Device-pixel-ratio</span>-based selection when the rendered size of the image is
    fixed</dt>
 
    <dd>
-
     <p>The <code data-x="attr-img-src">src</code> and <code data-x="attr-img-srcset">srcset</code>
     attributes on the <code>img</code> element can be used, using the <code data-x="">x</code>
     descriptor, to provide multiple images that only vary in their size (the smaller image is a
@@ -306,7 +286,7 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
 
     <div class="example">
 
-<pre><code class="html" data-x="">&lt;h2>From today's featured article&lt;/h2>
+<pre><code class="html">&lt;h2>From today's featured article&lt;/h2>
 &lt;img <strong>src="/uploads/100-marie-lloyd.jpg"</strong>
      <strong>srcset="/uploads/150-marie-lloyd.jpg 1.5x, /uploads/200-marie-lloyd.jpg 2x"</strong>
      alt="" width="100" height="150">
@@ -329,13 +309,11 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
      allocate space for the image before it is downloaded.</p>
 
     </div>
-
    </dd>
 
    <dt><span>Viewport-based selection</span></dt>
 
    <dd>
-
     <p>The <code data-x="attr-img-srcset">srcset</code> and <code
     data-x="attr-img-sizes">sizes</code> attributes can be used, using the <code data-x="">w</code>
     descriptor, to provide multiple images that only vary in their size (the smaller image is a
@@ -346,7 +324,7 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
      <p>In this example, a banner image takes up the entire <span>viewport</span> width (using
      appropriate CSS).</p>
 
-<pre><code class="html" data-x="">&lt;h1>&lt;img <strong>sizes="100vw" srcset="wolf-400.jpg 400w, wolf-800.jpg 800w, wolf-1600.jpg 1600w"</strong>
+<pre><code class="html">&lt;h1>&lt;img <strong>sizes="100vw" srcset="wolf-400.jpg 400w, wolf-800.jpg 800w, wolf-1600.jpg 1600w"</strong>
      src="wolf-400.jpg" alt="The rad wolf">&lt;/h1></code></pre>
 
      <p>The user agent will calculate the effective pixel density of each image from the specified
@@ -373,14 +351,14 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
 
     <div class="example">
 
-     <p>In this example, the Web page has three layouts depending on the width of the
+     <p>In this example, the web page has three layouts depending on the width of the
      <span>viewport</span>. The narrow layout has one column of images (the width of each image is
      about 100%), the middle layout has two columns of images (the width of each image is about
      50%), and the widest layout has three columns of images, and some page margin (the width of
      each image is about 33%). It breaks between these layouts when the <span>viewport</span> is
      <code data-x="">30em</code> wide and <code data-x="">50em</code> wide, respectively.</p>
 
-<pre><code class="html" data-x="">&lt;img <strong>sizes="(max-width: 30em) 100vw, (max-width: 50em) 50vw, calc(33vw - 100px)"</strong>
+<pre><code class="html">&lt;img <strong>sizes="(max-width: 30em) 100vw, (max-width: 50em) 50vw, calc(33vw - 100px)"</strong>
      <strong>srcset="swing-200.jpg 200w, swing-400.jpg 400w, swing-800.jpg 800w, swing-1600.jpg 1600w"</strong>
      src="swing-400.jpg" alt="Kettlebell Swing"></code></pre>
 
@@ -410,13 +388,11 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
      resource similarly to the previous example.</p>
 
     </div>
-
    </dd>
 
    <dt><span>Art direction</span>-based selection</dt>
 
    <dd>
-
     <p>The <code>picture</code> element and the <code>source</code> element, together with the <code
     data-x="attr-source-media">media</code> attribute, can be used, to provide multiple images that
     vary the image content (for instance the smaller image might be a cropped version of the bigger
@@ -424,7 +400,7 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
 
     <div class="example">
 
-<pre><code class="html" data-x="">&lt;picture>
+<pre><code class="html">&lt;picture>
   &lt;source <strong>media="(min-width: 45em)"</strong> srcset="large.jpg">
   &lt;source <strong>media="(min-width: 32em)"</strong> srcset="med.jpg">
   &lt;img src="small.jpg" alt="The wolf runs through the snow.">
@@ -437,7 +413,7 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
      <p>The rendered size of the image varies depending on which resource is chosen. To specify
      dimensions that the user agent can use before having downloaded the image, CSS can be used.</p>
 
-<pre><code class="css" data-x="">img { width: 300px; height: 300px }
+<pre><code class="css">img { width: 300px; height: 300px }
 @media (min-width: 32em) { img { width: 500px; height:300px } }
 @media (min-width: 45em) { img { width: 700px; height:400px } }</code></pre>
 
@@ -449,7 +425,7 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
      selection. A banner that takes half the <span>viewport</span> is provided in two versions,
      one for wide screens and one for narrow screens.</p>
 
-<pre><code class="html" data-x="">&lt;h1>
+<pre><code class="html">&lt;h1>
  &lt;picture>
   &lt;source media="(max-width: 500px)" srcset="banner-phone.jpeg, banner-phone-HD.jpeg 2x">
   &lt;img src="banner.jpeg" srcset="banner-HD.jpeg 2x" alt="The Breakfast Combo">
@@ -457,19 +433,17 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
 &lt;/h1></code></pre>
 
     </div>
-
    </dd>
 
    <dt><span>Image format-based selection</span></dt>
 
    <dd>
-
     <p>The <code data-x="attr-source-type">type</code> attribute on the <code>source</code> element
     can be used, to provide multiple images in different formats.</p>
 
     <div class="example">
 
-<pre><code class="html" data-x="">&lt;h2>From today's featured article&lt;/h2>
+<pre><code class="html">&lt;h2>From today's featured article&lt;/h2>
 &lt;picture>
  &lt;source srcset="/uploads/100-marie-lloyd.webp" <strong>type="image/webp"</strong>>
  &lt;source srcset="/uploads/100-marie-lloyd.jxr" <strong>type="image/vnd.ms-photo"</strong>>
@@ -485,9 +459,7 @@ was an English &lt;a href="/wiki/Music_hall">music hall&lt;/a> singer, ...</code
      If neither of those formats are supported, the <code>img</code> element will be chosen.</p>
 
     </div>
-
    </dd>
-
   </dl>
 
 

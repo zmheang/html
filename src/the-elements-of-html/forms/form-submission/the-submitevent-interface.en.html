@@ -1,0 +1,27 @@
+  <h5>The <code>SubmitEvent</code> interface</h5>
+
+  <pre><code class="idl">[Exposed=Window]
+interface <dfn>SubmitEvent</dfn> : <span>Event</span> {
+  constructor(DOMString type, optional <span>SubmitEventInit</span> eventInitDict = {});
+
+  readonly attribute <span>HTMLElement</span>? <span data-x="dom-SubmitEvent-submitter">submitter</span>;
+};
+
+dictionary <dfn>SubmitEventInit</dfn> : <span>EventInit</span> {
+  <span>HTMLElement</span>? submitter = null;
+};</code></pre>
+
+  <dl class="domintro">
+   <dt><var>event</var> . <code data-x="dom-SubmitEvent-submitter">submitter</code></dt>
+   <dd><p>Returns the element representing the <span data-x="concept-submit-button">submit
+   button</span> that triggered the <span>form submission</span>, or null if the submission was
+   not triggered by a button.</p></dd>
+  </dl>
+
+  <div w-nodev>
+
+  <p>The <dfn><code data-x="dom-SubmitEvent-submitter">submitter</code></dfn> attribute must return
+  the value it was initialized to.</p>
+
+  </div>
+

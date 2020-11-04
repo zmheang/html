@@ -11,11 +11,16 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-optgroup-disabled">disabled</code></dd>
    <dd><code data-x="attr-optgroup-label">label</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-optgroup">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-optgroup">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLOptGroupElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-optgroup-disabled">disabled</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-optgroup-label">label</span>;
 };</code></pre>
@@ -37,20 +42,22 @@ interface <dfn>HTMLOptGroupElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p>The <dfn><code data-x="attr-optgroup-disabled">disabled</code></dfn> attribute is a
-  <span>boolean attribute</span> and can be used to <span
-  data-x="concept-option-disabled">disable</span> a group of <code>option</code> elements
-  together.</p>
+  <p>The <dfn element-attr for="optgroup"><code
+  data-x="attr-optgroup-disabled">disabled</code></dfn> attribute is a <span>boolean
+  attribute</span> and can be used to <span data-x="concept-option-disabled">disable</span> a group
+  of <code>option</code> elements together.</p>
 
-  <p>The <dfn><code data-x="attr-optgroup-label">label</code></dfn> attribute must be specified. Its
-  value gives the name of the group, for the purposes of the user interface. <span w-nodev>User
-  agents should use this attribute's value when labeling the group of <code>option</code> elements
-  in a <code>select</code> element.</span></p>
+  <p>The <dfn element-attr for="optgroup"><code data-x="attr-optgroup-label">label</code></dfn>
+  attribute must be specified. Its value gives the name of the group, for the purposes of the user
+  interface. <span w-nodev>User agents should use this attribute's value when labeling the group of
+  <code>option</code> elements in a <code>select</code> element.</span></p>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-optgroup-disabled">disabled</code></dfn> and <dfn><code data-x="dom-optgroup-label">label</code></dfn> attributes must <span>reflect</span> the
-  respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLOptGroupElement"><code
+  data-x="dom-optgroup-disabled">disabled</code></dfn> and <dfn attribute
+  for="HTMLOptGroupElement"><code data-x="dom-optgroup-label">label</code></dfn> attributes must
+  <span>reflect</span> the respective content attributes of the same name.</p>
 
   </div>
 
@@ -63,7 +70,7 @@ interface <dfn>HTMLOptGroupElement</dfn> : <span>HTMLElement</span> {
    <p>The following snippet shows how a set of lessons from three courses could be offered in a
    <code>select</code> drop-down widget:</p>
 
-   <pre><code class="html" data-x="">&lt;form action="courseselector.dll" method="get">
+   <pre><code class="html">&lt;form action="courseselector.dll" method="get">
  &lt;p>Which course would you like to watch today?
  &lt;p>&lt;label>Course:
   &lt;select name="c">

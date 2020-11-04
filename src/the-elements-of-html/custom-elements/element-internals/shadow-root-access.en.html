@@ -1,0 +1,30 @@
+  <h5>Shadow root access</h5>
+
+  <dl class="domintro">
+   <dt><var>internals</var> . <code data-x="dom-ElementInternals-shadowRoot">shadowRoot</code></dt>
+   <dd><p>Returns the <code>ShadowRoot</code> for <var>internals</var>'s
+   <span data-x="internals-target">target element</span>, if the
+   <span data-x="internals-target">target element</span> is a <span>shadow host</span>, or null
+   otherwise.</p></dd>
+  </dl>
+
+  <div w-nodev>
+  <p>The <dfn><code data-x="dom-ElementInternals-shadowRoot">shadowRoot</code></dfn> getter steps
+  are:</p>
+
+  <ol>
+   <li><p>Let <var>target</var> be <span>this</span>'s <span data-x="internals-target">target
+   element</span>.</p></li>
+
+   <li><p>If <var>target</var> is not a <span>shadow host</span>, then return null.</p></li>
+
+   <li><p>Let <var>shadow</var> be <var>target</var>'s <span
+   data-x="concept-element-shadow-root">shadow root</span>.</p></li>
+
+   <li><p>If <var>shadow</var>'s <span>available to element internals</span> is false, then return
+   null.</p></li>
+
+   <li><p>Return <var>shadow</var>.</p></li>
+  </ol>
+  </div>
+

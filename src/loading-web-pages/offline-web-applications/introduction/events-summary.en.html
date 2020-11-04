@@ -20,7 +20,7 @@
    <tbody>
 
     <tr>
-     <td> <dfn><code data-x="event-appcache-checking">checking</code></dfn>
+     <td> <dfn event for="ApplicationCache"><code data-x="event-appcache-checking">checking</code></dfn>
      <td> <code>Event</code>
      <td> The user agent is checking for an update, or attempting to download the manifest for the
           first time. <strong>This is always the first event in the sequence.</strong>
@@ -30,13 +30,13 @@
           data-x="event-appcache-error">error</code>
 
     <tr>
-     <td> <dfn><code data-x="event-appcache-noupdate">noupdate</code></dfn>
+     <td> <dfn event for="ApplicationCache"><code data-x="event-appcache-noupdate">noupdate</code></dfn>
      <td> <code>Event</code>
      <td> The manifest hadn't changed.
      <td> Last event in sequence.
 
     <tr>
-     <td> <dfn><code data-x="event-appcache-downloading">downloading</code></dfn>
+     <td> <dfn event for="ApplicationCache"><code data-x="event-appcache-downloading">downloading</code></dfn>
      <td> <code>Event</code>
      <td> The user agent has found an update and is fetching it, or is downloading the resources
           listed by the manifest for the first time.
@@ -46,7 +46,7 @@
           data-x="event-appcache-updateready">updateready</code>
 
     <tr>
-     <td> <dfn><code data-x="event-appcache-progress">progress</code></dfn>
+     <td> <dfn event for="ApplicationCache"><code data-x="event-appcache-progress">progress</code></dfn>
      <td> <code>ProgressEvent</code>
      <td> The user agent is downloading resources listed by the manifest.
           The event object's <code data-x="dom-ProgressEvent-total">total</code> attribute returns the total number of files to be downloaded.
@@ -57,26 +57,26 @@
           data-x="event-appcache-updateready">updateready</code>
 
     <tr>
-     <td> <dfn><code data-x="event-appcache-cached">cached</code></dfn>
+     <td> <dfn event for="ApplicationCache"><code data-x="event-appcache-cached">cached</code></dfn>
      <td> <code>Event</code>
      <td> The resources listed in the manifest have been downloaded, and the application is now cached.
      <td> Last event in sequence.
 
     <tr>
-     <td> <dfn><code data-x="event-appcache-updateready">updateready</code></dfn>
+     <td> <dfn event for="ApplicationCache"><code data-x="event-appcache-updateready">updateready</code></dfn>
      <td> <code>Event</code>
      <td> The resources listed in the manifest have been newly redownloaded, and the script can use
           <code data-x="dom-appcache-swapCache">swapCache()</code> to switch to the new cache.
      <td> Last event in sequence.
 
     <tr>
-     <td> <dfn><code data-x="event-appcache-obsolete">obsolete</code></dfn>
+     <td> <dfn event for="ApplicationCache"><code data-x="event-appcache-obsolete">obsolete</code></dfn>
      <td> <code>Event</code>
      <td> The manifest was found to have become a 404 or 410 page, so the application cache is being deleted.
      <td> Last event in sequence.
 
     <tr>
-     <td rowspan=4> <dfn><code data-x="event-appcache-error">error</code></dfn>
+     <td rowspan=4> <dfn event for="ApplicationCache"><code data-x="event-appcache-error">error</code></dfn>
      <td rowspan=4> <code>Event</code>
      <td> The manifest was a 404 or 410 page, so the attempt to cache the application has been aborted.
      <td rowspan=3> Last event in sequence.

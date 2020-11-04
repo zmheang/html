@@ -3,7 +3,7 @@
   <p><span>HTMLMediaElement</span> objects (<code>audio</code> and <code>video</code>, in this
   specification) are simply known as <dfn data-x="media element">media elements</dfn>.</p>
 
-  <pre><code class="idl" data-x="">enum <dfn>CanPlayTypeResult</dfn> { "" /* <span data-x="dom-CanPlayTypeResult-nil">empty string</span> */, "<span data-x="dom-CanPlayTypeResult-maybe">maybe</span>", "<span data-x="dom-CanPlayTypeResult-probably">probably</span>" };
+  <pre><code class="idl">enum <dfn>CanPlayTypeResult</dfn> { "" /* <span data-x="dom-CanPlayTypeResult-nil">empty string</span> */, "<span data-x="dom-CanPlayTypeResult-maybe">maybe</span>", "<span data-x="dom-CanPlayTypeResult-probably">probably</span>" };
 typedef (<span>MediaStream</span> or <span>MediaSource</span> or <span>Blob</span>) <dfn>MediaProvider</dfn>;
 
 [Exposed=Window]
@@ -26,7 +26,7 @@ interface <dfn>HTMLMediaElement</dfn> : <span>HTMLElement</span> {
 <!--v3BUF  readonly attribute double <span data-x="dom-media-bufferingRate">bufferingRate</span>;
   readonly attribute boolean <span data-x="dom-media-bufferingThrottled">bufferingThrottled</span>;
 -->  readonly attribute <span>TimeRanges</span> <span data-x="dom-media-buffered">buffered</span>;
-  void <span data-x="dom-media-load">load</span>();
+  undefined <span data-x="dom-media-load">load</span>();
   <span>CanPlayTypeResult</span> <span data-x="dom-navigator-canPlayType">canPlayType</span>(DOMString type);
 
   // ready state
@@ -40,19 +40,20 @@ interface <dfn>HTMLMediaElement</dfn> : <span>HTMLElement</span> {
 
   // playback state
   attribute double <span data-x="dom-media-currentTime">currentTime</span>;
-  void <span data-x="dom-media-fastSeek">fastSeek</span>(double time);
+  undefined <span data-x="dom-media-fastSeek">fastSeek</span>(double time);
   readonly attribute unrestricted double <span data-x="dom-media-duration">duration</span>;
   <span data-x="idl-object">object</span> <span data-x="dom-media-getStartDate">getStartDate</span>();
   readonly attribute boolean <span data-x="dom-media-paused">paused</span>;
   attribute double <span data-x="dom-media-defaultPlaybackRate">defaultPlaybackRate</span>;
   attribute double <span data-x="dom-media-playbackRate">playbackRate</span>;
+  attribute boolean <span data-x="dom-media-preservesPitch">preservesPitch</span>;
   readonly attribute <span>TimeRanges</span> <span data-x="dom-media-played">played</span>;
   readonly attribute <span>TimeRanges</span> <span data-x="dom-media-seekable">seekable</span>;
   readonly attribute boolean <span data-x="dom-media-ended">ended</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-media-autoplay">autoplay</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-media-loop">loop</span>;
-  Promise&lt;void&gt; <span data-x="dom-media-play">play</span>();
-  void <span data-x="dom-media-pause">pause</span>();
+  Promise&lt;undefined&gt; <span data-x="dom-media-play">play</span>();
+  undefined <span data-x="dom-media-pause">pause</span>();
 
   // controls
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-media-controls">controls</span>;
@@ -104,10 +105,6 @@ interface <dfn>HTMLMediaElement</dfn> : <span>HTMLElement</span> {
       so that the author's controls can get away of the UA's
   -->
 
-  <!-- v2 features that already have experimental implementations:
-    * webkitPreservesPitch (for when playbackRate != 1.0)
-  -->
-
   <p><span data-x="media element">Media elements</span> are used to present audio data, or video and
   audio data, to the user. This is referred to as <dfn>media data</dfn> in this section, since this
   section applies equally to <span data-x="media element">media elements</span> for audio or for
@@ -134,9 +131,12 @@ interface <dfn>HTMLMediaElement</dfn> : <span>HTMLElement</span> {
 
   <div w-nodev>
 
-  <p>Except where otherwise explicitly specified, the <span>task source</span> for all the tasks
-  <span data-x="queue a task">queued</span> in this section and its subsections is the <dfn>media
-  element event task source</dfn> of the <span>media element</span> in question.</p>
+  <p>Each <span>media element</span> has a unique <dfn>media element event task source</dfn>.</p>
+
+  <p>To <dfn export>queue a media element task</dfn> with a <span>media element</span>
+  <var>element</var> and a series of steps <var>steps</var>, <span>queue an element task</span> on
+  the <span>media element</span>'s <span>media element event task source</span> given
+  <var>element</var> and <var>steps</var>.</p>
 
   </div>
 

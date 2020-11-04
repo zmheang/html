@@ -4,7 +4,7 @@
   <span data-x="concept-collection">collections</span> of <span data-x="category-listed">listed
   elements</span> in <code>form</code> elements.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLFormControlsCollection</dfn> : <span>HTMLCollection</span> {
   // inherits <span data-x="dom-HTMLCollection-length">length</span> and <span data-x="dom-HTMLCollection-item">item</span>()
   getter (<span>RadioNodeList</span> or <span>Element</span>)? <span data-x="dom-HTMLFormControlsCollection-namedItem">namedItem</span>(DOMString name); // shadows inherited <span data-x="dom-HTMLCollection-namedItem">namedItem()</span>
@@ -42,7 +42,6 @@ interface <dfn>RadioNodeList</dfn> : <span>NodeList</span> {
     <p>Returns the value of the first checked radio button represented by the object.</p>
     <p>Can be set, to check the first radio button with the given value represented by the object.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -60,7 +59,6 @@ interface <dfn>RadioNodeList</dfn> : <span>NodeList</span> {
   <p>The <dfn><code data-x="dom-HTMLFormControlsCollection-namedItem">namedItem(<var>name</var>)</code></dfn> method must act according to the following algorithm:</p>
 
   <ol>
-
    <li>If <var>name</var> is the empty string, return null and stop the algorithm.</li>
 
    <li>If, at the time the method is called, there is exactly one node in the collection that has
@@ -79,7 +77,6 @@ interface <dfn>RadioNodeList</dfn> : <span>NodeList</span> {
    <span>tree order</span>.</li>
 
    <li>Return that <code>RadioNodeList</code> object.</li>
-
   </ol>
 
   <hr>
@@ -92,7 +89,6 @@ interface <dfn>RadioNodeList</dfn> : <span>NodeList</span> {
   following steps:</p>
 
   <ol>
-
    <li><p>Let <var>element</var> be the first element in <span>tree order</span>
    represented by the <code>RadioNodeList</code> object that is an <code>input</code> element whose
    <code data-x="attr-input-type">type</code> attribute is in the <span
@@ -106,14 +102,12 @@ interface <dfn>RadioNodeList</dfn> : <span>NodeList</span> {
 
    <li><p>Otherwise, return the value of <var>element</var>'s <code
    data-x="attr-input-value">value</code> attribute.</p></li>
-
   </ol>
 
   <p>On setting, the <code data-x="dom-RadioNodeList-value">value</code> IDL attribute must run the
   following steps:</p>
 
   <ol>
-
    <li><p>If the new value is the string "<code data-x="">on</code>": let <var>element</var> be the first element in <span>tree order</span>
    represented by the <code>RadioNodeList</code> object that is an <code>input</code> element whose
    <code data-x="attr-input-type">type</code> attribute is in the <span
@@ -129,7 +123,6 @@ interface <dfn>RadioNodeList</dfn> : <span>NodeList</span> {
 
    <li><p>If <var>element</var> is not null, then set its <span
    data-x="concept-fe-checked">checkedness</span> to true.</p>
-
   </ol>
 
 <!--

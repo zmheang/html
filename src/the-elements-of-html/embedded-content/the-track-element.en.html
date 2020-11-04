@@ -14,11 +14,16 @@
    <dd><code data-x="attr-track-srclang">srclang</code></dd>
    <dd><code data-x="attr-track-label">label</code></dd>
    <dd><code data-x="attr-track-default">default</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-track">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-track">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-track-kind">kind</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-track-src">src</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-track-srclang">srclang</span>;
@@ -41,9 +46,10 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
   data-x="text track">text tracks</span> for <span data-x="media element">media elements</span>. It
   does not <span data-x="represents">represent</span> anything on its own.</p>
 
-  <p>The <dfn><code data-x="attr-track-kind">kind</code></dfn> attribute is an <span>enumerated
-  attribute</span>. The following table lists the keywords defined for this attribute. The keyword
-  given in the first cell of each row maps to the state given in the second cell.</p>
+  <p>The <dfn element-attr for="track"><code data-x="attr-track-kind">kind</code></dfn> attribute is
+  an <span>enumerated attribute</span>. The following table lists the keywords defined for this
+  attribute. The keyword given in the first cell of each row maps to the state given in the second
+  cell.</p>
 
   <table>
    <thead>
@@ -86,9 +92,9 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
   data-x="invalid value default">invalid value default</i> is the <span
   data-x="attr-track-kind-metadata">metadata</span> state.</p>
 
-  <p>The <dfn><code data-x="attr-track-src">src</code></dfn> attribute gives the <span>URL</span> of
-  the text track data. The value must be a <span>valid non-empty URL potentially surrounded by
-  spaces</span>. This attribute must be present.</p>
+  <p>The <dfn element-attr for="track"><code data-x="attr-track-src">src</code></dfn> attribute
+  gives the <span>URL</span> of the text track data. The value must be a <span>valid non-empty URL
+  potentially surrounded by spaces</span>. This attribute must be present.</p>
 
   <div w-nodev>
 
@@ -106,10 +112,11 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
   data-x="attr-track-kind-metadata">metadata</span> state, then the WebVTT file must be a
   <span>WebVTT file using cue text</span>. <ref spec=WEBVTT></p>
 
-  <p>The <dfn><code data-x="attr-track-srclang">srclang</code></dfn> attribute gives the language of
-  the text track data. The value must be a valid BCP 47 language tag. This attribute must be present
-  if the element's <code data-x="attr-track-kind">kind</code> attribute is in the <span
-  data-x="attr-track-kind-subtitles">subtitles</span> state. <ref spec=BCP47></p>
+  <p>The <dfn element-attr for="track"><code data-x="attr-track-srclang">srclang</code></dfn>
+  attribute gives the language of the text track data. The value must be a valid BCP 47 language
+  tag. This attribute must be present if the element's <code data-x="attr-track-kind">kind</code>
+  attribute is in the <span data-x="attr-track-kind-subtitles">subtitles</span> state. <ref
+  spec=BCP47></p>
 
   <div w-nodev>
 
@@ -119,8 +126,8 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p>The <dfn><code data-x="attr-track-label">label</code></dfn> attribute gives a user-readable
-  title for the track. This title is used by user agents when listing <span
+  <p>The <dfn element-attr for="track"><code data-x="attr-track-label">label</code></dfn> attribute
+  gives a user-readable title for the track. This title is used by user agents when listing <span
   data-x="attr-track-kind-subtitles">subtitle</span>, <span
   data-x="attr-track-kind-captions">caption</span>, and <span
   data-x="attr-track-kind-descriptions">audio description</span> tracks in their user interface.</p>
@@ -141,9 +148,10 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p>The <dfn><code data-x="attr-track-default">default</code></dfn> attribute is a <span>boolean
-  attribute</span>, which, if specified, indicates that the track is to be enabled if the user's
-  preferences do not indicate that another track would be more appropriate.</p>
+  <p>The <dfn element-attr for="track"><code data-x="attr-track-default">default</code></dfn>
+  attribute is a <span>boolean attribute</span>, which, if specified, indicates that the track is to
+  be enabled if the user's preferences do not indicate that another track would be more
+  appropriate.</p>
 
   <p>Each <span>media element</span> must have no more than one <code>track</code> element child
   whose <code data-x="attr-track-kind">kind</code> attribute is in the <span
@@ -195,11 +203,8 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
    <dt><var>track</var> . <code subdfn data-x="dom-track-track">track</code></dt>
 
    <dd>
-
     <p>Returns the <code>TextTrack</code> object corresponding to the <span>text track</span> of the <code>track</code> element.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -219,13 +224,18 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
    <dd>The <span>text track failed to load</span> state.</dd>
   </dl>
 
-  <p>The <dfn><code data-x="dom-track-track">track</code></dfn> IDL attribute must, on getting,
-  return the <code>track</code> element's <span>text track</span>'s corresponding
-  <code>TextTrack</code> object.</p>
+  <p>The <dfn attribute for="HTMLTrackElement"><code data-x="dom-track-track">track</code></dfn> IDL
+  attribute must, on getting, return the <code>track</code> element's <span>text track</span>'s
+  corresponding <code>TextTrack</code> object.</p>
 
-  <p>The <dfn><code data-x="dom-track-src">src</code></dfn>, <dfn><code data-x="dom-track-srclang">srclang</code></dfn>, <dfn><code data-x="dom-track-label">label</code></dfn>, and <dfn><code data-x="dom-track-default">default</code></dfn> IDL attributes must <span>reflect</span> the
-  respective content attributes of the same name. The <dfn><code data-x="dom-track-kind">kind</code></dfn> IDL attribute must <span>reflect</span> the content
-  attribute of the same name, <span>limited to only known values</span>.</p>
+  <p>The <dfn attribute for="HTMLTrackElement"><code data-x="dom-track-src">src</code></dfn>, <dfn
+  attribute for="HTMLTrackElement"><code data-x="dom-track-srclang">srclang</code></dfn>, <dfn
+  attribute for="HTMLTrackElement"><code data-x="dom-track-label">label</code></dfn>, and <dfn
+  attribute for="HTMLTrackElement"><code data-x="dom-track-default">default</code></dfn> IDL
+  attributes must <span>reflect</span> the respective content attributes of the same name. The <dfn
+  attribute for="HTMLTrackElement"><code data-x="dom-track-kind">kind</code></dfn> IDL attribute
+  must <span>reflect</span> the content attribute of the same name, <span>limited to only known
+  values</span>.</p>
 
   </div>
 
@@ -233,7 +243,7 @@ interface <dfn>HTMLTrackElement</dfn> : <span>HTMLElement</span> {
 
    <p>This video has subtitles in several languages:</p>
 
-   <pre><code class="html" data-x="">&lt;video src="brave.webm">
+   <pre><code class="html">&lt;video src="brave.webm">
  &lt;track kind=subtitles src=brave.en.vtt srclang=en label="English">
  &lt;track kind=captions src=brave.en.hoh.vtt srclang=en label="English for the Hard of Hearing">
  &lt;track kind=subtitles src=brave.fr.vtt srclang=fr lang=fr label="Fran&ccedil;ais">

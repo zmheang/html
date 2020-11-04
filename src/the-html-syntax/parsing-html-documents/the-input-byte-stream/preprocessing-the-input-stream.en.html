@@ -19,11 +19,10 @@
   reasons, replaced with a U+FFFD REPLACEMENT CHARACTER. This handling is, by necessity, spread
   across both the tokenization stage and the tree construction stage.</p>
 
-  <p>U+000D CARRIAGE RETURN (CR) characters and U+000A LINE FEED (LF) characters are treated
-  specially. Any LF character that immediately follows a CR character must be ignored, and all CR
-  characters must then be converted to LF characters. Thus, newlines in HTML DOMs are represented by
-  LF characters, and there are never any CR characters in the input to the <span>tokenization</span>
-  stage.</p>
+  <p>Before the <span>tokenization</span> stage, the input stream must be preprocessed by <span
+  data-x="normalize newlines">normalizing newlines</span>. Thus, newlines in HTML DOMs are
+  represented by U+000A LF characters, and there are never any U+000D CR characters in the input to
+  the <span>tokenization</span> stage.</p>
 
   <p>The <dfn>next input character</dfn> is the first character in the <span>input stream</span>
   that has not yet been <dfn data-x="">consumed</dfn> or explicitly ignored by the requirements in

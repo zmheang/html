@@ -9,11 +9,16 @@
    <dd><span data-x="text content">Text</span> that is not <span>inter-element whitespace</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-title">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-title">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLTitleElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-title-text">text</span>;
 };</code></pre>
    </dd>
@@ -37,20 +42,20 @@ interface <dfn>HTMLTitleElement</dfn> : <span>HTMLElement</span> {
    <dt><var>title</var> . <code subdfn data-x="dom-title-text">text</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the <span>child text content</span> of the element.</p>
 
     <p>Can be set, to replace the element's children with the given value.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The IDL attribute <dfn><code data-x="dom-title-text">text</code></dfn> must return the
-  <span>child text content</span> of the <code>title</code> element. On setting, it must act the
-  same way as the <code>textContent</code> IDL attribute.</p>
+  <p>The <dfn attribute for="HTMLTitleElement"><code data-x="dom-title-text">text</code></dfn>
+  attribute's getter must return this <code>title</code> element's <span>child text
+  content</span>.</p>
+
+  <p>The <code data-x="dom-title-text">text</code> attribute's setter must <span>string replace
+  all</span> with the given value within this <code>title</code> element.</p>
 
   </div>
 
@@ -59,7 +64,7 @@ interface <dfn>HTMLTitleElement</dfn> : <span>HTMLElement</span> {
    <p>Here are some examples of appropriate titles, contrasted with the top-level headings that
    might be used on those same pages.</p>
 
-   <pre><code class="html" data-x="">  &lt;title>Introduction to The Mating Rituals of Bees&lt;/title>
+   <pre><code class="html">  &lt;title>Introduction to The Mating Rituals of Bees&lt;/title>
     ...
   &lt;h1>Introduction&lt;/h1>
   &lt;p>This companion guide to the highly successful
@@ -69,7 +74,7 @@ interface <dfn>HTMLTitleElement</dfn> : <span>HTMLElement</span> {
    matter unambiguously, while the first heading assumes the reader knows what the context is and
    therefore won't wonder if the dances are Salsa or Waltz:</p>
 
-   <pre><code class="html" data-x="">  &lt;title>Dances used during bee mating rituals&lt;/title>
+   <pre><code class="html">  &lt;title>Dances used during bee mating rituals&lt;/title>
     ...
   &lt;h1>The Dances&lt;/h1></code></pre>
 

@@ -4,13 +4,13 @@
   <code>multipart/x-mixed-replace</code> 类型的资源时，
   用户代理必须使用 multipart 类型的规则解析资源。 <ref spec=RFC2046></p>
 
-  <p>对资源中的每个 body part，用户代理必须执行
-  <span data-x="process a navigate response">处理导航响应算法</span>，
-  使用新的 body part和同一个 <span data-x="browsing context">浏览上下文</span>，
-  如果同一资源的上一个 body part 产生了一个正在创建和
-  <span data-x="initialize the Document object">初始化</span>
-  的 <code>Document</code> 对象，则 <span data-x="replacement enabled">开启替换</span> ，
-  否则与调用当前过程的 <span data-x="navigate">导航</span> 过程使用同样的配置。</p>
+  <p class="XXX">该算法传入了 <span data-x="navigation params">导航参数</span>，但还不清楚如何使用。</p>
+
+  <p>对资源中的每个 body part，用户代理必须执行 <span data-x="process a navigate response">处理导航响应算法</span>，
+  执行时要使用新的 body 部分和同样的 <span data-x="browsing context">浏览上下文</span>，
+  如果同一资源中的上一个 body 部分产生了 <span data-x="create-the-document-object">创建和初始化 <code>Document</code> 对象</span>，
+  就把 <span data-x="navigation-params-hh">历史处理</span> 设为 "<code data-x="hh-replace">replace</code>"，
+  否则使用跟最初调用这部分的 <span data-x="navigate">导航</span> 时同样的配置。</p>
 
   <p>为使得算法处理这些 body part 的表现与处理独立的资源一致，
   在碰到边界时用户代理必须表现地就像没有更多字节一样。</p>

@@ -1,4 +1,5 @@
-  <h4 data-dfn-type="element" data-lt="meta" id="the-meta-element">The <dfn id="meta"><code>meta</code></dfn> element</h4>
+  <h4 element data-lt="meta" id="the-meta-element">The <dfn id="meta"><code>meta</code></dfn>
+  element</h4>
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
@@ -20,14 +21,21 @@
    <dd><code data-x="attr-meta-http-equiv">http-equiv</code></dd>
    <dd><code data-x="attr-meta-content">content</code></dd>
    <dd><code data-x="attr-meta-charset">charset</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-meta">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-meta">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLMetaElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-meta-name">name</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-meta-httpEquiv">httpEquiv</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-meta-content">content</span>;
+
+  // <a href="#HTMLMetaElement-partial">also has obsolete members</a>
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLMetaElement</code>.</dd>
@@ -53,10 +61,10 @@ interface <dfn>HTMLMetaElement</dfn> : <span>HTMLElement</span> {
   specified, then the <code data-x="attr-meta-content">content</code> attribute must also be
   specified. Otherwise, it must be omitted.</p>
 
-  <p>The <dfn><code data-x="attr-meta-charset">charset</code></dfn> attribute specifies the <span
-  data-x="encoding">character encoding</span> used by the document. This is a <span>character
-  encoding declaration</span>. If the attribute is present, its value must be an <span>ASCII
-  case-insensitive</span> match for the string "<code data-x="">utf-8</code>".</p>
+  <p>The <dfn element-attr for="meta"><code data-x="attr-meta-charset">charset</code></dfn>
+  attribute specifies the <span data-x="encoding">character encoding</span> used by the document.
+  This is a <span>character encoding declaration</span>. If the attribute is present, its value must
+  be an <span>ASCII case-insensitive</span> match for the string "<code data-x="">utf-8</code>".</p>
 
   <p class="note">The <code data-x="attr-meta-charset">charset</code> attribute on the
   <code>meta</code> element has no effect in XML documents, but is allowed in XML documents in order
@@ -65,25 +73,28 @@ interface <dfn>HTMLMetaElement</dfn> : <span>HTMLElement</span> {
   <p>There must not be more than one <code>meta</code> element with a <code
   data-x="attr-meta-charset">charset</code> attribute per document.</p>
 
-  <p>The <dfn data-export="" data-dfn-for="meta" data-dfn-type="element-attr"><code
-  data-x="attr-meta-content">content</code></dfn> attribute gives the value of the document metadata
-  or pragma directive when the element is used for those purposes. The allowed values depend on the
-  exact context, as described in subsequent sections of this specification.</p>
+  <p>The <dfn for="meta" element-attr><code data-x="attr-meta-content">content</code></dfn>
+  attribute gives the value of the document metadata or pragma directive when the element is used
+  for those purposes. The allowed values depend on the exact context, as described in subsequent
+  sections of this specification.</p>
 
-  <p>If a <code>meta</code> element has a <dfn><code data-x="attr-meta-name">name</code></dfn>
-  attribute, it sets document metadata. Document metadata is expressed in terms of name-value pairs,
-  the <code data-x="attr-meta-name">name</code> attribute on the <code>meta</code> element giving the
-  name, and the <code data-x="attr-meta-content">content</code> attribute on the same element giving
-  the value. The name specifies what aspect of metadata is being set; valid names and the meaning of
-  their values are described in the following sections. If a <code>meta</code> element has no <code
-  data-x="attr-meta-content">content</code> attribute, then the value part of the metadata name-value
-  pair is the empty string.</p>
+  <p>If a <code>meta</code> element has a <dfn element-attr for="meta"><code
+  data-x="attr-meta-name">name</code></dfn> attribute, it sets document metadata. Document metadata
+  is expressed in terms of name-value pairs, the <code data-x="attr-meta-name">name</code> attribute
+  on the <code>meta</code> element giving the name, and the <code
+  data-x="attr-meta-content">content</code> attribute on the same element giving the value. The name
+  specifies what aspect of metadata is being set; valid names and the meaning of their values are
+  described in the following sections. If a <code>meta</code> element has no <code
+  data-x="attr-meta-content">content</code> attribute, then the value part of the metadata
+  name-value pair is the empty string.</p>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-meta-name">name</code></dfn> and <dfn><code data-x="dom-meta-content">content</code></dfn> IDL attributes must <span>reflect</span> the
-  respective content attributes of the same name. The IDL attribute <dfn><code data-x="dom-meta-httpEquiv">httpEquiv</code></dfn> must <span>reflect</span> the content
-  attribute <code data-x="attr-meta-http-equiv">http-equiv</code>.</p>
+  <p>The <dfn attribute for="HTMLMetaElement"><code data-x="dom-meta-name">name</code></dfn> and
+  <dfn attribute for="HTMLMetaElement"><code data-x="dom-meta-content">content</code></dfn> IDL
+  attributes must <span>reflect</span> the respective content attributes of the same name. The IDL
+  attribute <dfn><code data-x="dom-meta-httpEquiv">httpEquiv</code></dfn> must <span>reflect</span>
+  the content attribute <code data-x="attr-meta-http-equiv">http-equiv</code>.</p>
 
   </div>
 

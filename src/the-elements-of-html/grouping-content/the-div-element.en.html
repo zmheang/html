@@ -12,11 +12,18 @@
    <dd>If the element is not a child of a <code>dl</code> element: <span>flow content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-div">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-div">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
-interface <dfn>HTMLDivElement</dfn> : <span>HTMLElement</span> {};</code></pre>
+    <pre><code class="idl">[Exposed=Window]
+interface <dfn>HTMLDivElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
+  // <a href="#HTMLDivElement-partial">also has obsolete members</a>
+};</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLDivElement</code>.</dd>
   </dl>
@@ -43,7 +50,7 @@ interface <dfn>HTMLDivElement</dfn> : <span>HTMLElement</span> {};</code></pre>
    following example, we see <code>div</code> elements used as a way to set the language of two
    paragraphs at once, instead of setting the language on the two paragraph elements separately:</p>
 
-   <pre><code class="html" data-x="">&lt;article lang="en-US">
+   <pre><code class="html">&lt;article lang="en-US">
  &lt;h1>My use of language and my cats&lt;/h1>
  &lt;p>My cat's behavior hasn't changed much since her absence, except
  that she plays her new physique to the neighbors regularly, in an

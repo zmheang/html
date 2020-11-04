@@ -1,0 +1,56 @@
+  <h4>Button layout</h4>
+
+  <p><dfn>Button layout</dfn> is as follows:</p>
+
+  <ul>
+   <li>
+    <p>The <span>'display'</span> property is expected to act as follows:</p>
+
+    <ul>
+     <li><p>If the computed value of <span>'display'</span> is 'inline-grid', 'grid',
+     'inline-flex', or 'flex', then behave as the computed value.</p></li>
+
+     <li><p>Otherwise, if the computed value of <span>'display'</span> is a value such that the
+     <span>outer display type</span> is 'inline', then behave as 'inline-block'.</p></li>
+
+     <li><p>Otherwise, behave as 'flow-root'.</p></li>
+    </ul>
+   </li>
+
+   <li><p>The element is expected to establish a new <span>formatting context</span> for its
+   contents. The type of this formatting context is determined by its <span>'display'</span> value,
+   as usual.</p></li>
+
+   <li><p>If the element is <span>absolutely positioned</span>, then for the purpose of the
+   <a href="https://drafts.csswg.org/css2/#visuren">CSS visual formatting model</a>, act as if
+   the element is a <span>replaced element</span>. <ref spec=CSS></p></li>
+
+   <li><p>If the <span>computed value</span> of <span>'inline-size'</span> is 'auto', then the
+   <span>used value</span> is the <span>fit-content inline size</span>.</p></li>
+
+   <li><p>For the purpose of the 'normal' keyword of the <span>'align-self'</span> property, act
+   as if the element is a replaced element.</p></li>
+
+   <li>
+    <p>If the element is an <code>input</code> element, or if it is a <code>button</code> element
+    and its computed value for <span>'display'</span> is not 'inline-grid', 'grid', 'inline-flex',
+    or 'flex', then the element's box has a child <dfn>anonymous button content box</dfn> with the
+    following behaviors:</p>
+
+    <ul>
+     <li><p>The box is a <span>block-level</span> <span>block container</span> that establishes a
+     new <span>block formatting context</span> (i.e., <span>'display'</span> is
+     'flow-root').</p></li>
+
+     <li><p>If the box does not overflow in the horizontal axis, then it is centered
+     horizontally.</p></li>
+
+     <li><p>If the box does not overflow in the vertical axis, then it is centered
+     vertically.</p></li>
+    </ul>
+
+    <p>Otherwise, there is no <span>anonymous button content box</span>.</p>
+   </li>
+  </ul>
+
+

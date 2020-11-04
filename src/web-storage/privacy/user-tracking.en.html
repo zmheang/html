@@ -5,25 +5,21 @@
   multiple sessions, building a profile of the user's interests to allow for highly targeted
   advertising. In conjunction with a site that is aware of the user's real identity (for example an
   e-commerce site that requires authenticated credentials), this could allow oppressive groups to
-  target individuals with greater accuracy than in a world with purely anonymous Web usage.</p>
+  target individuals with greater accuracy than in a world with purely anonymous web usage.</p>
 
   <p>There are a number of techniques that can be used to mitigate the risk of user tracking:</p>
 
   <dl>
-
    <dt>Blocking third-party storage</dt>
    <dd>
-
     <p>User agents may restrict access to the <code data-x="dom-localStorage">localStorage</code>
     objects to scripts originating at the domain of the <span>active document</span> of the <span>top-level browsing
     context</span>, for instance denying access to the API for pages from other domains running in
     <code>iframe</code>s.</p>
-
    </dd>
 
    <dt>Expiring stored data</dt>
    <dd>
-
     <p>User agents may, possibly in a manner configured by the user, automatically delete stored
     data after a period of time.</p>
 
@@ -38,34 +34,25 @@
     <p>However, this also reduces the usefulness of the API as a long-term storage mechanism. It can
     also put the user's data at risk, if the user does not fully understand the implications of data
     expiration.</p>
-
-    <!--v2 consider adding an explicit way for sites to state when data should expire, as in
-    localStorage.expireData(365); -->
-
    </dd>
 
    <dt>Treating persistent storage as cookies</dt>
    <dd>
-
     <p>If users attempt to protect their privacy by clearing cookies without also clearing data
     stored in the local storage area, sites can defeat those attempts by using the two features as
     redundant backup for each other. User agents should present the interfaces for clearing these in
     a way that helps users to understand this possibility and enables them to delete data in all
     persistent storage features simultaneously. <ref spec=COOKIES></p>
-
    </dd>
 
    <dt>Site-specific safelisting of access to local storage areas</dt> <dd>
-
     <p>User agents may allow sites to access session storage areas in
     an unrestricted manner, but require the user to authorize access
     to local storage areas.</p>
-
    </dd>
 
    <dt>Origin-tracking of stored data</dt>
    <dd>
-
     <p>User agents may record the <span data-x="origin">origins</span> of sites that contained
     content from third-party origins that caused data to be stored.</p>
 
@@ -73,18 +60,14 @@
     it would allow the user to make informed decisions about which parts of the persistent storage
     to prune. Combined with a blocklist ("delete this data and prevent this domain from ever storing
     data again"), the user can restrict the use of persistent storage to sites that they trust.</p>
-
    </dd>
 
    <dt>Shared blocklists</dt>
    <dd>
-
     <p>User agents may allow users to share their persistent storage domain blocklists.</p>
 
     <p>This would allow communities to act together to protect their privacy.</p>
-
    </dd>
-
   </dl>
 
   <p>While these suggestions prevent trivial use of this API for user tracking, they do not block it

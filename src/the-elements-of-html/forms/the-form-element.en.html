@@ -1,4 +1,4 @@
-  <h4 data-dfn-type="element" data-lt="form">The <dfn><code>form</code></dfn> element</h4>
+  <h4 element data-lt="form">The <dfn><code>form</code></dfn> element</h4>
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
@@ -18,13 +18,19 @@
    <dd><code data-x="attr-form-name">name</code></dd>
    <dd><code data-x="attr-fs-novalidate">novalidate</code></dd>
    <dd><code data-x="attr-fs-target">target</code></dd>
+   <dd><code data-x="attr-form-rel">rel</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-form">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-form">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- OverrideBuiltins,
- LegacyUnenumerableNamedProperties,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window,
+ <span>LegacyOverrideBuiltIns</span>,
+ <span>LegacyUnenumerableNamedProperties</span>]
 interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-form-acceptCharset">acceptCharset</span>;
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-fs-action">action</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-form-autocomplete">autocomplete</span>;
@@ -34,14 +40,17 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-form-name">name</span>;
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-fs-noValidate">noValidate</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-fs-target">target</span>;
+  [<span>CEReactions</span>] attribute DOMString <span data-x="dom-form-rel">rel</span>;
+  [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-form-relList">relList</span>;
 
   [SameObject] readonly attribute <span>HTMLFormControlsCollection</span> <span data-x="dom-form-elements">elements</span>;
   readonly attribute unsigned long <span data-x="dom-form-length">length</span>;
   <a href="#dom-form-item">getter</a> <span>Element</span> (unsigned long index);
   <a href="#dom-form-nameditem">getter</a> (<span>RadioNodeList</span> or <span>Element</span>) (DOMString name);
 
-  void <span data-x="dom-form-submit">submit</span>();
-  [<span>CEReactions</span>] void <span data-x="dom-form-reset">reset</span>();
+  undefined <span data-x="dom-form-submit">submit</span>();
+  undefined <span data-x="dom-form-requestSubmit">requestSubmit</span>(optional <span>HTMLElement</span>? submitter = null);
+  [<span>CEReactions</span>] undefined <span data-x="dom-form-reset">reset</span>();
   boolean <span data-x="dom-form-checkValidity">checkValidity</span>();
   boolean <span data-x="dom-form-reportValidity">reportValidity</span>();
 };</code></pre>
@@ -49,31 +58,31 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
    <dd w-dev>Uses <code>HTMLFormElement</code>.</dd>
   </dl>
 
-  <p>The <code>form</code> element <span>represents</span> a collection of <span
-  data-x="form-associated element">form-associated elements</span>, some of which can represent
-  editable values that can be submitted to a server for processing.</p>
+  <p>The <code>form</code> element <span>represents</span> a <span>hyperlink</span> that can be
+  manipulated through a collection of <span data-x="form-associated element">form-associated
+  elements</span>, some of which can represent editable values that can be submitted to a server for
+  processing.</p>
 
-  <p>The <dfn><code data-x="attr-form-accept-charset">accept-charset</code></dfn> attribute gives the
-  character encodings that are to be used for the submission. If specified, the value must be an
-  <span>ordered set of unique space-separated tokens</span> that are <span>ASCII
-  case-insensitive</span>, and each token must be an <span>ASCII case-insensitive</span> match for
-  one of the <span data-x="encoding label">labels</span> of an <span>ASCII-compatible
-  encoding</span>. <ref spec=ENCODING></p>
+  <p>The <dfn element-attr for="form"><code
+  data-x="attr-form-accept-charset">accept-charset</code></dfn> attribute gives the character
+  encodings that are to be used for the submission. If specified, the value must be an <span>ASCII
+  case-insensitive</span> match for "<code data-x="">UTF-8</code>". <ref spec=ENCODING></p>
 
-  <p>The <dfn><code data-x="attr-form-name">name</code></dfn> attribute represents the
-  <code>form</code>'s name within the <code data-x="dom-document-forms">forms</code> collection. The
-  value must not be the empty string, and the value must be unique amongst the <code>form</code>
-  elements in the <code data-x="dom-document-forms">forms</code> collection that it is in, if
-  any.</p>
+  <p>The <dfn element-attr for="form"><code data-x="attr-form-name">name</code></dfn> attribute
+  represents the <code>form</code>'s name within the <code data-x="dom-document-forms">forms</code>
+  collection. The value must not be the empty string, and the value must be unique amongst the
+  <code>form</code> elements in the <code data-x="dom-document-forms">forms</code> collection that
+  it is in, if any.</p>
 
-  <p>The <dfn><code data-x="attr-form-autocomplete">autocomplete</code></dfn> attribute is an
-  <span>enumerated attribute</span>. The attribute has two states. The <dfn><code
+  <p>The <dfn element-attr for="form"><code
+  data-x="attr-form-autocomplete">autocomplete</code></dfn> attribute is an <span>enumerated
+  attribute</span>. The attribute has two states. The <dfn><code
   data-x="attr-form-autocomplete-on">on</code></dfn> keyword maps to the <dfn
   data-x="attr-form-autocomplete-on-state">on</dfn> state, and the <dfn><code
   data-x="attr-form-autocomplete-off">off</code></dfn> keyword maps to the <dfn
   data-x="attr-form-autocomplete-off-state">off</dfn> state. The attribute may also be omitted. The
-  <i data-x="missing value default">missing value default</i> and the <i
-  data-x="invalid value default">invalid value default</i> are the <span
+  <i data-x="missing value default">missing value default</i> and the <i data-x="invalid value
+  default">invalid value default</i> are the <span
   data-x="attr-form-autocomplete-on-state">on</span> state. The <span
   data-x="attr-form-autocomplete-off-state">off</span> state indicates that by default, form
   controls in the form will have their <span>autofill field name</span> set to "<code
@@ -87,39 +96,46 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
   and <code data-x="attr-fs-target">target</code> attributes are <span>attributes for form
   submission</span>.</p>
 
+  <p>The <dfn element-attr for="form"><code data-x="attr-form-rel">rel</code></dfn> attribute on
+  <code>form</code> elements controls what kinds of links the elements create. The attribute's value
+  must be a <span>unordered set of unique space-separated tokens</span>. The <a
+  href="#linkTypes">allowed keywords and their meanings</a> are defined in an earlier section.</p>
+
+  <p><code data-x="attr-form-rel">rel</code>'s <span data-x="concept-supported-tokens">supported
+  tokens</span> are the keywords defined in <a href="#linkTypes">HTML link types</a> which are
+  allowed on <code>form</code> elements, impact the processing model, and are supported by the user
+  agent. The possible <span data-x="concept-supported-tokens">supported tokens</span> are <code
+  data-x="rel-noreferrer">noreferrer</code>, <code data-x="rel-noopener">noopener</code>, and <code
+  data-x="rel-opener">opener</code>. <code data-x="attr-form-rel">rel</code>'s <span
+  data-x="concept-supported-tokens">supported tokens</span> must only include the tokens from this
+  list that the user agent implements the processing model for.</p>
+
   <dl class="domintro">
 
    <dt><var>form</var> . <code subdfn data-x="dom-form-elements">elements</code></dt>
 
    <dd>
-
     <p>Returns an <code>HTMLFormControlsCollection</code> of the form controls in the form (excluding image
     buttons for historical reasons).</p>
-
    </dd>
 
    <dt><var>form</var> . <code subdfn data-x="dom-form-length">length</code></dt>
 
    <dd>
-
     <p>Returns the number of form controls in the form (excluding image buttons for historical
     reasons).</p>
-
    </dd>
 
    <dt><var>form</var>[<var>index</var>]</dt>
 
    <dd>
-
     <p>Returns the <var>index</var>th element in the form (excluding image buttons for
     historical reasons).</p>
-
    </dd>
 
    <dt><var>form</var>[<var>name</var>]</dt>
 
    <dd>
-
     <p>Returns the form control (or, if there are several, a <code>RadioNodeList</code> of the form
     controls) in the form with the given <span data-x="concept-id">ID</span> or <code
     data-x="attr-fe-name">name</code> (excluding image buttons for historical reasons); or, if there
@@ -132,69 +148,86 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
 
     <p>If there are multiple matching items, then a <code>RadioNodeList</code> object containing all
     those elements is returned.</p>
-
    </dd>
 
    <dt><var>form</var> . <code subdfn data-x="dom-form-submit">submit</code>()</dt>
 
    <dd>
+    <p>Submits the form, bypassing <span data-x="interactively validate the constraints">interactive
+    constraint validation</span> and without firing a <code data-x="event-submit">submit</code>
+    event.</p>
+   </dd>
 
-    <p>Submits the form.</p>
+   <dt><var>form</var> . <code subdfn data-x="dom-form-requestSubmit">requestSubmit</code>( [ <var>submitter</var> ] )</dt>
 
+   <dd>
+    <p>Requests to submit the form. Unlike <code data-x="dom-form-submit">submit()</code>, this
+    method includes <span data-x="interactively validate the constraints">interactive constraint
+    validation</span> and firing a <code data-x="event-submit">submit</code> event, either of which
+    can cancel submission.</p>
+
+    <p>The <var>submitter</var> argument can be used to point to a specific <span
+    data-x="concept-submit-button">submit button</span>, whose <code
+    data-x="attr-fs-formaction">formaction</code>, <code
+    data-x="attr-fs-formenctype">formenctype</code>, <code
+    data-x="attr-fs-formmethod">formmethod</code>, <code
+    data-x="attr-fs-formnovalidate">formnovalidate</code>, and <code
+    data-x="attr-fs-formtarget">formtarget</code> attributes can impact submission. Additionally,
+    the submitter will be included when <span>constructing the entry list</span> for submission;
+    normally, buttons are excluded.</p>
    </dd>
 
    <dt><var>form</var> . <code subdfn data-x="dom-form-reset">reset</code>()</dt>
 
    <dd>
-
     <p>Resets the form.</p>
-
    </dd>
 
    <dt><var>form</var> . <code subdfn data-x="dom-form-checkValidity">checkValidity</code>()</dt>
 
    <dd>
-
     <p>Returns true if the form's controls are all valid; otherwise, returns false.</p>
-
    </dd>
 
    <dt><var>form</var> . <code subdfn data-x="dom-form-reportValidity">reportValidity</code>()</dt>
 
    <dd>
-
     <p>Returns true if the form's controls are all valid; otherwise, returns false and informs the user.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-form-autocomplete">autocomplete</code></dfn> IDL attribute must
-  <span>reflect</span> the content attribute of the same name, <span>limited to only known
-  values</span>.</p>
+  <p>The <dfn attribute for="HTMLFormElement"><code
+  data-x="dom-form-autocomplete">autocomplete</code></dfn> IDL attribute must <span>reflect</span>
+  the content attribute of the same name, <span>limited to only known values</span>.</p>
 
-  <p>The <dfn><code data-x="dom-form-name">name</code></dfn> IDL attribute must <span>reflect</span>
-  the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLFormElement"><code data-x="dom-form-name">name</code></dfn> and
+  <dfn><code data-x="dom-form-rel">rel</code></dfn> IDL attributes must <span>reflect</span> the
+  content attribute of the same name.</p>
 
   <p>The <dfn><code data-x="dom-form-acceptCharset">acceptCharset</code></dfn> IDL attribute must
   <span>reflect</span> the <code data-x="attr-form-accept-charset">accept-charset</code> content
   attribute.</p>
 
+  <p>The <dfn><code data-x="dom-form-relList">relList</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-form-rel">rel</code> content attribute.</p>
+
   <hr>
 
-  <p>The <dfn><code data-x="dom-form-elements">elements</code></dfn> IDL attribute must return an
-  <code>HTMLFormControlsCollection</code> rooted at the <code>form</code> element's
-  <span>root</span>, whose filter matches <span data-x="category-listed">listed elements</span>
-  whose <span>form owner</span> is the <code>form</code> element, with the exception of <code>input</code>
-  elements whose <code data-x="attr-input-type">type</code> attribute is in the <span
+  <p>The <dfn attribute for="HTMLFormElement"><code data-x="dom-form-elements">elements</code></dfn>
+  IDL attribute must return an <code>HTMLFormControlsCollection</code> rooted at the
+  <code>form</code> element's <span>root</span>, whose filter matches <span
+  data-x="category-listed">listed elements</span> whose <span>form owner</span> is the
+  <code>form</code> element, with the exception of <code>input</code> elements whose <code
+  data-x="attr-input-type">type</code> attribute is in the <span
   data-x="attr-input-type-image">Image Button</span> state, which must, for historical reasons, be
   excluded from this particular collection.</p>
 
-  <p>The <dfn><code data-x="dom-form-length">length</code></dfn> IDL attribute must return the number
-  of nodes <span data-x="represented by the collection">represented</span> by the <code
-  data-x="dom-form-elements">elements</code> collection.</p>
+  <p>The <dfn attribute for="HTMLFormElement"><code data-x="dom-form-length">length</code></dfn> IDL
+  attribute must return the number of nodes <span data-x="represented by the
+  collection">represented</span> by the <code data-x="dom-form-elements">elements</code>
+  collection.</p>
 
   <p>The <span>supported property indices</span> at any instant are the indices supported by the
   object returned by the <code data-x="dom-form-elements">elements</code> attribute at that
@@ -208,8 +241,6 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <!-- Welcome to crazy town. Population: The Web. -->
-
   <p>Each <code>form</code> element has a mapping of names to elements called the <dfn>past names
   map</dfn>. It is used to persist names of controls even when they change names.</p>
 
@@ -217,20 +248,17 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
   algorithm, in the order obtained from this algorithm:</p>
 
   <ol>
-
    <li><p>Let <var>sourced names</var> be an initially empty ordered list of tuples
    consisting of a string, an element, a source, where the source is either <i>id</i>, <i>name</i>,
    or <i>past</i>, and, if the source is <i>past</i>, an age.</p></li>
 
    <li>
-
     <p>For each <span data-x="category-listed">listed element</span> <var>candidate</var>
     whose <span>form owner</span> is the <code>form</code> element, with the exception of any
     <code>input</code> elements whose <code data-x="attr-input-type">type</code> attribute is in the
     <span data-x="attr-input-type-image">Image Button</span> state:</p>
 
     <ol>
-
      <li><p>If <var>candidate</var> has an <code data-x="attr-id">id</code> attribute, add
      an entry to <var>sourced names</var> with that <code data-x="attr-id">id</code>
      attribute's value as the string, <var>candidate</var> as the element, and <i>id</i> as
@@ -240,13 +268,10 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
      add an entry to <var>sourced names</var> with that <code
      data-x="attr-fe-name">name</code> attribute's value as the string, <var>candidate</var>
      as the element, and <i>name</i> as the source.</p></li>
-
     </ol>
-
    </li>
 
    <li>
-
     <p>For each <code>img</code> element <var>candidate</var> whose <span>form owner</span> is the
     <code>form</code> element:</p>
 
@@ -261,19 +286,15 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
      add an entry to <var>sourced names</var> with that <code
      data-x="attr-img-name">name</code> attribute's value as the string, <var>candidate</var>
      as the element, and <i>name</i> as the source.</p></li>
-
     </ol>
-
    </li>
 
    <li>
-
     <p>For each entry <var>past entry</var> in the <span>past names map</span> add an entry
     to <var>sourced names</var> with the <var>past entry</var>'s name as the
     string, <var>past entry</var>'s element as the element, <i>past</i> as the source, and
     the length of time <var>past entry</var> has been in the <span>past names map</span> as
     the age.</p>
-
    </li>
 
    <li><p>Sort <var>sourced names</var> by <span>tree order</span> of the element entry of
@@ -289,14 +310,12 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
 
    <li><p>Return the list of names from <var>sourced names</var>, maintaining their
    relative order.</p></li>
-
   </ol>
 
   <p id="dom-form-nameditem">To <span>determine the value of a named property</span> <var>name</var>
   for a <code>form</code> element, the user agent must run the following steps:</p>
 
   <ol>
-
    <li><p>Let <var>candidates</var> be a <span>live</span> <code>RadioNodeList</code> object
    containing all the <span data-x="category-listed">listed elements</span>, whose <span>form
    owner</span> is the <code>form</code> element, that have either an <code
@@ -324,7 +343,6 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
    any.</p></li>
 
    <li><p>Return the node in <var>candidates</var>.</p></li>
-
   </ol>
 
   <p>If an element listed in a <code>form</code> element's <span>past names map</span> changes
@@ -356,20 +374,39 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
 
   -->
 
-  <!-- Now leaving crazy town. -->
-
   <hr>
 
-  <p>The <dfn><code data-x="dom-form-submit">submit()</code></dfn> method, when invoked, must <span
-  data-x="concept-form-submit">submit</span> the <code>form</code> element from the <code>form</code>
-  element itself, with the <var>submitted from <code
+  <p>The <dfn method for="HTMLFormElement"><code data-x="dom-form-submit">submit()</code></dfn>
+  method, when invoked, must <span data-x="concept-form-submit">submit</span> the <code>form</code>
+  element from the <code>form</code> element itself, with the <var>submitted from <code
   data-x="dom-form-submit">submit()</code> method</var> flag set.</p>
 
-  <p>The <dfn><code data-x="dom-form-reset">reset()</code></dfn> method, when invoked, must run the
-  following steps:</p>
+  <p>The <dfn><code data-x="dom-form-requestSubmit">requestSubmit(<var>submitter</var>)</code></dfn>
+  method, when invoked, must run the following steps:</p>
 
   <ol>
+   <li>
+    <p>If <var>submitter</var> is not null, then:</p>
 
+    <ol>
+     <li><p>If <var>submitter</var> is not a <span data-x="concept-submit-button">submit
+     button</span>, then throw a <code>TypeError</code>.</p></li>
+
+     <li><p>If <var>submitter</var>'s <span>form owner</span> is not this <code>form</code> element,
+     then throw a <span>"<code>NotFoundError</code>"</span> <code>DOMException</code>.</p></li>
+    </ol>
+   </li>
+
+   <li><p>Otherwise, set <var>submitter</var> to this <code>form</code> element.</p></li>
+
+   <li><p><span data-x="concept-form-submit">Submit</span> this <code>form</code> element, from
+   <var>submitter</var>.</p></li>
+  </ol>
+
+  <p>The <dfn method for="HTMLFormElement"><code data-x="dom-form-reset">reset()</code></dfn>
+  method, when invoked, must run the following steps:</p>
+
+  <ol>
    <li><p>If the <code>form</code> element is marked as <i data-x="locked for reset">locked for reset</i>, then return.</p></li>
 
    <li><p>Mark the <code>form</code> element as <dfn>locked for reset</dfn>.</p></li>
@@ -377,7 +414,6 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
    <li><p><span data-x="concept-form-reset">Reset</span> the <code>form</code> element.</p></li>
 
    <li><p>Unmark the <code>form</code> element as <i data-x="locked for reset">locked for reset</i>.</p></li>
-
   </ol>
 
   <p>If the <dfn><code data-x="dom-form-checkValidity">checkValidity()</code></dfn> method is
@@ -396,7 +432,7 @@ interface <dfn>HTMLFormElement</dfn> : <span>HTMLElement</span> {
 
    <p>This example shows two search forms:</p>
 
-   <pre><code class="html" data-x="">&lt;form action="https://www.google.com/search" method="get">
+   <pre><code class="html">&lt;form action="https://www.google.com/search" method="get">
  &lt;label>Google: &lt;input type="search" name="q">&lt;/label> &lt;input type="submit" value="Search...">
 &lt;/form>
 &lt;form action="https://www.bing.com/search" method="get">

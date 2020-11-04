@@ -25,6 +25,25 @@
    data-x="">attributeChangedCallback</code> is called, given the attribute's local name, old value,
    new value, and namespace as arguments. (An attribute's old or new value is considered to be null
    when the attribute is added or removed, respectively.)</p></li>
+
+   <li><p>When the user agent <span data-x="reset the form owner">resets the form owner</span> of a
+   <span>form-associated custom element</span> and doing so changes the form owner, its <code
+   data-x="">formAssociatedCallback</code> is called, given the new form owner (or null if no owner)
+   as an argument.</p></li>
+
+   <li><p>When the form owner of a <span>form-associated custom element</span> is <span
+   data-x="concept-form-reset">reset</span>, its <code data-x="">formResetCallback</code> is
+   called.</p></li>
+
+   <li><p>When the <span data-x="concept-fe-disabled">disabled</span> state of a
+   <span>form-associated custom element</span> is changed, its <code
+   data-x="">formDisabledCallback</code> is called, given the new state as an
+   argument.</p></li>
+
+   <li><p>When user agent updates a <span>form-associated custom element</span>'s value on behalf of
+   a user, its <code data-x="">formStateRestoreCallback</code> is called, given the new value and a
+   string indicating a reason, "<code data-x="">restore</code>" or "<code
+   data-x="">autocomplete</code>", as arguments.</p></li>
   </ul>
 
   <p>We call these reactions collectively <dfn data-x="concept-custom-element-reaction">custom
@@ -51,12 +70,12 @@
 
   <hr>
 
-  <p>Each <span>unit of related similar-origin browsing contexts</span> has a <dfn>custom element
-  reactions stack</dfn>, which is initially empty. The <dfn>current element queue</dfn> is the
-  <span>element queue</span> at the top of the <span>custom element reactions stack</span>. Each
-  item in the stack is an <dfn>element queue</dfn>, which is initially empty as well. Each item in
-  an <span>element queue</span> is an element. (The elements are not necessarily <span
-  data-x="concept-element-custom">custom</span> yet, since this queue is used for <span
+  <p>Each <span>similar-origin window agent</span> has a <dfn>custom element reactions stack</dfn>,
+  which is initially empty. A <span>similar-origin window agent</span>'s <dfn>current element
+  queue</dfn> is the <span>element queue</span> at the top of its <span>custom element reactions
+  stack</span>. Each item in the stack is an <dfn>element queue</dfn>, which is initially empty as
+  well. Each item in an <span>element queue</span> is an element. (The elements are not necessarily
+  <span data-x="concept-element-custom">custom</span> yet, since this queue is used for <span
   data-x="custom-element-upgrades">upgrades</span> as well.)</p>
 
   <p>Each <span>custom element reactions stack</span> has an associated <dfn>backup element
@@ -89,34 +108,41 @@
   <var>element</var>, run the following steps:</p>
 
   <ol>
+   <li><p>Let <var>reactionsStack</var> be <var>element</var>'s <span>relevant agent</span>'s
+   <span>custom element reactions stack</span>.</p></li>
+
    <li>
-    <p>If the <span>custom element reactions stack</span> is empty, then:</p>
+    <p>If <var>reactionsStack</var> is empty, then:</p>
 
     <ol>
-     <li><p>Add <var>element</var> to the <span>backup element queue</span>.</p></li>
+     <li><p>Add <var>element</var> to <var>reactionsStack</var>'s <span>backup element
+     queue</span>.</p></li>
 
-     <li><p>If the <span>processing the backup element queue</span> flag is set, then
-     return.</p></li>
+     <li><p>If <var>reactionsStack</var>'s <span>processing the backup element queue</span> flag is
+     set, then return.</p></li>
 
-     <li><p>Set the <span>processing the backup element queue</span> flag.</p></li>
+     <li><p>Set <var>reactionsStack</var>'s <span>processing the backup element queue</span>
+     flag.</p></li>
 
      <li>
       <p><span>Queue a microtask</span> to perform the following steps:</p>
 
       <ol>
-       <li><p><span>Invoke custom element reactions</span> in the <span>backup element
-       queue</span>.</p></li>
+       <li><p><span>Invoke custom element reactions</span> in <var>reactionsStack</var>'s
+       <span>backup element queue</span>.</p></li>
 
-       <li><p>Unset the <span>processing the backup element queue</span> flag.</p></li>
+       <li><p>Unset <var>reactionsStack</var>'s <span>processing the backup element queue</span>
+       flag.</p></li>
       </ol>
      </li>
     </ol>
    </li>
 
-   <li><p>Otherwise, add <var>element</var> to the <span>current element queue</span>.</p></li>
+   <li><p>Otherwise, add <var>element</var> to <var>element</var>'s <span>relevant agent</span>'s
+   <span>current element queue</span>.</p></li>
   </ol>
 
-  <p>To <dfn data-export="">enqueue a custom element callback reaction</dfn>, given a <span>custom
+  <p>To <dfn export>enqueue a custom element callback reaction</dfn>, given a <span>custom
   element</span> <var>element</var>, a callback name <var>callbackName</var>, and a list of
   arguments <var>args</var>, run the following steps:</p>
 
@@ -150,7 +176,7 @@
    <var>element</var>.</p></li>
   </ol>
 
-  <p>To <dfn data-export="">enqueue a custom element upgrade reaction</dfn>, given an element
+  <p>To <dfn export>enqueue a custom element upgrade reaction</dfn>, given an element
   <var>element</var> and <span>custom element definition</span> <var>definition</var>, run the
   following steps:</p>
 
@@ -204,11 +230,11 @@
   <hr>
 
   <p>To ensure <span data-x="concept-custom-element-reaction">custom element reactions</span> are
-  triggered appropriately, we introduce the <dfn data-export="" data-dfn-type="extended-attribute"
-  data-lt="CEReactions" data-x="CEReactions"><code>[CEReactions]</code></dfn> IDL <span>extended
-  attribute</span>. It indicates that the relevant algorithm is to be supplemented with additional
-  steps in order to appropriately track and invoke <span
-  data-x="concept-custom-element-reaction">custom element reactions</span>.</p>
+  triggered appropriately, we introduce the <dfn extended-attribute data-lt="CEReactions"
+  data-x="CEReactions"><code>[CEReactions]</code></dfn> IDL <span>extended attribute</span>. It
+  indicates that the relevant algorithm is to be supplemented with additional steps in order to
+  appropriately track and invoke <span data-x="concept-custom-element-reaction">custom element
+  reactions</span>.</p>
 
   <p>The <code data-x="CEReactions">[CEReactions]</code> extended attribute must take no
   arguments, and must not appear on anything other than an operation, attribute, setter, or deleter.
@@ -219,15 +245,15 @@
   of the ones specified in their description:</p>
 
   <ol>
-   <li><p><span data-x="stack push">Push</span> a new <span>element queue</span> onto the
-   <span>custom element reactions stack</span>.</p></li>
+   <li><p><span data-x="stack push">Push</span> a new <span>element queue</span> onto this object's
+   <span>relevant agent</span>'s <span>custom element reactions stack</span>.</p></li>
 
    <li><p>Run the originally-specified steps for this construct, catching any exceptions. If the
    steps return a value, let <var>value</var> be the returned value. If they throw an exception, let
    <var>exception</var> be the thrown exception.</p></li>
 
-   <li><p>Let <var>queue</var> be the result of <span data-x="stack pop">popping</span> from the
-   <span>custom element reactions stack</span>.</p></li>
+   <li><p>Let <var>queue</var> be the result of <span data-x="stack pop">popping</span> from this
+   object's <span>relevant agent</span>'s <span>custom element reactions stack</span>.</p></li>
 
    <li><p><span>Invoke custom element reactions</span> in <var>queue</var>.</p></li>
 
@@ -268,13 +294,11 @@
     <li><p><code>HTMLInputElement</code>'s <code data-x="">webkitdirectory</code> and <code
     data-x="">incremental</code> IDL attributes</p></li>
 
-    <li><p><code>HTMLLinkElement</code>'s <code data-x="">disabled</code> and <code
-    data-x="">scope</code> IDL attributes</p></li>
+    <li><p><code>HTMLLinkElement</code>'s <code data-x="">scope</code> IDL attribute</p></li>
 
     <li><p><code>ShadowRoot</code>'s <code data-x="">innerHTML</code> IDL attribute</p></li>
    </ul>
   </div>
 
   </div>
-
 

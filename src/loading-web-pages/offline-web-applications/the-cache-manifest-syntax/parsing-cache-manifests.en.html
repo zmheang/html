@@ -4,9 +4,7 @@
   following steps:</p>
 
   <ol>
-
    <li>
-
     <p><span>UTF-8 decode</span> the byte stream corresponding with the manifest to be parsed.</p>
 
     <p class="note">The <span>UTF-8 decode</span> algorithm strips a leading BOM, if any.</p>
@@ -14,7 +12,6 @@
     <!--All U+0000 NULL characters must be replaced by U+FFFD REPLACEMENT CHARACTERs. (this isn't
     black-box testable since neither U+0000 nor U+FFFD are valid anywhere in the syntax and thus
     both will be treated the same anyway)-->
-
    </li>
 
    <li><p>Let <var>base URL</var> be the <span>absolute URL</span> representing the
@@ -120,11 +117,9 @@
    <li><p>Let <var>tokens</var> be a list of strings, initially empty.</p></li>
 
    <li>
-
     <p>While <var>position</var> doesn't point past the end of <var>line</var>:</p>
 
     <ol>
-
      <li><p>Let <var>current token</var> be an empty string.</p></li>
 
      <li><p>While <var>position</var> doesn't point past the end of <var>line</var> and the character at <var>position</var> is neither a U+0020 SPACE
@@ -135,13 +130,10 @@
      <li><p>While <var>position</var> doesn't point past the end of <var>line</var> and the character at <var>position</var> is either a U+0020 SPACE
      or a U+0009 CHARACTER TABULATION (tab) character, advance <var>position</var> to the
      next character in <var>input</var>.</p></li>
-
     </ol>
-
    </li>
 
    <li>
-
     <p>Process <var>tokens</var> as follows:</p>
 
     <dl class="switch">
@@ -149,7 +141,6 @@
      <dt>If <var>mode</var> is "explicit"</dt>
 
      <dd>
-
       <p>Let <var>urlRecord</var> be the result of <span data-x="URL parser">parsing</span> the
       first item in <var>tokens</var> with <var>base URL</var>; ignore the rest.</p>
 
@@ -165,13 +156,11 @@
       the <i>exclude fragment flag</i> set.</p>
 
       <p>Add <var>new URL</var> to the <var>explicit URLs</var>.</p>
-
      </dd>
 
      <dt>If <var>mode</var> is "fallback"</dt>
 
      <dd>
-
       <p>Let <var>part one</var> be the first token in <var>tokens</var>, and let
       <var>part two</var> be the second token in <var>tokens</var>.</p>
 
@@ -213,13 +202,11 @@
       mapping as a <span data-x="concept-appcache-fallback-ns">fallback namespace</span>, mapped to
       <var>part two</var> as the <span data-x="concept-appcache-fallback">fallback
       entry</span>.</p>
-
      </dd>
 
      <dt>If <var>mode</var> is "online safelist"</dt>
 
      <dd>
-
       <p>If the first item in <var>tokens</var> is a U+002A ASTERISK character (*), then
       set <var>online safelist wildcard flag</var> to <i>open</i> and jump back
       to the step labeled <i>start of line</i>.</p>
@@ -239,32 +226,24 @@
       the <i>exclude fragment flag</i> set.</p>
 
       <p>Add <var>new URL</var> to the <var>online safelist namespaces</var>.</p>
-
      </dd>
 
      <dt>If <var>mode</var> is "settings"</dt>
 
      <dd>
-
-      <p>If <var>tokens</var> contains a single token, and that token is a
-      <span>case-sensitive</span> match for the string "<code data-x="">prefer-online</code>", then
-      set <var>cache mode flag</var> to <i>prefer-online</i> and jump back to the
-      step labeled <i>start of line</i>.</p>
+      <p>If <var>tokens</var> contains a single token, and that token <span>is</span> "<code
+      data-x="">prefer-online</code>", then set <var>cache mode flag</var> to <i>prefer-online</i>
+      and jump back to the step labeled <i>start of line</i>.</p>
 
       <p>Otherwise, the line is an unsupported setting: do nothing; the line is ignored.</p>
-
      </dd>
 
      <dt>If <var>mode</var> is "unknown"</dt>
 
      <dd>
-
       <p>Do nothing. The line is ignored.</p>
-
      </dd>
-
     </dl>
-
    </li>
 
    <li><p>Jump back to the step labeled <i>start of line</i>. (That step jumps to the next, and last,
@@ -273,7 +252,6 @@
    <li><p>Return the <var>explicit URLs</var> list, the <var>fallback URLs</var>
    mapping, the <var>online safelist namespaces</var>, the <var>online safelist
    wildcard flag</var>, and the <var>cache mode flag</var>.</p></li>
-
   </ol>
 
   <div class="note">

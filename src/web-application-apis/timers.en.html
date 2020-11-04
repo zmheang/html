@@ -9,57 +9,44 @@
    <dt><var>handle</var> = self . <code subdfn data-x="dom-setTimeout">setTimeout</code>( <var>handler</var> [, <var>timeout</var> [, <var>arguments</var>... ] ] )</dt>
 
    <dd>
-
     <p>Schedules a timeout to run <var>handler</var> after <var>timeout</var>
     milliseconds. Any <var>arguments</var> are passed straight through to the <var>handler</var>.</p>
-
    </dd>
 
    <dt><var>handle</var> = self . <code data-x="dom-setTimeout">setTimeout</code>( <var>code</var> [, <var>timeout</var> ] )</dt>
 
    <dd>
-
     <p>Schedules a timeout to compile and run <var>code</var> after <var>timeout</var> milliseconds.</p>
-
    </dd>
 
    <dt>self . <code subdfn data-x="dom-clearTimeout">clearTimeout</code>( <var>handle</var> )</dt>
    <!-- don't mention that the handle is optional, since if omitted, the method does nothing -->
 
    <dd>
-
     <p>Cancels the timeout set with <code data-x="dom-setTimeout">setTimeout()</code> or <code
     data-x="dom-setInterval">setInterval()</code> identified by <var>handle</var>.</p>
-
    </dd>
 
    <dt><var>handle</var> = self . <code subdfn data-x="dom-setInterval">setInterval</code>( <var>handler</var> [, <var>timeout</var> [, <var>arguments</var>... ] ] )</dt>
 
    <dd>
-
     <p>Schedules a timeout to run <var>handler</var> every <var>timeout</var>
     milliseconds. Any <var>arguments</var> are passed straight through to the <var>handler</var>.</p>
-
    </dd>
 
    <dt><var>handle</var> = self . <code data-x="dom-setInterval">setInterval</code>( <var>code</var> [, <var>timeout</var> ] )</dt>
 
    <dd>
-
     <p>Schedules a timeout to compile and run <var>code</var> every <var>timeout</var> milliseconds.</p>
-
    </dd>
 
    <dt>self . <code subdfn data-x="dom-clearInterval">clearInterval</code>( <var>handle</var> )</dt>
    <!-- don't mention that the handle is optional, since if omitted, the method does nothing -->
 
    <dd>
-
     <p>Cancels the timeout set with <code data-x="dom-setInterval">setInterval()</code> or <code
     data-x="dom-setTimeout">setTimeout()</code> identified by <var>handle</var>.</p>
-
    </dd>
-
   </dl>
 
   <p class="note">Timers can be nested; after five such nested timers, however, the interval is
@@ -71,8 +58,8 @@
   <div w-nodev>
 
   <p>Objects that implement the <code>WindowOrWorkerGlobalScope</code> mixin have a <dfn
-  data-export="">list of active timers</dfn>. Each entry in this lists is identified by a number,
-  which must be unique within the list for the lifetime of the object that implements the
+  export>list of active timers</dfn>. Each entry in this lists is identified by a number, which must
+  be unique within the list for the lifetime of the object that implements the
   <code>WindowOrWorkerGlobalScope</code> mixin.</p>
 
   <hr>
@@ -114,15 +101,14 @@
   <var>previous handle</var>, are as follows:</p>
 
   <ol>
-
    <li><p>Let <var>method context proxy</var> be <var>method context</var> if that
    is a <code>WorkerGlobalScope</code> object, or else the <code>WindowProxy</code> that corresponds
    to <var>method context</var>.</p></li>
 
-   <li><p>If <var>previous handle</var> was provided, let <var>handle</var> be
-   <var>previous handle</var>; otherwise, let <var>handle</var> be a
-   user-agent-defined integer that is greater than zero that will identify the timeout to be set by
-   this call in the <span>list of active timers</span>.</p></li>
+   <li><p>If <var>previous handle</var> was provided, let <var>handle</var> be <var>previous
+   handle</var>; otherwise, let <var>handle</var> be an <span>implementation-defined</span> integer
+   that is greater than zero that will identify the timeout to be set by this call in the <span>list
+   of active timers</span>.</p></li>
 
    <li><p>If <var>previous handle</var> was not provided, add an entry to the <span>list of
    active timers</span> for <var>handle</var>.</p></li>
@@ -136,36 +122,27 @@
    from some script.</p></li>
 
    <li>
-
     <p>Let <var>task</var> be a <span data-x="concept-task">task</span> that runs the
     following substeps:</p>
 
     <ol>
-
      <li><p>If the entry for <var>handle</var> in the <span>list of active timers</span> has been
      cleared, then abort these steps.</p></li>
 
      <li>
-
       <p>Run the appropriate set of steps from the following list:</p>
 
       <dl class="switch">
-
        <dt>If the first method argument is a <code data-x="idl-Function">Function</code></dt>
-
-       <dd>
-
-        <p><span data-x="es-invoking-callback-functions">Invoke</span> the <code data-x="idl-Function">Function</code>. Use the third and subsequent method
-        arguments (if any) as the arguments for invoking the <code
-        data-x="idl-Function">Function</code>. Use <var>method context proxy</var> as the
-        <span data-x="dfn-callback-this-value">callback this value</span>.</p>
-
-       </dd>
+       <dd><p><span data-x="es-invoking-callback-functions">Invoke</span> the <code
+       data-x="idl-Function">Function</code>. Use the third and subsequent method arguments (if any)
+       as the arguments for invoking the <code data-x="idl-Function">Function</code>. Use
+       <var>method context proxy</var> as the <span data-x="dfn-callback-this-value">callback this
+       value</span>. If this throws an exception, catch it, and <span>report the
+       exception</span>.</p></dd>
 
        <dt>Otherwise</dt>
-
        <dd>
-
         <ol>
          <li><p>Perform <span
          data-x="the-hostensurecancompilestrings-implementation">HostEnsureCanCompileStrings</span>(<var>callerRealm</var>,
@@ -209,21 +186,15 @@
 
          <li><p><span data-x="run a classic script">Run the classic script</span>
          <var>script</var>.</p></li>
-
         </ol>
-
        </dd>
-
       </dl>
-
      </li>
 
      <li><p>If the <var>repeat</var> flag is true, then call <span>timer initialization
      steps</span> again, passing them the same method arguments, the same <var>method
      context</var>, with the <var>repeat</var> flag still set to true, and with the <var>previous handle</var> set to <var>handler</var>.</p></li>
-
     </ol>
-
    </li>
 
    <li><p>Let <var>timeout</var> be the second method argument.</p></li>
@@ -254,7 +225,6 @@
    <span>in parallel</span>.</p></li>
 
    <li>
-
     <p>If <var>method context</var> is a <code>Window</code> object, wait until the
     <code>Document</code> associated with <var>method context</var> has been <span>fully
     active</span> for a further <var>timeout</var> milliseconds (not necessarily
@@ -263,11 +233,9 @@
     <p>Otherwise, <var>method context</var> is a <code>WorkerGlobalScope</code> object;
     wait until <var>timeout</var> milliseconds have passed with the worker not suspended
     (not necessarily consecutively).</p>
-
    </li>
 
    <li>
-
     <p>Wait until any invocations of this algorithm that had the same <var>method
     context</var>, that started before this one, and whose <var>timeout</var> is equal to
     or less than this one's, have completed.</p>
@@ -281,7 +249,7 @@
      <p>So for example, the following rather silly code will result in the log containing "<code
      data-x="">ONE&nbsp;TWO&nbsp;</code>":</p>
 
-     <pre><code class="js" data-x="">var log = '';
+     <pre><code class="js">var log = '';
 function logger(s) { log += s + ' '; }
 
 setTimeout({ toString: function () {
@@ -290,36 +258,28 @@ setTimeout({ toString: function () {
 } }, 100);</code></pre>
 
     </div>
-
    </li>
 
    <li>
-
-    <p>Optionally, wait a further user-agent defined length of time.</p>
+    <p>Optionally, wait a further <span>implementation-defined</span> length of time.</p>
 
     <p class="note">This is intended to allow user agents to pad timeouts as needed to optimize the
     power usage of the device. For example, some processors have a low-power mode where the
     granularity of timers is reduced; on such platforms, user agents can slow timers down to fit
     this schedule instead of requiring the processor to use the more accurate mode with its
     associated higher power usage.</p>
-
    </li>
 
    <li>
-
-    <p><span data-x="queue a task">Queue</span> the <span data-x="concept-task">task</span> <var>task</var>.</p>
+    <p><span>Queue a global task</span> on the <dfn>timer task source</dfn> given <var>method
+    context</var> to run <var>task</var>.</p>
 
     <p class="note">Once the task has been processed, if the <var>repeat</var> flag is
     false, it is safe to remove the entry for <var>handle</var> from the <span>list of
     active timers</span> (there is no way for the entry's existence to be detected past this point,
     so it does not technically matter one way or the other).</p>
-
    </li>
-
   </ol>
-
-  <p>The <span>task source</span> for these <span data-x="concept-task">tasks</span> is the
-  <dfn>timer task source</dfn>.</p>
 
   </div>
 
@@ -329,7 +289,7 @@ setTimeout({ toString: function () {
    to the browser to avoid starving the user interface (and to avoid the browser killing the script
    for hogging the CPU), simply queue the next timer before performing work:</p>
 
-   <pre><code class="js" data-x="">function doExpensiveWork() {
+   <pre><code class="js">function doExpensiveWork() {
   var done = false;
   // ...
   // this part of the function takes up to five milliseconds

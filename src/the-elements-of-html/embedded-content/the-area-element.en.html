@@ -19,11 +19,20 @@
    <dd><code data-x="attr-hyperlink-ping">ping</code></dd>
    <dd><code data-x="attr-hyperlink-rel">rel</code></dd>
    <dd><code data-x="attr-hyperlink-referrerpolicy">referrerpolicy</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd>If the element has an <code data-x="attr-hyperlink-href">href</code> attribute: <a
+   href="https://w3c.github.io/html-aria/#el-area">for authors</a>; <a
+   href="https://w3c.github.io/html-aam/#el-area">for implementers</a>.</dd>
+   <dd>Otherwise: <a
+   href="https://w3c.github.io/html-aria/#el-area-no-href">for authors</a>; <a
+   href="https://w3c.github.io/html-aam/#el-area-no-href">for implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-alt">alt</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-coords">coords</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-shape">shape</span>;
@@ -33,6 +42,8 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-rel">rel</span>;
   [SameObject, PutForwards=<span data-x="dom-DOMTokenList-value">value</span>] readonly attribute <span>DOMTokenList</span> <span data-x="dom-area-relList">relList</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-area-referrerPolicy">referrerPolicy</span>;
+
+  // <a href="#HTMLAreaElement-partial">also has obsolete members</a>
 };
 <span>HTMLAreaElement</span> includes <span>HTMLHyperlinkElementUtils</span>;</code></pre>
    </dd>
@@ -47,14 +58,14 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
 
   <p>If the <code>area</code> element has an <code data-x="attr-hyperlink-href">href</code>
   attribute, then the <code>area</code> element represents a <span>hyperlink</span>. In this case,
-  the <dfn><code data-x="attr-area-alt">alt</code></dfn> attribute must be present. It specifies the
-  text of the hyperlink. Its value must be text that, when presented with the texts specified for
-  the other hyperlinks of the <span>image map</span>, and with the alternative text of the image,
-  but without the image itself, provides the user with the same kind of choice as the hyperlink
-  would when used without its text but with its shape applied to the image. The <code
-  data-x="attr-area-alt">alt</code> attribute may be left blank if there is another <code>area</code>
-  element in the same <span>image map</span> that points to the same resource and has a non-blank
-  <code data-x="attr-area-alt">alt</code> attribute.</p>
+  the <dfn element-attr for="area"><code data-x="attr-area-alt">alt</code></dfn> attribute must be
+  present. It specifies the text of the hyperlink. Its value must be text that, when presented with
+  the texts specified for the other hyperlinks of the <span>image map</span>, and with the
+  alternative text of the image, but without the image itself, provides the user with the same kind
+  of choice as the hyperlink would when used without its text but with its shape applied to the
+  image. The <code data-x="attr-area-alt">alt</code> attribute may be left blank if there is another
+  <code>area</code> element in the same <span>image map</span> that points to the same resource and
+  has a non-blank <code data-x="attr-area-alt">alt</code> attribute.</p>
 
   <p>If the <code>area</code> element has no <code data-x="attr-hyperlink-href">href</code>
   attribute, then the area represented by the element cannot be selected, and the <code
@@ -63,10 +74,10 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
   <p>In both cases, the <code data-x="attr-area-shape">shape</code> and <code
   data-x="attr-area-coords">coords</code> attributes specify the area.</p>
 
-  <p>The <dfn><code data-x="attr-area-shape">shape</code></dfn> attribute is an <span>enumerated
-  attribute</span>. The following table lists the keywords defined for this attribute. The states
-  given in the first cell of the rows with keywords give the states to which those keywords map.
-  <span w-nodev>Some of the keywords are non-conforming, as noted in the last
+  <p>The <dfn element-attr for="area"><code data-x="attr-area-shape">shape</code></dfn> attribute is
+  an <span>enumerated attribute</span>. The following table lists the keywords defined for this
+  attribute. The states given in the first cell of the rows with keywords give the states to which
+  those keywords map.  <span w-nodev>Some of the keywords are non-conforming, as noted in the last
   column.</span></p>
 
   <table>
@@ -110,11 +121,11 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
   and <i data-x="invalid value default">invalid value default</i> are the <span
   data-x="attr-area-shape-rect">rectangle</span> state.</p>
 
-  <p>The <dfn><code data-x="attr-area-coords">coords</code></dfn> attribute must, if specified,
-  contain a <span>valid list of floating-point numbers</span>. This attribute gives the coordinates
-  for the shape described by the <code data-x="attr-area-shape">shape</code> attribute. <span
-  w-nodev>The processing for this attribute is described as part of the <span>image map</span>
-  processing model.</span></p>
+  <p>The <dfn element-attr for="area"><code data-x="attr-area-coords">coords</code></dfn> attribute
+  must, if specified, contain a <span>valid list of floating-point numbers</span>. This attribute
+  gives the coordinates for the shape described by the <code data-x="attr-area-shape">shape</code>
+  attribute. <span w-nodev>The processing for this attribute is described as part of the <span>image
+  map</span> processing model.</span></p>
 
   <!-- v2: It was suggested by John S. Urban that coords should support percentages as well as
   pixels, so that one could use the same image map for images of various sizes. -->
@@ -178,18 +189,21 @@ interface <dfn>HTMLAreaElement</dfn> : <span>HTMLElement</span> {
   determined by the <code data-x="attr-hyperlink-download">download</code> attribute and any
   expressed user preference.</p>
 
-  <p>The IDL attributes <dfn><code data-x="dom-area-alt">alt</code></dfn>, <dfn><code
-  data-x="dom-area-coords">coords</code></dfn>, <dfn><code
-  data-x="dom-area-target">target</code></dfn>, <dfn><code
+  <p>The IDL attributes <dfn attribute for="HTMLAreaElement"><code
+  data-x="dom-area-alt">alt</code></dfn>, <dfn><code data-x="dom-area-coords">coords</code></dfn>,
+  <dfn><code data-x="dom-area-target">target</code></dfn>, <dfn><code
   data-x="dom-area-download">download</code></dfn>, <dfn><code
-  data-x="dom-area-ping">ping</code></dfn>, and <dfn><code data-x="dom-area-rel">rel</code></dfn>,
-  each must <span>reflect</span> the respective content attributes of the same name.</p>
+  data-x="dom-area-ping">ping</code></dfn>, and <dfn attribute for="HTMLAreaElement"><code
+  data-x="dom-area-rel">rel</code></dfn>, each must <span>reflect</span> the respective content
+  attributes of the same name.</p>
 
-  <p>The IDL attribute <dfn><code data-x="dom-area-shape">shape</code></dfn> must
-  <span>reflect</span> the <code data-x="attr-area-shape">shape</code> content attribute.</p>
+  <p>The IDL attribute <dfn attribute for="HTMLAreaElement"><code
+  data-x="dom-area-shape">shape</code></dfn> must <span>reflect</span> the <code
+  data-x="attr-area-shape">shape</code> content attribute.</p>
 
-  <p>The IDL attribute <dfn><code data-x="dom-area-rellist">relList</code></dfn> must
-  <span>reflect</span> the <code data-x="attr-hyperlink-rel">rel</code> content attribute.</p>
+  <p>The IDL attribute <dfn attribute for="HTMLAreaElement"><code
+  data-x="dom-area-rellist">relList</code></dfn> must <span>reflect</span> the <code
+  data-x="attr-hyperlink-rel">rel</code> content attribute.</p>
 
   <p>The IDL attribute <dfn><code data-x="dom-area-referrerPolicy">referrerPolicy</code></dfn> must
   <span>reflect</span> the <code data-x="attr-hyperlink-referrerpolicy">referrerpolicy</code>

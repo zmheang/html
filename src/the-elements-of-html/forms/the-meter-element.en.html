@@ -19,11 +19,16 @@
    <dd><code data-x="attr-meter-low">low</code></dd>
    <dd><code data-x="attr-meter-high">high</code></dd>
    <dd><code data-x="attr-meter-optimum">optimum</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-meter">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-meter">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLMeterElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute double <span data-x="dom-meter-value">value</span>;
   [<span>CEReactions</span>] attribute double <span data-x="dom-meter-min">min</span>;
   [<span>CEReactions</span>] attribute double <span data-x="dom-meter-max">max</span>;
@@ -52,18 +57,22 @@ interface <dfn>HTMLMeterElement</dfn> : <span>HTMLElement</span> {
   <p>There are six attributes that determine the semantics of the gauge represented by the
   element.</p>
 
-  <p>The <dfn><code data-x="attr-meter-min">min</code></dfn> attribute specifies the lower bound of
-  the range, and the <dfn><code data-x="attr-meter-max">max</code></dfn> attribute specifies the
-  upper bound. The <dfn><code data-x="attr-meter-value">value</code></dfn> attribute specifies the
-  value to have the gauge indicate as the "measured" value.</p>
+  <p>The <dfn element-attr for="meter"><code data-x="attr-meter-min">min</code></dfn> attribute
+  specifies the lower bound of the range, and the <dfn element-attr for="meter"><code
+  data-x="attr-meter-max">max</code></dfn> attribute specifies the upper bound. The <dfn
+  element-attr for="meter"><code data-x="attr-meter-value">value</code></dfn> attribute specifies
+  the value to have the gauge indicate as the "measured" value.</p>
 
   <p>The other three attributes can be used to segment the gauge's range into "low", "medium", and
-  "high" parts, and to indicate which part of the gauge is the "optimum" part. The <dfn><code data-x="attr-meter-low">low</code></dfn> attribute specifies the range that is considered to
-  be the "low" part, and the <dfn><code data-x="attr-meter-high">high</code></dfn> attribute
-  specifies the range that is considered to be the "high" part. The <dfn><code data-x="attr-meter-optimum">optimum</code></dfn> attribute gives the position that is
-  "optimum"; if that is higher than the "high" value then this indicates that the higher the value,
-  the better; if it's lower than the "low" mark then it indicates that lower values are better, and
-  naturally if it is in between then it indicates that neither high nor low values are good.</p>
+  "high" parts, and to indicate which part of the gauge is the "optimum" part. The <dfn element-attr
+  for="meter"><code data-x="attr-meter-low">low</code></dfn> attribute specifies the range that is
+  considered to be the "low" part, and the <dfn element-attr for="meter"><code
+  data-x="attr-meter-high">high</code></dfn> attribute specifies the range that is considered to be
+  the "high" part. The <dfn element-attr for="meter"><code
+  data-x="attr-meter-optimum">optimum</code></dfn> attribute gives the position that is "optimum";
+  if that is higher than the "high" value then this indicates that the higher the value, the better;
+  if it's lower than the "low" mark then it indicates that lower values are better, and naturally if
+  it is in between then it indicates that neither high nor low values are good.</p>
 
   <p><span w-nodev><strong>Authoring requirements</strong>:</span> The <code
   data-x="attr-meter-value">value</code> attribute must be specified. The <code
@@ -114,20 +123,20 @@ interface <dfn>HTMLMeterElement</dfn> : <span>HTMLElement</span> {
 
    <p>The following examples show three gauges that would all be three-quarters full:</p>
 
-   <pre><code class="html" data-x="">Storage space usage: &lt;meter value=6 max=8>6 blocks used (out of 8 total)&lt;/meter>
+   <pre><code class="html">Storage space usage: &lt;meter value=6 max=8>6 blocks used (out of 8 total)&lt;/meter>
 Voter turnout: &lt;meter value=0.75>&lt;img alt="75%" src="graph75.png">&lt;/meter>
 Tickets sold: &lt;meter min="0" max="100" value="75">&lt;/meter></code></pre>
 
    <p>The following example is incorrect use of the element, because it doesn't give a range (and
    since the default maximum is 1, both of the gauges would end up looking maxed out):</p>
 
-   <pre class="bad"><code class="html" data-x="">&lt;p>The grapefruit pie had a radius of &lt;meter value=12>12cm&lt;/meter>
+   <pre class="bad"><code class="html">&lt;p>The grapefruit pie had a radius of &lt;meter value=12>12cm&lt;/meter>
 and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</strong> --></code></pre>
 
    <p>Instead, one would either not include the meter element, or use the meter element with a
    defined range to give the dimensions in context compared to other pies:</p>
 
-   <pre><code class="html" data-x="">&lt;p>The grapefruit pie had a radius of 12cm and a height of
+   <pre><code class="html">&lt;p>The grapefruit pie had a radius of 12cm and a height of
 2cm.&lt;/p>
 &lt;dl>
  &lt;dt>Radius: &lt;dd> &lt;meter min=0 max=20 value=12>12cm&lt;/meter>
@@ -143,7 +152,7 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
 
    <p>The example above could be extended to mention the units:</p>
 
-   <pre><code class="html" data-x="">&lt;dl>
+   <pre><code class="html">&lt;dl>
  &lt;dt>Radius: &lt;dd> &lt;meter min=0 max=20 value=12 title="centimeters">12cm&lt;/meter>
  &lt;dt>Height: &lt;dd> &lt;meter min=0 max=10 value=2 title="centimeters">2cm&lt;/meter>
 &lt;/dl></code></pre>
@@ -163,21 +172,17 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
   earlier ones.)</p>
 
   <dl>
-
    <dt>The <dfn data-x="concept-meter-minimum">minimum value</dfn></dt>
 
    <dd>
-
     <p>If the <code data-x="attr-meter-min">min</code> attribute is specified and a value could be
     parsed out of it, then the minimum value is that value. Otherwise, the minimum value is
     zero.</p>
-
    </dd>
 
    <dt>The <dfn data-x="concept-meter-maximum">maximum value</dfn></dt>
 
    <dd>
-
     <p>If the <code data-x="attr-meter-max">max</code> attribute is specified and a value could be
     parsed out of it, then the candidate maximum value is that value. Otherwise, the candidate
     maximum value is 1.0.</p>
@@ -185,13 +190,11 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
     <p>If the candidate maximum value is greater than or equal to the minimum value, then the
     maximum value is the candidate maximum value. Otherwise, the maximum value is the same as the
     minimum value.</p>
-
    </dd>
 
    <dt>The <dfn data-x="concept-meter-actual">actual value</dfn></dt>
 
    <dd>
-
     <p>If the <code data-x="attr-meter-value">value</code> attribute is specified and a value could
     be parsed out of it, then that value is the candidate actual value. Otherwise, the candidate
     actual value is zero.</p>
@@ -203,13 +206,11 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
     value is the maximum value.</p>
 
     <p>Otherwise, the actual value is the candidate actual value.</p>
-
    </dd>
 
    <dt>The <dfn data-x="concept-meter-low">low boundary</dfn></dt>
 
    <dd>
-
     <p>If the <code data-x="attr-meter-low">low</code> attribute is specified and a value could be
     parsed out of it, then the candidate low boundary is that value. Otherwise, the candidate low
     boundary is the same as the minimum value.</p>
@@ -221,13 +222,11 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
     boundary is the maximum value.</p>
 
     <p>Otherwise, the low boundary is the candidate low boundary.</p>
-
    </dd>
 
    <dt>The <dfn data-x="concept-meter-high">high boundary</dfn></dt>
 
    <dd>
-
     <p>If the <code data-x="attr-meter-high">high</code> attribute is specified and a value could be
     parsed out of it, then the candidate high boundary is that value. Otherwise, the candidate high
     boundary is the same as the maximum value.</p>
@@ -239,13 +238,11 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
     boundary is the maximum value.</p>
 
     <p>Otherwise, the high boundary is the candidate high boundary.</p>
-
    </dd>
 
    <dt>The <dfn data-x="concept-meter-optimum">optimum point</dfn></dt>
 
    <dd>
-
     <p>If the <code data-x="attr-meter-optimum">optimum</code> attribute is specified and a value
     could be parsed out of it, then the candidate optimum point is that value. Otherwise, the
     candidate optimum point is the midpoint between the minimum value and the maximum value.</p>
@@ -257,9 +254,7 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
     point is the maximum value.</p>
 
     <p>Otherwise, the optimum point is the candidate optimum point.</p>
-
    </dd>
-
   </dl>
 
   <p>All of which will result in the following inequalities all being true:</p>
@@ -291,7 +286,7 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
 
   <div class="example">
    <p>The following markup:</p>
-   <pre><code class="html" data-x="">&lt;h3>Suggested groups&lt;/h3>
+   <pre><code class="html">&lt;h3>Suggested groups&lt;/h3>
 &lt;menu>
  &lt;li>&lt;a href="?cmd=hsg" onclick="hideSuggestedGroups()">Hide suggested groups&lt;/a>&lt;/li>
 &lt;/menu>
@@ -324,7 +319,7 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
 
   <div class="example">
    <p>For example, the following snippet:</p>
-   <pre><code class="html" data-x="">&lt;meter min=0 max=60 value=23.2 title=seconds>&lt;/meter></code></pre>
+   <pre><code class="html">&lt;meter min=0 max=60 value=23.2 title=seconds>&lt;/meter></code></pre>
    <p>...might cause the user agent to display a gauge with a tooltip
    saying "Value: 23.2 out of 60." on one line and "seconds" on a
    second line.</p>
@@ -332,41 +327,41 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-meter-value">value</code></dfn> IDL attribute, on getting, must
-  return the <span data-x="concept-meter-actual">actual value</span>. On setting, the given value
-  must be converted to the <span>best representation of the number as a floating-point number</span>
-  and then the <code data-x="attr-meter-value">value</code> content attribute must be set to that
-  string.</p>
+  <p>The <dfn attribute for="HTMLMeterElement"><code data-x="dom-meter-value">value</code></dfn> IDL
+  attribute, on getting, must return the <span data-x="concept-meter-actual">actual value</span>. On
+  setting, the given value must be converted to the <span>best representation of the number as a
+  floating-point number</span> and then the <code data-x="attr-meter-value">value</code> content
+  attribute must be set to that string.</p>
 
-  <p>The <dfn><code data-x="dom-meter-min">min</code></dfn> IDL attribute, on getting, must return
-  the <span data-x="concept-meter-minimum">minimum value</span>. On setting, the given value must be
-  converted to the <span>best representation of the number as a floating-point number</span> and
-  then the <code data-x="attr-meter-min">min</code> content attribute must be set to that
-  string.</p>
+  <p>The <dfn attribute for="HTMLMeterElement"><code data-x="dom-meter-min">min</code></dfn> IDL
+  attribute, on getting, must return the <span data-x="concept-meter-minimum">minimum value</span>.
+  On setting, the given value must be converted to the <span>best representation of the number as a
+  floating-point number</span> and then the <code data-x="attr-meter-min">min</code> content
+  attribute must be set to that string.</p>
 
-  <p>The <dfn><code data-x="dom-meter-max">max</code></dfn> IDL attribute, on getting, must return
-  the <span data-x="concept-meter-maximum">maximum value</span>. On setting, the given value must be
-  converted to the <span>best representation of the number as a floating-point number</span> and
-  then the <code data-x="attr-meter-max">max</code> content attribute must be set to that
-  string.</p>
+  <p>The <dfn attribute for="HTMLMeterElement"><code data-x="dom-meter-max">max</code></dfn> IDL
+  attribute, on getting, must return the <span data-x="concept-meter-maximum">maximum value</span>.
+  On setting, the given value must be converted to the <span>best representation of the number as a
+  floating-point number</span> and then the <code data-x="attr-meter-max">max</code> content
+  attribute must be set to that string.</p>
 
-  <p>The <dfn><code data-x="dom-meter-low">low</code></dfn> IDL attribute, on getting, must return
-  the <span data-x="concept-meter-low">low boundary</span>. On setting, the given value must be
-  converted to the <span>best representation of the number as a floating-point number</span> and
-  then the <code data-x="attr-meter-low">low</code> content attribute must be set to that
-  string.</p>
+  <p>The <dfn attribute for="HTMLMeterElement"><code data-x="dom-meter-low">low</code></dfn> IDL
+  attribute, on getting, must return the <span data-x="concept-meter-low">low boundary</span>. On
+  setting, the given value must be converted to the <span>best representation of the number as a
+  floating-point number</span> and then the <code data-x="attr-meter-low">low</code> content
+  attribute must be set to that string.</p>
 
-  <p>The <dfn><code data-x="dom-meter-high">high</code></dfn> IDL attribute, on getting, must return
-  the <span data-x="concept-meter-high">high boundary</span>. On setting, the given value must be
-  converted to the <span>best representation of the number as a floating-point number</span> and
-  then the <code data-x="attr-meter-high">high</code> content attribute must be set to that
-  string.</p>
+  <p>The <dfn attribute for="HTMLMeterElement"><code data-x="dom-meter-high">high</code></dfn> IDL
+  attribute, on getting, must return the <span data-x="concept-meter-high">high boundary</span>. On
+  setting, the given value must be converted to the <span>best representation of the number as a
+  floating-point number</span> and then the <code data-x="attr-meter-high">high</code> content
+  attribute must be set to that string.</p>
 
-  <p>The <dfn><code data-x="dom-meter-optimum">optimum</code></dfn> IDL attribute, on getting, must
-  return the <span data-x="concept-meter-optimum">optimum value</span>. On setting, the given value
-  must be converted to the <span>best representation of the number as a floating-point number</span>
-  and then the <code data-x="attr-meter-optimum">optimum</code> content attribute must be set to
-  that string.</p>
+  <p>The <dfn attribute for="HTMLMeterElement"><code data-x="dom-meter-optimum">optimum</code></dfn>
+  IDL attribute, on getting, must return the <span data-x="concept-meter-optimum">optimum
+  value</span>. On setting, the given value must be converted to the <span>best representation of
+  the number as a floating-point number</span> and then the <code
+  data-x="attr-meter-optimum">optimum</code> content attribute must be set to that string.</p>
 
   <p>The <code data-x="dom-lfe-labels">labels</code> IDL attribute provides a list of the element's
   <code>label</code>s.</p>
@@ -378,7 +373,7 @@ and a height of &lt;meter value=2>2cm&lt;/meter>.&lt;/p> &lt;!-- <strong>BAD!</s
    <p>The following example shows how a gauge could fall back to localized or pretty-printed
    text.</p>
 
-   <pre><code class="html" data-x="">&lt;p>Disk usage: &lt;meter min=0 value=170261928 max=233257824>170&#x2009;261&#x2009;928 bytes used
+   <pre><code class="html">&lt;p>Disk usage: &lt;meter min=0 value=170261928 max=233257824>170&#x2009;261&#x2009;928 bytes used
 out of 233&#x2009;257&#x2009;824 bytes available&lt;/meter>&lt;/p></code></pre>
 
   </div>

@@ -12,7 +12,7 @@
 
   <p>For example:</p>
 
-  <pre><code class="html" data-x="">&lt;p>What fruits do you like?&lt;/p>
+  <pre><code class="html">&lt;p>What fruits do you like?&lt;/p>
 &lt;ol ondragstart="dragStartHandler(event)">
  &lt;li draggable="true" data-value="fruit-apple">Apples&lt;/li>
  &lt;li draggable="true" data-value="fruit-orange">Oranges&lt;/li>
@@ -36,7 +36,6 @@
   <p>To accept a drop, the drop target has to listen to the following events:</p>
 
   <ol>
-
     <li>The <code data-x="event-dnd-dragenter">dragenter</code> event handler reports
     whether or not the drop target is potentially willing to accept the drop, by canceling the
     event.</li>
@@ -51,12 +50,11 @@
     the target. This event needs to be canceled, so that the <code
     data-x="dom-DataTransfer-DropEffect">dropEffect</code> attribute's value can be used by the
     source. Otherwise, the drop operation is rejected.</li>
-
   </ol>
 
   <p>For example:</p>
 
-  <pre><code class="html" data-x="">&lt;p>Drop your favorite fruits below:&lt;/p>
+  <pre><code class="html">&lt;p>Drop your favorite fruits below:&lt;/p>
 &lt;ol ondragenter="dragEnterHandler(event)" ondragover="dragOverHandler(event)"
     ondrop="dropHandler(event)">
 &lt;/ol>
@@ -99,7 +97,7 @@
 
   <p>For our example here, that means updating the original markup to handle that event:</p>
 
-  <pre><code class="html" data-x="">&lt;p>What fruits do you like?&lt;/p>
+  <pre><code class="html">&lt;p>What fruits do you like?&lt;/p>
 &lt;ol ondragstart="dragStartHandler(event)" ondragend="dragEndHandler(event)">
  <em>...as before...</em>
 &lt;/ol>

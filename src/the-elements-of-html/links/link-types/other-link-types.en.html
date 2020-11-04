@@ -9,28 +9,23 @@
   any time to add a type. Extension types must be specified with the following information:</p>
 
   <dl>
-
    <dt>Keyword</dt>
 
    <dd>
-
     <p>The actual value being defined. The value should not be confusingly similar to any other
     defined value (e.g. differing only in case).</p>
 
     <p>If the value contains a U+003A COLON character (:), it must also be an <span>absolute
     URL</span>.</p>
-
    </dd>
 
 
    <dt>Effect on... <code>link</code></dt>
 
    <dd>
-
     <p>One of the following:</p>
 
     <dl>
-
      <dt>Not allowed</dt>
 
      <dd>The keyword must not be specified on <code>link</code> elements.</dd>
@@ -44,20 +39,16 @@
 
      <dd>The keyword may be specified on a <code>link</code> element; it creates an <span>external
      resource link</span>.</dd>
-
     </dl>
-
    </dd>
 
 
    <dt>Effect on... <code>a</code> and <code>area</code></dt>
 
    <dd>
-
     <p>One of the following:</p>
 
     <dl>
-
      <dt>Not allowed</dt>
 
      <dd>The keyword must not be specified on <code>a</code> and <code>area</code> elements.</dd>
@@ -77,9 +68,31 @@
      <dd>The keyword may be specified on <code>a</code> and <code>area</code> elements; it <span
      data-x="hyperlink annotation">annotates</span> other <span data-x="hyperlink">hyperlinks</span>
      created by the element.</dd>
-
     </dl>
+   </dd>
 
+
+   <dt>Effect on... <code>form</code></dt>
+   <dd>
+    <p>One of the following:</p>
+
+    <dl>
+     <dt>Not allowed</dt>
+     <dd>The keyword must not be specified on <code>form</code> elements.</dd>
+
+     <dt>Hyperlink</dt>
+     <dd>The keyword may be specified on <code>form</code> elements; it creates a
+     <span>hyperlink</span>.</dd>
+
+     <dt>External Resource</dt>
+     <dd>The keyword may be specified on <code>form</code> elements; it creates an <span>external
+     resource link</span>.</dd>
+
+     <dt>Hyperlink Annotation</dt>
+     <dd>The keyword may be specified on <code>form</code> elements; it <span data-x="hyperlink
+     annotation">annotates</span> other <span data-x="hyperlink">hyperlinks</span> created by the
+     element.</dd>
+    </dl>
    </dd>
 
 
@@ -106,11 +119,9 @@
    <dt>Status</dt>
 
    <dd>
-
     <p>One of the following:</p>
 
     <dl>
-
      <dt>Proposed</dt>
 
      <dd>The keyword has not received wide peer review and approval. Someone has proposed it and is,
@@ -127,7 +138,6 @@
      <dd>The keyword has received wide peer review and it has been found wanting. Existing pages are
      using this keyword, but new pages should avoid it. The "brief description" and "specification"
      entries will give details of what authors should use instead, if anything.</dd>
-
     </dl>
 
     <p>If a keyword is found to be redundant with existing values, it should be removed and listed
@@ -143,9 +153,7 @@
 
     <p>Anyone can change the status at any time, but should only do so in accordance with the
     definitions above.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>

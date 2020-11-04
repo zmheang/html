@@ -1,0 +1,52 @@
+  <h4 id="user-activation-data-model">Data model</h4>
+
+  <p>For the purpose of tracking user activation, each <code>Window</code> <var>W</var> has a
+  <dfn>last activation timestamp</dfn>. This is a number indicating the last time <var>W</var> got
+  an <span>activation notification</span>. It corresponds to a
+  <span><code>DOMHighResTimeStamp</code></span> value except for two cases: positive infinity
+  indicates that <var>W</var> has never been activated, while negative infinity indicates that a <a
+  href="#user-activation-gated-apis">user activation-gated API</a> has <span data-x="consume user
+  activation">consumed</span> the last user activation of <var>W</var>. The initial value is
+  positive infinity.</p>
+
+  <p>A user agent also defines a <dfn>transient activation duration</dfn>, which is a constant
+  number indicating how long a user activation is available for certain <a
+  href="#user-activation-gated-apis">user activation-gated APIs</a> (e.g., for opening popups).</p>
+
+  <p class="note">The <span>transient activation duration</span> is expected be at most a few
+  seconds, so that the user can possibly perceive the link between an interaction with the page and
+  the page calling the activation-gated API.</p>
+
+  <p>These two values imply two boolean user activation states for <var>W</var>:</p>
+
+  <dl>
+   <dt><dfn export>Sticky activation</dfn></dt>
+   <dd>
+    <p>When the <span>current high resolution time</span> is greater than or equal to the <span>last
+    activation timestamp</span> in <var>W</var>, <var>W</var> is said to have <span>sticky
+    activation</span>.</p>
+
+    <p>This is <var>W</var>'s historical activation state, indicating whether the user has ever
+    interacted in <var>W</var>. It starts false, then changes to true (and never changes back to
+    false) when <var>W</var> gets the very first <span>activation notification</span>.</p>
+   </dd>
+
+   <dt><dfn export>Transient activation</dfn></dt>
+   <dd>
+    <p>When the <span>current high resolution time</span> is greater than or equal to the <span>last
+    activation timestamp</span> in <var>W</var>, and less than the <span>last activation
+    timestamp</span> in <var>W</var> plus the <span>transient activation duration</span>, then
+    <var>W</var> is said to have <span>transient activation</span>.</p>
+
+    <p>This is <var>W</var>'s current activation state, indicating whether the user has interacted
+    in <var>W</var> recently. This starts with a false value, and remains true for a limited time
+    after every <span>activation notification</span> <var>W</var> gets.</p>
+
+    <p>The <span>transient activation</span> state is considered <dfn
+    data-x="activation-expiry">expired</dfn> if it becomes false because the <span>transient
+    activation duration</span> time has elapsed since the last user activation. Note that it can
+    become false even before the expiry time through an <span data-x="consume user
+    activation">activation consumption</span>.</p>
+   </dd>
+  </dl>
+

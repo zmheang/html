@@ -5,26 +5,21 @@
    <dt><var>media</var> . <code subdfn data-x="dom-media-duration">duration</code></dt>
 
    <dd>
-
     <p>Returns the length of the <span>media resource</span>, in seconds, assuming that the start of
     the <span>media resource</span> is at time zero.</p>
 
     <p>Returns NaN if the duration isn't available.</p>
 
     <p>Returns Infinity for unbounded streams.</p>
-
    </dd>
 
    <dt><var>media</var> . <code subdfn data-x="dom-media-currentTime">currentTime</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the <span>official playback position</span>, in seconds.</p>
 
     <p>Can be set, to seek to the given time.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -54,13 +49,13 @@
   that goes, say, 00:15..00:29 and then 00:05..00:38. However, the user agent would not expose those
   times; it would instead expose the times as 00:15..00:29 and 00:29..01:02, as a single video.</p>
 
-  <p>In the rare case of a <span>media resource</span> that does not have an explicit timeline, the
+  <p>
+  <!--INSERT TRACKING-->
+  In the rare case of a <span>media resource</span> that does not have an explicit timeline, the
   zero time on the <span>media timeline</span> should correspond to the first frame of the
   <span>media resource</span>. In the even rarer case of a <span>media resource</span> with no
   explicit timings of any kind, not even frame durations, the user agent must itself determine the
-  time for each frame in a user-agent-defined manner.
-  <!--INSERT FINGERPRINT-->
-  </p>
+  time for each frame in an <span>implementation-defined</span> manner.</p>
 
   <p class="note">An example of a file format with no explicit timeline but with explicit frame
   durations is the Animated GIF format. An example of a file format with no explicit timings at all
@@ -167,8 +162,9 @@
   data-x="dom-media-seek">seek</span> to the <span>earliest possible position</span>; otherwise, if
   the user agent has not fired a <code data-x="event-media-timeupdate">timeupdate</code> event at
   the element in the past 15 to 250ms and is not still running event handlers for such an event,
-  then the user agent must <span>queue a task</span> to <span data-x="concept-event-fire">fire an
-  event</span> named <code data-x="event-media-timeupdate">timeupdate</code> at the element.</p>
+  then the user agent must <span>queue a media element task</span> given the <span>media
+  element</span> to <span data-x="concept-event-fire">fire an event</span> named <code
+  data-x="event-media-timeupdate">timeupdate</code> at the element.</p>
 
   <p class="note">Because of the above requirement and the requirement in the <span
   data-x="concept-media-load-resource">resource fetch algorithm</span> that kicks in <a
@@ -182,7 +178,7 @@
   <p>If at any time the user agent learns that an audio or video track has ended and all <span>media
   data</span> relating to that track corresponds to parts of the <span>media timeline</span> that
   are <em>before</em> the <span>earliest possible position</span>, the user agent may <span>queue a
-  task</span> to run these steps:</p>
+  media element task</span> given the <span>media element</span> to run these steps:</p>
 
   <ol>
    <li><p>Remove the track from the <code data-x="dom-media-audioTracks">audioTracks</code>
@@ -198,12 +194,12 @@
    track.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-media-duration">duration</code></dfn> attribute must return the time
-  of the end of the <span>media resource</span>, in seconds, on the <span>media timeline</span>. If
-  no <span>media data</span> is available, then the attributes must return the Not-a-Number (NaN)
-  value. If the <span>media resource</span> is not known to be bounded (e.g. streaming radio, or a
-  live event with no announced end time), then the attribute must return the positive Infinity
-  value.</p>
+  <p>The <dfn attribute for="HTMLMediaElement"><code
+  data-x="dom-media-duration">duration</code></dfn> attribute must return the time of the end of the
+  <span>media resource</span>, in seconds, on the <span>media timeline</span>. If no <span>media
+  data</span> is available, then the attributes must return the Not-a-Number (NaN) value. If the
+  <span>media resource</span> is not known to be bounded (e.g. streaming radio, or a live event with
+  no announced end time), then the attribute must return the positive Infinity value.</p>
 
   <p>The user agent must determine the duration of the <span>media resource</span> before playing
   any part of the <span>media data</span> and before setting <code
@@ -213,13 +209,13 @@
 
   <p id="durationChange">When the length of the <span>media resource</span> changes to a known value
   (e.g. from being unknown to known, or from a previously established length to a new length) the
-  user agent must <span>queue a task</span> to <span data-x="concept-event-fire">fire an
-  event</span> named <code data-x="event-media-durationchange">durationchange</code> at the
-  <span>media element</span>. (The event is not fired when the duration is reset as part of loading
-  a new media resource.) If the duration is changed such that the <span>current playback
-  position</span> ends up being greater than the time of the end of the <span>media resource</span>,
-  then the user agent must also <span data-x="dom-media-seek">seek</span> to the time of the end of
-  the <span>media resource</span>.</p>
+  user agent must <span>queue a media element task</span> given the <span>media element</span> to
+  <span data-x="concept-event-fire">fire an event</span> named <code
+  data-x="event-media-durationchange">durationchange</code> at the <span>media element</span>. (The
+  event is not fired when the duration is reset as part of loading a new media resource.) If the
+  duration is changed such that the <span>current playback position</span> ends up being greater
+  than the time of the end of the <span>media resource</span>, then the user agent must also <span
+  data-x="dom-media-seek">seek</span> to the time of the end of the <span>media resource</span>.</p>
 
   <p class="example">If an "infinite" stream ends for some reason, then the duration would change
   from positive Infinity to the time of the last frame or sample in the stream, and the <code
@@ -241,14 +237,14 @@
 
   <hr>
 
-  <p>The <dfn><code data-x="attr-media-loop">loop</code></dfn> attribute is a <span>boolean
-  attribute</span> that, if specified, indicates that the <span>media element</span> is to seek back
-  to the start of the <span>media resource</span> upon reaching the end.</p>
+  <p>The <dfn element-attr for="media"><code data-x="attr-media-loop">loop</code></dfn> attribute is
+  a <span>boolean attribute</span> that, if specified, indicates that the <span>media element</span>
+  is to seek back to the start of the <span>media resource</span> upon reaching the end.</p>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-media-loop">loop</code></dfn> IDL attribute must <span>reflect</span>
-  the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLMediaElement"><code data-x="dom-media-loop">loop</code></dfn> IDL
+  attribute must <span>reflect</span> the content attribute of the same name.</p>
 
   </div>
 

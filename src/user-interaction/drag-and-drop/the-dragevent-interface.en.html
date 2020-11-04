@@ -3,9 +3,10 @@
   <p>The drag-and-drop processing model involves several events. They all use the
   <code>DragEvent</code> interface.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- Constructor(DOMString type, optional <span>DragEventInit</span> eventInitDict)]
+  <pre><code class="idl">[Exposed=Window]
 interface <dfn>DragEvent</dfn> : <span>MouseEvent</span> {
+  constructor(DOMString type, optional <span>DragEventInit</span> eventInitDict = {});
+
   readonly attribute <span>DataTransfer</span>? <span data-x="dom-DragEvent-dataTransfer">dataTransfer</span>;
 };
 
@@ -18,11 +19,8 @@ dictionary <dfn>DragEventInit</dfn> : <span>MouseEventInit</span> {
    <dt><var>event</var> . <code subdfn data-x="dom-DragEvent-dataTransfer">dataTransfer</code></dt>
 
    <dd>
-
     <p>Returns the <code>DataTransfer</code> object for the event.</p>
-
    </dd>
-
   </dl>
 
   <p class="note">Although, for consistency with other event interfaces, the <code>DragEvent</code>
@@ -45,24 +43,21 @@ dictionary <dfn>DragEventInit</dfn> : <span>MouseEventInit</span> {
   target</var>, the user agent must run the following steps:</p>
 
   <ol>
-
    <li>Let <var>dataDragStoreWasChanged</var> be false.</li>
 
    <li><p>If no specific <var>related target</var> was provided, set <var>related target</var> to
    null.</p></li>
 
-   <li><p>Let <var>window</var> be the <code>Window</code> object of the <code>Document</code>
-   object of the specified target element.</p></li>
+   <li><p>Let <var>window</var> be the <span>relevant global object</span> of the
+   <code>Document</code> object of the specified target element.</p></li>
 
    <li>
-
     <p>If <var>e</var> is <code data-x="event-dnd-dragstart">dragstart</code>, then set the
     <span>drag data store mode</span> to the <span data-x="concept-dnd-rw">read/write mode</span>
     and set <var>dataDragStoreWasChanged</var> to true.</p>
 
     <p>If <var>e</var> is <code data-x="event-dnd-drop">drop</code>, set the <span>drag data store
     mode</span> to the <span data-x="concept-dnd-ro">read-only mode</span>.</p>
-
    </li>
 
    <li><p>Let <var>dataTransfer</var> be a newly created <code>DataTransfer</code> object
@@ -73,18 +68,16 @@ dictionary <dfn>DragEventInit</dfn> : <span>MouseEventInit</span> {
    store</span>'s <span>drag data store allowed effects state</span>.</p></li>
 
    <li>
-
     <!--en-GB--><p id="dropEffect-initialisation">Set the <code
     data-x="dom-DataTransfer-dropEffect">dropEffect</code> attribute to "<code
     data-x="dom-DataTransfer-dropEffect-none">none</code>" if <var>e</var> is <code
-    data-x="event-dnd-dragstart">dragstart</code>, <code data-x="event-dnd-drag">drag</code>, <code
-    data-x="event-dnd-dragexit">dragexit</code>, or <code
-    data-x="event-dnd-dragleave">dragleave</code>; to the value corresponding to the <span>current
-    drag operation</span> if <var>e</var> is <code data-x="event-dnd-drop">drop</code> or
-    <code data-x="event-dnd-dragend">dragend</code>; and to a value based on the <code
+    data-x="event-dnd-dragstart">dragstart</code>, <code data-x="event-dnd-drag">drag</code>, or
+    <code data-x="event-dnd-dragleave">dragleave</code>; to the value corresponding to the
+    <span>current drag operation</span> if <var>e</var> is <code data-x="event-dnd-drop">drop</code>
+    or <code data-x="event-dnd-dragend">dragend</code>; and to a value based on the <code
     data-x="dom-DataTransfer-effectAllowed">effectAllowed</code> attribute's value and the
-    drag-and-drop source, as given by the following table, otherwise (i.e. if <var>e</var>
-    is <code data-x="event-dnd-dragenter">dragenter</code> or <code
+    drag-and-drop source, as given by the following table, otherwise (i.e. if <var>e</var> is <code
+    data-x="event-dnd-dragenter">dragenter</code> or <code
     data-x="event-dnd-dragover">dragover</code>):</p>
 
     <table>
@@ -153,7 +146,6 @@ dictionary <dfn>DragEventInit</dfn> : <span>MouseEventInit</span> {
     it. Therefore, on a Windows system, if "<code data-x="dom-DataTransfer-dropEffect-link">link</code>" is an option according to
     the table above while the "alt" key is depressed, the user agent could select that instead of
     "<code data-x="dom-DataTransfer-dropEffect-copy">copy</code>" or "<code data-x="dom-DataTransfer-dropEffect-move">move</code>".</p>
-
    </li>
 
    <li><p>Let <var>event</var> be the result of <span>creating an event</span> using
@@ -166,8 +158,7 @@ dictionary <dfn>DragEventInit</dfn> : <span>MouseEventInit</span> {
    target</var>, and its <code data-x="dom-DragEvent-dataTransfer">dataTransfer</code> attribute to
    <var>dataTransfer</var>.</p></li>
 
-   <li><p>If <var>e</var> is not <code data-x="event-dnd-dragexit">dragexit</code>, <code
-   data-x="event-dnd-dragleave">dragleave</code>, or <code
+   <li><p>If <var>e</var> is not <code data-x="event-dnd-dragleave">dragleave</code> or <code
    data-x="event-dnd-dragend">dragend</code>, then initialize <var>event</var>'s <code
    data-x="dom-Event-cancelable">cancelable</code> attribute to true.</p></li>
 
@@ -195,7 +186,6 @@ dictionary <dfn>DragEventInit</dfn> : <span>MouseEventInit</span> {
 
    <li><p>Break the association between <var>dataTransfer</var> and the <span>drag data
    store</span>.</p></li>
-
   </ol>
 
   </div>

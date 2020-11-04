@@ -32,8 +32,8 @@
   <p>The element's <span>input activation behavior</span> is to run the following steps:</p>
 
   <ol>
-   <li><p>If the algorithm is not <span>triggered by user activation</span>, then return
-   without doing anything else.</p></li>
+   <li><p>If the algorithm is invoked when the element's <code>Window</code> object does not have
+   <span>transient activation</span>, then return without doing anything else.</p></li>
 
    <li>
     <p>Run these steps <span>in parallel</span>:</p>
@@ -49,31 +49,41 @@
 
      <li><p>Wait for the user to have made their selection.</p></li>
 
-     <li><p><span>Queue a task</span> to first update the element's <span
-     data-x="concept-input-type-file-selected">selected files</span> so that it represents the
-     user's selection, then <span data-x="concept-event-fire">fire an event</span> named <code
-     data-x="event-input">input</code> at the <code>input</code> element, with the <code
-     data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, and finally <span
-     data-x="concept-event-fire">fire an event</span> named <code
-     data-x="event-change">change</code> at the <code>input</code> element, with the <code
-     data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p></li>
+     <li><p><span>Update the file selection</span> for the <code>input</code> element.</p></li>
     </ol>
    </li>
   </ol>
 
   <p>If the element is <i data-x="concept-fe-mutable">mutable</i>, the user agent should allow the
-  user to change the files on the list in other ways also, e.g. adding or removing files by
-  drag-and-drop. When the user does so, the user agent must <span>queue a task</span> to first
-  update the element's <span data-x="concept-input-type-file-selected">selected files</span> so that
-  it represents the user's new selection, then <span data-x="concept-event-fire">fire an
-  event</span> named <code data-x="event-input">input</code> at the <code>input</code> element, with
-  the <code data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true, and finally
-  <span data-x="concept-event-fire">fire an event</span> named <code
-  data-x="event-change">change</code> at the <code>input</code> element, with the <code
-  data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p>
+  user to change the files on the list in other ways also, e.g., adding or removing files by
+  drag-and-drop. When the user does so, the user agent must <span>update the file selection</span>
+  for the element.</p>
 
   <p>If the element is not <i data-x="concept-fe-mutable">mutable</i>, the user agent must not allow
   the user to change the element's selection.</p>
+
+  <p>To <dfn>update the file selection</dfn> for an element <var>element</var>:</p>
+
+  <ol>
+   <li>
+    <p><span>Queue an element task</span> on the <span>user interaction task source</span> given
+    <var>element</var> and the following steps:</p>
+
+    <ol>
+     <li><p>Update <var>element</var>'s <span data-x="concept-input-type-file-selected">selected
+     files</span> so that it represents the user's selection.</p></li>
+
+     <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
+     data-x="event-input">input</code> at the <code>input</code> element, with the <code
+     data-x="dom-Event-bubbles">bubbles</code> and <code data-x="dom-Event-composed">composed</code>
+     attributes initialized to true.</p></li>
+
+     <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
+     data-x="event-change">change</code> at the <code>input</code> element, with the <code
+     data-x="dom-Event-bubbles">bubbles</code> attribute initialized to true.</p></li>
+    </ol>
+   </li>
+  </ol>
 
   <p><strong>Constraint validation</strong>: If the element is <i
   data-x="concept-input-required">required</i> and the list of <span
@@ -84,14 +94,14 @@
 
   <hr>
 
-  <p>The <dfn><code data-x="attr-input-accept">accept</code></dfn> attribute may be specified to
-  provide user agents with a hint of what file types will be accepted.</p>
+  <p>The <dfn element-attr for="input"><code data-x="attr-input-accept">accept</code></dfn>
+  attribute may be specified to provide user agents with a hint of what file types will be
+  accepted.</p>
 
   <p>If specified, the attribute must consist of a <span>set of comma-separated tokens</span>, each
   of which must be an <span>ASCII case-insensitive</span> match for one of the following:</p>
 
   <dl>
-
    <dt>The string "<code data-x="">audio/*</code>"</dt>
 
    <dd>Indicates that sound files are accepted.</dd>
@@ -111,7 +121,6 @@
    <dt>A string whose first character is a U+002E FULL STOP character (.)</dt>
 
    <dd>Indicates that files with the specified file extension are accepted.</dd>
-
   </dl>
 
   <p>The tokens must not be <span>ASCII case-insensitive</span> matches for any of the other tokens
@@ -141,7 +150,7 @@
    Format files. Since Microsoft Word documents are described with a wide variety of MIME types and
    extensions, the site can list several, as follows:</p>
 
-   <pre><code class="html" data-x="">&lt;input type="file" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></code></pre>
+   <pre><code class="html">&lt;input type="file" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></code></pre>
 
    <p>On platforms that only use file extensions to describe file types, the extensions listed here
    can be used to filter the allowed documents, while the MIME types can be used with the system's
@@ -171,7 +180,7 @@
    backwards-compatible way is non-trivial. The following function extracts the file name in a
    suitably compatible manner:</p>
 
-   <pre><code class="js" data-x="">function extractFilename(path) {
+   <pre><code class="js">function extractFilename(path) {
   if (path.substr(0, 12) == "C:\\fakepath\\")
     return path.substr(12); // modern browser
   var x;
@@ -186,7 +195,7 @@
 
    <p>This can be used as follows:</p>
 
-   <pre><code class="html" data-x="">&lt;p>&lt;input type=file name=image onchange="updateFilename(this.value)">&lt;/p>
+   <pre><code class="html">&lt;p>&lt;input type=file name=image onchange="updateFilename(this.value)">&lt;/p>
 &lt;p>The name of the file you picked is: &lt;span id="filename">(none)&lt;/span>&lt;/p>
 &lt;script>
  function updateFilename(path) {

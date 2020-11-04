@@ -11,7 +11,11 @@
    <dd><span>Phrasing content</span>.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
-   <dd>Also, the <code data-x="attr-dir">dir</code> global attribute has special semantics on this element.</dd>
+   <dd>Also, the <code data-x="attr-dir">dir</code><!-- no-annotate --> global attribute has special semantics on this element.</dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-bdi">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-bdi">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -40,7 +44,7 @@
    end up confusing the text (the bidirectional algorithm would put the colon and the number "3"
    next to the word "User" rather than next to the word "posts").</p>
 
-   <pre><code class="html" data-x="">&lt;ul>
+   <pre><code class="html">&lt;ul>
  &lt;li>User &lt;bdi>jcranmer&lt;/bdi>: 12 posts.
  &lt;li>User &lt;bdi>hober&lt;/bdi>: 5 posts.
  &lt;li>User &lt;bdi><bdo dir=rtl>&#x625;&#x64a;&#x627;&#x646;</bdo>&lt;/bdi>: 3 posts.

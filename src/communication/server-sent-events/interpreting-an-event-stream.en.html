@@ -32,26 +32,21 @@
    <dt>If the line contains a U+003A COLON character (:)</dt>
 
    <dd>
-
     <p>Collect the characters on the line before the first U+003A COLON character (:), and let <var>field</var> be that string.</p>
 
     <p>Collect the characters on the line after the first U+003A COLON character (:), and let <var>value</var> be that string. If <var>value</var> starts with a U+0020 SPACE
     character, remove it from <var>value</var>.</p>
 
     <p><a href="#processField">Process the field</a> using the steps described below, using <var>field</var> as the field name and <var>value</var> as the field value.</p>
-
    </dd>
 
 
    <dt>Otherwise, the string is not empty but does not contain a U+003A COLON character (:)</dt>
 
    <dd>
-
     <p><a href="#processField">Process the field</a> using the steps described below, using the
     whole line as the field name, and the empty string as the field value.</p>
-
    </dd>
-
   </dl>
 
   <p>Once the end of the file is reached, any pending data must be discarded. (If the file ends in
@@ -119,7 +114,6 @@
    <dt>Otherwise</dt>
 
    <dd><p>The field is ignored.</p></dd>
-
   </dl>
 
 
@@ -127,10 +121,9 @@
   event</dfn>, the user agent must process the <var>data</var> buffer, the <var>event type</var> buffer, and the <var>last event ID</var> buffer using steps
   appropriate for the user agent.</p>
 
-  <p>For Web browsers, the appropriate steps to <span>dispatch the event</span> are as follows:</p>
+  <p>For web browsers, the appropriate steps to <span>dispatch the event</span> are as follows:</p>
 
   <ol>
-
    <li><p>Set the <span data-x="concept-event-stream-last-event-id">last event ID string</span> of
    the event source to the value of the <var>last event ID</var> buffer. The buffer does
    not get reset, so the <span data-x="concept-event-stream-last-event-id">last event ID
@@ -170,7 +163,6 @@
    <code>EventSource</code> object.</p></li> <!-- so calling close() drops the messages immediately.
    The connection dying doesn't interfere with already-sent messages since it sets us to CLOSED via
    a task, not immediately -->
-
   </ol>
 
   <p class="note">If an event doesn't have an "id" field, but an earlier event did set the event
@@ -196,7 +188,7 @@ data: 10</pre>
    data-x="">YHOO\n+2\n10</code>" (where "<code data-x="">\n</code>" represents a newline).</p>
 
    <p>This could be used as follows:
-   <pre><code class="js" data-x="">var stocks = new EventSource("https://stocks.example.com/ticker.php");
+   <pre><code class="js">var stocks = new EventSource("https://stocks.example.com/ticker.php");
 stocks.onmessage = function (event) {
   var data = event.data.split('\n');
   updateStocks(data[0], data[1], data[2]);
@@ -204,7 +196,7 @@ stocks.onmessage = function (event) {
 
    <p>...where <code data-x="">updateStocks()</code> is a function defined as:</p>
 
-   <pre><code class="js" data-x="">function updateStocks(symbol, delta, value) { ... }</code></pre>
+   <pre><code class="js">function updateStocks(symbol, delta, value) { ... }</code></pre>
 
    <p>...or some such.</p>
 

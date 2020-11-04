@@ -21,17 +21,19 @@
   <p>如果反映内容属性的 IDL 属性是 <code data-x="idl-DOMString">DOMString</code>属性，
   且它的内容属性是 <span data-x="enumerated attribute">枚举属性</span>，
   且该 IDL 属性 <dfn data-x="limited to only known values">只限于已知的一些值</dfn>，
-  那么当获取时，如果该 IDL 属性所处状态有相关联的一致的值，IDL 属性必须返回它。
-  如果属性处在一个没有相关联的关键字值的状态，或者属性所处状态未定义
-  （比如属性缺失且没有<i data-x="missing value default">默认缺失值</i>）时，
-  IDL 属性必须返回空字符串。
-  当设置时，必须设置内容属性的值为指定的新值。</p>
+  那么当获取时必须返回与属性所处状态关联的关键字值（如果有的话），或者空字符串
+  （如果没有关联的关键字值，或属性不在任何已定义的状态。比如属性缺失且没有 <i data-x="missing value default">缺失默认值</i>）。
+  该状态有如果有多个关键字值，则返回匹配的那个。
+  如果有多个匹配的关键字值，则指定一个作为 <dfn data-x="canonical keyword">标准关键字</dfn> 并选择它。
+  在设置时，内容属性必须设置为指定的新值。</p>
 
   <p>如果反映内容属性的 IDL 属性是可为空的 <code data-x="idl-DOMString">DOMString</code>  属性，
-  且它的内容属性是一个 <span data-x="enumerated attribute">枚举属性</span>， 那么当获取时，
-  如果对应的内容属性处于它的 <i data-x="missing value default">默认缺失值</i>，
-  那么该 IDL 属性必须返回 null，否则必须返回与该属性所处状态相关联的一致的值。
-  当设置时，如果新值为 null 则必须移除该内容属性，否则必须设置内容属性为给定的新值。</p>
+  且它的内容属性是一个 <span data-x="enumerated attribute">枚举属性</span>，那么当获取时，
+  如果对应的内容属性在 <i data-x="missing value default">缺失默认值</i> 状态，则 IDL 属性必须返回 null；
+  否则 IDL 属性必须返回属性所属状态对应的关键字值。如果有多个关键字值，返回匹配的那个。
+  如果有多个匹配的 If there are multiple conforming keyword values, then one will be
+  如果有多个匹配的关键字值，则指定一个作为 <span data-x="canonical keyword">标准关键字</span> 并选择它。
+  在设置时，如果新值为 null 则内容属性必须被移除；否则内容属性必须设置为指定的新值。</p>
 
   <p>如果反映内容属性的 IDL 属性是 <code data-x="idl-DOMString">DOMString</code> 或 <code
   data-x="idl-USVString">USVString</code> 属性但不归于上述类别中，
@@ -132,7 +134,7 @@
   浮点数的最佳表示</span>，然后该字符串必须被用作新的内容属性值。</p>
 
   <p class="note">当设置 Infinity 和 Not-a-Number （NaN）这些值时会抛出异常。
-  定义在 Web IDL 标准中。 <ref spec=WEBIDL></p>
+  定义在 <cite>Web IDL</cite> 中。 <ref spec=WEBIDL></p>
 
   <p>如果反映内容属性的 IDL 属性的类型为 <code>DOMTokenList</code>，那么当获取时，
   必须返回 <code>DOMTokenList</code> 对象，与它关联的元素为被查询的元素，

@@ -1,8 +1,9 @@
   <h5>User interface</h5>
 
-  <p>The <dfn><code data-x="attr-media-controls">controls</code></dfn> attribute is a <span>boolean
-  attribute</span>. If present, it indicates that the author has not provided a scripted controller
-  and would like the user agent to provide its own set of controls.</p>
+  <p>The <dfn element-attr for="media"><code data-x="attr-media-controls">controls</code></dfn>
+  attribute is a <span>boolean attribute</span>. If present, it indicates that the author has not
+  provided a scripted controller and would like the user agent to provide its own set of
+  controls.</p>
 
   <div w-nodev>
 
@@ -46,8 +47,9 @@
   the <i>approximate-for-speed</i> flag when seeking in response to the user manipulating an
   approximate position interface such as a seek bar.</p>
 
-  <p>The <dfn><code data-x="dom-media-controls">controls</code></dfn> IDL attribute must
-  <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLMediaElement"><code
+  data-x="dom-media-controls">controls</code></dfn> IDL attribute must <span>reflect</span> the
+  content attribute of the same name.</p>
 
   <hr>
 
@@ -58,7 +60,6 @@
    <dt><var>media</var> . <code subdfn data-x="dom-media-volume">volume</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns the current playback volume, as a number in the range 0.0 to 1.0, where 0.0 is the
     quietest and 1.0 the loudest.</p>
 
@@ -66,21 +67,17 @@
 
     <p>Throws an <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> if the new
     value is not in the range 0.0 .. 1.0.</p>
-
    </dd>
 
    <dt><var>media</var> . <code subdfn data-x="dom-media-muted">muted</code> [ = <var>value</var> ]</dt>
 
    <dd>
-
     <p>Returns true if audio is muted, overriding the <code data-x="dom-media-volume">volume</code>
     attribute, and false if the <code data-x="dom-media-volume">volume</code> attribute is being
     honored.</p>
 
     <p>Can be set, to change whether the audio is muted or not.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -89,31 +86,31 @@
   Initially, the volume should be 1.0, but user agents may remember the last set value across
   sessions, on a per-site basis or otherwise, so the volume may start at other values.</p>
 
-  <p>The <dfn><code data-x="dom-media-volume">volume</code></dfn> IDL attribute must return the
-  <span data-x="concept-media-volume">playback volume</span> of any audio portions of the
-  <span>media element</span>. On setting, if the new value is in the range 0.0 to 1.0 inclusive, the
-  <span>media element</span>'s <span data-x="concept-media-volume">playback volume</span> must be
-  set to the new value. If the new value is outside the range 0.0 to 1.0 inclusive, then, on
-  setting, an <span>"<code>IndexSizeError</code>"</span> <code>DOMException</code> must be thrown
-  instead.</p>
+  <p>The <dfn attribute for="HTMLMediaElement"><code data-x="dom-media-volume">volume</code></dfn>
+  IDL attribute must return the <span data-x="concept-media-volume">playback volume</span> of any
+  audio portions of the <span>media element</span>. On setting, if the new value is in the range 0.0
+  to 1.0 inclusive, the <span>media element</span>'s <span data-x="concept-media-volume">playback
+  volume</span> must be set to the new value. If the new value is outside the range 0.0 to 1.0
+  inclusive, then, on setting, an <span>"<code>IndexSizeError</code>"</span>
+  <code>DOMException</code> must be thrown instead.</p>
 
   <p>A <span>media element</span> can also be <dfn data-x="concept-media-muted">muted</dfn>. If
   anything is muting the element, then it is muted. (For example, when the <span>direction of
   playback</span> is backwards, the element is muted.)</p>
 
-  <p>The <dfn><code data-x="dom-media-muted">muted</code></dfn> IDL attribute must return the value
-  to which it was last set. When a <span>media element</span> is created, if the element has a <code
-  data-x="attr-media-muted">muted</code> content attribute specified, then the <code
-  data-x="dom-media-muted">muted</code> IDL attribute should be set to true; otherwise, the user
-  agents may set the value to the user's preferred value (e.g. remembering the last set value across
-  sessions, on a per-site basis or otherwise). While the <code data-x="dom-media-muted">muted</code>
-  IDL attribute is set to true, the <span>media element</span> must be <span
-  data-x="concept-media-muted">muted</span>.</p>
+  <p>The <dfn attribute for="HTMLMediaElement"><code data-x="dom-media-muted">muted</code></dfn> IDL
+  attribute must return the value to which it was last set. When a <span>media element</span> is
+  created, if the element has a <code data-x="attr-media-muted">muted</code> content attribute
+  specified, then the <code data-x="dom-media-muted">muted</code> IDL attribute should be set to
+  true; otherwise, the user agents may set the value to the user's preferred value (e.g. remembering
+  the last set value across sessions, on a per-site basis or otherwise). While the <code
+  data-x="dom-media-muted">muted</code> IDL attribute is set to true, the <span>media element</span>
+  must be <span data-x="concept-media-muted">muted</span>.</p>
 
   <p>Whenever either of the values that would be returned by the <code
   data-x="dom-media-volume">volume</code> and <code data-x="dom-media-muted">muted</code> IDL
-  attributes change, the user agent must <span>queue a task</span> to <span
-  data-x="concept-event-fire">fire an event</span> named <code
+  attributes change, the user agent must <span>queue a media element task</span> given the
+  <span>media element</span> to <span data-x="concept-event-fire">fire an event</span> named <code
   data-x="event-media-volumechange">volumechange</code> at the <span>media element</span>. Then, if
   the <span>media element</span> is not <span>allowed to play</span>, the user agent must run the
   <span>internal pause steps</span> for the <span>media element</span>.</p>
@@ -139,10 +136,10 @@
 
   </div>
 
-  <p>The <dfn><code data-x="attr-media-muted">muted</code></dfn> content attribute on <span
-  data-x="media element">media elements</span> is a <span>boolean attribute</span> that controls the
-  default state of the audio output of the <span>media resource</span>, potentially overriding user
-  preferences.</p>
+  <p>The <dfn element-attr for="media"><code data-x="attr-media-muted">muted</code></dfn> content
+  attribute on <span data-x="media element">media elements</span> is a <span>boolean
+  attribute</span> that controls the default state of the audio output of the <span>media
+  resource</span>, potentially overriding user preferences.</p>
 
   <div w-nodev>
 
@@ -160,7 +157,7 @@
    sound, and allows the user to turn the sound on. The user agent can pause the video if it's
    unmuted without a user interaction.</p>
 
-   <pre><code class="html" data-x="">&lt;video src="adverts.cgi?kind=video" controls autoplay loop muted>&lt;/video></code></pre>
+   <pre><code class="html">&lt;video src="adverts.cgi?kind=video" controls autoplay loop muted>&lt;/video></code></pre>
 
   </div>
 

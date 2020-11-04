@@ -1,15 +1,15 @@
   <h5><dfn>CrossOriginGetOwnPropertyHelper</dfn> ( <var>O</var>, <var>P</var> )</h5>
 
   <p class="note">If this abstract operation returns undefined and there is no custom behavior, the
-  caller needs to throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p>
+  caller needs to throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>. In
+  practice this is handled by the caller calling <span>CrossOriginPropertyFallback</span>.</p>
 
   <ol>
    <li><p>Let <var>crossOriginKey</var> be a tuple consisting of the <span>current settings
    object</span>, <var>O</var>'s <span>relevant settings object</span>, and <var>P</var>.</p></li>
 
    <li>
-    <p>Repeat for each <var>e</var> that is an element of !
-    <span>CrossOriginProperties</span>(<var>O</var>):</p>
+    <p>For each <var>e</var> of ! <span>CrossOriginProperties</span>(<var>O</var>):</p>
 
     <ol>
      <li>
@@ -79,14 +79,6 @@
     </ol>
    </li>
 
-   <li><p>If <var>P</var> is "<code data-x="">then</code>", <span>@@toStringTag</span>,
-   <span>@@hasInstance</span>, or <span>@@isConcatSpreadable</span>, then return
-   <span>PropertyDescriptor</span>{
-   [[Value]]: undefined,
-   [[Writable]]: false,
-   [[Enumerable]]: false,
-   [[Configurable]]: true }.</p></li>
-
    <li><p>Return undefined.</p></li>
   </ol>
 
@@ -96,9 +88,9 @@
   navigation, it is required that the property be configurable. (However, see <a
   href="https://github.com/tc39/ecma262/issues/672">tc39/ecma262 issue #672</a> and references to it
   elsewhere in this specification for cases where we are not able to preserve these invariants, for
-  compatibility with existing Web content.) <ref spec=JAVASCRIPT></p>
+  compatibility with existing web content.) <ref spec=JAVASCRIPT></p>
 
   <p class="note">The reason the property descriptors are non-enumerable, despite this mismatching
-  the same-origin behavior, is for compatibility with existing Web content. See <a
+  the same-origin behavior, is for compatibility with existing web content. See <a
   href="https://github.com/whatwg/html/issues/3183">issue #3183</a> for details.</p>
 

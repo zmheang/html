@@ -10,13 +10,13 @@
   <p>Using the <code data-x="attr-inputmode">inputmode</code> attribute we can select appropriate
   input modalities:</p>
 
-  <pre><code class="html" data-x="">&lt;form method="post"
+  <pre><code class="html">&lt;form method="post"
       enctype="application/x-www-form-urlencoded"
       action="https://pizza.example.com/order.cgi">
  &lt;p>&lt;label>Customer name: &lt;input name="custname" required autocomplete="shipping name">&lt;/label>&lt;/p>
  &lt;p>&lt;label>Telephone: &lt;input type=tel name="custtel" autocomplete="shipping tel">&lt;/label>&lt;/p>
- &lt;p>&lt;label>Buzzer code: &lt;input name="custbuzz" <strong>inputmode="number"</strong>>&lt;/label>&lt;/p>
- &lt;p>&lt;label>E-mail address: &lt;input type=email name="custemail" autocomplete="shipping email">&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Buzzer code: &lt;input name="custbuzz" <strong>inputmode="numeric"</strong>>&lt;/label>&lt;/p>
+ &lt;p>&lt;label>Email address: &lt;input type=email name="custemail" autocomplete="shipping email">&lt;/label>&lt;/p>
  &lt;fieldset>
   &lt;legend> Pizza Size &lt;/legend>
   &lt;p>&lt;label> &lt;input type=radio name=size required value="small"> Small &lt;/label>&lt;/p>

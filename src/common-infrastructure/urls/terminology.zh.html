@@ -35,7 +35,7 @@
    <code>iframe</code> <code data-x="attr-iframe-srcdoc">srcdoc</code> 文档</span>，
    则返回
    <var>document</var> 的 <span data-x="concept-document-bc">浏览环境</span> 的
-   <span data-x="browsing context container">浏览环境容器</span> 的 <span data-x="node document">节点文档</span> 的
+   <span data-x="bc-container-document">容器文档</span> 的
    <span data-x="document base URL">文档基 URL</span>。</p></li>
 
    <li>
@@ -47,9 +47,9 @@
     context's creation。 -->
 
     <p>如果 <var>document</var> 的 <span data-x="concept-document-url">URL</span> 为 <code>about:blank</code>，
-    且 <var>document</var> 的 <span data-x="concept-document-bc">浏览环境</span> 有一个
-    <span data-x="creator browsing context">创建者浏览环境</span>，那么返回该
-    <span data-x="creator base URL">创建者的基 URL</span>。</p>
+    且 <var>document</var> 的 <span data-x="concept-document-bc">浏览环境</span> 的
+    <span data-x="creator base URL">创建者的 base URL</span> 是非空，那么返回该
+    <span data-x="creator base URL">创建者的 base URL</span>。</p>
 
    </li>
 
@@ -58,7 +58,7 @@
    <li><p>返回 <var>document</var> 的 <span data-x="concept-document-url">URL</span>。</p></li>
   </ol>
 
-  <p><code>Document</code> 对象的 <dfn data-export="" data-x="document base URL">文档基 URL</dfn> 是通过执行这些步骤获得的
+  <p><code>Document</code> 对象的 <dfn export data-x="document base URL">文档基 URL</dfn> 是通过执行这些步骤获得的
   <span data-x="absolute URL">绝对 URL</span>：</p>
 
   <ol>

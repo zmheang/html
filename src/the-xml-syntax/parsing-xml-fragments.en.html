@@ -6,15 +6,11 @@
   algorithm is as follows:</p>
 
   <ol>
-
    <li>
-
     <p>Create a new <span>XML parser</span>.</p>
-
    </li>
 
    <li>
-
     <p><span>Feed the
     parser</span> just created the string corresponding to the start tag of the <var
     data-x="concept-frag-parse-context">context</var> element, declaring
@@ -30,41 +26,31 @@
     <p class="note">No
     <code data-x="">DOCTYPE</code> is passed to the parser, and therefore no external subset is
     referenced, and therefore no entities will be recognized.</p>
-
    </li>
 
    <li>
-
     <p><span>Feed the parser</span> just created the string <var>input</var>.</p>
-
    </li>
 
    <li>
-
     <p><span>Feed the parser</span> just created the string corresponding to the end tag of the <var
     data-x="concept-frag-parse-context">context</var> element.</p>
-
    </li>
 
    <li>
-
     <p>If there is an XML well-formedness or XML namespace well-formedness error, then throw a
     <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p>
-
    </li>
 
    <li>
-
     <p>If the <span>document element</span> of the resulting <code>Document</code> has any sibling
     nodes, then throw a <span>"<code>SyntaxError</code>"</span> <code>DOMException</code>.</p>
 
     <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1443 -->
-
    </li>
 
    <li><p>Return the child nodes of the <span>document element</span> of the resulting
    <code>Document</code>, in <span>tree order</span>.</p></li>
-
   </ol>
 
   </div>

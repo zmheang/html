@@ -1,6 +1,6 @@
   <h6>IDL definitions</h6>
 
-  <pre><code class="idl" data-x="">interface mixin <dfn>GlobalEventHandlers</dfn> {
+  <pre><code class="idl">interface mixin <dfn>GlobalEventHandlers</dfn> {
   attribute <span>EventHandler</span> <span data-x="handler-onabort">onabort</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onauxclick">onauxclick</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onblur">onblur</span>;
@@ -16,7 +16,6 @@
   attribute <span>EventHandler</span> <span data-x="handler-ondrag">ondrag</span>;
   attribute <span>EventHandler</span> <span data-x="handler-ondragend">ondragend</span>;
   attribute <span>EventHandler</span> <span data-x="handler-ondragenter">ondragenter</span>;
-  attribute <span>EventHandler</span> <span data-x="handler-ondragexit">ondragexit</span>;
   attribute <span>EventHandler</span> <span data-x="handler-ondragleave">ondragleave</span>;
   attribute <span>EventHandler</span> <span data-x="handler-ondragover">ondragover</span>;
   attribute <span>EventHandler</span> <span data-x="handler-ondragstart">ondragstart</span>;
@@ -26,6 +25,7 @@
   attribute <span>EventHandler</span> <span data-x="handler-onended">onended</span>;
   attribute <span>OnErrorEventHandler</span> <span data-x="handler-onerror">onerror</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onfocus">onfocus</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-onformdata">onformdata</span>;
   attribute <span>EventHandler</span> <span data-x="handler-oninput">oninput</span>;
   attribute <span>EventHandler</span> <span data-x="handler-oninvalid">oninvalid</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onkeydown">onkeydown</span>;
@@ -34,16 +34,14 @@
   attribute <span>EventHandler</span> <span data-x="handler-onload">onload</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onloadeddata">onloadeddata</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onloadedmetadata">onloadedmetadata</span>;
-  attribute <span>EventHandler</span> <span data-x="handler-onloadend">onloadend</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onloadstart">onloadstart</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onmousedown">onmousedown</span>;
-  [LenientThis] attribute <span>EventHandler</span> <span data-x="handler-onmouseenter">onmouseenter</span>;
-  [LenientThis] attribute <span>EventHandler</span> <span data-x="handler-onmouseleave">onmouseleave</span>;
+  [<span>LegacyLenientThis</span>] attribute <span>EventHandler</span> <span data-x="handler-onmouseenter">onmouseenter</span>;
+  [<span>LegacyLenientThis</span>] attribute <span>EventHandler</span> <span data-x="handler-onmouseleave">onmouseleave</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onmousemove">onmousemove</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onmouseout">onmouseout</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onmouseover">onmouseover</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onmouseup">onmouseup</span>;
-  attribute <span>EventHandler</span> <span data-x="handler-onwheel">onwheel</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onpause">onpause</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onplay">onplay</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onplaying">onplaying</span>;
@@ -56,6 +54,7 @@
   attribute <span>EventHandler</span> <span data-x="handler-onseeked">onseeked</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onseeking">onseeking</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onselect">onselect</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-onslotchange">onslotchange</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onstalled">onstalled</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onsubmit">onsubmit</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onsuspend">onsuspend</span>;
@@ -63,6 +62,11 @@
   attribute <span>EventHandler</span> <span data-x="handler-ontoggle">ontoggle</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onvolumechange">onvolumechange</span>;
   attribute <span>EventHandler</span> <span data-x="handler-onwaiting">onwaiting</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-onwebkitanimationend">onwebkitanimationend</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-onwebkitanimationiteration">onwebkitanimationiteration</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-onwebkitanimationstart">onwebkitanimationstart</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-onwebkittransitionend">onwebkittransitionend</span>;
+  attribute <span>EventHandler</span> <span data-x="handler-onwheel">onwheel</span>;
 };
 
 interface mixin <dfn>WindowEventHandlers</dfn> {

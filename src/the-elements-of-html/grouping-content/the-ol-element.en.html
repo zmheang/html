@@ -13,14 +13,21 @@
    <dd><code data-x="attr-ol-reversed">reversed</code></dd>
    <dd><code data-x="attr-ol-start">start</code></dd>
    <dd><code data-x="attr-ol-type">type</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-ol">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-ol">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+<pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLOListElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-ol-reversed">reversed</span>;
   [<span>CEReactions</span>] attribute long <span data-x="dom-ol-start">start</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-ol-type">type</span>;
+
+  // <a href="#HTMLOListElement-partial">also has obsolete members</a>
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLOListElement</code>.</dd>
@@ -32,13 +39,13 @@ interface <dfn>HTMLOListElement</dfn> : <span>HTMLElement</span> {
   <p>The items of the list are the <code>li</code> element child nodes of the <code>ol</code>
   element, in <span>tree order</span>.</p>
 
-  <p>The <dfn><code data-x="attr-ol-reversed">reversed</code></dfn> attribute is a <span>boolean
-  attribute</span>. If present, it indicates that the list is a descending list (..., 3, 2, 1). If
-  the attribute is omitted, the list is an ascending list (1, 2, 3, ...).</p>
+  <p>The <dfn element-attr for="ol"><code data-x="attr-ol-reversed">reversed</code></dfn> attribute
+  is a <span>boolean attribute</span>. If present, it indicates that the list is a descending list
+  (..., 3, 2, 1). If the attribute is omitted, the list is an ascending list (1, 2, 3, ...).</p>
 
-  <p>The <dfn><code data-x="attr-ol-start">start</code></dfn> attribute, if present, must be a
-  <span>valid integer</span>. It is used to determine the <span data-x="concept-ol-start">starting
-  value</span> of the list.</p>
+  <p>The <dfn element-attr for="ol"><code data-x="attr-ol-start">start</code></dfn> attribute, if
+  present, must be a <span>valid integer</span>. It is used to determine the <span
+  data-x="concept-ol-start">starting value</span> of the list.</p>
 
   <div w-nodev>
 
@@ -70,15 +77,15 @@ interface <dfn>HTMLOListElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p>The <dfn><code data-x="attr-ol-type">type</code></dfn> attribute can be used to specify the kind
-  of marker to use in the list, in the cases where that matters (e.g. because items are to be
-  <span>referenced</span> by their number/letter). The attribute, if specified, must have a value
-  that is a <span>case-sensitive</span> match for one of the characters given in the first cell of
-  one of the rows of the following table. <span w-nodev>The <code data-x="attr-ol-type">type</code>
-  attribute represents the state given in the cell in the second column of the row whose first cell
-  matches the attribute's value; if none of the cells match, or if the attribute is omitted, then
-  the attribute represents the <span data-x="attr-ol-type-state-decimal">decimal</span>
-  state.</span></p>
+  <p>The <dfn element-attr for="ol"><code data-x="attr-ol-type">type</code></dfn> attribute can be
+  used to specify the kind of marker to use in the list, in the cases where that matters (e.g.
+  because items are to be <span>referenced</span> by their number/letter). The attribute, if
+  specified, must have a value that is <span>identical to</span> one of the characters given in the
+  first cell of one of the rows of the following table. <span w-nodev>The <code
+  data-x="attr-ol-type">type</code> attribute represents the state given in the cell in the second
+  column of the row whose first cell matches the attribute's value; if none of the cells match, or
+  if the attribute is omitted, then the attribute represents the <span
+  data-x="attr-ol-type-state-decimal">decimal</span> state.</span></p>
 
   <table>
    <thead>
@@ -136,12 +143,13 @@ interface <dfn>HTMLOListElement</dfn> : <span>HTMLElement</span> {
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-ol-reversed">reversed</code></dfn> and
-  <dfn><code data-x="dom-ol-type">type</code></dfn> IDL attributes must <span>reflect</span> the
-  respective content attributes of the same name.</p>
+  <p>The <dfn attribute for="HTMLOListElement"><code data-x="dom-ol-reversed">reversed</code></dfn>
+  and <dfn attribute for="HTMLOListElement"><code data-x="dom-ol-type">type</code></dfn> IDL
+  attributes must <span>reflect</span> the respective content attributes of the same name.</p>
 
-  <p>The <dfn><code data-x="dom-ol-start">start</code></dfn> IDL attribute must <span>reflect</span>
-  the content attribute of the same name, with a default value of 1.</p>
+  <p>The <dfn attribute for="HTMLOListElement"><code data-x="dom-ol-start">start</code></dfn> IDL
+  attribute must <span>reflect</span> the content attribute of the same name, with a default value
+  of 1.</p>
 
   <p class="note">This means that the <code data-x="dom-ol-start">start</code> IDL attribute does
   not necessarily match the list's <span data-x="concept-ol-start">starting value</span>, in cases
@@ -156,7 +164,7 @@ interface <dfn>HTMLOListElement</dfn> : <span>HTMLElement</span> {
    element is therefore appropriate. Compare this list to the equivalent list in the <code>ul</code>
    section to see an example of the same items using the <code>ul</code> element.</p>
 
-   <pre><code class="html" data-x="">&lt;p>I have lived in the following countries (given in the order of when
+   <pre><code class="html">&lt;p>I have lived in the following countries (given in the order of when
 I first lived there):&lt;/p>
 &lt;ol>
  &lt;li>Switzerland
@@ -169,7 +177,7 @@ I first lived there):&lt;/p>
    example, changing the relative order of the first two items has changed the birthplace of the
    author:</p>
 
-   <pre><code class="html" data-x="">&lt;p>I have lived in the following countries (given in the order of when
+   <pre><code class="html">&lt;p>I have lived in the following countries (given in the order of when
 I first lived there):&lt;/p>
 &lt;ol>
  &lt;li>United Kingdom

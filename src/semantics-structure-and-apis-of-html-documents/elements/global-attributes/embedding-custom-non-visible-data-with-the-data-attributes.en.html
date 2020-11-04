@@ -25,7 +25,7 @@
    used by the site itself to allow the user to sort the list by track length, or to filter the list
    for tracks of certain lengths.</p>
 
-   <pre><code class="html" data-x="">&lt;ol>
+   <pre><code class="html">&lt;ol>
  &lt;li data-length="2m11s">Beyond The Sea&lt;/li>
  ...
 &lt;/ol></code></pre>
@@ -43,7 +43,7 @@
    <p>Similarly, a page author could write markup that provides information for a translation tool
    that they are intending to use:</p>
 
-   <pre><code class="html" data-x="">&lt;p>The third &lt;span data-mytrans-de="Anspruch">claim&lt;/span> covers the case of &lt;span
+   <pre><code class="html">&lt;p>The third &lt;span data-mytrans-de="Anspruch">claim&lt;/span> covers the case of &lt;span
 translate="no">HTML&lt;/span> markup.&lt;/p></code></pre>
 
    <p>In this example, the "<code data-x="">data-mytrans-de</code>" attribute gives specific text
@@ -60,7 +60,7 @@ translate="no">HTML&lt;/span> markup.&lt;/p></code></pre>
    for <code>PaymentRequest</code>, which could be used in CSS to style a checkout page
    differently.</p>
 
-   <pre><code class="html" data-x="">&lt;script>
+   <pre><code class="html">&lt;script>
  if ('PaymentRequest' in window) {
    document.documentElement.dataset.hasPaymentRequest = '';
  }
@@ -112,23 +112,20 @@ translate="no">HTML&lt;/span> markup.&lt;/p></code></pre>
 
    <dt><var>element</var> . <code subdfn data-x="dom-dataset">dataset</code></dt>
    <dd>
-
     <p>Returns a <code>DOMStringMap</code> object for the element's <code
     data-x="attr-data-*">data-*</code> attributes.</p>
 
     <p>Hyphenated names become camel-cased. For example, <code data-x="">data-foo-bar=""</code>
     becomes <code data-x="">element.dataset.fooBar</code>.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-dataset">dataset</code></dfn> IDL attribute provides convenient
-  accessors for all the <code data-x="attr-data-*">data-*</code> attributes on an element. On
-  getting, the <code data-x="dom-dataset">dataset</code> IDL attribute must return a
-  <code>DOMStringMap</code> whose associated element is this element.</p>
+  <p>The <dfn attribute for="HTMLOrSVGElement"><code data-x="dom-dataset">dataset</code></dfn> IDL
+  attribute provides convenient accessors for all the <code data-x="attr-data-*">data-*</code>
+  attributes on an element. On getting, the <code data-x="dom-dataset">dataset</code> IDL attribute
+  must return a <code>DOMStringMap</code> whose associated element is this element.</p>
 
   </div>
 
@@ -136,12 +133,12 @@ translate="no">HTML&lt;/span> markup.&lt;/p></code></pre>
   data-x="dom-dataset">dataset</code> attribute. Each <code>DOMStringMap</code> has an <dfn
   data-x="concept-DOMStringMap-element">associated element</dfn>.</p>
 
-  <pre><code class="idl" data-x="">[Exposed=Window,
- OverrideBuiltins]
+  <pre><code class="idl">[Exposed=Window,
+ <span>LegacyOverrideBuiltIns</span>]
 interface <dfn>DOMStringMap</dfn> {
   <a href="#dom-domstringmap-nameditem">getter</a> DOMString (DOMString name);
-  [<span>CEReactions</span>] <a href="#dom-domstringmap-setitem">setter</a> void (DOMString name, DOMString value);
-  [<span>CEReactions</span>] <a href="#dom-domstringmap-removeitem">deleter</a> void (DOMString name);
+  [<span>CEReactions</span>] <a href="#dom-domstringmap-setitem">setter</a> undefined (DOMString name, DOMString value);
+  [<span>CEReactions</span>] <a href="#dom-domstringmap-removeitem">deleter</a> undefined (DOMString name);
 };</code></pre>
 
   <div w-nodev>
@@ -150,7 +147,6 @@ interface <dfn>DOMStringMap</dfn> {
   pairs</dfn>, run the following algorithm:</p>
 
   <ol>
-
    <li><p>Let <var>list</var> be an empty list of name-value pairs.</p></li>
 
    <li><p>For each content attribute on the <code>DOMStringMap</code>'s <span
@@ -223,7 +219,7 @@ interface <dfn>DOMStringMap</dfn> {
    data-x="concept-DOMStringMap-element">associated element</span>.</p></li>
   </ol>
 
-  <p class="note">This algorithm will only get invoked by the Web IDL specification for names that
+  <p class="note">This algorithm will only get invoked by <cite>Web IDL</cite> for names that
   are given by the earlier algorithm for <span data-x="concept-DOMStringMap-pairs">getting the
   <code>DOMStringMap</code>'s name-value pairs</span>. <ref
   spec=WEBIDL></p>
@@ -232,11 +228,11 @@ interface <dfn>DOMStringMap</dfn> {
 
   <div class="example">
 
-   <p>If a Web page wanted an element to represent a space ship, e.g. as part of a game, it would
+   <p>If a web page wanted an element to represent a space ship, e.g. as part of a game, it would
    have to use the <code data-x="attr-class">class</code> attribute along with <code
    data-x="attr-data-*">data-*</code> attributes:</p>
 
-   <pre><code class="html" data-x="">&lt;div class="spaceship" data-ship-id="92432"
+   <pre><code class="html">&lt;div class="spaceship" data-ship-id="92432"
      data-weapons="laser 2" data-shields="50%"
      data-<!---->x="30" data-y="10" data-z="90">
  &lt;button class="fire"
@@ -253,7 +249,7 @@ interface <dfn>DOMStringMap</dfn> {
 
    <p>Given the following fragment and elements with similar constructions:</p>
 
-   <pre><code class="html" data-x="">&lt;img class="tower" id="tower5" data-<!---->x="12" data-y="5"
+   <pre><code class="html">&lt;img class="tower" id="tower5" data-<!---->x="12" data-y="5"
      data-ai="robotarget" data-hp="46" data-ability="flames"
      src="towers/rocket.png" alt="Rocket Tower"></code></pre>
 
@@ -261,7 +257,7 @@ interface <dfn>DOMStringMap</dfn> {
    data-x="">splashDamage()</code> that takes some arguments, the first
    of which is the element to process:</p>
 
-   <pre><code class="js" data-x="">function splashDamage(node, x, y, damage) {
+   <pre><code class="js">function splashDamage(node, x, y, damage) {
   if (node.classList.contains('tower') && // checking the 'class' attribute
       node.dataset.x == x && // reading the 'data-x' attribute
       node.dataset.y == y) { // reading the 'data-y' attribute

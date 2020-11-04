@@ -1,0 +1,17 @@
+  <h5><dfn>Hexadecimal character reference start state</dfn></h5>
+
+  <p>Consume the <span>next input character</span>:</p>
+
+  <dl class="switch">
+
+    <dt><span data-x="ASCII hex digits">ASCII hex digit</span></dt>
+    <dd><span>Reconsume</span> in the <span>hexadecimal character reference state</span>.</dd>
+
+    <dt>Anything else</dt>
+    <dd>This is an <span
+    data-x="parse-error-absence-of-digits-in-numeric-character-reference">absence-of-digits-in-numeric-character-reference</span>
+    <span>parse error</span>. <span>Flush code points consumed as a character reference</span>.
+    <span>Reconsume</span> in the <var data-x="return state">return state</var>.</dd>
+  </dl>
+
+

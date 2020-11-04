@@ -1,10 +1,10 @@
   <h5>Shared workers and the <code subdfn>SharedWorkerGlobalScope</code> interface</h5>
 
-  <pre><code class="idl" data-x="">[Global=(Worker,SharedWorker),Exposed=SharedWorker]
+  <pre><code class="idl">[Global=(Worker,SharedWorker),Exposed=SharedWorker]
 interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   [Replaceable] readonly attribute DOMString <span data-x="dom-SharedWorkerGlobalScope-name">name</span>;
 
-  void <span data-x="dom-SharedWorkerGlobalScope-close">close</span>();
+  undefined <span data-x="dom-SharedWorkerGlobalScope-close">close</span>();
 
   attribute <span>EventHandler</span> <span data-x="handler-SharedWorkerGlobalScope-onconnect">onconnect</span>;
 };</code></pre>
@@ -12,12 +12,13 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   <div w-nodev>
 
   <p>A <code>SharedWorkerGlobalScope</code> object has an associated <dfn
-  data-dfn-for="SharedWorkerGlobalScope"
-  data-x="concept-SharedWorkerGlobalScope-constructor-origin">constructor origin</dfn>, and <dfn
-  data-dfn-for="SharedWorkerGlobalScope"
-  data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor url</dfn>. They are
-  initialized when the <code>SharedWorkerGlobalScope</code> object is created, in the <span>run a
-  worker</span> algorithm.</p>
+  for="SharedWorkerGlobalScope"
+  data-x="concept-SharedWorkerGlobalScope-constructor-origin">constructor origin</dfn>, <dfn
+  for="SharedWorkerGlobalScope" data-x="concept-SharedWorkerGlobalScope-constructor-url">constructor
+  url</dfn>, and <dfn for="SharedWorkerGlobalScope"
+  data-x="concept-SharedWorkerGlobalScope-credentials">credentials</dfn>. They are initialized when
+  the <code>SharedWorkerGlobalScope</code> object is created, in the <span>run a worker</span>
+  algorithm.</p>
 
   </div>
 

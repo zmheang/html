@@ -7,3 +7,11 @@
    data-x="concept-settings-object-origin">origin</span>, and false otherwise.</p></li>
   </ol>
 
+  <p class="note">Here the <span>current settings object</span> roughly corresponds to the "caller",
+  because this check occurs before the <span data-x="JavaScript execution context">execution
+  context</span> for the getter/setter/method in question makes its way onto the <span>JavaScript
+  execution context stack</span>. For example, in the code <code data-x="">w.document</code>, this
+  step is invoked before the <code data-x="dom-document">document</code> getter is reached as part
+  of the <a href="#windowproxy-get">[[Get]]</a> algorithm for the <code>WindowProxy</code>
+  <var>w</var>.</p>
+

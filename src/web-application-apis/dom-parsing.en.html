@@ -1,0 +1,144 @@
+  <h3 id="dom-parsing-and-serialization">DOM parsing</h3>
+
+  <p>The <code>DOMParser</code> interface allows authors to create new <code>Document</code> objects
+  by parsing strings, as either HTML or XML.</p>
+
+  <dl class="domintro">
+   <dt><var>parser</var> = new <code subdfn data-x="dom-DOMParser-constructor">DOMParser</code>()</dt>
+   <dd>
+    <p>Constructs a new <code>DOMParser</code> object.</p>
+   </dd>
+
+   <dt><var>document</var> = <var>parser</var> . <code subdfn data-x="dom-DOMParser-parseFromString">parseFromString</code>( <var>string</var>, <var>type</var> )</dt>
+   <dd>
+    <p>Parses <var>string</var> using either the HTML or XML parser, according to <var>type</var>,
+    and returns the resulting <code>Document</code>. <var>type</var> can be "<code>text/html</code>"
+    (which will invoke the HTML parser), or any of "<code>text/xml</code>",
+    "<code>application/xml</code>", "<code>application/xhtml+xml</code>", or
+    "<code>image/svg+xml</code>" (which will invoke the XML parser).</p>
+
+    <p>For the XML parser, if <var>string</var> cannot be parsed, then the returned
+    <code>Document</code> will contain elements describing the resulting error.</p>
+
+    <p>Note that <code>script</code> elements are not evaluated during parsing, and the resulting
+    document's <span data-x="document's character encoding">encoding</span> will always be
+    <span>UTF-8</span>.</p>
+
+    <p>Values other than the above for <var>type</var> will cause a <code>TypeError</code> exception
+    to be thrown.</p>
+   </dd>
+  </dl>
+
+  <p class="note">The design of <code>DOMParser</code>, as a class that needs to be constructed and
+  then have its <code data-x="dom-DOMParser-parseFromString">parseFromString()</code> method called,
+  is an unfortunate historical artifact. If we were designing this functionality today it would be a
+  standalone function.</p>
+
+  <pre><code class="idl">[Exposed=Window]
+interface <dfn>DOMParser</dfn> {
+  <span data-x="dom-DOMParser-constructor">constructor</span>();
+
+  [NewObject] <code>Document</code> <span data-x="dom-DOMParser-parseFromString">parseFromString</span>(DOMString <var>string</var>, <span>DOMParserSupportedType</span> <var>type</var>);
+};
+
+enum <dfn>DOMParserSupportedType</dfn> {
+  "<span data-x="dom-DOMParserSupportedType-texthtml">text/html</span>",
+  "<span data-x="dom-DOMParserSupportedType-otherwise">text/xml</span>",
+  "<span data-x="dom-DOMParserSupportedType-otherwise">application/xml</span>",
+  "<span data-x="dom-DOMParserSupportedType-otherwise">application/xhtml+xml</span>",
+  "<span data-x="dom-DOMParserSupportedType-otherwise">image/svg+xml</span>"
+};</code></pre>
+
+  <div w-nodev>
+
+  <p>The <dfn data-x="dom-DOMParser-constructor"><code>new DOMParser()</code></dfn> constructor
+  steps are to do nothing.</p>
+
+  <p>The <dfn data-x="dom-DOMParser-parseFromString"><code>parseFromString(<var>string</var>,
+  <var>type</var>)</code></dfn> method steps are:</p>
+
+  <ol>
+   <li>
+    <p>Let <var>document</var> be a new <code>Document</code>, whose <span
+    data-x="concept-document-content-type">content type</span> is <var>type</var> and <span
+    data-x="concept-document-URL">url</span> is this's <span>relevant global object</span>'s <span
+    data-x="concept-document-window">associated <code>Document</code></span>'s <span
+    data-x="concept-document-URL">URL</span>.</p>
+    <!-- When https://github.com/whatwg/html/issues/4792 gets fixed we need to investigate which of
+         HTMLDocument vs. XMLDocument gets returned, and when, with tests. In particular we'll want
+         to check the application/xhtml+xml case as even for navigation it seems like browsers
+         diverge there: https://github.com/whatwg/html/issues/5157#issuecomment-573052638. -->
+
+    <p class="note">The document's <span data-x="document's character encoding">encoding</span> will
+    be left as its default, of <span>UTF-8</span>. In particular, any XML declarations or
+    <code>meta</code> elements found while parsing <var>string</var> will have no effect.</p>
+   </li>
+
+   <li>
+    <p>Switch on <var>type</var>:</p>
+
+    <dl class="switch">
+     <dt>"<dfn data-x="dom-DOMParserSupportedType-texthtml"><code>text/html</code>"</dfn></dt>
+     <dd>
+      <ol>
+       <li><p>Set <var>document</var>'s <span data-x="concept-document-type">type</span> to "<code
+       data-x="">html</code>".</p></li>
+
+       <li><p>Create an <span>HTML parser</span> <var>parser</var>, associated with
+       <var>document</var>.</p></li>
+
+       <li><p>Place <var>string</var> into the <span>input stream</span> for <var>parser</var>. The
+       encoding <span data-x="concept-encoding-confidence">confidence</span> is
+       <i>irrelevant</i>.</p></li>
+
+       <li>
+        <p>Start <var>parser</var> and let it run until it has consumed all the characters just
+        inserted into the input stream.</p>
+
+        <p class="note">This might mutate the document's <span
+        data-x="concept-document-mode">mode</span>.</p>
+       </li>
+      </ol>
+
+      <p class="note">Since <var>document</var> does not have a <span
+      data-x="concept-document-bc">browsing context</span>, <span
+      data-x="concept-n-script">scripting is disabled</span>.</p>
+     </dd>
+
+     <dt><dfn data-x="dom-DOMParserSupportedType-otherwise">Otherwise</dfn></dt>
+     <dd>
+      <ol>
+       <li><p>Create an <span>XML parser</span> <var>parse</var>, associated with
+       <var>document</var>, and with <span>XML scripting support disabled</span>.</p></li>
+
+       <li><p>Parse <var>string</var> using <var>parser</var>.</p>
+
+       <li>
+        <p>If the previous step resulted in an XML well-formedness or XML namespace well-formedness
+        error, then:</p>
+
+        <ol>
+         <li><p>Assert: <var>document</var> has no child nodes.</p></li>
+
+         <li><p>Let <var>root</var> be the result of <span data-x="create an element">creating an
+         element</span> given <var>document</var>, "<code data-x="">parsererror</code>", and "<code
+         data-x="">http://www.mozilla.org/newlayout/xml/parsererror.xml</code>".</p></li>
+
+         <li><p>Optionally, add attributes or children to <var>root</var> to describe the nature of
+         the parsing error.</p></li>
+
+         <li><p><span data-x="concept-node-append">Append</span> <var>root</var> to
+         <var>document</var>.</p></li>
+        </ol>
+       </li>
+      </ol>
+     </dd>
+    </dl>
+   </li>
+
+   <li><p>Return <var>document</var>.</p>
+  </ol>
+
+  </div>
+
+

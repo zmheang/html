@@ -1,39 +1,38 @@
   <h3 split-filename="origin">Origin</h3>
   <!-- Hallowed are the Ori -->
 
-  <p>Origins are the fundamental currency of the Web's security model. Two actors in the Web
+  <p>Origins are the fundamental currency of the web's security model. Two actors in the web
   platform that share an origin are assumed to trust each other and to have the same authority.
   Actors with differing origins are considered potentially hostile versus each other, and are
   isolated from each other to varying degrees.</p>
 
-  <p class="example">For example, if Example Bank's Web site, hosted at <code
-  data-x="">bank.example.com</code>, tries to examine the DOM of Example Charity's Web site, hosted
+  <p class="example">For example, if Example Bank's web site, hosted at <code
+  data-x="">bank.example.com</code>, tries to examine the DOM of Example Charity's web site, hosted
   at <code data-x="">charity.example.org</code>, a <span>"<code>SecurityError</code>"</span>
   <code>DOMException</code> will be raised.</p>
 
   <hr>
 
-  <p id="origin-2">An <dfn id="concept-origin" data-export="">origin</dfn> is
-  one of the following:</p>
+  <p id="origin-2">An <dfn id="concept-origin" export>origin</dfn> is one of the following:</p>
 
   <dl>
-   <dt>An <dfn data-export="" data-x="concept-origin-opaque">opaque origin</dfn></dt>
+   <dt>An <dfn export data-x="concept-origin-opaque">opaque origin</dfn></dt>
    <dd><p>An internal value, with no serialization it can be recreated from (it is serialized as
    "<code data-x="">null</code>" per <span>serialization of an origin</span>), for which the only
    meaningful operation is testing for equality.</p></dd>
 
-   <dt>A <dfn data-export="" data-x="concept-origin-tuple">tuple origin</dfn></dt>
+   <dt>A <dfn export data-x="concept-origin-tuple">tuple origin</dfn></dt>
    <dd>
     <p>A <span data-x="concept-origin-tuple">tuple</span> consists of:
 
     <ul class="brief">
-     <li>A <dfn data-export="" data-dfn-for="origin" data-x="concept-origin-scheme">scheme</dfn> (a
+     <li>A <dfn export for="origin" data-x="concept-origin-scheme">scheme</dfn> (a
      <span data-x="concept-url-scheme">scheme</span>).</li>
-     <li>A <dfn data-export="" data-dfn-for="origin" data-x="concept-origin-host">host</dfn> (a
+     <li>A <dfn export for="origin" data-x="concept-origin-host">host</dfn> (a
      <span data-x="concept-host">host</span>).</li>
-     <li>A <dfn data-export="" data-dfn-for="origin" data-x="concept-origin-port">port</dfn> (a
+     <li>A <dfn export for="origin" data-x="concept-origin-port">port</dfn> (a
      <span data-x="concept-url-port">port</span>).</li>
-     <li>A <dfn data-export="" data-dfn-for="origin" data-x="concept-origin-domain">domain</dfn>
+     <li>A <dfn export for="origin" data-x="concept-origin-domain">domain</dfn>
      (null or a <span data-x="concept-domain">domain</span>). Null unless stated otherwise.</li>
     </ul>
    </dd>
@@ -45,7 +44,7 @@
   data-x="concept-origin-tuple">tuple origin</span> can be changed, and only through the <code
   data-x="dom-document-domain">document.domain</code> API.</p>
 
-  <p>The <dfn data-export="" data-x="concept-origin-effective-domain">effective domain</dfn> of an
+  <p>The <dfn export data-x="concept-origin-effective-domain">effective domain</dfn> of an
   <span>origin</span> <var>origin</var> is computed as follows:</p>
 
   <ol>
@@ -64,89 +63,18 @@
   data-x="origin">origins</span> are determined as follows:</p>
 
   <dl>
-
    <dt>For <code>Document</code> objects</dt>
 
    <dd>
-
-    <dl class="switch">
-
-     <dt id="sandboxOrigin">If the <code>Document</code>'s <span>active sandboxing flag set</span>
-     has its <span>sandboxed origin browsing context flag</span> set</dt>
-
-     <dt>If the <code>Document</code> was generated from a <span data-x="data
-     protocol"><code>data:</code> URL</span></dt>
-
-     <dd><p>A unique <span data-x="concept-origin-opaque">opaque origin</span> assigned when the
-     <code>Document</code> is created.</p></dd>
-
-
-     <dt>If the <code>Document</code>'s <span data-x="concept-document-url">URL</span>'s <span
-     data-x="concept-url-scheme">scheme</span> is a <span>network scheme</span></dt>
-
-     <dd>
-      <p>A copy of the <code>Document</code>'s <span data-x="concept-document-url">URL</span>'s
-      <span data-x="concept-url-origin">origin</span> assigned when the <code>Document</code> is
-      created.</p>
-
-      <p class="note">The <code data-x="dom-document-open">document.open(<var>type</var>,
-      <var>replace</var>)</code> method can change the <code>Document</code>'s <span
-      data-x="concept-document-url">URL</span> to "<code>about:blank</code>". Therefore the
-      <span>origin</span> is assigned when the <code>Document</code> is created.</p>
-     </dd>
-
-
-     <dt>If the <code>Document</code> is the initial "<code>about:blank</code>" document</dt>
-
-     <dd><p><a href="#about-blank-origin">The one it was assigned when its browsing context was
-     created</a>.</p></dd>
-
-
-     <dt>If the <code>Document</code> is a non-initial "<code>about:blank</code>" document</dt>
-
-     <dd><p>The <span data-x="concept-settings-object-origin">origin</span> of the <span>incumbent
-     settings object</span> when the <span>navigate</span> algorithm was invoked, or, if no <span
-     data-x="concept-script">script</span> was involved, the <span>origin</span> of the <span>node
-     document</span> of the element that initiated the <span data-x="navigate">navigation</span> to
-     that <span>URL</span>.</p></dd>
-
-
-     <dt>If the <code>Document</code> was created as part of the processing for <span
-     data-x="javascript protocol"><code>javascript:</code> URLs</span></dt>
-
-     <dd><p>The <span>origin</span> of the <span>active document</span> of the <span>browsing
-     context</span> being navigated when the <span>navigate</span> algorithm was invoked.</p></dd>
-
-
-     <dt>If the <code>Document</code> is <span>an <code>iframe</code> <code
-     data-x="attr-iframe-srcdoc">srcdoc</code> document</span></dt>
-
-     <dd><p>The <span>origin</span> of the <code>Document</code>'s <span
-     data-x="concept-document-bc">browsing context</span>'s <span>browsing context
-     container</span>'s <span>node document</span>.</p></dd>
-
-
-     <dt>If the <code>Document</code> was obtained in some other manner (e.g. a <code>Document</code>
-     created using the <code data-x="dom-DOMImplementation-createDocument">createDocument()</code>
-     API, etc)</dt>
-
-     <dd>
-      <p>The default behavior as defined in the WHATWG DOM standard applies. <ref spec=DOM>.</p>
-
-      <p class="note">The <span>origin</span> is a unique <span
-      data-x="concept-origin-opaque">opaque origin</span> assigned when the <code>Document</code> is
-      created.</p>
-     </dd>
-
-    </dl>
-
+    <p>The <span data-x="creating a new browsing context">create a new browsing context</span> and
+    <span data-x="navigate">navigation</span> algorithms assign the <span>origin</span> at
+    construction time. Otherwise, the default default behavior as defined in <cite>DOM</cite>
+    applies. <ref spec=DOM></p>
    </dd>
-
 
    <dt>For images of <code>img</code> elements</dt>
 
    <dd>
-
     <dl class="switch">
 
      <dt>If the <span data-x="img-req-data">image data</span> is <span>CORS-cross-origin</span></dt>
@@ -159,16 +87,13 @@
 
      <dd><p>The <code>img</code> element's <span>node document</span>'s
      <span>origin</span>.</p></dd>
-
     </dl>
-
    </dd>
 
 
    <dt>For <code>audio</code> and <code>video</code> elements</dt>
 
    <dd>
-
     <dl class="switch">
 
      <dt>If the <span>media data</span> is <span>CORS-cross-origin</span></dt>
@@ -181,11 +106,8 @@
 
      <dd><p>The <span>media element</span>'s <span>node document</span>'s
      <span>origin</span>.</p></dd>
-
     </dl>
-
    </dd>
-
   </dl>
 
   <p>Other specifications can override the above definitions by themselves specifying the origin of
@@ -193,10 +115,9 @@
 
   <hr>
 
-  <p>The <!--en-GB--><dfn id="ascii-serialisation-of-an-origin" data-export=""
-  data-lt="serialization of an origin|ASCII serialization of an origin">serialization of an
-  origin</dfn> is the string obtained by applying the following algorithm to the given
-  <span>origin</span> <var>origin</var>:</p>
+  <p>The <!--en-GB--><dfn id="ascii-serialisation-of-an-origin" export data-lt="serialization of an
+  origin|ASCII serialization of an origin">serialization of an origin</dfn> is the string obtained
+  by applying the following algorithm to the given <span>origin</span> <var>origin</var>:</p>
 
   <ol>
    <li><p>If <var>origin</var> is an <span data-x="concept-origin-opaque">opaque origin</span>, then
@@ -228,7 +149,7 @@
   <hr>
 
   <p>Two <span data-x="origin">origins</span>, <var>A</var> and <var>B</var>, are said to be
-  <dfn data-export="">same origin</dfn> if the following algorithm returns true:</p>
+  <dfn export>same origin</dfn> if the following algorithm returns true:</p>
 
   <ol>
    <li><p>If <var>A</var> and <var>B</var> are the same <span data-x="concept-origin-opaque">opaque
@@ -243,7 +164,7 @@
   </ol>
 
   <p>Two <span data-x="origin">origins</span>, <var>A</var> and <var>B</var>, are said to be
-  <dfn data-export="">same origin-domain</dfn> if the following algorithm returns true:</p>
+  <dfn export>same origin-domain</dfn> if the following algorithm returns true:</p>
 
   <ol>
    <li><p>If <var>A</var> and <var>B</var> are the same <span data-x="concept-origin-opaque">opaque
@@ -304,8 +225,6 @@
      <td>❌
      <td>❌
    </table>
-  </div>
-
   </div>
 
 

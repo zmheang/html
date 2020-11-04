@@ -23,11 +23,19 @@
   means the element is not <span>being rendered</span>, though this might be overridden by the style
   sheets.</p>
 
+  <p>An element is said to <dfn>intersect the viewport</dfn> when it is <span>being rendered</span>
+  and its associated CSS layout box intersects the <span>viewport</span>.</p>
+
+  <p class="note">This specification does not define the precise timing for when the intersection is
+  tested, but it is suggested that the timing match that of the Intersection Observer API. <ref
+  spec=INTERSECTIONOBSERVER></p>
+
   <hr>
 
   <p>User agents that do not honor author-level CSS style sheets are nonetheless expected to act as
   if they applied the CSS rules given in these sections in a manner consistent with this
-  specification and the relevant CSS and Unicode specifications. <ref spec=CSS> <ref spec=UNICODE> <ref spec=BIDI></p>
+  specification and the relevant CSS and Unicode specifications. <ref spec=CSS> <ref spec=UNICODE>
+  <ref spec=BIDI></p>
 
   <p class="note">This is especially important for issues relating to the <span>'display'</span>,
   <span>'unicode-bidi'</span>, and <span>'direction'</span> properties.</p>

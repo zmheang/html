@@ -13,6 +13,10 @@
    <code>address</code> element descendants.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-address">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-address">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -22,9 +26,9 @@
   element</span>, then the contact information applies to the document as a whole.</p>
 
   <div class="example">
-   <p>For example, a page at the W3C Web site related to HTML might
+   <p>For example, a page at the W3C web site related to HTML might
    include the following contact information:</p>
-   <pre><code class="html" data-x="">&lt;ADDRESS>
+   <pre><code class="html">&lt;ADDRESS>
  &lt;A href="../People/Raggett/">Dave Raggett&lt;/A>,
  &lt;A href="../People/Arnaud/">Arnaud Le Hors&lt;/A>,
  contact persons for the &lt;A href="Activity">W3C HTML Activity&lt;/A>
@@ -41,7 +45,7 @@
   <div class="example">
    <p>For example, the following is non-conforming use of the
    <code>address</code> element:</p>
-   <pre class="bad"><code class="html" data-x="">&lt;ADDRESS>Last Modified: 1999/12/24 23:37:50&lt;/ADDRESS></code></pre>
+   <pre class="bad"><code class="html">&lt;ADDRESS>Last Modified: 1999/12/24 23:37:50&lt;/ADDRESS></code></pre>
   </div>
 
   <p>Typically, the <code>address</code> element would be included along with other information in a
@@ -58,41 +62,32 @@
    <dt>If <var>node</var> is a <code>body</code> element</dt>
 
    <dd>
-
     <p>The contact information consists of all the <code>address</code> elements that have <var>node</var> as an ancestor and do not have another <code>body</code> or
     <code>article</code> element ancestor that is a descendant of <var>node</var>.</p>
-
    </dd>
 
    <dt>If <var>node</var> has an ancestor element that is an <code>article</code> element</dt>
    <dt>If <var>node</var> has an ancestor element that is a <code>body</code> element</dt>
 
    <dd>
-
     <p>The contact information of <var>node</var> is the same as the contact information of
     the nearest <code>article</code> or <code>body</code> element ancestor, whichever is
     nearest.</p>
-
    </dd>
 
    <dt>If <var>node</var>'s <span>node document</span> has <span data-x="the body element">a body
    element</span></dt>
 
    <dd>
-
     <p>The contact information of <var>node</var> is the same as the contact information of
     <span>the body element</span> of the <code>Document</code>.</p>
-
    </dd>
 
    <dt>Otherwise</dt>
 
    <dd>
-
     <p>There is no contact information for <var>node</var>.</p>
-
    </dd>
-
   </dl>
 
   <p>User agents may expose the contact information of a node to the user, or use it for other
@@ -104,7 +99,7 @@
 
    <p>In this example the footer contains contact information and a copyright notice.</p>
 
-   <pre><code class="html" data-x="">&lt;footer>
+   <pre><code class="html">&lt;footer>
  &lt;address>
   For more details, contact
   &lt;a href="mailto:js@example.com">John Smith&lt;/a>.

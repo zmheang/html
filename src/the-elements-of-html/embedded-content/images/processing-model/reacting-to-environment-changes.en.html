@@ -14,7 +14,6 @@
   is involved.</p>
 
   <ol>
-
    <li><p><span>Await a stable state</span>. The <span>synchronous section</span>
    consists of all the remaining steps of this algorithm until the algorithm says the
    <span>synchronous section</span> has ended. (Steps in <span data-x="synchronous
@@ -50,7 +49,7 @@
    <li><p>&#x231B; Let <var>origin</var> be the <span>origin</span> of the <code>img</code> element's <span>node document</span>.</p></li>
 
    <li><p>&#x231B; Let <var>client</var> be the <code>img</code> element's <span>node
-   document</span>'s <code>Window</code> object's <span>environment settings object</span>.</p></li>
+   document</span>'s <span>relevant settings object</span>.</p></li>
 
    <li><p>&#x231B; Let <var>key</var> be a tuple consisting of <var>urlString</var>,
    <var>corsAttributeState</var>, and, if <var>corsAttributeState</var> is not <span
@@ -65,7 +64,6 @@
    <span>in parallel</span>.</p></li>
 
    <li>
-
     <p>If the <span>list of available images</span> contains an entry for <var>key</var>,
     then set <var>image request</var>'s <span data-x="img-req-data">image data</span> to that of the entry.
     Continue to the next step.</p>
@@ -103,15 +101,13 @@
      <span>CORS-same-origin</span> or <span>CORS-cross-origin</span>; this affects the
      <span>origin</span> of the image itself (e.g., when used on a <code>canvas</code>).</p></li>
     </ol>
-
    </li>
 
    <li>
-
-    <p><span>Queue a task</span> to run these steps:</p>
+    <p><span>Queue an element task</span> on the <span>DOM manipulation task source</span> given
+    the <code>img</code> element and the following steps:</p>
 
     <ol>
-
      <li><p>If the <code>img</code> element has experienced <span>relevant mutations</span>
      since this algorithm started, then let <span>pending request</span> be null and abort these
      steps.</p>
@@ -131,11 +127,8 @@
 
      <li><p><span data-x="concept-event-fire">Fire an event</span> named <code
      data-x="event-load">load</code> at the <code>img</code> element.</p></li>
-
     </ol>
-
    </li>
-
   </ol>
 
   </div>

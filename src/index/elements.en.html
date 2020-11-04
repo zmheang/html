@@ -238,7 +238,6 @@
      <td><span data-x="Phrasing content">phrasing</span></td>
      <td><span data-x="Phrasing content">phrasing</span>*</td>
      <td><span data-x="global attributes">globals</span>;
-         <code data-x="attr-fe-autofocus">autofocus</code>;
          <code data-x="attr-fe-disabled">disabled</code>;
          <code data-x="attr-fae-form">form</code>;
          <code data-x="attr-fs-formaction">formaction</code>;
@@ -558,7 +557,8 @@
      <td><span data-x="Flow content">flow</span>;
          <span data-x="Heading content">heading</span>;
          <span data-x="Palpable content">palpable</span></td>
-     <td><code>hgroup</code>;
+     <td><code>legend</code>;
+         <code>summary</code>;
          <span data-x="Flow content">flow</span></td>
      <td><span data-x="Phrasing content">phrasing</span></td>
      <td><span data-x="global attributes">globals</span></td>
@@ -592,7 +592,10 @@
      <td><span data-x="Flow content">flow</span>;
          <span data-x="Heading content">heading</span>;
          <span data-x="Palpable content">palpable</span></td>
-     <td><span data-x="Flow content">flow</span></td>
+     <td>
+      <code>legend</code>;
+      <code>summary</code>;
+      <span data-x="Flow content">flow</span></td>
      <td><code>h1</code>;
          <code>h2</code>;
          <code>h3</code>;
@@ -655,11 +658,10 @@
          <code data-x="attr-iframe-sandbox">sandbox</code>;
          <code data-x="attr-iframe-allow">allow</code>;
          <code data-x="attr-iframe-allowfullscreen">allowfullscreen</code>;
-         <code data-x="attr-iframe-allowpaymentrequest">allowpaymentrequest</code>;
-         <code data-x="attr-iframe-allowusermedia">allowusermedia</code>;
          <code data-x="attr-dim-width">width</code>;
          <code data-x="attr-dim-height">height</code>;
-         <code data-x="attr-iframe-referrerpolicy">referrerpolicy</code></td>
+         <code data-x="attr-iframe-referrerpolicy">referrerpolicy</code>;
+         <code data-x="attr-iframe-loading">loading</code></td>
      <td><code>HTMLIFrameElement</code></td>
     </tr>
 
@@ -679,13 +681,15 @@
          <code data-x="attr-img-alt">alt</code>;
          <code data-x="attr-img-src">src</code>;
          <code data-x="attr-img-srcset">srcset</code>;
+         <code data-x="attr-img-sizes">sizes</code>;
          <code data-x="attr-img-crossorigin">crossorigin</code>;
          <code data-x="attr-hyperlink-usemap">usemap</code>;
          <code data-x="attr-img-ismap">ismap</code>;
          <code data-x="attr-dim-width">width</code>;
          <code data-x="attr-dim-height">height</code>;
+         <code data-x="attr-img-referrerpolicy">referrerpolicy</code>;
          <code data-x="attr-img-decoding">decoding</code>;
-         <code data-x="attr-img-referrerpolicy">referrerpolicy</code></td>
+         <code data-x="attr-img-loading">loading</code></td>
      <td><code>HTMLImageElement</code></td>
     </tr>
 
@@ -707,7 +711,6 @@
          <code data-x="attr-input-accept">accept</code>;
          <code data-x="attr-input-alt">alt</code>;
          <code data-x="attr-fe-autocomplete">autocomplete</code>;
-         <code data-x="attr-fe-autofocus">autofocus</code>;
          <code data-x="attr-input-checked">checked</code>;
          <code data-x="attr-fe-dirname">dirname</code>;
          <code data-x="attr-fe-disabled">disabled</code>;
@@ -783,7 +786,8 @@
      <td>Caption for <code>fieldset</code></td>
      <td>none</td>
      <td><code>fieldset</code></td>
-     <td><span data-x="Phrasing content">phrasing</span></td>
+     <td><span data-x="Phrasing content">phrasing</span>;
+         <span data-x="heading content">heading content</span></td>
      <td><span data-x="global attributes">globals</span></td>
      <td><code>HTMLLegendElement</code></td>
     </tr>
@@ -820,8 +824,12 @@
          <code data-x="attr-link-hreflang">hreflang</code>;
          <code data-x="attr-link-type">type</code>;
          <code data-x="attr-link-sizes">sizes</code>;
+         <code data-x="attr-link-imagesrcset">imagesrcset</code>;
+         <code data-x="attr-link-imagesizes">imagesizes</code>;
          <code data-x="attr-link-referrerpolicy">referrerpolicy</code>;
-         <code data-x="attr-link-integrity">integrity</code></td>
+         <code data-x="attr-link-integrity">integrity</code>;
+         <code data-x="attr-link-color">color</code>;
+         <code data-x="attr-link-disabled">disabled</code>
      <td><code>HTMLLinkElement</code></td>
     </tr>
 
@@ -966,7 +974,6 @@
      <td><span data-x="global attributes">globals</span>;
          <code data-x="attr-object-data">data</code>;
          <code data-x="attr-object-type">type</code>;
-         <code data-x="attr-object-typemustmatch">typemustmatch</code>;
          <code data-x="attr-object-name">name</code>;
          <code data-x="attr-hyperlink-usemap">usemap</code>;
          <code data-x="attr-fae-form">form</code>;
@@ -1224,7 +1231,6 @@
          <span>script-supporting elements</span></td>
      <td><span data-x="global attributes">globals</span>;
          <code data-x="attr-fe-autocomplete">autocomplete</code>;
-         <code data-x="attr-fe-autofocus">autofocus</code>;
          <code data-x="attr-fe-disabled">disabled</code>;
          <code data-x="attr-fae-form">form</code>;
          <code data-x="attr-select-multiple">multiple</code>;
@@ -1268,7 +1274,7 @@
      <td>empty</td>
      <td><span data-x="global attributes">globals</span>;
          <code data-x="attr-source-src">src</code>;
-         <code data-x="attr-source-type">type</code>
+         <code data-x="attr-source-type">type</code>;
          <code data-x="attr-source-srcset">srcset</code>;
          <code data-x="attr-source-sizes">sizes</code>;
          <code data-x="attr-source-media">media</code></td>
@@ -1307,7 +1313,7 @@
          <code>noscript</code>*</td>
      <td>text*</td>
      <td><span data-x="global attributes">globals</span>;
-         <code data-x="attr-style-media">media</code>;
+         <code data-x="attr-style-media">media</code></td>
      <td><code>HTMLStyleElement</code></td>
     </tr>
 
@@ -1328,7 +1334,8 @@
      <td>Caption for <code>details</code></td>
      <td>none</td>
      <td><code>details</code></td>
-     <td><span data-x="Phrasing content">phrasing</span></td>
+     <td><span data-x="Phrasing content">phrasing</span>;
+         <span data-x="Heading content">heading content</span></td>
      <td><span data-x="global attributes">globals</span></td>
      <td><code>HTMLElement</code></td>
     </tr>
@@ -1430,7 +1437,6 @@
      <td><span data-x="Phrasing content">phrasing</span></td>
      <td><span data-x="text content">text</span></td>
      <td><span data-x="global attributes">globals</span>;
-         <code data-x="attr-fe-autofocus">autofocus</code>;
          <code data-x="attr-textarea-cols">cols</code>;
          <code data-x="attr-fe-dirname">dirname</code>;
          <code data-x="attr-fe-disabled">disabled</code>;
@@ -1539,7 +1545,7 @@
 
     <tr>
      <th><code>u</code></th>
-     <td>Keywords</td>
+     <td>Unarticulated annotation</td>
      <td><span data-x="Flow content">flow</span>;
          <span data-x="Phrasing content">phrasing</span>;
          <span data-x="Palpable content">palpable</span></td>

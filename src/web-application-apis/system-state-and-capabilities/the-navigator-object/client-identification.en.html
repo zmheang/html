@@ -1,6 +1,6 @@
   <h5>Client identification</h5>
 
-  <pre><code class="idl" data-x="">interface mixin <dfn>NavigatorID</dfn> {
+  <pre><code class="idl">interface mixin <dfn>NavigatorID</dfn> {
   readonly attribute DOMString <span data-x="dom-navigator-appCodeName">appCodeName</span>; // constant "Mozilla"
   readonly attribute DOMString <span data-x="dom-navigator-appName">appName</span>; // constant "Netscape"
   readonly attribute DOMString <span data-x="dom-navigator-appVersion">appVersion</span>;
@@ -12,8 +12,8 @@
   [Exposed=Window] readonly attribute DOMString <span data-x="dom-navigator-vendorSub">vendorSub</span>; // constant ""
 };</code></pre>
 
-  <p>In certain cases, despite the best efforts of the entire industry, Web browsers have bugs and
-  limitations that Web authors are forced to work around.</p>
+  <p>In certain cases, despite the best efforts of the entire industry, web browsers have bugs and
+  limitations that web authors are forced to work around.</p>
 
   <p>This section defines a collection of attributes that can be used to determine, from script, the
   kind of user agent in use, in order to work around these issues.</p>
@@ -26,7 +26,7 @@
   <p class="note">The <span data-x="concept-navigator-compatibility-mode">navigator compatibility
   mode</span> constrains the <span>NavigatorID</span> interface to the combinations of attribute
   values and presence of <code data-x="dom-navigator-taintEnabled">taintEnabled()</code> and <code
-  data-x="dom-navigator-oscpu">oscpu</code> that are known to be compatible with existing Web
+  data-x="dom-navigator-oscpu">oscpu</code> that are known to be compatible with existing web
   content.</p>
 
   </div>
@@ -77,7 +77,6 @@
   <div w-nodev>
 
   <dl>
-
    <dt><dfn><code data-x="dom-navigator-appCodeName">appCodeName</code></dfn></dt>
    <dd><p>Must return the string "<code data-x="">Mozilla</code>".</p></dd>
 
@@ -95,17 +94,16 @@
 
    <!-- oscpu: Mozilla only -->
 
-   <dt><dfn><code data-x="dom-navigator-platform">platform</code></dfn></dt>
+   <dt><dfn attribute for="NavigatorID"><code data-x="dom-navigator-platform">platform</code></dfn></dt>
    <dd><p>Must return either the empty string or a string representing the platform on which the
    browser is executing, e.g. "<code data-x="">MacIntel</code>", "<code data-x="">Win32</code>",
    "<code data-x="">FreeBSD i386</code>", "<code data-x="">WebTV OS</code>".</p></dd>
 
-   <dt><dfn><code data-x="dom-navigator-product">product</code></dfn></dt>
+   <dt><dfn attribute for="NavigatorID"><code data-x="dom-navigator-product">product</code></dfn></dt>
    <dd><p>Must return the string "<code data-x="">Gecko</code>".</p></dd>
 
    <dt><dfn><code data-x="dom-navigator-productSub">productSub</code></dfn></dt>
    <dd>
-
     <p>Must return the appropriate string from the following list:</p>
 
     <dl class="switch">
@@ -117,9 +115,7 @@
      <dt>If the <span data-x="concept-navigator-compatibility-mode">navigator compatibility
      mode</span> is <i>Gecko</i></dt>
      <dd><p>The string "<code data-x="">20100101</code>".</p></dd>
-
     </dl>
-
    </dd>
 
    <!-- securityPolicy: Mozilla only; always returns "" -->
@@ -128,9 +124,8 @@
    <dd><p>Must return the <span data-x="default-user-agent-value">default `<code>User-Agent</code>`
    value</span>.</p></dd>
 
-   <dt><dfn><code data-x="dom-navigator-vendor">vendor</code></dfn></dt>
+   <dt><dfn attribute for="NavigatorID"><code data-x="dom-navigator-vendor">vendor</code></dfn></dt>
    <dd>
-
     <p>Must return the appropriate string from the following list:</p>
 
     <dl class="switch">
@@ -146,20 +141,17 @@
      <dt>If the <span data-x="concept-navigator-compatibility-mode">navigator compatibility
      mode</span> is <i>WebKit</i></dt>
      <dd><p>The string "<code data-x="">Apple Computer, Inc.</code>".</p></dd>
-
     </dl>
-
    </dd>
 
    <dt><dfn><code data-x="dom-navigator-vendorSub">vendorSub</code></dfn></dt>
    <dd><p>Must return the empty string.</p></dd>
-
   </dl>
 
   <p>If the <span data-x="concept-navigator-compatibility-mode">navigator compatibility mode</span>
   is <i>Gecko</i>, then the user agent must also support the following partial interface:</p>
 
-  <pre><code class="idl" data-x="">partial interface <span id="NavigatorID-partial">NavigatorID</span> {
+  <pre><code class="idl">partial interface mixin <span id="NavigatorID-partial">NavigatorID</span> {
   [Exposed=Window] boolean <span data-x="dom-navigator-taintEnabled">taintEnabled</span>(); // constant false
   [Exposed=Window] readonly attribute DOMString <span data-x="dom-navigator-oscpu">oscpu</span>;
 };</code></pre>
@@ -167,18 +159,18 @@
   <p>The <dfn><code data-x="dom-navigator-taintEnabled">taintEnabled()</code></dfn> method must
   return false.</p>
 
-  <p>The <dfn><code data-x="dom-navigator-oscpu">oscpu</code></dfn> attribute's getter must return
+  <p>The <dfn attribute for="NavigatorID"><code data-x="dom-navigator-oscpu">oscpu</code></dfn> attribute's getter must return
   either the empty string or a string representing the platform on which the browser is executing,
   e.g. "<code data-x="">Windows NT 10.0; Win64; x64</code>", "<code data-x="">Linux
   x86_64</code>".</p>
 
   <!-- similar paragraph in next section -->
-  <p class="warning">Any information in this API that varies from user to user can be used to
-  profile the user. In fact, if enough such information is available, a user can actually be
-  uniquely identified. For this reason, user agent implementers are strongly urged to include as
-  little information in this API as possible.
-  <!--INSERT FINGERPRINT-->
-  </p>
+  <p class="warning">
+  <!--INSERT TRACKING-->
+  Any information in this API that varies from user to user can be used to profile the user. In
+  fact, if enough such information is available, a user can actually be uniquely identified. For
+  this reason, user agent implementers are strongly urged to include as little information in this
+  API as possible.</p>
 
   </div>
 

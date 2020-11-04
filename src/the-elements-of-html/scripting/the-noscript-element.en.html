@@ -14,6 +14,10 @@
    <dd>Otherwise: text that conforms to the requirements given in the prose.</dd>
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-noscript">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-noscript">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -27,7 +31,6 @@
   <p>When used in <span>HTML documents</span>, the allowed content model is as follows:</p>
 
   <dl>
-
    <dt>In a <code>head</code> element, if <span data-x="concept-n-noscript">scripting is
    disabled</span> for the <code>noscript</code> element</dt>
 
@@ -56,7 +59,6 @@
    enabled</span> for the <code>noscript</code> element</dt>
 
    <dd>
-
     <p>The <code>noscript</code> element must contain only text, except that the text must be such
     that running the following algorithm results in a conforming document with no
     <code>noscript</code> elements and no <code>script</code> elements, and such that no step in the
@@ -65,29 +67,22 @@
     <!-- the possible exception is from the outerHTML setter -->
 
     <ol>
-
      <li>Remove every <code>script</code> element from the document.</li>
 
      <li>Make a list of every <code>noscript</code> element in the document. For every
      <code>noscript</code> element in that list, perform the following steps:
 
       <ol>
-
        <li>Let <var>s</var> be the <span>child text content</span> of the <code>noscript</code>
        element.</li>
 
        <li>Set the <code data-x="dom-outerHTML">outerHTML</code> attribute of the
        <code>noscript</code> element to the value of <var>s</var>. (This, as a
        side-effect, causes the <code>noscript</code> element to be removed from the document.) <ref spec=DOMPARSING></li>
-
       </ol>
-
      </li>
-
     </ol>
-
    </dd>
-
   </dl>
 
   <p class="note">All these contortions are required because, for historical reasons, the
@@ -116,7 +111,7 @@
    <p>In the following example, a <code>noscript</code> element is
    used to provide fallback for a script.</p>
 
-   <pre><code class="html" data-x="">&lt;form action="calcSquare.php">
+   <pre><code class="html">&lt;form action="calcSquare.php">
  &lt;p>
   &lt;label for=x>Number&lt;/label>:
   &lt;input id="x" name="x" type="number">
@@ -145,7 +140,7 @@
    using <code>noscript</code>, and to instead design the script to change the page from being a
    scriptless page to a scripted page on the fly, as in the next example:</p>
 
-   <pre><code class="html" data-x="">&lt;form action="calcSquare.php">
+   <pre><code class="html">&lt;form action="calcSquare.php">
  &lt;p>
   &lt;label for=x>Number&lt;/label>:
   &lt;input id="x" name="x" type="number">

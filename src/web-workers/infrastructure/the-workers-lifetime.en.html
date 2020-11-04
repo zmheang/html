@@ -5,19 +5,20 @@
   <code>MessagePort</code> objects.</p>
 
   <p>Each <code>WorkerGlobalScope</code> object <var>worker global scope</var> has a list of
-  <dfn data-export="">the worker's ports</dfn>, which consists of all the <code>MessagePort</code>
-  objects that are entangled with another port and that have one (but only one) port owned by
-  <var>worker global scope</var>. This list includes the implicit <code>MessagePort</code> in the
-  case of <span data-x="DedicatedWorkerGlobalScope">dedicated workers</span>.</p>
+  <dfn export>the worker's ports</dfn>, which consists of all the <code>MessagePort</code> objects
+  that are entangled with another port and that have one (but only one) port owned by <var>worker
+  global scope</var>. This list includes the implicit <code>MessagePort</code> in the case of <span
+  data-x="DedicatedWorkerGlobalScope">dedicated workers</span>.</p>
 
   <p id="list-of-relevant-document-objects-to-add">Given an <span>environment settings object</span>
   <var>o</var> when creating or obtaining a worker, the <dfn>relevant owner to add</dfn> depends on
   the type of <span data-x="concept-settings-object-global">global object</span> specified by
   <var>o</var>. If <var>o</var> specifies a <span data-x="concept-settings-object-global">global
   object</span> that is a <code>WorkerGlobalScope</code> object (i.e., if we are creating a nested
-  worker), then the relevant owner is that global object. Otherwise, <var>o</var> specifies a <span
-  data-x="concept-settings-object-global">global object</span> that is a <code>Window</code> object,
-  and the relevant owner is the <span>responsible document</span> specified by <var>o</var>.</p>
+  dedicated worker), then the relevant owner is that global object. Otherwise, <var>o</var>
+  specifies a <span data-x="concept-settings-object-global">global object</span> that is a
+  <code>Window</code> object, and the relevant owner is the <span>responsible document</span>
+  specified by <var>o</var>.</p>
 
   <hr>
 
@@ -26,7 +27,7 @@
 
   <ul class=brief>
    <li>its <span>owner set</span> has been <span data-x="list is empty">empty</span> for no more
-   than a short user-agent-defined timeout value,</li>
+   than a short <span>implementation-defined</span> timeout value,</li>
    <li>its <code>WorkerGlobalScope</code> object is a <code>SharedWorkerGlobalScope</code> object
    (i.e., the worker is a shared worker), and</li>
    <li>the user agent has a <span>browsing context</span> whose <code>Document</code> object is not
@@ -45,7 +46,7 @@
   <p>A worker is said to be a <dfn>protected worker</dfn> if it is an <span>active needed
   worker</span> and either it has outstanding timers, database transactions, or network connections,
   or its list of <span>the worker's ports</span> is not empty, or its <code>WorkerGlobalScope</code>
-  is actually a <code>SharedWorkerGlobalScope</code> object (i.e. the worker is a shared
+  is actually a <code>SharedWorkerGlobalScope</code> object (i.e., the worker is a shared
   worker).</p>
 
   <p>A worker is said to be a <dfn>suspendable worker</dfn> if it is not an <span>active needed

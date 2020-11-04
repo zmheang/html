@@ -2,10 +2,14 @@
   well</h4>
 
   <p>An <code>input</code> element whose <code data-x="attr-input-type">type</code> attribute is in
-  the <span data-x="attr-input-type-color">Color</span> state is expected to render as an
-  <span>'inline-block'</span> box depicting a color well, which, when activated, provides the user
-  with a color picker (e.g. a color wheel or color palette) from which the color can be
-  changed.</p>
+  the <span data-x="attr-input-type-color">Color</span> state is expected to depict a color well,
+  which, when activated, provides the user with a color picker (e.g. a color wheel or color
+  palette) from which the color can be changed. The element, when it generates a <span>CSS
+  box</span>, is expected to use <span>button layout</span>, that has no child boxes of the
+  <span>anonymous button content box</span>. The <span>anonymous button content box</span> is
+  expected to have a <span data-x="presentational hints">presentational hint</span> setting the
+  <span>'background-color'</span> property to the element's <span
+  data-x="concept-fe-value">value</span>.</p>
 
   <p>Predefined suggested values (provided by the <code data-x="attr-input-list">list</code>
   attribute) are expected to be shown in the color picker interface, not on the color well

@@ -3,7 +3,6 @@
   <p>在本规范中的每个元素都有一个定义，包含以下信息：</p>
 
   <dl>
-
    <dt><dfn data-x="concept-element-categories">类别</dfn></dt>
 
    <dd><p>该元素所属的 <span data-x="content categories">类别</span> 列表。
@@ -13,28 +12,22 @@
    <dt><dfn data-x="concept-element-contexts">可以使用该元素的上下文</dfn></dt>
 
    <dd>
-
     <p>该元素可以在哪里使用的 <em>非规范化的</em> 描述。
     该信息与允许该元素为子元素的元素内容模型之间存在冗余，只是为了方便而提供。</p>
 
-    <p class="note">为了简单起见，只列出最具体的期望值。
-    例如，既是 <span data-x="flow content">流内容</span> 又是 <span data-x="phrasing content">短语内容</span> 的元素
-    可以用于任何期望出现
-    <span data-x="flow content">流内容</span> 或 <span data-x="phrasing content">短语内容</span> 的地方，
-    但是因为任何期望出现
-    <span data-x="flow content">流内容</span> 的地方也期望出现
-    <span data-x="phrasing content">短语内容</span>（因为所有
-    <span data-x="phrasing content">短语内容</span> 都是
-    <span data-x="flow content">流内容</span>），
-    将只列出 "期望出现 <span data-x="phrasing content">短语内容</span> 的地方"。</p>
+    <div class="note">
+     <p>为了简单起见，只列出最具体的元素规则。</p>
 
+     <p>例如，所有 <span data-x="phrasing content">短语内容</span> 都是 <span data-x="flow content">流内容</span>。
+     因此 <span data-x="phrasing content">短语内容</span> 元素只会列在 "需要是 <span data-x="phrasing content">短语内容</span> 的地方"，
+     因为这样更具体。任何需要 <span data-x="flow content">流式内容</span> 的地方也可以用 <span data-x="phrasing content">短语内容</span>，
+     因为它也符合规则。</p>
+    </div>
    </dd>
-
 
    <dt><dfn data-x="concept-element-content-model">内容模型</dfn></dt>
 
    <dd><p>必须包含哪些内容作为子元素和后代元素的规范性描述。</p></dd>
-
 
    <dt><dfn data-x="concept-element-tag-omission">text/html 中的标签省略</dfn></dt>
 
@@ -43,12 +36,20 @@
    该信息与 <span data-x="syntax-tag-omission">可选标签</span> 部分给出的规范性要求之间存在冗余，
    在元素定义中提供只是为了方便。</p></dd>
 
-
    <dt><dfn data-x="concept-element-attributes">内容属性</dfn></dt>
 
    <dd><p>可以在该元素上指定的（除了不允许的情况）一个规范性的属性列表，
    以及对这些属性的非规范性的描述。（破折号左侧是规范性的，右侧是非规范性的。）</p></dd>
 
+   <dt><dfn data-x="concept-element-accessibility-considerations">可访问性考虑</dfn></dt>
+
+   <dd>
+    <p>对于使用方：遵循 <cite>ARIA in HTML</cite> 定义的
+    <cite>ARIA</cite> <code data-x="attr-aria-role">role</code> 和 <code data-x="attr-aria-*">aria-*</code> 属性的要求。
+    <ref spec=ARIA> <ref spec=ARIAHTML></p>
+
+    <p>对于实现方：用户代理实现可访问性 API 语义的要求定义在 <cite>HTML Accessibility API Mappings</cite>。<ref spec=HTMLAAM></p>
+   </dd>
 
    <dt><dfn data-x="concept-element-dom">DOM 接口</dfn></dt>
 

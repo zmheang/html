@@ -1,23 +1,24 @@
   <h5>The <code>OffscreenCanvas</code> interface</h5>
 
-  <pre><code class="idl" data-x="">typedef (<span>OffscreenCanvasRenderingContext2D</span> or
-        <span>WebGLRenderingContext</span>) <dfn>OffscreenRenderingContext</dfn>;
+  <pre><code class="idl">typedef (<span>OffscreenCanvasRenderingContext2D</span> or <span>ImageBitmapRenderingContext</span> or <span>WebGLRenderingContext</span> or <span>WebGL2RenderingContext</span>) <dfn>OffscreenRenderingContext</dfn>;
 
 dictionary <dfn>ImageEncodeOptions</dfn> {
   DOMString <span data-x="image-encode-options-type">type</span> = "image/png";
-  unrestricted double <span data-x="image-encode-options-quality">quality</span> = 1.0;
+  unrestricted double <span data-x="image-encode-options-quality">quality</span>;
 };
 
-enum <dfn>OffscreenRenderingContextId</dfn> { "<span data-x="offscreen-context-type-2d">2d</span>", "<span data-x="offscreen-context-type-webgl">webgl</span>" };
+enum <dfn>OffscreenRenderingContextId</dfn> { "<span data-x="offscreen-context-type-2d">2d</span>", "<span data-x="offscreen-context-type-bitmaprenderer">bitmaprenderer</span>", "<span data-x="offscreen-context-type-webgl">webgl</span>", "<span data-x="offscreen-context-type-webgl2">webgl2</span>" };
 
-[<span data-x="dom-OffscreenCanvas">Constructor</span>([EnforceRange] unsigned long long width, [EnforceRange] unsigned long long height), Exposed=(Window,Worker), <span>Transferable</span>]
+[Exposed=(Window,Worker), <span>Transferable</span>]
 interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
-  attribute unsigned long long <span data-x="dom-OffscreenCanvas-width">width</span>;
-  attribute unsigned long long <span data-x="dom-OffscreenCanvas-height">height</span>;
+  <span data-x="dom-OffscreenCanvas">constructor</span>([EnforceRange] unsigned long long width, [EnforceRange] unsigned long long height);
+
+  attribute [EnforceRange] unsigned long long <span data-x="dom-OffscreenCanvas-width">width</span>;
+  attribute [EnforceRange] unsigned long long <span data-x="dom-OffscreenCanvas-height">height</span>;
 
   <span>OffscreenRenderingContext</span>? <span data-x="dom-OffscreenCanvas-getContext">getContext</span>(<span>OffscreenRenderingContextId</span> contextId, optional any options = null);
   <span>ImageBitmap</span> <span data-x="dom-OffscreenCanvas-transferToImageBitmap">transferToImageBitmap</span>();
-  Promise&lt;<span>Blob</span>> <span data-x="dom-OffscreenCanvas-convertToBlob">convertToBlob</span>(optional <span>ImageEncodeOptions</span> options);
+  Promise&lt;<span>Blob</span>> <span data-x="dom-OffscreenCanvas-convertToBlob">convertToBlob</span>(optional <span>ImageEncodeOptions</span> options = {});
 };</code></pre>
 
   <p class="note"><code>OffscreenCanvas</code> is an <code>EventTarget</code> so that WebGL can
@@ -58,15 +59,17 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
    <dd>
     <p>Returns an object that exposes an API for drawing on the <code>OffscreenCanvas</code>
     object. <var>contextId</var> specifies the desired API: "<code
-    data-x="offscreen-context-type-2d">2d</code>" or "<code
-    data-x="offscreen-context-type-webgl">webgl</code>". <var>options</var> is handled by that
+    data-x="offscreen-context-type-2d">2d</code>", "<code
+    data-x="offscreen-context-type-bitmaprenderer">bitmaprenderer</code>", "<code
+    data-x="offscreen-context-type-webgl">webgl</code>", or "<code
+    data-x="offscreen-context-type-webgl2">webgl2</code>". <var>options</var> is handled by that
     API.</p>
 
     <p>This specification defines the "<code data-x="canvas-context-2d">2d</code>" context below,
     which is similar but distinct from the "<code data-x="offscreen-context-type-2d">2d</code>"
-    context that is created from a <code>canvas</code> element. There is also a specification that
-    defines a "<code data-x="offscreen-context-type-webgl">webgl</code>" context. <ref
-    spec=WEBGL></p>
+    context that is created from a <code>canvas</code> element. The WebGL specifications define the
+    "<code data-x="offscreen-context-type-webgl">webgl</code>" and "<code
+    data-x="offscreen-context-type-webgl2">webgl2</code>" contexts. <ref spec=WEBGL></p>
 
     <p>Returns null if the canvas has already been initialized with another context type (e.g.,
     trying to get a "<code data-x="offscreen-context-type-2d">2d</code>" context after getting a
@@ -89,7 +92,9 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
   has a <dfn data-x="offscreencanvas-context-mode">context mode</dfn>, which is initially <dfn
   data-x="offscreencanvas-context-none">none</dfn> but can be changed to either <dfn
   data-x="offscreencanvas-context-2d">2d</dfn>, <dfn
-  data-x="offscreencanvas-context-webgl">webgl</dfn> or <dfn
+  data-x="offscreencanvas-context-bitmaprenderer">bitmaprenderer</dfn>, <dfn
+  data-x="offscreencanvas-context-webgl">webgl</dfn>, <dfn
+  data-x="offscreencanvas-context-webgl2">webgl2</dfn>, or <dfn
   data-x="offscreencanvas-context-detached">detached</dfn> by algorithms defined in this
   specification.</p>
 
@@ -166,14 +171,16 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
        <td>
        <th><span data-x="offscreencanvas-context-none">none</span>
        <th><span data-x="offscreencanvas-context-2d">2d</span>
-       <th><span data-x="offscreencanvas-context-webgl">webgl</span>
+       <th><span data-x="offscreencanvas-context-bitmaprenderer">bitmaprenderer</span>
+       <th><span data-x="offscreencanvas-context-webgl">webgl</span> or <span
+       data-x="offscreencanvas-context-webgl2">webgl2</span>
        <th><span data-x="offscreencanvas-context-detached">detached</span>
      <tbody>
       <tr>
        <th>"<dfn><code data-x="offscreen-context-type-2d">2d</code></dfn>"
        <td>
-        Follow the steps to <span data-x="Offscreen 2D context creation algorithm">create an
-        offscreen 2D context</span> defined in the section below, passing it this
+        Follow the <span data-x="Offscreen 2D context creation algorithm">offscreen 2D context
+        creation algorithm</span> defined in the section below, passing it this
         <code>OffscreenCanvas</code> object and <var>options</var>, to obtain an
         <code>OffscreenCanvasRenderingContext2D</code> object; if this does not throw an exception,
         then set this <code>OffscreenCanvas</code> object's <span
@@ -186,16 +193,43 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
        <td>
         Return null.
        <td>
+        Return null.
+       <td>
         Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
       <tr>
-       <th>"<dfn><code data-x="offscreen-context-type-webgl">webgl</code></dfn>"
+       <th>"<dfn><code data-x="offscreen-context-type-bitmaprenderer">bitmaprenderer</code></dfn>"
        <td>
-        Follow the instructions given in the WebGL specification's <i>Context Creation</i> section
-        to obtain either a <code>WebGLRenderingContext</code> or null; if the returned value is
-        null, then return null; otherwise, set this <code>OffscreenCanvas</code> object's <span
+        Follow the <span><code>ImageBitmapRenderingContext</code> creation algorithm</span>
+        defined in the section above, passing it this
+        <code>OffscreenCanvas</code> object and <var>options</var>,
+        to obtain an <code>ImageBitmapRenderingcontext</code> object; if this does not throw
+        an exception, then set this <code>OffscreenCanvas</code> object's <span
         data-x="offscreencanvas-context-mode">context mode</span> to <span
-        data-x="offscreencanvas-context-webgl">webgl</span>, and return the
-        <code>WebGLRenderingContext</code> object. <ref spec=WEBGL>
+        data-x="offscreencanvas-context-bitmaprenderer">bitmaprenderer</span>, and return the new
+        <code>ImageBitmapRenderingcontext</code> object.
+       <td>
+        Return null.
+       <td>
+        Return the same object as was returned the last time the method was invoked with this same
+        first argument.
+       <td>
+        Return null.
+       <td>
+        Throw an <span>"<code>InvalidStateError</code>"</span> <code>DOMException</code>.
+      <tr>
+       <th>"<dfn><code data-x="offscreen-context-type-webgl">webgl</code></dfn>" or "<dfn><code
+       data-x="offscreen-context-type-webgl2">webgl2</code></dfn>"
+       <td>
+        Follow the instructions given in the WebGL specifications' <i>Context Creation</i> sections
+        to obtain either a <code>WebGLRenderingContext</code>, <code>WebGL2RenderingContext</code>,
+        or null; if the returned value is null, then return null; otherwise, set this
+        <code>OffscreenCanvas</code> object's <span data-x="offscreencanvas-context-mode">context
+        mode</span> to <span data-x="offscreencanvas-context-webgl">webgl</span> or <span
+        data-x="offscreencanvas-context-webgl2">webgl2</span>, and return the
+        <code>WebGLRenderingContext</code> or <code>WebGL2RenderingContext</code> object. <ref
+        spec=WEBGL>
+       <td>
+        Return null.
        <td>
         Return null.
        <td>
@@ -241,8 +275,9 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
   data-x="dom-OffscreenCanvas-width">width</code> and <code
   data-x="dom-OffscreenCanvas-height">height</code> attributes.</p>
 
-  <p>The resizing behavior for "<code data-x="offscreen-context-type-webgl">webgl</code>"
-  contexts is defined in the WebGL specification. <ref spec=WEBGL></p>
+  <p>The resizing behavior for "<code data-x="offscreen-context-type-webgl">webgl</code>" and "<code
+  data-x="offscreen-context-type-webgl2">webgl2</code>" contexts is defined in the WebGL
+  specifications. <ref spec=WEBGL></p>
 
   </div>
 
@@ -278,7 +313,6 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
     <code>OffscreenCanvas</code> object. The image in the <code>OffscreenCanvas</code> object is
     replaced with a new blank image.</p>
    </dd>
-
   </dl>
 
   <div w-nodev>
@@ -316,10 +350,11 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
      <li><p>Let <var>file</var> be <span data-x="a serialization of the bitmap as a file">a
      serialization of <var>bitmap</var> as a file</span>, with <var>options</var>'s <dfn><code
      data-x="image-encode-options-type">type</code></dfn> and <dfn><code
-     data-x="image-encode-options-quality">quality</code></dfn>.</p></li>
+     data-x="image-encode-options-quality">quality</code></dfn> if present.</p></li>
 
      <li>
-      <p><span>Queue a task</span> to run these steps:</p>
+      <p><span>Queue an element task</span> on the <span>canvas blob serialization task
+      source</span> given the <code>canvas</code> element to run these steps:</p>
 
       <ol>
        <li><p>If <var>file</var> is null, then reject <var>result</var> with an
@@ -330,9 +365,6 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
        <code>OffscreenCanvas</code> object, representing <var>file</var>. <ref
        spec=FILEAPI></p></li>
       </ol>
-
-      <p>The <span>task source</span> for this task is the <span>canvas blob serialization task
-      source</span>.</p>
      </li>
     </ol>
    </li>
@@ -357,11 +389,18 @@ interface <dfn>OffscreenCanvas</dfn> : <span>EventTarget</span> {
    the same underlying bitmap data as this <code>OffscreenCanvas</code> object's <span
    data-x="offscreencanvas-bitmap">bitmap</span>.</p></li>
 
-   <li><p>Set this <code>OffscreenCanvas</code> object's <span
-   data-x="offscreencanvas-bitmap">bitmap</span> to reference a newly created bitmap of the same
-   dimensions as the previous bitmap, and with its pixels initialized to <span>transparent
-   black</span>, or <span>opaque black</span> if the rendering context's <span
-   data-x="offscreencontext2d-alpha">alpha</span> flag is set to false.</p></li>
+   <li>
+    <p>Set this <code>OffscreenCanvas</code> object's <span
+    data-x="offscreencanvas-bitmap">bitmap</span> to reference a newly created bitmap of the same
+    dimensions as the previous bitmap, and with its pixels initialized to <span>transparent
+    black</span>, or <span>opaque black</span> if the rendering context's <span
+    data-x="offscreencontext2d-alpha">alpha</span> flag is set to false.</p>
+
+    <p class="note">This means that if the rendering context of this <code>OffscreenCanvas</code> is
+    a <code>WebGLRenderingContext</code>, the value of <code
+    data-x="WebGLContextAttributes">preserveDrawingBuffer</code> will have no effect. <ref
+    spec=WEBGL></p>
+   </li>
 
    <li><p>Return <var>image</var>.</p></li>
   </ol>

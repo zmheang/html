@@ -38,9 +38,9 @@
      containing the hyperlink being audited and <var>ping URL</var> have the <span>same
      origin</span></dt>
 
-     <dt>If the origins are different, but the <span data-x="concept-document-https-state">HTTPS
-     state</span> of the <code>Document</code> containing the hyperlink being audited is "<code
-     data-x="">none</code>"</dt>
+     <dt>If the origins are different, but the <span data-x="concept-url-scheme">scheme</span> of
+     the <span data-x="concept-document-url">URL</span> of the <code>Document</code> containing the
+     hyperlink being audited is not "<code data-x="">https</code>"</dt>
 
      <dd><var>request</var> must include a `<code data-x="http-ping-from">Ping-From</code>` header
      with, as its value, the <span data-x="concept-document-url">URL</span> of the document
@@ -83,7 +83,7 @@
   <div class="note">
 
    <p>The <code data-x="attr-hyperlink-ping">ping</code> attribute is redundant with pre-existing
-   technologies like HTTP redirects and JavaScript in allowing Web pages to track which off-site
+   technologies like HTTP redirects and JavaScript in allowing web pages to track which off-site
    links are most popular or allowing advertisers to track click-through rates.</p>
 
    <p>However, the <code data-x="attr-hyperlink-ping">ping</code> attribute provides these advantages

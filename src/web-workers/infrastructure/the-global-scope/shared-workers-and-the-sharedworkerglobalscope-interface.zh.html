@@ -4,18 +4,15 @@
 interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   readonly attribute DOMString <span data-x="dom-SharedWorkerGlobalScope-name">name</span>;
 
-  void <span data-x="dom-SharedWorkerGlobalScope-close">close</span>();
+  undefined <span data-x="dom-SharedWorkerGlobalScope-close">close</span>();
 
   attribute <span>EventHandler</span> <span data-x="handler-SharedWorkerGlobalScope-onconnect">onconnect</span>;
 };</pre>
 
-  <p><code>SharedWorkerGlobalScope</code> 对象有与之相关联的 <dfn
-  data-dfn-for="SharedWorkerGlobalScope"
-  data-x="concept-SharedWorkerGlobalScope-constructor-origin">构造器 origin</dfn>, <dfn
-  data-dfn-for="SharedWorkerGlobalScope"
-  data-x="concept-SharedWorkerGlobalScope-constructor-url">构造器 url</dfn>，以及 <dfn
-  data-dfn-for="SharedWorkerGlobalScope"
-  data-x="concept-SharedWorkerGlobalScope-name">name</dfn>。它们在创建
+  <p><code>SharedWorkerGlobalScope</code> 对象有与之相关联的
+  <dfn for="SharedWorkerGlobalScope" data-x="concept-SharedWorkerGlobalScope-constructor-origin">构造器 origin</dfn>，
+  <dfn for="SharedWorkerGlobalScope" data-x="concept-SharedWorkerGlobalScope-constructor-url">构造器 url</dfn>，以及
+  <dfn for="SharedWorkerGlobalScope" data-x="concept-SharedWorkerGlobalScope-credentials">credentials</dfn>。它们在创建
   <code>SharedWorkerGlobalScope</code> 对象时初始化，是 <span data-x="run a worker">运行 Worker</span>
   算法的一部分。
 
@@ -25,7 +22,8 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
   <dl class="domintro">
    <dt><var>sharedWorkerGlobal</var> . <code subdfn data-x="dom-SharedWorkerGlobalScope-name">name</code></dt>
    <dd>返回 <var>sharedWorkerGlobal</var> 的 <span
-   data-x="concept-SharedWorkerGlobalScope-name">name</span>。</dd>
+   data-x="concept-WorkerGlobalScope-name">name</span>，即给到 <code>SharedWorker</code> 构造函数的值。
+   通过复用同一个名字，多个 <code>SharedWorker</code> 对象可以对应于同一个共享工作线程（以及 <code>SharedWorkerGlobalScope</code>）。</dd>
 
    <dt><var>sharedWorkerGlobal</var> . <code subdfn
    data-x="dom-SharedWorkerGlobalScope-close">close</code>()</dt>
@@ -36,7 +34,7 @@ interface <dfn>SharedWorkerGlobalScope</dfn> : <span>WorkerGlobalScope</span> {
 
   <p><dfn><code data-x="dom-SharedWorkerGlobalScope-name">name</code></dfn> 属性必须返回
   <code>SharedWorkerGlobalScope</code> 对象的 <span
-  data-x="concept-SharedWorkerGlobalScope-name">name</span>。使用 <code>SharedWorker</code> 构造器，
+  data-x="concept-WorkerGlobalScope-name">name</span>。使用 <code>SharedWorker</code> 构造器，
   可以通过 name 的值获取该 worker 的引用。</p>
 
   <p><dfn><code data-x="dom-SharedWorkerGlobalScope-close">close()</code></dfn> 方法被调用时，必须

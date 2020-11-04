@@ -1,12 +1,12 @@
   <h5>The <code data-x="attr-title">title</code> attribute</h5>
 
-  <p>The <dfn><code data-x="attr-title">title</code></dfn> attribute <span>represents</span>
-  advisory information for the element, such as would be appropriate for a tooltip. On a link, this
-  could be the title or a description of the target resource; on an image, it could be the image
-  credit or a description of the image; on a paragraph, it could be a footnote or commentary on the
-  text; on a citation, it could be further information about the source; on <span>interactive
-  content</span>, it could be a label for, or instructions for, use of the element; and so forth.
-  The value is text.</p>
+  <p>The <dfn element-attr for="html-global"><code data-x="attr-title">title</code></dfn> attribute
+  <span>represents</span> advisory information for the element, such as would be appropriate for a
+  tooltip. On a link, this could be the title or a description of the target resource; on an image,
+  it could be the image credit or a description of the image; on a paragraph, it could be a footnote
+  or commentary on the text; on a citation, it could be further information about the source; on
+  <span>interactive content</span>, it could be a label for, or instructions for, use of the
+  element; and so forth.  The value is text.</p>
 
   <!-- search for title-warning if modifying this paragraph -->
   <p class="note">Relying on the <code data-x="attr-title">title</code> attribute is currently
@@ -33,7 +33,7 @@
    <p>For instance, the following snippet actually defines an abbreviation's expansion <em>with a
    line break in it</em>:</p>
 
-   <pre class="bad"><code class="html" data-x="">&lt;p>My logs show that there was some interest in &lt;abbr title="Hypertext
+   <pre class="bad"><code class="html">&lt;p>My logs show that there was some interest in &lt;abbr title="Hypertext
 Transport Protocol">HTTP&lt;/abbr> today.&lt;/p></code></pre> <!-- DO NOT REWRAP THIS LINE -->
   </div>
 
@@ -62,8 +62,8 @@ Transport Protocol">HTTP&lt;/abbr> today.&lt;/p></code></pre> <!-- DO NOT REWRAP
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-title">title</code></dfn> IDL attribute must <span>reflect</span> the
-  <code data-x="attr-title">title</code> content attribute.</p>
+  <p>The <dfn attribute for="HTMLElement"><code data-x="dom-title">title</code></dfn> IDL attribute
+  must <span>reflect</span> the <code data-x="attr-title">title</code> content attribute.</p>
 
   </div>
 

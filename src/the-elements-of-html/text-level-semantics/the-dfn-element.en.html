@@ -12,6 +12,10 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd>Also, the <code data-x="attr-dfn-title">title</code> attribute <span data-x="attr-dfn-title">has special semantics</span> on this element.</dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-dfn">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-dfn">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd>Uses <code>HTMLElement</code>.</dd>
   </dl>
@@ -26,8 +30,8 @@
   data-x="attr-dfn-title">title</code></dfn> attribute, then the exact value of that attribute
   is the term being defined. Otherwise, if it contains exactly one element child node and no child
   <code>Text</code> nodes, and that child element is an <code>abbr</code> element with a <code
-  data-x="attr-abbr-title">title</code> attribute, then the exact value of <em>that</em> attribute is
-  the term being defined. Otherwise, it is the exact <code>textContent</code> of the
+  data-x="attr-abbr-title">title</code> attribute, then the exact value of <em>that</em> attribute
+  is the term being defined. Otherwise, it is the <span>descendant text content</span> of the
   <code>dfn</code> element that gives the term being defined.</p>
 
   <!-- note that this means <dfn>x \n x</dfn> won't match <span>x x</span> -->
@@ -47,7 +51,7 @@
    paragraph, then used in the second. In both cases, its abbreviation is what is actually
    displayed.</p>
 
-   <pre><code class="html" data-x="">&lt;p>The <strong>&lt;dfn>&lt;abbr title="Garage Door Opener">GDO&lt;/abbr>&lt;/dfn></strong>
+   <pre><code class="html">&lt;p>The <strong>&lt;dfn>&lt;abbr title="Garage Door Opener">GDO&lt;/abbr>&lt;/dfn></strong>
 is a device that allows off-world teams to open the iris.&lt;/p>
 &lt;!-- ... later in the document: -->
 &lt;p>Teal'c activated his <strong>&lt;abbr title="Garage Door Opener">GDO&lt;/abbr></strong>
@@ -56,7 +60,7 @@ and so Hammond ordered the iris to be opened.&lt;/p></code></pre>
    <p>With the addition of an <code>a</code> element, the <span data-x="referenced">reference</span>
    can be made explicit:</p>
 
-   <pre><code class="html" data-x="">&lt;p>The &lt;dfn <strong>id=gdo</strong>>&lt;abbr title="Garage Door Opener">GDO&lt;/abbr>&lt;/dfn>
+   <pre><code class="html">&lt;p>The &lt;dfn <strong>id=gdo</strong>>&lt;abbr title="Garage Door Opener">GDO&lt;/abbr>&lt;/dfn>
 is a device that allows off-world teams to open the iris.&lt;/p>
 &lt;!-- ... later in the document: -->
 &lt;p>Teal'c activated his <strong>&lt;a href=#gdo></strong>&lt;abbr title="Garage Door Opener">GDO&lt;/abbr><strong>&lt;/a></strong>

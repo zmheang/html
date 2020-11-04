@@ -16,20 +16,18 @@
 
    <dt>
 
-    If the element does not <span data-x="represents">represent</span> an image, but the element
-    already has <span>intrinsic dimensions</span> (e.g. from the <span>dimension attributes</span>
-    or CSS rules), and either:
+    If the element does not <span data-x="represents">represent</span> an image and either:
 
     <ul>
-
      <li>the user agent has reason to believe that the image will become <i
      data-x="img-available">available</i><!--input-img-available also--> and be rendered in due
      course, or
 
      <li>the element has no <code data-x="">alt</code> attribute<!-- attr-img-alt, attr-input-alt -->, or
 
-     <li>the <code>Document</code> is in <span>quirks mode</span>
-
+     <li>the <code>Document</code> is in <span>quirks mode</span>, and the element already has
+     <span>intrinsic dimensions</span> (e.g., from the <span>dimension attributes</span> or CSS
+     rules)
     </ul>
 
    </dt>
@@ -55,8 +53,9 @@
    <dt>If the element is an <code>img</code> element that <span>represents</span> nothing and the
    user agent does not expect this to change</dt>
 
-   <dd>The user agent is expected to treat the element as an empty inline element. (In the absence
-   of further styles, this will cause the element to essentially not be rendered.)</dd>
+   <dd>The user agent is expected to treat the element as a <span>replaced element</span> whose
+   <span>intrinsic dimensions</span> are 0. (In the absence of further styles, this will cause the
+   element to essentially not be rendered.)</dd>
 
 
    <!-- no-quirks and limited-quirks modes only-->
@@ -67,7 +66,6 @@
    consisting of a button whose content is the element's alternative text. The <span>intrinsic
    dimensions</span> of the button are expected to be about one line in height and whatever width
    is necessary to render the text on one line.</dd>
-
   </dl>
 
   <p>The icons mentioned above are expected to be relatively small so as not to disrupt most text
@@ -98,7 +96,7 @@
   <p>The following CSS rules are expected to apply when the <code>Document</code> is in <span>quirks
   mode</span>:</p>
 
-  <pre><code class="css" data-x="">@namespace url(http://www.w3.org/1999/xhtml);
+  <pre><code class="css">@namespace url(http://www.w3.org/1999/xhtml);
 
 img[align=left i] { margin-right: 3px; }
 img[align=right i] { margin-left: 3px; }</code></pre>

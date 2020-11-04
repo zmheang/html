@@ -12,12 +12,19 @@
    <dt><span data-x="concept-element-attributes">Content attributes</span>:</dt>
    <dd><span>Global attributes</span></dd>
    <dd>If the element is not a child of an <code>ul</code> or <code>menu</code> element: <code data-x="attr-li-value">value</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-li">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-li">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-<pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+<pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute long <span data-x="dom-li-value">value</span>;
+
+  // <a href="#HTMLLIElement-partial">also has obsolete members</a>
 };</code></pre>
    </dd>
    <dd w-dev>Uses <code>HTMLLIElement</code>.</dd>
@@ -28,9 +35,10 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
   parent element's list, as defined for those elements. Otherwise, the list item has no defined
   list-related relationship to any other <code>li</code> element.</p>
 
-  <p>The <dfn><code data-x="attr-li-value">value</code></dfn> attribute, if present, must be a
-  <span>valid integer</span>. It is used to determine the <span>ordinal value</span> of the list
-  item, when the <code>li</code>'s <span>list owner</span> is an <code>ol</code> element.</p>
+  <p>The <dfn element-attr for="li"><code data-x="attr-li-value">value</code></dfn> attribute, if
+  present, must be a <span>valid integer</span>. It is used to determine the <span>ordinal
+  value</span> of the list item, when the <code>li</code>'s <span>list owner</span> is an
+  <code>ol</code> element.</p>
 
   <div w-nodev>
 
@@ -49,10 +57,11 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
    <var>ancestor</var> to the closest such ancestor element.</p></li>
 
    <li>
-    <p>Return the closest inclusive ancestor of <var>ancestor</var> that produces a CSS box.</p>
+    <p>Return the closest inclusive ancestor of <var>ancestor</var> that produces a <span>CSS
+    box</span>.</p>
 
     <p class="note">Such an element will always exist, as at the very least the <span>document
-    element</span> will always produce a CSS box.</p>
+    element</span> will always produce a <span>CSS box</span>.</p>
    </li>
   </ol>
 
@@ -100,15 +109,16 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
 
   <hr>
 
-  <p>The <dfn><code data-x="dom-li-value">value</code></dfn> IDL attribute must <span>reflect</span>
-  the value of the <code data-x="attr-li-value">value</code> content attribute.</p>
+  <p>The <dfn attribute for="HTMLLIElement"><code data-x="dom-li-value">value</code></dfn> IDL
+  attribute must <span>reflect</span> the value of the <code data-x="attr-li-value">value</code>
+  content attribute.</p>
 
   <div class="example">
    <p>The element's <code data-x="dom-li-value">value</code> IDL attribute does not directly
    correspond to its <span>ordinal value</span>; it simply <span data-x="reflect">reflects</span>
    the content attribute. For example, given this list:
 
-   <pre><code class="html" data-x="">&lt;ol>
+   <pre><code class="html">&lt;ol>
  &lt;li>Item 1
  &lt;li value="3">Item 3
  &lt;li>Item 4
@@ -126,11 +136,11 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
    is given a title by using a <code>figure</code> element and its <code>figcaption</code>
    element.</p>
 
-   <pre><code class="html" data-x="">&lt;figure>
+   <pre><code class="html">&lt;figure>
  &lt;figcaption>The top 10 movies of all time&lt;/figcaption>
  &lt;ol>
   &lt;li value="10">&lt;cite>Josie and the Pussycats&lt;/cite>, 2001&lt;/li>
-  &lt;li value="9">&lt;cite lang="sh">&#x0426;&#x0440;&#x043d;&#x0430; &#x043c;&#x0430;&#x0447;&#x043a;&#x0430;, &#x0431;&#x0435;&#x043b;&#x0438; &#x043c;&#x0430;&#x0447;&#x043e;&#x0440;&lt;/cite>, 1998&lt;/li>
+  &lt;li value="9">&lt;cite lang="sh">Црна мачка, бели мачор&lt;/cite>, 1998&lt;/li>
   &lt;li value="8">&lt;cite>A Bug's Life&lt;/cite>, 1998&lt;/li>
   &lt;li value="7">&lt;cite>Toy Story&lt;/cite>, 1995&lt;/li>
   &lt;li value="6">&lt;cite>Monsters, Inc&lt;/cite>, 2001&lt;/li>
@@ -145,11 +155,11 @@ interface <dfn>HTMLLIElement</dfn> : <span>HTMLElement</span> {
    <p>The markup could also be written as follows, using the <code
    data-x="attr-ol-reversed">reversed</code> attribute on the <code>ol</code> element:</p>
 
-   <pre><code class="html" data-x="">&lt;figure>
+   <pre><code class="html">&lt;figure>
  &lt;figcaption>The top 10 movies of all time&lt;/figcaption>
  &lt;ol reversed>
   &lt;li>&lt;cite>Josie and the Pussycats&lt;/cite>, 2001&lt;/li>
-  &lt;li>&lt;cite lang="sh">&#x0426;&#x0440;&#x043d;&#x0430; &#x043c;&#x0430;&#x0447;&#x043a;&#x0430;, &#x0431;&#x0435;&#x043b;&#x0438; &#x043c;&#x0430;&#x0447;&#x043e;&#x0440;&lt;/cite>, 1998&lt;/li>
+  &lt;li>&lt;cite lang="sh">Црна мачка, бели мачор&lt;/cite>, 1998&lt;/li>
   &lt;li>&lt;cite>A Bug's Life&lt;/cite>, 1998&lt;/li>
   &lt;li>&lt;cite>Toy Story&lt;/cite>, 1995&lt;/li>
   &lt;li>&lt;cite>Monsters, Inc&lt;/cite>, 2001&lt;/li>

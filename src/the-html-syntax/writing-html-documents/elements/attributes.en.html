@@ -18,11 +18,9 @@
   <p>Attributes can be specified in four different ways:</p>
 
   <dl>
-
    <dt>Empty attribute syntax</dt>
 
    <dd>
-
     <p>Just the <span data-x="syntax-attribute-name">attribute name</span>. The value is implicitly
     the empty string.</p>
 
@@ -31,19 +29,17 @@
      <p>In the following example, the <code data-x="attr-fe-disabled">disabled</code> attribute is
      given with the empty attribute syntax:</p>
 
-     <pre><code class="html" data-x="">&lt;input <em>disabled</em>&gt;</code></pre>
+     <pre><code class="html">&lt;input <em>disabled</em>&gt;</code></pre>
 
     </div>
 
     <p>If an attribute using the empty attribute syntax is to be followed by another attribute, then
     there must be <span>ASCII whitespace</span> separating the two.</p>
-
    </dd>
 
    <dt id="unquoted">Unquoted attribute value syntax</dt>
 
    <dd>
-
     <p>The <span data-x="syntax-attribute-name">attribute name</span>, followed by zero or more
     <span>ASCII whitespace</span>, followed by a single U+003D EQUALS SIGN character, followed by
     zero or more <span>ASCII whitespace</span>, followed by the <span
@@ -86,7 +82,7 @@
      <p>In the following example, the <code data-x="attr-input-value">value</code> attribute is given
      with the unquoted attribute value syntax:</p>
 
-     <pre><code class="html" data-x="">&lt;input <em>value=yes</em>&gt;</code></pre>
+     <pre><code class="html">&lt;input <em>value=yes</em>&gt;</code></pre>
 
     </div>
 
@@ -94,13 +90,11 @@
     by the optional U+002F SOLIDUS character (/) allowed in step 6 of the <span
     data-x="syntax-start-tag">start tag</span> syntax above, then there must be <span>ASCII
     whitespace</span> separating the two.</p>
-
    </dd>
 
    <dt>Single-quoted attribute value syntax</dt>
 
    <dd>
-
     <p>The <span data-x="syntax-attribute-name">attribute name</span>, followed by zero or more
     <span>ASCII whitespace</span>, followed by a single U+003D EQUALS SIGN character, followed by
     zero or more <span>ASCII whitespace</span>, followed by a single U+0027 APOSTROPHE character
@@ -114,19 +108,17 @@
      <p>In the following example, the <code data-x="attr-input-type">type</code> attribute is given
      with the single-quoted attribute value syntax:</p>
 
-     <pre><code class="html" data-x="">&lt;input <em>type='checkbox'</em>&gt;</code></pre>
+     <pre><code class="html">&lt;input <em>type='checkbox'</em>&gt;</code></pre>
 
     </div>
 
     <p>If an attribute using the single-quoted attribute syntax is to be followed by another
     attribute, then there must be <span>ASCII whitespace</span> separating the two.</p>
-
    </dd>
 
    <dt>Double-quoted attribute value syntax</dt>
 
    <dd>
-
     <p>The <span data-x="syntax-attribute-name">attribute name</span>, followed by zero or more
     <span>ASCII whitespace</span>, followed by a single U+003D EQUALS SIGN character, followed by
     zero or more <span>ASCII whitespace</span>, followed by a single U+0022 QUOTATION MARK character
@@ -140,15 +132,13 @@
      <p>In the following example, the <code data-x="attr-fe-name">name</code> attribute is given with
      the double-quoted attribute value syntax:</p>
 
-     <pre><code class="html" data-x="">&lt;input <em>name="be evil"</em>&gt;</code></pre>
+     <pre><code class="html">&lt;input <em>name="be evil"</em>&gt;</code></pre>
 
     </div>
 
     <p>If an attribute using the double-quoted attribute syntax is to be followed by another
     attribute, then there must be <span>ASCII whitespace</span> separating the two.</p>
-
    </dd>
-
   </dl>
 
   <p>There must never be two or more attributes on the same start tag whose names are an <span>ASCII
@@ -180,7 +170,7 @@
   <p>No other namespaced attribute can be expressed in <span>the HTML syntax</span>.</p>
 
   <p class="note">Whether the attributes in the table above are conforming or not is defined by
-  other specifications (e.g. the SVG and MathML specifications); this section only describes the
-  syntax rules if the attributes are serialized using the HTML syntax.</p>
+  other specifications (e.g. <cite>SVG 2</cite> and <cite>MathML</cite>); this section only
+  describes the syntax rules if the attributes are serialized using the HTML syntax.</p>
 
 

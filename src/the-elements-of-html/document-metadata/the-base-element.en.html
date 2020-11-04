@@ -1,4 +1,4 @@
-  <h4 data-dfn-type="element" data-lt="base">The <dfn><code>base</code></dfn> element</h4>
+  <h4 element data-lt="base">The <dfn><code>base</code></dfn> element</h4>
 
   <dl class="element">
    <dt><span data-x="concept-element-categories">Categories</span>:</dt>
@@ -11,11 +11,16 @@
    <dd><span>Global attributes</span></dd>
    <dd><code data-x="attr-base-href">href</code></dd>
    <dd><code data-x="attr-base-target">target</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-base">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-base">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>]
+    <pre><code class="idl">[Exposed=Window]
 interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute USVString <span data-x="dom-base-href">href</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-base-target">target</span>;
 };</code></pre>
@@ -33,8 +38,9 @@ interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
   <p>A <code>base</code> element must have either an <code data-x="attr-base-href">href</code>
   attribute, a <code data-x="attr-base-target">target</code> attribute, or both.</p>
 
-  <p>The <dfn><code data-x="attr-base-href">href</code></dfn> content attribute, if specified, must
-  contain a <span>valid URL potentially surrounded by spaces</span>.</p>
+  <p>The <dfn element-attr for="base"><code data-x="attr-base-href">href</code></dfn> content
+  attribute, if specified, must contain a <span>valid URL potentially surrounded by
+  spaces</span>.</p>
 
   <p>A <code>base</code> element, if it has an <code data-x="attr-base-href">href</code> attribute,
   must come before any other elements in the tree that have attributes defined as taking <span
@@ -49,9 +55,9 @@ interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p>The <dfn><code data-x="attr-base-target">target</code></dfn> attribute, if specified, must
-  contain a <span>valid browsing context name or keyword</span>, which specifies which
-  <span>browsing context</span> is to be used as the default when <span
+  <p>The <dfn element-attr for="base"><code data-x="attr-base-target">target</code></dfn> attribute,
+  if specified, must contain a <span>valid browsing context name or keyword</span>, which specifies
+  which <span>browsing context</span> is to be used as the default when <span
   data-x="hyperlink">hyperlinks</span> and <span data-x="form">forms</span> in the
   <code>Document</code> cause <span data-x="navigate">navigation</span>.</p>
 
@@ -100,7 +106,7 @@ interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
 
   </ul>
 
-  <p>To <dfn data-export="">set the frozen base URL</dfn> for an element <var>element</var>:</p>
+  <p>To <dfn export>set the frozen base URL</dfn> for an element <var>element</var>:</p>
 
   <ol>
    <li><p>Let <var>document</var> be <var>element</var>'s <span>node document</span>.
@@ -119,8 +125,8 @@ interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
    returns "<code data-x="">Blocked</code>", and to <var>urlRecord</var> otherwise.</p></li>
   </ol>
 
-  <p>The <dfn><code data-x="dom-base-href">href</code></dfn> IDL attribute, on getting, must return
-  the result of running the following algorithm:
+  <p>The <dfn attribute for="HTMLBaseElement"><code data-x="dom-base-href">href</code></dfn> IDL
+  attribute, on getting, must return the result of running the following algorithm:
   <!-- https://software.hixie.ch/utilities/js/live-dom-viewer/?saved=1715
        https://github.com/whatwg/html/issues/1060#issuecomment-211221664 -->
 
@@ -147,8 +153,8 @@ interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
   <p>The <code data-x="dom-base-href">href</code> IDL attribute, on setting, must set the <code
   data-x="attr-base-href">href</code> content attribute to the given new value.</p>
 
-  <p>The <dfn><code data-x="dom-base-target">target</code></dfn> IDL attribute must
-  <span>reflect</span> the content attribute of the same name.</p>
+  <p>The <dfn attribute for="HTMLBaseElement"><code data-x="dom-base-target">target</code></dfn> IDL
+  attribute must <span>reflect</span> the content attribute of the same name.</p>
 
   </div>
 
@@ -157,7 +163,7 @@ interface <dfn>HTMLBaseElement</dfn> : <span>HTMLElement</span> {
    <p>In this example, a <code>base</code> element is used to set the <span>document base
    URL</span>:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE html>
+   <pre><code class="html">&lt;!DOCTYPE html>
 &lt;html lang="en">
     &lt;head>
         &lt;title>This is an example for the &amp;lt;base&amp;gt; element&lt;/title>

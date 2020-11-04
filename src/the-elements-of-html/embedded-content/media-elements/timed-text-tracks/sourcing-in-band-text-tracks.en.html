@@ -8,8 +8,8 @@
 
   <p>Rules for processing and rendering such data are defined by the relevant specifications, e.g.
   the specification of the video format if the <span>media resource</span> is a video. Details for
-  some legacy formats can be found in the <cite>Sourcing In-band Media Resource Tracks from Media
-  Containers into HTML</cite> specification. <ref spec=INBAND></p>
+  some legacy formats can be found in <cite>Sourcing In-band Media Resource Tracks from Media
+  Containers into HTML</cite>. <ref spec=INBAND></p>
 
   <p>When a <span>media resource</span> contains data that the user agent recognizes and supports as
   being equivalent to a <span>text track</span>, the user agent <a
@@ -19,7 +19,6 @@
   <!-- this runs synchronously from a fetch task -->
 
   <ol>
-
    <li><p>Associate the relevant data with a new <span>text track</span> and its corresponding new
    <code>TextTrack</code> object. The <span>text track</span> is a <span>media-resource-specific
    text track</span>.</p></li>
@@ -34,7 +33,6 @@
    text track rendering</span> appropriate for the format in question.</p>
 
    <li>
-
     <p>If the new <span>text track</span>'s <span data-x="text track kind">kind</span> is <code
     data-x="dom-TextTrack-kind-chapters">chapters</code> or <code
     data-x="dom-TextTrack-kind-metadata">metadata</code>, then set the <span>text track in-band
@@ -55,16 +53,16 @@
 
      <dt>If the <span>media resource</span> is an MPEG-2 file</dt>
 
-     <dd>Let <var>stream type</var> be the value of the "stream_type" field describing the
-     text track's type in the file's program map section, interpreted as an 8-bit unsigned integer.
-     Let <var>length</var> be the value of the "ES_info_length" field for the track in the
-     same part of the program map section, interpreted as an integer as defined by the MPEG-2
-     specification. Let <var>descriptor bytes</var> be the <var>length</var> bytes
-     following the "ES_info_length" field. The <span>text track in-band metadata track dispatch
-     type</span> must be set to the concatenation of the <var>stream type</var> byte and
-     the zero or more <var>descriptor bytes</var> bytes, expressed in hexadecimal using
-     <span data-x="ASCII upper hex digit">ASCII upper hex digits</span>. <ref spec=MPEG2>
-
+     <dd>Let <var>stream type</var> be the value of the "stream_type" field describing the text
+     track's type in the file's program map section, interpreted as an 8-bit unsigned integer. Let
+     <var>length</var> be the value of the "ES_info_length" field for the track in the same part of
+     the program map section, interpreted as an integer as defined by <cite>Generic coding of moving
+     pictures and associated audio information</cite>. Let <var>descriptor bytes</var> be the
+     <var>length</var> bytes following the "ES_info_length" field. The <span>text track in-band
+     metadata track dispatch type</span> must be set to the concatenation of the <var>stream
+     type</var> byte and the zero or more <var>descriptor bytes</var> bytes, expressed in
+     hexadecimal using <span data-x="ASCII upper hex digit">ASCII upper hex digits</span>. <ref
+     spec=MPEG2>
      </dd>
 
      <dt>If the <span>media resource</span> is an MPEG-4 file</dt>
@@ -96,11 +94,8 @@
      that box.
 
      <ref spec=MPEG4>
-
      </dd>
-
     </dl>
-
    </li>
 
    <li><p>Populate the new <span>text track</span>'s <span data-x="text track list of cues">list of
@@ -119,7 +114,6 @@
     subtitle track (a subtitle track giving subtitles in the audio track's primary language, but
     only for audio that is actually in another language), then those subtitles might be activated
     here.</p>
-
    </li> <!-- it's too late to apply the normal heuristic, so we don't bother -->
 
    <li><p>Add the new <span>text track</span> to the <span>media element</span>'s <span>list of text
@@ -130,7 +124,6 @@
    data-x="dom-media-textTracks">textTracks</code> attribute's <code>TextTrackList</code> object,
    using <code>TrackEvent</code>, with the <code data-x="dom-TrackEvent-track">track</code>
    attribute initialized to the <span>text track</span>'s <code>TextTrack</code> object.</p></li>
-
   </ol>
 
   <!-- removetrack: we don't currently ever remove an in-band text track, because it might have been

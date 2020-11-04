@@ -1,17 +1,17 @@
   <h4>The <code>History</code> interface</h4>
 
-  <pre><code class="idl" data-x="">enum <dfn>ScrollRestoration</dfn> { "<span data-x="dom-ScrollRestoration-auto">auto</span>", "<span data-x="dom-ScrollRestoration-manual">manual</span>" };
+  <pre><code class="idl">enum <dfn>ScrollRestoration</dfn> { "<span data-x="dom-ScrollRestoration-auto">auto</span>", "<span data-x="dom-ScrollRestoration-manual">manual</span>" };
 
 [Exposed=Window]
 interface <dfn>History</dfn> {
   readonly attribute unsigned long <span data-x="dom-history-length">length</span>;
   attribute <span>ScrollRestoration</span> <span data-x="dom-history-scroll-restoration">scrollRestoration</span>;
   readonly attribute any <span data-x="dom-history-state">state</span>;
-  void <span data-x="dom-history-go">go</span>(optional long delta = 0);
-  void <span data-x="dom-history-back">back</span>();
-  void <span data-x="dom-history-forward">forward</span>();
-  void <span data-x="dom-history-pushState">pushState</span>(any data, DOMString title, optional USVString? url = null);
-  void <span data-x="dom-history-replaceState">replaceState</span>(any data, DOMString title, optional USVString? url = null);
+  undefined <span data-x="dom-history-go">go</span>(optional long delta = 0);
+  undefined <span data-x="dom-history-back">back</span>();
+  undefined <span data-x="dom-history-forward">forward</span>();
+  undefined <span data-x="dom-history-pushState">pushState</span>(any data, DOMString title, optional USVString? url = null);
+  undefined <span data-x="dom-history-replaceState">replaceState</span>(any data, DOMString title, optional USVString? url = null);
 };</code></pre>
 
   <dl class="domintro">
@@ -19,80 +19,64 @@ interface <dfn>History</dfn> {
    <dt><var>window</var> . <code subdfn data-x="dom-history">history</code> . <code subdfn data-x="dom-history-length">length</code></dt>
 
    <dd>
-
     <p>Returns the number of entries in the <span>joint session history</span>.</p>
-
    </dd>
 
    <dt><var>window</var> . <code data-x="dom-history">history</code> . <code subdfn data-x="dom-history-scroll-restoration">scrollRestoration</code> [ = <var>value</var> ]</dt>
 
    <dd>
+    <p>Returns the <span data-x="she-scroll-restoration-mode">scroll restoration mode</span> of the
+    current entry in the <span>session history</span>.</p>
 
-    <p>Returns the <span>scroll restoration mode</span> of the current entry in the <span>session
-    history</span>.</p>
-
-    <p>Can be set, to change the <span>scroll restoration mode</span> of the current entry in the <span>session history</span>.</p>
-
+    <p>Can be set, to change the <span data-x="she-scroll-restoration-mode">scroll restoration
+    mode</span> of the current entry in the <span>session history</span>.</p>
    </dd>
 
    <dt><var>window</var> . <code data-x="dom-history">history</code> . <code subdfn data-x="dom-history-state">state</code></dt>
 
    <dd>
-
     <p>Returns the current <span>serialized state</span>, deserialized into an object.</p>
-
    </dd>
 
    <dt><var>window</var> . <code data-x="dom-history">history</code> . <code subdfn data-x="dom-history-go">go</code>( [ <var>delta</var> ] )</dt>
 
    <dd>
-
     <p>Goes back or forward the specified number of steps in the <span>joint session history</span>.</p>
 
     <p>A zero delta will reload the current page.</p>
 
     <p>If the delta is out of range, does nothing.</p>
-
    </dd>
 
    <dt><var>window</var> . <code data-x="dom-history">history</code> . <code subdfn data-x="dom-history-back">back</code>()</dt>
 
    <dd>
-
     <p>Goes back one step in the <span>joint session history</span>.</p>
 
     <p>If there is no previous page, does nothing.</p>
-
    </dd>
 
    <dt><var>window</var> . <code data-x="dom-history">history</code> . <code subdfn data-x="dom-history-forward">forward</code>()</dt>
 
    <dd>
-
     <p>Goes forward one step in the <span>joint session history</span>.</p>
 
     <p>If there is no next page, does nothing.</p>
-
    </dd>
 
    <dt><var>window</var> . <code data-x="dom-history">history</code> . <code subdfn data-x="dom-history-pushState">pushState</code>(<var>data</var>, <var>title</var> [, <var>url</var> ] )</dt>
 
    <dd>
-
     <p>Pushes the given data onto the session history, with the given title, and, if provided and
     not null, the given URL.</p>
-
    </dd>
 
    <dt><var>window</var> . <code data-x="dom-history">history</code> . <code subdfn data-x="dom-history-replaceState">replaceState</code>(<var>data</var>, <var>title</var> [, <var>url</var> ] )</dt>
 
    <dd>
-
     <p>Updates the current entry in the session history to have the given data, title, and, if
     provided and not null, URL.</p>
-
    </dd>
-
   </dl>
 
 
@@ -123,49 +107,96 @@ interface <dfn>History</dfn> {
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-history-length">length</code></dfn> attribute of the
-  <code>History</code> interface, on getting, must return the number of entries in the
-  <span>top-level browsing context</span>'s <span>joint session history</span>. If this
-  <code>History</code> object is associated with a <code>Document</code> that is not
-  <span>fully active</span>, getting must instead throw a <span>"<code>SecurityError</code>"</span>
-  <code>DOMException</code>.</p>
+  <p>Each <code>History</code> object has <dfn data-x="concept-history-state">state</dfn>,
+  initially null.</p>
+
+  <p>The <dfn attribute for="History"><code data-x="dom-history-length">length</code></dfn> getter
+  steps are:</p>
+
+  <ol>
+   <li><p>If <span>this</span>'s associated <code>Document</code> is not <span>fully active</span>,
+   then throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>Return the number of entries in the <span>top-level browsing context</span>'s <span>joint
+   session history</span>.</p></li>
+  </ol>
 
   <p>The actual entries are not accessible from script.</p>
 
-  <p>The <dfn><code data-x="dom-history-scroll-restoration">scrollRestoration</code></dfn> attribute
-  of the History interface, on getting, must return the <span>scroll restoration mode</span> of the
-  current entry in the <span>session history</span>. On setting, the <span>scroll restoration mode
-  </span> of the current entry in the <span>session history</span> must be set to the new
-  value.  If this <code>History</code> object is associated with a <code>Document</code> that is
-  not <span>fully active</span>, both getting and setting must instead throw a
-  <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p>
+  <p>The <dfn attribute for="History"><code
+  data-x="dom-history-scroll-restoration">scrollRestoration</code></dfn> getter steps are:</p>
 
-  <p>The <dfn><code data-x="dom-history-state">state</code></dfn> attribute of the
-  <code>History</code> interface, on getting, must return the last value it was set to by the user
-  agent. If this <code>History</code> object is associated with a <code>Document</code> that is
-  not <span>fully active</span>, getting must instead throw a
-  <span>"<code>SecurityError</code>"</span> <code>DOMException</code>. Initially, its value must be
-  null.</p>
+  <ol>
+   <li><p>If <span>this</span>'s associated <code>Document</code> is not <span>fully active</span>,
+   then throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
-  <p>When the <dfn><code data-x="dom-history-go">go(<var>delta</var>)</code></dfn> method is
-  invoked, if <var>delta</var> is zero, the user agent must act as if the
-  <code data-x="dom-location-reload">location.reload()</code> method was called instead. Otherwise,
-  the user agent must <span>traverse the history by a delta</span> whose value is
-  <var>delta</var>. If this <code>History</code> object is associated with a <code>Document</code>
-  that is not <span>fully active</span>, invoking must instead throw a
-  <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p>
+   <li><p>Return <span>this</span>'s <span>session history</span>'s <span>current entry</span>'s
+   <span data-x="she-scroll-restoration-mode">scroll restoration mode</span>.</p></li>
+  </ol>
 
-  <p>When the <dfn><code data-x="dom-history-back">back()</code></dfn> method is invoked, the user
-  agent must <span>traverse the history by a delta</span> &#x2212;1. If this <code>History</code>
-  object is associated with a <code>Document</code> that is not <span>fully active</span>,
-  invoking must instead throw a <span>"<code>SecurityError</code>"</span>
-  <code>DOMException</code>.</p>
+  <p>The <code data-x="dom-history-scroll-restoration">scrollRestoration</code> setter steps
+  are:</p>
 
-  <p>When the <dfn><code data-x="dom-history-forward">forward()</code></dfn> method is invoked, the
-  user agent must <span>traverse the history by a delta</span> +1. If this <code>History</code>
-  object is associated with a <code>Document</code> that is not <span>fully active</span>,
-  invoking must instead throw a <span>"<code>SecurityError</code>"</span>
-  <code>DOMException</code>.</p>
+  <ol>
+   <li><p>If <span>this</span>'s associated <code>Document</code> is not <span>fully active</span>,
+   then throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>Set <span>this</span>'s <span>session history</span>'s <span>current entry</span>'s <span
+   data-x="she-scroll-restoration-mode">scroll restoration mode</span> to the given value.</p></li>
+  </ol>
+
+  <p>The <dfn attribute for="History"><code data-x="dom-history-state">state</code></dfn> getter
+  steps are:</p>
+
+  <ol>
+   <li><p>If <span>this</span>'s associated <code>Document</code> is not <span>fully active</span>,
+   then throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p>Return <span>this</span>'s <span data-x="concept-history-state">state</span>.</p></li>
+  </ol>
+
+  <p>The <dfn method for="History"><code data-x="dom-history-go">go(<var>delta</var>)</code></dfn>
+  method steps are:</p>
+
+  <ol>
+   <li><p>Let <var>document</var> be <span>this</span>'s associated <code>Document</code>.</p></li>
+
+   <li><p>If <var>document</var> is not <span>fully active</span>, then throw a
+   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <!-- XXX extract out "location reload steps" instead of this "act as if" fuzziness. -->
+   <li><p>If <var>delta</var> is 0, then act as if the <code
+   data-x="dom-location-reload">location.reload()</code> method was called, and return.</p></li>
+
+   <li><p><span>Traverse the history by a delta</span> with <var>delta</var> and
+   <var>document</var>'s <span data-x="concept-document-bc">browsing context</span>.</p></li>
+  </ol>
+
+  <p>The <dfn method for="History"><code data-x="dom-history-back">back()</code></dfn> method steps
+  are:</p>
+
+  <ol>
+   <li><p>Let <var>document</var> be <span>this</span>'s associated <code>Document</code>.</p></li>
+
+   <li><p>If <var>document</var> is not <span>fully active</span>, then throw a
+   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p><span>Traverse the history by a delta</span> with &#x2212;1 and
+   <var>document</var>'s <span data-x="concept-document-bc">browsing context</span>.</p></li>
+  </ol>
+
+  <p>The <dfn method for="History"><code data-x="dom-history-forward">forward()</code></dfn> method
+  steps are:</p>
+
+  <ol>
+   <li><p>Let <var>document</var> be <span>this</span>'s associated <code>Document</code>.</p></li>
+
+   <li><p>If <var>document</var> is not <span>fully active</span>, then throw a
+   <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
+
+   <li><p><span>Traverse the history by a delta</span> with +1 and
+   <var>document</var>'s <span data-x="concept-document-bc">browsing context</span>.</p></li>
+  </ol>
 
 
   <hr>
@@ -178,7 +209,6 @@ interface <dfn>History</dfn> {
   <span>top-level browsing context</span>, <span>in parallel</span>:</p>
 
   <ol>
-
    <li><p>Wait until this <span>top-level browsing context</span>'s <span>session history traversal
    queue</span> is not empty.</p></li>
 
@@ -186,25 +216,25 @@ interface <dfn>History</dfn> {
    context</span>'s <span>session history traversal queue</span>, and execute it.</p></li>
 
    <li><p>Return to the first step of this algorithm.</p>
-
   </ol>
 
   <p>The <span>session history event loop</span> helps coordinate cross-browsing-context transitions
   of the <span>joint session history</span>: since each <span>browsing context</span> might, at any
-  particular time, have a different <span>event loop</span> (this can happen if the user agent has
-  more than one <span>event loop</span> per <span>unit of related browsing contexts</span>),
-  transitions would otherwise have to involve cross-event-loop synchronization.</p>
+  particular time, have a different <span>event loop</span> (this can happen if the user navigates
+  from <code data-x="">example.com</code> to <code data-x="">shop.example</code>), transitions would
+  otherwise have to involve cross-event-loop synchronization.</p>
 
   <hr>
 
-  <p>To <dfn>traverse the history by a delta</dfn> <var>delta</var>, the user agent must
-  append a <span data-x="concept-task">task</span> to this <span>top-level browsing context</span>'s
-  <span>session history traversal queue</span>, the <span data-x="concept-task">task</span>
-  consisting of running the following steps:</p>
+  <p>To <dfn>traverse the history by a delta</dfn> given <var>delta</var> and <span>browsing
+  context</span> <var>source browsing context</var>, the user agent must append a <span
+  data-x="concept-task">task</span> to this <span>top-level browsing context</span>'s <span>session
+  history traversal queue</span>, the <span data-x="concept-task">task</span> consisting of running
+  the following steps:</p>
 
   <ol>
-
-   <li><p>If the index of the <span>current entry of the joint session history</span> plus <var>delta</var> is less than zero or greater than or equal to the number of items in the
+   <li><p>If the index of the <span>current entry of the joint session history</span> plus
+   <var>delta</var> is less than zero or greater than or equal to the number of items in the
    <span>joint session history</span>, then return.</p>
 
    <li><p>Let <var>specified entry</var> be the entry in the <span>joint session
@@ -214,201 +244,224 @@ interface <dfn>History</dfn> {
    <li><p>Let <var>specified browsing context</var> be the <span>browsing context</span> of
    the <var>specified entry</var>.</p></li>
 
+   <li><p>If <var>source browsing context</var> is not <span>allowed to navigate</span>
+   <var>specified browsing context</var>, then return.</p></li>
+
    <li><p>If the <var>specified browsing context</var>'s <span>active document</span>'s
    <span>unload a document</span> algorithm is currently running, return.</p></li>
 
    <li>
-
-    <p><span>Queue a task</span> that consists of running the following substeps. The relevant
-    <span>event loop</span> is that of the <var>specified browsing context</var>'s
-    <span>active document</span>. The <span>task source</span> for the queued task is the
-    <span>history traversal task source</span>.</p>
+    <p><span>Queue a global task</span> on the <span>history traversal task source</span> given
+    <var>specified browsing context</var>'s <span>active window</span> to perform the following
+    steps:</p>
 
     <ol>
-
      <li><p>If there is an ongoing attempt to navigate <var>specified browsing context</var>
      that has not yet <span data-x="concept-navigate-mature">matured</span> (i.e. it has not passed the
      point of making its <code>Document</code> the <span>active document</span>), then cancel that
      attempt to navigate the <span>browsing context</span>.</p></li>
 
      <li>
-
       <p>If the <var>specified browsing context</var>'s <span>active document</span> is not
       the same <code>Document</code> as the <code>Document</code> of the <var>specified
       entry</var>, then run these substeps:</p>
 
       <ol>
-
        <li><p><span>Prompt to unload</span> the <span>active document</span> of the <var>specified
        browsing context</var>. If the user <span>refused to allow the document to be
        unloaded</span>, then return.</p></li>
 
        <li><p><span data-x="unload a document">Unload</span> the <span>active document</span> of the
-       <var>specified browsing context</var> with the <var>recycle</var> parameter
-       set to false.</p></li>
-
+       <var>specified browsing context</var>.</p></li>
       </ol>
-
      </li>
 
      <li><p><span>Traverse the history</span> of the <var>specified browsing context</var> to
-     the <var>specified entry</var> with the <i data-x="history-navigation flag">history-navigation
-     flag</i> set.</p>
-
+     the <var>specified entry</var> with <var><span>explicitHistoryNavigation</span></var> set to
+     true.</p>
     </ol>
-
    </li>
-
   </ol>
 
   <p>When the user navigates through a <span>browsing context</span>, e.g. using a browser's back
-  and forward buttons, the user agent must <span>traverse the history by a delta</span> equivalent
-  to the action specified by the user.</p>
+  and forward buttons, the user agent must <span>traverse the history by a delta</span> with a delta
+  equivalent to the action specified by the user and the browsing context being operated on.</p>
 
   <hr id="history-1">
 
-  <p>The <dfn><code data-x="dom-history-pushState">pushState(<var>data</var>, <var>title</var>, <var>url</var>)</code></dfn> method adds a state object entry to
-  the history.</p>
-
-  <p>The <dfn><code data-x="dom-history-replaceState">replaceState(<var>data</var>, <var>title</var>, <var>url</var>)</code></dfn> method updates the state object,
-  title, and optionally the <span>URL</span> of the <span>current entry</span> in the history.</p>
-
-  <p>When either of these methods is invoked, the user agent must run the following steps:</p>
+  <p>The <dfn>URL and history update steps</dfn>, given a <code>Document</code> <var>document</var>,
+  a <span>URL</span> <var>newURL</var>, an optional <span>serialized state</span>-or-null <dfn
+  data-x="uhus-serializedData"><var>serializedData</var></dfn> (default null), an optional
+  string-or-null <dfn data-x="uhus-title"><var>title</var></dfn> (default null), and an optional
+  boolean <dfn data-x="uhus-isPush"><var>isPush</var></dfn> (default false), are:</p>
 
   <ol>
-   <li><p>Let <var>document</var> be the unique <code>Document</code> object this
-   <code>History</code> object is associated with.</p></li>
+   <li><p>Let <var>browsingContext</var> be <var>document</var>'s <span
+   data-x="concept-document-bc">browsing context</span>.</p></li>
 
-   <li><p>If <var>document</var> is not <span>fully active</span>, throw a
+   <li>
+    <p>If <var>isPush</var> is true, then:</p>
+
+    <ol>
+     <li>
+      <p>Remove all the entries in <var>browsingContext</var>'s <span>session history</span> after
+      the <span>current entry</span>. If the <span>current entry</span> is the last entry in the
+      session history, then no entries are removed.</p>
+
+      <p class="note">This <a href="#history-notes">doesn't necessarily have to affect</a> the user
+      agent's user interface.</p>
+     </li>
+
+     <li><p>Remove any <span data-x="concept-task">tasks</span> queued by the <span>history
+     traversal task source</span> that are associated with any <code>Document</code> objects in the
+     <span>top-level browsing context</span>'s <span>document family</span>.</p></li>
+
+     <li><p><span>Save persisted state</span> to the <span>current entry</span>.</p></li>
+
+     <li>
+      <p>Add a <span>session history entry</span> entry to <var>browsingContext</var>'s
+      <span>session history</span>, after the <span>current entry</span>, with</p>
+
+      <ul>
+       <li><p><var>newURL</var> as the <span data-x="she-url">URL</span>;</p></li>
+
+       <li><p><var>document</var> as the <span data-x="she-document">document</span>;</p></li>
+
+       <li><p><var>serializedData</var> as the <span data-x="she-serialized-state">serialized
+       state</span>;</p></li>
+
+       <li><p><var>title</var> as the <span data-x="she-title">title</span>;</p></li>
+
+       <li><p>the <span data-x="she-scroll-restoration-mode">scroll restoration mode</span> of the
+       current entry in the <span>session history</span> as the <span
+       data-x="she-scroll-restoration-mode">scroll restoration mode</span>.</p></li>
+      </ul>
+     </li>
+
+     <li><p>Update the <span>current entry</span> to be this newly added entry.</p></li>
+    </ol>
+   </li>
+
+   <li>
+    <p>Otherwise:</p>
+
+    <ol>
+     <li><p>Let <var>entry</var> be <var>browsingContext</var>'s <span>session history</span>'s
+     <span>current entry</span>.</p></li>
+
+     <li><p>Set <var>entry</var>'s <span data-x="she-url">URL</span> to <var>newURL</var>.</p></li>
+
+     <li><p>If <var>serializedData</var> is not null, then set <var>entry</var>'s <span
+     data-x="she-serialized-state">serialized state</span> to <var>serializedData</var>.</p></li>
+
+     <li><p>Set <var>entry</var>'s <span data-x="she-title">title</span> to
+     <var>title</var>.</p></li>
+
+     <li>
+      <p>Update <var>entry</var> so that it represents a GET request, if it currently represents a
+      non-GET request (e.g. it was the result of a POST submission).</p>
+
+      <p class="XXX">What does this mean? This is not a part of the definition of <span>session
+      history entry</span>.</p>
+     </li>
+    </ol>
+   </li>
+
+   <li>
+    <p>Set <var>document</var>'s <span data-x="concept-document-url">URL</span> to
+    <var>newURL</var>.</p>
+
+    <p class="note">Since this is neither a <span data-x="navigate">navigation</span> of the
+    <span>browsing context</span> nor a <span data-x="traverse the history">history traversal</span>,
+    it does not cause a <code data-x="event-hashchange">hashchange</code> event to be fired.</p>
+   </li>
+  </ol>
+
+  <p>The <dfn><code data-x="dom-history-pushState">pushState(<var>data</var>, <var>title</var>,
+  <var>url</var>)</code></dfn> method steps are to run the <span>shared history push/replace state
+  steps</span> given <span>this</span>, <var>data</var>, <var>title</var>, <var>url</var>, and
+  true.</p>
+
+  <p>The <dfn><code data-x="dom-history-replaceState">replaceState(<var>data</var>,
+  <var>title</var>, <var>url</var>)</code></dfn> method steps are to run the <span>shared history
+  push/replace state steps</span> given <span>this</span>, <var>data</var>, <var>title</var>,
+  <var>url</var>, and false.</p>
+
+  <p>The <dfn>shared history push/replace state steps</dfn>, given a <code>History</code>
+  <var>history</var>, a value <var>data</var>, a string <var>title</var>, a <span>scalar value
+  string</span>-or-null <var>url</var>, and a boolean <var>isPush</var>, are:</p>
+
+  <ol>
+   <li><p>Let <var>document</var> be <var>history</var>'s associated <code>Document</code>.</p></li>
+
+   <li><p>If <var>document</var> is not <span>fully active</span>, then throw a
    <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
    <li><p>Optionally, return. (For example, the user agent might disallow calls to these
    methods that are invoked on a timer, or from event listeners that are not triggered in response
    to a clear user action, or that are invoked in rapid succession.)</p></li>
 
-   <li><p>Let <var>targetRealm</var> be this <code>History</code> object's <span
+   <li><p>Let <var>targetRealm</var> be <var>history</var>'s <span
    data-x="concept-relevant-realm">relevant Realm</span>.</p></li>
 
    <li><p>Let <var>serializedData</var> be
    <span>StructuredSerializeForStorage</span>(<var>data</var>). Rethrow any exceptions.</p></li>
 
-   <li>
+   <li><p>Let <var>newURL</var> be the <span>session history</span>'s <span>current entry</span>'s
+   <span data-x="she-url">URL</span>.</p></li>
 
-    <p>If the third argument is not null, run these substeps:</p>
+   <li>
+    <p>If <var>url</var> is not null, then:</p>
 
     <ol>
+     <li><p><span data-x="parse a url">Parse</span> <var>url</var>, relative to the <span>relevant
+     settings object</span> of <var>history</var>.</p></li>
 
-     <li><span data-x="parse a url">Parse</span> the value of the third argument, relative to the
-     <span>relevant settings object</span> of this <code>History</code> object.</li>
+     <li><p>If that fails, then throw a <span>"<code>SecurityError</code>"</span>
+     <code>DOMException</code>.</p></li>
 
-     <li>If that fails, throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</li>
+     <li><p>Set <var>newURL</var> to the <span>resulting URL record</span>.</p></li>
 
-     <li><p>Let <var>new URL</var> be the <span>resulting URL record</span>.</p></li>
-
-     <li>Compare <var>new URL</var> to <var>document</var>'s <span
+     <li><p>Compare <var>newURL</var> to <var>document</var>'s <span
      data-x="concept-document-url">URL</span>. If any component of these two <span data-x="URL
      record">URL records</span> differ other than the <span data-x="concept-url-path">path</span>,
      <span data-x="concept-url-query">query</span>, and <span
      data-x="concept-url-fragment">fragment</span> components, then throw a
-     <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</li>
+     <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.</p></li>
 
-     <li>If the <span data-x="concept-url-origin">origin</span> of <var>new URL</var> is not
+     <li><p>If the <span data-x="concept-url-origin">origin</span> of <var>newURL</var> is not
      <span>same origin</span> with the <span>origin</span> of <var>document</var>, and either the
      <span data-x="concept-url-path">path</span> or <span data-x="concept-url-query">query</span>
      components of the two <span data-x="URL record">URL records</span> compared in the previous
-     step differ, throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>.(This prevents sandboxed content from spoofing other pages on the same origin.) </li>
-
+     step differ, throw a <span>"<code>SecurityError</code>"</span> <code>DOMException</code>. (This
+     prevents sandboxed content from spoofing other pages on the same origin.)</p></li>
     </ol>
-
    </li>
 
-   <li><p>If the third argument is null, then let <var>new URL</var> be the <span>URL</span>
-   of the <span>current entry</span>.</p></li>
-
-   <li>
-
-    <p>If the method invoked was the <code data-x="dom-history-pushState">pushState()</code>
-    method:</p>
-
-    <ol>
-
-     <li>
-
-      <p>Remove all the entries in the <span>browsing context</span>'s <span>session history</span>
-      after the <span>current entry</span>. If the <span>current entry</span> is the last entry in
-      the session history, then no entries are removed.</p>
-
-      <p class="note">This <a href="#history-notes">doesn't necessarily have to affect</a> the user
-      agent's user interface.</p>
-
-     </li>
-
-     <li><p>Remove any <span data-x="concept-task">tasks</span> queued by the <span>history traversal
-     task source</span> that are associated with any <code>Document</code> objects in the
-     <span>top-level browsing context</span>'s <span>document family</span>.</p></li>
-
-     <li><p>If appropriate, update the <span>current entry</span> to reflect any state that the user
-     agent wishes to persist. The entry is then said to be <span>an entry with persisted user
-     state</span>.</p></li>
-
-     <li><p>Add a <span>session history entry</span> entry to the session history, after the
-     <span>current entry</span>, with <var>serializedData</var> as the <span>serialized
-     state</span>, the given <var>title</var> as the title, <var>new URL</var> as the
-     <span>URL</span> of the entry, and the <span>scroll restoration mode</span> of the current
-     entry in the <span>session history</span> as the scroll restoration mode.</p></li>
-
-     <li><p>Update the <span>current entry</span> to be this newly added entry.</p></li>
-
-    </ol>
-
-    <p>Otherwise, if the method invoked was the <code
-    data-x="dom-history-replaceState">replaceState()</code> method:</p>
-
-    <ol>
-
-     <li><p>Update the <span>current entry</span> in the session history so that
-     <var>serializedData</var> is the entry's new <span>serialized state</span>, the given
-     <var>title</var> is the new title, and <var>new URL</var> is the entry's new
-     <span>URL</span>.</p></li>
-
-    </ol>
-
-   </li>
-
-   <li><p>If the <span>current entry</span> in the session history represents a non-GET request
-   (e.g. it was the result of a POST submission) then update it to instead represent a GET
-   request.</p></li>
-
-   <li>
-
-    <p>Set <var>document</var>'s <span data-x="concept-document-url">URL</span> to <var>new
-    URL</var>.</p>
-
-    <p class="note">Since this is neither a <span data-x="navigate">navigation</span> of the
-    <span>browsing context</span> nor a <span data-x="traverse the history">history traversal</span>,
-    it does not cause a <code data-x="event-hashchange">hashchange</code> event to be fired.</p>
-
-   </li>
+   <li><p>Run the <span>URL and history update steps</span> given <var>document</var> and
+   <var>newURL</var>, with <i data-x="uhus-serializedData">serializedData</i> set to
+   <var>serializedData</var>, <i data-x="uhus-title">title</i> set to <var>title</var>, and <i
+   data-x="uhus-isPush">isPush</i> set to <var>isPush</var>.</p></li>
 
    <li><p>Let <var>state</var> be <span>StructuredDeserialize</span>(<var>serializedData</var>,
    <var>targetRealm</var>). If this throws an exception, catch it, ignore the exception, and set
    <var>state</var> to null.</p></li>
 
-   <li><p>Set <code data-x="dom-history-state">history.state</code> to <var>state</var>.</p></li>
+   <li><p>Set <var>history</var>'s <span data-x="concept-history-state">state</span> to
+   <var>state</var>.</p></li>
 
-   <li><p>Set the <span>current entry</span>'s <code>Document</code> object's <span>latest
-   entry</span> to the <span>current entry</span>.</p></li>
-
+   <li><p>Set the <span>current entry</span>'s <span data-x="she-document">document</span>'s
+   <span>latest entry</span> to the <span>current entry</span>.</p></li>
   </ol>
 
   <p class="note">The <var>title</var> is purely advisory. User agents might use the title
   in the user interface.</p>
 
   <p>User agents may limit the number of state objects added to the session history per page. If a
-  page hits the UA-defined limit, user agents must remove the entry immediately after the first
-  entry for that <code>Document</code> object in the session history after having added the new
-  entry. (Thus the state history acts as a FIFO buffer for eviction, but as a LIFO buffer for
-  navigation.)</p>
+  page hits the <span>implementation-defined</span> limit, user agents must remove the entry
+  immediately after the first entry for that <code>Document</code> object in the session history
+  after having added the new entry. (Thus the state history acts as a FIFO buffer for eviction, but
+  as a LIFO buffer for navigation.)</p>
 
   </div>
 
@@ -420,7 +473,7 @@ interface <dfn>History</dfn> {
 
    <p>A static page implementing the x=5 position in such a game could look like the following:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;!-- this is https://example.com/line?x=5 -->
 &lt;html lang="en">
 &lt;title>Line Game - 5&lt;/title>
@@ -433,7 +486,7 @@ interface <dfn>History</dfn> {
    <p>The problem with such a system is that each time the user clicks, the whole page has to be
    reloaded. Here instead is another way of doing it, using script:</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;!-- this starts off as https://example.com/line?x=5 -->
 &lt;html lang="en">
 &lt;title>Line Game - 5&lt;/title>
@@ -482,7 +535,7 @@ interface <dfn>History</dfn> {
    a previous state the user does not go back in time, and therefore it would be inappropriate to
    put the time in the session history title.</p>
 
-   <pre><code class="html" data-x="">&lt;!DOCTYPE HTML>
+   <pre><code class="html">&lt;!DOCTYPE HTML>
 &lt;HTML LANG=EN>
 &lt;TITLE>Line&lt;/TITLE>
 &lt;SCRIPT>
@@ -511,7 +564,7 @@ State: &lt;OUTPUT NAME=I>1&lt;/OUTPUT> &lt;INPUT VALUE="Increment" TYPE=BUTTON O
    (e.g., in the first <code>script</code> element in the document's <code>head</code> element) to
    ensure that any entry added to the history session gets the desired scroll restoration mode.</p>
 
-   <pre><code class="html" data-x="">&lt;head&gt;
+   <pre><code class="html">&lt;head&gt;
   &lt;script&gt;
        if ('scrollRestoration' in history)
             history.scrollRestoration = 'manual';

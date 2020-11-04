@@ -1,45 +1,84 @@
-  <h4>浏览上下文分类</h4>
+  <h4>浏览上下文分组</h4>
 
-  <p>每个 <span data-x="browsing context">浏览上下文</span> 定义中有一个或更多
-  <dfn data-x="directly reachable browsing contexts">可直接到达的浏览上下文</dfn>
-  组成的列表。它们是：</p>
+  <p>用户代理持有 <dfn data-x="browsing context group set">浏览上下文分组的集合</dfn>
+  （一个 <span data-x="browsing context group">浏览上下文分组</span> 的 <span data-x="set">集合</span>）。</p>
 
-  <ul>
+  <p><dfn data-x="browsing context group">浏览上下文分组</dfn> 持有 <dfn data-x="browsing context set">浏览上下文集合</dfn>
+  （一个 <span data-x="top-level browsing context">顶级浏览上下文</span> 的 <span data-x="set">集合</span>）。</p>
 
-   <li><span data-x="browsing context">浏览上下文</span> 它自己。</li>
+  <p class="note"><span data-x="creating a new browsing context group">创建分组时</span> 把
+  <span data-x="top-level browsing context">顶级浏览上下文</span> 添加到 <span data-x="browsing context group">组内</span>。
+  所有后续添加到 <span data-x="browsing context group">组内</span> 的 <span data-x="top-level browsing context">顶级浏览上下文</span>
+  都是 <span data-x="auxiliary browsing context">附属浏览上下文</span>。</p>
 
-   <li>所有 <span data-x="browsing context">浏览上下文</span> 的
-   <span data-x="child browsing context">子浏览上下文</span>。</li>
+  <p><span data-x="browsing context group">浏览上下文组</span> 有一个关联的 <dfn data-x="agent cluster map">代理群映射</dfn>
+  （一个 <span data-x="agent cluster key">代理群的键</span> 到 <span data-x="agent cluster">代理群</span> 的弱 <span data-x="ordered map">映射</span>）。
+  用户代理负责收集已经没有地方能访问的代理群。</p>
 
-   <li><span data-x="browsing context">浏览上下文</span> 的
-   <span data-x="parent browsing context">父浏览上下文</span>。</li>
+  <p><span data-x="browsing context group">浏览上下文组</span> 有一个
+  <dfn data-x="bcg cross-origin isolated">跨域隔离</dfn> 布尔，初始为 false。</p>
 
-   <li>所有
-   <span data-x="opener browsing context">opener 浏览上下文</span> 是就是它的
-   <span data-x="browsing context">浏览上下文</span>。</li>
+  <p><span data-x="browsing context group">浏览上下文组</span> 有一个关联的
+  <dfn data-x="historical agent cluster key map">历史代理群键映射</dfn>，是一个
+  <span data-x="origin">源</span> 到 <span data-x="agent cluster key">代理群键</span> 的 <span data-x="ordered map">映射</span>。
+  通过记录哪些代理群键之前用于给定的源，这个映射用于确保 <a href="#origin-isolation">域隔离</a> 特性的一致性。</p>
 
-   <li><span data-x="browsing context">浏览上下文</span> 的 <span data-x="opener browsing context">opener 浏览上下文</span>。</li>
+  <p class="note"><span data-x="historical agent cluster key map">历史代理群键映射</span> 的条目只能在浏览上下文组的生命期内获得。</p>
 
-  </ul>
+  <p><dfn data-x="creating a new browsing context group">创建浏览上下文组</dfn> 要执行以下步骤：</p>
 
-  <p>某一瞬间所有 <span data-x="directly reachable browsing contexts">可直接到达的浏览上下文</span>
-  组成了一个 <dfn data-x="unit of related browsing contexts">相关浏览上下文单元</dfn>。</p>
+  <ol>
+   <li><p>令 <var>group</var> 为一个新的 <span data-x="browsing context group">浏览上下文组</span>。</p></li>
 
-  <p>每个 <span data-x="unit of related browsing contexts">相关浏览上下文单元</span> 进一步分为数目尽可能小的组，
-  每个组的成员的 <span data-x="active document">活动文档</span> 的
-  <span data-x="origin">域</span> 都可以通过适当地操作
-  <code data-x="dom-document-domain">document.domain</code> 属性，
-  使得与组中的其他成员 <span data-x="same origin-domain">同源</span>，
-  但不能变得与其他组的成员 <span data-x="same origin-domain">同源</span>。
-  每个这样的组称为 <dfn data-export="" data-x="unit of related similar-origin browsing contexts">
-  相关类似源浏览上下文单元</dfn>。</p>
+   <li><p>把 <var>group</var> <span data-x="set append">加</span> 到用户代理的
+   <span data-x="browsing context group set">浏览上下文组集合</span>。</p></li>
 
-  <p class="note">
-  每个 <span data-x="unit of related similar-origin browsing contexts">相关相似源浏览上下文单元</span>
-  最多有一个 <span data-x="event loop">事件循环</span>
-  （尽管几个 <span data-x="unit of related
-  similar-origin browsing contexts">相关相似源浏览上下文单元</span>
-  也可能共享一个 <span data-x="event loop">事件循环</span>）。</p>
+   <li><p>令 <var>browsingContext</var> 为用 null, null 和 <var>group</var>
+   <span data-x="creating a new browsing context">创建新的浏览上下文</span> 的结果。</p></li>
+
+   <li><p>把 <var>browsingContext</var> <span data-x="bcg append">加</span> 到 <var>group</var>。</p></li>
+
+   <li><p>返回 <var>group</var>。</p></li>
+  </ol>
+
+  <p>把 <span data-x="top-level browsing context">顶级浏览上下文</span> <var>browsingContext</var>
+  <dfn data-x="bcg append">加</dfn> 到 <span data-x="browsing context group">浏览上下文组</span> <var>group</var> 的步骤如下：</p>
+
+  <ol>
+   <li><p>把 <var>browsingContext</var> <span data-x="set append">加到</span> <var>group</var> 的 <span data-x="browsing context set">浏览上下文集合</span>。</p></li>
+
+   <li><p>设置 <var>browsingContext</var> 的 <span data-x="tlbc group">group</span> 为 <var>group</var>。</p></li>
+  </ol>
+
+  <p><dfn data-x="bcg remove">移除</dfn> <span data-x="top-level browsing context">顶级浏览上下文</span>
+  <var>browsingContext</var> 的步骤如下：</p>
+
+  <ol>
+   <li><p>断言 <var>browsingContext</var> 的 <span data-x="tlbc group">group</span> 非空，因为
+   <span data-x="browsing context">浏览环境</span> 只能 <span data-x="a browsing context is discarded">丢弃</span> 一次。</p></li>
+
+   <li><p>令 <var>group</var> 为 <var>browsingContext</var> 的 <span data-x="tlbc group">group</span>。</p></li>
+
+   <li><p>设置 <var>browsingContext</var> 的 <span data-x="tlbc group">group</span> 为 null。</p></li>
+
+   <li><p>从 <var>group</var> 的 <span data-x="browsing context set">浏览上下文集合</span> <span data-x="list remove">移除</span> <var>browsingContext</var>。</p></li>
+
+   <li><p>如果 <var>group</var> 的 <span data-x="browsing context set">浏览上下文集合</span>
+   <span data-x="list is empty">为空</span>，就从用户代理的 <span data-x="browsing context group set">浏览上下文组集合</span> 中
+   <span data-x="list remove">移除</span> <var>group</var>。</p></li>
+  </ol>
+
+  <p class="note"><span data-x="bcg append">追加</span> 和 <span data-x="bcg remove">移除</span>
+  是定义 <span data-x="browsing context group">浏览上下文组</span> 生命期的基本操作，
+  会被 <span data-x="creating a new browsing context group">创建浏览上下文组</span>，
+  <span data-x="creating a new auxiliary browsing context">创建附属浏览上下文</span> 和
+  <span data-x="a browsing context is discarded">丢弃浏览上下文</span> 调用。</p>
+
+  <hr>
+
+  <p class="note">HTML 标准层定义过 "<span id="unit-of-related-browsing-contexts">相关浏览上下文单元</span>" 和
+  "<span id="unit-of-related-similar-origin-browsing-contexts">相关 similar-origin 浏览上下文单元</span>"。
+  因为它们不够充分已经被移除。</p>
 
   </div>
 

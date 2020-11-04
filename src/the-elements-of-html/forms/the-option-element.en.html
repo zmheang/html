@@ -21,12 +21,17 @@
    <dd><code data-x="attr-option-label">label</code></dd>
    <dd><code data-x="attr-option-selected">selected</code></dd>
    <dd><code data-x="attr-option-value">value</code></dd>
+   <dt><span
+   data-x="concept-element-accessibility-considerations">Accessibility considerations</span>:</dt>
+   <dd><a href="https://w3c.github.io/html-aria/#el-option">For authors</a>.</dd>
+   <dd><a href="https://w3c.github.io/html-aam/#el-option">For implementers</a>.</dd>
    <dt><span data-x="concept-element-dom">DOM interface</span>:</dt>
    <dd w-nodev>
-    <pre><code class="idl" data-x="">[Exposed=Window,
- <span>HTMLConstructor</span>,
- NamedConstructor=<span data-x="dom-option">Option</span>(optional DOMString text = "", optional DOMString value, optional boolean defaultSelected = false, optional boolean selected = false)]
+    <pre><code class="idl">[Exposed=Window,
+ <span>LegacyFactoryFunction</span>=<span data-x="dom-option">Option</span>(optional DOMString text = "", optional DOMString value, optional boolean defaultSelected = false, optional boolean selected = false)]
 interface <dfn>HTMLOptionElement</dfn> : <span>HTMLElement</span> {
+  [<span>HTMLConstructor</span>] constructor();
+
   [<span>CEReactions</span>] attribute boolean <span data-x="dom-option-disabled">disabled</span>;
   readonly attribute <span>HTMLFormElement</span>? <span data-x="dom-option-form">form</span>;
   [<span>CEReactions</span>] attribute DOMString <span data-x="dom-option-label">label</span>;
@@ -49,12 +54,12 @@ interface <dfn>HTMLOptionElement</dfn> : <span>HTMLElement</span> {
   option</span>. A <span>placeholder label option</span> does not represent an actual option, but
   instead represents a label for the <code>select</code> control.</p>
 
-  <p>The <dfn><code data-x="attr-option-disabled">disabled</code></dfn> attribute is a <span>boolean
-  attribute</span>. An <code>option</code> element is <dfn
+  <p>The <dfn element-attr for="option"><code data-x="attr-option-disabled">disabled</code></dfn>
+  attribute is a <span>boolean attribute</span>. An <code>option</code> element is <dfn
   data-x="concept-option-disabled">disabled</dfn> if its <code
   data-x="attr-option-disabled">disabled</code> attribute is present or if it is a child of an
-  <code>optgroup</code> element whose <code data-x="attr-optgroup-disabled">disabled</code> attribute
-  is present.</p>
+  <code>optgroup</code> element whose <code data-x="attr-optgroup-disabled">disabled</code>
+  attribute is present.</p>
 
   <div w-nodev>
 
@@ -65,23 +70,23 @@ interface <dfn>HTMLOptionElement</dfn> : <span>HTMLElement</span> {
 
   </div>
 
-  <p>The <dfn><code data-x="attr-option-label">label</code></dfn> attribute provides a label for
-  element. The <dfn data-x="concept-option-label">label</dfn> of an <code>option</code> element is
-  the value of the <code data-x="attr-option-label">label</code> content attribute, if there is one and its value is not the empty string,
-  or, otherwise, the value of the element's <code data-x="dom-option-text">text</code> IDL
-  attribute.</p>
+  <p>The <dfn element-attr for="option"><code data-x="attr-option-label">label</code></dfn>
+  attribute provides a label for element. The <dfn data-x="concept-option-label">label</dfn> of an
+  <code>option</code> element is the value of the <code data-x="attr-option-label">label</code>
+  content attribute, if there is one and its value is not the empty string, or, otherwise, the value
+  of the element's <code data-x="dom-option-text">text</code> IDL attribute.</p>
 
   <p>The <code data-x="attr-option-label">label</code> content attribute, if specified, must not be
   empty.</p>
 
-  <p>The <dfn><code data-x="attr-option-value">value</code></dfn> attribute provides a value for
-  element. The <dfn data-x="concept-option-value">value</dfn> of an <code>option</code> element is
-  the value of the <code data-x="attr-option-value">value</code> content attribute, if there is one,
-  or, if there is not, the value of the element's <code data-x="dom-option-text">text</code> IDL
-  attribute.</p>
+  <p>The <dfn element-attr for="option"><code data-x="attr-option-value">value</code></dfn>
+  attribute provides a value for element. The <dfn data-x="concept-option-value">value</dfn> of an
+  <code>option</code> element is the value of the <code data-x="attr-option-value">value</code>
+  content attribute, if there is one, or, if there is not, the value of the element's <code
+  data-x="dom-option-text">text</code> IDL attribute.</p>
 
-  <p>The <dfn><code data-x="attr-option-selected">selected</code></dfn> attribute is a <span>boolean
-  attribute</span>. It represents the default <span
+  <p>The <dfn element-attr for="option"><code data-x="attr-option-selected">selected</code></dfn>
+  attribute is a <span>boolean attribute</span>. It represents the default <span
   data-x="concept-option-selectedness">selectedness</span> of the element.</p>
 
   <div w-nodev>
@@ -131,42 +136,33 @@ interface <dfn>HTMLOptionElement</dfn> : <span>HTMLElement</span> {
    <dt><var>option</var> . <code subdfn data-x="dom-option-selected">selected</code></dt>
 
    <dd>
-
     <p>Returns true if the element is selected, and false otherwise.</p>
 
     <p>Can be set, to override the current state of the element.</p>
-
    </dd>
 
    <dt><var>option</var> . <code subdfn data-x="dom-option-index">index</code></dt>
 
    <dd>
-
     <p>Returns the index of the element in its <code>select</code> element's <code
     data-x="dom-select-options">options</code> list.</p>
-
    </dd>
 
    <dt><var>option</var> . <code subdfn data-x="dom-option-form">form</code></dt>
 
    <dd>
-
     <p>Returns the element's <code>form</code> element, if any, or null otherwise.</p>
-
    </dd>
 
    <dt><var>option</var> . <code subdfn data-x="dom-option-text">text</code></dt>
 
    <dd>
-
     <p>Same as <code>textContent</code>, except that spaces are collapsed and <code>script</code> elements are skipped.</p>
-
    </dd>
 
    <dt><var>option</var> = new <code subdfn data-x="dom-option">Option</code>( [ <var>text</var> [, <var>value</var> [, <var>defaultSelected</var> [, <var>selected</var> ] ] ] ] )</dt>
 
    <dd>
-
     <p>Returns a new <code>option</code> element.</p>
 
     <p>The <var>text</var> argument sets the contents of the element.</p>
@@ -180,61 +176,66 @@ interface <dfn>HTMLOptionElement</dfn> : <span>HTMLElement</span> {
     <p>The <var>selected</var> argument sets whether or not the element is selected. If it
     is omitted, even if the <var>defaultSelected</var> argument is true, the element is not
     selected.</p>
-
    </dd>
-
   </dl>
 
   <div w-nodev>
 
-  <p>The <dfn><code data-x="dom-option-disabled">disabled</code></dfn> IDL attribute must
-  <span>reflect</span> the content attribute of the same name. The <dfn><code data-x="dom-option-defaultSelected">defaultSelected</code></dfn> IDL attribute must
-  <span>reflect</span> the <code data-x="attr-option-selected">selected</code> content attribute.</p>
+  <p>The <dfn attribute for="HTMLOptionElement"><code
+  data-x="dom-option-disabled">disabled</code></dfn> IDL attribute must <span>reflect</span> the
+  content attribute of the same name. The <dfn><code
+  data-x="dom-option-defaultSelected">defaultSelected</code></dfn> IDL attribute must
+  <span>reflect</span> the <code data-x="attr-option-selected">selected</code> content
+  attribute.</p>
 
-  <p>The <dfn><code data-x="dom-option-label">label</code></dfn> IDL attribute, on getting, if there
-  is a <code data-x="attr-option-label">label</code> content attribute, must return that attribute's
-  value; otherwise, it must return the element's <span data-x="concept-option-label">label</span>.
-  On setting, the element's <code data-x="attr-option-label">label</code> content attribute must be
-  set to the new value.</p>
+  <p>The <dfn attribute for="HTMLOptionElement"><code data-x="dom-option-label">label</code></dfn>
+  IDL attribute, on getting, if there is a <code data-x="attr-option-label">label</code> content
+  attribute, must return that attribute's value; otherwise, it must return the element's <span
+  data-x="concept-option-label">label</span>.  On setting, the element's <code
+  data-x="attr-option-label">label</code> content attribute must be set to the new value.</p>
 
-  <p>The <dfn><code data-x="dom-option-value">value</code></dfn> IDL attribute, on getting, must
-  return the element's <span data-x="concept-option-value">value</span>. On setting, the element's
-  <code data-x="attr-option-value">value</code> content attribute must be set to the new value.</p>
+  <p>The <dfn attribute for="HTMLOptionElement"><code data-x="dom-option-value">value</code></dfn>
+  IDL attribute, on getting, must return the element's <span
+  data-x="concept-option-value">value</span>. On setting, the element's <code
+  data-x="attr-option-value">value</code> content attribute must be set to the new value.</p>
 
-  <p>The <dfn><code data-x="dom-option-selected">selected</code></dfn> IDL attribute, on getting,
-  must return true if the element's <span data-x="concept-option-selectedness">selectedness</span>
-  is true, and false otherwise. On setting, it must set the element's <span
+  <p>The <dfn attribute for="HTMLOptionElement"><code
+  data-x="dom-option-selected">selected</code></dfn> IDL attribute, on getting, must return true if
+  the element's <span data-x="concept-option-selectedness">selectedness</span> is true, and false
+  otherwise. On setting, it must set the element's <span
   data-x="concept-option-selectedness">selectedness</span> to the new value, set its <span
   data-x="concept-option-dirtiness">dirtiness</span> to true, and then cause the element to
   <span>ask for a reset</span>.</p>
 
-  <p>The <dfn><code data-x="dom-option-index">index</code></dfn> IDL attribute must return the
-  element's <span data-x="concept-option-index">index</span>.</p>
+  <p>The <dfn attribute for="HTMLOptionElement"><code data-x="dom-option-index">index</code></dfn>
+  IDL attribute must return the element's <span data-x="concept-option-index">index</span>.</p>
 
-  <p>The <dfn><code data-x="dom-option-text">text</code></dfn> IDL attribute, on getting, must
-  return the result of <span data-x="strip and collapse ASCII whitespace">stripping and collapsing
-  ASCII whitespace</span> from the concatenation of <span data-x="concept-cd-data">data</span> of
-  all the <code>Text</code> node descendants of the <code>option</code> element, in <span>tree
-  order</span>, excluding any that are descendants of descendants of the <code>option</code> element
-  that are themselves <code>script</code> or <span>SVG <code>script</code></span> elements.</p>
+  <p>The <dfn attribute for="HTMLOptionElement"><code data-x="dom-option-text">text</code></dfn> IDL
+  attribute, on getting, must return the result of <span data-x="strip and collapse ASCII
+  whitespace">stripping and collapsing ASCII whitespace</span> from the concatenation of <span
+  data-x="concept-cd-data">data</span> of all the <code>Text</code> node descendants of the
+  <code>option</code> element, in <span>tree order</span>, excluding any that are descendants of
+  descendants of the <code>option</code> element that are themselves <code>script</code> or
+  <span>SVG <code>script</code></span> elements.</p>
 
-  <p>On setting, the <code data-x="dom-option-text">text</code> attribute must act as if the
-  <code>textContent</code> IDL attribute on the element had been set to the new value.</p>
+  <p>The <code data-x="dom-option-text">text</code> attribute's setter must <span>string replace
+  all</span> with the given value within this element.</p>
 
-  <p>The <dfn><code data-x="dom-option-form">form</code></dfn> IDL attribute's behavior depends on
-  whether the <code>option</code> element is in a <code>select</code> element or not. If the
-  <code>option</code> has a <code>select</code> element as its parent, or has an
-  <code>optgroup</code> element as its parent and that <code>optgroup</code> element has a
-  <code>select</code> element as its parent, then the <code data-x="dom-option-form">form</code> IDL
-  attribute must return the same value as the <code data-x="dom-fae-form">form</code> IDL attribute
-  on that <code>select</code> element. Otherwise, it must return null.</p>
+  <p>The <dfn attribute for="HTMLOptionElement"><code data-x="dom-option-form">form</code></dfn> IDL
+  attribute's behavior depends on whether the <code>option</code> element is in a
+  <code>select</code> element or not. If the <code>option</code> has a <code>select</code> element
+  as its parent, or has an <code>optgroup</code> element as its parent and that
+  <code>optgroup</code> element has a <code>select</code> element as its parent, then the <code
+  data-x="dom-option-form">form</code> IDL attribute must return the same value as the <code
+  data-x="dom-fae-form">form</code> IDL attribute on that <code>select</code> element. Otherwise, it
+  must return null.</p>
 
-  <p>A constructor is provided for creating <code>HTMLOptionElement</code> objects (in addition to
-  the factory methods from DOM such as <code
-  data-x="dom-Document-createElement">createElement()</code>):
-  <dfn><code data-x="dom-option">Option(<var>text</var>, <var>value</var>,
-  <var>defaultSelected</var>, <var>selected</var>)</code></dfn>.  When invoked, the constructor must
-  perform the following steps:</p>
+  <p>A legacy factory function is provided for creating <code>HTMLOptionElement</code> objects (in
+  addition to the factory methods from DOM such as <code
+  data-x="dom-Document-createElement">createElement()</code>): <dfn><code
+  data-x="dom-option">Option(<var>text</var>, <var>value</var>, <var>defaultSelected</var>,
+  <var>selected</var>)</code></dfn>.  When invoked, the legacy factory function must perform the
+  following steps:</p>
 
   <ol>
    <li><p>Let <var>document</var> be the <span>current global object</span>'s <span

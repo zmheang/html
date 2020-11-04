@@ -6,9 +6,11 @@
   <ul class="brief">
    <li><code data-x="attr-accesskey">accesskey</code></li>
    <li><code data-x="attr-autocapitalize">autocapitalize</code></li>
+   <li><code data-x="attr-fe-autofocus">autofocus</code></li>
    <li><code data-x="attr-contenteditable">contenteditable</code></li>
    <li><code data-x="attr-dir">dir</code></li>
    <li><code data-x="attr-draggable">draggable</code></li>
+   <li><code data-x="attr-enterkeyhint">enterkeyhint</code></li>
    <li><code data-x="attr-hidden">hidden</code></li>
    <li><code data-x="attr-inputmode">inputmode</code></li>
    <li><code data-x="attr-is">is</code></li>
@@ -42,7 +44,7 @@
    data-x="concept-rtl">rtl</span>', inherited from the <code>div</code> element indirectly through
    the "<code data-x="">bogus</code>" element.</p>
 
-   <pre class="bad"><code class="html" data-x="">&lt;div xmlns="http://www.w3.org/1999/xhtml" dir="rtl">
+   <pre class="bad"><code class="html">&lt;div xmlns="http://www.w3.org/1999/xhtml" dir="rtl">
  &lt;bogus xmlns="https://example.net/ns" dir="ltr">
   &lt;span xmlns="http://www.w3.org/1999/xhtml">
   &lt;/span>
@@ -55,10 +57,11 @@
 
   <hr>
 
-  <p>The WHATWG DOM standard defines the user agent requirements for the <dfn data-x="attr-class"
-  id="classes"><code>class</code></dfn>, <dfn data-x="attr-id"
-  id="the-id-attribute"><code>id</code></dfn>, and <dfn data-x="attr-slot"><code>slot</code></dfn>
-  attributes for any element in any namespace. <ref spec=DOM></p>
+  <p><cite>DOM</cite> defines the user agent requirements for the <dfn element-attr for="global"
+  data-x="attr-class" id="classes"><code>class</code></dfn>, <dfn element-attr for="global"
+  data-x="attr-id" id="the-id-attribute"><code>id</code></dfn>, and <dfn element-attr for="global"
+  data-x="attr-slot"><code>slot</code></dfn> attributes for any element in any namespace. <ref
+  spec=DOM></p>
 
   <p>The <code data-x="attr-class">class</code>, <code data-x="attr-id">id</code>, and <code
   data-x="attr-slot">slot</code> attributes may be specified on all <span>HTML elements</span>.</p>
@@ -146,12 +149,13 @@
    <li><code data-x="handler-onclick">onclick</code></li>
    <li><code data-x="handler-onclose">onclose</code></li>
    <li><code data-x="handler-oncontextmenu">oncontextmenu</code></li>
+   <li><code data-x="handler-oncopy">oncopy</code></li>
    <li><code data-x="handler-oncuechange">oncuechange</code></li>
+   <li><code data-x="handler-oncut">oncut</code></li>
    <li><code data-x="handler-ondblclick">ondblclick</code></li>
    <li><code data-x="handler-ondrag">ondrag</code></li>
    <li><code data-x="handler-ondragend">ondragend</code></li>
    <li><code data-x="handler-ondragenter">ondragenter</code></li>
-   <li><code data-x="handler-ondragexit">ondragexit</code></li>
    <li><code data-x="handler-ondragleave">ondragleave</code></li>
    <li><code data-x="handler-ondragover">ondragover</code></li>
    <li><code data-x="handler-ondragstart">ondragstart</code></li>
@@ -161,6 +165,7 @@
    <li><code data-x="handler-onended">onended</code></li>
    <li><code data-x="handler-onerror">onerror</code>*</li>
    <li><code data-x="handler-onfocus">onfocus</code>*</li>
+   <li><code data-x="handler-onformdata">onformdata</code></li>
    <li><code data-x="handler-oninput">oninput</code></li>
    <li><code data-x="handler-oninvalid">oninvalid</code></li>
    <li><code data-x="handler-onkeydown">onkeydown</code></li>
@@ -169,7 +174,6 @@
    <li><code data-x="handler-onload">onload</code>*</li>
    <li><code data-x="handler-onloadeddata">onloadeddata</code></li>
    <li><code data-x="handler-onloadedmetadata">onloadedmetadata</code></li>
-   <li><code data-x="handler-onloadend">onloadend</code></li>
    <li><code data-x="handler-onloadstart">onloadstart</code></li>
    <li><code data-x="handler-onmousedown">onmousedown</code></li>
    <li><code data-x="handler-onmouseenter">onmouseenter</code></li>
@@ -178,7 +182,7 @@
    <li><code data-x="handler-onmouseout">onmouseout</code></li>
    <li><code data-x="handler-onmouseover">onmouseover</code></li>
    <li><code data-x="handler-onmouseup">onmouseup</code></li>
-   <li><code data-x="handler-onwheel">onwheel</code></li>
+   <li><code data-x="handler-onpaste">onpaste</code></li>
    <li><code data-x="handler-onpause">onpause</code></li>
    <li><code data-x="handler-onplay">onplay</code></li>
    <li><code data-x="handler-onplaying">onplaying</code></li>
@@ -191,6 +195,7 @@
    <li><code data-x="handler-onseeked">onseeked</code></li>
    <li><code data-x="handler-onseeking">onseeking</code></li>
    <li><code data-x="handler-onselect">onselect</code></li>
+   <li><code data-x="handler-onslotchange">onslotchange</code></li>
    <li><code data-x="handler-onstalled">onstalled</code></li>
    <li><code data-x="handler-onsubmit">onsubmit</code></li>
    <li><code data-x="handler-onsuspend">onsuspend</code></li>
@@ -198,6 +203,7 @@
    <li><code data-x="handler-ontoggle">ontoggle</code></li>
    <li><code data-x="handler-onvolumechange">onvolumechange</code></li>
    <li><code data-x="handler-onwaiting">onwaiting</code></li>
+   <li><code data-x="handler-onwheel">onwheel</code></li>
   </ul>
 
   <p class="note">The attributes marked with an asterisk have a different meaning when specified on
@@ -234,7 +240,7 @@
 
   <hr>
 
-  <p>The XML specification also allows the use of the <code data-x="attr-xml-space">xml:space</code>
+  <p><cite>XML</cite> also allows the use of the <code data-x="attr-xml-space">xml:space</code>
   attribute in the <span>XML namespace</span> on any element in an <span data-x="XML documents">XML
   document</span>. This attribute has no effect on <span>HTML elements</span>, as the default
   behavior in HTML is to preserve whitespace. <ref spec=XML></p>

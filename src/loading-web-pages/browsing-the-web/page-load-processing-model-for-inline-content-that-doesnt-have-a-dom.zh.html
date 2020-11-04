@@ -1,12 +1,31 @@
   <h4 id="read-ua-inline"><dfn data-x="navigate-ua-inline">没有 DOM 的内联内容的页面加载处理模型</dfn></h4>
 
-  <p>当用户代理显示一个内联在 <span data-x="browsing context">浏览上下文</span> 中的用户代理页面时,
-  用户代理应该创建一个 <code>Document</code> 对象，把它标记为
-  <span data-x="HTML documents">HTML 文档</span>，设置其 <span
-  data-x="concept-document-content-type">内容类型</span> 为 "<code data-x="">text/html</code>"，
-  <span data-x="initialize the Document object">初始化 <code>Document</code> 对象</span>，
-  然后或者把 <code>Document</code> 关联到一个自定义渲染过程（不适用正常的 <code>Document</code> 渲染规则）
-  或者把那个 <code>Document</code> 更改为用户代理希望渲染的内容。</p>
+  <p>给定 <span data-x="browsing context">浏览上下文</span> <var>browsingContext</var>，
+  用户代理显示内联的用户代理页面时应该：</p>
+
+  <ol>
+   <li>
+    <p>令 <var>navigationParams</var> 为新的 <span data-x="navigation params">导航参数</span>，其 <span
+    data-x="navigation-params-request">request</span> 为 null，<span
+    data-x="navigation-params-response">response</span> 为 null，<span
+    data-x="navigation-params-origin">origin</span> 为新的 <span
+    data-x="concept-origin-opaque">不透明源</span>，<span
+    data-x="navigation-params-sandboxing">final sandboxing flag set</span> 为空集合，<span
+    data-x="navigation-params-coop">跨域 opener 策略</span> 为 "<code
+    data-x="coop-unsafe-none">unsafe-none</code>"，<span
+    data-x="navigation-params-reserved-environment">保留环境</span> 为 null，<span
+    data-x="navigation-params-browsing-context">浏览上下文</span> 为
+    <var>browsingContext</var> 且 <span data-x="navigation-params-bc-switch-needed">需要切换浏览上下文</span> 为 false。</p>
+
+    <p class="XXX">下一步调用的算法无法处理空的 <span data-x="navigation-params-response">响应</span>。可能我们需要构造一个。</p>
+   </li>
+
+   <li><p>令 <var>document</var> 为给定 "<code data-x="">html</code>"，"<code data-x="">text/html</code>" 和 <var>navigationParams</var>
+   <span data-x="create-the-document-object">创建和初始化 <code>Document</code> 对象</span> 的结果。</p></li>
+
+   <li><p>或者把 <var>document</var> 关联到不使用正常 <code>Document</code> 渲染规则的自定义的渲染，
+   或者把 <var>document</var> 改成用户代理想要渲染的内容。</p>
+  </ol>
 
   <!-- next two paragraphs are similar to the navigate-text section, keep them in sync -->
 
@@ -17,7 +36,8 @@
   data-x="concept-appcache-init">应用缓存选择算法</span>。</p>
 
   <p>在创建 <code>Document</code> 对象后，页面结束完全建立之前，
-  用户代理必须 <span data-x="update the session history with the new page">用新的页面更新会话历史</span>。</p>
+  用户代理必须给定 <var>navigationParams</var>，
+  <span data-x="update the session history with the new page">用新的页面更新会话历史</span>。</p>
 
 
 
