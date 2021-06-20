@@ -2,14 +2,8 @@
 [![Build Status](https://travis-ci.org/whatwg-cn/html.svg?branch=master)](https://travis-ci.org/whatwg-cn/html)
 [![GitHub contributors](https://img.shields.io/github/contributors/whatwg-cn/html.svg)](https://github.com/whatwg-cn/html/graphs/contributors)
 
-## 关于本项目
-
 [HTML 标准][whatwg/html] 的简体中文翻译 <https://whatwg-cn.github.io/html/multipage>，
 当前进度： 41% (467/1122)
-
-由于 [whatwg/html][whatwg/html] 标准的更新频率非常快，完全的同步翻译非常困难，我们欢迎任何形式的参与，包括校对纠错、更新增补、术语讨论等。
-
-欢迎通过 Issue 指出翻译问题，也欢迎通过 Pull Request 参与。现在开始翻译一篇文章，请参考 [开始翻译](https://github.com/whatwg-cn/html/wiki/开始翻译)。
 
 ## 贡献列表 ✨
 
@@ -38,6 +32,15 @@
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## 如何贡献
+由于 [whatwg/html][whatwg/html] 标准的更新频率非常快，完全的同步翻译非常困难，我们欢迎任何形式的参与，包括校对纠错、更新增补、术语讨论等。
+
+欢迎通过 Issue 指出翻译问题，也欢迎通过 Pull Request 参与。要更新一篇文章的翻译，
+
+1. 请参考 [开始翻译](https://github.com/whatwg-cn/html/wiki/开始翻译) 编辑相应的文件。
+2. 把自己添加到贡献列表中：`npm ci && ./node_modules/.bin/all-contributors add <your_github_username> doc`。doc 之外的其他类型请参考 [Emoji键 ✨ (和贡献类型)](https://github.com/all-contributors/all-contributors)。
+3. 本地编译需要构建 Fortran 编译器，可以先发 PR 看 Github Actions 编译的效果再继续做改动。
 
 [whatwg/html]: https://github.com/whatwg/html
 [whatwg-cn/html]: https://github.com/whatwg-cn/html
